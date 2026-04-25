@@ -1,0 +1,42 @@
+generation scripts
+    images
+        creatures   --DONE
+        items       --
+        spells      --
+        abilities   --
+    descriptions
+        creatures   --DONE
+        items       --
+        spells      --
+        abilities   --
+
+inc exports for
+    name
+        creatures   --DONE
+        items       --DONE
+        spells      --DONE
+        abilities   --DONE
+    descriptions
+        creatures   --DONE
+        items       --
+        spells      --
+        abilities   --
+    funcs+headers
+        creatures   --DONE
+        items       --DONE
+        spells      --DONE
+        abilities   --DONE
+    game data
+        creatures   --
+        items       --
+        spells      --
+        abilities   --
+    images
+        creatures   --DONE
+        items       --
+        spells      --
+        abilities   --
+
+
+sound??         we'll see
+font editing??  we'll see

@@ -1,0 +1,6 @@
+It needs to:
+    -load all the images
+    -generate various transparent threshholds
+    -load show a properly scaled preview with alpha
+    -let me easily select 1 front and 1 back image for each monster
+    -output a file with a list of png files to parse

@@ -9,7 +9,7 @@ build-tests/
 vendor/
 gameplay/
 scripts/python/libs/
-TODO
+.TODO.txt
 libs/
 
 # Pico SDK generated
