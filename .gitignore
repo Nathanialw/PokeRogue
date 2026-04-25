@@ -8,7 +8,9 @@ build-tests/
 
 vendor/
 gameplay/
+scripts/python/libs/
 TODO
+libs/
 
 # Pico SDK generated
 *.uf2
