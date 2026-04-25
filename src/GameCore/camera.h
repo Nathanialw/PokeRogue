@@ -1,0 +1,13 @@
+//
+// Created by nathanial on 2/20/26.
+//
+#pragma once
+#include <stdint.h>
+#include "types.h"
+#include "stdbool.h"
+
+Camera InitCamera(uint8_t x, uint8_t y, uint16_t w, uint16_t h);
+Camera SetCamera(uint8_t x, uint8_t y);
+Camera SetCameraPlayer(void);
+Camera GetCamera(void);
+bool CameraContains(uint8_t x, uint8_t y);

@@ -1,0 +1,62 @@
+// Generated object function headers
+// Database contains 56 total objects
+
+// Individual objects strings
+bool InteractAltar(EntityId object_id, EntityId e_id, ObjectData objectData);
+bool InteractRaft(EntityId object_id, EntityId e_id, ObjectData objectData);
+bool InteractRowBoat(EntityId object_id, EntityId e_id, ObjectData objectData);
+bool InteractRopeBridge(EntityId object_id, EntityId e_id, ObjectData objectData);
+bool InteractStoneBridge(EntityId object_id, EntityId e_id, ObjectData objectData);
+bool InteractWoodenBridge(EntityId object_id, EntityId e_id, ObjectData objectData);
+bool InteractBookCase(EntityId object_id, EntityId e_id, ObjectData objectData);
+bool InteractJewelleryCase(EntityId object_id, EntityId e_id, ObjectData objectData);
+bool InteractScrollCase(EntityId object_id, EntityId e_id, ObjectData objectData);
+bool InteractCauldren(EntityId object_id, EntityId e_id, ObjectData objectData);
+bool InteractAcidCloud(EntityId object_id, EntityId e_id, ObjectData objectData);
+bool InteractPoisonGas(EntityId object_id, EntityId e_id, ObjectData objectData);
+bool InteractSmokeCloud(EntityId object_id, EntityId e_id, ObjectData objectData);
+bool InteractCoffin(EntityId object_id, EntityId e_id, ObjectData objectData);
+bool InteractSarcophagus(EntityId object_id, EntityId e_id, ObjectData objectData);
+bool InteractHangingCorpse(EntityId object_id, EntityId e_id, ObjectData objectData);
+bool InteractLaidCorpse(EntityId object_id, EntityId e_id, ObjectData objectData);
+bool InteractBarredDoor(EntityId object_id, EntityId e_id, ObjectData objectData);
+bool InteractIronDoor(EntityId object_id, EntityId e_id, ObjectData objectData);
+bool InteractStoneDoor(EntityId object_id, EntityId e_id, ObjectData objectData);
+bool InteractWickerDoor(EntityId object_id, EntityId e_id, ObjectData objectData);
+bool InteractWoodDoor(EntityId object_id, EntityId e_id, ObjectData objectData);
+bool InteractCave(EntityId object_id, EntityId e_id, ObjectData objectData);
+bool InteractLadder(EntityId object_id, EntityId e_id, ObjectData objectData);
+bool InteractStairs(EntityId object_id, EntityId e_id, ObjectData objectData);
+bool InteractBonfire(EntityId object_id, EntityId e_id, ObjectData objectData);
+bool InteractBrazier(EntityId object_id, EntityId e_id, ObjectData objectData);
+bool InteractCampfire(EntityId object_id, EntityId e_id, ObjectData objectData);
+bool InteractStandingTorch(EntityId object_id, EntityId e_id, ObjectData objectData);
+bool InteractWallTorch(EntityId object_id, EntityId e_id, ObjectData objectData);
+bool InteractCrumblingFloor(EntityId object_id, EntityId e_id, ObjectData objectData);
+bool InteractAcidFountain(EntityId object_id, EntityId e_id, ObjectData objectData);
+bool InteractBloodFountain(EntityId object_id, EntityId e_id, ObjectData objectData);
+bool InteractWaterFountain(EntityId object_id, EntityId e_id, ObjectData objectData);
+bool InteractHiddenCompartment(EntityId object_id, EntityId e_id, ObjectData objectData);
+bool InteractAcidPit(EntityId object_id, EntityId e_id, ObjectData objectData);
+bool InteractLavaPit(EntityId object_id, EntityId e_id, ObjectData objectData);
+bool InteractNarowPit(EntityId object_id, EntityId e_id, ObjectData objectData);
+bool InteractShallowPit(EntityId object_id, EntityId e_id, ObjectData objectData);
+bool InteractSnakesPit(EntityId object_id, EntityId e_id, ObjectData objectData);
+bool InteractSpkiedPit(EntityId object_id, EntityId e_id, ObjectData objectData);
+bool InteractPitStandard(EntityId object_id, EntityId e_id, ObjectData objectData);
+bool InteractWaterPit(EntityId object_id, EntityId e_id, ObjectData objectData);
+bool InteractWidePit(EntityId object_id, EntityId e_id, ObjectData objectData);
+bool InteractArmorRack(EntityId object_id, EntityId e_id, ObjectData objectData);
+bool InteractWeaponRack(EntityId object_id, EntityId e_id, ObjectData objectData);
+bool InteractBarrel(EntityId object_id, EntityId e_id, ObjectData objectData);
+bool InteractBasket(EntityId object_id, EntityId e_id, ObjectData objectData);
+bool InteractChest(EntityId object_id, EntityId e_id, ObjectData objectData);
+bool InteractCoffer(EntityId object_id, EntityId e_id, ObjectData objectData);
+bool InteractCrate(EntityId object_id, EntityId e_id, ObjectData objectData);
+bool InteractTrunk(EntityId object_id, EntityId e_id, ObjectData objectData);
+bool InteractUrn(EntityId object_id, EntityId e_id, ObjectData objectData);
+bool InteractVault(EntityId object_id, EntityId e_id, ObjectData objectData);
+bool InteractWard(EntityId object_id, EntityId e_id, ObjectData objectData);
+bool InteractWell(EntityId object_id, EntityId e_id, ObjectData objectData);
+
+//ALL_NAMES_COUNT = 0;

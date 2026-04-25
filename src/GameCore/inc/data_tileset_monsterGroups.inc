@@ -1,0 +1,16 @@
+{ ELF_FOREST,   ADZE,           OGRE,       MINOTAUR,   NYMPH,      SATYR,          TREANT,         HARPY },     //DESERT
+{ ALP,          KRAKEN,         VALKYRIE,   KOBOLD,     BASILISK,   LICH,           HARPY,          ANGEL },     //SAVANNA
+{ BASILISK,     LICH,           WARG,       LAMIA,      CENTAUR,    GOLEM,          IMP,            BYAKHEE },   //STEPPE
+{ CENTAUR,      GOLEM,          XANA,       MINOTAUR,   DWARF,      NAGA,           JINN,           CHIMERA },   //BADLANDS
+{ DWARF,        NAGA,           YALE,       NYMPH,      GOLEM,      OGRE,           KRAKEN,         DRAGON },    //FOREST
+{ GOLEM,        OGRE,           ZOMBIE,     GOLEM,      IMP,        POLTERGEIST,    LICH,           EBON },      //TUNDRA
+{ IMP,          POLTERGEIST,    ANGEL,      PIXIE,      GOBLIN,     QUINOTAUR,      GOLEM,          FAIRY },     //SWAMP
+{ GOBLIN,       QUINOTAUR,      BYAKHEE,    QAT,        HUMAN,      ROC,            NAGA,           GOLEM },     //BOG
+{ HUMAN,        ROC,            CHIMERA,    IMP,        JACKAL,     SATYR,          OGRE,           HARPY },     //JUNGLE
+{ JACKAL,       SATYR,          DRAGON,     SKELETON,   JACKAL,     GOLEM,          POLTERGEIST,    IMP },       //RAINFOREST
+{ JACKAL,       GOLEM,          EBON,       TREANT,     KOBOLD,     URIAS,          QUINOTAUR,      JINN },      //BEACH
+{ KOBOLD,       URIAS,          FAIRY,      UNICORN,    LAMIA,      VAMPIRE,        ROC,            KRAKEN },    //MOUNTAIN
+{ LAMIA,        VAMPIRE,        GOLEM,      VALKYRIE,   MINOTAUR,   WITCH,          SATYR,          LICH },      //VOLCANIC
+{ MINOTAUR,     WITCH,          HARPY,      WARG,       NYMPH,      XANTHUS,        GOLEM,          GOLEM },     //MYSTICAL_GROVE
+{ ZIBURINIS,    XANTHUS,        IMP,        XANA,       GOLEM,      YETI,           URIAS,          NAGA },      //DEEP_CAVERN
+{ ZOMBIE,       YETI,           JINN,       YALE,       PIXIE,      ZIBURINIS,      VAMPIRE,        OGRE }       //MAGMA_CORE

@@ -1,0 +1,28 @@
+# Build
+assets_processed/
+assets_raw/
+
+build-pico/
+build-sdl/
+build-tests/
+
+vendor/
+gameplay/
+TODO
+
+# Pico SDK generated
+*.uf2
+*.elf
+*.bin
+*.map
+
+# CMake
+CMakeCache.txt
+CMakeFiles/
+Makefile
+
+# CLion / IDE
+.idea/
+
+# OS
+.DS_Store

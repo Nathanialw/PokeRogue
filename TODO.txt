@@ -1,0 +1,49 @@
+
+    -generate a new map each level 1 monsters is you, 8 monsters from biome, 7 monsters from a theme (demon invasion maybe?)
+    -you start with one beast
+    -go down each level capturing or slaying beasts
+        -slaying beasts level your monster
+        -capturing beasts for game completion
+    -each god has it's own altar
+        -you do one thing at the altar, sacrifice or pray
+            -each type of beast you sacrifice at an altar weakens the final boss
+            -prayer has a beneficial effect of some kind (maybe heals your monsters?)
+
+    -sometimes there are stairs to a lateral level, and rarely ladders back up
+
+
+
+CORE TO ADD:
+- add trainers, sprites, names, descriptions - party members,
+- finish battle menu
+- tile interaction mechanics
+- creature capturing
+- an altar and a sacrifice mechanic
+- events on stepping on tiles eg. wall: collision, lava: damage, stairs: new level
+- random item generation
+- add more map gen types
+- river generation
+- catastrophes, like a river ripping through the level
+- pathing for monsters
+- light radius/line of sight
+- add letter and and sprite colours table to DB
+- biome and theme definitions in a DB table
+
+known bugs:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,68 @@
+// Generated spell function headers
+// Database contains 62 total spells
+
+// Individual spells strings
+bool CastAwaken(EntityId partyID, EntityId enemyID, SpellData spellData);
+bool CastBlindingLight(EntityId partyID, EntityId enemyID, SpellData spellData);
+bool CastBrewPotion(EntityId partyID, EntityId enemyID, SpellData spellData);
+bool CastBrillianceAura(EntityId partyID, EntityId enemyID, SpellData spellData);
+bool CastBurnHeal(EntityId partyID, EntityId enemyID, SpellData spellData);
+bool CastCapture(EntityId partyID, EntityId enemyID, SpellData spellData);
+bool CastClairvoyance(EntityId partyID, EntityId enemyID, SpellData spellData);
+bool CastCreateCommon(EntityId partyID, EntityId enemyID, SpellData spellData);
+bool CastCreateMagicItem(EntityId partyID, EntityId enemyID, SpellData spellData);
+bool CastCrusade(EntityId partyID, EntityId enemyID, SpellData spellData);
+bool CastCureCurse(EntityId partyID, EntityId enemyID, SpellData spellData);
+bool CastCureDisease(EntityId partyID, EntityId enemyID, SpellData spellData);
+bool CastCurePoison(EntityId partyID, EntityId enemyID, SpellData spellData);
+bool CastCreatePit(EntityId partyID, EntityId enemyID, SpellData spellData);
+bool CastDefend(EntityId partyID, EntityId enemyID, SpellData spellData);
+bool CastDescend(EntityId partyID, EntityId enemyID, SpellData spellData);
+bool CastDisplacement(EntityId partyID, EntityId enemyID, SpellData spellData);
+bool CastDrought(EntityId partyID, EntityId enemyID, SpellData spellData);
+bool CastEmpower(EntityId partyID, EntityId enemyID, SpellData spellData);
+bool CastFear(EntityId partyID, EntityId enemyID, SpellData spellData);
+bool CastFireball(EntityId partyID, EntityId enemyID, SpellData spellData);
+bool CastFlameEater(EntityId partyID, EntityId enemyID, SpellData spellData);
+bool CastFocus(EntityId partyID, EntityId enemyID, SpellData spellData);
+bool CastFortify(EntityId partyID, EntityId enemyID, SpellData spellData);
+bool CastGlowingEmbers(EntityId partyID, EntityId enemyID, SpellData spellData);
+bool CastGrowMuscle(EntityId partyID, EntityId enemyID, SpellData spellData);
+bool CastHaste(EntityId partyID, EntityId enemyID, SpellData spellData);
+bool CastHasten(EntityId partyID, EntityId enemyID, SpellData spellData);
+bool CastHeal(EntityId partyID, EntityId enemyID, SpellData spellData);
+bool CastHeatWave(EntityId partyID, EntityId enemyID, SpellData spellData);
+bool CastHunt(EntityId partyID, EntityId enemyID, SpellData spellData);
+bool CastHypothermia(EntityId partyID, EntityId enemyID, SpellData spellData);
+bool CastIceBolt(EntityId partyID, EntityId enemyID, SpellData spellData);
+bool CastIncreaseBag(EntityId partyID, EntityId enemyID, SpellData spellData);
+bool CastLevitate(EntityId partyID, EntityId enemyID, SpellData spellData);
+bool CastMudSling(EntityId partyID, EntityId enemyID, SpellData spellData);
+bool CastNerveRepair(EntityId partyID, EntityId enemyID, SpellData spellData);
+bool CastOpenChest(EntityId partyID, EntityId enemyID, SpellData spellData);
+bool CastPortal(EntityId partyID, EntityId enemyID, SpellData spellData);
+bool CastPowerOverwhelming(EntityId partyID, EntityId enemyID, SpellData spellData);
+bool CastPurification(EntityId partyID, EntityId enemyID, SpellData spellData);
+bool CastRage(EntityId partyID, EntityId enemyID, SpellData spellData);
+bool CastRainStorm(EntityId partyID, EntityId enemyID, SpellData spellData);
+bool CastRaiseDead(EntityId partyID, EntityId enemyID, SpellData spellData);
+bool CastRaiseSkeleton(EntityId partyID, EntityId enemyID, SpellData spellData);
+bool CastRazorGrass(EntityId partyID, EntityId enemyID, SpellData spellData);
+bool CastReflect(EntityId partyID, EntityId enemyID, SpellData spellData);
+bool CastRepel(EntityId partyID, EntityId enemyID, SpellData spellData);
+bool CastResurrect(EntityId partyID, EntityId enemyID, SpellData spellData);
+bool CastShadows(EntityId partyID, EntityId enemyID, SpellData spellData);
+bool CastSilence(EntityId partyID, EntityId enemyID, SpellData spellData);
+bool CastSlow(EntityId partyID, EntityId enemyID, SpellData spellData);
+bool CastSoothe(EntityId partyID, EntityId enemyID, SpellData spellData);
+bool CastStrengthen(EntityId partyID, EntityId enemyID, SpellData spellData);
+bool CastCreateFood(EntityId partyID, EntityId enemyID, SpellData spellData);
+bool CastTeleport(EntityId partyID, EntityId enemyID, SpellData spellData);
+bool CastWallWalking(EntityId partyID, EntityId enemyID, SpellData spellData);
+bool CastWaterBreathing(EntityId partyID, EntityId enemyID, SpellData spellData);
+bool CastWaterWalking(EntityId partyID, EntityId enemyID, SpellData spellData);
+bool CastWizen(EntityId partyID, EntityId enemyID, SpellData spellData);
+bool CastWizen2(EntityId partyID, EntityId enemyID, SpellData spellData);
+bool CastXRayVision(EntityId partyID, EntityId enemyID, SpellData spellData);
+
+//ALL_NAMES_COUNT = 0;
