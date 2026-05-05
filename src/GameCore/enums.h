@@ -40,13 +40,12 @@ typedef enum
     // IDLE,
     MOVING,
     MENU,
-    REBOOT,
     ENTER_BATTLE,
     BATTLE,
     INPUT_STATE_SIZE,
 } InputState;
 
-_Static_assert((INPUT_STATE_SIZE == 5), "update State struct to reflect new size");
+_Static_assert((INPUT_STATE_SIZE == 4), "update State struct to reflect new size");
 
 /**********************************************************************************************************************/
 /** Options menu list in the main menu

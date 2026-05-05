@@ -557,23 +557,23 @@ void Pico_TestText()
 **********************************************************************************************************************/
 void DrawTileKeyed(uint16_t x, uint16_t y, uint16_t w, uint16_t h, const uint16_t* data)
 {
-    DEBUG("data ptr %p", data);
-    DEBUG("BLIT x=%d y=%d w=%d h=%d", x, y, w, h);
+    // DEBUG("data ptr %p", data);
+    // DEBUG("BLIT x=%d y=%d w=%d h=%d", x, y, w, h);
 
     static uint8_t linebuf[64 * 2];
 
     // DEBUG("start DrawKeyed");
     for (uint16_t row = 0; row < h; row++)
     {
-        DEBUG("getting new");
+        // DEBUG("getting new");
         const uint16_t* src = data + row * w;
-        DEBUG("getting new success");
+        // DEBUG("getting new success");
 
         uint16_t col = 0;
 
         while (col < w)
         {
-            DEBUG("inner1 %d %d", col, w);
+            // DEBUG("inner1 %d %d", col, w);
 
             // Skip transparent pixels
             if (src[col] == TRANSPARENCY)
@@ -608,7 +608,7 @@ void DrawTileKeyed(uint16_t x, uint16_t y, uint16_t w, uint16_t h, const uint16_
                     uint16_t idx = start + offset + i;
                     if (idx >= w)
                     {
-                        DEBUG("OOB idx=%d w=%d start=%d offset=%d i=%d", idx, w, start, offset, i);
+                        // DEBUG("OOB idx=%d w=%d start=%d offset=%d i=%d", idx, w, start, offset, i);
                         break;
                     }
                     uint16_t px = src[start + offset + i];
@@ -646,7 +646,7 @@ void DrawTileKeyed(uint16_t x, uint16_t y, uint16_t w, uint16_t h, const uint16_
                 // Critical: skip if window became invalid (prevents x0 > x1)
                 if (screen_left > screen_right || screen_top > screen_bottom)
                 {
-                    DEBUG("Invalid window skipped: L=%u R=%u T=%u B=%u", screen_left, screen_right, screen_top, screen_bottom);
+                    // DEBUG("Invalid window skipped: L=%u R=%u T=%u B=%u", screen_left, screen_right, screen_top, screen_bottom);
                     offset += chunk;
                     remaining -= chunk;
                     continue;

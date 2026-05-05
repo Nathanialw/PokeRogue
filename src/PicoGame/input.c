@@ -1,20 +1,22 @@
 //
 // Created by nathanial on 2/19/26.
 //
+#include "input.h"
+
 #include <stdlib.h>
 #include "stdbool.h"
 
 #include "pico/bootrom.h"
 #include "hardware/adc.h"
 
-#include "input.h"
-#include "lib_types.h"
-#include "camera.h"
-
-#include "game_state.h"
 #include "lib_debugging.h"
+#include "lib_decl.h"
+#include "lib_types.h"
+
 #include "pico_constants.h"
 #include "pico_ram.h"
+
+#define DEADZONE 600
 
 /**********************************************************************************************************************/
 /*
@@ -24,8 +26,6 @@ KeyState GetInputKeyState()
     return g_pico_ram.input.keyState;
 }
 
-
-#define DEADZONE 600
 
 /**********************************************************************************************************************/
 /**  Debounce check
@@ -115,11 +115,10 @@ Delta Pico_InputDeltaDPad(void)
     int8_t dx = 0;
     int8_t dy = 0;
 
-    // if (Pico_CheckBtn(UPBTN, 0)) dy = -1;
-    // else if (Pico_CheckBtn(DOWNBTN, 0)) dy = 1;
-    // else if (Pico_CheckBtn(LEFTBTN, 0)) dx = -1;
-    // else if (Pico_CheckBtn(RIGHTBTN, 0)) dx = 1;
-    // if (dx == 0 && dy == 0) return false;
+    if (GetButtonUp()) dy = -1;
+    else if (GetButtonDown()) dy = 1;
+    else if (GetButtonLeft()) dx = -1;
+    else if (GetButtonRight()) dx = 1;
     d.x = dx;
     d.y = dy;
 
@@ -168,117 +167,68 @@ void PrintInput(uint16_t n, char* binary)
     binary[16] = '\0';
 }
 
-bool GetButtonA(void)
-{
-    return g_pico_ram.input.keyState.buttons >> 0 & 1 ? 1 : 0;
-}
 
-bool GetButtonB(void)
-{
-    return g_pico_ram.input.keyState.buttons >> 1 & 1 ? 1 : 0;
-}
+inline bool GetButtonUp(void) { return !(g_pico_ram.input.keyState.buttons >> 0 & 1); }
+inline bool GetButtonDown(void) { return !(g_pico_ram.input.keyState.buttons >> 1 & 1); }
+inline bool GetButtonLeft(void) { return !(g_pico_ram.input.keyState.buttons >> 2 & 1); }
+inline bool GetButtonRight(void) { return !(g_pico_ram.input.keyState.buttons >> 3 & 1); }
+inline bool GetButtonA(void) { return !(g_pico_ram.input.keyState.buttons >> 4 & 1); }
+inline bool GetButtonB(void) { return !(g_pico_ram.input.keyState.buttons >> 5 & 1); }
+inline bool GetButtonY(void) { return !(g_pico_ram.input.keyState.buttons >> 6 & 1); }
+inline bool GetButtonX(void) { return !(g_pico_ram.input.keyState.buttons >> 7 & 1); }
 
-bool GetButtonY(void)
-{
-    return g_pico_ram.input.keyState.buttons >> 2 & 1 ? 1 : 0;
-}
+inline bool GetButtonStart(void) { return !(g_pico_ram.input.keyState.buttons >> 8 & 1); }
+inline bool GetButtonSelect(void) { return !(g_pico_ram.input.keyState.buttons >> 9 & 1); }
+inline bool GetButtonJSClick(void) { return !(g_pico_ram.input.keyState.buttons >> 10 & 1); }
+inline bool GetButtonDPClick(void) { return !(g_pico_ram.input.keyState.buttons >> 11 & 1); }
 
-bool GetButtonX(void)
-{
-    return g_pico_ram.input.keyState.buttons >> 3 & 1 ? 1 : 0;
-}
+inline bool GetButtonUnused1(void) { return !(g_pico_ram.input.keyState.buttons >> 12 & 1); }   //L1
+inline bool GetButtonUnused2(void) { return !(g_pico_ram.input.keyState.buttons >> 13 & 1); }   //L2
+inline bool GetButtonUnused3(void) { return !(g_pico_ram.input.keyState.buttons >> 14 & 1); }   //R1
+inline bool GetButtonUnused4(void) { return !(g_pico_ram.input.keyState.buttons >> 15 & 1); }   //R2
 
-bool GetButtonSelect(void)
-{
-    return g_pico_ram.input.keyState.buttons >> 4 & 1 ? 1 : 0;
-}
 
-bool GetButtonStart(void)
-{
-    return g_pico_ram.input.keyState.buttons >> 5 & 1 ? 1 : 0;
-}
+inline bool GetJSPressed(void) { return g_pico_ram.input.keyState.d.x != 0 || g_pico_ram.input.keyState.d.y != 0; }
+inline bool GetDPPressed(void) { return g_pico_ram.input.keyState.d.x != 0 || g_pico_ram.input.keyState.d.y != 0; }
 
-bool GetButtonUp(void)
-{
-    return g_pico_ram.input.keyState.buttons >> 6 & 1 ? 1 : 0;
-}
-
-bool GetButtonDown(void)
-{
-    return g_pico_ram.input.keyState.buttons >> 7 & 1 ? 1 : 0;
-}
-
-bool GetButtonLeft(void)
-{
-    return g_pico_ram.input.keyState.buttons >> 8 & 1 ? 1 : 0;
-}
-
-bool GetButtonRight(void)
-{
-    return g_pico_ram.input.keyState.buttons >> 9 & 1 ? 1 : 0;
-}
-
-bool GetButtonJSClick(void)
-{
-    return g_pico_ram.input.keyState.buttons >> 10 & 1 ? 1 : 0;
-}
-
-bool GetButtonDPClick(void)
-{
-    return g_pico_ram.input.keyState.buttons >> 11 & 1 ? 1 : 0;
-}
+inline void SetInputPollingRate(uint16_t time) { g_pico_ram.input.pollingRate = time; }
+inline void SetInputPollingDefault() { g_pico_ram.input.pollingRate = g_pico_ram.input.defaultPollingRate; }
+void HardwareReset(void) { Pico_Reset(); }
 
 /**********************************************************************************************************************/
 /**  Loop polls for input
  *  if input found update button state
  *  pass to main state control switch
 **********************************************************************************************************************/
-State HandleInput(State state)
+void HandleInput()
 {
     while (1)
     {
-        const uint16_t tmp = SN74HC165N_BitBangShiftRegister();
-        if (tmp == g_pico_ram.input.keyState.buttons)
-        {
-            DEBUG("Checking for input");
-            sleep_ms(g_pico_ram.input.sleepTime); //sleep between key queries
-            continue;
-        }
-
-        g_pico_ram.input.keyState.buttons = tmp;
-        char binary[16 + 1];
-        PrintInput(g_pico_ram.input.keyState.buttons, binary);
-        DEBUG("Buttons: 0b%s", binary);
-        DEBUG("button A : %d", GetButtonA());
-
-        g_pico_ram.input.sleepTime = g_pico_ram.input.defaultSleepTime;
         g_pico_ram.input.keyState.d.x = 0;
         g_pico_ram.input.keyState.d.y = 0;
+        const uint16_t tmp = SN74HC165N_BitBangShiftRegister();
+        Delta d1 = Pico_InputDelta();
+        Delta d2 = Pico_InputDeltaDPad();
+        if (tmp == g_pico_ram.input.keyState.buttons && d1.x == 0 && d1.y == 0 && d2.x == 0 && d2.y == 0)
+        {
+            sleep_ms(g_pico_ram.input.pollingRate); //sleep between key queries
+            continue;
+        }
+        g_pico_ram.input.keyState.buttons = tmp;
+
+        if (d1.x != 0 || d1.y != 0) g_pico_ram.input.keyState.d = d1;
+        else if (d2.x != 0 || d2.y != 0) g_pico_ram.input.keyState.d = d2;
+
+        char binary[16 + 1];
+        PrintInput(g_pico_ram.input.keyState.buttons, binary);
+        DEBUG("Buttons: 0b%s %d %d %d %d", binary, d1.x, d1.y, d2.x, d2.y);
+
+        if (GetButtonX())
+        {
+            DEBUG("RESET");
+            HardwareReset();
+        }
+
         break;
     }
-
-    State prevState = state;
-    DEBUG("UpdateGameState");
-    state = UpdateGameState(state);
-    DEBUG("UpdateGameState done");
-
-
-    if (state.inputState == REBOOT)
-    {
-        // if (Pico_CheckBtn(REDBTN, 1000))
-        //     Pico_Reset();
-        // else
-        //     state.inputState = MOVING;
-    }
-
-    DEBUG("FullRedraw");
-
-    // if ((prevState.inputState == MENU || prevState.inputState == BATTLE) && state.inputState == MOVING)
-    //     FullRedraw();
-
-    if (state.inputState == MENU)
-        g_pico_ram.input.sleepTime = g_pico_ram.input.menuSleepTime;
-
-    DEBUG("input Done");
-    return state;
 }

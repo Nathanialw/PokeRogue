@@ -13,13 +13,11 @@ typedef struct
     // uint8_t game_music[6 * 1024];
     // uint8_t game_aa[1 * 1024];
 
-
     struct
     {
         KeyState keyState;
-        uint16_t defaultSleepTime;
-        uint16_t sleepTime;
-        uint16_t menuSleepTime;
+        uint8_t defaultPollingRate;
+        uint16_t pollingRate;
     } input;
 
     struct

@@ -49,6 +49,7 @@ typedef struct
     **********************************************************************************************************************/
     struct
     {
+        uint16_t pollingRate;
         int8_t gameSpeed;
         char gameSpeedStr[16];
     } btns;
@@ -248,6 +249,7 @@ typedef struct
         uint8_t y;
         uint8_t h;
         SubMenu* subMenus;
+        uint16_t menuSleepTime;
 
         struct
         {

@@ -167,6 +167,8 @@ typedef struct
 {
     uint16_t buttons;
     Delta d;
+    Delta dp;
+    Delta js;
 } KeyState;
 
-_Static_assert(sizeof(KeyState) == 4, "KeyState must be 4 bytes");
+_Static_assert(sizeof(KeyState) == 6, "KeyState must be 4 bytes");

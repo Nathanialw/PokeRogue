@@ -2,6 +2,7 @@
 // Created by nathanial on 5/2/26.
 //
 #pragma once
+#include "lib_types.h"
 
 /**********************************************************************************************************************/
 /**  GRAPHICS PLATFORM DEFINED
@@ -34,7 +35,10 @@ void TestAnimation(FrameBuffer f, Rect_16 r, uint16_t color1);
 
 /**********************************************************************************************************************/
 /**  INPUT PLATFORM DEFINED
-**********************************************************************************************************************/
+/**********************************************************************************************************************/
+void HandleInput();
+void SetInputPollingRate(uint16_t time);
+void SetInputPollingDefault();
 KeyState GetInputKeyState(void);
 bool GetButtonA(void);
 bool GetButtonB(void);
@@ -48,3 +52,15 @@ bool GetButtonLeft(void);
 bool GetButtonRight(void);
 bool GetButtonJSClick(void);
 bool GetButtonDPClick(void);
+bool GetJSPressed(void);
+bool GetDPPressed(void);
+
+bool GetButtonUnused1(void);   //L1
+bool GetButtonUnused2(void);   //L2
+bool GetButtonUnused3(void);   //R1
+bool GetButtonUnused4(void);   //R2
+
+/**********************************************************************************************************************/
+/**  HARDWARE PLATFORM DEFINED
+**********************************************************************************************************************/
+void HardwareReset(void);

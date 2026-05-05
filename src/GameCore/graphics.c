@@ -259,7 +259,7 @@ void DrawMiniMap()
 
 
     const uint16_t screen_w = 320;
-    const uint8_t buffer_lines = 320 / GetBufferWidth();
+    const uint8_t buffer_lines = 320 / GetBufferHeight();
     const uint8_t centerOffset = 32;
 
     uint8_t meta[buffer_lines];
@@ -306,6 +306,8 @@ void DrawMiniMap()
 
         Draw(0, y, screen_w, GetBufferWidth(), GetFrameBuffer1byte());
     }
+
+    DEBUG("==== DRAWING MINIMAP DONE! ====   \n");
 }
 
 /**********************************************************************************************************************/

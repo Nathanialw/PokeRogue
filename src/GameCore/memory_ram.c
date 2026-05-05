@@ -13,6 +13,7 @@ void GameRunInit()
     g_run.settings.fontSize = FONT8x8;
 
     g_run.btns.gameSpeed = 10; //200
+    g_run.btns.pollingRate = 12; //200
 
     g_run.menu.selectedMenu = MAIN_MENU;
     g_run.menu.displayedMenu = MENU_NONE;
@@ -23,6 +24,7 @@ void GameRunInit()
     g_run.menu.gameMenu.open = false;
     g_run.menu.gameMenu.displayId = NO_CREATURE;
     g_run.menu.gameMenu.id = NO_CREATURE;
+    g_run.menu.menuSleepTime = 200; //200
 
     g_run.music.master_volume = 32768;
 }
