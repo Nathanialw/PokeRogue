@@ -25,6 +25,31 @@
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
+void SetGameLoopRateDefault()
+{
+    g_run.btns.gameLoopRate = g_run.btns.defaultGameLoopRate;
+}
+
+/**********************************************************************************************************************/
+/*
+**********************************************************************************************************************/
+void SetGameLoopRate(uint16_t time)
+{
+    g_run.btns.gameLoopRate = time;
+}
+
+/**********************************************************************************************************************/
+/*
+**********************************************************************************************************************/
+inline void GameLoopRateDelay()
+{
+    SleepMS(g_run.btns.gameLoopRate);
+}
+
+
+/**********************************************************************************************************************/
+/*
+**********************************************************************************************************************/
 State SetInputState(InputState state)
 {
     g_run.state.inputState = state;
@@ -73,7 +98,6 @@ void UpdateGameRunningState()
                 bool b = BattleMenuCommand();
                 if (!b) return; //No state change for menu input
                 SetBattleState(BATTLE_ATTACK);
-                g_run.state.battleState = BATTLE_ATTACK;
             }
 
             if (GetButtonB())
@@ -118,7 +142,7 @@ void UpdateGameRunningState()
             {
                 if (!OpenSubMenu())
                 {
-                    g_run.state.inputState = MOVING;
+                    SetInputState(MOVING);
                 }
                 return;
             }
@@ -127,8 +151,8 @@ void UpdateGameRunningState()
             {
                 if (!MenuBack())
                 {
-                    g_run.state.inputState = MOVING;
-                    SetInputPollingDefault();
+                    SetInputState(MOVING);
+                    SetGameLoopRateDefault();
                     FullRedraw();
                 }
 
@@ -185,8 +209,8 @@ void UpdateGameRunningState()
             if (GetButtonY())
             {
                 InitMainMenu();
-                g_run.state.inputState = MENU;
-                SetInputPollingRate(MENU_INPUT_POLLING_RATE);
+                SetInputState(MENU);
+                SetGameLoopRate(MENU_INPUT_POLLING_RATE);
                 return;
             }
 
@@ -220,7 +244,7 @@ void UpdateGameTitleState()
     {
         if (GetButtonA())
         {
-            g_run.state.gameState = GAME_RUNNING;
+            SetGameState(GAME_RUNNING);
             return;
         }
 
@@ -326,20 +350,6 @@ void HandleGameState()
     PlaySoundEffect();
 }
 
-void RunInputLoop()
-{
-    // if (g_run.state.inputState == REBOOT)
-    // {
-    //     if (GetButtonX())
-    //         HardwareReset();
-    //     else
-    //         g_run.state.inputState = MOVING;
-    // }
-
-    // if ((prevState.inputState == MENU || prevState.inputState == BATTLE) && g_run.state.inputState == MOVING)
-    //     FullRedraw();
-}
-
 /**********************************************************************************************************************/
 /**  main game state update loop
 **********************************************************************************************************************/
@@ -352,6 +362,7 @@ bool GameLoopTitleScreen()
         // Pico_AnimationTitle();
         HandleInput();
         UpdateGameTitleState();
+        GameLoopRateDelay();
     }
 
     InitGame();
@@ -367,6 +378,7 @@ bool GameLoopMain()
         HandleInput();
         UpdateGameRunningState();
         HandleGameState();
+        GameLoopRateDelay();
     }
 
     DEBUG("GameLoopMain break, %d", g_run.state.gameState);
@@ -376,7 +388,7 @@ bool GameLoopMain()
 bool GameLoopNewMap()
 {
     NewMap();
-    g_run.state.gameState = GAME_RUNNING;
+    SetGameState(GAME_RUNNING);
     return true;
 }
 
@@ -395,8 +407,8 @@ GameLoopFunc GameLoopState[GAME_STATE_SIZE] = {GameLoopTitleScreen, GameLoopMain
 **********************************************************************************************************************/
 void GameLoop()
 {
-    g_run.state.gameState = TITLE_SCREEN;
-    g_run.state.inputState = MOVING;
+    SetGameState(TITLE_SCREEN);
+    SetInputState(MOVING);
 
     while (1)
     {

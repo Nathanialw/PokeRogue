@@ -13,7 +13,8 @@ void GameRunInit()
     g_run.settings.fontSize = FONT8x8;
 
     g_run.btns.gameSpeed = 10; //200
-    g_run.btns.pollingRate = 12; //200
+    g_run.btns.defaultGameLoopRate = 12;
+    g_run.btns.gameLoopRate = 12;
 
     g_run.menu.selectedMenu = MAIN_MENU;
     g_run.menu.displayedMenu = MENU_NONE;

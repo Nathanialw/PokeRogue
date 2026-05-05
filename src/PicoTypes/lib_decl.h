@@ -64,3 +64,5 @@ bool GetButtonUnused4(void);   //R2
 /**  HARDWARE PLATFORM DEFINED
 **********************************************************************************************************************/
 void HardwareReset(void);
+void SleepMS(uint32_t t);
+

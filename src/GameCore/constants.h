@@ -38,7 +38,7 @@ _Static_assert(ITEM_COUNT <= 256, "max must be 256 - one byte");
 _Static_assert(ABILITY_COUNT <= 256, "max must be 256 - one byte");
 _Static_assert(CREATURE_COUNT <= 256, "TOTAL MONSTERS MUST BE 256");
 _Static_assert(SPELL_COUNT <= 256, "max must be 256 - one byte");
-// _Static_assert(OBJECT_COUNT <= 256, "max must be 256 - one byte");
+_Static_assert(OBJECT_COUNT <= 256, "max must be 256 - one byte");
 
 #define PALETTE_COUNT 64
 #define CHARACTER_COUNT 256
@@ -54,7 +54,8 @@ _Static_assert(SPELL_COUNT <= 256, "max must be 256 - one byte");
 /**********************************************************************************************************************/
 /**INPUT constants
 **********************************************************************************************************************/
-#define MENU_INPUT_POLLING_RATE 120
+#define MENU_INPUT_POLLING_RATE 200
+#define MENU_INPUT_POLLING_RATE_INIT 200
 
 /**********************************************************************************************************************/
 /**PLAYER constants

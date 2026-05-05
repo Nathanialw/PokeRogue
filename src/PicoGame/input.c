@@ -191,8 +191,8 @@ inline bool GetButtonUnused4(void) { return !(g_pico_ram.input.keyState.buttons 
 inline bool GetJSPressed(void) { return g_pico_ram.input.keyState.d.x != 0 || g_pico_ram.input.keyState.d.y != 0; }
 inline bool GetDPPressed(void) { return g_pico_ram.input.keyState.d.x != 0 || g_pico_ram.input.keyState.d.y != 0; }
 
-inline void SetInputPollingRate(uint16_t time) { g_pico_ram.input.pollingRate = time; }
-inline void SetInputPollingDefault() { g_pico_ram.input.pollingRate = g_pico_ram.input.defaultPollingRate; }
+void SetInputPollingRate(uint16_t time) { g_pico_ram.input.pollingRate = time; }
+void SetInputPollingDefault() { g_pico_ram.input.pollingRate = g_pico_ram.input.defaultPollingRate; }
 void HardwareReset(void) { Pico_Reset(); }
 
 /**********************************************************************************************************************/

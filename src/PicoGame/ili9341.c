@@ -204,10 +204,10 @@ void Pico_ili9341_Init(void)
     Pico_WriteCmd(0x36);
     uint8_t madctl =
         (1 << 7) | //  Row order
-        (1 << 6) | // Column order (bit 6)
-        (1 << 5) | // Row/column exchange (bit 5) (landscape)
+        (0 << 6) | // Column order
+        (1 << 5) | // Row/column exchange (set landscape)
         (0 << 4) | //  vertical refresh order
-        (1 << 3) | // BGR: BGR order
+        (0 << 3) | // BGR: BGR order
         (0 << 2); // horizontal refresh order
 
     Pico_WriteData(&madctl, 1);

@@ -49,7 +49,8 @@ typedef struct
     **********************************************************************************************************************/
     struct
     {
-        uint16_t pollingRate;
+        uint16_t defaultGameLoopRate;
+        uint16_t gameLoopRate;
         int8_t gameSpeed;
         char gameSpeedStr[16];
     } btns;
