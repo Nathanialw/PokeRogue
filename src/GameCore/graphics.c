@@ -90,7 +90,7 @@ void DrawTileCached(uint8_t screen_tx, uint8_t screen_ty, uint8_t tile_id)
  *  Updates cache
  *  Blit the given creature id to the given screen coords
 **********************************************************************************************************************/
-void DrawMonsterCached(uint8_t screen_tx, uint8_t screen_ty, uint8_t sprite_id)
+void DrawMonsterCached(uint8_t screen_tx, uint8_t screen_ty, uint8_t sprite_id, const Sprite* spriteArray)
 {
     uint16_t px = (uint16_t)(screen_tx * TILE_W);
     uint16_t py = (uint16_t)(screen_ty * TILE_H);
@@ -98,12 +98,11 @@ void DrawMonsterCached(uint8_t screen_tx, uint8_t screen_ty, uint8_t sprite_id)
     if (g_run.tileCache.sprite_id != sprite_id)
     {
         g_run.tileCache.sprite_id = sprite_id;
-        const Sprite s = g_gameFlash.sprites.monsters[sprite_id];
+        const Sprite s = spriteArray[sprite_id];
         CharFromGlyph1bpp(g_run.tileCache.spritePixels.pixels, s.glyph_index, FONT16x16, g_gameFlash.GetColor[s.fg], g_gameFlash.GetColor[PAL_KEY]);
     }
 
     DrawTileKeyed(px, py, TILE_W, TILE_H, g_run.tileCache.spritePixels.pixels);
-    DEBUG("DrawMonsterCached complete %d %d ", g_run.tileCache.sprite_id, sprite_id);
 }
 
 

@@ -11,7 +11,6 @@
 #include "entities.h"
 #include "lib_debugging.h"
 #include "player.h"
-#include "sound.h"
 #include "status_effects.h"
 #include "utils.h"
 
@@ -138,7 +137,7 @@ void SetPositions(void)
     Position* position = GetEntityPositions(CREATURE); //array is 512 bytes
     Position* newPosition = GetEntityNewPositions(); //array is 512 bytes
 
-    DEBUG("Updating Object Positions");
+    // DEBUG("Updating Object Positions");
 
     for (uint8_t id = 0; id < ENTITY_COUNT; ++id)
     {
@@ -163,7 +162,7 @@ void SetPositions(void)
             SetEntityPosition(CREATURE, id, x, y, nx, ny);
     }
 
-    DEBUG("Updating Object done");
+    // DEBUG("Updating Object done");
 }
 
 

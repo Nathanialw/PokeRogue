@@ -36,8 +36,10 @@ void FullRedraw()
         }
     }
 
-    for (uint8_t i = 0; i < ITEM_COUNT; ++i)
+    for (uint8_t i = 0; i < g_run.items.total; ++i)
     {
+        if (g_run.items.types[i] == NO_ITEM) continue;
+
         uint8_t x = g_run.items.position[i].x;
         uint8_t y = g_run.items.position[i].y;
         if (GetBit(g_run.items.onMap, i) && CameraContains(x, y))
@@ -49,8 +51,10 @@ void FullRedraw()
         }
     }
 
-    for (uint8_t i = 0; i < OBJECT_COUNT; ++i)
+    for (uint8_t i = 0; i < g_run.objects.total; ++i)
     {
+        if (g_run.objects.types[i] == NO_OBJECT) continue;
+
         uint8_t x = g_run.objects.position[i].x;
         uint8_t y = g_run.objects.position[i].y;
         if (GetBit(g_run.objects.onMap, i) && CameraContains(x, y))
@@ -62,8 +66,10 @@ void FullRedraw()
         }
     }
 
-    for (uint8_t i = 0; i < ENTITY_COUNT; ++i)
+    for (uint8_t i = 0; i < g_run.creatures.total; ++i)
     {
+        if (g_run.creatures.types[i] == NO_CREATURE) continue;
+
         uint8_t x = g_run.creatures.position[i].x;
         uint8_t y = g_run.creatures.position[i].y;
         if (GetBit(g_run.creatures.onMap, i) && CameraContains(x, y))
@@ -190,19 +196,19 @@ void ReDrawSprites()
             if (g_run.view.viewItems.viewEntities[sy][sx] != NO_ITEM)
             {
                 uint8_t item_type = g_run.view.viewItems.viewEntities[sy][sx];
-                DrawMonsterCached(sx, sy, item_type);
+                DrawMonsterCached(sx, sy, item_type, g_gameFlash.sprites.items);
             }
 
             if (g_run.view.viewObjects.viewEntities[sy][sx] != NO_OBJECT)
             {
                 uint8_t object_type = g_run.view.viewObjects.viewEntities[sy][sx];
-                DrawMonsterCached(sx, sy, object_type);
+                DrawMonsterCached(sx, sy, object_type, g_gameFlash.sprites.objects);
             }
 
             if (g_run.view.viewCreatures.viewEntities[sy][sx] != NO_CREATURE)
             {
                 uint8_t creature_type = g_run.view.viewCreatures.viewEntities[sy][sx];
-                DrawMonsterCached(sx, sy, creature_type);
+                DrawMonsterCached(sx, sy, creature_type, g_gameFlash.sprites.monsters);
             }
         }
     }
@@ -228,9 +234,9 @@ void RenderObjects()
     if (g_run.btns.gameSpeed >= 5)
         CheckForTileChanges(cam);
 
-    GetEntitiesInView(cam, &g_run.items.onMap, &g_run.view.viewItems, g_run.items.position, g_run.items.types, ITEM_COUNT);
-    GetEntitiesInView(cam, &g_run.objects.onMap, &g_run.view.viewObjects, g_run.objects.position, g_run.objects.types, OBJECT_COUNT);
-    GetEntitiesInView(cam, &g_run.creatures.onMap, &g_run.view.viewCreatures, g_run.creatures.position, g_run.creatures.types, ENTITY_COUNT);
+    GetEntitiesInView(cam, &g_run.items.onMap, &g_run.view.viewItems, g_run.items.position, g_run.items.types, g_run.items.total);
+    GetEntitiesInView(cam, &g_run.objects.onMap, &g_run.view.viewObjects, g_run.objects.position, g_run.objects.types, g_run.objects.total);
+    GetEntitiesInView(cam, &g_run.creatures.onMap, &g_run.view.viewCreatures, g_run.creatures.position, g_run.creatures.types, g_run.creatures.total);
 
     SetDirty(&g_run.view.viewItems);
     SetDirty(&g_run.view.viewObjects);

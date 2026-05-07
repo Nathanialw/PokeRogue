@@ -144,6 +144,7 @@ typedef struct
     **********************************************************************************************************************/
     struct
     {
+        uint8_t total;
         Position position[ENTITY_COUNT];
         Position newPosition[ENTITY_COUNT]; // can be changed to hold delta, a uint8_t can hold up to 2
         uint8_t types[ENTITY_COUNT];
@@ -212,6 +213,7 @@ typedef struct
 
     struct
     {
+        uint8_t total;
         Position position[ENTITY_COUNT];
         Position newPosition[ENTITY_COUNT]; // can be changed to hold delta, a uint8_t can hold up to 2
         uint8_t types[ENTITY_COUNT];
@@ -222,6 +224,7 @@ typedef struct
 
     struct
     {
+        uint8_t total;
         Position position[ENTITY_COUNT];
         Position newPosition[ENTITY_COUNT]; // can be changed to hold delta, a uint8_t can hold up to 2
         uint8_t types[ENTITY_COUNT];

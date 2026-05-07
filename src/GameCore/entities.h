@@ -11,7 +11,7 @@
 /*
 **********************************************************************************************************************/
 uint8_t CheckCollision(EntityId id);
-uint8_t CheckTileForEntity(ObjectsTypes type, EntityId e_id, Position pos, Position* positions, uint8_t n);
+EntityId CheckTileForEntity(ObjectsTypes type, EntityId e_id, Position pos);
 
 EntityId SpawnEntity(ObjectsTypes type, uint8_t t, uint8_t x, uint8_t y, uint8_t l);
 EntityId PickItem(EntityId id);

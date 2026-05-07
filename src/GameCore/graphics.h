@@ -11,9 +11,9 @@
 **********************************************************************************************************************/
 void ClipTile(uint16_t* clip, const uint16_t* pixels, Rect_16 r);
 
-void DrawMonster(uint8_t screen_tx, uint8_t screen_ty, Creature tile_id, const Sprite* spriteArray);
 void DrawTile(uint8_t screen_tx, uint8_t screen_ty, uint8_t tile_id);
-void DrawMonsterCached(uint8_t screen_tx, uint8_t screen_ty, uint8_t tile_id);
+void DrawMonster(uint8_t screen_tx, uint8_t screen_ty, Creature tile_id, const Sprite* spriteArray);
+void DrawMonsterCached(uint8_t screen_tx, uint8_t screen_ty, uint8_t tile_id, const Sprite* spriteArray);
 void DrawTileCached(uint8_t screen_tx, uint8_t screen_ty, uint8_t tile_id);
 
 FrameBuffer DrawBattlerToBuffer(uint16_t screen_x, uint16_t screen_y, const SpriteLayout layout, const uint8_t* sprite);

@@ -5,6 +5,7 @@
 
 #include "player.h"
 
+#include "battles.h"
 #include "map.h"
 #include "memory_ram.h"
 #include "entities.h"
@@ -46,24 +47,29 @@ void InitPlayer(void)
     g_run.player.spellID[0] = HEAL;
     g_run.player.spellID[1] = DESCEND;
 
+    DEBUG("----finding open map location");
     Position pos = FindOpenMapLocation(CREATURE);
     uint8_t x = pos.x;
     uint8_t y = pos.y;
+    DEBUG("----placing player at %d %d", x, y);
 
+    DEBUG("----setting player position");
     g_run.player.id = SpawnEntity(CREATURE, HUMAN, x, y, 0);
     g_run.creatures.speed[g_run.player.id].max = 99;
     g_run.creatures.speed[g_run.player.id].current = 15;
-
+    DEBUG("----setting player sight range");
 
     EntityId e_id;
-    e_id = SpawnEntity(CREATURE, AMMIT, x, y, 5);
+    e_id = SpawnEntity(CREATURE, LAMIA, x, y, 5);
     PlayerCaptureMonster(e_id);
     e_id = SpawnEntity(ITEM, HEALTH_POTION, x, y, 0);
     PlayerPickItem(e_id);
+    DEBUG("----setting player stats");
 
     for (uint16_t j = y - 5; j < y + 5; ++j)
         for (uint16_t i = x - 5; i < x + 5; ++i)
             SetFog(i, j, false);
+    DEBUG("----setting player vision");
 }
 
 /**********************************************************************************************************************/
@@ -339,4 +345,23 @@ void PlacePlayerOnMap()
     g_run.creatures.position[g_run.player.id].x = x;
     uint8_t y = pos.y;
     g_run.creatures.position[g_run.player.id].y = y;
+}
+
+/**********************************************************************************************************************/
+/*  interact with item in player's cell
+/*  interact with object in player's cell
+**********************************************************************************************************************/
+void PlayerInteract()
+{
+    Position pos = GetPlayerPosition();
+    //check if an item in the cell
+
+    EntityId item_id = CheckTileForEntity(ITEM, g_run.player.id, pos);
+    if (item_id != NO_ENTITY)
+        PlayerPickItem(item_id);
+
+    //check if an object in the cell
+    // EntityId object_id = CheckTileForEntity(OBJECT, g_run.player.id, pos);
+    // if (item_id != NO_ITEM)
+        // InteractObject(object_id, g_run.player.id);
 }

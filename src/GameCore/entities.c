@@ -40,9 +40,9 @@ uint8_t CheckCollision(EntityId id)
     ASSERT(id != NO_CREATURE, "ID is NO_CREATURE it is invalid!");
 
     Position pos = g_run.creatures.newPosition[id];
-    uint8_t creature_id = CheckTileForEntity(CREATURE, id, pos, g_run.creatures.position, ENTITY_COUNT);
+    uint8_t creature_id = CheckTileForEntity(CREATURE, id, pos);
     if (creature_id == NO_ENTITY)
-        creature_id = CheckTileForEntity(CREATURE, id, pos, g_run.creatures.newPosition, ENTITY_COUNT);
+        creature_id = CheckTileForEntity(CREATURE, id, pos);
     return creature_id;
 };
 
@@ -53,22 +53,42 @@ uint8_t CheckCollision(EntityId id)
  *  Returns NO_OBJECT if none found
 // TODO hashmap was a little pricey on memory, maybe a clever implementation would work, linear search for now
 **********************************************************************************************************************/
-uint8_t CheckTileForEntity(ObjectsTypes type, EntityId e_id, Position pos, Position* positions, uint8_t n)
+EntityId CheckTile(ObjectsTypes type, EntityId e_id, Position pos, Position* positions, uint8_t n)
 {
-    // ASSERT(e_id != NO_CREATURE, "ID is NO_CREATURE it is invalid!");
-
     uint8_t* onMap = GetEntitiesOnMap(type);
-    ASSERT(onMap, "CheckTileForEntity onMap array pointer is NULL!");
 
     for (uint16_t i = 0; i < n; ++i)
     {
         if (!GetBit(onMap, i)) continue;
-        if (e_id != NO_ENTITY && i == e_id) continue;
+        if (type == CREATURE && e_id != NO_ENTITY && i == e_id) continue;
 
         Position t_pos = positions[i];
         if (t_pos.x == pos.x && t_pos.y == pos.y)
             return i;
     }
+    return NO_ENTITY;
+}
+
+EntityId CheckTileForEntity(ObjectsTypes type, EntityId e_id, Position pos)
+{
+    // ASSERT(e_id != NO_CREATURE, "ID is NO_CREATURE it is invalid!");
+
+    if (type == CREATURE)
+    {
+        return CheckTile(type, e_id, pos, g_run.creatures.position, g_run.creatures.total);
+    }
+
+    if (type == ITEM)
+    {
+        return CheckTile(type, e_id, pos, g_run.items.position, g_run.items.total);
+    }
+
+    if (type == OBJECT)
+    {
+        return CheckTile(type, e_id, pos, g_run.objects.position, g_run.objects.total);
+    }
+
+    ASSERT(type == CREATURE || type == ITEM || type == OBJECT, "CheckTileForEntity %d invalid type", type);
     return NO_ENTITY;
 }
 
@@ -216,6 +236,7 @@ EntityId SpawnMonster(uint8_t type, uint8_t x, uint8_t y, uint8_t l)
     SetBit(g_run.creatures.onMap, id, true);
     g_run.creatures.speed[id].current = 0;
     g_run.creatures.speed[id].max = 40;
+    g_run.creatures.total++;
     return id;
 }
 
@@ -240,6 +261,7 @@ EntityId SpawnItem(uint8_t type, uint8_t x, uint8_t y, uint8_t l)
     g_run.items.types[id] = type;
     SetBit(g_run.items.onMap, id, true);
     g_run.items.metaData[id].value = (l + 10) + (l * 5);
+    g_run.items.total++;
     return id;
 }
 
@@ -251,14 +273,19 @@ EntityId SpawnObject(uint8_t type, uint8_t x, uint8_t y, uint8_t l)
 {
     EntityId id = NO_ENTITY;
     for (uint8_t i = 0; i < ENTITY_COUNT; ++i)
-        if (!GetBit(g_run.creatures.active, i))
+        if (!GetBit(g_run.objects.active, i))
         {
             id = i;
-            SetBit(g_run.creatures.active, id, true);
+            SetBit(g_run.objects.active, id, true);
             break;
         }
 
     SetBit(g_run.objects.onMap, id, true);
+    Position pos = {.x = x, .y = y};
+    g_run.objects.position[id] = pos;
+    g_run.objects.types[id] = type;
+    g_run.objects.metaData[id].value = (l + 10) + (l * 5);
+    g_run.objects.total++;
     return id;
 }
 
@@ -425,6 +452,10 @@ void ResetEntities(bool copyPlayer)
 
     for (uint16_t i = 0; i < ENTITY_COUNT; ++i)
         DestroyObject(i);
+
+    g_run.creatures.total = 0;
+    g_run.items.total = 0;
+    g_run.objects.total = 0;
 }
 
 /**********************************************************************************************************************/
@@ -432,7 +463,7 @@ void ResetEntities(bool copyPlayer)
 **********************************************************************************************************************/
 void PopulateLevelCreatures(void)
 {
-    uint8_t creature_level = 1;
+    uint8_t creature_level = g_run.floor;
     for (uint8_t i = 0; i < NUM_BIOME_CREATURES; ++i)
     {
         uint8_t creature_type = 0 + rand() % BIOME_MONSTER_TYPES;
@@ -449,7 +480,8 @@ void PopulateLevelCreatures(void)
         SpawnEntity(CREATURE, creature, pos.x, pos.y, creature_level);
     }
 
-    for (uint8_t i = 0; i < ENTITY_COUNT; ++i)
+
+    for (uint8_t i = 0; i < g_run.creatures.total; ++i)
         if (GetBit(g_run.creatures.onMap, i) && GetBit(g_run.creatures.alive, i))
             g_run.creatures.newPosition[i] = g_run.creatures.position[i];
 }
@@ -467,6 +499,7 @@ void PopulateLevelItems(void)
 
 void PopulateLevelObjects(void)
 {
+    ASSERT(g_run.objects.total == 0, "Objects already populated! %d", g_run.objects.total);
     uint8_t creature_level = 1;
     for (uint8_t i = 0; i < NUM_MAP_OBJECTS; ++i)
     {

@@ -72,8 +72,6 @@ void UpdateLevel(uint8_t floor, Biomes biome)
 **********************************************************************************************************************/
 Position GetRandomMapTile(ObjectsTypes type, bool emptyOnly)
 {
-    Position* positions = GetEntityPositions(type);
-
     do
     {
         uint8_t x = GetRandom_uint8_t(0, MAP_W - 1);
@@ -82,7 +80,7 @@ Position GetRandomMapTile(ObjectsTypes type, bool emptyOnly)
 
         if (emptyOnly)
         {
-            if (GetMapTile(x, y) == GROUND && CheckTileForEntity(type, NO_ENTITY, pos, positions, ENTITY_COUNT) == NO_ENTITY)
+            if (GetMapTile(x, y) == GROUND && CheckTileForEntity(type, NO_ENTITY, pos) == NO_ENTITY)
             {
                 return pos;
             }
@@ -233,14 +231,12 @@ void InitMapLayout(void)
 **********************************************************************************************************************/
 Position FindOpenMapLocation(ObjectsTypes type)
 {
-    Position* positions = GetEntityPositions(type);
-
     while (1)
     {
         Position pos;
         pos.x = 16 + rand() % MAP_W - 16;
         pos.y = 16 + rand() % MAP_H - 16;
-        if (GetMapTile(pos.x, pos.y) == GROUND && CheckTileForEntity(type, NO_ENTITY, pos, positions, ENTITY_COUNT) == NO_ENTITY)
+        if (GetMapTile(pos.x, pos.y) == GROUND && CheckTileForEntity(type, NO_ENTITY, pos) == NO_ENTITY)
             return pos;
     }
 }

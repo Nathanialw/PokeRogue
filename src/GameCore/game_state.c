@@ -196,6 +196,7 @@ void UpdateGameRunningState()
         {
             if (GetButtonA())
             {
+                PlayerInteract();
             }
 
             if (GetButtonB())
