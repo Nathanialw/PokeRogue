@@ -9,8 +9,9 @@ add_executable(PicoRogue
         catridge_rom.c
         cartridge_ram.c
 
-        pico_ram.c
-        pico_rom.c
+        memory_ram.c
+        memory_rom.c
+        memory_psram.c
 
         pico_constants.h
 )

@@ -10,7 +10,7 @@
 #include "lib_debugging.h"
 #include "lib_types.h"
 #include "pico_constants.h"
-#include "pico_ram.h"
+#include "memory_ram.h"
 
 
 uint16_t* GetFrameBufferFront(void);

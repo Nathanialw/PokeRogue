@@ -15,6 +15,7 @@
 #include "catridge_rom.h"
 #include "hardware.h"
 #include "lib_debugging.h"
+#include "memory_psram.h"
 #include "sounds.h"
 #include "hardware/clocks.h"
 #include "hardware/i2c.h"
@@ -62,38 +63,6 @@ void ThreadTwo(void)
     }
 }
 
-void SN74HC165N_Setup(void)
-{
-    // Initialize SPI at 1 khz
-    spi_init(SPI_BUTTONS, 100 * 1000);
-    spi_set_format(SPI_BUTTONS, 8, SPI_CPOL_0, SPI_CPHA_1, SPI_MSB_FIRST);
-
-    // Assign SPI pins
-    gpio_set_function(SN74HC165N_SCLK, GPIO_FUNC_SPI);
-    gpio_set_function(SN74HC165N_MISO, GPIO_FUNC_SPI);
-
-    // SH/LD as GPIO output, initially high
-    gpio_init(SN74HC165N_SH_LD);
-    gpio_set_dir(SN74HC165N_SH_LD, GPIO_OUT);
-    gpio_put(SN74HC165N_SH_LD, 1);
-    DEBUG("SN74HC165N_Setup");
-}
-
-void SN74HC165N_BitBangInit(void)
-{
-    gpio_init(SN74HC165N_SH_LD);
-    gpio_set_dir(SN74HC165N_SH_LD, GPIO_OUT);
-    gpio_put(SN74HC165N_SH_LD, 1);
-
-    gpio_init(SN74HC165N_SCLK);
-    gpio_set_dir(SN74HC165N_SCLK, GPIO_OUT);
-    gpio_put(SN74HC165N_SCLK, 0);
-
-    gpio_init(SN74HC165N_MISO);
-    gpio_set_dir(SN74HC165N_MISO, GPIO_IN);
-    DEBUG("SN74HC165N_BITBANG init");
-}
-
 
 /**********************************************************************************************************************/
 /**  Pico main init function
@@ -105,9 +74,9 @@ void Pico_Init(void)
     stdio_init_all();
     sleep_ms(5000);
 #endif
+
     uint32_t freq = clock_get_hz(clk_sys);
     DEBUG("Current CPU Frequency: %lu.%03lu MHz", freq / 1000000, (freq % 1000000) / 1000);
-
     gpio_init(LED);
     gpio_set_dir(LED, GPIO_OUT);
 
@@ -120,8 +89,10 @@ void Pico_Init(void)
 #else
 #error "Define SN74HC165N_BITBANG or SN74HC165N_SPI or SN74HC165N_PIO"
 #endif
+
     InitCart();
     FRAM_Init();
+    InitPSram();
 
     Backlight_Init();
     adc_init();
@@ -129,13 +100,18 @@ void Pico_Init(void)
     adc_gpio_init(JSY); // VRy
     adc_gpio_init(BATTERY); // VRy
 
-    Pico_ADS1115_Init();
+    // Pico_ADS1115_Init();
     Pico_ili9341_Init();
     sleep_ms(200);
 
-    CartridgeRAM_Test();
-    FRAM_SizeTest();
+    DEBUG("----- BEGIN TESTS ---");
+    EEPROM_FullTest();
+    DEBUG("----- EEPROM Test Complete ---");
+    FRAM_FullTest();
+    DEBUG("----- FRAM Test Complete ---");
+    PSRAM_FullTest();
+    DEBUG("----- PSRAM Test Complete ---");
 
-    Pico_AudioInit(); // Initialize audio system (this must be done on core 0)
-    multicore_launch_core1(ThreadTwo);
+    // Pico_AudioInit(); // Initialize audio system (this must be done on core 0)
+    // multicore_launch_core1(ThreadTwo);
 }

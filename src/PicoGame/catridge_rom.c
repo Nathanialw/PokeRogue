@@ -125,6 +125,27 @@ void EEPROM_EraseSector(uint32_t addr)
     while (EEPROM_IsBusy()) sleep_ms(1);
 }
 
+void EEPROM_Read(
+    uint32_t addr,
+    uint8_t *data,
+    size_t len
+)
+{
+    uint8_t header[4];
+
+    header[0] = 0x03;
+
+    header[1] = (addr >> 16) & 0xFF;
+    header[2] = (addr >> 8) & 0xFF;
+    header[3] = addr & 0xFF;
+
+    gpio_put(CART_CS_EEPROM, 0);
+
+    spi_write_blocking(SPI_CART, header, 4);
+    spi_read_blocking(SPI_CART, 0x00, data, len);
+
+    gpio_put(CART_CS_EEPROM, 1);
+}
 
 
 /**********************************************************************************************************************/
@@ -206,7 +227,7 @@ uint8_t EEPROM_FastReadByte(uint32_t addr)
 
 void InitCart(void)
 {
-    spi_init(SPI_CART, 20 * 1000 * 1000);     // 20 MHz
+    spi_init(SPI_CART, 40 * 1000 * 1000);     // 40 MHz
     spi_set_format(SPI_CART, 8, SPI_CPOL_0, SPI_CPHA_0, SPI_MSB_FIRST);
 
     gpio_set_function(CART_SCK, GPIO_FUNC_SPI);
@@ -224,20 +245,131 @@ void InitCart(void)
 
     // Add this once after InitCart()
 
+    // EEPROM_WakeUp();
+    // EEPROM_ReadJEDEC();
+    //
+    // uint8_t buf[64];
+    // EEPROM_ReadBuffer(0x000000, buf, 64);
+    //
+    // DEBUG("First 64 bytes:");
+    // for (int i = 0; i < 64; i += 8) {
+    //     DEBUG("%02X %02X %02X %02X %02X %02X %02X %02X",
+    //         buf[i], buf[i+1], buf[i+2], buf[i+3],
+    //         buf[i+4], buf[i+5], buf[i+6], buf[i+7]);
+    // }
+    //
+    // EEPROM_TestCapacity();
+}
 
 
-    EEPROM_WakeUp();
+/**********************************************************************************************************************/
+/**  tests
+**********************************************************************************************************************/
+bool EEPROM_FullTest()
+{
+    DEBUG("=== EEPROM FULL TEST START ===");
+
+    // --------------------------------------------------------------------
+    // JEDEC
+    // --------------------------------------------------------------------
+
     EEPROM_ReadJEDEC();
 
-    uint8_t buf[64];
-    EEPROM_ReadBuffer(0x000000, buf, 64);
+    // --------------------------------------------------------------------
+    // Read distribution test
+    // --------------------------------------------------------------------
 
-    DEBUG("First 64 bytes:");
-    for (int i = 0; i < 64; i += 8) {
-        DEBUG("%02X %02X %02X %02X %02X %02X %02X %02X",
-            buf[i], buf[i+1], buf[i+2], buf[i+3],
-            buf[i+4], buf[i+5], buf[i+6], buf[i+7]);
+    uint32_t test_addrs[] =
+    {
+        0x000000,
+        0x000100,
+        0x001000,
+        0x010000,
+        0x100000,
+        0x700000,
+        0xFFFFFF
+    };
+
+    for (size_t i = 0; i < count_of(test_addrs); i++)
+    {
+        uint8_t value =
+            EEPROM_ReadByte(test_addrs[i]);
+
+        DEBUG(
+            "ADDR 0x%06X = 0x%02X",
+            test_addrs[i],
+            value
+        );
     }
 
-    EEPROM_TestCapacity();
+    // --------------------------------------------------------------------
+    // Sequential read test
+    // --------------------------------------------------------------------
+
+    DEBUG("=== EEPROM BLOCK READ TEST ===");
+
+    uint8_t buffer[256];
+
+    EEPROM_Read(
+        0x000000,
+        buffer,
+        sizeof(buffer)
+    );
+
+    for (int i = 0; i < 32; i++)
+    {
+        DEBUG(
+            "%02X %02X %02X %02X %02X %02X %02X %02X",
+            buffer[i * 8 + 0],
+            buffer[i * 8 + 1],
+            buffer[i * 8 + 2],
+            buffer[i * 8 + 3],
+            buffer[i * 8 + 4],
+            buffer[i * 8 + 5],
+            buffer[i * 8 + 6],
+            buffer[i * 8 + 7]
+        );
+    }
+
+    // --------------------------------------------------------------------
+    // Read speed test
+    // --------------------------------------------------------------------
+
+    DEBUG("=== EEPROM SPEED TEST ===");
+
+    absolute_time_t start =
+        get_absolute_time();
+
+    for (int i = 0; i < 1000; i++)
+    {
+        EEPROM_Read(
+            0x000000,
+            buffer,
+            sizeof(buffer)
+        );
+    }
+
+    int64_t elapsed_us =
+        absolute_time_diff_us(
+            start,
+            get_absolute_time()
+        );
+
+    DEBUG(
+        "256KB READ TIME: %lld us",
+        elapsed_us
+    );
+
+    double mb_per_sec =
+        (256.0 / 1024.0) /
+        ((double)elapsed_us / 1000000.0);
+
+    DEBUG(
+        "READ SPEED: %.2f MB/s",
+        mb_per_sec
+    );
+
+    DEBUG("=== EEPROM FULL TEST PASSED ===");
+
+    return true;
 }

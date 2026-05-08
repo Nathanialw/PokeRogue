@@ -2,7 +2,7 @@
 // Created by nathanial on 4/30/26.
 //
 
-#include "pico_ram.h"
+#include "memory_ram.h"
 
 Data g_pico_ram = {0};
 

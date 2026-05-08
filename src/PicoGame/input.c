@@ -14,7 +14,7 @@
 #include "lib_types.h"
 
 #include "pico_constants.h"
-#include "pico_ram.h"
+#include "memory_ram.h"
 
 #define DEADZONE 600
 
@@ -123,6 +123,39 @@ Delta Pico_InputDeltaDPad(void)
     d.y = dy;
 
     return d;
+}
+
+
+void SN74HC165N_Setup(void)
+{
+    // Initialize SPI at 1 khz
+    spi_init(SPI_BUTTONS, 1000 * 1000);
+    spi_set_format(SPI_BUTTONS, 8, SPI_CPOL_0, SPI_CPHA_1, SPI_MSB_FIRST);
+
+    // Assign SPI pins
+    gpio_set_function(SN74HC165N_SCLK, GPIO_FUNC_SPI);
+    gpio_set_function(SN74HC165N_MISO, GPIO_FUNC_SPI);
+
+    // SH/LD as GPIO output, initially high
+    gpio_init(SN74HC165N_SH_LD);
+    gpio_set_dir(SN74HC165N_SH_LD, GPIO_OUT);
+    gpio_put(SN74HC165N_SH_LD, 1);
+    DEBUG("SN74HC165N_Setup");
+}
+
+void SN74HC165N_BitBangInit(void)
+{
+    gpio_init(SN74HC165N_SH_LD);
+    gpio_set_dir(SN74HC165N_SH_LD, GPIO_OUT);
+    gpio_put(SN74HC165N_SH_LD, 1);
+
+    gpio_init(SN74HC165N_SCLK);
+    gpio_set_dir(SN74HC165N_SCLK, GPIO_OUT);
+    gpio_put(SN74HC165N_SCLK, 0);
+
+    gpio_init(SN74HC165N_MISO);
+    gpio_set_dir(SN74HC165N_MISO, GPIO_IN);
+    DEBUG("SN74HC165N_BITBANG init");
 }
 
 

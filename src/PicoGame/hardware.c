@@ -92,7 +92,7 @@ void Pico_BatteryStatus(void)
 
 bool Pico_ADS1115_Init(void)
 {
-    i2c_init(I2C_PORT, 100 * 1000);
+    i2c_init(ADS1115_I2C, 100 * 1000);
     gpio_set_function(ADS_SDA, GPIO_FUNC_I2C);
     gpio_set_function(ADS_SCL, GPIO_FUNC_I2C);
     gpio_pull_up(ADS_SDA);
@@ -119,7 +119,7 @@ static int16_t Pico_ReadADS1115(uint8_t mux_bits)
         (0b111 << 5) | // 860 SPS
         (0b11); // comparator disabled
 
-    rc = i2c_write_timeout_us(I2C_PORT, ADS_ADDR, config, 3, false, 5000);
+    rc = i2c_write_timeout_us(ADS1115_I2C, ADS_ADDR, config, 3, false, 5000);
     sleep_ms(2); // enough for 860 SPS
     if (rc < 0)
     {
@@ -127,14 +127,14 @@ static int16_t Pico_ReadADS1115(uint8_t mux_bits)
         return -1;
     }
 
-    rc = i2c_write_timeout_us(I2C_PORT, ADS_ADDR, &reg, 1, true, 5000);
+    rc = i2c_write_timeout_us(ADS1115_I2C, ADS_ADDR, &reg, 1, true, 5000);
     if (rc < 0)
     {
         // DEBUG("Pico_ReadADS1115 2");
         return -1;
     }
 
-    rc = i2c_read_timeout_us(I2C_PORT, ADS_ADDR, data, 2, false, 5000);
+    rc = i2c_read_timeout_us(ADS1115_I2C, ADS_ADDR, data, 2, false, 5000);
     if (rc < 0)
     {
         // DEBUG("Pico_ReadADS1115 3");
@@ -177,7 +177,7 @@ void I2C_BusClear(void)
 void RecoverADS1115(void)
 {
     // DEBUG("Recovering ADS");
-    i2c_deinit(I2C_PORT);
+    i2c_deinit(ADS1115_I2C);
     I2C_BusClear();
     sleep_ms(1);
     Pico_ADS1115_Init();
