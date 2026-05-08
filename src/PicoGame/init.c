@@ -11,15 +11,13 @@
 
 #include "init.h"
 
-// #include "core.h"
+#include "cartridge_ram.h"
+#include "catridge_rom.h"
 #include "hardware.h"
-// #include "memory_ram.h"
-// #include "sound.h"
 #include "lib_debugging.h"
 #include "sounds.h"
 #include "hardware/clocks.h"
 #include "hardware/i2c.h"
-#include "hardware/structs/clocks.h"
 
 #define PICO
 
@@ -44,7 +42,7 @@ void SleepMS(uint32_t t)
  *      -Battery status
  *  //TODO: more tasks, perhaps input polling
 **********************************************************************************************************************/
-void ThreadTwo()
+void ThreadTwo(void)
 {
     // MusicData music_data = InitMusicData();
     while (1)
@@ -64,7 +62,7 @@ void ThreadTwo()
     }
 }
 
-void SN74HC165N_Setup()
+void SN74HC165N_Setup(void)
 {
     // Initialize SPI at 1 khz
     spi_init(SPI_BUTTONS, 100 * 1000);
@@ -81,7 +79,7 @@ void SN74HC165N_Setup()
     DEBUG("SN74HC165N_Setup");
 }
 
-void SN74HC165N_BitBangInit()
+void SN74HC165N_BitBangInit(void)
 {
     gpio_init(SN74HC165N_SH_LD);
     gpio_set_dir(SN74HC165N_SH_LD, GPIO_OUT);
@@ -97,7 +95,6 @@ void SN74HC165N_BitBangInit()
 }
 
 
-
 /**********************************************************************************************************************/
 /**  Pico main init function
 **********************************************************************************************************************/
@@ -107,14 +104,12 @@ void Pico_Init(void)
 #include <stdio.h>
     stdio_init_all();
     sleep_ms(5000);
-    // DEBUG("STARTUP!\n");
 #endif
     uint32_t freq = clock_get_hz(clk_sys);
     DEBUG("Current CPU Frequency: %lu.%03lu MHz", freq / 1000000, (freq % 1000000) / 1000);
 
     gpio_init(LED);
     gpio_set_dir(LED, GPIO_OUT);
-
 
 #if defined(SN74HC165N_SPI)
     SN74HC165N_Setup();
@@ -125,6 +120,8 @@ void Pico_Init(void)
 #else
 #error "Define SN74HC165N_BITBANG or SN74HC165N_SPI or SN74HC165N_PIO"
 #endif
+    InitCart();
+    FRAM_Init();
 
     Backlight_Init();
     adc_init();
@@ -136,9 +133,9 @@ void Pico_Init(void)
     Pico_ili9341_Init();
     sleep_ms(200);
 
-    // Initialize audio system (this must be done on core 0)
-    Pico_AudioInit();
+    CartridgeRAM_Test();
+    FRAM_SizeTest();
 
+    Pico_AudioInit(); // Initialize audio system (this must be done on core 0)
     multicore_launch_core1(ThreadTwo);
-    // DEBUG("init complete - game on core 0,  audio running on core 1");
 }

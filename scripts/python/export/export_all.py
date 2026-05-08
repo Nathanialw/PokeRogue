@@ -138,8 +138,6 @@ def run():
     # TODO Map sprites
 
     # TRAINERS
-    export_structs.creatures_skills("trainer")
-    export_structs.creatures_level_up_skills("trainer")
     # trainer name strings
     counts.append(export.name_to_c_array("trainer"))
     # trainer description strings

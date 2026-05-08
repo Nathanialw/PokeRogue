@@ -6,6 +6,8 @@ add_executable(PicoRogue
         input.c
         sounds.c
         hardware.c
+        catridge_rom.c
+        cartridge_ram.c
 
         pico_ram.c
         pico_rom.c

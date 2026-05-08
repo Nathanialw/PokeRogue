@@ -24,10 +24,15 @@
 #elif defined(RES_320x320)
 #define TFT_W 320
 #define TFT_H 320
+#define SCREEN_W 320
+#define SCREEN_H 320
+#define TILE_W 20
+#define TILE_H 20
+#define TEXT_W 8
+#define TEXT_H 8
 #else
 #error "Define RES_320x240 or RES_320x320"
 #endif
-
 
 #define TRANSPARENCY 0xF81F
 

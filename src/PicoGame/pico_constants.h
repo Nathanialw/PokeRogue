@@ -22,14 +22,15 @@
 #define SWAP_COLOR_BYTES
 
 
-
-
 #define SPI_DISPLAY  spi1
 #define SPI_BUTTONS  spi0
+#define SPI_CART     spi0
+
 
 #define MAX_VOLUME  26500
 #define MIN_VOLUME  500
 #define I2C_PORT    i2c0
+#define FRAM_I2C    i2c0
 
 
 /**********************************************************************************************************************/
@@ -40,19 +41,31 @@
 /**********************************************************************************************************************/
 /**  button inputs
 **********************************************************************************************************************/
-// #define LEFTBTN         1
-// #define RIGHTBTN        2
-// #define DOWNBTN         3
-// #define UPBTN           4
-//
-// #define DCLICKBTN   5
-// // #define JSCLICKBTN
-//
-// #define WHITEBTN        8
-// #define BLUEBTN         6
-// #define REDBTN          7
-// #define GREENBTN        0
-//
+#if defined(SN74HC165N_BITBANG)
+#define SN74HC165N_SH_LD    0
+#define SN74HC165N_SCLK     1
+#define SN74HC165N_MISO     2
+#elif defined(SN74HC165N_SPI)
+// not currently used
+#elif defined(SN74HC165N_SPIO)
+// not currently used
+#else
+#error "Define SN74HC165N_BITBANG or SN74HC165N_SPI of SN74HC165N_PIO"
+#endif
+
+// /**********************************************************************************************************************/
+// /**  Cartridge SPI
+// /**********************************************************************************************************************/
+#define CART_SCK        18
+#define CART_MOSI       19
+#define CART_MISO       16
+#define CART_CS_EEPROM  17
+
+
+#define FM24C256_SDA    20
+#define FM24C256_SCL    21
+
+
 /**********************************************************************************************************************/
 /**  analog
 **********************************************************************************************************************/
@@ -63,9 +76,9 @@
 /**********************************************************************************************************************/
 /**  speaker controller
 **********************************************************************************************************************/
-#define DIN         17
-#define BCLK        18
-#define LRC         19
+#define DIN         3
+#define BCLK        4
+#define LRC         5
 
 // ADS1115
 #define ADS_SDA     20
@@ -96,11 +109,6 @@
 #define MOSI        11
 #define RST         12
 #define DC          13
-// #define UNUSED      14
-// #define UNUSED      15
-// #define UNUSED      16
-// #define UNUSED      23
-// #define UNUSED      24
 #else
 #error "Define DISPLAY_MODE_8BIT or DISPLAY_MODE_SPI"
 #endif
@@ -118,18 +126,16 @@
 // /**********************************************************************************************************************/
 // /**  74HC165N button inputs
 // **********************************************************************************************************************/
-#define SN74HC165N_SH_LD   0
-#define SN74HC165N_SCLK     1
-#define SN74HC165N_MISO   2
+
 //
 // /**********************************************************************************************************************/
 // /**  Cartridge SPI
 // /**********************************************************************************************************************/
-// #define CART_SCK        3
-// #define CART_MOSI       4
-// #define CART_MISO       5
-// #define CART_CS_EEPROM  6
-// #define CART_CS_FRAM    7
+// #define CART_SCK        2
+// #define CART_MOSI       3
+// #define CART_MISO       4
+// #define CART_CS_EEPROM  5
+// #define CART_CS_FRAM    6
 //
 // /**********************************************************************************************************************/
 // /**  PSRAM QSPI
