@@ -6,6 +6,7 @@
 #include <stdbool.h>
 #include "constants.h"
 #include "enums.h"
+#include "lib_decl.h"
 
 /**********************************************************************************************************************
 *
@@ -57,7 +58,7 @@ typedef SkillLearnLevel CreatureSkillLearnLevels[16];
 /**********************************************************************************************************************
 *   MENUS
 **********************************************************************************************************************/
-typedef bool (*SubMenu)(bool update);
+typedef bool (*SubMenu)(InputInterface input, bool update);
 typedef uint16_t MainMenuPtr[MAIN_MENU_W];
 
 

@@ -28,14 +28,14 @@ uint16_t ListSize(uint16_t n)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool ListJump()
+bool ListJump(InputInterface input)
 {
-    if (GetInputKeyState().d.x != 0)
+    if (input.GetInputKeyState().d.x != 0)
     {
         Delta d = {};
-        d.y = GetInputKeyState().d.x * LIST_JUMP_AMOUNT;
-        if (HandleMenuOverflow(d)) return true;
-        SetMenuDelta(d);
+        d.y = input.GetInputKeyState().d.x * LIST_JUMP_AMOUNT;
+        if (HandleMenuOverflow(input, d)) return true;
+        SetMenuDelta(input, d);
     }
     return false;
 }
@@ -133,7 +133,7 @@ bool ToggleMenu(SubMainMenuWindow menuWin, uint8_t numMenuOptions)
  *  Ensures the cursor wraps around at the top and bottom of the menu lists
  *  maintains the cursor's position in the center of the list when the list length exceeds the screen height
 **********************************************************************************************************************/
-bool HandleMenuOverflow(Delta delta)
+bool HandleMenuOverflow(InputInterface input, Delta delta)
 {
     bool options_exceed_menu = g_run.menu.h < g_run.menu.visibleMenuOptions;
     uint8_t sel_pos_y = g_run.menu.sel[g_run.menu.depth].y;
@@ -155,7 +155,7 @@ bool HandleMenuOverflow(Delta delta)
                 if (!minOffset && !maxOffset)
                 {
                     g_run.menu.menuScrollOffset[g_run.menu.depth].y += delta.y;
-                    g_run.menu.subMenus[g_run.menu.sel[0].y](true); // 0 call the function of the menu it is within
+                    g_run.menu.subMenus[g_run.menu.sel[0].y](input, true); // 0 call the function of the menu it is within
                     return true;
                 }
             }
@@ -167,7 +167,7 @@ bool HandleMenuOverflow(Delta delta)
             {
                 uint8_t topBotPage = g_run.menu.totalMenuOptions - g_run.menu.visibleMenuOptions;
                 g_run.menu.menuScrollOffset[g_run.menu.depth].y = topBotPage;
-                g_run.menu.subMenus[g_run.menu.sel[0].y](true); // 0 call the function of the menu it is within
+                g_run.menu.subMenus[g_run.menu.sel[0].y](input, true); // 0 call the function of the menu it is within
             }
         }
         else if (options_within_bot)
@@ -175,7 +175,7 @@ bool HandleMenuOverflow(Delta delta)
             if (sel_pos_y + delta.y >= g_run.menu.visibleMenuOptions)
             {
                 g_run.menu.menuScrollOffset[g_run.menu.depth].y = 0;
-                g_run.menu.subMenus[g_run.menu.sel[0].y](true); // 0 call the function of the menu it is within
+                g_run.menu.subMenus[g_run.menu.sel[0].y](input, true); // 0 call the function of the menu it is within
                 g_run.menu.forceRedraw = true;
             }
         }
@@ -188,10 +188,10 @@ bool HandleMenuOverflow(Delta delta)
  *  ON SUCCESS - returns true
  *  ON fail - returns false
 **********************************************************************************************************************/
-bool SetMenuDelta(Delta delta)
+bool SetMenuDelta(InputInterface input, Delta delta)
 {
     if (delta.y == 0) return false;
-    if (HandleMenuOverflow(delta)) return false;
+    if (HandleMenuOverflow(input, delta)) return false;
 
     g_run.menu.eraseSel.y = g_run.menu.sel[g_run.menu.depth].y;
     g_run.menu.sel[g_run.menu.depth].y += delta.y;

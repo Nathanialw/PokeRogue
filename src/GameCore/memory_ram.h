@@ -25,8 +25,8 @@ typedef struct
     uint16_t turn_count;
     uint16_t turn_final;
     uint8_t floor;
-    Biomes biome;
-    Themes theme;
+    uint8_t biome : 4;
+    uint8_t theme : 4;
     Camera camera;
 
 
@@ -73,7 +73,7 @@ typedef struct
     /**********************************************************************************************************************
     *   map data
     **********************************************************************************************************************/
-    uint8_t map[(MAP_H * MAP_W) / 2];
+    uint8_t map[MAP_SIZE_BYTES];
     // EntityId objectMap[MAP_H][MAP_W];
     uint8_t fog[(MAP_H * MAP_W) / 8]; // TODO: not yet implemented
     // Node pathing[(MAP_H * MAP_W) / 2]; // TODO: not yet implemented

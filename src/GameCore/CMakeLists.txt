@@ -1,4 +1,6 @@
+
 add_library(GameCore STATIC
+
         core.c
         camera.c
         collision.c
@@ -45,7 +47,10 @@ add_library(GameCore STATIC
         types.h
         constants.h
         enums.h
+        save.c
+        save.h
 )
+
 
 target_compile_definitions(GameCore PRIVATE ENABLE_DEBUG_OUTPUT ENABLE_ASSERTS)
 
@@ -60,4 +65,3 @@ target_include_directories(GameCore PUBLIC
 
 
 set_target_properties(GameCore PROPERTIES LINKER_LANGUAGE C)
-

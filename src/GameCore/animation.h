@@ -2,15 +2,17 @@
 // Created by nathanial on 4/10/26.
 //
 #pragma once
+#include "lib_decl.h"
 #include "types.h"
 
-void AnimationUpdateHealth(bool attackersTurn);
-void BattlerAnimationAttack(bool player);
-void BattlerAnimationStruck(bool player);
-void AnimationBattlerDie(bool onAttacker);
-void AnimationScreenFade();
-void AnimationScreenClearRandom();
-void AnimationTitle();
-void AnimationUpdateXP();
-void AnimationUpdateMana();
-void AnimationMovement();
+void AnimationUpdateHealth(GraphicsInterface graphics, HardwareInterface hardware, bool attackersTurn);
+void BattlerAnimationAttack(GraphicsInterface graphics, bool player);
+void BattlerAnimationStruck(GraphicsInterface graphics, bool player);
+void AnimationBattlerStart(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker);
+void AnimationBattlerDie(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker);
+void AnimationScreenFade(GraphicsInterface graphics, HardwareInterface hardware);
+void AnimationScreenClearRandom(GraphicsInterface graphics, HardwareInterface hardware);
+void AnimationTitle(GraphicsInterface graphics, HardwareInterface hardware);
+void AnimationUpdateXP(GraphicsInterface graphics, HardwareInterface hardware);
+void AnimationUpdateMana(GraphicsInterface graphics, HardwareInterface hardware);
+void AnimationMovement(GraphicsInterface graphics);

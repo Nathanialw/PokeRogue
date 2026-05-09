@@ -5,6 +5,7 @@ assets_raw/
 build-pico/
 build-sdl/
 build-tests/
+build-cartridge/
 
 vendor/
 gameplay/

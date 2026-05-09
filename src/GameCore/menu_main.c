@@ -13,6 +13,7 @@
 #include "constants.h"
 #include "entities.h"
 #include "lib_debugging.h"
+#include "lib_decl.h"
 
 #include "memory_rom.h"
 #include "memory_ram.h"
@@ -25,17 +26,17 @@
 /** Forward declared functions for the main menu
 **********************************************************************************************************************/
 
-bool MiniMap(bool update);
-bool MonsterData(bool update);
-bool Objectpedia(bool update);
-bool Itempedia(bool update);
-bool Spellpedia(bool update);
-bool Abilitypedia(bool update);
-bool Party(bool update);
-bool Bag(bool update);
-bool Spells(bool update);
-bool Options(bool update);
-bool Exit(bool update);
+bool MiniMap(InputInterface input, bool update);
+bool MonsterData(InputInterface input, bool update);
+bool Objectpedia(InputInterface input, bool update);
+bool Itempedia(InputInterface input, bool update);
+bool Spellpedia(InputInterface input, bool update);
+bool Abilitypedia(InputInterface input, bool update);
+bool Party(InputInterface input, bool update);
+bool Bag(InputInterface input, bool update);
+bool Spells(InputInterface input, bool update);
+bool Options(InputInterface input, bool update);
+bool Exit(InputInterface input, bool update);
 
 
 /**********************************************************************************************************************/
@@ -71,7 +72,7 @@ SubMenu submenus[MAIN_MENUS_SIZE] = {
  * Sets the current menu mode to minimap value
  *  the display code handles fetching the object data to draw the pixels to the screen
 **********************************************************************************************************************/
-bool MiniMap(bool update)
+bool MiniMap(InputInterface input, bool update)
 {
     if (ToggleMenu(MAP_SUBMENU, 0))
         return true;
@@ -83,12 +84,12 @@ bool MiniMap(bool update)
 /**********************************************************************************************************************/
 /** LIST
 **********************************************************************************************************************/
-bool MonsterData(bool update)
+bool MonsterData(InputInterface input, bool update)
 {
-    DEBUG("MonsterData g_run.btns.d.y %d", GetInputKeyState().d.y);
-    if (ToggleMenu(MONSTER_DATA_LIST_SUBMENU, CREATURE_COUNT) && GetInputKeyState().d.y == 0)
+    DEBUG("MonsterData g_run.btns.d.y %d", input.GetInputKeyState().d.y);
+    if (ToggleMenu(MONSTER_DATA_LIST_SUBMENU, CREATURE_COUNT) && input.GetInputKeyState().d.y == 0)
     {
-        if (ListJump()) return true;
+        if (ListJump(input)) return true;
 
         EntityId creature_id = g_run.menu.sel[g_run.menu.depth].y + g_run.menu.menuScrollOffset[g_run.menu.depth].y;
         DEBUG("Showing Creature id %d", creature_id);
@@ -120,12 +121,12 @@ bool MonsterData(bool update)
 /**********************************************************************************************************************/
 /** LIST
 **********************************************************************************************************************/
-bool Objectpedia(bool update)
+bool Objectpedia(InputInterface input, bool update)
 {
-    DEBUG("Objectpedia g_run.btns.d.y %d", GetInputKeyState().d.y);
-    if (ToggleMenu(OBJECT_DATA_LIST_SUBMENU, OBJECT_COUNT) && GetInputKeyState().d.y == 0)
+    DEBUG("Objectpedia g_run.btns.d.y %d", input.GetInputKeyState().d.y);
+    if (ToggleMenu(OBJECT_DATA_LIST_SUBMENU, OBJECT_COUNT) && input.GetInputKeyState().d.y == 0)
     {
-        if (ListJump()) return true;
+        if (ListJump(input)) return true;
 
         EntityId object_id = g_run.menu.sel[g_run.menu.depth].y + g_run.menu.menuScrollOffset[g_run.menu.depth].y;
         DEBUG("Showing Object id %d", object_id);
@@ -154,11 +155,11 @@ bool Objectpedia(bool update)
 /**********************************************************************************************************************/
 /** LIST
 **********************************************************************************************************************/
-bool Itempedia(bool update)
+bool Itempedia(InputInterface input, bool update)
 {
-    if (ToggleMenu(ITEM_DATA_LIST_SUBMENU, ITEM_COUNT) && GetInputKeyState().d.y == 0)
+    if (ToggleMenu(ITEM_DATA_LIST_SUBMENU, ITEM_COUNT) && input.GetInputKeyState().d.y == 0)
     {
-        if (ListJump()) return true;
+        if (ListJump(input)) return true;
         EntityId item_id = g_run.menu.sel[g_run.menu.depth].y + g_run.menu.menuScrollOffset[g_run.menu.depth].y;
         DEBUG("Showing Item id %d", item_id);
         //open creature info panel
@@ -186,11 +187,11 @@ bool Itempedia(bool update)
 /**********************************************************************************************************************/
 /** LIST
 **********************************************************************************************************************/
-bool Spellpedia(bool update)
+bool Spellpedia(InputInterface input, bool update)
 {
-    if (ToggleMenu(SPELL_DATA_LIST_SUBMENU, SPELL_COUNT) && GetInputKeyState().d.y == 0)
+    if (ToggleMenu(SPELL_DATA_LIST_SUBMENU, SPELL_COUNT) && input.GetInputKeyState().d.y == 0)
     {
-        if (ListJump()) return true;
+        if (ListJump(input)) return true;
         EntityId spell_id = g_run.menu.sel[g_run.menu.depth].y + g_run.menu.menuScrollOffset[g_run.menu.depth].y;
         DEBUG("Showing Spell id %d", spell_id);
         //open creature info panel
@@ -218,11 +219,11 @@ bool Spellpedia(bool update)
 /**********************************************************************************************************************/
 /** LIST
 **********************************************************************************************************************/
-bool Abilitypedia(bool update)
+bool Abilitypedia(InputInterface input, bool update)
 {
-    if (ToggleMenu(ABILITY_DATA_LIST_SUBMENU, ABILITY_COUNT) && GetInputKeyState().d.y == 0)
+    if (ToggleMenu(ABILITY_DATA_LIST_SUBMENU, ABILITY_COUNT) && input.GetInputKeyState().d.y == 0)
     {
-        if (ListJump()) return true;
+        if (ListJump(input)) return true;
         EntityId ability_id = g_run.menu.sel[g_run.menu.depth].y + g_run.menu.menuScrollOffset[g_run.menu.depth].y;
         DEBUG("Showing Skill id %d", ability_id);
         //open creature info panel
@@ -292,7 +293,7 @@ void BackUseOnParty()
 /**********************************************************************************************************************/
 /** LIST
 **********************************************************************************************************************/
-bool Party(bool update)
+bool Party(InputInterface input, bool update)
 {
     if (ToggleMenu(MONSTERS_SUBMENU, MAX_PARTY_SIZE))
     {
@@ -305,7 +306,7 @@ bool Party(bool update)
 /**********************************************************************************************************************/
 /** LIST
 **********************************************************************************************************************/
-bool Bag(bool update)
+bool Bag(InputInterface input, bool update)
 {
     DEBUG("initing bag");
     if (ToggleMenu(BAG_SUBMENU, g_run.player.currentBagSize))
@@ -369,7 +370,7 @@ bool Bag(bool update)
 /**********************************************************************************************************************/
 /** LIST
 **********************************************************************************************************************/
-bool Spells(bool update)
+bool Spells(InputInterface input, bool update)
 {
     if (ToggleMenu(SPELLS_SUBMENU, g_run.player.currentSpellbookSize))
     {
@@ -410,7 +411,7 @@ bool Spells(bool update)
 /**********************************************************************************************************************/
 /** LIST
 **********************************************************************************************************************/
-bool Options(bool update)
+bool Options(InputInterface input, bool update)
 {
     if (ToggleMenu(OPTIONS_SUBMENU, OPTIONS_MENU_SIZE))
     {
@@ -433,10 +434,10 @@ bool Options(bool update)
             }
         case 2:
             {
-                g_run.btns.gameSpeed += GetInputKeyState().d.x;
+                g_run.btns.gameSpeed += input.GetInputKeyState().d.x;
                 if (g_run.btns.gameSpeed > 10 || g_run.btns.gameSpeed < 0)
                 {
-                    g_run.btns.gameSpeed += (-GetInputKeyState().d.x);
+                    g_run.btns.gameSpeed += (-input.GetInputKeyState().d.x);
                     break;
                 }
 
@@ -505,7 +506,7 @@ bool Options(bool update)
 /**********************************************************************************************************************/
 /** Closes the main menu
 **********************************************************************************************************************/
-bool Exit(bool update)
+bool Exit(InputInterface input, bool update)
 {
     g_run.menu.displayedMenu = MENU_NONE;
     Back(MAIN_MENU);
@@ -515,10 +516,10 @@ bool Exit(bool update)
 /**********************************************************************************************************************/
 /** Opens the submenu at the index of the cursor y position
 **********************************************************************************************************************/
-bool OpenSubMenu(void)
+bool OpenSubMenu(InputInterface input)
 {
     DEBUG("opening submenu, %d", g_run.menu.sel[0].y);
-    bool r = submenus[g_run.menu.sel[0].y](true); //always use the base index of zero to access the the menu branch
+    bool r = submenus[g_run.menu.sel[0].y](input, true); //always use the base index of zero to access the the menu branch
     return r;
 }
 

@@ -30,10 +30,41 @@ void FillRect(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t rgb565);
 void FillRectColor(uint16_t x, uint16_t y, uint16_t w, uint16_t h, Color rgb565);
 void FillScreen(uint16_t rgb565);
 void FillScreenColor(Color rgb565);
-void TestAnimation(FrameBuffer f, Rect_16 r, Color color1);
 void DrawTileKeyed(uint16_t x, uint16_t y, uint16_t w, uint16_t h, const uint16_t* data);
 void Draw(uint16_t x, uint16_t y, uint16_t w, uint16_t h, const uint8_t* data);
+void SetBuffer(uint16_t length, uint16_t* p, uint16_t rgb565);
+void SetBufferColor(uint16_t length, uint16_t* p, Color rgb565);
 
+void TestAnimation(FrameBuffer f, Rect_16 r, Color color1);
+
+GraphicsInterface GetGraphicsInterface()
+{
+    GraphicsInterface graphics = {
+        .GetFrameBufferFront = GetFrameBufferFront,
+        .GetFrameBufferBack = GetFrameBufferBack,
+        .GetFrameBuffer1byte = GetFrameBuffer1byte,
+        .GetFrameBuffer2bytes = GetFrameBuffer2bytes,
+        .GetBufferWidth = GetBufferWidth,
+        .GetBufferHeight = GetBufferHeight,
+        .ClearBuffer = ClearBuffer,
+        .DrawBuffer = DrawBuffer,
+        .DrawSprite = DrawSprite,
+        .DrawToBuffer = DrawToBuffer,
+        .DrawTileKeyed = DrawTileKeyed,
+        .Draw = Draw,
+        .SetBuffer = SetBuffer,
+        .SetBufferColor = SetBufferColor,
+        .SetFrameBuffer = SetFrameBuffer,
+        .SetFrameBufferColor = SetFrameBufferColor,
+        .FillRect = FillRect,
+        .FillRectColor = FillRectColor,
+        .FillScreen = FillScreen,
+        .FillScreenColor = FillScreenColor,
+        .TestAnimation = TestAnimation,
+    };
+
+    return graphics;
+}
 
 /**********************************************************************************************************************/
 /*

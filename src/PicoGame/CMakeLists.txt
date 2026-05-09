@@ -6,8 +6,8 @@ add_executable(PicoRogue
         input.c
         sounds.c
         hardware.c
-        catridge_rom.c
-        cartridge_ram.c
+        cartridge_rom.c
+        cartridge_save.c
 
         memory_ram.c
         memory_rom.c
@@ -33,8 +33,6 @@ target_link_libraries(PicoRogue
 )
 
 
-
-
 target_compile_definitions(PicoRogue PRIVATE ENABLE_DEBUG_OUTPUT ENABLE_ASSERTS)
 
 target_include_directories(PicoRogue PRIVATE
@@ -53,5 +51,9 @@ target_link_options(PicoRogue PRIVATE
         -Wl,--gc-sections
         -Wl,--strip-all
 )
+
+
+#pico_set_linker_script(PicoRogue ${CMAKE_CURRENT_SOURCE_DIR}/my_custom_linker.ld)
+
 
 pico_add_extra_outputs(PicoRogue)

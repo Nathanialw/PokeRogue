@@ -6,3 +6,4 @@
 
 
 void InitMainMenu(void);
+bool OpenSubMenu(InputInterface input);

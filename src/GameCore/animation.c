@@ -47,7 +47,7 @@
 /************************************************************************************************************
  *  MOVE - SMOOTH SCREEN SCROLLING
  ************************************************************************************************************/
-void AnimationMovement()
+void AnimationMovement(GraphicsInterface graphics)
 {
     DEBUG("Pico_AnimationMovement() scroll : %d %d", g_run.player.scroll.x, g_run.player.scroll.y);
     if (g_run.player.scroll.x == 0 && g_run.player.scroll.y == 0) return;
@@ -80,7 +80,7 @@ void AnimationMovement()
     {
         for (int16_t j = 0; j < VIEW_TW; j++)
         {
-            ClearBuffer();
+            graphics.ClearBuffer();
             f.x = j * tile_size * 2;
 
             // DRAW TILES TO BUFFER
@@ -133,7 +133,7 @@ void AnimationMovement()
                     r.h = tile_size - tile_offset_y;
                     Glyph16x16 clip_glyph;
                     ClipTile(clip_glyph.pixels, glyph_ptr->pixels, r);
-                    DrawToBuffer(f, clip_glyph.pixels, r);
+                    graphics.DrawToBuffer(f, clip_glyph.pixels, r);
 
                     // TODO: handle partial tile drawing to buffer - should be 2 partial tiles drawn per glyph scrolling
                     // if (g_run.tileCache.tile_id != partial_tile_id1)
@@ -154,7 +154,7 @@ void AnimationMovement()
             }
 
             // DRAW EACH BUFFER
-            DrawBuffer(f);
+            graphics.DrawBuffer(f);
         }
 
         // sleep_ms(16);
@@ -194,7 +194,7 @@ void AnimationMovement()
  *  HEALTH - FALL
  *  HEALTH - RISE TODO: NOT IMPLEMENTED YET
  ************************************************************************************************************/
-void AnimationUpdateHealth(bool attackersTurn)
+void AnimationUpdateHealth(GraphicsInterface graphics, HardwareInterface hardware, bool attackersTurn)
 {
     Rect_16 r = {0};
     uint16_t cur_hp = 0;
@@ -233,8 +233,8 @@ void AnimationUpdateHealth(bool attackersTurn)
             break;
         x -= 1;
 
-        FillRect(x, y, w, h, 0xf00a);
-        SleepMS(16);
+        graphics.FillRect(x, y, w, h, 0xf00a);
+        hardware.SleepMS(16);
     }
 }
 
@@ -242,15 +242,18 @@ void AnimationUpdateHealth(bool attackersTurn)
  *  TODO: NOT IMPLEMENTED YET
  *  MANA - RISE AND FALL
  ************************************************************************************************************/
-void AnimationUpdateMana()
+void AnimationUpdateMana(GraphicsInterface graphics, HardwareInterface hardware)
 {
     FrameBuffer f = {50, 100, 64, 80, 0xd6fa};
     Rect_16 r = {5, 20, 10, 10};
 
+    Color c;
+    c.color = 0x001f;
+
     while (true)
     {
-        TestAnimation(f, r, 0x001f);
-        SleepMS(16);
+        graphics.TestAnimation(f, r, c);
+        hardware.SleepMS(16);
 
         r.h += 1;
         if (r.h > 60)
@@ -263,14 +266,17 @@ void AnimationUpdateMana()
  *  TODO: NOT IMPLEMENTED YET *
  *  XP - RISE AND FALL
  ************************************************************************************************************/
-void AnimationUpdateXP()
+void AnimationUpdateXP(GraphicsInterface graphics, HardwareInterface hardware)
 {
     FrameBuffer f = {50, 100, 64, 80, 0xd6fa};
     Rect_16 r = {5, 20, 10, 10};
+    Color c;
+    c.color = 0x001f;
+
     while (true)
     {
-        TestAnimation(f, r, 0x001f);
-        SleepMS(16);
+        graphics.TestAnimation(f, r, c);
+        hardware.SleepMS(16);
 
         r.h += 1;
         if (r.h > 60)
@@ -282,15 +288,17 @@ void AnimationUpdateXP()
  *  TODO: NOT IMPLEMENTED YET
  *  FADE - APPLY A MERGE SHADER THAT REACHES 100% INPUT COLOUR AT END
  ************************************************************************************************************/
-void AnimationScreenFade()
+void AnimationScreenFade(GraphicsInterface graphics, HardwareInterface hardware)
 {
     FrameBuffer f = {50, 100, 64, 80, 0xd6fa};
     Rect_16 r = {5, 20, 10, 10};
+    Color c;
+    c.color = 0x001f;
 
     while (true)
     {
-        TestAnimation(f, r, 0x001f);
-        SleepMS(16);
+        graphics.TestAnimation(f, r, c);
+        hardware.SleepMS(16);
 
         r.h += 1;
         if (r.h > 60)
@@ -302,15 +310,17 @@ void AnimationScreenFade()
  *  TODO: NOT IMPLEMENTED YET
  *  CLEAR SCREEN WITH A RANDOM ANIMATION
  ************************************************************************************************************/
-void AnimationScreenClearRandom()
+void AnimationScreenClearRandom(GraphicsInterface graphics, HardwareInterface hardware)
 {
     FrameBuffer f = {50, 100, 64, 80, 0xd6fa};
     Rect_16 r = {5, 20, 10, 10};
+    Color c;
+    c.color = 0x001f;
 
     while (true)
     {
-        TestAnimation(f, r, 0x001f);
-        SleepMS(16);
+        graphics.TestAnimation(f, r, c);
+        hardware.SleepMS(16);
 
         r.h += 1;
         if (r.h > 60)
@@ -323,15 +333,17 @@ void AnimationScreenClearRandom()
  *  TODO: NOT IMPLEMENTED YET
  *  TITLE SCREEN WITH A CUSTOM ANIMATION
  ************************************************************************************************************/
-void AnimationTitle()
+void AnimationTitle(GraphicsInterface graphics, HardwareInterface hardware)
 {
     FrameBuffer f = {50, 100, 64, 80, 0xd6fa};
     Rect_16 r = {5, 20, 10, 10};
+    Color c;
+    c.color = 0x001f;
 
     while (true)
     {
-        TestAnimation(f, r, 0x001f);
-        SleepMS(16);
+        graphics.TestAnimation(f, r, c);
+        hardware.SleepMS(16);
 
         r.h += 1;
         if (r.h > 60)
@@ -343,39 +355,33 @@ void AnimationTitle()
 /************************************************************************************************************
  *  BATTLE START animation
  ************************************************************************************************************/
-void AnimationBattlerStart(bool onAttacker)
+void AnimationBattlerStart(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     Rect_16 r = GetBattlerRect(onAttacker);
-    RefreshBattler(onAttacker, r);
+    RefreshBattler(graphics, onAttacker, r);
 
-    MoveCenterToDown(r, r.h, 8);
+    MoveCenterToDown(graphics, hardware, r, r.h, 8);
 }
 
 
 /************************************************************************************************************
  *  DEATH animation
  ************************************************************************************************************/
-void AnimationBattlerDie(bool onAttacker)
+void AnimationBattlerDie(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     Rect_16 r = GetBattlerRect(onAttacker);
-    RefreshBattler(onAttacker, r);
+    RefreshBattler(graphics, onAttacker, r);
 
-    MoveCenterToDown(r, r.h, 8);
+    MoveCenterToDown(graphics, hardware, r, r.h, 8);
 }
 
 
 /************************************************************************************************************
  *  Handles all battler animations for spells, items and skills
  ************************************************************************************************************/
-void BattlerAnimationAttack(bool player)
+void BattlerAnimationAttack(GraphicsInterface graphics, bool player)
 {
     const ObjectsTypes move_type = g_run.battleMode.moveType;
-
-    ASSERT(move_type == ITEM || move_type == SPELL || move_type == SKILL, "move_type is an invalid type: %d", move_type);
-    ASSERT(DrawBattler, "move_type is an invalid type: %d", move_type);
-    ASSERT(DrawBuffer, "move_type is an invalid type: %d", move_type);
-    ASSERT(DrawToBuffer, "move_type is an invalid type: %d", move_type);
-    ASSERT(DrawTile, "move_type is an invalid type: %d", move_type);
 
     const ObjectType move_id = g_run.battleMode.moveID;
 
@@ -388,15 +394,9 @@ void BattlerAnimationAttack(bool player)
 }
 
 
-void BattlerAnimationStruck(bool player)
+void BattlerAnimationStruck(GraphicsInterface graphics, bool player)
 {
     const ObjectsTypes move_type = g_run.battleMode.moveType;
-
-    ASSERT(move_type == ITEM || move_type == SPELL || move_type == SKILL, "move_type is an invalid type: %d", move_type);
-    ASSERT(DrawBattler, "move_type is an invalid type: %d", move_type);
-    ASSERT(DrawBuffer, "move_type is an invalid type: %d", move_type);
-    ASSERT(DrawToBuffer, "move_type is an invalid type: %d", move_type);
-    ASSERT(DrawTile, "move_type is an invalid type: %d", move_type);
 
     const ObjectType move_id = g_run.battleMode.moveID;
 

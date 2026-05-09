@@ -25,1139 +25,1139 @@
  *  Sprite straight floats up off the top of the battler area
  *  Floats back down quickly to its default position
  ************************************************************************************************************/
-bool Pico_AnimationBattlerFly(bool onAttacker)
+bool Pico_AnimationBattlerFly(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     Rect_16 r = GetBattlerRect(onAttacker);
-    RefreshBattler(onAttacker, r);
+    RefreshBattler(graphics, onAttacker, r);
 
-    MoveCenterToTop(r, r.h, 8);
+    MoveCenterToTop(graphics, hardware, r, r.h, 8);
     return false;
 }
 
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool SkillAttackAbyssalGrasp(bool onAttacker)
+bool SkillAttackAbyssalGrasp(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackAcidSpray(bool onAttacker)
+bool SkillAttackAcidSpray(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackAmbushStrike(bool onAttacker)
+bool SkillAttackAmbushStrike(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackAncientGuard(bool onAttacker)
+bool SkillAttackAncientGuard(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackAncientWisdom(bool onAttacker)
+bool SkillAttackAncientWisdom(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackAncientWrath(bool onAttacker)
+bool SkillAttackAncientWrath(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackAnomaly(bool onAttacker)
+bool SkillAttackAnomaly(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackAntidote(bool onAttacker)
+bool SkillAttackAntidote(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackApotheosis(bool onAttacker)
+bool SkillAttackApotheosis(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackAquaJet(bool onAttacker)
+bool SkillAttackAquaJet(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackArcaneEruption(bool onAttacker)
+bool SkillAttackArcaneEruption(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackArcticWinds(bool onAttacker)
+bool SkillAttackArcticWinds(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackAshCloud(bool onAttacker)
+bool SkillAttackAshCloud(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackAstralChains(bool onAttacker)
+bool SkillAttackAstralChains(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackAuraOfReverence(bool onAttacker)
+bool SkillAttackAuraOfReverence(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackBash(bool onAttacker)
+bool SkillAttackBash(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackBedrockShield(bool onAttacker)
+bool SkillAttackBedrockShield(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackBlazingCharge(bool onAttacker)
+bool SkillAttackBlazingCharge(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackBlessing(bool onAttacker)
+bool SkillAttackBlessing(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackBlizzard(bool onAttacker)
+bool SkillAttackBlizzard(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackBloodScent(bool onAttacker)
+bool SkillAttackBloodScent(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackBloom(bool onAttacker)
+bool SkillAttackBloom(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackBodySlam(bool onAttacker)
+bool SkillAttackBodySlam(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackBoneSpike(bool onAttacker)
+bool SkillAttackBoneSpike(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackBoulderCrush(bool onAttacker)
+bool SkillAttackBoulderCrush(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackBoulderToss(bool onAttacker)
+bool SkillAttackBoulderToss(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackBrambleTrap(bool onAttacker)
+bool SkillAttackBrambleTrap(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackBrineSpray(bool onAttacker)
+bool SkillAttackBrineSpray(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackCallOfTheVoid(bool onAttacker)
+bool SkillAttackCallOfTheVoid(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackCanopyShade(bool onAttacker)
+bool SkillAttackCanopyShade(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackCatastrophe(bool onAttacker)
+bool SkillAttackCatastrophe(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackCavitation(bool onAttacker)
+bool SkillAttackCavitation(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackCelestialCall(bool onAttacker)
+bool SkillAttackCelestialCall(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackChannelDivinity(bool onAttacker)
+bool SkillAttackChannelDivinity(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackChaosWhisper(bool onAttacker)
+bool SkillAttackChaosWhisper(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackCharge(bool onAttacker)
+bool SkillAttackCharge(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackCinderStorm(bool onAttacker)
+bool SkillAttackCinderStorm(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackColdSnap(bool onAttacker)
+bool SkillAttackColdSnap(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackColossalCharge(bool onAttacker)
+bool SkillAttackColossalCharge(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackCombustion(bool onAttacker)
+bool SkillAttackCombustion(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackConsume(bool onAttacker)
+bool SkillAttackConsume(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackContagion(bool onAttacker)
+bool SkillAttackContagion(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackCorrupt(bool onAttacker)
+bool SkillAttackCorrupt(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackCorruptingTouch(bool onAttacker)
+bool SkillAttackCorruptingTouch(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackCosmicRay(bool onAttacker)
+bool SkillAttackCosmicRay(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackCripplingBlow(bool onAttacker)
+bool SkillAttackCripplingBlow(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackCrush(bool onAttacker)
+bool SkillAttackCrush(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackCryoBlast(bool onAttacker)
+bool SkillAttackCryoBlast(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
 
     Rect_16 r = GetBattlerRect(onAttacker);
-    RefreshBattler(onAttacker, r);
+    RefreshBattler(graphics, onAttacker, r);
 
     if (onAttacker)
     {
-        AnimationBeam(r, BATTLER_OFFSET, 32, PAL_BRIGHT_CYAN);
-        ReDrawBattler(onAttacker, r);
+        AnimationBeam(graphics, hardware, r, BATTLER_OFFSET, 32, PAL_BRIGHT_CYAN);
+        ReDrawBattler(graphics, onAttacker, r);
     }
     else
     {
     }
 
-    ReDrawBattler(onAttacker, r);
+    ReDrawBattler(graphics, onAttacker, r);
     return true;
 }
 
-bool SkillAttackCursedEmbrace(bool onAttacker)
+bool SkillAttackCursedEmbrace(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackCursedGround(bool onAttacker)
+bool SkillAttackCursedGround(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackDarkRitual(bool onAttacker)
+bool SkillAttackDarkRitual(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackDeathsDoor(bool onAttacker)
+bool SkillAttackDeathsDoor(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackDeepCurrent(bool onAttacker)
+bool SkillAttackDeepCurrent(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackDemonicPact(bool onAttacker)
+bool SkillAttackDemonicPact(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackDiabolicCry(bool onAttacker)
+bool SkillAttackDiabolicCry(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackDisarm(bool onAttacker)
+bool SkillAttackDisarm(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackDissonance(bool onAttacker)
+bool SkillAttackDissonance(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackDivineIntervention(bool onAttacker)
+bool SkillAttackDivineIntervention(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackDivineSmite(bool onAttacker)
+bool SkillAttackDivineSmite(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackDraconicFury(bool onAttacker)
+bool SkillAttackDraconicFury(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackDragonBreath(bool onAttacker)
+bool SkillAttackDragonBreath(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackDreamDust(bool onAttacker)
+bool SkillAttackDreamDust(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackDrowningGrasp(bool onAttacker)
+bool SkillAttackDrowningGrasp(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackEarthenPrison(bool onAttacker)
+bool SkillAttackEarthenPrison(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackEarthquake(bool onAttacker)
+bool SkillAttackEarthquake(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackEarthquakeStomp(bool onAttacker)
+bool SkillAttackEarthquakeStomp(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackEldritchBlast(bool onAttacker)
+bool SkillAttackEldritchBlast(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
 
     Rect_16 r = GetBattlerRect(onAttacker);
-    RefreshBattler(onAttacker, r);
+    RefreshBattler(graphics, onAttacker, r);
 
     if (onAttacker)
     {
-        AnimationBeam(r, BATTLER_OFFSET, 32, PAL_DARK_BLU_PURP);
-        ReDrawBattler(onAttacker, r);
+        AnimationBeam(graphics, hardware, r, BATTLER_OFFSET, 32, PAL_DARK_BLU_PURP);
+        ReDrawBattler(graphics, onAttacker, r);
     }
     else
     {
     }
 
-    ReDrawBattler(onAttacker, r);
+    ReDrawBattler(graphics, onAttacker, r);
     return true;
 }
 
-bool SkillAttackEmber(bool onAttacker)
+bool SkillAttackEmber(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackEmberRoar(bool onAttacker)
+bool SkillAttackEmberRoar(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackEnchantingMelody(bool onAttacker)
+bool SkillAttackEnchantingMelody(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackEpitaph(bool onAttacker)
+bool SkillAttackEpitaph(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackEternalGrasp(bool onAttacker)
+bool SkillAttackEternalGrasp(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackExorcism(bool onAttacker)
+bool SkillAttackExorcism(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackFaerieFire(bool onAttacker)
+bool SkillAttackFaerieFire(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackFaeWhisper(bool onAttacker)
+bool SkillAttackFaeWhisper(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackFearRoar(bool onAttacker)
+bool SkillAttackFearRoar(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackFelblaze(bool onAttacker)
+bool SkillAttackFelblaze(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackFeralRage(bool onAttacker)
+bool SkillAttackFeralRage(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackFireball(bool onAttacker)
+bool SkillAttackFireball(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackFlameBlast(bool onAttacker)
+bool SkillAttackFlameBlast(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
 
     Rect_16 r = GetBattlerRect(onAttacker);
-    RefreshBattler(onAttacker, r);
+    RefreshBattler(graphics, onAttacker, r);
 
     if (onAttacker)
     {
-        AnimationBeam(r, BATTLER_OFFSET, 32, PAL_BRIGHT_RED);
-        ReDrawBattler(onAttacker, r);
+        AnimationBeam(graphics, hardware, r, BATTLER_OFFSET, 32, PAL_BRIGHT_RED);
+        ReDrawBattler(graphics, onAttacker, r);
     }
     else
     {
     }
 
-    ReDrawBattler(onAttacker, r);
+    ReDrawBattler(graphics, onAttacker, r);
     return true;
 }
 
-bool SkillAttackFlamePunch(bool onAttacker)
+bool SkillAttackFlamePunch(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackFlare(bool onAttacker)
+bool SkillAttackFlare(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackFlyby(bool onAttacker)
+bool SkillAttackFlyby(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackForestWard(bool onAttacker)
+bool SkillAttackForestWard(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackFossilize(bool onAttacker)
+bool SkillAttackFossilize(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackFreeze(bool onAttacker)
+bool SkillAttackFreeze(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackFrostBite(bool onAttacker)
+bool SkillAttackFrostBite(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackFrostNova(bool onAttacker)
+bool SkillAttackFrostNova(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackFrozenOrb(bool onAttacker)
+bool SkillAttackFrozenOrb(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackGeoBarrier(bool onAttacker)
+bool SkillAttackGeoBarrier(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackGlacialSpike(bool onAttacker)
+bool SkillAttackGlacialSpike(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackGladeTeleport(bool onAttacker)
+bool SkillAttackGladeTeleport(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackGlamour(bool onAttacker)
+bool SkillAttackGlamour(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackGoldenInstinct(bool onAttacker)
+bool SkillAttackGoldenInstinct(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackGraveTouch(bool onAttacker)
+bool SkillAttackGraveTouch(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackGravityRoot(bool onAttacker)
+bool SkillAttackGravityRoot(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackGroundPound(bool onAttacker)
+bool SkillAttackGroundPound(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackGuardBreak(bool onAttacker)
+bool SkillAttackGuardBreak(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackHailstorm(bool onAttacker)
+bool SkillAttackHailstorm(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackHaloOfGrace(bool onAttacker)
+bool SkillAttackHaloOfGrace(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackHaunt(bool onAttacker)
+bool SkillAttackHaunt(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackHellfire(bool onAttacker)
+bool SkillAttackHellfire(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackHellscape(bool onAttacker)
+bool SkillAttackHellscape(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackHolyLight(bool onAttacker)
+bool SkillAttackHolyLight(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackHowlOfThePack(bool onAttacker)
+bool SkillAttackHowlOfThePack(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackHuntingInstinct(bool onAttacker)
+bool SkillAttackHuntingInstinct(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackHydroBlast(bool onAttacker)
+bool SkillAttackHydroBlast(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
 
     Rect_16 r = GetBattlerRect(onAttacker);
-    RefreshBattler(onAttacker, r);
+    RefreshBattler(graphics, onAttacker, r);
 
     if (onAttacker)
     {
-        AnimationBeam(r, BATTLER_OFFSET, 32, PAL_DEEP_BLUE);
-        ReDrawBattler(onAttacker, r);
+        AnimationBeam(graphics, hardware, r, BATTLER_OFFSET, 32, PAL_DEEP_BLUE);
+        ReDrawBattler(graphics, onAttacker, r);
     }
     else
     {
     }
 
-    ReDrawBattler(onAttacker, r);
+    ReDrawBattler(graphics, onAttacker, r);
     return true;
 }
 
-bool SkillAttackHypervision(bool onAttacker)
+bool SkillAttackHypervision(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackIceArmor(bool onAttacker)
+bool SkillAttackIceArmor(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackIceLance(bool onAttacker)
+bool SkillAttackIceLance(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackIceShard(bool onAttacker)
+bool SkillAttackIceShard(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackIncinerate(bool onAttacker)
+bool SkillAttackIncinerate(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackInfectiousTouch(bool onAttacker)
+bool SkillAttackInfectiousTouch(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackInfernalRush(bool onAttacker)
+bool SkillAttackInfernalRush(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackInferno(bool onAttacker)
+bool SkillAttackInferno(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackIronGrip(bool onAttacker)
+bool SkillAttackIronGrip(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackIronWill(bool onAttacker)
+bool SkillAttackIronWill(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackJudgement(bool onAttacker)
+bool SkillAttackJudgement(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackKiss(bool onAttacker)
+bool SkillAttackKiss(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackLandslide(bool onAttacker)
+bool SkillAttackLandslide(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackLandShift(bool onAttacker)
+bool SkillAttackLandShift(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackLavaBurst(bool onAttacker)
+bool SkillAttackLavaBurst(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackLeafStorm(bool onAttacker)
+bool SkillAttackLeafStorm(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackLifeDrain(bool onAttacker)
+bool SkillAttackLifeDrain(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackLuminaBlessing(bool onAttacker)
+bool SkillAttackLuminaBlessing(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackLunge(bool onAttacker)
+bool SkillAttackLunge(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackLustfulGlare(bool onAttacker)
+bool SkillAttackLustfulGlare(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackMaddeningGaze(bool onAttacker)
+bool SkillAttackMaddeningGaze(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackMaelstrom(bool onAttacker)
+bool SkillAttackMaelstrom(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackMagmaBurst(bool onAttacker)
+bool SkillAttackMagmaBurst(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackMagmaFlow(bool onAttacker)
+bool SkillAttackMagmaFlow(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackMightyThrow(bool onAttacker)
+bool SkillAttackMightyThrow(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackMindSpike(bool onAttacker)
+bool SkillAttackMindSpike(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackMiracle(bool onAttacker)
+bool SkillAttackMiracle(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackMirrorGlamour(bool onAttacker)
+bool SkillAttackMirrorGlamour(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackMoonbeam(bool onAttacker)
+bool SkillAttackMoonbeam(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackMountainBreaker(bool onAttacker)
+bool SkillAttackMountainBreaker(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackMudClaw(bool onAttacker)
+bool SkillAttackMudClaw(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackMudSlide(bool onAttacker)
+bool SkillAttackMudSlide(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackMysticTangle(bool onAttacker)
+bool SkillAttackMysticTangle(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackNecroticBurst(bool onAttacker)
+bool SkillAttackNecroticBurst(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackNerveStrike(bool onAttacker)
+bool SkillAttackNerveStrike(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackNeurotoxin(bool onAttacker)
+bool SkillAttackNeurotoxin(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackOvergrowth(bool onAttacker)
+bool SkillAttackOvergrowth(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackPackCall(bool onAttacker)
+bool SkillAttackPackCall(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackParalyze(bool onAttacker)
+bool SkillAttackParalyze(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackParry(bool onAttacker)
+bool SkillAttackParry(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackPermafrost(bool onAttacker)
+bool SkillAttackPermafrost(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackPetalBlitz(bool onAttacker)
+bool SkillAttackPetalBlitz(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackPetalDance(bool onAttacker)
+bool SkillAttackPetalDance(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackPetrifyingGaze(bool onAttacker)
+bool SkillAttackPetrifyingGaze(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackPetrifyingTouch(bool onAttacker)
+bool SkillAttackPetrifyingTouch(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackPhantomGrasp(bool onAttacker)
+bool SkillAttackPhantomGrasp(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackPixieDust(bool onAttacker)
+bool SkillAttackPixieDust(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackPlague(bool onAttacker)
+bool SkillAttackPlague(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackToxicFang(bool onAttacker)
+bool SkillAttackToxicFang(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackToxicIvy(bool onAttacker)
+bool SkillAttackToxicIvy(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackToxicMist(bool onAttacker)
+bool SkillAttackToxicMist(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackPolarVortex(bool onAttacker)
+bool SkillAttackPolarVortex(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackPollenCloud(bool onAttacker)
+bool SkillAttackPollenCloud(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackPounce(bool onAttacker)
+bool SkillAttackPounce(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
 
     Rect_16 r = GetBattlerRect(onAttacker);
-    RefreshBattler(onAttacker, r);
+    RefreshBattler(graphics, onAttacker, r);
 
     if (onAttacker)
     {
-        MoveCenterToLeft(r, BATTLER_OFFSET, 32);
-        MoveLeftToCenter(r, BATTLER_OFFSET, 16);
+        MoveCenterToLeft(graphics, hardware, r, BATTLER_OFFSET, 32);
+        MoveLeftToCenter(graphics, hardware, r, BATTLER_OFFSET, 16);
     }
     else
     {
-        MoveCenterToRight(r, BATTLER_OFFSET, 32);
-        MoveRightToCenter(r, BATTLER_OFFSET, 16);
+        MoveCenterToRight(graphics, hardware, r, BATTLER_OFFSET, 32);
+        MoveRightToCenter(graphics, hardware, r, BATTLER_OFFSET, 16);
     }
     return true;
 }
 
-bool SkillAttackPrayer(bool onAttacker)
+bool SkillAttackPrayer(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackPreciseStrike(bool onAttacker)
+bool SkillAttackPreciseStrike(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackPredatorFocus(bool onAttacker)
+bool SkillAttackPredatorFocus(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackPressureCrush(bool onAttacker)
+bool SkillAttackPressureCrush(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackPrimalScream(bool onAttacker)
+bool SkillAttackPrimalScream(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackPrimordialForce(bool onAttacker)
+bool SkillAttackPrimordialForce(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackPsychicShock(bool onAttacker)
+bool SkillAttackPsychicShock(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackPurify(bool onAttacker)
+bool SkillAttackPurify(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackPurifyCure(bool onAttacker)
+bool SkillAttackPurifyCure(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackPyre(bool onAttacker)
+bool SkillAttackPyre(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackQuicksand(bool onAttacker)
+bool SkillAttackQuicksand(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackRaiseMinion(bool onAttacker)
+bool SkillAttackRaiseMinion(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackRally(bool onAttacker)
+bool SkillAttackRally(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackRealitySlip(bool onAttacker)
+bool SkillAttackRealitySlip(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackRighteousFury(bool onAttacker)
+bool SkillAttackRighteousFury(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackRiptide(bool onAttacker)
+bool SkillAttackRiptide(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackRipAndTear(bool onAttacker)
+bool SkillAttackRipAndTear(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackRockThrow(bool onAttacker)
+bool SkillAttackRockThrow(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackRootAnchor(bool onAttacker)
+bool SkillAttackRootAnchor(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackRunicAegis(bool onAttacker)
+bool SkillAttackRunicAegis(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackSacredShield(bool onAttacker)
+bool SkillAttackSacredShield(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackSacrifice(bool onAttacker)
+bool SkillAttackSacrifice(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackSanityBreak(bool onAttacker)
+bool SkillAttackSanityBreak(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackSavageMaul(bool onAttacker)
+bool SkillAttackSavageMaul(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackScalesHarden(bool onAttacker)
+bool SkillAttackScalesHarden(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackScaleStorm(bool onAttacker)
+bool SkillAttackScaleStorm(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackScorch(bool onAttacker)
+bool SkillAttackScorch(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackScratch(bool onAttacker)
+bool SkillAttackScratch(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackSecondWind(bool onAttacker)
+bool SkillAttackSecondWind(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackSeedVolley(bool onAttacker)
+bool SkillAttackSeedVolley(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackSeismicSlam(bool onAttacker)
+bool SkillAttackSeismicSlam(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackSeraphicWard(bool onAttacker)
+bool SkillAttackSeraphicWard(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackShellbreaker(bool onAttacker)
+bool SkillAttackShellbreaker(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackShieldBash(bool onAttacker)
+bool SkillAttackShieldBash(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackSkyDive(bool onAttacker)
+bool SkillAttackSkyDive(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackSlash(bool onAttacker)
+bool SkillAttackSlash(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackSleepOfAges(bool onAttacker)
+bool SkillAttackSleepOfAges(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackSnowBlind(bool onAttacker)
+bool SkillAttackSnowBlind(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackSoulSiphon(bool onAttacker)
+bool SkillAttackSoulSiphon(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackSporeExplosion(bool onAttacker)
+bool SkillAttackSporeExplosion(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackStalk(bool onAttacker)
+bool SkillAttackStalk(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackStarSprinkle(bool onAttacker)
+bool SkillAttackStarSprinkle(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackSting(bool onAttacker)
+bool SkillAttackSting(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackStomp(bool onAttacker)
+bool SkillAttackStomp(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackStoneSkin(bool onAttacker)
+bool SkillAttackStoneSkin(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackStoneSpike(bool onAttacker)
+bool SkillAttackStoneSpike(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackStoneTide(bool onAttacker)
+bool SkillAttackStoneTide(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackSultryLook(bool onAttacker)
+bool SkillAttackSultryLook(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackSunfury(bool onAttacker)
+bool SkillAttackSunfury(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackSurge(bool onAttacker)
+bool SkillAttackSurge(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
@@ -1166,239 +1166,239 @@ bool SkillAttackSurge(bool onAttacker)
  *  Sprite slowly backs off
  *  Then quickly moves forward to its default position
  ************************************************************************************************************/
-bool SkillAttackTackle(bool onAttacker)
+bool SkillAttackTackle(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
 
     Rect_16 r = GetBattlerRect(onAttacker);
-    RefreshBattler(onAttacker, r);
+    RefreshBattler(graphics, onAttacker, r);
 
     if (onAttacker)
     {
-        MoveCenterToLeft(r, BATTLER_OFFSET, 32);
-        MoveLeftToCenter(r, BATTLER_OFFSET, 16);
+        MoveCenterToLeft(graphics, hardware, r, BATTLER_OFFSET, 32);
+        MoveLeftToCenter(graphics, hardware, r, BATTLER_OFFSET, 16);
     }
     else
     {
-        MoveCenterToRight(r, BATTLER_OFFSET, 32);
-        MoveRightToCenter(r, BATTLER_OFFSET, 16);
+        MoveCenterToRight(graphics, hardware, r, BATTLER_OFFSET, 32);
+        MoveRightToCenter(graphics, hardware, r, BATTLER_OFFSET, 16);
     }
 
-    ReDrawBattler(onAttacker, r);
+    ReDrawBattler(graphics, onAttacker, r);
     return true;
 }
 
 
-bool SkillAttackTacticalRetreat(bool onAttacker)
+bool SkillAttackTacticalRetreat(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackTailSweep(bool onAttacker)
+bool SkillAttackTailSweep(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackTailWhip(bool onAttacker)
+bool SkillAttackTailWhip(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackTaunt(bool onAttacker)
+bool SkillAttackTaunt(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackTemporalShift(bool onAttacker)
+bool SkillAttackTemporalShift(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackTemptation(bool onAttacker)
+bool SkillAttackTemptation(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackTerraform(bool onAttacker)
+bool SkillAttackTerraform(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackTerrifyingRoar(bool onAttacker)
+bool SkillAttackTerrifyingRoar(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackThornBarrage(bool onAttacker)
+bool SkillAttackThornBarrage(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackThoughtLeech(bool onAttacker)
+bool SkillAttackThoughtLeech(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackThroatClamp(bool onAttacker)
+bool SkillAttackThroatClamp(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackTidalWave(bool onAttacker)
+bool SkillAttackTidalWave(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackTimeWarp(bool onAttacker)
+bool SkillAttackTimeWarp(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackTitanicRoar(bool onAttacker)
+bool SkillAttackTitanicRoar(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackTitanSwing(bool onAttacker)
+bool SkillAttackTitanSwing(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackTombShield(bool onAttacker)
+bool SkillAttackTombShield(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackTorrent(bool onAttacker)
+bool SkillAttackTorrent(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackToxicBarrage(bool onAttacker)
+bool SkillAttackToxicBarrage(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackToxicCloud(bool onAttacker)
+bool SkillAttackToxicCloud(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackTreasureHunt(bool onAttacker)
+bool SkillAttackTreasureHunt(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackTremorStep(bool onAttacker)
+bool SkillAttackTremorStep(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackTremorWave(bool onAttacker)
+bool SkillAttackTremorWave(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackTricksterTreat(bool onAttacker)
+bool SkillAttackTricksterTreat(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackTwilightShimmer(bool onAttacker)
+bool SkillAttackTwilightShimmer(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackVampiricWave(bool onAttacker)
+bool SkillAttackVampiricWave(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackVenomousTail(bool onAttacker)
+bool SkillAttackVenomousTail(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackVenomSpit(bool onAttacker)
+bool SkillAttackVenomSpit(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackVerdantGrowth(bool onAttacker)
+bool SkillAttackVerdantGrowth(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackViciousBite(bool onAttacker)
+bool SkillAttackViciousBite(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackVineWhip(bool onAttacker)
+bool SkillAttackVineWhip(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackVirulentBite(bool onAttacker)
+bool SkillAttackVirulentBite(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackVoidRift(bool onAttacker)
+bool SkillAttackVoidRift(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackVolcanicOutburst(bool onAttacker)
+bool SkillAttackVolcanicOutburst(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackWail(bool onAttacker)
+bool SkillAttackWail(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackWarpPulse(bool onAttacker)
+bool SkillAttackWarpPulse(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackWaterWhip(bool onAttacker)
+bool SkillAttackWaterWhip(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackWhirlpool(bool onAttacker)
+bool SkillAttackWhirlpool(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackWildfire(bool onAttacker)
+bool SkillAttackWildfire(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackWildMagic(bool onAttacker)
+bool SkillAttackWildMagic(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackWingBuffet(bool onAttacker)
+bool SkillAttackWingBuffet(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackWither(bool onAttacker)
+bool SkillAttackWither(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackWorldTear(bool onAttacker)
+bool SkillAttackWorldTear(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }
 
-bool SkillAttackWyrmCharge(bool onAttacker)
+bool SkillAttackWyrmCharge(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
 {
     return false;
 }

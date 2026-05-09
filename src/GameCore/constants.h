@@ -112,7 +112,7 @@ _Static_assert(OBJECT_COUNT <= 256, "max must be 256 - one byte");
 #define RESOURCE_HEIGHT TEXT_W
 
 #define DIALOGUE_H  64
-_Static_assert(DIALOGUE_H + RESOURCE_FRAME_H + BATTLER_AREA_H <= 240, "cannot exceed screen height of 240");
+_Static_assert(DIALOGUE_H + RESOURCE_FRAME_H + BATTLER_AREA_H <= TFT_H, "cannot exceed screen height of 240");
 
 #define PLAYER_BATTLER_FRAME    ((Rect_16){0, SCREEN_H-BATTLER_AREA_H-DIALOGUE_H, BATTLER_AREA_W, BATTLER_AREA_H})
 #define ENEMY_BATTLER_FRAME     ((Rect_16){SCREEN_W-BATTLER_AREA_W, 0, BATTLER_AREA_W, BATTLER_AREA_H})
@@ -123,9 +123,15 @@ _Static_assert(DIALOGUE_H + RESOURCE_FRAME_H + BATTLER_AREA_H <= 240, "cannot ex
 /**********************************************************************************************************************/
 /**MAP constants
 **********************************************************************************************************************/
-#define MAP_W 256
-#define MAP_H 240
+#define MAP_W 128
+#define MAP_H 120
+#define MAP_TILE_BITS 6
+#define MAP_SIZE_CELLS MAP_W * MAP_H
+#define MAP_SIZE_BITS (MAP_SIZE_CELLS * MAP_TILE_BITS)
+#define MAP_SIZE_BYTES (MAP_SIZE_BITS / 8)
 
+
+#define NUM_MAP_TRAINERS 4
 #define NUM_MAP_ITEMS 64
 #define NUM_MAP_OBJECTS 64
 #define NUM_BIOME_CREATURES 64
@@ -155,13 +161,6 @@ _Static_assert(DIALOGUE_H + RESOURCE_FRAME_H + BATTLER_AREA_H <= 240, "cannot ex
 #define MAX_MENU_SIZE (MAIN_MENU_H * 2)
 #define MAX_MENU_DEPTH 3
 #define BATTLE_MENU_SIZE 5
-
-/**********************************************************************************************************************/
-/** GRAPHICS constants
-**********************************************************************************************************************/
-// #define BUFFER_H (16)
-// #define BUFFER_W (392)
-// #define BUFFER_SIZE (BUFFER_W * BUFFER_H)
 
 /**********************************************************************************************************************/
 /**STAT MODIFIERS cosntants

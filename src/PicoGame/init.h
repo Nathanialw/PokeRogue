@@ -6,3 +6,5 @@
 
 
 void Pico_Init(void);
+HardwareInterface GetHardwareInterface();
+void HardwareReset(void);

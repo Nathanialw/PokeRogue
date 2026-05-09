@@ -2,7 +2,7 @@
 // Created by nathanial on 5/7/26.
 //
 
-#include "cartridge_ram.h"
+#include "cartridge_save.h"
 // #include "stdint.h"
 
 #include <string.h>
@@ -211,17 +211,15 @@ bool FRAM_FullTest(void)
     // Simple distributed test
     // --------------------------------------------------------------------
     DEBUG("--- Single Byte Test ---");
-    static const uint8_t test_values[] = {0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77};
+    static const uint8_t test_values[] = {0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, 0x70};
 
-    for (int i = 0; i < 7; i++)
+    for (int i = 0; i < 8; i++)
     {
         uint16_t addr = TEST_ADDR + i * 0x100;
-        FRAM_WriteByte(addr, test_values[i]);
+        // FRAM_WriteByte(addr, test_values[i]);
         uint8_t read = FRAM_ReadByte(addr);
 
-        DEBUG("0x%04X: Wrote 0x%02X, Read 0x%02X %s",
-              addr, test_values[i], read,
-              (read == test_values[i]) ? "OK" : "FAIL");
+        DEBUG("0x%04X: Wrote 0x%02X, Read 0x%02X %s", addr, test_values[i], read, (read == test_values[i]) ? "OK" : "FAIL");
     }
 
     // --------------------------------------------------------------------

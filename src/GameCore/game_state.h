@@ -2,6 +2,7 @@
 // Created by nathanial on 2/27/26.
 //
 #pragma once
+#include "lib_decl.h"
 #include "types.h"
 
 State UpdateGameState(State state);
@@ -11,5 +12,5 @@ State SetBattleState(BattleState state);
 bool CheckBattleState(BattleState state);
 
 
-void GameLoop();
+void GameLoop(GameInterface spi);
 

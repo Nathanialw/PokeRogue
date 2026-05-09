@@ -1,6 +1,7 @@
 #pragma once
 #include <stdint.h>
 
+#include "lib_decl.h"
 #include "lib_types.h"
 
 
@@ -22,3 +23,6 @@ void Pico_TestFrameBuffer();
 void Pico_TestAnimation(FrameBuffer f, Rect_16 r, uint16_t color1);
 void Pico_TestColors();
 void Pico_TestText();
+
+
+GraphicsInterface GetGraphicsInterface();

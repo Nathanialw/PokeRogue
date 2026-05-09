@@ -41,9 +41,9 @@ void SetGameLoopRate(uint16_t time)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-inline void GameLoopRateDelay()
+inline void GameLoopRateDelay(HardwareInterface hardware)
 {
-    SleepMS(g_run.btns.gameLoopRate);
+    hardware.SleepMS(g_run.btns.gameLoopRate);
 }
 
 
@@ -87,50 +87,50 @@ State SetGameState(GameState state)
 /**********************************************************************************************************************/
 /*  input handling based on game state
 **********************************************************************************************************************/
-void UpdateGameRunningState()
+void UpdateGameRunningState(GraphicsInterface graphics, InputInterface input)
 {
     if (g_run.state.gameState == GAME_RUNNING)
     {
         if (g_run.state.inputState == BATTLE)
         {
-            if (GetButtonA())
+            if (input.GetButtonA())
             {
-                bool b = BattleMenuCommand();
+                bool b = BattleMenuCommand(input);
                 if (!b) return; //No state change for menu input
                 SetBattleState(BATTLE_ATTACK);
             }
 
-            if (GetButtonB())
+            if (input.GetButtonB())
             {
                 ExitMenu();
             }
 
-            if (GetButtonX())
+            if (input.GetButtonX())
             {
             }
 
-            if (GetButtonY())
+            if (input.GetButtonY())
             {
             }
 
-            if (GetButtonJSClick())
+            if (input.GetButtonJSClick())
             {
             }
 
-            if (GetButtonDPClick())
+            if (input.GetButtonDPClick())
             {
             }
 
-            if (GetJSPressed())
+            if (input.GetJSPressed())
             {
-                if (!SetMenuDelta(GetInputKeyState().d))
-                    UpdateBattleMenu();
+                if (!SetMenuDelta(input, input.GetInputKeyState().d))
+                    UpdateBattleMenu(input);
             }
 
-            if (GetDPPressed())
+            if (input.GetDPPressed())
             {
-                if (!SetMenuDelta(GetInputKeyState().d))
-                    UpdateBattleMenu();
+                if (!SetMenuDelta(input, input.GetInputKeyState().d))
+                    UpdateBattleMenu(input);
             }
             return;
         }
@@ -138,55 +138,55 @@ void UpdateGameRunningState()
 
         if (g_run.state.inputState == MENU)
         {
-            if (GetButtonA())
+            if (input.GetButtonA())
             {
-                if (!OpenSubMenu())
+                if (!OpenSubMenu(input))
                 {
                     SetInputState(MOVING);
                 }
                 return;
             }
 
-            if (GetButtonB())
+            if (input.GetButtonB())
             {
                 if (!MenuBack())
                 {
                     SetInputState(MOVING);
                     SetGameLoopRateDefault();
-                    FullRedraw();
+                    FullRedraw(graphics);
                 }
 
                 return;
             }
 
-            if (GetButtonX())
+            if (input.GetButtonX())
             {
             }
 
-            if (GetButtonY())
+            if (input.GetButtonY())
             {
             }
 
-            if (GetButtonJSClick())
+            if (input.GetButtonJSClick())
             {
             }
 
-            if (GetButtonDPClick())
+            if (input.GetButtonDPClick())
             {
             }
 
-            if (GetJSPressed())
+            if (input.GetJSPressed())
             {
-                if (!SetMenuDelta(GetInputKeyState().d))
-                    OpenSubMenu();
+                if (!SetMenuDelta(input, input.GetInputKeyState().d))
+                    OpenSubMenu(input);
                 return;
             }
 
 
-            if (GetDPPressed())
+            if (input.GetDPPressed())
             {
-                if (!SetMenuDelta(GetInputKeyState().d))
-                    OpenSubMenu();
+                if (!SetMenuDelta(input, input.GetInputKeyState().d))
+                    OpenSubMenu(input);
                 return;
             }
         }
@@ -194,21 +194,21 @@ void UpdateGameRunningState()
 
         if (g_run.state.inputState == MOVING)
         {
-            if (GetButtonA())
+            if (input.GetButtonA())
             {
                 PlayerInteractItemInCell();
             }
 
-            if (GetButtonB())
+            if (input.GetButtonB())
             {
                 PlayerInteractObjectInCell();
             }
 
-            if (GetButtonX())
+            if (input.GetButtonX())
             {
             }
 
-            if (GetButtonY())
+            if (input.GetButtonY())
             {
                 InitMainMenu();
                 SetInputState(MENU);
@@ -216,23 +216,23 @@ void UpdateGameRunningState()
                 return;
             }
 
-            if (GetButtonJSClick())
+            if (input.GetButtonJSClick())
             {
             }
 
-            if (GetButtonDPClick())
+            if (input.GetButtonDPClick())
             {
             }
 
-            if (GetJSPressed())
+            if (input.GetJSPressed())
             {
-                SetPlayerDelta(GetInputKeyState().d);
+                SetPlayerDelta(input.GetInputKeyState().d);
                 return;
             }
 
-            if (GetDPPressed())
+            if (input.GetDPPressed())
             {
-                SetPlayerDelta(GetInputKeyState().d);
+                SetPlayerDelta(input.GetInputKeyState().d);
                 return;
             }
         }
@@ -240,49 +240,49 @@ void UpdateGameRunningState()
 }
 
 
-void UpdateGameTitleState()
+void UpdateGameTitleState(InputInterface input)
 {
     if (g_run.state.gameState == TITLE_SCREEN)
     {
-        if (GetButtonA())
+        if (input.GetButtonA())
         {
             SetGameState(GAME_RUNNING);
             return;
         }
 
-        if (GetButtonB())
+        if (input.GetButtonB())
         {
         }
 
-        if (GetButtonX())
+        if (input.GetButtonX())
         {
         }
 
-        if (GetButtonY())
+        if (input.GetButtonY())
         {
         }
 
-        if (GetButtonJSClick())
+        if (input.GetButtonJSClick())
         {
         }
 
-        if (GetButtonDPClick())
+        if (input.GetButtonDPClick())
         {
         }
 
-        if (GetJSPressed())
+        if (input.GetJSPressed())
         {
         }
 
-        if (GetDPPressed())
+        if (input.GetDPPressed())
         {
         }
 
-        if (GetJSPressed())
+        if (input.GetJSPressed())
         {
         }
 
-        if (GetDPPressed())
+        if (input.GetDPPressed())
         {
         }
     }
@@ -291,47 +291,47 @@ void UpdateGameTitleState()
 /**********************************************************************************************************************/
 /**  Game State forking
 **********************************************************************************************************************/
-void HandleGameState()
+void HandleGameState(GameInterface spi)
 {
     if (g_run.state.inputState == MOVING)
     {
         UpdateGame();
-        RenderObjects();
+        RenderObjects(spi.graphics, spi.hardware);
     }
     if (g_run.state.inputState == MENU)
     {
-        HandleMenu();
-        HandleGameMenu();
-        DrawCursor();
+        HandleMenu(spi.graphics);
+        HandleGameMenu(spi.graphics);
+        DrawCursor(spi.graphics);
     }
     if (g_run.state.inputState == BATTLE)
     {
         if (CheckBattleState(BATTLE_INIT))
         {
-            AnimationScreenClearRandom(); //ANIMATION - move both creatures into place
-            HandleBattle();
-            HandleBattleMenu();
+            AnimationScreenClearRandom(spi.graphics, spi.hardware); //ANIMATION - move both creatures into place
+            HandleBattle(spi.graphics);
+            HandleBattleMenu(spi.graphics);
             SetBattleState(BATTLE_MENUS);
         }
         else if (CheckBattleState(BATTLE_ATTACK))
         {
-            BattlerAnimationAttack(true); //attacking animation
-            BattlerAnimationStruck(false); //hit animation
-            AnimationUpdateHealth(true);
+            BattlerAnimationAttack(spi.graphics, true); //attacking animation
+            BattlerAnimationStruck(spi.graphics, false); //hit animation
+            AnimationUpdateHealth(spi.graphics, spi.hardware, true);
             if (!CheckPlayerAttackOutcome())
             {
-                AnimationBattlerDie(false);
+                AnimationBattlerDie(spi.graphics, spi.hardware, false);
                 DestroyEnemyCreature();
-                AnimationScreenFade(); //ANIMATION - enemy creature drops off screen
-                FullRedraw();
+                AnimationScreenFade(spi.graphics, spi.hardware); //ANIMATION - enemy creature drops off screen
+                FullRedraw(spi.graphics);
                 SetInputState(MOVING);
                 return;
             }
 
             UseSkill(false);
-            BattlerAnimationAttack(false); //attacking animation
-            BattlerAnimationStruck(true); //hit animation
-            AnimationUpdateHealth(false);
+            BattlerAnimationAttack(spi.graphics, false); //attacking animation
+            BattlerAnimationStruck(spi.graphics, true); //hit animation
+            AnimationUpdateHealth(spi.graphics, spi.hardware, false);
             if (CheckEnemyAttackOutcome())
             {
                 //ANIMATION - player's creature drops off screen
@@ -344,27 +344,27 @@ void HandleGameState()
         }
         else if (CheckBattleState(BATTLE_MENUS))
         {
-            HandleBattleMenu();
+            HandleBattleMenu(spi.graphics);
         }
-        DrawCursor();
+        DrawCursor(spi.graphics);
     }
 
-    PlaySoundEffect();
+    spi.audio.PlaySoundEffect();
 }
 
 /**********************************************************************************************************************/
 /**  main game state update loop
 **********************************************************************************************************************/
-bool GameLoopTitleScreen()
+bool GameLoopTitleScreen(GameInterface spi)
 {
-    FillScreen(g_gameFlash.GetColor[PAL_OFF_WHITE_GRAY]); // TODO: update to real title screen
+    spi.graphics.FillScreen(g_gameFlash.GetColor[PAL_OFF_WHITE_GRAY]); // TODO: update to real title screen
 
     while (g_run.state.gameState == TITLE_SCREEN)
     {
         // Pico_AnimationTitle();
-        HandleInput();
-        UpdateGameTitleState();
-        GameLoopRateDelay();
+        spi.input.HandleInput();
+        UpdateGameTitleState(spi.input);
+        GameLoopRateDelay(spi.hardware);
     }
 
     InitGame();
@@ -372,22 +372,22 @@ bool GameLoopTitleScreen()
 }
 
 
-bool GameLoopMain()
+bool GameLoopMain(GameInterface spi)
 {
-    FullRedraw();
+    FullRedraw(spi.graphics);
     while (g_run.state.gameState == GAME_RUNNING)
     {
-        HandleInput();
-        UpdateGameRunningState();
-        HandleGameState();
-        GameLoopRateDelay();
+        spi.input.HandleInput();
+        UpdateGameRunningState(spi.graphics, spi.input);
+        HandleGameState(spi);
+        GameLoopRateDelay(spi.hardware);
     }
 
     DEBUG("GameLoopMain break, %d", g_run.state.gameState);
     return true;
 }
 
-bool GameLoopNewMap()
+bool GameLoopNewMap(GameInterface spi)
 {
     NewMap();
     SetGameState(GAME_RUNNING);
@@ -395,26 +395,27 @@ bool GameLoopNewMap()
 }
 
 
-bool GameLoopShutdown()
+bool GameLoopShutdown(GameInterface spi)
 {
     return false;
 }
 
 
-typedef bool (*GameLoopFunc)();
+typedef bool (*GameLoopFunc)(GameInterface spi);
 GameLoopFunc GameLoopState[GAME_STATE_SIZE] = {GameLoopTitleScreen, GameLoopMain, GameLoopNewMap, GameLoopShutdown};
 
 /**********************************************************************************************************************/
 /**  main game state update loop
 **********************************************************************************************************************/
-void GameLoop()
+__attribute__((section(".RAM")))
+void GameLoop(GameInterface spi)
 {
     SetGameState(TITLE_SCREEN);
     SetInputState(MOVING);
 
     while (1)
     {
-        bool b = GameLoopState[g_run.state.gameState]();
+        bool b = GameLoopState[g_run.state.gameState](spi);
         if (!b) return;
     }
 }

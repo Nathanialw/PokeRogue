@@ -11,14 +11,15 @@
 
 #include "init.h"
 
-#include "cartridge_ram.h"
-#include "catridge_rom.h"
+#include "cartridge_save.h"
+#include "cartridge_rom.h"
 #include "hardware.h"
 #include "lib_debugging.h"
 #include "memory_psram.h"
 #include "sounds.h"
 #include "hardware/clocks.h"
 #include "hardware/i2c.h"
+#include "pico/bootrom.h"
 
 #define PICO
 
@@ -34,6 +35,30 @@ void SleepMS(uint32_t t)
 {
     sleep_ms(t);
 }
+
+/**********************************************************************************************************************/
+/**  Triggers reset pin on the Pico
+**********************************************************************************************************************/
+bool Pico_Reset(void)
+{
+    reset_usb_boot(0, 0);
+    return true;
+}
+
+void HardwareReset(void) { Pico_Reset(); }
+
+
+HardwareInterface GetHardwareInterface()
+{
+    HardwareInterface hardware =
+    {
+        .HardwareReset = HardwareReset,
+        .SleepMS = SleepMS,
+    };
+
+    return hardware;
+}
+
 
 
 /**********************************************************************************************************************/

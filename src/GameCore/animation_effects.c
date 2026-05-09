@@ -59,19 +59,19 @@ SpriteLayout GetBattlerLayout(bool onAttacker)
     return g_gameFlash.spriteData.battlers.frontLayout[GetCreatureType(g_run.battleMode.enemyMonsterID)];
 }
 
-void RefreshBattler(bool onAttacker, Rect_16 r)
+void RefreshBattler(GraphicsInterface graphics, bool onAttacker, Rect_16 r)
 {
     SpriteLayout layout = GetBattlerLayout(onAttacker);
     const uint8_t* sprite = GetBattlerSprite(onAttacker);
-    DrawBattlerToBuffer(r.x, r.y, layout, sprite);
+    DrawBattlerToBuffer(graphics, r.x, r.y, layout, sprite);
 }
 
 
-void ReDrawBattler(bool onAttacker, Rect_16 r)
+void ReDrawBattler(GraphicsInterface graphics, bool onAttacker, Rect_16 r)
 {
     SpriteLayout layout = GetBattlerLayout(onAttacker);
     const uint8_t* sprite = GetBattlerSprite(onAttacker);
-    DrawBattler(r.x, r.y, layout, sprite);
+    DrawBattler(graphics, r.x, r.y, layout, sprite);
 }
 
 /************************************************************************************************************
@@ -99,7 +99,7 @@ void AnimationsBasicAssert()
  *  Redraws the framebuffer contents from the center to the left d pixels
  *  Updates every frameLength ms
  ************************************************************************************************************/
-void MoveCenterToLeft(Rect_16 r, uint16_t d, uint8_t frameLength)
+void MoveCenterToLeft(GraphicsInterface graphics,  HardwareInterface hardware, Rect_16 r, uint16_t d, uint8_t frameLength)
 {
     BasicAsserts(r);
     ASSERT(d <= r.x, "d is larger than r.x, underflow error");
@@ -111,8 +111,8 @@ void MoveCenterToLeft(Rect_16 r, uint16_t d, uint8_t frameLength)
     {
         f.x -= 1;
 
-        DrawBuffer(f);
-        SleepMS(frameLength);
+        graphics.DrawBuffer(f);
+        hardware.SleepMS(frameLength);
     }
 }
 
@@ -120,7 +120,7 @@ void MoveCenterToLeft(Rect_16 r, uint16_t d, uint8_t frameLength)
  *  Redraws the framebuffer contents right from the center - d pixels to the center
  *  Updates every frameLength ms
  ************************************************************************************************************/
-void MoveLeftToCenter(Rect_16 r, uint16_t d, uint8_t frameLength)
+void MoveLeftToCenter(GraphicsInterface graphics,  HardwareInterface hardware, Rect_16 r, uint16_t d, uint8_t frameLength)
 {
     BasicAsserts(r);
     ASSERT(d <= r.x, "d is larger than r.x, underflow error");
@@ -131,8 +131,8 @@ void MoveLeftToCenter(Rect_16 r, uint16_t d, uint8_t frameLength)
     while (f.x < end_pos)
     {
         f.x += 1;
-        DrawBuffer(f);
-        SleepMS(frameLength);
+        graphics.DrawBuffer(f);
+        hardware.SleepMS(frameLength);
     }
 }
 
@@ -140,7 +140,7 @@ void MoveLeftToCenter(Rect_16 r, uint16_t d, uint8_t frameLength)
  *  Redraws the framebuffer contents from the center to the right d pixels
  *  Updates every frameLength ms
  ************************************************************************************************************/
-void MoveCenterToRight(Rect_16 r, uint16_t d, uint8_t frameLength)
+void MoveCenterToRight(GraphicsInterface graphics,  HardwareInterface hardware, Rect_16 r, uint16_t d, uint8_t frameLength)
 {
     BasicAsserts(r);
 
@@ -150,8 +150,8 @@ void MoveCenterToRight(Rect_16 r, uint16_t d, uint8_t frameLength)
     while (f.x < end_pos)
     {
         f.x += 1;
-        DrawBuffer(f);
-        SleepMS(frameLength);
+        graphics.DrawBuffer(f);
+        hardware.SleepMS(frameLength);
     }
 }
 
@@ -159,7 +159,7 @@ void MoveCenterToRight(Rect_16 r, uint16_t d, uint8_t frameLength)
  *  Redraws the framebuffer contents left from the center + d pixels to the center
  *  Updates every frameLength ms
  ************************************************************************************************************/
-void MoveRightToCenter(Rect_16 r, uint16_t d, uint8_t frameLength)
+void MoveRightToCenter(GraphicsInterface graphics,  HardwareInterface hardware, Rect_16 r, uint16_t d, uint8_t frameLength)
 {
     BasicAsserts(r);
 
@@ -169,8 +169,8 @@ void MoveRightToCenter(Rect_16 r, uint16_t d, uint8_t frameLength)
     while (f.x > end_pos)
     {
         f.x -= 1;
-        DrawBuffer(f);
-        SleepMS(frameLength);
+        graphics.DrawBuffer(f);
+        hardware.SleepMS(frameLength);
     }
 }
 
@@ -178,7 +178,7 @@ void MoveRightToCenter(Rect_16 r, uint16_t d, uint8_t frameLength)
  *  Redraws the framebuffer contents down from the center to the center + d pixels
  *  Updates every frameLength ms
  ************************************************************************************************************/
-void MoveCenterToDown(Rect_16 r, uint16_t d, uint8_t frameLength)
+void MoveCenterToDown(GraphicsInterface graphics,  HardwareInterface hardware, Rect_16 r, uint16_t d, uint8_t frameLength)
 {
     BasicAsserts(r);
     ASSERT(d <= r.h, "d is larger than r.h, underflow error");
@@ -190,8 +190,8 @@ void MoveCenterToDown(Rect_16 r, uint16_t d, uint8_t frameLength)
     {
         f.y += 1;
         f.h -= 1; // ensures the sprite does not draw beyond the bounds of the battler area
-        DrawBuffer(f);
-        SleepMS(frameLength);
+        graphics.DrawBuffer(f);
+        hardware.SleepMS(frameLength);
     }
 }
 
@@ -199,11 +199,11 @@ void MoveCenterToDown(Rect_16 r, uint16_t d, uint8_t frameLength)
  *  Redraws the framebuffer contents up from the center to the center + d pixels
  *  Updates every frameLength ms
  ************************************************************************************************************/
-void MoveCenterToTop(Rect_16 r, uint16_t d, uint8_t frameLength)
+void MoveCenterToTop(GraphicsInterface graphics,  HardwareInterface hardware, Rect_16 r, uint16_t d, uint8_t frameLength)
 {
     BasicAsserts(r);
     ASSERT(d <= r.h, "d is larger than r.h, underflow error");
-    const uint8_t* sprite = GetFrameBuffer1byte();
+    const uint8_t* sprite = graphics.GetFrameBuffer1byte();
 
     FrameBuffer f = {r.x, r.y, r.w, r.h};
     uint16_t end_pos = r.h - d;
@@ -212,8 +212,8 @@ void MoveCenterToTop(Rect_16 r, uint16_t d, uint8_t frameLength)
     {
         sprite += (f.w * sizeof(Pixel)); // increments the pixel array by 1 row of pixels
         f.h -= 1; // shrinks the height draw frame by 1 row
-        DrawSprite(f, sprite);
-        SleepMS(frameLength);
+        graphics.DrawSprite(f, sprite);
+        hardware.SleepMS(frameLength);
     }
 }
 
@@ -228,11 +228,11 @@ void MoveCenterToTop(Rect_16 r, uint16_t d, uint8_t frameLength)
  *  while shifting the sprite upward pixels
  *  Advances source by partial row for distortion
  ************************************************************************************************************/
-void AnimationMirrorImageFloatingUp(Rect_16 r, uint16_t d, uint8_t frameLength)
+void AnimationMirrorImageFloatingUp(GraphicsInterface graphics,  HardwareInterface hardware, Rect_16 r, uint16_t d, uint8_t frameLength)
 {
     BasicAsserts(r);
     ASSERT(d <= r.h, "d is larger than r.h, underflow error");
-    const uint8_t* sprite = GetFrameBuffer1byte();
+    const uint8_t* sprite = graphics.GetFrameBuffer1byte();
 
     FrameBuffer f = {r.x + BATTLER_OFFSET, r.y, r.w, r.h};
     uint16_t end_pos = r.h - d;
@@ -241,8 +241,8 @@ void AnimationMirrorImageFloatingUp(Rect_16 r, uint16_t d, uint8_t frameLength)
     {
         sprite += f.w;
         f.h -= 1;
-        DrawSprite(f, sprite);
-        SleepMS(frameLength);
+        graphics.DrawSprite(f, sprite);
+        hardware.SleepMS(frameLength);
     }
 }
 
@@ -250,12 +250,12 @@ void AnimationMirrorImageFloatingUp(Rect_16 r, uint16_t d, uint8_t frameLength)
 /************************************************************************************************************
  *
  ************************************************************************************************************/
-void AnimationSpooky(Rect_16 r, uint16_t d, uint8_t frameLength)
+void AnimationSpooky(GraphicsInterface graphics,  HardwareInterface hardware, Rect_16 r, uint16_t d, uint8_t frameLength)
 {
     BasicAsserts(r);
     ASSERT(d <= r.h, "d is larger than r.h, underflow error");
 
-    const uint8_t* sprite = GetFrameBuffer1byte();
+    const uint8_t* sprite = graphics.GetFrameBuffer1byte();
 
     FrameBuffer f = {r.x, r.y, r.w, r.h};
     uint16_t end_pos = r.w * 2;
@@ -265,19 +265,19 @@ void AnimationSpooky(Rect_16 r, uint16_t d, uint8_t frameLength)
     {
         sprite++;
         j++;
-        DrawSprite(f, sprite);
-        SleepMS(frameLength);
+        graphics.DrawSprite(f, sprite);
+        hardware.SleepMS(frameLength);
     }
 }
 
 /************************************************************************************************************
  *
  ************************************************************************************************************/
-void AnimationSpookyMoveCenterToLeft(Rect_16 r, uint16_t d, uint8_t frameLength)
+void AnimationSpookyMoveCenterToLeft(GraphicsInterface graphics,  HardwareInterface hardware, Rect_16 r, uint16_t d, uint8_t frameLength)
 {
     BasicAsserts(r);
     ASSERT(d <= r.h, "d is larger than r.h, underflow error");
-    const uint8_t* sprite = GetFrameBuffer1byte();
+    const uint8_t* sprite = graphics.GetFrameBuffer1byte();
 
     FrameBuffer f = {r.x, r.y, r.w, r.h};
     uint16_t end_pos = r.w / 2;
@@ -287,8 +287,8 @@ void AnimationSpookyMoveCenterToLeft(Rect_16 r, uint16_t d, uint8_t frameLength)
     {
         sprite++;
         j++;
-        DrawSprite(f, sprite);
-        SleepMS(frameLength);
+        graphics.DrawSprite(f, sprite);
+        hardware.SleepMS(frameLength);
     }
 }
 
@@ -296,11 +296,11 @@ void AnimationSpookyMoveCenterToLeft(Rect_16 r, uint16_t d, uint8_t frameLength)
 /************************************************************************************************************
  *
  ************************************************************************************************************/
-void AnimationSpookyMoveLeftToCenter(Rect_16 r, uint16_t d, uint8_t frameLength)
+void AnimationSpookyMoveLeftToCenter(GraphicsInterface graphics,  HardwareInterface hardware, Rect_16 r, uint16_t d, uint8_t frameLength)
 {
     BasicAsserts(r);
     ASSERT(d <= r.h, "d is larger than r.h, underflow error");
-    const uint8_t* sprite = GetFrameBuffer1byte();
+    const uint8_t* sprite = graphics.GetFrameBuffer1byte();
 
     sprite += r.w / 2;
     FrameBuffer f = {r.x, r.y, r.w, r.h};
@@ -311,8 +311,8 @@ void AnimationSpookyMoveLeftToCenter(Rect_16 r, uint16_t d, uint8_t frameLength)
     {
         sprite--;
         j--;
-        DrawSprite(f, sprite);
-        SleepMS(frameLength);
+        graphics.DrawSprite(f, sprite);
+        hardware.SleepMS(frameLength);
     }
 }
 
@@ -320,11 +320,11 @@ void AnimationSpookyMoveLeftToCenter(Rect_16 r, uint16_t d, uint8_t frameLength)
 /************************************************************************************************************
  *
  ************************************************************************************************************/
-void AnimationMirrorImage2(Rect_16 r, uint16_t d, uint8_t frameLength)
+void AnimationMirrorImage2(GraphicsInterface graphics,  HardwareInterface hardware, Rect_16 r, uint16_t d, uint8_t frameLength)
 {
     BasicAsserts(r);
     ASSERT(d <= r.h, "d is larger than r.h, underflow error");
-    const uint8_t* sprite = GetFrameBuffer1byte();
+    const uint8_t* sprite = graphics.GetFrameBuffer1byte();
 
 
     FrameBuffer f = {r.x + BATTLER_OFFSET, r.y, r.w, r.h};
@@ -334,19 +334,19 @@ void AnimationMirrorImage2(Rect_16 r, uint16_t d, uint8_t frameLength)
     {
         sprite += f.w;
         f.h--;
-        DrawSprite(f, sprite);
-        SleepMS(frameLength);
+        graphics.DrawSprite(f, sprite);
+        hardware.SleepMS(frameLength);
     }
 }
 
 /************************************************************************************************************
  *  draws an ice shard graphic at a random screen position in the battler draw area
  ************************************************************************************************************/
-void AnimationIceShards(Rect_16 r, uint16_t d, uint8_t frameLength)
+void AnimationIceShards(GraphicsInterface graphics,  HardwareInterface hardware, Rect_16 r, uint16_t d, uint8_t frameLength)
 {
     BasicAsserts(r);
     ASSERT(d <= r.h, "d is larger than r.h, underflow error");
-    const uint8_t* sprite = GetFrameBuffer1byte();
+    const uint8_t* sprite = graphics.GetFrameBuffer1byte();
 
     FrameBuffer f = {r.x + BATTLER_OFFSET, r.y, r.w, r.h};
     uint16_t end_pos = r.h - d;
@@ -355,8 +355,8 @@ void AnimationIceShards(Rect_16 r, uint16_t d, uint8_t frameLength)
     {
         sprite += f.w;
         f.h--;
-        DrawSprite(f, sprite);
-        SleepMS(frameLength);
+        graphics.DrawSprite(f, sprite);
+        hardware.SleepMS(frameLength);
     }
 }
 
@@ -364,12 +364,12 @@ void AnimationIceShards(Rect_16 r, uint16_t d, uint8_t frameLength)
 /************************************************************************************************************
  *
  ************************************************************************************************************/
-void AnimationBeam(Rect_16 r, uint16_t d, uint8_t frameLength, uint8_t palletIndex)
+void AnimationBeam(GraphicsInterface graphics,  HardwareInterface hardware, Rect_16 r, uint16_t d, uint8_t frameLength, uint8_t palletIndex)
 {
     BasicAsserts(r);
     ASSERT(d <= r.h, "d is larger than r.h, underflow error");;
-    SetFrameBuffer(g_gameFlash.GetColor[palletIndex]);
-    const uint8_t* sprite = GetFrameBuffer1byte();
+    graphics.SetFrameBuffer(g_gameFlash.GetColor[palletIndex]);
+    const uint8_t* sprite = graphics.GetFrameBuffer1byte();
 
     uint16_t end_pos = r.x + r.w;
     FrameBuffer f = {r.x + r.w - 64, r.y + 64, 4, 4};
@@ -380,8 +380,8 @@ void AnimationBeam(Rect_16 r, uint16_t d, uint8_t frameLength, uint8_t palletInd
         j++;
         f.y -= j % 2;
         f.x++;
-        DrawSprite(f, sprite);
-        SleepMS(frameLength);
+        graphics.DrawSprite(f, sprite);
+        hardware.SleepMS(frameLength);
     }
 }
 
@@ -389,12 +389,12 @@ void AnimationBeam(Rect_16 r, uint16_t d, uint8_t frameLength, uint8_t palletInd
 /************************************************************************************************************
  *
  ************************************************************************************************************/
-void AnimationRandomParticles(Rect_16 r, uint16_t d, uint8_t frameLength, uint8_t palletIndex, uint8_t particleCount)
+void AnimationRandomParticles(GraphicsInterface graphics,  HardwareInterface hardware, Rect_16 r, uint16_t d, uint8_t frameLength, uint8_t palletIndex, uint8_t particleCount)
 {
     BasicAsserts(r);
     ASSERT(d <= r.h, "d is larger than r.h, underflow error");
-    SetFrameBuffer(g_gameFlash.GetColor[palletIndex]);
-    const uint8_t* sprite = GetFrameBuffer1byte();
+    graphics.SetFrameBuffer(g_gameFlash.GetColor[palletIndex]);
+    const uint8_t* sprite = graphics.GetFrameBuffer1byte();
 
     uint16_t end_pos = particleCount;
     uint16_t size = 4;
@@ -406,8 +406,8 @@ void AnimationRandomParticles(Rect_16 r, uint16_t d, uint8_t frameLength, uint8_
         j++;
         f.y = r.y + (rand() % (r.h - size));
         f.x = r.x + (rand() % (r.w - size));
-        DrawSprite(f, sprite);
-        SleepMS(frameLength);
+        graphics.DrawSprite(f, sprite);
+        hardware.SleepMS(frameLength);
     }
 }
 
@@ -415,7 +415,7 @@ void AnimationRandomParticles(Rect_16 r, uint16_t d, uint8_t frameLength, uint8_
 /************************************************************************************************************/
 /*  Draws a line of pixels of the given colour for each long in the battler sprite
 ************************************************************************************************************/
-void AnimationLineEffect(Rect_16 r, uint16_t d, uint8_t frameLength, uint8_t palletIndex)
+void AnimationLineEffect(GraphicsInterface graphics,  HardwareInterface hardware, Rect_16 r, uint16_t d, uint8_t frameLength, uint8_t palletIndex)
 {
     BasicAsserts(r);
     //Cache the line of pixels
@@ -425,10 +425,10 @@ void AnimationLineEffect(Rect_16 r, uint16_t d, uint8_t frameLength, uint8_t pal
     //move to the next line
     //cycle through the frame buffer
     uint16_t n = r.w;
-    const uint16_t* sprite = GetFrameBuffer2bytes();
+    const uint16_t* sprite = graphics.GetFrameBuffer2bytes();
 
     uint16_t buffer[n];
-    SetBuffer(n, buffer, g_gameFlash.GetColor[palletIndex]);
+    graphics.SetBuffer(n, buffer, g_gameFlash.GetColor[palletIndex]);
 
     FrameBuffer f = {r.x, r.y, n, 1};
     uint16_t start_pos = 0;
@@ -436,10 +436,10 @@ void AnimationLineEffect(Rect_16 r, uint16_t d, uint8_t frameLength, uint8_t pal
 
     while (start_pos < end_pos)
     {
-        DrawSprite(f, (uint8_t*)buffer);
-        SleepMS(frameLength);
+        graphics.DrawSprite(f, (uint8_t*)buffer);
+        hardware.SleepMS(frameLength);
         const uint16_t* b = sprite + (n * start_pos);
-        DrawSprite(f, (uint8_t*)b);
+        graphics.DrawSprite(f, (uint8_t*)b);
         start_pos++;
         f.y++;
     }

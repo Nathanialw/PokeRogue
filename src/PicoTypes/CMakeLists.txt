@@ -2,6 +2,8 @@ add_library(PicoTypes STATIC
         lib_types.h
         lib_enums.h
         lib_constants.h
+        lib_decl.h
+        lib_debugging.h
 )
 
 target_include_directories(PicoTypes PUBLIC

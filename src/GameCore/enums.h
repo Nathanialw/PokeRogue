@@ -280,6 +280,17 @@ typedef enum
 _Static_assert((NO_CREATURE <= 255), "FINAL INDEX MUST BE LESS THAN OR EQUAL TO 255");
 
 /**********************************************************************************************************************/
+/** list of all trainer types in the game
+**********************************************************************************************************************/
+typedef enum
+{
+#include "inc/data_enum_trainers.inc"
+    temo
+} Trainer;
+
+_Static_assert((NO_TRAINER <= 255), "FINAL INDEX MUST BE LESS THAN OR EQUAL TO 255");
+
+/**********************************************************************************************************************/
 /** list of all spell types in the game
  *  TODO: fill out list to 255
 **********************************************************************************************************************/

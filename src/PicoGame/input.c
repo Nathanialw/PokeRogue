@@ -4,6 +4,8 @@
 #include "input.h"
 
 #include <stdlib.h>
+
+#include "init.h"
 #include "stdbool.h"
 
 #include "pico/bootrom.h"
@@ -17,6 +19,67 @@
 #include "memory_ram.h"
 
 #define DEADZONE 600
+
+
+bool GetButtonUp(void) { return !(g_pico_ram.input.keyState.buttons >> 0 & 1); }
+bool GetButtonDown(void) { return !(g_pico_ram.input.keyState.buttons >> 1 & 1); }
+bool GetButtonLeft(void) { return !(g_pico_ram.input.keyState.buttons >> 2 & 1); }
+bool GetButtonRight(void) { return !(g_pico_ram.input.keyState.buttons >> 3 & 1); }
+bool GetButtonA(void) { return !(g_pico_ram.input.keyState.buttons >> 4 & 1); }
+bool GetButtonB(void) { return !(g_pico_ram.input.keyState.buttons >> 5 & 1); }
+bool GetButtonY(void) { return !(g_pico_ram.input.keyState.buttons >> 6 & 1); }
+bool GetButtonX(void) { return !(g_pico_ram.input.keyState.buttons >> 7 & 1); }
+
+bool GetButtonStart(void) { return !(g_pico_ram.input.keyState.buttons >> 8 & 1); }
+bool GetButtonSelect(void) { return !(g_pico_ram.input.keyState.buttons >> 9 & 1); }
+bool GetButtonJSClick(void) { return !(g_pico_ram.input.keyState.buttons >> 10 & 1); }
+bool GetButtonDPClick(void) { return !(g_pico_ram.input.keyState.buttons >> 11 & 1); }
+
+bool GetButtonUnused1(void) { return !(g_pico_ram.input.keyState.buttons >> 12 & 1); } //L1
+bool GetButtonUnused2(void) { return !(g_pico_ram.input.keyState.buttons >> 13 & 1); } //L2
+bool GetButtonUnused3(void) { return !(g_pico_ram.input.keyState.buttons >> 14 & 1); } //R1
+bool GetButtonUnused4(void) { return !(g_pico_ram.input.keyState.buttons >> 15 & 1); } //R2
+
+
+bool GetJSPressed(void) { return g_pico_ram.input.keyState.d.x != 0 || g_pico_ram.input.keyState.d.y != 0; }
+bool GetDPPressed(void) { return g_pico_ram.input.keyState.d.x != 0 || g_pico_ram.input.keyState.d.y != 0; }
+void HandleInput();
+KeyState GetInputKeyState();
+
+void SetInputPollingRate(uint16_t time) { g_pico_ram.input.pollingRate = time; }
+void SetInputPollingDefault() { g_pico_ram.input.pollingRate = g_pico_ram.input.defaultPollingRate; }
+
+
+InputInterface GetInputInterface()
+{
+    InputInterface input =
+    {
+        .HandleInput = HandleInput,
+        .SetInputPollingRate = SetInputPollingRate,
+        .SetInputPollingDefault = SetInputPollingDefault,
+        .GetInputKeyState = GetInputKeyState,
+        .GetButtonA = GetButtonA,
+        .GetButtonB = GetButtonB,
+        .GetButtonY = GetButtonY,
+        .GetButtonX = GetButtonX,
+        .GetButtonSelect = GetButtonSelect,
+        .GetButtonStart = GetButtonStart,
+        .GetButtonUp = GetButtonUp,
+        .GetButtonDown = GetButtonDown,
+        .GetButtonLeft = GetButtonLeft,
+        .GetButtonRight = GetButtonRight,
+        .GetButtonJSClick = GetButtonJSClick,
+        .GetButtonDPClick = GetButtonDPClick,
+        .GetJSPressed = GetJSPressed,
+        .GetDPPressed = GetDPPressed,
+        .GetButtonUnused1 = GetButtonUnused1,
+        .GetButtonUnused2 = GetButtonUnused2,
+        .GetButtonUnused3 = GetButtonUnused3,
+        .GetButtonUnused4 = GetButtonUnused4,
+    };
+
+    return input;
+}
 
 /**********************************************************************************************************************/
 /*
@@ -37,14 +100,6 @@ bool Pico_ButtonDownStable(uint8_t btn)
     return gpio_get(btn) == 0;
 }
 
-/**********************************************************************************************************************/
-/**  Triggers reset pin on the Pico
-**********************************************************************************************************************/
-bool Pico_Reset(void)
-{
-    reset_usb_boot(0, 0);
-    return true;
-}
 
 /**********************************************************************************************************************/
 /**  Checks for an action button pressed
@@ -109,7 +164,7 @@ Delta Pico_InputDelta(void)
  *  ON SUCCESS - return true
  *  ON FAIL - return false
 **********************************************************************************************************************/
-Delta Pico_InputDeltaDPad(void)
+Delta Pico_InputDeltaDPad()
 {
     Delta d = {0, 0};
     int8_t dx = 0;
@@ -200,33 +255,6 @@ void PrintInput(uint16_t n, char* binary)
     binary[16] = '\0';
 }
 
-
-inline bool GetButtonUp(void) { return !(g_pico_ram.input.keyState.buttons >> 0 & 1); }
-inline bool GetButtonDown(void) { return !(g_pico_ram.input.keyState.buttons >> 1 & 1); }
-inline bool GetButtonLeft(void) { return !(g_pico_ram.input.keyState.buttons >> 2 & 1); }
-inline bool GetButtonRight(void) { return !(g_pico_ram.input.keyState.buttons >> 3 & 1); }
-inline bool GetButtonA(void) { return !(g_pico_ram.input.keyState.buttons >> 4 & 1); }
-inline bool GetButtonB(void) { return !(g_pico_ram.input.keyState.buttons >> 5 & 1); }
-inline bool GetButtonY(void) { return !(g_pico_ram.input.keyState.buttons >> 6 & 1); }
-inline bool GetButtonX(void) { return !(g_pico_ram.input.keyState.buttons >> 7 & 1); }
-
-inline bool GetButtonStart(void) { return !(g_pico_ram.input.keyState.buttons >> 8 & 1); }
-inline bool GetButtonSelect(void) { return !(g_pico_ram.input.keyState.buttons >> 9 & 1); }
-inline bool GetButtonJSClick(void) { return !(g_pico_ram.input.keyState.buttons >> 10 & 1); }
-inline bool GetButtonDPClick(void) { return !(g_pico_ram.input.keyState.buttons >> 11 & 1); }
-
-inline bool GetButtonUnused1(void) { return !(g_pico_ram.input.keyState.buttons >> 12 & 1); }   //L1
-inline bool GetButtonUnused2(void) { return !(g_pico_ram.input.keyState.buttons >> 13 & 1); }   //L2
-inline bool GetButtonUnused3(void) { return !(g_pico_ram.input.keyState.buttons >> 14 & 1); }   //R1
-inline bool GetButtonUnused4(void) { return !(g_pico_ram.input.keyState.buttons >> 15 & 1); }   //R2
-
-
-inline bool GetJSPressed(void) { return g_pico_ram.input.keyState.d.x != 0 || g_pico_ram.input.keyState.d.y != 0; }
-inline bool GetDPPressed(void) { return g_pico_ram.input.keyState.d.x != 0 || g_pico_ram.input.keyState.d.y != 0; }
-
-void SetInputPollingRate(uint16_t time) { g_pico_ram.input.pollingRate = time; }
-void SetInputPollingDefault() { g_pico_ram.input.pollingRate = g_pico_ram.input.defaultPollingRate; }
-void HardwareReset(void) { Pico_Reset(); }
 
 /**********************************************************************************************************************/
 /**  Loop polls for input

@@ -13,7 +13,6 @@ void GenerateDungeonMelody(Note *melody);
 /**  IMPLEMENTATION DEFINED
 **********************************************************************************************************************/
 void AudioPlayVoices(const MusicData* music_data, const Note* music);
-void PlaySoundEffect();
 void CheckVolume();
 void CheckDimmer();
 

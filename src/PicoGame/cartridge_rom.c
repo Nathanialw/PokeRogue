@@ -2,7 +2,7 @@
 // Created by nathanial on 5/7/26.
 //
 
-#include "catridge_rom.h"
+#include "cartridge_rom.h"
 
 #include "lib_debugging.h"
 #include "pico_constants.h"
