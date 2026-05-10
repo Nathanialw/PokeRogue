@@ -4,16 +4,17 @@
 
 #include "animation.h"
 
+#include "lib_debugging.h"
+#include "lib_decl.h"
+
 #include "animation_effects.h"
 #include "camera.h"
 #include "graphics.h"
-#include "lib_debugging.h"
 #include "map.h"
 #include "memory_ram.h"
 #include "memory_rom.h"
 #include "tilesets.h"
 #include "types.h"
-#include "lib_decl.h"
 
 /************************************************************************************************************
  *
@@ -47,7 +48,7 @@
 /************************************************************************************************************
  *  MOVE - SMOOTH SCREEN SCROLLING
  ************************************************************************************************************/
-void AnimationMovement(GraphicsInterface graphics)
+void AnimationMovement(GraphicsInterface graphics, HardwareInterface hardware)
 {
     DEBUG("Pico_AnimationMovement() scroll : %d %d", g_run.player.scroll.x, g_run.player.scroll.y);
     if (g_run.player.scroll.x == 0 && g_run.player.scroll.y == 0) return;
@@ -162,14 +163,14 @@ void AnimationMovement(GraphicsInterface graphics)
         if (g_run.player.scroll.x != 0)
         {
             movement += (speed * g_run.player.scroll.x) * -1;
-            if (abs(movement) > tile_size)
+            if (hardware.Abs(movement) > tile_size)
                 break;
             x_offset = movement;
         }
         else if (g_run.player.scroll.y != 0)
         {
             movement += (speed * g_run.player.scroll.y) * -1;
-            if (abs(movement) > tile_size)
+            if (hardware.Abs(movement) > tile_size)
                 break;
             y_offset = movement;
         }

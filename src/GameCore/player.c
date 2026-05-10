@@ -1,8 +1,6 @@
 //
 // Created by nathanial on 2/21/26.
 //
-#include "stdint.h"
-
 #include "player.h"
 
 #include "battles.h"
@@ -30,7 +28,7 @@ EntityId PlayerPickItem(EntityId id);
  *  Sets player to a random empty cell on the map
  *  sets sight rango around player
 **********************************************************************************************************************/
-void InitPlayer(void)
+void InitPlayer(HardwareInterface hardware)
 {
     g_run.player.currentBagSize = DEFAULT_BAG_SIZE;
     g_run.player.currentSpellbookSize = DEFAULT_SPELLBOOK_SIZE;
@@ -48,21 +46,21 @@ void InitPlayer(void)
     g_run.player.spellID[1] = DESCEND;
 
     DEBUG("----finding open map location");
-    Position pos = FindOpenMapLocation(CREATURE);
+    Position pos = FindOpenMapLocation(hardware, CREATURE);
     uint8_t x = pos.x;
     uint8_t y = pos.y;
     DEBUG("----placing player at %d %d", x, y);
 
     DEBUG("----setting player position");
-    g_run.player.id = SpawnEntity(CREATURE, HUMAN, x, y, 0);
+    g_run.player.id = SpawnEntity(hardware, CREATURE, HUMAN, x, y, 0);
     g_run.creatures.speed[g_run.player.id].max = 99;
     g_run.creatures.speed[g_run.player.id].current = 15;
     DEBUG("----setting player sight range");
 
     EntityId e_id;
-    e_id = SpawnEntity(CREATURE, LAMIA, x, y, 5);
+    e_id = SpawnEntity(hardware, CREATURE, LAMIA, x, y, 5);
     PlayerCaptureMonster(e_id);
-    e_id = SpawnEntity(ITEM, HEALTH_POTION, x, y, 0);
+    e_id = SpawnEntity(hardware, ITEM, HEALTH_POTION, x, y, 0);
     PlayerPickItem(e_id);
     DEBUG("----setting player stats");
 
@@ -75,7 +73,7 @@ void InitPlayer(void)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-EntityId CachePlayerCreatureData()
+EntityId CachePlayerCreatureData(HardwareInterface hardware)
 {
     EntityId creature_idx = 0;
     //set player to beginning of the array
@@ -88,7 +86,7 @@ EntityId CachePlayerCreatureData()
     {
         if (g_run.player.partyID[i] != NO_ENTITY && g_run.player.partyID[i] > creature_idx)
         {
-            CopyCreature(g_run.player.partyID[i], creature_idx);
+            CopyCreature(hardware, g_run.player.partyID[i], creature_idx);
             g_run.player.partyID[i] = creature_idx;
             creature_idx++;
         }
@@ -282,24 +280,24 @@ bool PlayerDefeated(void)
 /**
 **********************************************************************************************************************/
 
-void DestroyPlayerCreature()
+void DestroyPlayerCreature(HardwareInterface hardware)
 {
     EntityId player_creature_id = g_run.battleMode.playerMonsterID;
     EntityId ai_creature_id = g_run.battleMode.enemyMonsterID;
     GainXP(player_creature_id, ai_creature_id);
-    DestroyCreature(ai_creature_id);
+    DestroyCreature(hardware, ai_creature_id);
 }
 
 /**********************************************************************************************************************/
 /**
 **********************************************************************************************************************/
 
-void DestroyEnemyCreature()
+void DestroyEnemyCreature(HardwareInterface hardware)
 {
     EntityId player_creature_id = g_run.battleMode.playerMonsterID;
     EntityId ai_creature_id = g_run.battleMode.enemyMonsterID;
     GainXP(player_creature_id, ai_creature_id);
-    DestroyCreature(ai_creature_id);
+    DestroyCreature(hardware, ai_creature_id);
 }
 
 /**********************************************************************************************************************/
@@ -339,9 +337,9 @@ bool CheckEnemyAttackOutcome()
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-void PlacePlayerOnMap()
+void PlacePlayerOnMap(HardwareInterface hardware)
 {
-    Position pos = FindOpenMapLocation(CREATURE);
+    Position pos = FindOpenMapLocation(hardware, CREATURE);
     uint8_t x = pos.x;
     g_run.creatures.position[g_run.player.id].x = x;
     uint8_t y = pos.y;

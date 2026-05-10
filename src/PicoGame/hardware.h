@@ -2,9 +2,7 @@
 // Created by nathanial on 3/26/26.
 //
 #pragma once
-#include <stdint.h>
-#include <stdbool.h>
-
+#include "lib_types.h"
 
 void Pico_BatteryStatus(void);
 void Backlight_Init(void);

@@ -5,10 +5,7 @@
 
 #include "utils.h"
 
-#include <stdint.h>
-#include <string.h>
-#include <stdlib.h>
-
+#include "lib_types.h"
 #include "types.h"
 
 
@@ -38,13 +35,13 @@ static inline uint16_t Int999GetCurrent(const IntMax999* hp);
 static inline uint16_t Int999GetMax(const IntMax999* hp);
 static inline void Int999SetMax(IntMax999* hp, uint16_t value);
 static inline void Int999SetCurrent(IntMax999* hp, uint16_t value);
-
-static inline uint8_t GetRandom_uint8_t(uint8_t min, uint8_t max);
-static inline uint8_t GetRandomLowerWeighted_uint8_t(uint8_t min, uint8_t max);
-static inline uint8_t GetRandomUniform(uint8_t min, uint8_t max);
+static inline void Int999ApplyValue(HardwareInterface hardware, IntMax999* hp, int16_t value);
 
 static inline bool WithinRange(uint8_t x, uint8_t y, uint8_t tx, uint8_t ty, uint8_t range);
 static inline bool SortEntityArray(EntityId* sorted, EntityId* unsorted, uint8_t n);
+
+static inline void* memset(void* dst, int value, size_t len);
+static inline void* memcpy(void* dst, const void* src, size_t len);
 
 /**********************************************************************************************************************/
 /** BIT ARRAY MANIPULATION
@@ -56,7 +53,7 @@ static inline bool ToggleBit(uint8_t* bitField, uint8_t idx);
 /**********************************************************************************************************************/
 /** STRING MANIPULATION
 **********************************************************************************************************************/
-static inline bool IsHyphenationPoint(const char* word, uint8_t pos, uint8_t word_len);
+static inline bool IsHyphenationPoint(HardwareInterface hardware, const char* word, uint8_t pos, uint8_t word_len);
 
 /**********************************************************************************************************************/
 /** IMPLEMENTATION DEFINED
@@ -212,10 +209,10 @@ static inline void Int999SetMax(IntMax999* hp, uint16_t value)
 }
 
 
-static inline void Int999ApplyValue(IntMax999* hp, int16_t value)
+static inline void Int999ApplyValue(HardwareInterface hardware, IntMax999* hp, int16_t value)
 {
     uint16_t n = Int999GetCurrent(hp);
-    if (n >= abs(value))
+    if (n >= hardware.Abs(value))
     {
         n += value;
         Int999SetCurrent(hp, n);
@@ -224,42 +221,6 @@ static inline void Int999ApplyValue(IntMax999* hp, int16_t value)
     {
         Int999SetCurrent(hp, 0);
     }
-}
-
-/**********************************************************************************************************************/
-/** Returns a random int between given min and max
-**********************************************************************************************************************/
-static inline uint8_t GetRandomUniform(uint8_t min, uint8_t max)
-{
-    uint8_t range = max - min + 1;
-    uint8_t max_acceptable = (RAND_MAX / range) * range;
-
-    uint8_t r;
-    do
-    {
-        r = rand();
-    }
-    while (r >= max_acceptable);
-
-    return min + (r % range);
-}
-
-/**********************************************************************************************************************/
-/** Returns a random int between given min and max
-**********************************************************************************************************************/
-static inline uint8_t GetRandom_uint8_t(uint8_t min, uint8_t max)
-{
-    return min + rand() % ((max - min) + 1);
-}
-
-/**********************************************************************************************************************/
-/** Returns a random int between given min and max
-**********************************************************************************************************************/
-static inline uint8_t GetRandomLowerWeighted_uint8_t(uint8_t min, uint8_t max)
-{
-    double r = (double)rand() / RAND_MAX; // r in [0, 1)
-    double r_squared = 1.0 - r * r; // bias toward 0
-    return min + (uint8_t)(r_squared * (max - min + 1));
 }
 
 
@@ -281,7 +242,7 @@ static inline bool WithinRange(uint8_t x, uint8_t y, uint8_t tx, uint8_t ty, uin
  *      -double letter pattern words
  *      -syllable
 **********************************************************************************************************************/
-static inline bool IsHyphenationPoint(const char* word, uint8_t pos, uint8_t word_len)
+static inline bool IsHyphenationPoint(HardwareInterface hardware, const char* word, uint8_t pos, uint8_t word_len)
 {
     // Don't hyphenate at beginning or end
     if (pos < 2 || pos > word_len - 2) return false;
@@ -303,14 +264,14 @@ static inline bool IsHyphenationPoint(const char* word, uint8_t pos, uint8_t wor
 
     // Vowel-consonant patterns (very simplified)
     char vowels[] = "aeiou";
-    bool is_vowel_c1 = (strchr(vowels, c1) != NULL);
-    bool is_vowel_c2 = (strchr(vowels, c2) != NULL);
+    bool is_vowel_c1 = (hardware.StrChr(vowels, c1) != NULL);
+    bool is_vowel_c2 = (hardware.StrChr(vowels, c2) != NULL);
 
     // Vowel followed by consonant is often a syllable break
     if (is_vowel_c1 && !is_vowel_c2 && pos < word_len - 2)
     {
         // Check if next is vowel (makes it a good break)
-        bool is_vowel_c3 = (strchr(vowels, c3) != NULL);
+        bool is_vowel_c3 = (hardware.StrChr(vowels, c3) != NULL);
         if (is_vowel_c3) return true;
     }
 
@@ -412,4 +373,32 @@ static inline bool SortEntityArray(EntityId* sorted, EntityId* unsorted, uint8_t
     }
 
     return true;
+}
+
+
+
+
+static inline void* memcpy(void* dst, const void* src, size_t len)
+{
+    uint8_t* d = (uint8_t*)dst;
+    const uint8_t* s = (const uint8_t*)src;
+
+    while(len--)
+    {
+        *d++ = *s++;
+    }
+
+    return dst;
+}
+
+static inline void* memset(void* dst, int value, size_t len)
+{
+    uint8_t* d = (uint8_t*)dst;
+
+    while(len--)
+    {
+        *d++ = (uint8_t)value;
+    }
+
+    return dst;
 }

@@ -5,9 +5,9 @@
 #include "types.h"
 
 
-void InitGame(void);
+void InitGame(HardwareInterface hardware);
 void NewMap(void);
 void InitTitleScreen(void);
-void UpdateGame(void);
-void ThreadTwo();
+void UpdateGame(HardwareInterface hardware);
+
 

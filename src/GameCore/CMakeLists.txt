@@ -52,7 +52,6 @@ add_library(GameCore STATIC
 )
 
 
-target_compile_definitions(GameCore PRIVATE ENABLE_DEBUG_OUTPUT ENABLE_ASSERTS)
 
 target_link_libraries(GameCore
         PicoTypes

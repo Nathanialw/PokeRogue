@@ -2,7 +2,7 @@
 // Created by nathanial on 5/7/26.
 //
 #pragma once
-#include "stdbool.h"
+#include "lib_types.h"
 
 void FRAM_Init(void);
 void FRAM_SimpleTest(void);

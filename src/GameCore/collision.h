@@ -2,9 +2,6 @@
 // Created by nathanial on 2/21/26.
 //
 #pragma once
-#include <stdint.h>
-#include <stdbool.h>
-
 #include "types.h"
 
 

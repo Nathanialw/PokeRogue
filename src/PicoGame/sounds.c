@@ -2,11 +2,9 @@
 // // Created by nathanial on 3/14/26.
 // //
 
-#include "pico/stdlib.h"
 #include "pico/audio_i2s.h"
 #include "hardware/adc.h"
 
-#include <stdint.h>
 #include <string.h>
 
 #include "sounds.h"

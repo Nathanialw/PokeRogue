@@ -13,9 +13,9 @@
 /**********************************************************************************************************************/
 /** Populates a given array of chars with with the given integer value formatted with the given prefix and suffix char arrays
 **********************************************************************************************************************/
-void CombatLogLine(char* dest, const char* prefix, const char* suffix, uint16_t value)
+void CombatLogLine(HardwareInterface hardware, char* dest, const char* prefix, const char* suffix, uint16_t value)
 {
-    memset(dest, ' ', 40);
+    hardware.MemSet(dest, ' ', 40);
 
     uint8_t i = 0;
     while (prefix[i])
@@ -59,7 +59,7 @@ void CombatLogLine(char* dest, const char* prefix, const char* suffix, uint16_t 
  *  Takes in the entity id and the damage value
  *  prepares the text buffers and copies them into the combat log cache
 **********************************************************************************************************************/
-void PrintCombatLog(EntityId creatureID, uint16_t damage)
+void PrintCombatLog(HardwareInterface hardware, EntityId creatureID, uint16_t damage)
 {
     const char suffix[] = " Frst Dmg";
     const char a[] = " hit ";
@@ -103,7 +103,7 @@ void PrintCombatLog(EntityId creatureID, uint16_t damage)
 
 
     if (g_run.battleMode.combatLog[0][0] == '\0')
-        CombatLogLine(g_run.battleMode.combatLog[0], prefix, suffix, damage);
+        CombatLogLine(hardware, g_run.battleMode.combatLog[0], prefix, suffix, damage);
     else
-        CombatLogLine(g_run.battleMode.combatLog[1], prefix, suffix, damage);
+        CombatLogLine(hardware, g_run.battleMode.combatLog[1], prefix, suffix, damage);
 }

@@ -2,11 +2,10 @@
 // Created by nathanial on 2/22/26.
 //
 #pragma once
-#include "stdint.h"
-#include <stdbool.h>
+#include "lib_decl.h"
+
 #include "constants.h"
 #include "enums.h"
-#include "lib_decl.h"
 
 /**********************************************************************************************************************
 *

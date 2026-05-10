@@ -50,11 +50,11 @@ uint16_t CalcHeal(EntityId creatureID, uint16_t abilityPower)
 /********************************************************************************************************************************************************************************************************************************************/
 /*
 /********************************************************************************************************************************************************************************************************************************************/
-void DoDamage(EntityId creatureID, uint16_t damage)
+void DoDamage(HardwareInterface hardware, EntityId creatureID, uint16_t damage)
 {
     uint16_t hp = Int999GetCurrent(&g_run.creatures.hp[creatureID]);
     hp = (hp > damage) ? hp - damage : 0;
-    PrintCombatLog(creatureID, damage);
+    PrintCombatLog(hardware, creatureID, damage);
     Int999SetCurrent(&g_run.creatures.hp[creatureID], hp);
 }
 
@@ -130,30 +130,30 @@ bool NoEffect()
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-void Attack(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+void Attack(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     uint16_t damage = CalcDamage(attackerID, abilityData.power);
     damage = CalcModifier(attackerID, defenderID, abilityData.type, damage);
-    DoDamage(defenderID, damage);
+    DoDamage(hardware, defenderID, damage);
 }
 
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-void InstantKill(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+void InstantKill(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     uint16_t damage = CalcDamage(attackerID, 999);
     damage = CalcModifier(attackerID, defenderID, abilityData.type, damage);
-    DoDamage(defenderID, damage);
+    DoDamage(hardware, defenderID, damage);
 }
 
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool QuickAttack(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool QuickAttack(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     // TODO: always attack first
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
@@ -303,10 +303,10 @@ bool Summon(CreatureID creature)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-void SacrificeHeal(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+void SacrificeHeal(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     DEBUG("SacrificeHeal() - kill team member to heal self - NOT YET IMPLEMENTED");
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
 }
 
 /**********************************************************************************************************************/
@@ -1039,27 +1039,27 @@ bool DrainXP(EntityId e_id)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool MapDescend(EntityId e_id)
+bool MapDescend(HardwareInterface hardware, EntityId e_id)
 {
-    GoNextLevel(MAP_LEVEL_DOWN);
+    GoNextLevel(hardware, MAP_LEVEL_DOWN);
     return true;
 }
 
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool MapAscend(EntityId e_id)
+bool MapAscend(HardwareInterface hardware, EntityId e_id)
 {
-    GoNextLevel(MAP_LEVEL_UP);
+    GoNextLevel(hardware, MAP_LEVEL_UP);
     return true;
 }
 
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool MapLateral(EntityId e_id)
+bool MapLateral(HardwareInterface hardware, EntityId e_id)
 {
-    GoNextLevel(MAP_LEVEL_LATERAL);
+    GoNextLevel(hardware, MAP_LEVEL_LATERAL);
     return true;
 }
 

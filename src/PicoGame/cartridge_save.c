@@ -3,14 +3,15 @@
 //
 
 #include "cartridge_save.h"
-// #include "stdint.h"
 
 #include <string.h>
 
 #include "lib_debugging.h"
-#include "pico_constants.h"
+
 #include "hardware/gpio.h"
 #include "hardware/i2c.h"
+
+#include "pico_constants.h"
 
 #define FRAM_ADDR_WRITE   0xA0   // 1010 0000 (A2=A1=A0=0, R/W=0)
 #define FRAM_ADDR_7BIT  (FRAM_ADDR_WRITE >> 1)   // 7‑bit address

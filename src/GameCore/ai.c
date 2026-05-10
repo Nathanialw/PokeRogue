@@ -11,23 +11,23 @@
 #include "utils.h"
 
 
-typedef void (*AIType)(EntityId id);
+typedef void (*AIType)(HardwareInterface hardware, EntityId id);
 
 /**********************************************************************************************************************/
 /** Takes in an entity id
  *  chooses a random adjacent cell
  *  queues the cell position into the newPosition array for the given entity id
 **********************************************************************************************************************/
-void RandomWalk(EntityId id)
+void RandomWalk(HardwareInterface hardware, EntityId id)
 {
     Position pos = g_run.creatures.position[id];
 
     uint8_t x = pos.x;
     uint8_t y = pos.y;
 
-    int8_t dx = GetRandomLowerWeighted_uint8_t(0, 2);
+    int8_t dx = hardware.GetRandom_uint8_t(0, 2);
     if (dx == 2) dx = -1;
-    int8_t dy = GetRandomLowerWeighted_uint8_t(0, 2);
+    int8_t dy = hardware.GetRandom_uint8_t(0, 2);
     if (dy == 2) dy = -1;
     x += dx;
     y += dy;
@@ -45,7 +45,7 @@ void RandomWalk(EntityId id)
  *  ON SUCCESS - execute function, return true
  *  ON FAIL - return false
 **********************************************************************************************************************/
-bool TargetHoming(EntityId id)
+bool TargetHoming(HardwareInterface hardware, EntityId id)
 {
     uint16_t p_id = GetPlayerID();
     Position player_pos = GetPlayerPosition();
@@ -70,7 +70,7 @@ bool TargetHoming(EntityId id)
     int16_t dx = player_x - pos_x;
     int16_t dy = player_y - pos_y;
 
-    if (abs(dx) > abs(dy))
+    if (hardware.Abs(dx) > hardware.Abs(dy))
     {
         // Move horizontally
         if (dx > 0)
@@ -98,7 +98,7 @@ bool TargetHoming(EntityId id)
 /** array of pointers to movement types functions
  *  TODO - WORK IN PROGRESS
 **********************************************************************************************************************/
-void Humanoid(EntityId id);
+void Humanoid(HardwareInterface hardware, EntityId id);
 
 //TODO eventually the key will be the creature id, but for now just one ai type
 //TODO you know probably better to have maybe 16 ai types and store a key on the entity
@@ -110,18 +110,18 @@ AIType aiActions[CREATURE_COUNT] =
 /**********************************************************************************************************************/
 /** Runs the logic for humanoid movement
 **********************************************************************************************************************/
-void Humanoid(EntityId id)
+void Humanoid(HardwareInterface hardware, EntityId id)
 {
-    if (TargetHoming(id))
+    if (TargetHoming(hardware, id))
         return;
 
-    RandomWalk(id);
+    RandomWalk(hardware, id);
 };
 
 /**********************************************************************************************************************/
 /** Entry point for movement AI
 **********************************************************************************************************************/
-void CreatureAI(EntityId id)
+void CreatureAI(HardwareInterface hardware, EntityId id)
 {
-    aiActions[0](id);
+    aiActions[0](hardware, id);
 }

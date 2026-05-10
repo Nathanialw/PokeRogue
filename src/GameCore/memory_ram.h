@@ -2,11 +2,11 @@
 // Created by nathanial on 2/26/26.
 //
 #pragma once
-#include "stdbool.h"
+#include "lib_types.h"
+
 #include "types.h"
 #include "enums.h"
 #include "hash_map.h"
-#include "lib_types.h"
 #include "utils.h"
 
 /**********************************************************************************************************************

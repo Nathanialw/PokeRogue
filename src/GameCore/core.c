@@ -3,13 +3,13 @@
 //
 
 #include "core.h"
+#include "lib_debugging.h"
 
 #include "ai.h"
 #include "camera.h"
 #include "collision.h"
 #include "map.h"
 #include "entities.h"
-#include "lib_debugging.h"
 #include "player.h"
 #include "status_effects.h"
 #include "utils.h"
@@ -24,20 +24,20 @@
  *      -> creates map entities
  *      -> sets camera to player position
 **********************************************************************************************************************/
-void InitGame(void)
+void InitGame(HardwareInterface hardware)
 {
     DEBUG("init gmae");
     GameRunInit();
     DEBUG("reset ent");
-    ResetEntities(false);
+    ResetEntities(hardware, false);
     DEBUG("init map");
-    InitMap();
+    InitMap(hardware);
     DEBUG("init player");
-    InitPlayer();
+    InitPlayer(hardware);
     DEBUG("populate level");
-    PopulateLevelItems();
-    PopulateLevelObjects();
-    PopulateLevelCreatures();
+    PopulateLevelItems(hardware);
+    PopulateLevelObjects(hardware);
+    PopulateLevelCreatures(hardware);
     DEBUG("set camera");
     SetCameraPlayer();
 }
@@ -73,7 +73,7 @@ void InitTitleScreen(void)
  *  Checks for battle
  *  Iterates through all entities, run the AI function to update their position
 **********************************************************************************************************************/
-bool UpdatePositions(void)
+bool UpdatePositions(HardwareInterface hardware)
 {
     EntityId p_id = GetPlayerID();
     IntMax99* speed = GetCreatureSpeeds();
@@ -97,7 +97,7 @@ bool UpdatePositions(void)
         }
 
         speed[id].current = player_speed - (max - cur);
-        CreatureAI(id);
+        CreatureAI(hardware, id);
     }
 
     for (uint8_t id = 0; id < ENTITY_COUNT; ++id)
@@ -171,10 +171,10 @@ void SetPositions(void)
 /** Main update
  *  call every frame
 **********************************************************************************************************************/
-void UpdateGame(void)
+void UpdateGame(HardwareInterface hardware)
 {
-    UpdateObjectStatusEffects();
-    if (UpdatePositions())
+    UpdateObjectStatusEffects(hardware);
+    if (UpdatePositions(hardware))
         SetPositions();
     SetCameraPlayer();
 }

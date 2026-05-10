@@ -1,8 +1,21 @@
+#uses no pico code written in C with minimal use of the standard library
+#the entry point is called on the pico platform from an SPI call and injects the pico API functions as a parameter
+#code can be reused by defining the API funcitons and calling the entry point with a struct of function pointers the code can call
+#compiler g++ using Clion
+
+#dummy main so it builds the binary
 add_executable(GameCartridge
         main.c
 )
 
-target_link_options(GameCartridge PRIVATE "--specs=nosys.specs")
+target_link_options(GameCartridge PRIVATE
+        "-nostartfiles"
+        "--specs=nosys.specs"
+        "-Wl,--gc-sections"
+        "-Wl,-Map=${CMAKE_CURRENT_BINARY_DIR}/output.map"
+        "-T${CMAKE_CURRENT_SOURCE_DIR}/ram.ld"
+)
+
 target_link_libraries(GameCartridge
         "-Wl,--whole-archive"
         GameCore
@@ -10,8 +23,12 @@ target_link_libraries(GameCartridge
         "-Wl,--no-whole-archive"
 )
 
-pico_set_binary_type(GameCartridge no_flash)
-#pico_add_extra_outputs(GameCartridge) # This generates cartridge_main.bin
-# Configure the *existing* GameCore library to output a raw binary
-
-target_link_options(GameCartridge PRIVATE "-T${CMAKE_CURRENT_SOURCE_DIR}/ram.ld")
+# ========================= POST BUILD - Create Cartridge ROM =========================
+add_custom_command(TARGET GameCartridge POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E make_directory "${CMAKE_CURRENT_BINARY_DIR}"
+        COMMAND ${CMAKE_COMMAND} -E copy
+            "${CMAKE_CURRENT_SOURCE_DIR}/../../scripts/python/util_scripts/gen_bin.py"
+            "${CMAKE_CURRENT_BINARY_DIR}/make_cartridge.py"
+        COMMAND python3 "${CMAKE_CURRENT_BINARY_DIR}/make_cartridge.py" "$<TARGET_FILE:GameCartridge>" "${CMAKE_CURRENT_BINARY_DIR}/cartridge.bin"
+        COMMENT "Generating fixed-address cartridge.bin"
+)

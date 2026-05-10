@@ -4,8 +4,6 @@
 
 #include "save.h"
 
-#include <stdint.h>
-
 #include "constants.h"
 #include "types.h"
 

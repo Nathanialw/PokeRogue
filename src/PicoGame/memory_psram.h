@@ -2,7 +2,7 @@
 // Created by nathanial on 5/8/26.
 //
 #pragma once
-#include "stdbool.h"
+#include "lib_types.h"
 
 void InitPSram();
 void PSRAM_Test();

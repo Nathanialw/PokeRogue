@@ -2,8 +2,8 @@
 // Created by nathanial on 2/26/26.
 //
 #pragma once
-#include <stdbool.h>
-#include <data_constants.inc>
+#include "data_constants.inc"
+
 #include "lib_types.h"
 
 /**********************************************************************************************************************/

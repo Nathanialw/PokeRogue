@@ -16,6 +16,9 @@
 #include "inc/decl_animation_skills_struck.inc"
 #include "inc/decl_animation_spells_struck.inc"
 
+
+#define SET_MEMORY __attribute__((section(".sprites_objects"), used, aligned(4)))
+SET_MEMORY
 const GameFlash g_gameFlash =
 {
     /**********************************************************************************************************************/

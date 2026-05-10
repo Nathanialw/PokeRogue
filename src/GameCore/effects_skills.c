@@ -31,7 +31,7 @@
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool SkillNoSkill(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillNoSkill(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     NoEffect();
     return true;
@@ -44,57 +44,57 @@ bool SkillNoSkill(EntityId attackerID, EntityId defenderID, SkillData abilityDat
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool SkillFlameBlast(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillFlameBlast(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyBurn(defenderID, abilityData.power);
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool SkillFireball(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillFireball(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyBurn(defenderID, abilityData.power);
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool SkillEmber(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillEmber(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyBurn(defenderID, abilityData.power);
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool SkillIncinerate(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillIncinerate(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyBurn(defenderID, abilityData.power);
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool SkillCombustion(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillCombustion(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyBurn(defenderID, abilityData.power);
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool SkillFlare(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillFlare(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     LowerAccuracy(defenderID);
     return true;
@@ -104,7 +104,7 @@ bool SkillFlare(EntityId attackerID, EntityId defenderID, SkillData abilityData)
 /*
 **********************************************************************************************************************/
 //UNUSED
-bool SkillHeatWave(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillHeatWave(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     NoEffect();
     return true;
@@ -113,9 +113,9 @@ bool SkillHeatWave(EntityId attackerID, EntityId defenderID, SkillData abilityDa
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool SkillFlamePunch(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillFlamePunch(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
@@ -123,7 +123,7 @@ bool SkillFlamePunch(EntityId attackerID, EntityId defenderID, SkillData ability
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool SkillPyre(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillPyre(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     DEBUG("Pyre");
     if (IsInParty(attackerID))
@@ -145,17 +145,17 @@ bool SkillPyre(EntityId attackerID, EntityId defenderID, SkillData abilityData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool SkillScorch(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillScorch(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyBurn(defenderID, abilityData.power);
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool SkillCinderStorm(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillCinderStorm(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     LowerSpeed(defenderID);
     return true;
@@ -164,17 +164,17 @@ bool SkillCinderStorm(EntityId attackerID, EntityId defenderID, SkillData abilit
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool SkillMagmaBurst(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillMagmaBurst(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyBurn(defenderID, abilityData.power);
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool SkillSunfury(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillSunfury(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     RaiseStrength(attackerID);
     return true;
@@ -183,7 +183,7 @@ bool SkillSunfury(EntityId attackerID, EntityId defenderID, SkillData abilityDat
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool SkillBlazingCharge(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillBlazingCharge(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     // ensure this attack happens before anything
     NoEffect();
@@ -193,30 +193,30 @@ bool SkillBlazingCharge(EntityId attackerID, EntityId defenderID, SkillData abil
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool SkillAshCloud(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillAshCloud(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     LowerAccuracy(defenderID);
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool SkillInferno(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillInferno(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyBurn(defenderID, abilityData.power);
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool SkillWildfire(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillWildfire(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyBurn(defenderID, abilityData.power);
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
@@ -226,64 +226,64 @@ bool SkillWildfire(EntityId attackerID, EntityId defenderID, SkillData abilityDa
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool SkillBlizzard(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillBlizzard(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyFrozen(defenderID, abilityData.power);
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool SkillIceShard(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillIceShard(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool SkillFrostBite(EntityId attackerID, EntityId defenderID, SkillData abilityData)
-{
-    ApplyFrozen(defenderID, abilityData.power);
-    Attack(attackerID, defenderID, abilityData);
-    return true;
-}
-
-/**********************************************************************************************************************/
-/*
-**********************************************************************************************************************/
-bool SkillFreeze(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillFrostBite(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyFrozen(defenderID, abilityData.power);
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool SkillHailstorm(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillFreeze(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    ApplyFrozen(defenderID, abilityData.power);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool SkillGlacialSpike(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillHailstorm(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool SkillColdSnap(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillGlacialSpike(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+{
+    Attack(hardware, attackerID, defenderID, abilityData);
+    return true;
+}
+
+/**********************************************************************************************************************/
+/*
+**********************************************************************************************************************/
+bool SkillColdSnap(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     NextAttackFreezes();
     return true;
@@ -292,7 +292,7 @@ bool SkillColdSnap(EntityId attackerID, EntityId defenderID, SkillData abilityDa
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool SkillIceArmor(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillIceArmor(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     RaiseDefence(attackerID);
     FreezeAttackers(attackerID, abilityData.power);
@@ -302,19 +302,19 @@ bool SkillIceArmor(EntityId attackerID, EntityId defenderID, SkillData abilityDa
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool SkillFrostNova(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillFrostNova(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     if (IsInParty(defenderID))
     {
         for (uint8_t i = 0; i < MAX_PARTY_SIZE; ++i)
         {
             if (g_run.player.partyID[i] == NO_ENTITY) continue;
-            Attack(attackerID, defenderID, abilityData);
+            Attack(hardware, attackerID, defenderID, abilityData);
         }
     }
     else
     {
-        Attack(attackerID, defenderID, abilityData);
+        Attack(hardware, attackerID, defenderID, abilityData);
     }
 
     return true;
@@ -323,16 +323,16 @@ bool SkillFrostNova(EntityId attackerID, EntityId defenderID, SkillData abilityD
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool SkillPermafrost(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillPermafrost(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool SkillSnowBlind(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillSnowBlind(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     LowerAccuracy(defenderID);
     return true;
@@ -341,18 +341,18 @@ bool SkillSnowBlind(EntityId attackerID, EntityId defenderID, SkillData abilityD
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool SkillIceLance(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillIceLance(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool SkillCryoBlast(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillCryoBlast(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     ApplyFrozen(defenderID, abilityData.power);
     return true;
 }
@@ -360,7 +360,7 @@ bool SkillCryoBlast(EntityId attackerID, EntityId defenderID, SkillData abilityD
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool SkillArcticWinds(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillArcticWinds(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyFrozen(defenderID, abilityData.power);
     return true;
@@ -369,28 +369,28 @@ bool SkillArcticWinds(EntityId attackerID, EntityId defenderID, SkillData abilit
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool SkillFrozenOrb(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillFrozenOrb(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool SkillPolarVortex(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillPolarVortex(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     if (IsInParty(defenderID))
     {
         for (uint8_t i = 0; i < MAX_PARTY_SIZE; ++i)
         {
             if (g_run.player.partyID[i] == NO_ENTITY) continue;
-            Attack(attackerID, defenderID, abilityData);
+            Attack(hardware, attackerID, defenderID, abilityData);
         }
     }
     else
     {
-        Attack(attackerID, defenderID, abilityData);
+        Attack(hardware, attackerID, defenderID, abilityData);
     }
     return true;
 }
@@ -400,16 +400,16 @@ bool SkillPolarVortex(EntityId attackerID, EntityId defenderID, SkillData abilit
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool SkillCavitation(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillCavitation(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool SkillHypervision(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillHypervision(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     RaiseAccuracy(attackerID);
     return true;
@@ -418,38 +418,38 @@ bool SkillHypervision(EntityId attackerID, EntityId defenderID, SkillData abilit
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool SkillShellbreaker(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillShellbreaker(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     LowerDefence(defenderID);
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool SkillTorrent(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillTorrent(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool SkillWhirlpool(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillWhirlpool(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool SkillDrowningGrasp(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillDrowningGrasp(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplySlow(defenderID, abilityData.power);
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     Capture(defenderID, abilityData.power);
     return true;
 }
@@ -457,91 +457,91 @@ bool SkillDrowningGrasp(EntityId attackerID, EntityId defenderID, SkillData abil
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool SkillTidalWave(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillTidalWave(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool SkillWaterWhip(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillWaterWhip(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool SkillAquaJet(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillAquaJet(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool SkillRiptide(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillRiptide(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool SkillHydroBlast(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillHydroBlast(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool SkillDeepCurrent(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillDeepCurrent(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool SkillMaelstrom(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillMaelstrom(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool SkillBrineSpray(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillBrineSpray(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool SkillSurge(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillSurge(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool SkillPressureCrush(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillPressureCrush(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyParalyze(defenderID, abilityData.power);
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
@@ -551,36 +551,36 @@ bool SkillPressureCrush(EntityId attackerID, EntityId defenderID, SkillData abil
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool SkillVineWhip(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillVineWhip(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyParalyze(defenderID, abilityData.power);
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool SkillPollenCloud(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillPollenCloud(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyPoison(defenderID, abilityData.power);
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool SkillThornBarrage(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillThornBarrage(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool SkillBloom(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillBloom(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     HealTarget(attackerID, abilityData.power);
     return true;
@@ -589,17 +589,17 @@ bool SkillBloom(EntityId attackerID, EntityId defenderID, SkillData abilityData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool SkillRootAnchor(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillRootAnchor(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplySlow(defenderID, abilityData.power);
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool SkillForestWard(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillForestWard(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     RaiseDefence(attackerID);
     return true;
@@ -608,53 +608,53 @@ bool SkillForestWard(EntityId attackerID, EntityId defenderID, SkillData ability
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool SkillGravityRoot(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillGravityRoot(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyParalyze(defenderID, abilityData.power);
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool SkillSporeExplosion(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillSporeExplosion(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool SkillLeafStorm(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillLeafStorm(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool SkillBrambleTrap(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillBrambleTrap(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool SkillSeedVolley(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillSeedVolley(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool SkillVerdantGrowth(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillVerdantGrowth(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     RaiseMagic(attackerID);
     return true;
@@ -663,35 +663,35 @@ bool SkillVerdantGrowth(EntityId attackerID, EntityId defenderID, SkillData abil
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool SkillToxicIvy(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillToxicIvy(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool SkillCanopyShade(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillCanopyShade(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool SkillPetalBlitz(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillPetalBlitz(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     // ensure this attack hits before anything
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool SkillOvergrowth(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillOvergrowth(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     RaiseMagic(attackerID);
     return true;
@@ -702,9 +702,9 @@ bool SkillOvergrowth(EntityId attackerID, EntityId defenderID, SkillData ability
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool SkillConsume(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillConsume(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     HealTarget(attackerID, abilityData.power);
     return true;
 }
@@ -712,25 +712,25 @@ bool SkillConsume(EntityId attackerID, EntityId defenderID, SkillData abilityDat
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool SkillPsychicShock(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillPsychicShock(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool SkillRealitySlip(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillRealitySlip(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool SkillMaddeningGaze(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillMaddeningGaze(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     AbandonTeam(defenderID);
     return true;
@@ -739,72 +739,72 @@ bool SkillMaddeningGaze(EntityId attackerID, EntityId defenderID, SkillData abil
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool SkillVoidRift(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillVoidRift(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool SkillAnomaly(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillAnomaly(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool SkillDissonance(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillDissonance(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool SkillCorrupt(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillCorrupt(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool SkillMindSpike(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillMindSpike(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool SkillEldritchBlast(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillEldritchBlast(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool SkillWarpPulse(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillWarpPulse(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool SkillThoughtLeech(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillThoughtLeech(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     HealTarget(attackerID, abilityData.power);
     return true;
 }
@@ -812,31 +812,31 @@ bool SkillThoughtLeech(EntityId attackerID, EntityId defenderID, SkillData abili
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool SkillSanityBreak(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillSanityBreak(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool SkillAstralChains(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillAstralChains(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplySlow(defenderID, abilityData.power);
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 // UNUSED
-bool SkillChaosNova(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillChaosNova(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     NoEffect();
     return true;
 }
 
 // UNUSED
-bool SkillDimensionalTear(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillDimensionalTear(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     NoEffect();
     return true;
@@ -845,18 +845,18 @@ bool SkillDimensionalTear(EntityId attackerID, EntityId defenderID, SkillData ab
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool SkillPetrifyingGaze(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillPetrifyingGaze(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    InstantKill(attackerID, defenderID, abilityData);
+    InstantKill(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool SkillPetrifyingTouch(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillPetrifyingTouch(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    InstantKill(attackerID, defenderID, abilityData);
+    InstantKill(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
@@ -866,34 +866,34 @@ bool SkillPetrifyingTouch(EntityId attackerID, EntityId defenderID, SkillData ab
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool SkillTailWhip(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillTailWhip(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool SkillWingBuffet(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillWingBuffet(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool SkillDragonBreath(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillDragonBreath(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool SkillFearRoar(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillFearRoar(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyFear(defenderID, abilityData.power);
     return true;
@@ -902,16 +902,16 @@ bool SkillFearRoar(EntityId attackerID, EntityId defenderID, SkillData abilityDa
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool SkillFlyby(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillFlyby(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool SkillScalesHarden(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillScalesHarden(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     RaiseDefence(attackerID);
     return true;
@@ -920,79 +920,79 @@ bool SkillScalesHarden(EntityId attackerID, EntityId defenderID, SkillData abili
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool SkillAncientWrath(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillAncientWrath(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool SkillTreasureHunt(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillTreasureHunt(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool SkillSkyDive(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillSkyDive(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool SkillDraconicFury(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillDraconicFury(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool SkillTailSweep(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillTailSweep(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool SkillEmberRoar(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillEmberRoar(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool SkillScaleStorm(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillScaleStorm(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool SkillWyrmCharge(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillWyrmCharge(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillAncientGuard(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillAncientGuard(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     RaiseDefence(attackerID);
     return true;
@@ -1001,9 +1001,9 @@ bool SkillAncientGuard(EntityId attackerID, EntityId defenderID, SkillData abili
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillGoldenInstinct(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillGoldenInstinct(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
@@ -1012,142 +1012,142 @@ bool SkillGoldenInstinct(EntityId attackerID, EntityId defenderID, SkillData abi
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillBodySlam(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillBodySlam(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillStomp(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillStomp(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillEarthquake(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillEarthquake(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillMightyThrow(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillMightyThrow(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillGroundPound(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillGroundPound(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillCrush(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillCrush(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillTitanSwing(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillTitanSwing(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillMountainBreaker(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillMountainBreaker(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillBoulderToss(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillBoulderToss(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillSeismicSlam(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillSeismicSlam(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillIronGrip(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillIronGrip(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillTremorStep(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillTremorStep(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillColossalCharge(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillColossalCharge(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillLandslide(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillLandslide(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillBedrockShield(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillBedrockShield(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillTitanicRoar(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillTitanicRoar(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     RaiseStrength(attackerID);
     return true;
@@ -1158,53 +1158,53 @@ bool SkillTitanicRoar(EntityId attackerID, EntityId defenderID, SkillData abilit
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillScratch(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillScratch(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillPounce(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillPounce(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillFeralRage(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillFeralRage(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     RaiseStrength(attackerID);
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillHuntingInstinct(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillHuntingInstinct(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillPackCall(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillPackCall(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillTerrifyingRoar(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillTerrifyingRoar(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyFear(defenderID, abilityData.power);
     return true;
@@ -1213,7 +1213,7 @@ bool SkillTerrifyingRoar(EntityId attackerID, EntityId defenderID, SkillData abi
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillBloodScent(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillBloodScent(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     RaiseStrength(attackerID);
     return true;
@@ -1222,45 +1222,45 @@ bool SkillBloodScent(EntityId attackerID, EntityId defenderID, SkillData ability
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillViciousBite(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillViciousBite(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillRipAndTear(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillRipAndTear(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillAmbushStrike(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillAmbushStrike(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     // only quick attack if the enemy has not attacked otherwise just a normal attack
-    if (!QuickAttack(attackerID, defenderID, abilityData))
-        Attack(attackerID, defenderID, abilityData);
+    if (!QuickAttack(hardware, attackerID, defenderID, abilityData))
+        Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillLunge(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillLunge(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillHowlOfThePack(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillHowlOfThePack(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     if (IsInParty(attackerID))
     {
@@ -1280,36 +1280,36 @@ bool SkillHowlOfThePack(EntityId attackerID, EntityId defenderID, SkillData abil
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillSavageMaul(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillSavageMaul(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillPredatorFocus(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillPredatorFocus(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillThroatClamp(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillThroatClamp(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillStalk(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillStalk(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
@@ -1318,147 +1318,147 @@ bool SkillStalk(EntityId attackerID, EntityId defenderID, SkillData abilityData)
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillPixieDust(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillPixieDust(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplySleep(defenderID, abilityData.power);
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillGlamour(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillGlamour(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillTricksterTreat(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillTricksterTreat(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillEnchantingMelody(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillEnchantingMelody(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyParalyze(defenderID, abilityData.power);
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillFaerieFire(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillFaerieFire(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillDreamDust(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillDreamDust(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplySleep(defenderID, abilityData.power);
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillWildMagic(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillWildMagic(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillGladeTeleport(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillGladeTeleport(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillMoonbeam(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillMoonbeam(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillMirrorGlamour(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillMirrorGlamour(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillFaeWhisper(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillFaeWhisper(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillPetalDance(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillPetalDance(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillStarSprinkle(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillStarSprinkle(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillMysticTangle(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillMysticTangle(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillLuminaBlessing(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillLuminaBlessing(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillTwilightShimmer(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillTwilightShimmer(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
@@ -1467,7 +1467,7 @@ bool SkillTwilightShimmer(EntityId attackerID, EntityId defenderID, SkillData ab
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillPrayer(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillPrayer(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     if (IsInParty(attackerID))
     {
@@ -1487,97 +1487,97 @@ bool SkillPrayer(EntityId attackerID, EntityId defenderID, SkillData abilityData
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillDivineSmite(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillDivineSmite(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillBlessing(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillBlessing(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillMiracle(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillMiracle(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillJudgement(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillJudgement(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillAuraOfReverence(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillAuraOfReverence(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillChannelDivinity(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillChannelDivinity(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillApotheosis(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillApotheosis(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillHolyLight(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillHolyLight(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillSacredShield(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillSacredShield(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillCelestialCall(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillCelestialCall(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillPurify(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillPurify(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     RemoveDisease(attackerID);
     RemoveCurse(attackerID);
@@ -1588,7 +1588,7 @@ bool SkillPurify(EntityId attackerID, EntityId defenderID, SkillData abilityData
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillDivineIntervention(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillDivineIntervention(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     return true;
 }
@@ -1596,7 +1596,7 @@ bool SkillDivineIntervention(EntityId attackerID, EntityId defenderID, SkillData
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillHaloOfGrace(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillHaloOfGrace(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     RaiseMagic(attackerID);
     return true;
@@ -1605,7 +1605,7 @@ bool SkillHaloOfGrace(EntityId attackerID, EntityId defenderID, SkillData abilit
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillRighteousFury(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillRighteousFury(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     RaiseStrength(attackerID);
     return true;
@@ -1614,7 +1614,7 @@ bool SkillRighteousFury(EntityId attackerID, EntityId defenderID, SkillData abil
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillSeraphicWard(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillSeraphicWard(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     RaiseDefence(attackerID);
     return true;
@@ -1625,54 +1625,54 @@ bool SkillSeraphicWard(EntityId attackerID, EntityId defenderID, SkillData abili
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillTackle(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillTackle(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillSlash(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillSlash(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillBash(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillBash(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyParalyze(defenderID, abilityData.power);
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillPreciseStrike(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillPreciseStrike(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     RaiseAccuracy(attackerID);
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillExorcism(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillExorcism(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillTaunt(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillTaunt(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     return true;
 }
@@ -1680,7 +1680,7 @@ bool SkillTaunt(EntityId attackerID, EntityId defenderID, SkillData abilityData)
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillRally(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillRally(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     if (IsInParty(attackerID))
     {
@@ -1700,7 +1700,7 @@ bool SkillRally(EntityId attackerID, EntityId defenderID, SkillData abilityData)
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillDisarm(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillDisarm(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     LowerStrength(defenderID);
     return true;
@@ -1709,16 +1709,16 @@ bool SkillDisarm(EntityId attackerID, EntityId defenderID, SkillData abilityData
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillCharge(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillCharge(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    QuickAttack(attackerID, defenderID, abilityData);
+    QuickAttack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillParry(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillParry(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Parry(attackerID, defenderID, abilityData);
     return true;
@@ -1727,27 +1727,27 @@ bool SkillParry(EntityId attackerID, EntityId defenderID, SkillData abilityData)
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillCripplingBlow(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillCripplingBlow(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplySlow(defenderID, abilityData.power);
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillGuardBreak(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillGuardBreak(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     LowerDefence(defenderID);
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillSecondWind(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillSecondWind(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     RestoreMana(attackerID, abilityData.power);
     return true;
@@ -1756,7 +1756,7 @@ bool SkillSecondWind(EntityId attackerID, EntityId defenderID, SkillData ability
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillIronWill(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillIronWill(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     RaiseMagic(attackerID);
     return true;
@@ -1765,16 +1765,16 @@ bool SkillIronWill(EntityId attackerID, EntityId defenderID, SkillData abilityDa
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillShieldBash(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillShieldBash(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillTacticalRetreat(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillTacticalRetreat(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Flee();
     return true;
@@ -1785,16 +1785,16 @@ bool SkillTacticalRetreat(EntityId attackerID, EntityId defenderID, SkillData ab
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillPrimordialForce(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillPrimordialForce(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillTimeWarp(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillTimeWarp(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyHaste(attackerID, abilityData.power);
     ApplySlow(defenderID, abilityData.power);
@@ -1804,16 +1804,16 @@ bool SkillTimeWarp(EntityId attackerID, EntityId defenderID, SkillData abilityDa
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillFossilize(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillFossilize(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillCallOfTheVoid(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillCallOfTheVoid(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     LowerMagic(defenderID);
     return true;
@@ -1822,25 +1822,25 @@ bool SkillCallOfTheVoid(EntityId attackerID, EntityId defenderID, SkillData abil
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillWorldTear(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillWorldTear(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillSleepOfAges(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillSleepOfAges(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillAncientWisdom(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillAncientWisdom(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     RaiseMagic(attackerID);
     return true;
@@ -1849,34 +1849,34 @@ bool SkillAncientWisdom(EntityId attackerID, EntityId defenderID, SkillData abil
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillCatastrophe(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillCatastrophe(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillArcaneEruption(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillArcaneEruption(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillStoneTide(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillStoneTide(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillTemporalShift(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillTemporalShift(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyHaste(attackerID, abilityData.power);
     ApplySlow(defenderID, abilityData.power);
@@ -1886,7 +1886,7 @@ bool SkillTemporalShift(EntityId attackerID, EntityId defenderID, SkillData abil
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillPrimalScream(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillPrimalScream(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyFear(defenderID, abilityData.power);
     return true;
@@ -1895,19 +1895,19 @@ bool SkillPrimalScream(EntityId attackerID, EntityId defenderID, SkillData abili
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillCosmicRay(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillCosmicRay(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillEternalGrasp(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillEternalGrasp(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyParalyze(defenderID, abilityData.power);
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     Capture(defenderID, abilityData.power);
     return true;
 }
@@ -1915,18 +1915,18 @@ bool SkillEternalGrasp(EntityId attackerID, EntityId defenderID, SkillData abili
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillVolcanicOutburst(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillVolcanicOutburst(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillRunicAegis(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillRunicAegis(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
@@ -1935,19 +1935,19 @@ bool SkillRunicAegis(EntityId attackerID, EntityId defenderID, SkillData ability
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillPlague(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillPlague(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyDisease(defenderID, abilityData.power);
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillLifeDrain(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillLifeDrain(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     HealTarget(attackerID, abilityData.power);
     return true;
 }
@@ -1955,36 +1955,36 @@ bool SkillLifeDrain(EntityId attackerID, EntityId defenderID, SkillData abilityD
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillGraveTouch(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillGraveTouch(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyCurse(defenderID, abilityData.power);
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillHaunt(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillHaunt(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyFear(defenderID, abilityData.power);
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillNecroticBurst(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillNecroticBurst(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillRaiseMinion(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillRaiseMinion(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Summon(SKELETON);
     return true;
@@ -1993,7 +1993,7 @@ bool SkillRaiseMinion(EntityId attackerID, EntityId defenderID, SkillData abilit
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillWither(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillWither(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     LowerStrength(defenderID);
     return true;
@@ -2002,53 +2002,53 @@ bool SkillWither(EntityId attackerID, EntityId defenderID, SkillData abilityData
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillDeathsDoor(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillDeathsDoor(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillWail(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillWail(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    InstantKill(attackerID, defenderID, abilityData);
+    InstantKill(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 // UNUSED
-bool SkillSoulSip(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillSoulSip(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillBoneSpike(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillBoneSpike(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillCursedGround(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillCursedGround(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyCurse(defenderID, abilityData.power);
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillVampiricWave(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillVampiricWave(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     HealTarget(attackerID, abilityData.power);
     return true;
 }
@@ -2056,10 +2056,10 @@ bool SkillVampiricWave(EntityId attackerID, EntityId defenderID, SkillData abili
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillPhantomGrasp(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillPhantomGrasp(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyParalyze(defenderID, abilityData.power);
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     Capture(defenderID, abilityData.power);
     return true;
 }
@@ -2067,7 +2067,7 @@ bool SkillPhantomGrasp(EntityId attackerID, EntityId defenderID, SkillData abili
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillTombShield(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillTombShield(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     RaiseDefence(defenderID);
     return true;
@@ -2076,18 +2076,18 @@ bool SkillTombShield(EntityId attackerID, EntityId defenderID, SkillData ability
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillDarkRitual(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillDarkRitual(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    SacrificeHeal(attackerID, defenderID, abilityData);
+    SacrificeHeal(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillEpitaph(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillEpitaph(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
@@ -2096,7 +2096,7 @@ bool SkillEpitaph(EntityId attackerID, EntityId defenderID, SkillData abilityDat
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillSultryLook(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillSultryLook(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyParalyze(defenderID, abilityData.power);
     return true;
@@ -2105,7 +2105,7 @@ bool SkillSultryLook(EntityId attackerID, EntityId defenderID, SkillData ability
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillKiss(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillKiss(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyParalyze(defenderID, abilityData.power);
     return true;
@@ -2114,18 +2114,18 @@ bool SkillKiss(EntityId attackerID, EntityId defenderID, SkillData abilityData)
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillHellfire(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillHellfire(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillCorruptingTouch(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillCorruptingTouch(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     ApplyDisease(defenderID, abilityData.power);
     return true;
 }
@@ -2133,16 +2133,16 @@ bool SkillCorruptingTouch(EntityId attackerID, EntityId defenderID, SkillData ab
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillDemonicPact(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillDemonicPact(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillSoulSiphon(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillSoulSiphon(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     DrainMana(defenderID, abilityData.power);
     RestoreMana(attackerID, abilityData.power);
@@ -2152,34 +2152,34 @@ bool SkillSoulSiphon(EntityId attackerID, EntityId defenderID, SkillData ability
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillTemptation(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillTemptation(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillFelblaze(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillFelblaze(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillChaosWhisper(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillChaosWhisper(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillLustfulGlare(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillLustfulGlare(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyParalyze(defenderID, abilityData.power);
     return true;
@@ -2188,10 +2188,10 @@ bool SkillLustfulGlare(EntityId attackerID, EntityId defenderID, SkillData abili
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillAbyssalGrasp(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillAbyssalGrasp(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplySlow(defenderID, abilityData.power);
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     Capture(defenderID, abilityData.power);
     return true;
 }
@@ -2199,25 +2199,25 @@ bool SkillAbyssalGrasp(EntityId attackerID, EntityId defenderID, SkillData abili
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillCursedEmbrace(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillCursedEmbrace(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillInfernalRush(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillInfernalRush(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillDiabolicCry(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillDiabolicCry(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     RaiseStrength(defenderID);
     return true;
@@ -2226,9 +2226,9 @@ bool SkillDiabolicCry(EntityId attackerID, EntityId defenderID, SkillData abilit
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillHellscape(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillHellscape(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
@@ -2237,77 +2237,77 @@ bool SkillHellscape(EntityId attackerID, EntityId defenderID, SkillData abilityD
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillSting(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillSting(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyPoison(defenderID, abilityData.power);
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillVenomSpit(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillVenomSpit(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyPoison(defenderID, abilityData.power);
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillToxicCloud(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillToxicCloud(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyPoison(defenderID, abilityData.power);
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillParalyze(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillParalyze(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyParalyze(defenderID, abilityData.power);
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillAcidSpray(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillAcidSpray(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     DestroyRandomPlayerItem();
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillNeurotoxin(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillNeurotoxin(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyParalyze(defenderID, abilityData.power);
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillContagion(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillContagion(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyDisease(defenderID, abilityData.power);
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillAntidote(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillAntidote(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     RemovePoison(attackerID);
     return true;
@@ -2316,76 +2316,76 @@ bool SkillAntidote(EntityId attackerID, EntityId defenderID, SkillData abilityDa
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillToxicFang(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillToxicFang(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyPoison(defenderID, abilityData.power);
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillVirulentBite(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillVirulentBite(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyDisease(defenderID, abilityData.power);
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillToxicBarrage(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillToxicBarrage(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillNerveStrike(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillNerveStrike(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyParalyze(defenderID, abilityData.power);
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillToxicMist(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillToxicMist(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     PersistentPoisonCloud(abilityData.power);
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillVenomousTail(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillVenomousTail(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyParalyze(defenderID, abilityData.power);
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillInfectiousTouch(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillInfectiousTouch(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyDisease(defenderID, abilityData.power);
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillPurifyCure(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillPurifyCure(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     RemoveDisease(attackerID);
     return true;
@@ -2396,34 +2396,34 @@ bool SkillPurifyCure(EntityId attackerID, EntityId defenderID, SkillData ability
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillSacrifice(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillSacrifice(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillRockThrow(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillRockThrow(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillMudSlide(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillMudSlide(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillStoneSkin(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillStoneSkin(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     LowerDefence(defenderID);
     return true;
@@ -2432,7 +2432,7 @@ bool SkillStoneSkin(EntityId attackerID, EntityId defenderID, SkillData abilityD
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillQuicksand(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillQuicksand(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplySlow(defenderID, abilityData.power);
     return true;
@@ -2441,7 +2441,7 @@ bool SkillQuicksand(EntityId attackerID, EntityId defenderID, SkillData abilityD
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillEarthenPrison(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillEarthenPrison(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyParalyze(defenderID, abilityData.power);
     return true;
@@ -2450,71 +2450,71 @@ bool SkillEarthenPrison(EntityId attackerID, EntityId defenderID, SkillData abil
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillLavaBurst(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillLavaBurst(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillTerraform(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillTerraform(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillBoulderCrush(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillBoulderCrush(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillEarthquakeStomp(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillEarthquakeStomp(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillTremorWave(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillTremorWave(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillStoneSpike(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillStoneSpike(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillMudClaw(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillMudClaw(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplySlow(defenderID, abilityData.power);
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillGeoBarrier(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillGeoBarrier(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     RaiseDefence(defenderID);
     return true;
@@ -2523,18 +2523,18 @@ bool SkillGeoBarrier(EntityId attackerID, EntityId defenderID, SkillData ability
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillMagmaFlow(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillMagmaFlow(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 
 /**********************************************************************************************************************
 /*
 **********************************************************************************************************************/
-bool SkillLandShift(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillLandShift(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    Attack(attackerID, defenderID, abilityData);
+    Attack(hardware, attackerID, defenderID, abilityData);
     return true;
 }
 

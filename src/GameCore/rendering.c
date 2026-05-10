@@ -1,19 +1,18 @@
 //
 // Created by nathanial on 4/11/26.
 //
-
-#include "stdbool.h"
-#include <string.h>
-
 #include "rendering.h"
+
+#include "lib_types.h"
+#include "lib_decl.h"
+
 #include "animation.h"
 #include "camera.h"
 
 #include "map.h"
-#include "memory_ram.h"
 #include "utils.h"
 #include "graphics.h"
-#include "lib_decl.h"
+#include "memory_ram.h"
 #include "memory_rom.h"
 
 
@@ -222,9 +221,9 @@ void ReDrawSprites(GraphicsInterface graphics)
 void RenderObjects(GraphicsInterface graphics, HardwareInterface hardware)
 {
     if (g_run.btns.gameSpeed < 5)
-        AnimationMovement(graphics);
+        AnimationMovement(graphics, hardware);
 
-    memset(g_run.view.dirtyTiles, 0, sizeof(g_run.view.dirtyTiles));
+    hardware.MemSet(g_run.view.dirtyTiles, 0, sizeof(g_run.view.dirtyTiles));
 
     ResetRenders(&g_run.view.viewItems, NO_ITEM);
     ResetRenders(&g_run.view.viewObjects, NO_OBJECT);

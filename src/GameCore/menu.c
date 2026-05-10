@@ -1,17 +1,12 @@
 //
 // Created by nathanial on 2/24/26.
 //
-#include "entities.h"
-#include "lib_decl.h"
-
-#ifdef ENABLE_DEBUG_OUTPUT
-#include <stdio.h>
-#endif
-
-
 #include "menu.h"
 
+#include "lib_decl.h"
 #include "lib_debugging.h"
+
+#include "entities.h"
 #include "memory_ram.h"
 #include "memory_rom.h"
 

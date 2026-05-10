@@ -8,12 +8,12 @@
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-void InitPlayer(void);
+void InitPlayer(HardwareInterface hardware);
 void UpdatePlayerPosition(void);
 Position GetPlayerPosition(void);
 EntityId GetPlayerID(void);
 Delta SetPlayerDelta(Delta newDelta);
-EntityId CachePlayerCreatureData();
+EntityId CachePlayerCreatureData(HardwareInterface hardware);
 EntityId CachePlayerItemData();
 
 /**********************************************************************************************************************/
@@ -32,9 +32,8 @@ bool IsInParty(EntityId id);
 **********************************************************************************************************************/
 bool CheckPlayerAttackOutcome();
 bool CheckEnemyAttackOutcome();
-void DestroyEnemyCreature();
-void DestroyPlayerCreature();
-void CachePlayerData();
-void PlacePlayerOnMap();
+void DestroyEnemyCreature(HardwareInterface hardware);
+void DestroyPlayerCreature(HardwareInterface hardware);
+void PlacePlayerOnMap(HardwareInterface hardware);
 void PlayerInteractItemInCell();
 void PlayerInteractObjectInCell();

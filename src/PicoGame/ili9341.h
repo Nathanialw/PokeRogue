@@ -1,5 +1,4 @@
 #pragma once
-#include <stdint.h>
 
 #include "lib_decl.h"
 #include "lib_types.h"

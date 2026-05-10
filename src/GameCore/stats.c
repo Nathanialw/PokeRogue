@@ -4,14 +4,11 @@
 
 #include "stats.h"
 
+#include "lib_debugging.h"
+#include "lib_types.h"
+
 #include "memory_rom.h"
 #include "memory_ram.h"
-#include "stdint.h"
-
-#include <string.h>
-#include <stdbool.h>
-
-#include "lib_debugging.h"
 #include "utils.h"
 
 /**********************************************************************************************************************/
@@ -28,15 +25,15 @@ static const uint8_t growth_table[8] = {1, 2, 3, 4, 5, 6, 7, 8};
 /**********************************************************************************************************************/
 /** Returns a random int between given min and max
 **********************************************************************************************************************/
-uint8_t GetRandomStat(uint8_t min, uint8_t max)
+uint8_t GetRandomStat(HardwareInterface hardware, uint8_t min, uint8_t max)
 {
-    return GetRandom_uint8_t(min, max);
+    return hardware.GetRandom_uint8_t(min, max);
 }
 
 /**********************************************************************************************************************/
 /** Returns the stats of a given creature type and level
 **********************************************************************************************************************/
-Stats GetStats(Creature type, uint8_t level)
+Stats GetStats(HardwareInterface hardware, Creature type, uint8_t level)
 {
     Stats minStats = g_gameFlash.gameData.creatureStats[type].min;
     Stats maxStats = g_gameFlash.gameData.creatureStats[type].max;
@@ -47,10 +44,10 @@ Stats GetStats(Creature type, uint8_t level)
     uint8_t s = growth_table[GrowthSpeed(g_gameFlash.gameData.creatureStats[type].growth)];
 
     Stats stats;
-    stats.attack = GetRandomStat(minStats.attack, maxStats.attack);
-    stats.defence = GetRandomStat(minStats.defence, maxStats.defence);
-    stats.magic = GetRandomStat(minStats.magic, maxStats.magic);
-    stats.speed = GetRandomStat(minStats.speed, maxStats.speed);
+    stats.attack = GetRandomStat(hardware, minStats.attack, maxStats.attack);
+    stats.defence = GetRandomStat(hardware, minStats.defence, maxStats.defence);
+    stats.magic = GetRandomStat(hardware, minStats.magic, maxStats.magic);
+    stats.speed = GetRandomStat(hardware, minStats.speed, maxStats.speed);
 
     stats.attack += a * (level / 4);
     stats.defence += d * (level / 4);
@@ -137,9 +134,9 @@ IntMax999 GetMP(Creature type, uint8_t level)
 /**********************************************************************************************************************/
 /** modifies a char array with the formatted values of "min/max" of a resource
 **********************************************************************************************************************/
-void GetStatLine(uint16_t cur, uint16_t max, uint8_t max_chars, char* dest, const StatusPrefix prefix)
+void GetStatLine(HardwareInterface hardware, uint16_t cur, uint16_t max, uint8_t max_chars, char* dest, const StatusPrefix prefix)
 {
-    memset(dest, '\0', max_chars);
+    hardware.MemSet(dest, '\0', max_chars);
 
     for (int i = 0; i < 3 && prefix[i]; i++)
     {

@@ -5,7 +5,6 @@
 #include "menu_battle.h"
 
 #include "memory_ram.h"
-#include <stdint.h>
 
 #include "battles.h"
 #include "game_state.h"
@@ -258,13 +257,13 @@ void UpdateBattleMenu(InputInterface input)
  *  Returns true if Attacking
  *  Returns false if menu
 **********************************************************************************************************************/
-bool BattleMenuCommand(InputInterface input)
+bool BattleMenuCommand(HardwareInterface hardware, InputInterface input)
 {
     bool b = false;
     DEBUG("BattleMenuCommand===================================");
 
     if (battleMenu == ABILITY_MENU)
-        b = UseSkill(true);
+        b = UseSkill(hardware, true);
     if (battleMenu == BATTLE_MENU)
         battleSubmenus[g_run.menu.sel[0].y](input, true); //0 to enter the menu base entry point
 

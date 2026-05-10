@@ -31,7 +31,7 @@ void GetSkills(EntityId id, Type type)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool UseSkill(bool player)
+bool UseSkill(HardwareInterface hardware, bool player)
 {
     EntityId player_creature_id = g_run.battleMode.playerMonsterID;
     EntityId ai_creature_id = g_run.battleMode.enemyMonsterID;
@@ -52,7 +52,7 @@ bool UseSkill(bool player)
             if (g_run.creatures.attacks[ai_creature_id][i] != NO_ABILITY)
                 num_abilities++;
         if (num_abilities == 0) return false;
-        uint8_t idx = 0 + rand() % num_abilities;
+        uint8_t idx = hardware.GetRandom_uint8_t(0, num_abilities);
         ability = g_run.creatures.attacks[ai_creature_id][idx];
         SkillData ability_data = g_gameFlash.gameData.abilityData[ability];
         g_gameFlash.funcs.abilityFunctions[ability](ai_creature_id, player_creature_id, ability_data);

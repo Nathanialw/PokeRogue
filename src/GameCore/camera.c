@@ -1,12 +1,10 @@
 //
 // Created by nathanial on 2/20/26.
 //
-
 #include "camera.h"
-#include <stdint.h>
+
 #include "memory_ram.h"
 #include "player.h"
-#include "utils.h"
 
 
 /**********************************************************************************************************************/

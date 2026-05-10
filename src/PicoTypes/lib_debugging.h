@@ -32,3 +32,13 @@ do { fprintf(stderr, fmt, ##__VA_ARGS__); fflush(stderr);} while(0)
 #else
 #define DEBUG(fmt, ...) do {} while(0) // this should be optimized out by the compiler
 #endif
+
+#ifdef ENABLE_DEBUG_OUTPUT
+#define PRINT(fmt, ...) \
+do { fprintf(stderr, fmt , __FILE__, __LINE__, ##__VA_ARGS__); fflush(stderr);} while(0)
+#define PRINT_INLINE(fmt, ...) \
+do { fprintf(stderr, fmt, ##__VA_ARGS__); fflush(stderr);} while(0)
+#else
+#define PRINT(fmt, ...) do {} while(0) // this should be optimized out by the compiler
+#endif
+

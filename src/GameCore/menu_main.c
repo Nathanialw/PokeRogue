@@ -1,20 +1,15 @@
 //
 // Created by nathanial on 3/8/26.
 //
-#include <stddef.h>
+#include "menu_main.h"
+
+#include "lib_decl.h"
+#include "lib_debugging.h"
+#include "lib_types.h"
 
 #include "battles.h"
-#include "lib_decl.h"
-#ifdef ENABLE_DEBUG_OUTPUT
-#include <stdio.h>
-#endif
-
-#include "menu_main.h"
 #include "constants.h"
 #include "entities.h"
-#include "lib_debugging.h"
-#include "lib_decl.h"
-
 #include "memory_rom.h"
 #include "memory_ram.h"
 #include "player.h"

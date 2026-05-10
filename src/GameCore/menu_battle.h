@@ -8,5 +8,5 @@
 const char* GetBattleMenuList(uint8_t idx);
 void InitBattleMenu(void);
 void UpdateBattleMenu(InputInterface input);
-bool BattleMenuCommand(InputInterface input);
+bool BattleMenuCommand(HardwareInterface hardware, InputInterface input);
 void ExitMenu(void);

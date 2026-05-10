@@ -6,5 +6,5 @@
 #include "types.h"
 
 
-void PrintCombatLog(EntityId creatureID, uint16_t damage);
-void CombatLogLine(char* dest, const char* prefix, const char* suffix, uint16_t value);
+void PrintCombatLog(HardwareInterface hardware, EntityId creatureID, uint16_t damage);
+void CombatLogLine(HardwareInterface hardware, char* dest, const char* prefix, const char* suffix, uint16_t value);

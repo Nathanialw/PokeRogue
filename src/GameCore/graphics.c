@@ -1,15 +1,15 @@
 //
 // Created by nathanial on 4/11/26.
 //
-#include <stdint.h>
-#include <string.h>
-
 #include "graphics.h"
+
+#include "lib_debugging.h"
+#include "lib_decl.h"
+#include "lib_types.h"
 
 
 #include "tilesets.h"
 #include "map.h"
-#include "camera.h"
 #include "memory_rom.h"
 #include "memory_ram.h"
 #include "menu.h"
@@ -18,10 +18,8 @@
 #include "menu_battle.h"
 #include "stats.h"
 #include "entities.h"
-#include "lib_debugging.h"
 #include "player.h"
 #include "utils.h"
-#include "lib_decl.h"
 
 /**********************************************************************************************************************/
 /**  copy the given rect of the give pixel array into the given clip pixel array
@@ -244,7 +242,7 @@ void OrderUnitsByBufferLine(GraphicsInterface graphics, EntityId* units, uint8_t
  *  colour coded
  *  draws creature position pixels on top of their tile position
 **********************************************************************************************************************/
-void DrawMiniMap(GraphicsInterface graphics)
+void DrawMiniMap(GraphicsInterface graphics, HardwareInterface hardware)
 {
     DEBUG("==== DRAWING MINIMAP ====   \n");
 
@@ -275,9 +273,9 @@ void DrawMiniMap(GraphicsInterface graphics)
     const uint8_t centerOffset = 32;
 
     uint8_t meta[buffer_lines];
-    memset(meta, 0, sizeof(meta));
+    hardware.MemSet(meta, 0, sizeof(meta));
     EntityId units[ENTITY_COUNT];
-    memset(units, NO_ENTITY, sizeof(units));
+    hardware.MemSet(units, NO_ENTITY, sizeof(units));
     OrderUnitsByBufferLine(graphics, units, meta);
 
     uint16_t cursor = 0;
@@ -285,7 +283,7 @@ void DrawMiniMap(GraphicsInterface graphics)
     for (uint16_t y = 0; y < MAP_H; y += graphics.GetBufferHeight())
     {
         graphics.SetFrameBuffer(g_gameFlash.GetColor[PAL_OFF_WHITE_GRAY]);
-        memset(graphics.GetFrameBuffer2bytes(), g_gameFlash.GetColor[PAL_DARK_GRN_BLACK], sizeof(*graphics.GetFrameBuffer2bytes()));
+        hardware.MemSet(graphics.GetFrameBuffer2bytes(), g_gameFlash.GetColor[PAL_DARK_GRN_BLACK], sizeof(*graphics.GetFrameBuffer2bytes()));
         cursor = (screen_w - MAP_W) / 2; //reset position
         for (uint16_t row = 0; row < graphics.GetBufferHeight(); row++)
         {
@@ -326,7 +324,7 @@ void DrawMiniMap(GraphicsInterface graphics)
 /**  Draws the player party frame
  *  Draws each creature name and their resources
 **********************************************************************************************************************/
-void DrawParty(GraphicsInterface graphics)
+void DrawParty(GraphicsInterface graphics, HardwareInterface hardware)
 {
     DEBUG("==== DRAWING PARTY ====   \n");
 
@@ -343,7 +341,7 @@ void DrawParty(GraphicsInterface graphics)
     const uint8_t max_chars = (((MAIN_MENU_W) * font_size) - indent) + 1;
 
     char border[max_chars + 1];
-    memset(border, '-', max_chars);
+    hardware.MemSet(border, '-', max_chars);
     border[max_chars] = '\0';
 
     y += PrintLineStr(graphics, x, y, font_size, max_chars, border, false);
@@ -438,7 +436,7 @@ void DrawParty(GraphicsInterface graphics)
 /**********************************************************************************************************************/
 /**  Draws the cached char arrays menu list to the screen
 **********************************************************************************************************************/
-void DrawList(GraphicsInterface graphics)
+void DrawList(GraphicsInterface graphics, HardwareInterface hardware)
 {
     DEBUG("==== DRAWING MENU ====   \n");
 
@@ -455,7 +453,7 @@ void DrawList(GraphicsInterface graphics)
     const uint8_t max_chars = (((MAIN_MENU_W) * font_size) - indent) + 1;
 
     char border[max_chars + 1];
-    memset(border, '-', max_chars);
+    hardware.MemSet(border, '-', max_chars);
     border[max_chars] = '\0';
 
     y += PrintLineStr(graphics, x, y, font_size, max_chars, border, false);
@@ -481,7 +479,7 @@ void DrawList(GraphicsInterface graphics)
 /**********************************************************************************************************************/
 /**  handles while menu selection to draw
 **********************************************************************************************************************/
-void HandleMenu(GraphicsInterface graphics)
+void HandleMenu(GraphicsInterface graphics, HardwareInterface hardware)
 {
     if (g_run.menu.displayedMenu == g_run.menu.selectedMenu && (g_run.menu.menuScrollOffset[g_run.menu.depth].y <= 0 && !g_run.menu.forceRedraw)) return;
     g_run.menu.displayedMenu = g_run.menu.selectedMenu;
@@ -489,17 +487,17 @@ void HandleMenu(GraphicsInterface graphics)
 
     if (g_run.menu.displayedMenu == MINIMAP) // draw minimap
     {
-        DrawMiniMap(graphics);
+        DrawMiniMap(graphics, hardware);
         return;
     }
 
     if (g_run.menu.displayedMenu == PARTY || g_run.menu.useOnPartyMember) //draw party
     {
-        DrawParty(graphics);
+        DrawParty(graphics, hardware);
         return;
     }
 
-    DrawList(graphics);
+    DrawList(graphics, hardware);
 }
 
 /**********************************************************************************************************************/
@@ -556,7 +554,7 @@ void HandleBattleLists(GraphicsInterface graphics)
 /**********************************************************************************************************************/
 /**  Draws the back panel of the battle menu list and calls the draw battle list function
 **********************************************************************************************************************/
-void HandleBattleMenu(GraphicsInterface graphics)
+void HandleBattleMenu(GraphicsInterface graphics, HardwareInterface hardware)
 {
     if (g_run.menu.depth == 0) return;
 
@@ -575,7 +573,7 @@ void HandleBattleMenu(GraphicsInterface graphics)
     const uint8_t max_lines = (MAIN_MENU_H * font_size);
 
     char border[max_chars + 1];
-    memset(border, '-', max_chars);
+    hardware.MemSet(border, '-', max_chars);
     border[max_chars] = '\0';
 
     HandleBattleLists(graphics);
@@ -704,7 +702,7 @@ void HandleGameMenuLeftStat(GraphicsInterface graphics, const uint16_t x, const 
 /**********************************************************************************************************************/
 /**  Draws the borders to the screen for the "pokedex" style encyclopedias
 **********************************************************************************************************************/
-void HandleGameMenuBorders(GraphicsInterface graphics)
+void HandleGameMenuBorders(GraphicsInterface graphics, HardwareInterface hardware)
 {
     const uint16_t x = 0;
     uint8_t y = 0;
@@ -714,7 +712,7 @@ void HandleGameMenuBorders(GraphicsInterface graphics)
     const uint8_t max_chars = (((VIEW_TW) * font_size)) + 1;
 
     char border[max_chars + 1];
-    memset(border, '-', max_chars);
+    hardware.MemSet(border, '-', max_chars);
     border[max_chars] = '\0';
     PrintLineStr(graphics, x, y, font_size, max_chars, border, false);
     uint16_t numSpaces = (max_lines - 1) * size;
@@ -745,7 +743,7 @@ void HandleGameMenuTypes(GraphicsInterface graphics, const char* typeA, const ch
 /**  Draws the description text to the screen for the "pokedex" style encyclopedias
  *  Handles line breaks and word breaks
 **********************************************************************************************************************/
-void HandleGameMenuDescription(GraphicsInterface graphics, uint16_t y, const char* desc)
+void HandleGameMenuDescription(GraphicsInterface graphics, HardwareInterface hardware, uint16_t y, const char* desc)
 {
     const FontSize font_size = g_run.settings.fontSize;
     const uint8_t size = (font_size == FONT8x8) ? TEXT_W : TILE_W;
@@ -768,7 +766,7 @@ void HandleGameMenuDescription(GraphicsInterface graphics, uint16_t y, const cha
         if (done) break;
 
         char line[LINE_LEN + 2]; // +2 for possible hyphen and null
-        memset(line, ' ', LINE_LEN);
+        hardware.MemSet(line, ' ', LINE_LEN);
         line[LINE_LEN] = '\0';
         line[LINE_LEN + 1] = '\0';
 
@@ -842,7 +840,7 @@ void HandleGameMenuDescription(GraphicsInterface graphics, uint16_t y, const cha
                 int8_t hyphen_pos = -1;
                 for (int8_t k = LINE_LEN - 2; k >= word_start + 2; k--)
                 {
-                    if (IsHyphenationPoint(line, k, LINE_LEN))
+                    if (IsHyphenationPoint(hardware, line, k, LINE_LEN))
                     {
                         hyphen_pos = k;
                         break;
@@ -941,7 +939,7 @@ EntityData FillObjectData()
 /**********************************************************************************************************************/
 /**  Draws the "pokedex" style encyclopedia frame
 **********************************************************************************************************************/
-void HandleGameMenu(GraphicsInterface graphics)
+void HandleGameMenu(GraphicsInterface graphics, HardwareInterface hardware)
 {
     if (!g_run.menu.gameMenu.open && (g_run.menu.gameMenu.displayId == g_run.menu.gameMenu.id)) return;
     g_run.menu.gameMenu.displayId = g_run.menu.gameMenu.id;
@@ -954,20 +952,20 @@ void HandleGameMenu(GraphicsInterface graphics)
     EntityData entityData = FillObjectData();
 
     HandleGameMenuLeftBG(graphics, x, y);
-    HandleGameMenuBorders(graphics);
+    HandleGameMenuBorders(graphics, hardware);
     HandleGameMenuLeftBattler(graphics, x, y, size, entityData.layout, entityData.sprite);
     HandleGameMenuLeftName(graphics, x, y + (size * 16), entityData.name);
     HandleGameMenuLeftStat(graphics, x, x + (size * 6), y + (size * 18), size, "Powr:\0");
     HandleGameMenuLeftStat(graphics, x, x + (size * 6), y + (size * 20) - 4, size, "Rare:\0");
     HandleGameMenuTypes(graphics, entityData.typeA, entityData.typeB);
-    HandleGameMenuDescription(graphics, (size * 21), entityData.desc);
+    HandleGameMenuDescription(graphics, hardware, (size * 21), entityData.desc);
 }
 
 /**********************************************************************************************************************/
 /*  Draws the formatted Creature stats in battle - hp, mama
 **********************************************************************************************************************/
 
-void CreatureStats(GraphicsInterface graphics, EntityId id, Rect_16 rect, uint8_t size, FontSize font_size)
+void CreatureStats(GraphicsInterface graphics, HardwareInterface hardware, EntityId id, Rect_16 rect, uint8_t size, FontSize font_size)
 {
     uint8_t max_chars = 12;
 
@@ -979,7 +977,7 @@ void CreatureStats(GraphicsInterface graphics, EntityId id, Rect_16 rect, uint8_
 
     const uint16_t cur_hp = Int999GetCurrent(&g_run.creatures.hp[id]);
     const uint16_t max_hp = Int999GetMax(&g_run.creatures.hp[id]);
-    GetStatLine(cur_hp, max_hp, max_chars, status_line, "HP:");
+    GetStatLine(hardware, cur_hp, max_hp, max_chars, status_line, "HP:");
     PrintLineStr(graphics, rect.x + TEXT_W, rect.y + size + TEXT_W, font_size, max_chars, status_line, false);
 
     DEBUG("CreatureStats HP: %d/%d", cur_hp, max_hp);
@@ -990,7 +988,7 @@ void CreatureStats(GraphicsInterface graphics, EntityId id, Rect_16 rect, uint8_
     const uint16_t max_mp = Int999GetMax(&g_run.creatures.mp[id]);
 
     DEBUG("CreatureStats MP: %d/%d", cur_mp, max_mp);
-    GetStatLine(cur_mp, max_mp, max_chars, status_line, "MP:");
+    GetStatLine(hardware, cur_mp, max_mp, max_chars, status_line, "MP:");
     PrintLineStr(graphics, rect.x + TEXT_W, rect.y + (size * 3) + TEXT_W, font_size, max_chars, status_line, false);
 
     const uint16_t mp_w = ((float)cur_mp / (float)max_mp) * (float)(rect.w - 16);
@@ -1004,7 +1002,7 @@ void CreatureStats(GraphicsInterface graphics, EntityId id, Rect_16 rect, uint8_
  *      -battle menu list for actuve creature abilities
  *      -battle menu list for player actions ie swap, use item, use spell etx
 **********************************************************************************************************************/
-void HandleBattle(GraphicsInterface graphics)
+void HandleBattle(GraphicsInterface graphics, HardwareInterface hardware)
 {
     DEBUG("HandleBattle");
     FontSize font_size = g_run.settings.fontSize;
@@ -1029,8 +1027,8 @@ void HandleBattle(GraphicsInterface graphics)
     const uint8_t* eSprite = g_gameFlash.spriteData.battlers.front;
     DrawBattler(graphics, enemy.x + 24, enemy.y, eLayout, eSprite);
 
-    CreatureStats(graphics, g_run.battleMode.playerMonsterID, playerHP, size, font_size);
-    CreatureStats(graphics, g_run.battleMode.enemyMonsterID, enemyHP, size, font_size);
+    CreatureStats(graphics, hardware, g_run.battleMode.playerMonsterID, playerHP, size, font_size);
+    CreatureStats(graphics, hardware, g_run.battleMode.enemyMonsterID, enemyHP, size, font_size);
 
 
     uint16_t x = dialogue.x;

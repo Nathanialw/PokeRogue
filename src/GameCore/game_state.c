@@ -4,7 +4,8 @@
 
 #include "game_state.h"
 
-#include <sys/unistd.h>
+#include "lib_debugging.h"
+#include "lib_decl.h"
 
 #include "menu.h"
 #include "player.h"
@@ -15,11 +16,8 @@
 #include "battles.h"
 #include "core.h"
 #include "graphics.h"
-#include "lib_debugging.h"
 #include "memory_rom.h"
 #include "rendering.h"
-#include "sound.h"
-#include "lib_decl.h"
 
 
 /**********************************************************************************************************************/
@@ -87,7 +85,7 @@ State SetGameState(GameState state)
 /**********************************************************************************************************************/
 /*  input handling based on game state
 **********************************************************************************************************************/
-void UpdateGameRunningState(GraphicsInterface graphics, InputInterface input)
+void UpdateGameRunningState(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input)
 {
     if (g_run.state.gameState == GAME_RUNNING)
     {
@@ -95,7 +93,7 @@ void UpdateGameRunningState(GraphicsInterface graphics, InputInterface input)
         {
             if (input.GetButtonA())
             {
-                bool b = BattleMenuCommand(input);
+                bool b = BattleMenuCommand(hardware, input);
                 if (!b) return; //No state change for menu input
                 SetBattleState(BATTLE_ATTACK);
             }
@@ -295,13 +293,13 @@ void HandleGameState(GameInterface spi)
 {
     if (g_run.state.inputState == MOVING)
     {
-        UpdateGame();
+        UpdateGame(spi.hardware);
         RenderObjects(spi.graphics, spi.hardware);
     }
     if (g_run.state.inputState == MENU)
     {
-        HandleMenu(spi.graphics);
-        HandleGameMenu(spi.graphics);
+        HandleMenu(spi.graphics, spi.hardware);
+        HandleGameMenu(spi.graphics, spi.hardware);
         DrawCursor(spi.graphics);
     }
     if (g_run.state.inputState == BATTLE)
@@ -309,8 +307,8 @@ void HandleGameState(GameInterface spi)
         if (CheckBattleState(BATTLE_INIT))
         {
             AnimationScreenClearRandom(spi.graphics, spi.hardware); //ANIMATION - move both creatures into place
-            HandleBattle(spi.graphics);
-            HandleBattleMenu(spi.graphics);
+            HandleBattle(spi.graphics,spi.hardware);
+            HandleBattleMenu(spi.graphics, spi.hardware);
             SetBattleState(BATTLE_MENUS);
         }
         else if (CheckBattleState(BATTLE_ATTACK))
@@ -321,14 +319,14 @@ void HandleGameState(GameInterface spi)
             if (!CheckPlayerAttackOutcome())
             {
                 AnimationBattlerDie(spi.graphics, spi.hardware, false);
-                DestroyEnemyCreature();
+                DestroyEnemyCreature(spi.hardware);
                 AnimationScreenFade(spi.graphics, spi.hardware); //ANIMATION - enemy creature drops off screen
                 FullRedraw(spi.graphics);
                 SetInputState(MOVING);
                 return;
             }
 
-            UseSkill(false);
+            UseSkill(spi.hardware, false);
             BattlerAnimationAttack(spi.graphics, false); //attacking animation
             BattlerAnimationStruck(spi.graphics, true); //hit animation
             AnimationUpdateHealth(spi.graphics, spi.hardware, false);
@@ -344,7 +342,7 @@ void HandleGameState(GameInterface spi)
         }
         else if (CheckBattleState(BATTLE_MENUS))
         {
-            HandleBattleMenu(spi.graphics);
+            HandleBattleMenu(spi.graphics, spi.hardware);
         }
         DrawCursor(spi.graphics);
     }
@@ -355,6 +353,8 @@ void HandleGameState(GameInterface spi)
 /**********************************************************************************************************************/
 /**  main game state update loop
 **********************************************************************************************************************/
+// __attribute__((section(".title")))
+__attribute__((section(".battle"), used))
 bool GameLoopTitleScreen(GameInterface spi)
 {
     spi.graphics.FillScreen(g_gameFlash.GetColor[PAL_OFF_WHITE_GRAY]); // TODO: update to real title screen
@@ -367,10 +367,9 @@ bool GameLoopTitleScreen(GameInterface spi)
         GameLoopRateDelay(spi.hardware);
     }
 
-    InitGame();
+    InitGame(spi.hardware);
     return true;
 }
-
 
 bool GameLoopMain(GameInterface spi)
 {
@@ -378,7 +377,7 @@ bool GameLoopMain(GameInterface spi)
     while (g_run.state.gameState == GAME_RUNNING)
     {
         spi.input.HandleInput();
-        UpdateGameRunningState(spi.graphics, spi.input);
+        UpdateGameRunningState(spi.graphics, spi.hardware, spi.input);
         HandleGameState(spi);
         GameLoopRateDelay(spi.hardware);
     }
@@ -387,6 +386,7 @@ bool GameLoopMain(GameInterface spi)
     return true;
 }
 
+// __attribute__((section(".strings")))
 bool GameLoopNewMap(GameInterface spi)
 {
     NewMap();
@@ -394,7 +394,7 @@ bool GameLoopNewMap(GameInterface spi)
     return true;
 }
 
-
+__attribute__((section(".map"), used))
 bool GameLoopShutdown(GameInterface spi)
 {
     return false;
@@ -407,7 +407,6 @@ GameLoopFunc GameLoopState[GAME_STATE_SIZE] = {GameLoopTitleScreen, GameLoopMain
 /**********************************************************************************************************************/
 /**  main game state update loop
 **********************************************************************************************************************/
-__attribute__((section(".RAM")))
 void GameLoop(GameInterface spi)
 {
     SetGameState(TITLE_SCREEN);

@@ -2,8 +2,10 @@
 // Created by nathanial on 5/2/26.
 //
 #pragma once
-#include "stdbool.h"
 #include "lib_constants.h"
+#include "stdbool.h"
+#include "stdint.h"
+
 
 /**********************************************************************************************************************/
 /*  The main frame buffer

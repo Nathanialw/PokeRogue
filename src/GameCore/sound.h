@@ -6,7 +6,7 @@
 
 
 MusicData InitMusicData();
-void GenerateDungeonMelody(Note *melody);
+void GenerateDungeonMelody(HardwareInterface hardware, Note *melody);
 
 
 /**********************************************************************************************************************/

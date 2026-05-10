@@ -7,7 +7,7 @@
 
 
 void GetSkills(EntityId id, Type type);
-bool UseSkill(bool player);
+bool UseSkill(HardwareInterface hardware, bool player);
 
 bool CastSpell(SpellId spellID, EntityId partyID, EntityId enemyID);
 

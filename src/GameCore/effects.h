@@ -2,8 +2,6 @@
 // Created by nathanial on 3/29/26.
 //
 #pragma once
-#include <stdint.h>
-
 #include "types.h"
 
 
@@ -28,12 +26,12 @@ bool NoEffect();
 /**********************************************************************************************************************/
 /** DAMAGE EFFECTS
 **********************************************************************************************************************/
-void Attack(EntityId attackerID, EntityId defenderID, SkillData abilityData);
-void InstantKill(EntityId attackerID, EntityId defenderID, SkillData abilityData);
-bool QuickAttack(EntityId attackerID, EntityId defenderID, SkillData abilityData);
+void Attack(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData);
+void InstantKill(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData);
+bool QuickAttack(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData);
 bool Parry(EntityId attackerID, EntityId defenderID, SkillData abilityData);
 bool Summon(CreatureID creature);
-void SacrificeHeal(EntityId attackerID, EntityId defenderID, SkillData abilityData);
+void SacrificeHeal(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData);
 
 
 /**********************************************************************************************************************/
@@ -150,9 +148,9 @@ bool WaterWalking(EntityId e_id, uint8_t duration);
 bool WallWalking(EntityId e_id, uint8_t duration);
 bool WaterBreathing(EntityId e_id, uint8_t duration);
 bool XRayVision(EntityId e_id, uint8_t duration);
-bool MapDescend(EntityId e_id);
-bool MapAscend(EntityId e_id);
-bool MapLateral(EntityId e_id);
+bool MapDescend(HardwareInterface hardware, EntityId e_id);
+bool MapAscend(HardwareInterface hardware, EntityId e_id);
+bool MapLateral(HardwareInterface hardware, EntityId e_id);
 bool CreateItem(ItemTypes item);
 bool CreateItemFood();
 bool CreateItemCommon();

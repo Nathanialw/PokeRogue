@@ -13,7 +13,7 @@
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool CastNoAttack_PLACEHOLDER(EntityId partyID, EntityId enemyID, SpellData spellData)
+bool CastNoAttack_PLACEHOLDER(HardwareInterface hardware, EntityId partyID, EntityId enemyID, SpellData spellData)
 {
     return true;
 }
@@ -22,7 +22,7 @@ bool CastNoAttack_PLACEHOLDER(EntityId partyID, EntityId enemyID, SpellData spel
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool PlaceholderSpell(EntityId partyID, EntityId enemyID, SpellData spellData)
+bool PlaceholderSpell(HardwareInterface hardware, EntityId partyID, EntityId enemyID, SpellData spellData)
 {
     DEBUG("PlaceholderSpell()");
     return true;
@@ -34,7 +34,7 @@ bool PlaceholderSpell(EntityId partyID, EntityId enemyID, SpellData spellData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool CastHeal(EntityId partyID, EntityId enemyID, SpellData spellData)
+bool CastHeal(HardwareInterface hardware, EntityId partyID, EntityId enemyID, SpellData spellData)
 {
     if (partyID == NO_CREATURE) return false;
     HealTarget(partyID, spellData.power);
@@ -47,7 +47,7 @@ bool CastHeal(EntityId partyID, EntityId enemyID, SpellData spellData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool CastLevitate(EntityId partyID, EntityId enemyID, SpellData spellData)
+bool CastLevitate(HardwareInterface hardware, EntityId partyID, EntityId enemyID, SpellData spellData)
 {
     Levitate(partyID, spellData.power);
     return true;
@@ -58,9 +58,9 @@ bool CastLevitate(EntityId partyID, EntityId enemyID, SpellData spellData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool CastDisplacement(EntityId partyID, EntityId enemyID, SpellData spellData)
+bool CastDisplacement(HardwareInterface hardware, EntityId partyID, EntityId enemyID, SpellData spellData)
 {
-    Position random_tile_pos = GetRandomMapTile(CREATURE, true);
+    Position random_tile_pos = GetRandomMapTile(hardware, CREATURE, true);
     Reposition(partyID, random_tile_pos);
     return true;
 }
@@ -69,7 +69,7 @@ bool CastDisplacement(EntityId partyID, EntityId enemyID, SpellData spellData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool CastWaterWalking(EntityId partyID, EntityId enemyID, SpellData spellData)
+bool CastWaterWalking(HardwareInterface hardware, EntityId partyID, EntityId enemyID, SpellData spellData)
 {
     WaterWalking(partyID, spellData.power);
     return true;
@@ -79,7 +79,7 @@ bool CastWaterWalking(EntityId partyID, EntityId enemyID, SpellData spellData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool CastWaterBreathing(EntityId partyID, EntityId enemyID, SpellData spellData)
+bool CastWaterBreathing(HardwareInterface hardware, EntityId partyID, EntityId enemyID, SpellData spellData)
 {
     WaterBreathing(partyID, spellData.power);
     return true;
@@ -89,9 +89,9 @@ bool CastWaterBreathing(EntityId partyID, EntityId enemyID, SpellData spellData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool CastTeleport(EntityId partyID, EntityId enemyID, SpellData spellData)
+bool CastTeleport(HardwareInterface hardware, EntityId partyID, EntityId enemyID, SpellData spellData)
 {
-    Position random_tile_pos = GetSelectedTile(true);
+    Position random_tile_pos = GetSelectedTile(hardware, true);
     Reposition(partyID, random_tile_pos);
     return true;
 }
@@ -100,7 +100,7 @@ bool CastTeleport(EntityId partyID, EntityId enemyID, SpellData spellData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool CastResurrect(EntityId partyID, EntityId enemyID, SpellData spellData)
+bool CastResurrect(HardwareInterface hardware, EntityId partyID, EntityId enemyID, SpellData spellData)
 {
     Revive(partyID);
     return true;
@@ -110,7 +110,7 @@ bool CastResurrect(EntityId partyID, EntityId enemyID, SpellData spellData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool CastRaiseDead(EntityId partyID, EntityId enemyID, SpellData spellData)
+bool CastRaiseDead(HardwareInterface hardware, EntityId partyID, EntityId enemyID, SpellData spellData)
 {
     TileHasCorpse(GetPlayerPosition());
     Summon(SKELETON);
@@ -121,10 +121,10 @@ bool CastRaiseDead(EntityId partyID, EntityId enemyID, SpellData spellData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool CastDescend(EntityId partyID, EntityId enemyID, SpellData spellData)
+bool CastDescend(HardwareInterface hardware, EntityId partyID, EntityId enemyID, SpellData spellData)
 {
     DEBUG("CastDescend()");
-    MapDescend(partyID);
+    MapDescend(hardware, partyID);
     return true;
 }
 
@@ -132,7 +132,7 @@ bool CastDescend(EntityId partyID, EntityId enemyID, SpellData spellData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool CastFlameEater(EntityId partyID, EntityId enemyID, SpellData spellData)
+bool CastFlameEater(HardwareInterface hardware, EntityId partyID, EntityId enemyID, SpellData spellData)
 {
     FireEating(partyID);
     return true;
@@ -142,15 +142,15 @@ bool CastFlameEater(EntityId partyID, EntityId enemyID, SpellData spellData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool CastPortal(EntityId partyID, EntityId enemyID, SpellData spellData)
+bool CastPortal(HardwareInterface hardware, EntityId partyID, EntityId enemyID, SpellData spellData)
 {
-    uint8_t n = GetRandom_uint8_t(1, 3);
+    uint8_t n = hardware.GetRandom_uint8_t(1, 3);
     if (n == 1)
-        MapDescend(partyID);
+        MapDescend(hardware, partyID);
     else if (n == 2)
-        MapAscend(partyID);
+        MapAscend(hardware, partyID);
     else
-        MapLateral(partyID);
+        MapLateral(hardware, partyID);
     return true;
 }
 
@@ -158,7 +158,7 @@ bool CastPortal(EntityId partyID, EntityId enemyID, SpellData spellData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool CastBrewPotion(EntityId partyID, EntityId enemyID, SpellData spellData)
+bool CastBrewPotion(HardwareInterface hardware, EntityId partyID, EntityId enemyID, SpellData spellData)
 {
     return true;
 }
@@ -167,7 +167,7 @@ bool CastBrewPotion(EntityId partyID, EntityId enemyID, SpellData spellData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool CastRepel(EntityId partyID, EntityId enemyID, SpellData spellData)
+bool CastRepel(HardwareInterface hardware, EntityId partyID, EntityId enemyID, SpellData spellData)
 {
     Repel(partyID, spellData.power);
     return true;
@@ -177,7 +177,7 @@ bool CastRepel(EntityId partyID, EntityId enemyID, SpellData spellData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool CastCapture(EntityId partyID, EntityId enemyID, SpellData spellData)
+bool CastCapture(HardwareInterface hardware, EntityId partyID, EntityId enemyID, SpellData spellData)
 {
     Capture(enemyID, spellData.power);
     return true;
@@ -187,7 +187,7 @@ bool CastCapture(EntityId partyID, EntityId enemyID, SpellData spellData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool CastCurePoison(EntityId partyID, EntityId enemyID, SpellData spellData)
+bool CastCurePoison(HardwareInterface hardware, EntityId partyID, EntityId enemyID, SpellData spellData)
 {
     RemovePoison(partyID);
     return true;
@@ -197,7 +197,7 @@ bool CastCurePoison(EntityId partyID, EntityId enemyID, SpellData spellData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool CastCureDisease(EntityId partyID, EntityId enemyID, SpellData spellData)
+bool CastCureDisease(HardwareInterface hardware, EntityId partyID, EntityId enemyID, SpellData spellData)
 {
     RemoveDisease(partyID);
     return true;
@@ -207,7 +207,7 @@ bool CastCureDisease(EntityId partyID, EntityId enemyID, SpellData spellData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool CastCureCurse(EntityId partyID, EntityId enemyID, SpellData spellData)
+bool CastCureCurse(HardwareInterface hardware, EntityId partyID, EntityId enemyID, SpellData spellData)
 {
     RemoveCurse(partyID);
     return true;
@@ -217,7 +217,7 @@ bool CastCureCurse(EntityId partyID, EntityId enemyID, SpellData spellData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool CastCreateFood(EntityId partyID, EntityId enemyID, SpellData spellData)
+bool CastCreateFood(HardwareInterface hardware, EntityId partyID, EntityId enemyID, SpellData spellData)
 {
     CreateItemFood();
     return true;
@@ -227,7 +227,7 @@ bool CastCreateFood(EntityId partyID, EntityId enemyID, SpellData spellData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool CastCreateCommon(EntityId partyID, EntityId enemyID, SpellData spellData)
+bool CastCreateCommon(HardwareInterface hardware, EntityId partyID, EntityId enemyID, SpellData spellData)
 {
     CreateItemCommon();
     return true;
@@ -237,7 +237,7 @@ bool CastCreateCommon(EntityId partyID, EntityId enemyID, SpellData spellData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool CastFireball(EntityId partyID, EntityId enemyID, SpellData spellData)
+bool CastFireball(HardwareInterface hardware, EntityId partyID, EntityId enemyID, SpellData spellData)
 {
     // Attack(partyID, enemyID, spellData);
     return true;
@@ -247,7 +247,7 @@ bool CastFireball(EntityId partyID, EntityId enemyID, SpellData spellData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool CastIceBolt(EntityId partyID, EntityId enemyID, SpellData spellData)
+bool CastIceBolt(HardwareInterface hardware, EntityId partyID, EntityId enemyID, SpellData spellData)
 {
     return true;
 }
@@ -256,7 +256,7 @@ bool CastIceBolt(EntityId partyID, EntityId enemyID, SpellData spellData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool CastRazorGrass(EntityId partyID, EntityId enemyID, SpellData spellData)
+bool CastRazorGrass(HardwareInterface hardware, EntityId partyID, EntityId enemyID, SpellData spellData)
 {
     return true;
 }
@@ -265,7 +265,7 @@ bool CastRazorGrass(EntityId partyID, EntityId enemyID, SpellData spellData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool CastMudSling(EntityId partyID, EntityId enemyID, SpellData spellData)
+bool CastMudSling(HardwareInterface hardware, EntityId partyID, EntityId enemyID, SpellData spellData)
 {
     return true;
 }
@@ -274,7 +274,7 @@ bool CastMudSling(EntityId partyID, EntityId enemyID, SpellData spellData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool CastCreateMagicItem(EntityId partyID, EntityId enemyID, SpellData spellData)
+bool CastCreateMagicItem(HardwareInterface hardware, EntityId partyID, EntityId enemyID, SpellData spellData)
 {
     CreateItemCommon();
     return true;
@@ -284,7 +284,7 @@ bool CastCreateMagicItem(EntityId partyID, EntityId enemyID, SpellData spellData
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool CastAwaken(EntityId partyID, EntityId enemyID, SpellData spellData)
+bool CastAwaken(HardwareInterface hardware, EntityId partyID, EntityId enemyID, SpellData spellData)
 {
     RemoveSleep(partyID);
     return true;
@@ -294,7 +294,7 @@ bool CastAwaken(EntityId partyID, EntityId enemyID, SpellData spellData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool CastNerveRepair(EntityId partyID, EntityId enemyID, SpellData spellData)
+bool CastNerveRepair(HardwareInterface hardware, EntityId partyID, EntityId enemyID, SpellData spellData)
 {
     return true;
 }
@@ -303,7 +303,7 @@ bool CastNerveRepair(EntityId partyID, EntityId enemyID, SpellData spellData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool CastBlindingLight(EntityId partyID, EntityId enemyID, SpellData spellData)
+bool CastBlindingLight(HardwareInterface hardware, EntityId partyID, EntityId enemyID, SpellData spellData)
 {
     return true;
 }
@@ -312,7 +312,7 @@ bool CastBlindingLight(EntityId partyID, EntityId enemyID, SpellData spellData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool CastSoothe(EntityId partyID, EntityId enemyID, SpellData spellData)
+bool CastSoothe(HardwareInterface hardware, EntityId partyID, EntityId enemyID, SpellData spellData)
 {
     RemoveFear(partyID);
     return true;
@@ -322,7 +322,7 @@ bool CastSoothe(EntityId partyID, EntityId enemyID, SpellData spellData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool CastFear(EntityId partyID, EntityId enemyID, SpellData spellData)
+bool CastFear(HardwareInterface hardware, EntityId partyID, EntityId enemyID, SpellData spellData)
 {
     ApplyFear(enemyID, spellData.power);
     return true;
@@ -332,7 +332,7 @@ bool CastFear(EntityId partyID, EntityId enemyID, SpellData spellData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool CastHaste(EntityId partyID, EntityId enemyID, SpellData spellData)
+bool CastHaste(HardwareInterface hardware, EntityId partyID, EntityId enemyID, SpellData spellData)
 {
     ApplyHaste(partyID, spellData.power);
     return true;
@@ -342,7 +342,7 @@ bool CastHaste(EntityId partyID, EntityId enemyID, SpellData spellData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool CastSlow(EntityId partyID, EntityId enemyID, SpellData spellData)
+bool CastSlow(HardwareInterface hardware, EntityId partyID, EntityId enemyID, SpellData spellData)
 {
     ApplySlow(enemyID, spellData.power);
     return true;
@@ -352,7 +352,7 @@ bool CastSlow(EntityId partyID, EntityId enemyID, SpellData spellData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool CastHypervision(EntityId partyID, EntityId enemyID, SpellData spellData)
+bool CastHypervision(HardwareInterface hardware, EntityId partyID, EntityId enemyID, SpellData spellData)
 {
     return true;
 }
@@ -361,7 +361,7 @@ bool CastHypervision(EntityId partyID, EntityId enemyID, SpellData spellData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool CastHypothermia(EntityId partyID, EntityId enemyID, SpellData spellData)
+bool CastHypothermia(HardwareInterface hardware, EntityId partyID, EntityId enemyID, SpellData spellData)
 {
     ApplyFrozen(enemyID, spellData.power);
     return true;
@@ -371,7 +371,7 @@ bool CastHypothermia(EntityId partyID, EntityId enemyID, SpellData spellData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool CastBurnHeal(EntityId partyID, EntityId enemyID, SpellData spellData)
+bool CastBurnHeal(HardwareInterface hardware, EntityId partyID, EntityId enemyID, SpellData spellData)
 {
     RemoveBurn(partyID);
     return true;
@@ -381,7 +381,7 @@ bool CastBurnHeal(EntityId partyID, EntityId enemyID, SpellData spellData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool CastFocus(EntityId partyID, EntityId enemyID, SpellData spellData)
+bool CastFocus(HardwareInterface hardware, EntityId partyID, EntityId enemyID, SpellData spellData)
 {
     RaiseAccuracy(partyID);
     return true;
@@ -391,7 +391,7 @@ bool CastFocus(EntityId partyID, EntityId enemyID, SpellData spellData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool CastRage(EntityId partyID, EntityId enemyID, SpellData spellData)
+bool CastRage(HardwareInterface hardware, EntityId partyID, EntityId enemyID, SpellData spellData)
 {
     RaiseStrength(partyID);
     return true;
@@ -401,7 +401,7 @@ bool CastRage(EntityId partyID, EntityId enemyID, SpellData spellData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool CastOpenChest(EntityId partyID, EntityId enemyID, SpellData spellData)
+bool CastOpenChest(HardwareInterface hardware, EntityId partyID, EntityId enemyID, SpellData spellData)
 {
     return true;
 }
@@ -410,7 +410,7 @@ bool CastOpenChest(EntityId partyID, EntityId enemyID, SpellData spellData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool CastIncreaseBag(EntityId partyID, EntityId enemyID, SpellData spellData)
+bool CastIncreaseBag(HardwareInterface hardware, EntityId partyID, EntityId enemyID, SpellData spellData)
 {
     // TODO: temorary increase bag slots, add field for onlt the player
     return true;
@@ -420,7 +420,7 @@ bool CastIncreaseBag(EntityId partyID, EntityId enemyID, SpellData spellData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool CastGlowingEmbers(EntityId partyID, EntityId enemyID, SpellData spellData)
+bool CastGlowingEmbers(HardwareInterface hardware, EntityId partyID, EntityId enemyID, SpellData spellData)
 {
     StatusLesserLight(partyID, spellData.power);
     return true;
@@ -430,7 +430,7 @@ bool CastGlowingEmbers(EntityId partyID, EntityId enemyID, SpellData spellData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool CastBrillianceAura(EntityId partyID, EntityId enemyID, SpellData spellData)
+bool CastBrillianceAura(HardwareInterface hardware, EntityId partyID, EntityId enemyID, SpellData spellData)
 {
     StatusGreaterLight(partyID, spellData.power);
     return true;
@@ -440,7 +440,7 @@ bool CastBrillianceAura(EntityId partyID, EntityId enemyID, SpellData spellData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool CastReflect(EntityId partyID, EntityId enemyID, SpellData spellData)
+bool CastReflect(HardwareInterface hardware, EntityId partyID, EntityId enemyID, SpellData spellData)
 {
     return true;
 }
@@ -449,7 +449,7 @@ bool CastReflect(EntityId partyID, EntityId enemyID, SpellData spellData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool CastSilence(EntityId partyID, EntityId enemyID, SpellData spellData)
+bool CastSilence(HardwareInterface hardware, EntityId partyID, EntityId enemyID, SpellData spellData)
 {
     return true;
 }
@@ -458,7 +458,7 @@ bool CastSilence(EntityId partyID, EntityId enemyID, SpellData spellData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool CastPowerOverwhelming(EntityId partyID, EntityId enemyID, SpellData spellData)
+bool CastPowerOverwhelming(HardwareInterface hardware, EntityId partyID, EntityId enemyID, SpellData spellData)
 {
     MakeInvulnerable(partyID);
     return true;
@@ -468,7 +468,7 @@ bool CastPowerOverwhelming(EntityId partyID, EntityId enemyID, SpellData spellDa
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool CastShadows(EntityId partyID, EntityId enemyID, SpellData spellData)
+bool CastShadows(HardwareInterface hardware, EntityId partyID, EntityId enemyID, SpellData spellData)
 {
     Invisibility(partyID, spellData.power);
     return true;
@@ -478,7 +478,7 @@ bool CastShadows(EntityId partyID, EntityId enemyID, SpellData spellData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool CastEmpower(EntityId partyID, EntityId enemyID, SpellData spellData)
+bool CastEmpower(HardwareInterface hardware, EntityId partyID, EntityId enemyID, SpellData spellData)
 {
     RaiseMagic(partyID);
     return true;
@@ -488,7 +488,7 @@ bool CastEmpower(EntityId partyID, EntityId enemyID, SpellData spellData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool CastDefend(EntityId partyID, EntityId enemyID, SpellData spellData)
+bool CastDefend(HardwareInterface hardware, EntityId partyID, EntityId enemyID, SpellData spellData)
 {
     RaiseDefence(partyID);
     return true;
@@ -498,7 +498,7 @@ bool CastDefend(EntityId partyID, EntityId enemyID, SpellData spellData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool CastWizen2(EntityId partyID, EntityId enemyID, SpellData spellData)
+bool CastWizen2(HardwareInterface hardware, EntityId partyID, EntityId enemyID, SpellData spellData)
 {
     RaiseMagic(partyID);
     return true;
@@ -508,7 +508,7 @@ bool CastWizen2(EntityId partyID, EntityId enemyID, SpellData spellData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool CastHasten(EntityId partyID, EntityId enemyID, SpellData spellData)
+bool CastHasten(HardwareInterface hardware, EntityId partyID, EntityId enemyID, SpellData spellData)
 {
     ApplyHaste(partyID, spellData.power);
     return true;
@@ -518,7 +518,7 @@ bool CastHasten(EntityId partyID, EntityId enemyID, SpellData spellData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool CastStrengthen(EntityId partyID, EntityId enemyID, SpellData spellData)
+bool CastStrengthen(HardwareInterface hardware, EntityId partyID, EntityId enemyID, SpellData spellData)
 {
     RaiseStrength(partyID);
     return true;
@@ -528,7 +528,7 @@ bool CastStrengthen(EntityId partyID, EntityId enemyID, SpellData spellData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool CastFortify(EntityId partyID, EntityId enemyID, SpellData spellData)
+bool CastFortify(HardwareInterface hardware, EntityId partyID, EntityId enemyID, SpellData spellData)
 {
     RaiseDefence(partyID);
     return true;
@@ -538,7 +538,7 @@ bool CastFortify(EntityId partyID, EntityId enemyID, SpellData spellData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool CastWizen(EntityId partyID, EntityId enemyID, SpellData spellData)
+bool CastWizen(HardwareInterface hardware, EntityId partyID, EntityId enemyID, SpellData spellData)
 {
     RaiseMagic(partyID);
     return true;
@@ -548,7 +548,7 @@ bool CastWizen(EntityId partyID, EntityId enemyID, SpellData spellData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool CastGrowMuscle(EntityId partyID, EntityId enemyID, SpellData spellData)
+bool CastGrowMuscle(HardwareInterface hardware, EntityId partyID, EntityId enemyID, SpellData spellData)
 {
     RaiseSpeed(partyID);
     return true;
@@ -558,7 +558,7 @@ bool CastGrowMuscle(EntityId partyID, EntityId enemyID, SpellData spellData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool CastClairvoyance(EntityId partyID, EntityId enemyID, SpellData spellData)
+bool CastClairvoyance(HardwareInterface hardware, EntityId partyID, EntityId enemyID, SpellData spellData)
 {
     RevealMap();
     return true;
@@ -568,7 +568,7 @@ bool CastClairvoyance(EntityId partyID, EntityId enemyID, SpellData spellData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool CastWallWalking(EntityId partyID, EntityId enemyID, SpellData spellData)
+bool CastWallWalking(HardwareInterface hardware, EntityId partyID, EntityId enemyID, SpellData spellData)
 {
     WallWalking(partyID, spellData.power);
     return true;
@@ -578,9 +578,9 @@ bool CastWallWalking(EntityId partyID, EntityId enemyID, SpellData spellData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool CastCreatePit(EntityId partyID, EntityId enemyID, SpellData spellData)
+bool CastCreatePit(HardwareInterface hardware, EntityId partyID, EntityId enemyID, SpellData spellData)
 {
-    Position pos = GetSelectedTile(true);
+    Position pos = GetSelectedTile(hardware, true);
     MapModifyTile(pos, PIT);
     return true;
 }
@@ -589,7 +589,7 @@ bool CastCreatePit(EntityId partyID, EntityId enemyID, SpellData spellData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool CastXRayVision(EntityId partyID, EntityId enemyID, SpellData spellData)
+bool CastXRayVision(HardwareInterface hardware, EntityId partyID, EntityId enemyID, SpellData spellData)
 {
     XRayVision(partyID, spellData.power);
     return true;
@@ -599,7 +599,7 @@ bool CastXRayVision(EntityId partyID, EntityId enemyID, SpellData spellData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool CastRainStorm(EntityId partyID, EntityId enemyID, SpellData spellData)
+bool CastRainStorm(HardwareInterface hardware, EntityId partyID, EntityId enemyID, SpellData spellData)
 {
     //increases efficacy of attacks against FLAME for a duration
     return true;
@@ -609,7 +609,7 @@ bool CastRainStorm(EntityId partyID, EntityId enemyID, SpellData spellData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool CastHeatWave(EntityId partyID, EntityId enemyID, SpellData spellData)
+bool CastHeatWave(HardwareInterface hardware, EntityId partyID, EntityId enemyID, SpellData spellData)
 {
     //increases efficacy of attacks against ICE for a duration
     return true;
@@ -619,7 +619,7 @@ bool CastHeatWave(EntityId partyID, EntityId enemyID, SpellData spellData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool CastDrought(EntityId partyID, EntityId enemyID, SpellData spellData)
+bool CastDrought(HardwareInterface hardware, EntityId partyID, EntityId enemyID, SpellData spellData)
 {
     //increases efficacy of attacks against WATER for a duration
     return true;
@@ -629,7 +629,7 @@ bool CastDrought(EntityId partyID, EntityId enemyID, SpellData spellData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool CastCrusade(EntityId partyID, EntityId enemyID, SpellData spellData)
+bool CastCrusade(HardwareInterface hardware, EntityId partyID, EntityId enemyID, SpellData spellData)
 {
     // increases efficacy of attacks against DEMONS for a duration
     return true;
@@ -639,7 +639,7 @@ bool CastCrusade(EntityId partyID, EntityId enemyID, SpellData spellData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool CastHunt(EntityId partyID, EntityId enemyID, SpellData spellData)
+bool CastHunt(HardwareInterface hardware, EntityId partyID, EntityId enemyID, SpellData spellData)
 {
     // increases efficacy of attacks against BEASTS for a duration
     return true;
@@ -649,7 +649,7 @@ bool CastHunt(EntityId partyID, EntityId enemyID, SpellData spellData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool CastPurification(EntityId partyID, EntityId enemyID, SpellData spellData)
+bool CastPurification(HardwareInterface hardware, EntityId partyID, EntityId enemyID, SpellData spellData)
 {
     // increases efficacy of attacks against TOXIC for a duration
     return true;

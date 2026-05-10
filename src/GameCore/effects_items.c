@@ -16,7 +16,7 @@
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool UseLavaResistance(EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseLavaResistance(HardwareInterface hardware, EntityId item_id, EntityId e_id, ItemData itemData)
 {
     RaiseFireResistance(e_id);
     return true;
@@ -25,7 +25,7 @@ bool UseLavaResistance(EntityId item_id, EntityId e_id, ItemData itemData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool UseRestorePpPotion(EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseRestorePpPotion(HardwareInterface hardware, EntityId item_id, EntityId e_id, ItemData itemData)
 {
     RestorePP(e_id, itemData.power);
     return true;
@@ -34,7 +34,7 @@ bool UseRestorePpPotion(EntityId item_id, EntityId e_id, ItemData itemData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool UseInvisibilityPotion(EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseInvisibilityPotion(HardwareInterface hardware, EntityId item_id, EntityId e_id, ItemData itemData)
 {
     Invisibility(e_id, itemData.power);
     return true;
@@ -43,7 +43,7 @@ bool UseInvisibilityPotion(EntityId item_id, EntityId e_id, ItemData itemData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool UseInvulnerabilityPotion(EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseInvulnerabilityPotion(HardwareInterface hardware, EntityId item_id, EntityId e_id, ItemData itemData)
 {
     MakeInvulnerable(e_id);
     return true;
@@ -52,7 +52,7 @@ bool UseInvulnerabilityPotion(EntityId item_id, EntityId e_id, ItemData itemData
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool UseHastePotion(EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseHastePotion(HardwareInterface hardware, EntityId item_id, EntityId e_id, ItemData itemData)
 {
     ApplyHaste(e_id, itemData.power);
     return true;
@@ -61,7 +61,7 @@ bool UseHastePotion(EntityId item_id, EntityId e_id, ItemData itemData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool UseLevitatePotion(EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseLevitatePotion(HardwareInterface hardware, EntityId item_id, EntityId e_id, ItemData itemData)
 {
     Levitate(e_id, itemData.power);
     return true;
@@ -70,9 +70,9 @@ bool UseLevitatePotion(EntityId item_id, EntityId e_id, ItemData itemData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool UseTeleportPotion(EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseTeleportPotion(HardwareInterface hardware, EntityId item_id, EntityId e_id, ItemData itemData)
 {
-    Position random_tile_pos = GetSelectedTile(true);
+    Position random_tile_pos = GetSelectedTile(hardware, true);
     Reposition(e_id, random_tile_pos);
     return true;
 }
@@ -80,9 +80,9 @@ bool UseTeleportPotion(EntityId item_id, EntityId e_id, ItemData itemData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool UseBlinkPotion(EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseBlinkPotion(HardwareInterface hardware, EntityId item_id, EntityId e_id, ItemData itemData)
 {
-    Position random_tile_pos = GetRandomMapTile(CREATURE, true);
+    Position random_tile_pos = GetRandomMapTile(hardware, CREATURE, true);
     uint8_t as = 0b11000001;
     Reposition(as, random_tile_pos);
     Reposition(e_id, random_tile_pos);
@@ -92,7 +92,7 @@ bool UseBlinkPotion(EntityId item_id, EntityId e_id, ItemData itemData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool UseRepelPotion(EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseRepelPotion(HardwareInterface hardware, EntityId item_id, EntityId e_id, ItemData itemData)
 {
     Repel(e_id, itemData.power);
     return true;
@@ -101,7 +101,7 @@ bool UseRepelPotion(EntityId item_id, EntityId e_id, ItemData itemData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool UseRevivePotion(EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseRevivePotion(HardwareInterface hardware, EntityId item_id, EntityId e_id, ItemData itemData)
 {
     if (e_id == NO_ENTITY) return false;
     Revive(e_id);
@@ -111,7 +111,7 @@ bool UseRevivePotion(EntityId item_id, EntityId e_id, ItemData itemData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool UseSleepDart(EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseSleepDart(HardwareInterface hardware, EntityId item_id, EntityId e_id, ItemData itemData)
 {
     ApplySleep(e_id, itemData.power);
     return true;
@@ -120,7 +120,7 @@ bool UseSleepDart(EntityId item_id, EntityId e_id, ItemData itemData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool UseParalyzeDart(EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseParalyzeDart(HardwareInterface hardware, EntityId item_id, EntityId e_id, ItemData itemData)
 {
     ApplyParalyze(e_id, itemData.power);
     return true;
@@ -129,7 +129,7 @@ bool UseParalyzeDart(EntityId item_id, EntityId e_id, ItemData itemData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool UsePoisonDart(EntityId item_id, EntityId e_id, ItemData itemData)
+bool UsePoisonDart(HardwareInterface hardware, EntityId item_id, EntityId e_id, ItemData itemData)
 {
     ApplyPoison(e_id, itemData.power);
     return true;
@@ -138,7 +138,7 @@ bool UsePoisonDart(EntityId item_id, EntityId e_id, ItemData itemData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool UseAcidVial(EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseAcidVial(HardwareInterface hardware, EntityId item_id, EntityId e_id, ItemData itemData)
 {
     DestroyRandomPlayerItem();
     return true;
@@ -147,7 +147,7 @@ bool UseAcidVial(EntityId item_id, EntityId e_id, ItemData itemData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool UseHolyWater(EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseHolyWater(HardwareInterface hardware, EntityId item_id, EntityId e_id, ItemData itemData)
 {
     return true;
 }
@@ -155,7 +155,7 @@ bool UseHolyWater(EntityId item_id, EntityId e_id, ItemData itemData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool UseExplosiveFlask(EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseExplosiveFlask(HardwareInterface hardware, EntityId item_id, EntityId e_id, ItemData itemData)
 {
     return true;
 }
@@ -163,7 +163,7 @@ bool UseExplosiveFlask(EntityId item_id, EntityId e_id, ItemData itemData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool UseTorch(EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseTorch(HardwareInterface hardware, EntityId item_id, EntityId e_id, ItemData itemData)
 {
     StatusLesserLight(e_id, itemData.power);
     return true;
@@ -172,7 +172,7 @@ bool UseTorch(EntityId item_id, EntityId e_id, ItemData itemData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool UseLantern(EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseLantern(HardwareInterface hardware, EntityId item_id, EntityId e_id, ItemData itemData)
 {
     StatusGreaterLight(e_id, itemData.power);
     return true;
@@ -181,7 +181,7 @@ bool UseLantern(EntityId item_id, EntityId e_id, ItemData itemData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool UseMirror(EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseMirror(HardwareInterface hardware, EntityId item_id, EntityId e_id, ItemData itemData)
 {
     return true;
 }
@@ -189,7 +189,7 @@ bool UseMirror(EntityId item_id, EntityId e_id, ItemData itemData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool UseEarmuffs(EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseEarmuffs(HardwareInterface hardware, EntityId item_id, EntityId e_id, ItemData itemData)
 {
     return true;
 }
@@ -197,7 +197,7 @@ bool UseEarmuffs(EntityId item_id, EntityId e_id, ItemData itemData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool UseLockpick(EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseLockpick(HardwareInterface hardware, EntityId item_id, EntityId e_id, ItemData itemData)
 {
     return true;
 }
@@ -205,16 +205,7 @@ bool UseLockpick(EntityId item_id, EntityId e_id, ItemData itemData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool UsePouch(EntityId item_id, EntityId e_id, ItemData itemData)
-{
-    NoEffect();
-    return true;
-}
-
-/**********************************************************************************************************************/
-/*
-**********************************************************************************************************************/
-bool UseSack(EntityId item_id, EntityId e_id, ItemData itemData)
+bool UsePouch(HardwareInterface hardware, EntityId item_id, EntityId e_id, ItemData itemData)
 {
     NoEffect();
     return true;
@@ -223,7 +214,7 @@ bool UseSack(EntityId item_id, EntityId e_id, ItemData itemData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool UseBackpack(EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseSack(HardwareInterface hardware, EntityId item_id, EntityId e_id, ItemData itemData)
 {
     NoEffect();
     return true;
@@ -232,15 +223,7 @@ bool UseBackpack(EntityId item_id, EntityId e_id, ItemData itemData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool UseAltarStone(EntityId item_id, EntityId e_id, ItemData itemData)
-{
-    return true;
-}
-
-/**********************************************************************************************************************/
-/*
-**********************************************************************************************************************/
-bool UseBootsAcidWalking(EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseBackpack(HardwareInterface hardware, EntityId item_id, EntityId e_id, ItemData itemData)
 {
     NoEffect();
     return true;
@@ -249,7 +232,15 @@ bool UseBootsAcidWalking(EntityId item_id, EntityId e_id, ItemData itemData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool UseBootsLavaWalking(EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseAltarStone(HardwareInterface hardware, EntityId item_id, EntityId e_id, ItemData itemData)
+{
+    return true;
+}
+
+/**********************************************************************************************************************/
+/*
+**********************************************************************************************************************/
+bool UseBootsAcidWalking(HardwareInterface hardware, EntityId item_id, EntityId e_id, ItemData itemData)
 {
     NoEffect();
     return true;
@@ -258,7 +249,7 @@ bool UseBootsLavaWalking(EntityId item_id, EntityId e_id, ItemData itemData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool UseBootsWaterWalking(EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseBootsLavaWalking(HardwareInterface hardware, EntityId item_id, EntityId e_id, ItemData itemData)
 {
     NoEffect();
     return true;
@@ -267,7 +258,7 @@ bool UseBootsWaterWalking(EntityId item_id, EntityId e_id, ItemData itemData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool UseGlovesAcidResistance(EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseBootsWaterWalking(HardwareInterface hardware, EntityId item_id, EntityId e_id, ItemData itemData)
 {
     NoEffect();
     return true;
@@ -276,7 +267,7 @@ bool UseGlovesAcidResistance(EntityId item_id, EntityId e_id, ItemData itemData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool UseWisdomCrown(EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseGlovesAcidResistance(HardwareInterface hardware, EntityId item_id, EntityId e_id, ItemData itemData)
 {
     NoEffect();
     return true;
@@ -285,7 +276,16 @@ bool UseWisdomCrown(EntityId item_id, EntityId e_id, ItemData itemData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool UseRainWater(EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseWisdomCrown(HardwareInterface hardware, EntityId item_id, EntityId e_id, ItemData itemData)
+{
+    NoEffect();
+    return true;
+}
+
+/**********************************************************************************************************************/
+/*
+**********************************************************************************************************************/
+bool UseRainWater(HardwareInterface hardware, EntityId item_id, EntityId e_id, ItemData itemData)
 {
     if (e_id == NO_ENTITY) return false;
     return true;
@@ -294,7 +294,7 @@ bool UseRainWater(EntityId item_id, EntityId e_id, ItemData itemData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool UseMutton(EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseMutton(HardwareInterface hardware, EntityId item_id, EntityId e_id, ItemData itemData)
 {
     if (e_id == NO_ENTITY) return false;
     return true;
@@ -303,7 +303,7 @@ bool UseMutton(EntityId item_id, EntityId e_id, ItemData itemData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool UseCake(EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseCake(HardwareInterface hardware, EntityId item_id, EntityId e_id, ItemData itemData)
 {
     if (e_id == NO_ENTITY) return false;
     return true;
@@ -312,7 +312,7 @@ bool UseCake(EntityId item_id, EntityId e_id, ItemData itemData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool UseRawMeat(EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseRawMeat(HardwareInterface hardware, EntityId item_id, EntityId e_id, ItemData itemData)
 {
     if (e_id == NO_ENTITY) return false;
     return true;
@@ -321,7 +321,7 @@ bool UseRawMeat(EntityId item_id, EntityId e_id, ItemData itemData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool UseFish(EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseFish(HardwareInterface hardware, EntityId item_id, EntityId e_id, ItemData itemData)
 {
     if (e_id == NO_ENTITY) return false;
     return true;
@@ -330,7 +330,7 @@ bool UseFish(EntityId item_id, EntityId e_id, ItemData itemData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool UseManFlesh(EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseManFlesh(HardwareInterface hardware, EntityId item_id, EntityId e_id, ItemData itemData)
 {
     if (e_id == NO_ENTITY) return false;
     return true;
@@ -339,7 +339,7 @@ bool UseManFlesh(EntityId item_id, EntityId e_id, ItemData itemData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool UseBerries(EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseBerries(HardwareInterface hardware, EntityId item_id, EntityId e_id, ItemData itemData)
 {
     if (e_id == NO_ENTITY) return false;
     return true;
@@ -348,7 +348,7 @@ bool UseBerries(EntityId item_id, EntityId e_id, ItemData itemData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool UseWine(EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseWine(HardwareInterface hardware, EntityId item_id, EntityId e_id, ItemData itemData)
 {
     if (e_id == NO_ENTITY) return false;
     return true;
@@ -357,7 +357,7 @@ bool UseWine(EntityId item_id, EntityId e_id, ItemData itemData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool UseSoulEssence(EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseSoulEssence(HardwareInterface hardware, EntityId item_id, EntityId e_id, ItemData itemData)
 {
     if (e_id == NO_ENTITY) return false;
     return true;
@@ -366,7 +366,7 @@ bool UseSoulEssence(EntityId item_id, EntityId e_id, ItemData itemData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool UseLasso(EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseLasso(HardwareInterface hardware, EntityId item_id, EntityId e_id, ItemData itemData)
 {
     Capture(e_id, itemData.chance);
     return true;
@@ -375,7 +375,7 @@ bool UseLasso(EntityId item_id, EntityId e_id, ItemData itemData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool UseShackles(EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseShackles(HardwareInterface hardware, EntityId item_id, EntityId e_id, ItemData itemData)
 {
     Capture(e_id, itemData.chance);
     return true;
@@ -384,7 +384,7 @@ bool UseShackles(EntityId item_id, EntityId e_id, ItemData itemData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool UseChain(EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseChain(HardwareInterface hardware, EntityId item_id, EntityId e_id, ItemData itemData)
 {
     Capture(e_id, itemData.chance);
     return true;
@@ -393,7 +393,7 @@ bool UseChain(EntityId item_id, EntityId e_id, ItemData itemData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool UseBearTrap(EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseBearTrap(HardwareInterface hardware, EntityId item_id, EntityId e_id, ItemData itemData)
 {
     Capture(e_id, itemData.chance);
     return true;
@@ -402,7 +402,7 @@ bool UseBearTrap(EntityId item_id, EntityId e_id, ItemData itemData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool UseNet(EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseNet(HardwareInterface hardware, EntityId item_id, EntityId e_id, ItemData itemData)
 {
     Capture(e_id, itemData.chance);
     return true;
@@ -411,7 +411,7 @@ bool UseNet(EntityId item_id, EntityId e_id, ItemData itemData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool UseElementalBolas(EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseElementalBolas(HardwareInterface hardware, EntityId item_id, EntityId e_id, ItemData itemData)
 {
     Capture(e_id, itemData.chance);
     return true;
@@ -420,7 +420,7 @@ bool UseElementalBolas(EntityId item_id, EntityId e_id, ItemData itemData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool UseWhip(EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseWhip(HardwareInterface hardware, EntityId item_id, EntityId e_id, ItemData itemData)
 {
     if (e_id == NO_ENTITY) return false;
     RaiseStrength(e_id);
@@ -430,7 +430,7 @@ bool UseWhip(EntityId item_id, EntityId e_id, ItemData itemData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool UseAmphetamines(EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseAmphetamines(HardwareInterface hardware, EntityId item_id, EntityId e_id, ItemData itemData)
 {
     if (e_id == NO_ENTITY) return false;
     RaiseSpeed(e_id);
@@ -440,7 +440,7 @@ bool UseAmphetamines(EntityId item_id, EntityId e_id, ItemData itemData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool UseGrowthHormones(EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseGrowthHormones(HardwareInterface hardware, EntityId item_id, EntityId e_id, ItemData itemData)
 {
     if (e_id == NO_ENTITY) return false;
     RaiseStrength(e_id);
@@ -450,7 +450,7 @@ bool UseGrowthHormones(EntityId item_id, EntityId e_id, ItemData itemData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool UseIronSkinElixir(EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseIronSkinElixir(HardwareInterface hardware, EntityId item_id, EntityId e_id, ItemData itemData)
 {
     if (e_id == NO_ENTITY) return false;
     RaiseDefence(e_id);
@@ -460,7 +460,7 @@ bool UseIronSkinElixir(EntityId item_id, EntityId e_id, ItemData itemData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool UseSwiftnessSerum(EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseSwiftnessSerum(HardwareInterface hardware, EntityId item_id, EntityId e_id, ItemData itemData)
 {
     if (e_id == NO_ENTITY) return false;
     ApplyHaste(e_id, itemData.power);
@@ -470,7 +470,7 @@ bool UseSwiftnessSerum(EntityId item_id, EntityId e_id, ItemData itemData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool UseWildMushroom(EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseWildMushroom(HardwareInterface hardware, EntityId item_id, EntityId e_id, ItemData itemData)
 {
     if (e_id == NO_ENTITY) return false;
     return true;
@@ -479,7 +479,7 @@ bool UseWildMushroom(EntityId item_id, EntityId e_id, ItemData itemData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool UseHeartScale(EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseHeartScale(HardwareInterface hardware, EntityId item_id, EntityId e_id, ItemData itemData)
 {
     if (e_id == NO_ENTITY) return false;
     return true;
@@ -488,7 +488,7 @@ bool UseHeartScale(EntityId item_id, EntityId e_id, ItemData itemData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool UseSmokeBall(EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseSmokeBall(HardwareInterface hardware, EntityId item_id, EntityId e_id, ItemData itemData)
 {
     Flee();
     return true;
@@ -497,7 +497,7 @@ bool UseSmokeBall(EntityId item_id, EntityId e_id, ItemData itemData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool UseAbilityBook(EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseAbilityBook(HardwareInterface hardware, EntityId item_id, EntityId e_id, ItemData itemData)
 {
     if (e_id == NO_ENTITY) return false;
     LearnSkill(e_id);
@@ -507,7 +507,7 @@ bool UseAbilityBook(EntityId item_id, EntityId e_id, ItemData itemData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool UseHealthPotion(EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseHealthPotion(HardwareInterface hardware, EntityId item_id, EntityId e_id, ItemData itemData)
 {
     if (e_id == NO_ENTITY) return false;
     uint8_t value = g_run.creatures.metaData[item_id].value;
@@ -517,7 +517,7 @@ bool UseHealthPotion(EntityId item_id, EntityId e_id, ItemData itemData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool UseManaPotion(EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseManaPotion(HardwareInterface hardware, EntityId item_id, EntityId e_id, ItemData itemData)
 {
     if (e_id == NO_ENTITY) return false;
     uint8_t value = g_run.creatures.metaData[item_id].value;
@@ -527,7 +527,7 @@ bool UseManaPotion(EntityId item_id, EntityId e_id, ItemData itemData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool UseSpellBook(EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseSpellBook(HardwareInterface hardware, EntityId item_id, EntityId e_id, ItemData itemData)
 {
     uint8_t spell_id = g_run.creatures.metaData[item_id].SpellId;
     return LearnSpell(e_id);
@@ -539,7 +539,7 @@ bool UseSpellBook(EntityId item_id, EntityId e_id, ItemData itemData)
 *
 *
 **********************************************************************************************************************/
-bool UseScroll(EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseScroll(HardwareInterface hardware, EntityId item_id, EntityId e_id, ItemData itemData)
 {
     uint8_t spell_id = g_run.creatures.metaData[item_id].SpellId;
     return CastSpell(spell_id, e_id, e_id);
@@ -548,7 +548,7 @@ bool UseScroll(EntityId item_id, EntityId e_id, ItemData itemData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool UseAntidotePotion(EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseAntidotePotion(HardwareInterface hardware, EntityId item_id, EntityId e_id, ItemData itemData)
 {
     if (e_id == NO_ENTITY) return false;
     return RemovePoison(e_id);
@@ -557,7 +557,7 @@ bool UseAntidotePotion(EntityId item_id, EntityId e_id, ItemData itemData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool UseDecursePotion(EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseDecursePotion(HardwareInterface hardware, EntityId item_id, EntityId e_id, ItemData itemData)
 {
     if (e_id == NO_ENTITY) return false;
     return RemoveCurse(e_id);
@@ -566,7 +566,7 @@ bool UseDecursePotion(EntityId item_id, EntityId e_id, ItemData itemData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool UseCurePotion(EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseCurePotion(HardwareInterface hardware, EntityId item_id, EntityId e_id, ItemData itemData)
 {
     if (e_id == NO_ENTITY) return false;
     return RemoveDisease(e_id);
@@ -575,7 +575,7 @@ bool UseCurePotion(EntityId item_id, EntityId e_id, ItemData itemData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool UseAcidResistance(EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseAcidResistance(HardwareInterface hardware, EntityId item_id, EntityId e_id, ItemData itemData)
 {
     return RaiseAcidResistance(e_id);
 }
@@ -583,7 +583,7 @@ bool UseAcidResistance(EntityId item_id, EntityId e_id, ItemData itemData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool UseFireResistance(EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseFireResistance(HardwareInterface hardware, EntityId item_id, EntityId e_id, ItemData itemData)
 {
     return RaiseFireResistance(e_id);
 }
@@ -591,7 +591,7 @@ bool UseFireResistance(EntityId item_id, EntityId e_id, ItemData itemData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool UseWaterResistance(EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseWaterResistance(HardwareInterface hardware, EntityId item_id, EntityId e_id, ItemData itemData)
 {
     return RaiseWaterResistance(e_id);
 }
@@ -599,7 +599,7 @@ bool UseWaterResistance(EntityId item_id, EntityId e_id, ItemData itemData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool UseIceResistance(EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseIceResistance(HardwareInterface hardware, EntityId item_id, EntityId e_id, ItemData itemData)
 {
     return RaiseIceResistance(e_id);
 }
@@ -607,7 +607,7 @@ bool UseIceResistance(EntityId item_id, EntityId e_id, ItemData itemData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool UseMagicResistance(EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseMagicResistance(HardwareInterface hardware, EntityId item_id, EntityId e_id, ItemData itemData)
 {
     return RaiseMagicResistance(e_id);
 }
@@ -615,7 +615,7 @@ bool UseMagicResistance(EntityId item_id, EntityId e_id, ItemData itemData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool UseEscapeRope(EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseEscapeRope(HardwareInterface hardware, EntityId item_id, EntityId e_id, ItemData itemData)
 {
     return true;
 }
@@ -623,7 +623,7 @@ bool UseEscapeRope(EntityId item_id, EntityId e_id, ItemData itemData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool UsePick(EntityId item_id, EntityId e_id, ItemData itemData)
+bool UsePick(HardwareInterface hardware, EntityId item_id, EntityId e_id, ItemData itemData)
 {
     return true;
 }
@@ -631,7 +631,7 @@ bool UsePick(EntityId item_id, EntityId e_id, ItemData itemData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool UseRareCandy(EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseRareCandy(HardwareInterface hardware, EntityId item_id, EntityId e_id, ItemData itemData)
 {
     if (e_id == NO_ENTITY) return false;
     return true;
@@ -640,7 +640,7 @@ bool UseRareCandy(EntityId item_id, EntityId e_id, ItemData itemData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool UseShovel(EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseShovel(HardwareInterface hardware, EntityId item_id, EntityId e_id, ItemData itemData)
 {
     return true;
 }
@@ -648,7 +648,7 @@ bool UseShovel(EntityId item_id, EntityId e_id, ItemData itemData)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool UseXPPotion(EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseXPPotion(HardwareInterface hardware, EntityId item_id, EntityId e_id, ItemData itemData)
 {
     if (e_id == NO_ENTITY) return false;
     return true;

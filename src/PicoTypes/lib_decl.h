@@ -3,7 +3,7 @@
 //
 #pragma once
 #include <stdint.h>
-
+#include <stddef.h>
 #include "lib_types.h"
 
 typedef struct
@@ -67,8 +67,13 @@ typedef struct
 {
     void (*HardwareReset)(void);
     void (*SleepMS)(uint32_t t);
-} HardwareInterface;
+    void* (*MemSet)(void*, int, size_t);
+    uint8_t (*GetRandom_uint8_t)(uint8_t min, uint8_t max);
+    uint8_t (*GetRandomUniform)(uint8_t min, uint8_t max);
+    bool (*Abs)(int max);
+    char* (*StrChr)(const char* n, int c);
 
+} HardwareInterface;
 
 
 typedef struct

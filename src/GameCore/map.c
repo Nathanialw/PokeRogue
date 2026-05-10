@@ -1,14 +1,13 @@
 //
 // Created by nathanial on 2/22/26.
 //
-
 #include "map.h"
+
+#include "lib_debugging.h"
 
 #include "camera.h"
 #include "entities.h"
-#include "lib_debugging.h"
 #include "player.h"
-
 #include "utils.h"
 
 /**********************************************************************************************************************/
@@ -24,12 +23,12 @@
 /**MAP GENERATION
 **********************************************************************************************************************/
 //
-typedef void (*DungeonLayout)(void);
+typedef void (*DungeonLayout)(HardwareInterface hardware);
 
 #define TOTAL_DUNGEON_GEN_ALGOS 3
-void DungeonBasic(void);
-void DungeonGraph(void);
-void DungeonCave(void);
+void DungeonBasic(HardwareInterface hardware);
+void DungeonGraph(HardwareInterface hardware);
+void DungeonCave(HardwareInterface hardware);
 
 // TODO: add more dungeon layouts
 const DungeonLayout GenerateMap[TOTAL_DUNGEON_GEN_ALGOS] =
@@ -44,9 +43,9 @@ const DungeonLayout GenerateMap[TOTAL_DUNGEON_GEN_ALGOS] =
 /** Map Generation entry point
  *  Calls a given map generation type and populates the map cells
 **********************************************************************************************************************/
-void GenerateDungeon(uint8_t type)
+void GenerateDungeon(HardwareInterface hardware, uint8_t type)
 {
-    GenerateMap[type]();
+    GenerateMap[type](hardware);
 }
 
 /**********************************************************************************************************************/
@@ -70,12 +69,12 @@ void UpdateLevel(uint8_t floor, Biomes biome)
 /** Returns the position of a random map tile
  *  if emptyOnly == true will only return an empty tile
 **********************************************************************************************************************/
-Position GetRandomMapTile(ObjectsTypes type, bool emptyOnly)
+Position GetRandomMapTile(HardwareInterface hardware, ObjectsTypes type, bool emptyOnly)
 {
     do
     {
-        uint8_t x = GetRandom_uint8_t(0, MAP_W - 1);
-        uint8_t y = GetRandom_uint8_t(0, MAP_H - 1);
+        uint8_t x = hardware.GetRandom_uint8_t(0, MAP_W - 1);
+        uint8_t y = hardware.GetRandom_uint8_t(0, MAP_H - 1);
         Position pos = {x, y};
 
         if (emptyOnly)
@@ -98,10 +97,10 @@ Position GetRandomMapTile(ObjectsTypes type, bool emptyOnly)
  *  Returns the position of the tile selected by the player
  *  TODO: we need a way to have an unlocked camera
 **********************************************************************************************************************/
-Position GetSelectedTile(bool emptyOnly)
+Position GetSelectedTile(HardwareInterface hardware, bool emptyOnly)
 {
-    uint8_t x = GetRandom_uint8_t(0, MAP_W - 1);
-    uint8_t y = GetRandom_uint8_t(0, MAP_H - 1);
+    uint8_t x = hardware.GetRandom_uint8_t(0, MAP_W - 1);
+    uint8_t y = hardware.GetRandom_uint8_t(0, MAP_H - 1);
     Position pos = {x, y};
     return pos;
 }
@@ -152,7 +151,7 @@ void SetMapTile(uint8_t x, uint8_t y, TileType tile)
  *  populates new map
  *  place player onto the map in an empty cell
 **********************************************************************************************************************/
-void GoNextLevel(MapLevelChange dir)
+void GoNextLevel(HardwareInterface hardware, MapLevelChange dir)
 {
     if (dir == MAP_LEVEL_UP && g_run.floor > 1)
         g_run.floor--;
@@ -160,12 +159,12 @@ void GoNextLevel(MapLevelChange dir)
         g_run.floor++;
 
     UpdateLevel(g_run.floor, DESERT);
-    GenerateDungeon(0);
-    ResetEntities(true);
-    PopulateLevelCreatures();
-    PopulateLevelObjects();
-    PopulateLevelItems();
-    PlacePlayerOnMap();
+    GenerateDungeon(hardware, 0);
+    ResetEntities(hardware, true);
+    PopulateLevelCreatures(hardware);
+    PopulateLevelObjects(hardware);
+    PopulateLevelItems(hardware);
+    PlacePlayerOnMap(hardware);
 }
 
 /**********************************************************************************************************************/
@@ -220,22 +219,22 @@ void SetMapFog(uint8_t set)
 /**********************************************************************************************************************/
 /** Generate map by index
 **********************************************************************************************************************/
-void InitMapLayout(void)
+void InitMapLayout(HardwareInterface hardware)
 {
-    GenerateDungeon(2);
+    GenerateDungeon(hardware, 2);
 }
 
 /**********************************************************************************************************************/
 /** Searches map for a random empty tile
  *  returns tile position when it is found
 **********************************************************************************************************************/
-Position FindOpenMapLocation(ObjectsTypes type)
+Position FindOpenMapLocation(HardwareInterface hardware, ObjectsTypes type)
 {
     while (1)
     {
         Position pos;
-        pos.x = 16 + rand() % MAP_W - 16;
-        pos.y = 16 + rand() % MAP_H - 16;
+        pos.x = hardware.GetRandom_uint8_t(16, MAP_W - 32);
+        pos.y = hardware.GetRandom_uint8_t(16, MAP_H - 32);
         if (GetMapTile(pos.x, pos.y) == GROUND && CheckTileForEntity(type, NO_ENTITY, pos) == NO_ENTITY)
             return pos;
     }
@@ -248,13 +247,13 @@ Position FindOpenMapLocation(ObjectsTypes type)
  *  Sets the map data to defaults
  *  Sets the fog map to defaults
 **********************************************************************************************************************/
-void InitMap(void)
+void InitMap(HardwareInterface hardware)
 {
     g_run.floor++;
     g_run.biome = DESERT;
     InitCamera(0, 0, TILE_W * VIEW_TW, TILE_H * VIEW_TH);
     UpdateLevel(g_run.floor, g_run.biome);
-    InitMapLayout();
+    InitMapLayout(hardware);
     SetMapFog(0xFF);
 }
 
@@ -332,7 +331,7 @@ void CarveVertical(uint8_t y1, uint8_t y2, uint8_t x)
 /**********************************************************************************************************************/
 /** Updates the tile map with ground tiles connecting the given room rect A and room rect B
 **********************************************************************************************************************/
-void ConnectRooms(Room a, Room b)
+void ConnectRooms(HardwareInterface hardware, Room a, Room b)
 {
     uint8_t ax = a.x + a.w / 2;
     uint8_t ay = a.y + a.h / 2;
@@ -340,7 +339,7 @@ void ConnectRooms(Room a, Room b)
     uint8_t bx = b.x + b.w / 2;
     uint8_t by = b.y + b.h / 2;
 
-    if (rand() & 1)
+    if (hardware.GetRandom_uint8_t(0, 1))
     {
         CarveHorizontal(ax, bx, ay);
         CarveVertical(ay, by, bx);
@@ -357,7 +356,7 @@ void ConnectRooms(Room a, Room b)
  *  Creates random position and dimention rooms of ground tiles around the map
  *  Connects those rooms with corridors of ground tiles
 **********************************************************************************************************************/
-void DungeonBasic(void)
+void DungeonBasic(HardwareInterface hardware)
 {
     DEBUG("GenerateDungeon() BEGIN");
 
@@ -373,11 +372,11 @@ void DungeonBasic(void)
     {
         Room r;
 
-        r.w = 4 + rand() % 10;
-        r.h = 4 + rand() % 10;
+        r.w = hardware.GetRandom_uint8_t(4, 10);
+        r.h = hardware.GetRandom_uint8_t(4, 10);
 
-        r.x = rand() % (MAP_W - r.w - 2) + 1;
-        r.y = rand() % (MAP_H - r.h - 2) + 1;
+        r.x = hardware.GetRandom_uint8_t(0, (MAP_W - r.w - 2) + 1);
+        r.y = hardware.GetRandom_uint8_t(0, (MAP_H - r.h - 2) + 1);
 
         uint8_t failed = 0;
 
@@ -395,7 +394,7 @@ void DungeonBasic(void)
             CarveRoom(r);
 
             if (roomCount > 0)
-                ConnectRooms(rooms[roomCount - 1], r);
+                ConnectRooms(hardware, rooms[roomCount - 1], r);
 
             rooms[roomCount++] = r;
         }
@@ -496,7 +495,7 @@ void BuildEdges(void)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-void CarveCorridorZigZag(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2)
+void CarveCorridorZigZag(HardwareInterface hardware, uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2)
 {
     int16_t x = x1;
     int16_t y = y1;
@@ -505,7 +504,7 @@ void CarveCorridorZigZag(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2)
 
     while (x != x2 || y != y2)
     {
-        if (rand() & 1)
+        if (hardware.GetRandom_uint8_t(0, 1))
         {
             if (x < x2) x++;
             else if (x > x2) x--;
@@ -523,9 +522,9 @@ void CarveCorridorZigZag(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-void CarveCorridorLinear(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2)
+void CarveCorridorLinear(HardwareInterface hardware, uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2)
 {
-    if (rand() & 1)
+    if (hardware.GetRandom_uint8_t(0, 1))
     {
         while (x1 != x2)
         {
@@ -560,7 +559,7 @@ void CarveCorridorLinear(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-void BuildMST(void)
+void BuildMST(HardwareInterface hardware)
 {
     uint8_t visited[MAX_ROOMS] = {0};
 
@@ -623,7 +622,7 @@ void BuildMST(void)
                     uint8_t bx, by;
                     RoomCenter(rooms[best], &bx, &by);
 
-                    CarveCorridorLinear(ax, ay, bx, by);
+                    CarveCorridorLinear(hardware, ax, ay, bx, by);
 
                     visited[i] = 1;
                     visitedCount++;
@@ -640,7 +639,7 @@ void BuildMST(void)
         RoomCenter(rooms[e.a], &ax, &ay);
         RoomCenter(rooms[e.b], &bx, &by);
 
-        CarveCorridorLinear(ax, ay, bx, by);
+        CarveCorridorLinear(hardware, ax, ay, bx, by);
 
         if (!visited[e.a])
         {
@@ -658,18 +657,18 @@ void BuildMST(void)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-void AddExtraConnections(void)
+void AddExtraConnections(HardwareInterface hardware)
 {
     for (uint16_t i = 0; i < edgeCount; i++)
     {
-        if (rand() % 100 < 15)
+        if (hardware.GetRandom_uint8_t(0, 100) < 15)
         {
             uint8_t ax, ay, bx, by;
 
             RoomCenter(rooms[edges[i].a], &ax, &ay);
             RoomCenter(rooms[edges[i].b], &bx, &by);
 
-            CarveCorridorLinear(ax, ay, bx, by);
+            CarveCorridorLinear(hardware, ax, ay, bx, by);
         }
     }
 }
@@ -697,9 +696,9 @@ void DebugPrintMap(void)
             default: c = '?';
                 break;
             }
-            printf("%c", c);
+            PRINT("%c", c);
         }
-        printf("\n");
+        PRINT("\n");
     }
 #endif
 }
@@ -707,7 +706,7 @@ void DebugPrintMap(void)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-void DungeonGraph(void)
+void DungeonGraph(HardwareInterface hardware)
 {
     roomCount = 0;
 
@@ -719,11 +718,11 @@ void DungeonGraph(void)
     {
         Room r;
 
-        r.w = 5 + rand() % 10;
-        r.h = 5 + rand() % 10;
+        r.w = hardware.GetRandom_uint8_t(5, 10);
+        r.h = hardware.GetRandom_uint8_t(5, 10);
 
-        r.x = rand() % (MAP_W - r.w - 2) + 1;
-        r.y = rand() % (MAP_H - r.h - 2) + 1;
+        r.x = hardware.GetRandom_uint8_t(0, (MAP_W - r.w - 2) + 1);
+        r.y = hardware.GetRandom_uint8_t(0, (MAP_H - r.h - 2) + 1);
 
         uint8_t failed = 0;
 
@@ -744,8 +743,8 @@ void DungeonGraph(void)
     }
 
     BuildEdges();
-    BuildMST();
-    AddExtraConnections();
+    BuildMST(hardware);
+    AddExtraConnections(hardware);
     // DebugPrintMap();
     DEBUG("rooms %d", roomCount);
 }
@@ -758,7 +757,7 @@ void DungeonGraph(void)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-void DungeonCave(void)
+void DungeonCave(HardwareInterface hardware)
 {
     uint16_t x = MAP_W / 2;
     uint16_t y = MAP_H / 2;
@@ -779,7 +778,7 @@ void DungeonCave(void)
             carved++;
         }
 
-        switch (rand() % 4)
+        switch (hardware.GetRandom_uint8_t(0, 4))
         {
         case 0: if (x > 1) x--;
             break;

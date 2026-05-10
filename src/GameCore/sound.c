@@ -3,10 +3,10 @@
 //
 
 #include "sound.h"
-#include "types.h"
 
-#include <stdint.h>
 #include <stdlib.h>
+
+#include "types.h"
 
 
 /**********************************************************************************************************************/
@@ -66,28 +66,28 @@ static const int8_t Scale[SCALE_LENGTH] = {
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-static int RandPercent()
+static int RandPercent(HardwareInterface hardware)
 {
-    return rand() % 100;
+    return hardware.GetRandom_uint8_t(0, 100);
 }
 
 
 /**********************************************************************************************************************/
 /*  Choose next scale movement
 **********************************************************************************************************************/
-static int NextScaleIndex(int current)
+static int NextScaleIndex(HardwareInterface hardware, int current)
 {
-    int r = rand() % 100;
+    int r = hardware.GetRandom_uint8_t(0, 100);
 
     int step = 0;
 
     if (r < STEP_SMALL_PROB)
-        step = (rand() % (MAX_STEP_SMALL * 2 + 1)) - MAX_STEP_SMALL;
+        step = hardware.GetRandom_uint8_t(0, MAX_STEP_SMALL * 2 + 1) - MAX_STEP_SMALL;
     else if (r < STEP_SMALL_PROB + STEP_LARGE_PROB)
-        step = (rand() % (MAX_STEP_LARGE * 2 + 1)) - MAX_STEP_LARGE;
+        step = hardware.GetRandom_uint8_t(0, MAX_STEP_LARGE * 2 + 1) - MAX_STEP_LARGE;
 
-    if ((rand() % 100) < MapDescend_BIAS)
-        step = -abs(step);
+    if (hardware.GetRandom_uint8_t(0, 100) < MapDescend_BIAS)
+        step = -hardware.Abs(step);
 
     current += step;
 
@@ -100,11 +100,11 @@ static int NextScaleIndex(int current)
 /**********************************************************************************************************************/
 /*  Generate melody
 **********************************************************************************************************************/
-void GenerateDungeonMelody(Note* melody)
+void GenerateDungeonMelody(HardwareInterface hardware, Note* melody)
 {
     int scale_index = SCALE_LENGTH / 2;
 
-    int rhythm_pattern = rand() % RHYTHM_PATTERNS;
+    int rhythm_pattern = hardware.GetRandom_uint8_t(0, RHYTHM_PATTERNS);
     int rhythm_pos = 0;
     int duration = 0;
 
@@ -112,13 +112,13 @@ void GenerateDungeonMelody(Note* melody)
     {
         Note n = {0};
 
-        if ((rand() % 100) < REST_PROBABILITY)
+        if (hardware.GetRandom_uint8_t(0, 100) < REST_PROBABILITY)
         {
             n.rest = 1;
         }
         else
         {
-            scale_index = NextScaleIndex(scale_index);
+            scale_index = NextScaleIndex(hardware, scale_index);
 
             n.note = ROOT_NOTE + Scale[scale_index];
             n.rest = 0;
@@ -130,14 +130,14 @@ void GenerateDungeonMelody(Note* melody)
         if (rhythm_pos >= MAX_PATTERN_LEN ||
             RhythmPatterns[rhythm_pattern][rhythm_pos] == 0)
         {
-            rhythm_pattern = rand() % RHYTHM_PATTERNS;
+            rhythm_pattern = hardware.GetRandom_uint8_t(0, RHYTHM_PATTERNS);
             rhythm_pos = 0;
         }
 
         n.instrument = DEFAULT_INSTRUMENT;
         n.volume = DEFAULT_VOLUME;
 
-        if ((rand() % 100) < STACCATO_PROB)
+        if (hardware.GetRandom_uint8_t(0, 100) < STACCATO_PROB)
             n.articulation = ARTICULATION_STACCATO;
         else
             n.articulation = ARTICULATION_LEGATO;
@@ -162,7 +162,6 @@ void GenerateDungeonMelody(Note* melody)
 }
 
 
-
 /**********************************************************************************************************************/
 /**  Fill the Music struct data and return it
 **********************************************************************************************************************/
@@ -177,5 +176,3 @@ MusicData InitMusicData()
 
     return music_data;
 }
-
-

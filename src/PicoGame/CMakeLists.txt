@@ -33,7 +33,7 @@ target_link_libraries(PicoRogue
 )
 
 
-target_compile_definitions(PicoRogue PRIVATE ENABLE_DEBUG_OUTPUT ENABLE_ASSERTS)
+#target_compile_definitions(PicoRogue PRIVATE ENABLE_DEBUG_OUTPUT ENABLE_ASSERTS)
 
 target_include_directories(PicoRogue PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}
@@ -51,9 +51,6 @@ target_link_options(PicoRogue PRIVATE
         -Wl,--gc-sections
         -Wl,--strip-all
 )
-
-
-#pico_set_linker_script(PicoRogue ${CMAKE_CURRENT_SOURCE_DIR}/my_custom_linker.ld)
 
 
 pico_add_extra_outputs(PicoRogue)

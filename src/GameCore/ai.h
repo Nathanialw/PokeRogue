@@ -6,4 +6,4 @@
 #include "types.h"
 
 
-void CreatureAI(EntityId id);
+void CreatureAI(HardwareInterface hardware, EntityId id);

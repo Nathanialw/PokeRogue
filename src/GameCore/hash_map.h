@@ -2,9 +2,7 @@
 // Created by nathanial on 4/11/26.
 //
 #pragma once
-
-#include <stdint.h>
-#include <stdbool.h>
+#include "lib_types.h"
 
 // Valid IDs are 0x00 to 0xFD (0-253)
 

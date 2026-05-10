@@ -5,15 +5,13 @@
 
 #include <stdlib.h>
 
-#include "init.h"
-#include "stdbool.h"
-
-#include "pico/bootrom.h"
-#include "hardware/adc.h"
-
+#include "lib_types.h"
 #include "lib_debugging.h"
 #include "lib_decl.h"
-#include "lib_types.h"
+
+#include "init.h"
+#include "pico/bootrom.h"
+#include "hardware/adc.h"
 
 #include "pico_constants.h"
 #include "memory_ram.h"

@@ -19,9 +19,9 @@ void DrawTileCached(GraphicsInterface graphics, uint8_t screen_tx, uint8_t scree
 
 FrameBuffer DrawBattlerToBuffer(GraphicsInterface graphics, uint16_t screen_x, uint16_t screen_y, const SpriteLayout layout, const uint8_t* sprite);
 void DrawBattler(GraphicsInterface graphics, uint16_t screen_x, uint16_t screen_y, const SpriteLayout layout, const uint8_t* sprite);
-void HandleMenu(GraphicsInterface graphics);
-void HandleGameMenu(GraphicsInterface graphics);
+void HandleMenu(GraphicsInterface graphics, HardwareInterface hardware);
+void HandleGameMenu(GraphicsInterface graphics, HardwareInterface hardware);
 void DrawCursor(GraphicsInterface graphics);
-void HandleBattle(GraphicsInterface graphics);
-void HandleBattleMenu(GraphicsInterface graphics);
+void HandleBattle(GraphicsInterface graphics, HardwareInterface hardware);
+void HandleBattleMenu(GraphicsInterface graphics, HardwareInterface hardware);
 

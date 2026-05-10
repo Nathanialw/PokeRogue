@@ -1,16 +1,15 @@
 //
 // Created by nathanial on 4/8/26.
 //
-#include <stddef.h>
-
 #include "animation_effects.h"
+
+#include "lib_debugging.h"
+#include "lib_decl.h"
 
 #include "entities.h"
 #include "graphics.h"
-#include "lib_debugging.h"
 #include "memory_ram.h"
 #include "memory_rom.h"
-#include "lib_decl.h"
 
 /************************************************************************************************************
  *
@@ -389,7 +388,7 @@ void AnimationBeam(GraphicsInterface graphics,  HardwareInterface hardware, Rect
 /************************************************************************************************************
  *
  ************************************************************************************************************/
-void AnimationRandomParticles(GraphicsInterface graphics,  HardwareInterface hardware, Rect_16 r, uint16_t d, uint8_t frameLength, uint8_t palletIndex, uint8_t particleCount)
+void AnimationRandomParticles(GraphicsInterface graphics, HardwareInterface hardware, Rect_16 r, uint16_t d, uint8_t frameLength, uint8_t palletIndex, uint8_t particleCount)
 {
     BasicAsserts(r);
     ASSERT(d <= r.h, "d is larger than r.h, underflow error");
@@ -404,8 +403,8 @@ void AnimationRandomParticles(GraphicsInterface graphics,  HardwareInterface har
     while (j < end_pos)
     {
         j++;
-        f.y = r.y + (rand() % (r.h - size));
-        f.x = r.x + (rand() % (r.w - size));
+        f.y = r.y + hardware.GetRandom_uint8_t(0, r.h - size);
+        f.x = r.x + hardware.GetRandom_uint8_t(0, r.w - size);
         graphics.DrawSprite(f, sprite);
         hardware.SleepMS(frameLength);
     }

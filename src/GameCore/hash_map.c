@@ -3,8 +3,6 @@
 //
 #include "hash_map.h"
 #include "constants.h"
-#include <stdint.h>
-#include <stdbool.h>
 
 #define DELETED   254
 #define MAX_ENTRIES (ENTITY_COUNT)

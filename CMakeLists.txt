@@ -16,21 +16,23 @@ if (PICO)
 
     add_compile_definitions(PICO_FLASH_SIZE_BYTES=4194304) # 4 * 1024 * 1024
 elseif (CARTRIDGE)
-    set(PICOTOOL_FETCH_FROM_GIT_PATH ${CMAKE_SOURCE_DIR}/vendor/pico-tools)
-    set(PICOTOOL_FORCE_FETCH_FROM_GIT PICOTOOL_FETCH_FROM_GIT_PATH BOOL "Force fetch picotool from git")
+    set(CMAKE_SYSTEM_NAME Generic)
+    set(CMAKE_SYSTEM_PROCESSOR arm)
 
-    set(PICO_FLASH_SIZE_BYTES 4194304) # 4 * 1024 * 1024
+    set(CMAKE_C_COMPILER arm-none-eabi-gcc)
+    set(CMAKE_CXX_COMPILER arm-none-eabi-g++)
+    set(CMAKE_ASM_COMPILER arm-none-eabi-gcc)
 
-    set(PICO_SDK_PATH ${CMAKE_SOURCE_DIR}/vendor/pico-sdk)
-    include(${PICO_SDK_PATH}/external/pico_sdk_import.cmake)
+    set(CMAKE_AR arm-none-eabi-ar)
+    set(CMAKE_OBJCOPY arm-none-eabi-objcopy)
+    set(CMAKE_OBJDUMP arm-none-eabi-objdump)
 
-    set(PICO_EXTRAS_PATH ${CMAKE_SOURCE_DIR}/vendor/pico-extras)
-    include(${PICO_EXTRAS_PATH}/pico_sdk_import.cmake)
+    # Important flags for bare metal
+    set(CMAKE_C_FLAGS_INIT "-mcpu=cortex-m0plus -mthumb -ffreestanding -fno-tree-loop-distribute-patterns -fno-builtin -nostartfiles")
+    set(CMAKE_CXX_FLAGS_INIT "${CMAKE_C_FLAGS_INIT}")
 
-    add_compile_definitions(PICO_FLASH_SIZE_BYTES=4194304) # 4 * 1024 * 1024
-
-    # Point to the pre-built picotool
-    set(PICOTOOL_DIR ${CMAKE_SOURCE_DIR}/vendor/picotool/build)
+    # Tell CMake not to run full link tests during configuration
+#    set(CMAKE_TRY_COMPILE_TARGET_TYPE STATIC_LIBRARY)
 endif ()
 
 project(PicoRogue C CXX ASM)
@@ -40,12 +42,6 @@ set(CMAKE_CXX_STANDARD 26)
 
 
 if (PICO)
-    pico_sdk_init()
-    set(PICO_EXTRAS_ENABLE_AUDIO 1)
-    add_subdirectory(${PICO_EXTRAS_PATH}/src/common/pico_util_buffer)
-    add_subdirectory(${PICO_EXTRAS_PATH}/src/common/pico_audio)
-    add_subdirectory(${PICO_EXTRAS_PATH}/src/rp2_common/pico_audio_i2s)
-elseif (CARTRIDGE)
     pico_sdk_init()
     set(PICO_EXTRAS_ENABLE_AUDIO 1)
     add_subdirectory(${PICO_EXTRAS_PATH}/src/common/pico_util_buffer)

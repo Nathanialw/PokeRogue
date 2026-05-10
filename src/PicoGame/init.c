@@ -1,25 +1,29 @@
 //
 // Created by nathanial on 2/20/26.
 //
-#include "ili9341.h"
-#include "pico/stdlib.h"
-#include "pico/multicore.h"
-#include "hardware/adc.h"
-
-#include "input.h"
-#include "pico_constants.h"
-
 #include "init.h"
 
-#include "cartridge_save.h"
-#include "cartridge_rom.h"
-#include "hardware.h"
+#include <stdlib.h>
+
 #include "lib_debugging.h"
-#include "memory_psram.h"
-#include "sounds.h"
+
+#include "pico/stdlib.h"
+#include "pico/bootrom.h"
+#include "hardware/adc.h"
 #include "hardware/clocks.h"
 #include "hardware/i2c.h"
-#include "pico/bootrom.h"
+
+#include "string.h"
+
+#include "ili9341.h"
+#include "input.h"
+#include "hardware.h"
+#include "pico_constants.h"
+#include "cartridge_save.h"
+#include "cartridge_rom.h"
+#include "memory_psram.h"
+#include "sounds.h"
+#include "pico/multicore.h"
 
 #define PICO
 
@@ -28,6 +32,27 @@ void InitBtn(int btn)
     gpio_init(btn);
     gpio_set_dir(btn, GPIO_IN);
     gpio_pull_up(btn);
+}
+
+
+void SleepMS(uint32_t t);
+void HardwareReset(void);
+uint8_t GetRandomUniform(uint8_t min, uint8_t max);
+uint8_t GetRandom_uint8_t(uint8_t min, uint8_t max);
+
+HardwareInterface GetHardwareInterface()
+{
+    HardwareInterface hardware =
+    {
+        .HardwareReset = HardwareReset,
+        .SleepMS = SleepMS,
+        .MemSet = memset,
+        .GetRandomUniform = GetRandomUniform,
+        .GetRandom_uint8_t = GetRandom_uint8_t,
+        .StrChr = strchr,
+    };
+
+    return hardware;
 }
 
 
@@ -45,20 +70,36 @@ bool Pico_Reset(void)
     return true;
 }
 
-void HardwareReset(void) { Pico_Reset(); }
-
-
-HardwareInterface GetHardwareInterface()
+void HardwareReset(void)
 {
-    HardwareInterface hardware =
-    {
-        .HardwareReset = HardwareReset,
-        .SleepMS = SleepMS,
-    };
-
-    return hardware;
+    Pico_Reset();
 }
 
+/**********************************************************************************************************************/
+/** Returns a random int between given min and max
+**********************************************************************************************************************/
+uint8_t GetRandomUniform(uint8_t min, uint8_t max)
+{
+    uint8_t range = max - min + 1;
+    uint8_t max_acceptable = (RAND_MAX / range) * range;
+
+    uint8_t r;
+    do
+    {
+        r = rand();
+    }
+    while (r >= max_acceptable);
+
+    return min + (r % range);
+}
+
+/**********************************************************************************************************************/
+/** Returns a random int between given min and max
+**********************************************************************************************************************/
+uint8_t GetRandom_uint8_t(uint8_t min, uint8_t max)
+{
+    return min + rand() % ((max - min) + 1);
+}
 
 
 /**********************************************************************************************************************/
@@ -68,7 +109,7 @@ HardwareInterface GetHardwareInterface()
  *      -Battery status
  *  //TODO: more tasks, perhaps input polling
 **********************************************************************************************************************/
-void ThreadTwo(void)
+void ThreadTwo(HardwareInterface hardware)
 {
     // MusicData music_data = InitMusicData();
     while (1)
@@ -82,7 +123,7 @@ void ThreadTwo(void)
         // }
         // else
         // {
-        // GenerateDungeonMelody(g_run.music.notes);
+        // GenerateDungeonMelody(hardware, g_run.music.notes);
         // AudioPlayVoices(&music_data, g_run.music.notes);
         // }
     }
@@ -137,6 +178,4 @@ void Pico_Init(void)
     PSRAM_FullTest();
     DEBUG("----- PSRAM Test Complete ---");
 
-    // Pico_AudioInit(); // Initialize audio system (this must be done on core 0)
-    // multicore_launch_core1(ThreadTwo);
 }

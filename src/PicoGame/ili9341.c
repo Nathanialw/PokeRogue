@@ -1,12 +1,8 @@
 #include "ili9341.h"
 
-#include <string.h>
-
-// #include "memory_ram.h"
 #include "pico/stdlib.h"
 #include "hardware/spi.h"
 
-// #include "memory_rom.h"
 #include "lib_debugging.h"
 #include "lib_types.h"
 #include "pico_constants.h"
