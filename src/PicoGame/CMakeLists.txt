@@ -6,8 +6,10 @@ add_executable(PicoRogue
         input.c
         sounds.c
         hardware.c
+
         cartridge_rom.c
         cartridge_save.c
+        sd_card.c
 
         memory_ram.c
         memory_rom.c
@@ -33,10 +35,12 @@ target_link_libraries(PicoRogue
 )
 
 
-#target_compile_definitions(PicoRogue PRIVATE ENABLE_DEBUG_OUTPUT ENABLE_ASSERTS)
+target_compile_definitions(PicoRogue PRIVATE ENABLE_DEBUG_OUTPUT ENABLE_ASSERTS)
+target_compile_definitions(PicoTypes PRIVATE ENABLE_DEBUG_OUTPUT ENABLE_ASSERTS)
 
 target_include_directories(PicoRogue PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}
+        ../../vendor/fatfs/source
 )
 
 

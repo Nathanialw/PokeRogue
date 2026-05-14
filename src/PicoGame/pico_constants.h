@@ -24,7 +24,8 @@
 
 #define SPI_DISPLAY  spi1
 #define SPI_BUTTONS  spi0
-#define SPI_CART     spi0
+#define SPI0_A       spi0
+#define SPI_B       spi1
 
 
 #define MAX_VOLUME  26500
@@ -56,21 +57,33 @@
 #endif
 
 /**********************************************************************************************************************/
+/**  SPI
+/**********************************************************************************************************************/
+#define SPIA_SCK      18
+#define SPIA_MOSI       19
+#define SPIA_MISO       16
+#define SPIB_SCK        1
+#define SPIB_MISO       1
+#define SPIB_MOSI       1
+
+/**********************************************************************************************************************/
 /**  Cartridge I/O
 /**********************************************************************************************************************/
 #define FM24C256_SDA    20
 #define FM24C256_SCL    21
 //SPI 0
-#define CART_SCK        18
-#define CART_MOSI       19
-#define CART_MISO       16
-#define CART_CS_EEPROM  17
+#define EEPROM_CART_CS 17
 
 /**********************************************************************************************************************/
 /**  psram
 /**********************************************************************************************************************/
 //SPI 0
 #define ESP_PSRAM64_CS  15
+
+/**********************************************************************************************************************/
+/**  SD Card
+**********************************************************************************************************************/
+#define SD_CARD_CS      14
 
 
 
@@ -139,10 +152,10 @@
 // /**********************************************************************************************************************/
 // /**  Cartridge SPI
 // /**********************************************************************************************************************/
-// #define CART_SCK        2
+// #define SPI0_A_SCK        2
 // #define CART_MOSI       3
 // #define CART_MISO       4
-// #define CART_CS_EEPROM  5
+// #define EEPROM_CART_CS  5
 // #define CART_CS_FRAM    6
 //
 // /**********************************************************************************************************************/
@@ -196,3 +209,89 @@
 //
 //
 // /**********************************************************************************************************************/
+
+
+
+
+
+
+
+
+
+
+//
+//
+// #############################################################
+// Pin layout:
+//
+// Display (PIO 8-bit) → GP0–GP9
+// PSRAM (QSPI)        → GP10–GP15
+// Flash (SPI)         → GP16–GP19
+// I2C (FRAM+ADC)      → GP20–GP21
+// Audio (I2S)         → GP22–GP24
+// Buttons (165)       → GP25–GP27
+// Backlight PWM       → GP28
+// Battery LED         → GP29
+//
+// --------------------------------
+//
+// 8-bit Parallel LCD (ILI9341 etc.)
+//     GP0  → LCD_D0
+//     GP1  → LCD_D1
+//     GP2  → LCD_D2
+//     GP3  → LCD_D3
+//     GP4  → LCD_D4
+//     GP5  → LCD_D5
+//     GP6  → LCD_D6
+//     GP7  → LCD_D7
+//
+//     GP8  → LCD_WR
+//     GP9  → LCD_DC
+//
+//     Fixed wiring (no GPIO):
+//         LCD_CS  → GND
+//         LCD_RD  → 3.3V
+//         LCD_RST → 10k → 3.3V + 0.1µF → GND
+//
+// PSRAM (QSPI via PIO)
+//     GP10 → PSRAM_CS
+//     GP11 → PSRAM_CLK
+//     GP12 → PSRAM_IO0
+//     GP13 → PSRAM_IO1
+//     GP14 → PSRAM_IO2
+//     GP15 → PSRAM_IO3
+//
+// Cartridge Flash (SPI)
+//     GP16 → FLASH_CS
+//     GP17 → SPI_SCK
+//     GP18 → SPI_MOSI
+//     GP19 → SPI_MISO
+//
+// I2C Bus (FRAM + ADS1115)
+//     GP20 → I2C_SDA
+//     GP21 → I2C_SCL
+//
+//     Both devices share(4.7k pull-ups on SDA + SCL):
+//         FRAM      → 0x50
+//         ADS1115   → 0x48–0x4B
+//
+//
+// I2S Audio (MAX98357A)
+//     GP22 → I2S_BCLK
+//     GP23 → I2S_LRCLK
+//     GP24 → I2S_DIN
+//
+// Buttons (2× 74HC165 chained)
+//     GP25 → 74HC165_LOAD (PL)
+//     GP26 → 74HC165_CLK
+//     GP27 → 74HC165_DATA
+//
+// Backlight PWM (screen dimmer)
+//     GP28 → PWM → transistor/MOSFET → LCD LED (depends on screen pins)
+//
+// Battery Sense(use ADS1115)
+//     Battery → divider → ADS1115 input
+//
+// Battery LED
+//     GP29 → 1k resistor → LED → GND
+//

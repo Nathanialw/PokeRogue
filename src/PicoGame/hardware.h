@@ -10,3 +10,4 @@ bool Pico_ADS1115_Init(void);
 void RecoverADS1115(void);
 void UpdateBacklight(void);
 int16_t Pico_VolumeControl(void);
+void SPI0_Init();

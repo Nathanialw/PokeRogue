@@ -38,8 +38,8 @@ SECTIONS
     /* Overlay symbols */
     __overlay_start__ = 0x20000000;
     __battle_lma      = LOADADDR(.battle);
-    __battle_size     = SIZEOF(.battle);
     __map_lma         = LOADADDR(.map);
+    __battle_size     = SIZEOF(.battle);
     __map_size        = SIZEOF(.map);
 
     /* ========================================== */

@@ -15,7 +15,8 @@ def main():
 
     elf_path = Path(sys.argv[1])
     output_bin = Path(sys.argv[2])
-    rom_size = 0x1000000  # 16MB
+    # rom_size = 0x1000000  # 16MB
+    rom_size = 0x0400000  # 16MB
 
     if not elf_path.exists():
         print(f"Error: ELF file not found: {elf_path}")
@@ -28,18 +29,18 @@ def main():
     sections = [
         (".battle",           0x000000),
         (".map",              0x040000),
-        (".strings_items",    0x400000),
-        (".strings_creatures",0x410000),
-        (".strings_spells",   0x420000),
-        (".strings_attacks",  0x430000),
-        (".strings_trainers", 0x440000),
-        (".strings_objects",  0x450000),
-        (".sprites_items",    0x500000),
-        (".sprites_creatures",0x510000),
-        (".sprites_spells",   0x520000),
-        (".sprites_attacks",  0x530000),
-        (".sprites_trainers", 0x540000),
-        (".sprites_objects",  0x550000),
+        (".strings_items",    0x100008),
+        (".strings_creatures",0x100010),
+        (".strings_spells",   0x100020),
+        (".strings_attacks",  0x100030),
+        (".strings_trainers", 0x100040),
+        (".strings_objects",  0x100050),
+        (".sprites_items",    0x100060),
+        (".sprites_creatures",0x100070),
+        (".sprites_spells",   0x100080),
+        (".sprites_attacks",  0x100090),
+        (".sprites_trainers", 0x100100),
+        (".sprites_objects",  0x100200),
     ]
 
     print("Building cartridge with fixed addresses...")
