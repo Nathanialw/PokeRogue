@@ -14,7 +14,7 @@
 /*16MB is used right now 16777216*/
 MEMORY
 {
-    RAM (rwx) : ORIGIN = 0x20000000, LENGTH = 141K
+    RAM (rwx) : ORIGIN = 0x20010000, LENGTH = 64K
 }
 
 SECTIONS
@@ -22,65 +22,65 @@ SECTIONS
     /* Start at address 0 */
     . = 0x000000;
 
-/* Battle / Map Overlays */
-    .battle 0x20000000 : AT(0x000000)
+    .core 0x20000000 : AT(0x0000000)   /* example cartridge address */
     {
-        KEEP(*(.battle))
+        KEEP(*(.core))
+        . = ALIGN(4);
+    }
+
+    .splash 0x20010000 : AT(0x010000)
+    {
+        KEEP(*(.splash_entry))   /* must come first */
+        KEEP(*(.splash))
         . = ALIGN(4);
     } > RAM
 
-    .map 0x20000000 : AT(0x020000)
+    .map 0x20010000 : AT(0x020000)
     {
+        KEEP(*(.map_entry))
         KEEP(*(.map))
         . = ALIGN(4);
     } > RAM
 
-    .title 0x20000000 : AT(0x040000)
+    .map_gen 0x20010000 : AT(0x030000)
     {
-        KEEP(*(.title_entry))   /* must come first */
-        KEEP(*(.title))
+        KEEP(*(.map_gen_entry))
+        KEEP(*(.map_gen))
         . = ALIGN(4);
     } > RAM
 
-
-    /* Overlay symbols */
-    __overlay_start__ = 0x20000000;
-    __battle_lma      = LOADADDR(.battle);
-    __map_lma         = LOADADDR(.map);
-    __title_lma       = LOADADDR(.title);
-    __battle_size     = SIZEOF(.battle);
-    __map_size        = SIZEOF(.map);
-    __title_size      = SIZEOF(.title);
+    /* Battle / Map Overlays */
+    .battle 0x20010000 : AT(0x040000)
+    {
+        KEEP(*(.battle_entry))
+        KEEP(*(.battle))
+        . = ALIGN(4);
+    } > RAM
 
     /* ========================================== */
     /*     FORCE ABSOLUTE POSITIONS FROM HERE     */
     /* ========================================== */
 
-    . = 0x400000;
-
-    .strings_items      0x400000 : { KEEP(*(.strings_items))      . = ALIGN(4); }
-    .strings_creatures  0x410000 : { KEEP(*(.strings_creatures))  . = ALIGN(4); }
-    .strings_spells     0x420000 : { KEEP(*(.strings_spells))     . = ALIGN(4); }
-    .strings_attacks    0x430000 : { KEEP(*(.strings_attacks))    . = ALIGN(4); }
-    .strings_trainers   0x440000 : { KEEP(*(.strings_trainers))   . = ALIGN(4); }
-    .strings_objects    0x450000 : { KEEP(*(.strings_objects))    . = ALIGN(4); }
-
     . = 0x500000;
 
-    .sprites_items      0x500000 : { KEEP(*(.sprites_items))      . = ALIGN(4); }
-    .sprites_creatures  0x510000 : { KEEP(*(.sprites_creatures))  . = ALIGN(4); }
-    .sprites_spells     0x520000 : { KEEP(*(.sprites_spells))     . = ALIGN(4); }
-    .sprites_attacks    0x530000 : { KEEP(*(.sprites_attacks))    . = ALIGN(4); }
-    .sprites_trainers   0x540000 : { KEEP(*(.sprites_trainers))   . = ALIGN(4); }
+    .strings_items      0x500000 : { KEEP(*(.strings_items))      . = ALIGN(4); }
+    .strings_creatures  0x510000 : { KEEP(*(.strings_creatures))  . = ALIGN(4); }
+    .strings_spells     0x520000 : { KEEP(*(.strings_spells))     . = ALIGN(4); }
+    .strings_attacks    0x530000 : { KEEP(*(.strings_attacks))    . = ALIGN(4); }
+    .strings_trainers   0x540000 : { KEEP(*(.strings_trainers))   . = ALIGN(4); }
+    .strings_objects    0x550000 : { KEEP(*(.strings_objects))    . = ALIGN(4); }
+
+    . = 0x600000;
+
+    .sprites_items      0x600000 : { KEEP(*(.sprites_items))      . = ALIGN(4); }
+    .sprites_creatures  0x610000 : { KEEP(*(.sprites_creatures))  . = ALIGN(4); }
+    .sprites_spells     0x620000 : { KEEP(*(.sprites_spells))     . = ALIGN(4); }
+    .sprites_attacks    0x630000 : { KEEP(*(.sprites_attacks))    . = ALIGN(4); }
+    .sprites_trainers   0x640000 : { KEEP(*(.sprites_trainers))   . = ALIGN(4); }
 
     /* This is the critical one */
-    . = 0x550000;
-    .sprites_objects    0x550000 :
-    {
-        KEEP(*(.sprites_objects))
-        KEEP(*(.sprites_objects*))     /* catch variations */
-        . = ALIGN(4);
-    }
+    . = 0x650000;
+    .sprites_objects    0x650000 : { KEEP(*(.sprites_objects))    . = ALIGN(4); }
 
     __rom_end = .;
     end = .;

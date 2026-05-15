@@ -40,18 +40,17 @@ void HardwareReset(void);
 uint8_t GetRandomUniform(uint8_t min, uint8_t max);
 uint8_t GetRandom_uint8_t(uint8_t min, uint8_t max);
 
-HardwareInterface GetHardwareInterface()
+HardwareInterface GetHardwareInterface(void)
 {
-    HardwareInterface hardware =
-    {
+    HardwareInterface hardware ={
         .HardwareReset = HardwareReset,
         .SleepMS = SleepMS,
         .MemSet = memset,
         .GetRandomUniform = GetRandomUniform,
         .GetRandom_uint8_t = GetRandom_uint8_t,
         .StrChr = strchr,
-    };
 
+    };
     return hardware;
 }
 
@@ -184,10 +183,13 @@ void Pico_Init(void)
     // EEPROM_FullMemoryTest(size);
     // EEPROM_RetentionCheck(size);
     //
+
+
     // EEPROM_Clear(size); // erase whole chip first
     // printf("Erased.\n");
     // EEPROM_Flash();
-    // //
     // EEPROM_Verify(size);
+
+
     // EEPROM_Dump(size);
 }

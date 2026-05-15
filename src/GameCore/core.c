@@ -24,6 +24,7 @@
  *      -> creates map entities
  *      -> sets camera to player position
 **********************************************************************************************************************/
+
 void InitGame(HardwareInterface hardware)
 {
     DEBUG("init gmae");

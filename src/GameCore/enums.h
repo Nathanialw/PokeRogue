@@ -735,3 +735,15 @@ typedef enum
     MAP_LEVEL_DOWN,
     MAP_LEVEL_LATERAL,
 } MapLevelChange;
+
+
+typedef enum
+{
+    GAME_CORE, //reserved for core code
+    GAME_SPLASH,
+    GAME_MAP,
+    GAME_MAP_GEN,
+    GAME_BATTLE,
+    GAME_START,
+    GAME_LOAD,
+} OverlayState;

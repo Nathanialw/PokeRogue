@@ -6,7 +6,7 @@
 
 
 void Pico_Init(void);
-HardwareInterface GetHardwareInterface();
+HardwareInterface GetHardwareInterface(void);
 void HardwareReset(void);
 
 void ThreadTwo(HardwareInterface hardware);

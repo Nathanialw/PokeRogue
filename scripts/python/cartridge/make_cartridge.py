@@ -12,7 +12,7 @@ def main():
     elf_path = Path("../../../build-cartridge/src/GameCartridge/GameCartridge")
     output_bin = Path("../../../build-cartridge/src/GameCartridge/cartridge.bin")
     # rom_size = 0x1000000  # 16MB
-    rom_size = 0x0400000  # 16MB
+    rom_size = 0x0400000  # 4MB
 
     if not elf_path.exists():
         print(f"Error: ELF file not found: {elf_path}")
@@ -24,8 +24,10 @@ def main():
     # Define sections and their exact addresses
     sections = [
         #code
-        ".title",
+        ".core",
+        ".splash",
         ".map",
+        ".map_gen",
         ".battle",
         ".strings_items",
         ".strings_creatures",

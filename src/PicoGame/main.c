@@ -14,9 +14,8 @@
 /*
 **********************************************************************************************************************/
 
-#define OVERLAY_VMA 0x20000000
-#define TITLE_LMA   0x040000
-#define TITLE_SIZE  120   // must be the exact size
+#define CORE_VMA    0x20000000
+#define OVERLAY_VMA 0x20010000
 
 int main()
 {
@@ -49,9 +48,17 @@ int main()
     }
 
     uint8_t overlay_table_addr = 0;
+    LoadOverlay(g_pico_ram.overlays.overlay[overlay_table_addr].addr, CORE_VMA, g_pico_ram.overlays.overlay[overlay_table_addr].size);
+
+    overlay_table_addr = 1;
     while (1)
     {
         overlay_table_addr = RunOverlay(&api, g_pico_ram.overlays.overlay[overlay_table_addr].addr, OVERLAY_VMA, g_pico_ram.overlays.overlay[overlay_table_addr].size);
+        if (overlay_table_addr == 0)
+        {
+            DEBUG("OVERLAY RESERVED FOR CORE CODE, %d", overlay_table_addr);
+            break;
+        }
     }
 
     DEBUG("Program Done!~");

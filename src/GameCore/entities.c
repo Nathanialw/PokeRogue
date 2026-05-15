@@ -201,6 +201,7 @@ Position* GetEntityNewPositions(void)
 /** Sets initial data values of a given entity ID of type creature
 *   TODO - get all values from the db data or generate them
 **********************************************************************************************************************/
+
 EntityId SpawnMonster(HardwareInterface hardware, uint8_t type, uint8_t x, uint8_t y, uint8_t l)
 {
     EntityId id = NO_ENTITY;
@@ -242,6 +243,7 @@ EntityId SpawnMonster(HardwareInterface hardware, uint8_t type, uint8_t x, uint8
  *  //TODO: certain items will use metaData to store type of item, for example the spell ID of a spellbook
  *  //TODO: use 'l' to generate item of the appropriate level
 **********************************************************************************************************************/
+
 EntityId SpawnItem(HardwareInterface hardware, uint8_t type, uint8_t x, uint8_t y, uint8_t l)
 {
     EntityId id = NO_ENTITY;
@@ -289,6 +291,7 @@ EntityId SpawnObject(HardwareInterface hardware, uint8_t type, uint8_t x, uint8_
 /**********************************************************************************************************************/
 /** Sets initial data values of a given the type of object, the id of that type, position and level
 **********************************************************************************************************************/
+
 EntityId SpawnEntity(HardwareInterface hardware, ObjectsTypes type, uint8_t t, uint8_t x, uint8_t y, uint8_t l)
 {
     return spawn[type](hardware, t, x, y, l);;
@@ -327,6 +330,7 @@ EntityId PickItem(EntityId id)
 /**********************************************************************************************************************/
 /**Reset all values of the given entity ID
 **********************************************************************************************************************/
+
 void DestroyCreature(HardwareInterface hardware, EntityId id)
 {
     Position empty_pos = {.x = 0, .y = 0};
@@ -351,6 +355,7 @@ void DestroyCreature(HardwareInterface hardware, EntityId id)
     g_run.creatures.level[id].value = 0;
     SetBit(g_run.creatures.active, id, false);
 }
+
 
 
 void DestroyItem(EntityId id)

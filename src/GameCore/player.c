@@ -337,6 +337,7 @@ bool CheckEnemyAttackOutcome()
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
+
 void PlacePlayerOnMap(HardwareInterface hardware)
 {
     Position pos = FindOpenMapLocation(hardware, CREATURE);

@@ -20,6 +20,7 @@
 #include "memory_rom.h"
 #include "rendering.h"
 
+
 #define TITLE_RATE_DELAY 500
 
 /**********************************************************************************************************************/
@@ -41,7 +42,7 @@ void SetGameLoopRate(uint16_t time)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-// SET_MEMORY(".title")
+SET_MEMORY(".splash")
 void TitleRateDelay(HardwareInterface hardware)
 {
     hardware.SleepMS(TITLE_RATE_DELAY);
@@ -249,7 +250,7 @@ void UpdateGameRunningState(GraphicsInterface graphics, HardwareInterface hardwa
     }
 }
 
-SET_MEMORY(".title")
+SET_MEMORY(".splash")
 bool UpdateGameTitleState(InputInterface input)
 {
     if (input.GetButtonA())
@@ -293,7 +294,7 @@ bool UpdateGameTitleState(InputInterface input)
     }
 
 
-    return 0;
+    return false;
 }
 
 /**********************************************************************************************************************/
@@ -363,26 +364,55 @@ void HandleGameState(GameInterface* spi)
 /**********************************************************************************************************************/
 /**  main game state update loop
 **********************************************************************************************************************/
-// SET_MEMORY(".battle")
-SET_MEMORY(".title_entry")
-void GameLoopTitleScreen(GameInterface* spi)
+
+
+SET_MEMORY(".core")
+void TestCore(GameInterface* spi)
 {
-    spi->graphics.FillScreen(0xFDA0); // TODO: update to real title screen
+    spi->graphics.FillScreen(0x03A0);
+    spi->hardware.SleepMS(5000);
+}
+
+//red -> green -> cyan -> violet
+SET_MEMORY(".splash_entry")
+uint8_t GameLoopTitleScreen(GameInterface* spi)
+{
+    spi->graphics.FillScreen(0xF000); // TODO: update to real title screen
     int start = 0;
     while (start == 0)
     {
-        // Pico_AnimationTitle();
         spi->input.HandleInput();
-        start = UpdateGameTitleState(spi->input);
-        TitleRateDelay(spi->hardware);
+        if (spi->input.GetButtonA())
+            start = 1;
+        spi->hardware.SleepMS(200);
     }
-    spi->graphics.FillScreen(0xA000);
+
+    TestCore(spi);
+    return GAME_MAP_GEN;
 }
 
 
-bool GameLoopMain(GameInterface* spi)
+SET_MEMORY(".map_gen_entry")
+uint8_t GameLoopEntry(GameInterface* spi)
 {
-    InitGame(spi->hardware);
+    spi->graphics.FillScreen(0x05FF);
+    spi->hardware.SleepMS(5000);
+    // InitGame(spi->hardware);
+    return GAME_MAP;
+}
+
+
+SET_MEMORY(".map_entry")
+uint8_t TestMap(GameInterface* spi)
+{
+    spi->graphics.FillScreen(0x680F);
+    spi->hardware.SleepMS(5000);
+    return GAME_SPLASH;
+}
+
+
+uint8_t GameLoopMain(GameInterface* spi)
+{
     FullRedraw(spi->graphics);
     while (g_run.state.gameState == GAME_RUNNING)
     {
@@ -391,9 +421,6 @@ bool GameLoopMain(GameInterface* spi)
         HandleGameState(spi);
         GameLoopRateDelay(spi->hardware);
     }
-
-    DEBUG("GameLoopMain break, %d", g_run.state.gameState);
-    return true;
 }
 
 // __attribute__((section(".strings")))
@@ -404,7 +431,7 @@ bool GameLoopNewMap(GameInterface* spi)
     return true;
 }
 
-SET_MEMORY(".map")
+
 bool GameLoopShutdown(GameInterface* spi)
 {
     return false;

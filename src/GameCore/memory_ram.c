@@ -9,8 +9,8 @@
 #include "constants.h"
 
 GameRunState g_run = {0};
-
 TitleRunState g_title = {0};
+
 
 void GameRunInit()
 {
