@@ -41,6 +41,7 @@ add_library(GameCore STATIC
         memory_ram.c
         memory_rom.c
         memory_access.c
+        memory_constants.h
         game_state.c
 
         utils.h

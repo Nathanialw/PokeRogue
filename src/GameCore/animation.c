@@ -49,6 +49,7 @@
 /************************************************************************************************************
  *  MOVE - SMOOTH SCREEN SCROLLING
  ************************************************************************************************************/
+SET_MEMORY(".map")
 void AnimationMovement(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory)
 {
     DEBUG("Pico_AnimationMovement() scroll : %d %d", g_run.player.scroll.x, g_run.player.scroll.y);
@@ -196,6 +197,7 @@ void AnimationMovement(GraphicsInterface graphics, HardwareInterface hardware, M
  *  HEALTH - FALL
  *  HEALTH - RISE TODO: NOT IMPLEMENTED YET
  ************************************************************************************************************/
+SET_MEMORY(".battle")
 void AnimationUpdateHealth(GraphicsInterface graphics, HardwareInterface hardware, bool attackersTurn)
 {
     Rect_16 r = {0};
@@ -244,6 +246,7 @@ void AnimationUpdateHealth(GraphicsInterface graphics, HardwareInterface hardwar
  *  TODO: NOT IMPLEMENTED YET
  *  MANA - RISE AND FALL
  ************************************************************************************************************/
+SET_MEMORY(".battle")
 void AnimationUpdateMana(GraphicsInterface graphics, HardwareInterface hardware)
 {
     FrameBuffer f = {50, 100, 64, 80, 0xd6fa};
@@ -268,6 +271,7 @@ void AnimationUpdateMana(GraphicsInterface graphics, HardwareInterface hardware)
  *  TODO: NOT IMPLEMENTED YET *
  *  XP - RISE AND FALL
  ************************************************************************************************************/
+SET_MEMORY(".battle")
 void AnimationUpdateXP(GraphicsInterface graphics, HardwareInterface hardware)
 {
     FrameBuffer f = {50, 100, 64, 80, 0xd6fa};
@@ -290,6 +294,7 @@ void AnimationUpdateXP(GraphicsInterface graphics, HardwareInterface hardware)
  *  TODO: NOT IMPLEMENTED YET
  *  FADE - APPLY A MERGE SHADER THAT REACHES 100% INPUT COLOUR AT END
  ************************************************************************************************************/
+SET_MEMORY(".core")
 void AnimationScreenFade(GraphicsInterface graphics, HardwareInterface hardware)
 {
     FrameBuffer f = {50, 100, 64, 80, 0xd6fa};
@@ -312,6 +317,7 @@ void AnimationScreenFade(GraphicsInterface graphics, HardwareInterface hardware)
  *  TODO: NOT IMPLEMENTED YET
  *  CLEAR SCREEN WITH A RANDOM ANIMATION
  ************************************************************************************************************/
+// SET_MEMORY(".core")
 void AnimationScreenClearRandom(GraphicsInterface graphics, HardwareInterface hardware)
 {
     FrameBuffer f = {50, 100, 64, 80, 0xd6fa};
@@ -335,6 +341,7 @@ void AnimationScreenClearRandom(GraphicsInterface graphics, HardwareInterface ha
  *  TODO: NOT IMPLEMENTED YET
  *  TITLE SCREEN WITH A CUSTOM ANIMATION
  ************************************************************************************************************/
+SET_MEMORY(".splash")
 void AnimationTitle(GraphicsInterface graphics, HardwareInterface hardware)
 {
     FrameBuffer f = {50, 100, 64, 80, 0xd6fa};
@@ -357,6 +364,7 @@ void AnimationTitle(GraphicsInterface graphics, HardwareInterface hardware)
 /************************************************************************************************************
  *  BATTLE START animation
  ************************************************************************************************************/
+SET_MEMORY(".battle")
 void AnimationBattlerStart(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     Rect_16 r = GetBattlerRect(onAttacker);
@@ -369,6 +377,7 @@ void AnimationBattlerStart(GraphicsInterface graphics, HardwareInterface hardwar
 /************************************************************************************************************
  *  DEATH animation
  ************************************************************************************************************/
+SET_MEMORY(".battle")
 void AnimationBattlerDie(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     Rect_16 r = GetBattlerRect(onAttacker);
@@ -381,6 +390,7 @@ void AnimationBattlerDie(GraphicsInterface graphics, HardwareInterface hardware,
 /************************************************************************************************************
  *  Handles all battler animations for spells, items and skills
  ************************************************************************************************************/
+SET_MEMORY(".battle")
 void BattlerAnimationAttack(GraphicsInterface graphics, bool player)
 {
     const ObjectsTypes move_type = g_run.battleMode.moveType;
@@ -396,6 +406,7 @@ void BattlerAnimationAttack(GraphicsInterface graphics, bool player)
 }
 
 
+SET_MEMORY(".battle")
 void BattlerAnimationStruck(GraphicsInterface graphics, bool player)
 {
     const ObjectsTypes move_type = g_run.battleMode.moveType;

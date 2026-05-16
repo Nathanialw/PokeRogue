@@ -20,7 +20,7 @@ void ClearBuffer(void);
 void DrawBuffer(const FrameBuffer f);
 void SetFrameBuffer(uint16_t rgb565);
 void SetFrameBufferColor(Color rgb565);
-void DrawSprite(FrameBuffer f, const uint8_t* sprite);
+void Pico_DrawSprite(FrameBuffer f, const uint8_t* sprite);
 void DrawToBuffer(const FrameBuffer frameBuffer, const uint16_t* pixels, const Rect_16 rect);
 void FillRect(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t rgb565);
 void FillRectColor(uint16_t x, uint16_t y, uint16_t w, uint16_t h, Color rgb565);
@@ -44,7 +44,7 @@ GraphicsInterface GetGraphicsInterface()
         .GetBufferHeight = GetBufferHeight,
         .ClearBuffer = ClearBuffer,
         .DrawBuffer = DrawBuffer,
-        .DrawSprite = DrawSprite,
+        .DrawSprite = Pico_DrawSprite,
         .DrawToBuffer = DrawToBuffer,
         .DrawTileKeyed = DrawTileKeyed,
         .Draw = Draw,
@@ -473,7 +473,7 @@ void DrawBuffer(const FrameBuffer f)
 /**********************************************************************************************************************/
 /**
 **********************************************************************************************************************/
-void DrawSprite(const FrameBuffer f, const uint8_t* sprite)
+void Pico_DrawSprite(const FrameBuffer f, const uint8_t* sprite)
 {
     Draw(f.x, f.y, f.w, f.h, sprite);
 }

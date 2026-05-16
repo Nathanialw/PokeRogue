@@ -46,6 +46,7 @@ void TilesetFromGlyph1bpp(TileSet* tileset, uint16_t tile_id, uint8_t glyph_inde
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
+SET_MEMORY(".core")
 void CharFromGlyph1bpp(MemoryInterface memory, uint16_t* character, uint8_t glyph_index, FontSize fontSize, uint16_t fg, uint16_t bg)
 {
     if (fontSize == FONT8x8)

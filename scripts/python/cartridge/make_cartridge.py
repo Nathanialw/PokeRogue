@@ -29,18 +29,93 @@ def main():
         ".map",
         ".map_gen",
         ".battle",
-        ".strings_items",
-        ".strings_creatures",
-        ".strings_spells",
-        ".strings_attacks",
-        ".strings_trainers",
-        ".strings_objects",
-        ".sprites_items",
-        ".sprites_creatures",
-        ".sprites_spells",
-        ".sprites_attacks",
-        ".sprites_trainers",
-        ".sprites_objects",
+
+        #   DATA
+        # char sprite colors
+        ".char_sprites_items",
+        ".char_sprites_monsters",
+        ".char_sprites_objects",
+        ".char_sprites_biomes",
+
+        # tilesets
+        ".tileset_theme",
+        ".tileset_creatures",
+
+        # strings
+        ".strings_menu_main",
+        ".strings_menu_battle",
+        ".strings_menu_options",
+        ".strings_names_items",
+        ".strings_names_creatures",
+        ".strings_names_spells",
+        ".strings_names_skills",
+        ".strings_names_objects",
+        ".strings_names_trainers",
+        ".strings_descriptions_items",
+        ".strings_descriptions_creatures",
+        ".strings_descriptions_spells",
+        ".strings_descriptions_skills",
+        ".strings_descriptions_objects",
+        ".strings_descriptions_trainers",
+        ".strings_types",
+
+        # sprites
+        ".sprite_battler_layout_back",
+        ".sprite_battler_layout_front",
+        ".sprite_battler_back",
+        ".sprite_battler_front",
+        ".sprite_items_layout",
+        ".sprite_creatures_layout",
+        ".sprite_spells_layout",
+        ".sprite_skills_layout",
+        ".sprite_objects_layout",
+        ".sprite_trainers_layout",
+        ".sprite_items",
+        ".sprite_creatures",
+        ".sprite_spells",
+        ".sprite_skills",
+        ".sprite_objects",
+        ".sprite_trainers",
+        ".sprite_map_creature",
+        ".sprite_map_item",
+        ".sprite_map_object",
+        ".sprite_map_trainer",
+        ".sprite_map_tile",
+        ".sprite_map_creature_metaData",
+        ".sprite_map_item_metaData",
+        ".sprite_map_object_metaData",
+        ".sprite_map_trainer_metaData",
+        ".sprite_map_tile_metaData",
+
+        #fonts
+        ".font_8x8",
+        ".font_16x16",
+
+        # sounds
+        ".sounds_music_data",
+        ".sounds_music_notes",
+        ".sounds_creatures",
+        ".sounds_spells",
+        ".sounds_skills",
+        ".sounds_menus",
+        ".sounds_notes",
+
+        # game_data
+        ".game_data_type_effects",
+        ".game_data_creature_types",
+        ".game_data_creature_stats",
+        ".game_data_learnable_skills",
+        ".game_data_level_up_skills",
+        ".game_data_ability",
+        ".game_data_spell",
+        ".game_data_item",
+        ".game_data_object",
+        ".game_data_object",
+        ".game_data_object",
+
+        # colors
+        ".colors_16",
+        ".colors_256",
     ]
     print("Building cartridge...")
 

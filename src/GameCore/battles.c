@@ -87,7 +87,7 @@ bool UseItem(MemoryInterface memory, EntityId item_id, EntityId e_id)
     if (item_id == NO_ENTITY) return false;
     ItemTypes itemType = GetItemType(item_id);
     ItemData itemData = Flash_GetItemData(memory, item_id);
-    return Flash_GetItemEffect(memory, item_id, e_id, itemData);
+    return Flash_GetItemEffect(memory, itemType, item_id, e_id, itemData);
 }
 
 
@@ -101,5 +101,5 @@ bool InteractObject(MemoryInterface memory, EntityId object_e_id, EntityId e_id)
     Object object_type = GetObjectType(object_e_id);
     ObjectData object_data = Flash_GetObjectData(memory, object_type);
     DEBUG("%d object type: %d", object_type, object_data.type);
-    return Flash_GetObjectEffect(memory, object_e_id, e_id, object_data);
+    return Flash_GetObjectEffect(memory, object_type, object_e_id, e_id, object_data);
 }

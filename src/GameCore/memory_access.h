@@ -65,9 +65,8 @@ const SmallStringArray* Flash_GetCreatureNameArray(MemoryInterface memory);
 const SmallStringArray* Flash_GetItemNameArray(MemoryInterface memory);
 const SmallStringArray* Flash_GetObjectNameArray(MemoryInterface memory);
 
-
 //FUNCTIONS
 bool Flash_GetSkillEffect(MemoryInterface memory, uint8_t index, EntityId id, EntityId target_id, SkillData skillData);
 bool Flash_GetSpellEffect(MemoryInterface memory, uint8_t index, EntityId id, EntityId target_id, SpellData spellData);
-bool Flash_GetItemEffect(MemoryInterface memory, uint8_t index, EntityId id, ItemData itemData);
-bool Flash_GetObjectEffect(MemoryInterface memory, uint8_t index, EntityId id, ObjectData objectData);
+bool Flash_GetItemEffect(MemoryInterface memory, uint8_t index, EntityId item_id, EntityId id, ItemData itemData);
+bool Flash_GetObjectEffect(MemoryInterface memory, uint8_t index, EntityId object_id, EntityId target_id, ObjectData objectData);

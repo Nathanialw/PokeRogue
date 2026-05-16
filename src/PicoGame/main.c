@@ -1,4 +1,6 @@
+#ifdef STANDALONE
 // #include "game_state.h"
+#endif
 #include "cartridge.h"
 #include "cartridge_rom.h"
 #include "sounds.h"
@@ -62,6 +64,9 @@ int main()
     }
 
     DEBUG("Program Done!~");
+
+    #ifdef STANDALONE
     // multicore_launch_core1(ThreadTwo, api.hardware);
-    // GameLoop(api);
+    GameLoop(&api);
+#endif
 }

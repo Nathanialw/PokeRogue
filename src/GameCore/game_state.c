@@ -383,6 +383,25 @@ uint8_t GameLoopTitleScreen(GameInterface* spi)
 }
 
 
+bool MainBattleLoop(GameInterface* spi)
+{
+    return true;
+}
+
+
+SET_MEMORY(".battle_entry")
+uint8_t BattleLoopMain(GameInterface* spi)
+{
+    bool battling = true;
+    while (battling)
+    {
+        UpdateBattleRunningState(spi->graphics, spi->hardware, spi->input, spi->memory);;
+        battling = MainBattleLoop(spi);;
+    }
+
+    return GAME_MAP;
+}
+
 SET_MEMORY(".map_gen_entry")
 uint8_t GameLoopEntry(GameInterface* spi)
 {
@@ -393,26 +412,25 @@ uint8_t GameLoopEntry(GameInterface* spi)
 SET_MEMORY(".map_entry")
 uint8_t GameLoopMain(GameInterface* spi)
 {
+    ResetEntities(spi->hardware, spi->memory, true);
+    PopulateLevelCreatures(spi->hardware, spi->memory);
+    PopulateLevelObjects(spi->hardware, spi->memory);
+    PopulateLevelItems(spi->hardware, spi->memory);
+    PlacePlayerOnMap(spi->hardware);
+    SetMapFog(0xFF);
 
-    // ResetEntities(spi->hardware, spi->memory, true);
-    // PopulateLevelCreatures(spi->hardware, spi->memory);
-    // PopulateLevelObjects(spi->hardware, spi->memory);
-    // PopulateLevelItems(spi->hardware, spi->memory);
-    // PlacePlayerOnMap(spi->hardware);
-    // SetMapFog(0xFF);
+    InitCamera(0, 0, TILE_W * VIEW_TW, TILE_H * VIEW_TH);
+    SetCameraPlayer();
 
-    // InitCamera(0, 0, TILE_W * VIEW_TW, TILE_H * VIEW_TH);
-    // SetCameraPlayer();
+    FullRedraw(spi->graphics, spi->memory);
 
-    // FullRedraw(spi->graphics);
-
-    // while (g_run.state.gameState == GAME_RUNNING)
-    // {
-    //     spi->input.HandleInput();
-    //     UpdateGameRunningState(spi->graphics, spi->hardware, spi->input);
-    //     HandleGameState(spi);
-    //     GameLoopRateDelay(spi->hardware);
-    // }
+    while (g_run.state.gameState == GAME_RUNNING)
+    {
+        spi->input.HandleInput();
+        UpdateGameRunningState(spi->graphics, spi->hardware, spi->input, spi->memory);
+        HandleGameState(spi);
+        GameLoopRateDelay(spi->hardware);
+    }
 }
 
 // __attribute__((section(".strings")))
@@ -430,8 +448,8 @@ bool GameLoopShutdown(GameInterface* spi)
 }
 
 
-typedef bool (*GameLoopFunc)(GameInterface* spi);
-// GameLoopFunc GameLoopState[GAME_STATE_SIZE] = {GameLoopTitleScreen, GameLoopMain, GameLoopNewMap, GameLoopShutdown};
+typedef uint8_t (*GameLoopFunc)(GameInterface* spi);
+GameLoopFunc GameLoopState[GAME_STATE_SIZE] = {GameLoopTitleScreen, GameLoopMain, GameLoopNewMap, GameLoopShutdown};
 
 
 SET_MEMORY(".battle")
@@ -460,12 +478,12 @@ void TestMain(GameInterface* spi)
 **********************************************************************************************************************/
 void GameLoop(GameInterface* spi)
 {
-    // SetGameState(TITLE_SCREEN);
-    // SetInputState(MOVING);
-    //
-    // while (1)
-    // {
-    //     // bool b = GameLoopState[g_run.state.gameState](spi);
-    //     // if (!b) return;
-    // }
+    SetInputState(MOVING);
+    SetGameState(TITLE_SCREEN);
+
+    while (1)
+    {
+        bool b = GameLoopState[g_run.state.gameState](spi);
+        if (!b) return;
+    }
 }
