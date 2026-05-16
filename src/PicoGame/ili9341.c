@@ -370,7 +370,7 @@ void Draw(uint16_t x, uint16_t y, uint16_t w, uint16_t h, const uint8_t* data)
 void DrawToBuffer(const FrameBuffer frameBuffer, const uint16_t* pixels, const Rect_16 rect)
 {
     uint16_t width = frameBuffer.w;
-    // = g_gameFlash.GetColor[PAL_KEY];
+    // = Flash_GetColor(memory, PAL_KEY];
 
     uint16_t clip_x = 0;
     uint16_t clip_y = 0;
@@ -457,7 +457,7 @@ void SetBufferColor(uint16_t length, uint16_t* p, Color rgb565)
 **********************************************************************************************************************/
 void ClearBuffer()
 {
-    // Pico_ili9341_SetRectColor(BUFFER_SIZE * 2, partialFrameBuffer, g_gameFlash.GetColor[PAL_BRIGHT_RED]);
+    // Pico_ili9341_SetRectColor(BUFFER_SIZE * 2, partialFrameBuffer, Flash_GetColor(memory, PAL_BRIGHT_RED]);
     Color c = {.color = 0xFFFF};
     Pico_ili9341_SetRectColor(BUFFER_SIZE_2BYTES, g_pico_ram.frameBuffer.frameBuffer, c);
 }

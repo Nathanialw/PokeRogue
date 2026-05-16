@@ -5,5 +5,5 @@
 #include "lib_decl.h"
 
 
-void FullRedraw(GraphicsInterface graphics);
-void RenderObjects(GraphicsInterface graphics, HardwareInterface hardware);
+void FullRedraw(GraphicsInterface graphics, MemoryInterface memory);
+void RenderObjects(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory);

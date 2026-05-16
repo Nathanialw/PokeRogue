@@ -6,6 +6,7 @@
 
 #include "entities.h"
 #include "lib_debugging.h"
+#include "memory_access.h"
 #include "memory_ram.h"
 #include "memory_rom.h"
 
@@ -14,7 +15,8 @@
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-void GetSkills(EntityId id, Type type)
+SET_MEMORY(".map")
+void GetSkills(MemoryInterface memory, EntityId id, Type type)
 {
     uint8_t i = 0;
     while (i < MAX_ABILITIES)
@@ -24,14 +26,14 @@ void GetSkills(EntityId id, Type type)
     }
 
     for (uint8_t i = 0; i < MAX_ABILITIES; ++i)
-        g_run.creatures.attacks[id][i] = g_gameFlash.gameData.levelUpSkills[type][i].skillID;
+        g_run.creatures.attacks[id][i] = Flash_GetSkill(memory, type, i).skillID;
 }
 
 
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool UseSkill(HardwareInterface hardware, bool player)
+bool UseSkill(HardwareInterface hardware, MemoryInterface memory, bool player)
 {
     EntityId player_creature_id = g_run.battleMode.playerMonsterID;
     EntityId ai_creature_id = g_run.battleMode.enemyMonsterID;
@@ -41,8 +43,8 @@ bool UseSkill(HardwareInterface hardware, bool player)
     {
         g_run.battleMode.combatLog[0][0] = '\0';
         ability = g_run.creatures.attacks[player_creature_id][g_run.menu.sel->y];
-        SkillData ability_data = g_gameFlash.gameData.abilityData[ability];
-        g_gameFlash.funcs.abilityFunctions[ability](player_creature_id, ai_creature_id, ability_data);
+        SkillData ability_data = Flash_GetSkillData(memory, ability);
+        Flash_GetSkillEffect(memory, ability, player_creature_id, ai_creature_id, ability_data);
     }
     else
     {
@@ -54,8 +56,8 @@ bool UseSkill(HardwareInterface hardware, bool player)
         if (num_abilities == 0) return false;
         uint8_t idx = hardware.GetRandom_uint8_t(0, num_abilities);
         ability = g_run.creatures.attacks[ai_creature_id][idx];
-        SkillData ability_data = g_gameFlash.gameData.abilityData[ability];
-        g_gameFlash.funcs.abilityFunctions[ability](ai_creature_id, player_creature_id, ability_data);
+        SkillData ability_data = Flash_GetSkillData(memory, ability);
+        Flash_GetSkillEffect(memory, ability, ai_creature_id, player_creature_id, ability_data);
     }
 
     //  set move animation cache
@@ -69,35 +71,35 @@ bool UseSkill(HardwareInterface hardware, bool player)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool CastSpell(SpellId spellID, EntityId partyID, EntityId enemyID)
+bool CastSpell(MemoryInterface memory, SpellId spellID, EntityId partyID, EntityId enemyID)
 {
-    DEBUG("spell data %s id: %d  partyid: %d enemyid: %d", g_gameFlash.text.names.spells[spellID], spellID, partyID, enemyID);
-    SpellData spellData = g_gameFlash.gameData.spellData[spellID];
-    return g_gameFlash.funcs.spellFunctions[spellID](partyID, enemyID, spellData);
+    // DEBUG("spell data %s id: %d  partyid: %d enemyid: %d", g_gameFlash.text.names.spells[spellID], spellID, partyID, enemyID);
+    SpellData spellData = Flash_GetSpellData(memory, spellID);;
+    return Flash_GetSpellEffect(memory, spellID, partyID, enemyID, spellData);
 }
 
 
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool UseItem(EntityId item_id, EntityId e_id)
+bool UseItem(MemoryInterface memory, EntityId item_id, EntityId e_id)
 {
     if (item_id == NO_ENTITY) return false;
     ItemTypes itemType = GetItemType(item_id);
-    ItemData itemData = g_gameFlash.gameData.itemData[itemType];
-    return g_gameFlash.funcs.itemFunctions[itemType](item_id, e_id, itemData);
+    ItemData itemData = Flash_GetItemData(memory, item_id);
+    return Flash_GetItemEffect(memory, item_id, e_id, itemData);
 }
 
 
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool InteractObject(EntityId object_e_id, EntityId e_id)
+bool InteractObject(MemoryInterface memory, EntityId object_e_id, EntityId e_id)
 {
     DEBUG("interacting with object %d", object_e_id);
     if (object_e_id == NO_ENTITY) return false;
     Object object_type = GetObjectType(object_e_id);
-    ObjectData object_data = g_gameFlash.gameData.objectData[object_type];
+    ObjectData object_data = Flash_GetObjectData(memory, object_type);
     DEBUG("%d object type: %d", object_type, object_data.type);
-    return g_gameFlash.funcs.objectFunctions[object_type](object_e_id, e_id, object_data);
+    return Flash_GetObjectEffect(memory, object_e_id, e_id, object_data);
 }

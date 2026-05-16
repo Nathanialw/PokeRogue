@@ -239,7 +239,7 @@ typedef struct
     **********************************************************************************************************************/
     struct
     {
-        const char* text[MAX_MENU_SIZE];
+        char text[SMALL_STRINGS][MAX_MENU_SIZE];
         uint8_t depth;
         Vec_8 eraseSel;
         Vec_8_Signed sel[MAX_MENU_DEPTH]; //TODO: placeholder until I know the depth

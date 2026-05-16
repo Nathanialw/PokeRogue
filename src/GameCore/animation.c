@@ -11,6 +11,7 @@
 #include "camera.h"
 #include "graphics.h"
 #include "map.h"
+#include "memory_access.h"
 #include "memory_ram.h"
 #include "memory_rom.h"
 #include "tilesets.h"
@@ -48,7 +49,7 @@
 /************************************************************************************************************
  *  MOVE - SMOOTH SCREEN SCROLLING
  ************************************************************************************************************/
-void AnimationMovement(GraphicsInterface graphics, HardwareInterface hardware)
+void AnimationMovement(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory)
 {
     DEBUG("Pico_AnimationMovement() scroll : %d %d", g_run.player.scroll.x, g_run.player.scroll.y);
     if (g_run.player.scroll.x == 0 && g_run.player.scroll.y == 0) return;
@@ -112,8 +113,8 @@ void AnimationMovement(GraphicsInterface graphics, HardwareInterface hardware)
                             if (tile_cache[idx] == 255)
                             {
                                 tile_cache[idx] = partial_tile_id0;
-                                const Tile t = g_gameFlash.sprites.biomes[g_run.biome][partial_tile_id0]; //TODO: FIX
-                                CharFromGlyph1bpp(glyph[idx].pixels, t.glyph_index, FONT16x16, g_gameFlash.GetColor[t.fg], g_gameFlash.GetColor[t.bg]);
+                                const Tile t = Flash_GetBiomeTile(memory, g_run.biome, partial_tile_id0);
+                                CharFromGlyph1bpp(memory, glyph[idx].pixels, t.glyph_index, FONT16x16, Flash_GetColor(memory, t.fg), Flash_GetColor(memory, t.bg));
                                 glyph_ptr = &glyph[idx];
                                 break;
                             }
@@ -122,8 +123,8 @@ void AnimationMovement(GraphicsInterface graphics, HardwareInterface hardware)
                         {
                             uint8_t fallback_idx = 3;
                             tile_cache[fallback_idx] = partial_tile_id0;
-                            const Tile t = g_gameFlash.sprites.biomes[g_run.biome][partial_tile_id0]; //TODO: FIX
-                            CharFromGlyph1bpp(glyph[fallback_idx].pixels, t.glyph_index, FONT16x16, g_gameFlash.GetColor[t.fg], g_gameFlash.GetColor[t.bg]);
+                            const Tile t = Flash_GetBiomeTile(memory, g_run.biome, partial_tile_id0);
+                            CharFromGlyph1bpp(memory, glyph[fallback_idx].pixels, t.glyph_index, FONT16x16, Flash_GetColor(memory, t.fg), Flash_GetColor(memory, t.bg));
                             glyph_ptr = &glyph[fallback_idx];
                         }
                     }
@@ -141,7 +142,7 @@ void AnimationMovement(GraphicsInterface graphics, HardwareInterface hardware)
                     // {
                     //     g_run.tileCache.tile_id = partial_tile_id1;
                     //     const Tile t = g_gameFlash.sprites.biomes[g_run.biome][partial_tile_id1]; //TODO: FIX
-                    //     CharFromGlyph1bpp(g_run.tileCache.tilePixels, t.glyph_index, FONT16x16, g_gameFlash.GetColor[t.fg], g_gameFlash.GetColor[t.bg]);
+                    //     CharFromGlyph1bpp(g_run.tileCache.tilePixels, t.glyph_index, FONT16x16, Flash_GetColor(memory, t.fg], Flash_GetColor(memory, t.bg]);
                     // }
                     //
                     // uint16_t partial_tile_id1 = GetMapTile(mx + tile_offset_x, my + tile_offset_y);
@@ -356,10 +357,10 @@ void AnimationTitle(GraphicsInterface graphics, HardwareInterface hardware)
 /************************************************************************************************************
  *  BATTLE START animation
  ************************************************************************************************************/
-void AnimationBattlerStart(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
+void AnimationBattlerStart(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     Rect_16 r = GetBattlerRect(onAttacker);
-    RefreshBattler(graphics, onAttacker, r);
+    RefreshBattler(graphics, memory, onAttacker, r);
 
     MoveCenterToDown(graphics, hardware, r, r.h, 8);
 }
@@ -368,10 +369,10 @@ void AnimationBattlerStart(GraphicsInterface graphics, HardwareInterface hardwar
 /************************************************************************************************************
  *  DEATH animation
  ************************************************************************************************************/
-void AnimationBattlerDie(GraphicsInterface graphics, HardwareInterface hardware, bool onAttacker)
+void AnimationBattlerDie(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     Rect_16 r = GetBattlerRect(onAttacker);
-    RefreshBattler(graphics, onAttacker, r);
+    RefreshBattler(graphics, memory, onAttacker, r);
 
     MoveCenterToDown(graphics, hardware, r, r.h, 8);
 }
@@ -387,11 +388,11 @@ void BattlerAnimationAttack(GraphicsInterface graphics, bool player)
     const ObjectType move_id = g_run.battleMode.moveID;
 
     if (move_type == ITEM)
-        g_gameFlash.animation.itemsAttack[move_id.ItemId](player);
+        Flash_BattlerAttackAnimation(move_id.ItemId, ITEM, player);
     else if (SKILL)
-        g_gameFlash.animation.skillsAttack[move_id.AbilityId](player);
+        Flash_BattlerAttackAnimation(move_id.AbilityId, SKILL, player);
     else if (SPELL)
-        g_gameFlash.animation.spellsAttack[move_id.SpellId](player);
+        Flash_BattlerAttackAnimation(move_id.SpellId, SPELL, player);
 }
 
 
@@ -402,9 +403,10 @@ void BattlerAnimationStruck(GraphicsInterface graphics, bool player)
     const ObjectType move_id = g_run.battleMode.moveID;
 
     if (move_type == ITEM)
-        g_gameFlash.animation.itemsStruck[move_id.ItemId](player);
+        Flash_BattlerStruckAnimation(move_id.ItemId, ITEM, player);
     else if (SKILL)
-        g_gameFlash.animation.skillsStruck[move_id.AbilityId](player);
+        Flash_BattlerStruckAnimation(move_id.AbilityId, SKILL, player);
     else if (SPELL)
-        g_gameFlash.animation.spellsStruck[move_id.SpellId](player);
+        Flash_BattlerStruckAnimation(move_id.SpellId, SPELL, player);
+
 }

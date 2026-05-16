@@ -26,12 +26,12 @@ bool NoEffect();
 /**********************************************************************************************************************/
 /** DAMAGE EFFECTS
 **********************************************************************************************************************/
-void Attack(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData);
-void InstantKill(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData);
-bool QuickAttack(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData);
+void Attack(HardwareInterface hardware, MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData);
+void InstantKill(HardwareInterface hardware, MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData);
+bool QuickAttack(HardwareInterface hardware, MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData);
 bool Parry(EntityId attackerID, EntityId defenderID, SkillData abilityData);
 bool Summon(CreatureID creature);
-void SacrificeHeal(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData);
+void SacrificeHeal(HardwareInterface hardware, MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData);
 
 
 /**********************************************************************************************************************/
@@ -148,9 +148,9 @@ bool WaterWalking(EntityId e_id, uint8_t duration);
 bool WallWalking(EntityId e_id, uint8_t duration);
 bool WaterBreathing(EntityId e_id, uint8_t duration);
 bool XRayVision(EntityId e_id, uint8_t duration);
-bool MapDescend(HardwareInterface hardware, EntityId e_id);
-bool MapAscend(HardwareInterface hardware, EntityId e_id);
-bool MapLateral(HardwareInterface hardware, EntityId e_id);
+bool MapDescend(HardwareInterface hardware, MemoryInterface memory, EntityId e_id);
+bool MapAscend(HardwareInterface hardware, MemoryInterface memory, EntityId e_id);
+bool MapLateral(HardwareInterface hardware, MemoryInterface memory, EntityId e_id);
 bool CreateItem(ItemTypes item);
 bool CreateItemFood();
 bool CreateItemCommon();

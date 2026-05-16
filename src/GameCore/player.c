@@ -28,7 +28,8 @@ EntityId PlayerPickItem(EntityId id);
  *  Sets player to a random empty cell on the map
  *  sets sight rango around player
 **********************************************************************************************************************/
-void InitPlayer(HardwareInterface hardware)
+SET_MEMORY(".map")
+void InitPlayer(HardwareInterface hardware, MemoryInterface memory)
 {
     g_run.player.currentBagSize = DEFAULT_BAG_SIZE;
     g_run.player.currentSpellbookSize = DEFAULT_SPELLBOOK_SIZE;
@@ -52,15 +53,15 @@ void InitPlayer(HardwareInterface hardware)
     DEBUG("----placing player at %d %d", x, y);
 
     DEBUG("----setting player position");
-    g_run.player.id = SpawnEntity(hardware, CREATURE, HUMAN, x, y, 0);
+    g_run.player.id = SpawnEntity(hardware, memory, CREATURE, HUMAN, x, y, 0);
     g_run.creatures.speed[g_run.player.id].max = 99;
     g_run.creatures.speed[g_run.player.id].current = 15;
     DEBUG("----setting player sight range");
 
     EntityId e_id;
-    e_id = SpawnEntity(hardware, CREATURE, LAMIA, x, y, 5);
+    e_id = SpawnEntity(hardware, memory, CREATURE, LAMIA, x, y, 5);
     PlayerCaptureMonster(e_id);
-    e_id = SpawnEntity(hardware, ITEM, HEALTH_POTION, x, y, 0);
+    e_id = SpawnEntity(hardware, memory, ITEM, HEALTH_POTION, x, y, 0);
     PlayerPickItem(e_id);
     DEBUG("----setting player stats");
 
@@ -73,6 +74,7 @@ void InitPlayer(HardwareInterface hardware)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
+SET_MEMORY(".map")
 EntityId CachePlayerCreatureData(HardwareInterface hardware)
 {
     EntityId creature_idx = 0;
@@ -96,6 +98,7 @@ EntityId CachePlayerCreatureData(HardwareInterface hardware)
     return creature_idx;
 }
 
+SET_MEMORY(".map")
 EntityId CachePlayerItemData()
 {
     EntityId item_idx = 0;
@@ -122,6 +125,7 @@ EntityId CachePlayerItemData()
  *             - sets xp for the creature
 *   ON FAIL - TODO - add a fail state (creature cannot be captured)
 **********************************************************************************************************************/
+SET_MEMORY(".core")
 EntityId PlayerCaptureMonster(EntityId e_id)
 {
     for (uint8_t i = 0; i < MAX_PARTY_SIZE; ++i)
@@ -141,6 +145,7 @@ EntityId PlayerCaptureMonster(EntityId e_id)
  *  ON SUCCESS - adds item id to the party array
 *   ON FAIL - TODO - add a fail state (item cannot be picked up)
 **********************************************************************************************************************/
+SET_MEMORY(".core")
 EntityId PlayerPickItem(EntityId e_id)
 {
     if (e_id == NO_ENTITY) return e_id;
@@ -201,6 +206,7 @@ Delta SetPlayerDelta(Delta newDelta)
 /**********************************************************************************************************************/
 /**Returns the player ID
 **********************************************************************************************************************/
+SET_MEMORY(".map")
 EntityId GetPlayerID(void)
 {
     return g_run.player.id;
@@ -279,7 +285,7 @@ bool PlayerDefeated(void)
 /**********************************************************************************************************************/
 /**
 **********************************************************************************************************************/
-
+SET_MEMORY(".core")
 void DestroyPlayerCreature(HardwareInterface hardware)
 {
     EntityId player_creature_id = g_run.battleMode.playerMonsterID;
@@ -291,7 +297,7 @@ void DestroyPlayerCreature(HardwareInterface hardware)
 /**********************************************************************************************************************/
 /**
 **********************************************************************************************************************/
-
+SET_MEMORY(".core")
 void DestroyEnemyCreature(HardwareInterface hardware)
 {
     EntityId player_creature_id = g_run.battleMode.playerMonsterID;
@@ -358,9 +364,9 @@ void PlayerInteractItemInCell()
     PlayerPickItem(item_id);
 }
 
-void PlayerInteractObjectInCell()
+void PlayerInteractObjectInCell(MemoryInterface memory)
 {
     Position pos = GetPlayerPosition();
     EntityId object_id = CheckTileForEntity(OBJECT, g_run.player.id, pos);
-    InteractObject(object_id, g_run.player.id);
+    InteractObject(memory, object_id, g_run.player.id);
 }

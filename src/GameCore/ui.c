@@ -7,6 +7,7 @@
 #include "memory_ram.h"
 #include "memory_rom.h"
 #include "entities.h"
+#include "memory_access.h"
 #include "utils.h"
 
 
@@ -59,13 +60,13 @@ void CombatLogLine(HardwareInterface hardware, char* dest, const char* prefix, c
  *  Takes in the entity id and the damage value
  *  prepares the text buffers and copies them into the combat log cache
 **********************************************************************************************************************/
-void PrintCombatLog(HardwareInterface hardware, EntityId creatureID, uint16_t damage)
+void PrintCombatLog(HardwareInterface hardware, MemoryInterface memory, EntityId creatureID, uint16_t damage)
 {
     const char suffix[] = " Frst Dmg";
     const char a[] = " hit ";
     const char b[] = " ";
-    const char* attacker = g_gameFlash.text.names.monsters[GetCreatureType(creatureID)];
-    const char* target = g_gameFlash.text.names.monsters[GetCreatureType(creatureID)];
+    const char* attacker = Flash_GetCreatureName(memory, GetCreatureType(creatureID));
+    const char* target = Flash_GetCreatureName(memory, GetCreatureType(creatureID));
     char prefix[40];
 
     uint8_t cursor = 0;

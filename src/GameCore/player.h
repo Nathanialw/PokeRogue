@@ -8,7 +8,7 @@
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-void InitPlayer(HardwareInterface hardware);
+void InitPlayer(HardwareInterface hardware, MemoryInterface memory);
 void UpdatePlayerPosition(void);
 Position GetPlayerPosition(void);
 EntityId GetPlayerID(void);
@@ -36,4 +36,4 @@ void DestroyEnemyCreature(HardwareInterface hardware);
 void DestroyPlayerCreature(HardwareInterface hardware);
 void PlacePlayerOnMap(HardwareInterface hardware);
 void PlayerInteractItemInCell();
-void PlayerInteractObjectInCell();
+void PlayerInteractObjectInCell(MemoryInterface memory);

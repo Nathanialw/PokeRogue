@@ -6,6 +6,7 @@
 
 #include "lib_debugging.h"
 #include "lib_types.h"
+#include "memory_access.h"
 
 #include "memory_rom.h"
 #include "memory_ram.h"
@@ -14,9 +15,13 @@
 /**********************************************************************************************************************/
 /** extracts growth values from bytes 4 bits each
 **********************************************************************************************************************/
+SET_MEMORY(".map")
 static inline uint8_t GrowthAttack(uint16_t g) { return (g >> 12) & 0xF; }
+SET_MEMORY(".map")
 static inline uint8_t GrowthDefence(uint16_t g) { return (g >> 8) & 0xF; }
+SET_MEMORY(".map")
 static inline uint8_t GrowthMagic(uint16_t g) { return (g >> 4) & 0xF; }
+SET_MEMORY(".map")
 static inline uint8_t GrowthSpeed(uint16_t g) { return g & 0xF; }
 
 
@@ -25,6 +30,7 @@ static const uint8_t growth_table[8] = {1, 2, 3, 4, 5, 6, 7, 8};
 /**********************************************************************************************************************/
 /** Returns a random int between given min and max
 **********************************************************************************************************************/
+SET_MEMORY(".map")
 uint8_t GetRandomStat(HardwareInterface hardware, uint8_t min, uint8_t max)
 {
     return hardware.GetRandom_uint8_t(min, max);
@@ -33,15 +39,19 @@ uint8_t GetRandomStat(HardwareInterface hardware, uint8_t min, uint8_t max)
 /**********************************************************************************************************************/
 /** Returns the stats of a given creature type and level
 **********************************************************************************************************************/
-Stats GetStats(HardwareInterface hardware, Creature type, uint8_t level)
+SET_MEMORY(".map")
+Stats GetStats(HardwareInterface hardware, MemoryInterface memory, Creature type, uint8_t level)
 {
-    Stats minStats = g_gameFlash.gameData.creatureStats[type].min;
-    Stats maxStats = g_gameFlash.gameData.creatureStats[type].max;
+    StatsRange stas_range = Flash_GetCreatureStatsRange(memory, type);
+    Stats minStats = stas_range.min;
+    Stats maxStats = stas_range.max;
 
-    uint8_t a = growth_table[GrowthAttack(g_gameFlash.gameData.creatureStats[type].growth)];
-    uint8_t d = growth_table[GrowthDefence(g_gameFlash.gameData.creatureStats[type].growth)];
-    uint8_t m = growth_table[GrowthMagic(g_gameFlash.gameData.creatureStats[type].growth)];
-    uint8_t s = growth_table[GrowthSpeed(g_gameFlash.gameData.creatureStats[type].growth)];
+
+    uint8_t growth = Flash_GetStatGrowth(memory, type);
+    uint8_t a = growth_table[GrowthAttack(growth)];
+    uint8_t d = growth_table[GrowthDefence(growth)];
+    uint8_t m = growth_table[GrowthMagic(growth)];
+    uint8_t s = growth_table[GrowthSpeed(growth)];
 
     Stats stats;
     stats.attack = GetRandomStat(hardware, minStats.attack, maxStats.attack);
@@ -63,6 +73,7 @@ Stats GetStats(HardwareInterface hardware, Creature type, uint8_t level)
  *  Saves it into the Max value of the entity xp array value
  *  Sets current x to 0
 **********************************************************************************************************************/
+SET_MEMORY(".map")
 IntMax999 SetXPToLevel(EntityId id)
 {
     Stats stats = g_run.creatures.stats[id];
@@ -79,6 +90,7 @@ IntMax999 SetXPToLevel(EntityId id)
 /** Retrieves the xp value of a killed creature and adds it to the xp of the slaying creature
  *  handles level up
 **********************************************************************************************************************/
+SET_MEMORY(".core")
 void GainXP(EntityId id, EntityId dead_id)
 {
     Stats stats = g_run.creatures.stats[dead_id];
@@ -111,6 +123,7 @@ void GainXP(EntityId id, EntityId dead_id)
 /**Returns the current and max hp of a creature by type and level
  *  TODO get the values from the DB values and calc with growth
 **********************************************************************************************************************/
+SET_MEMORY(".map")
 IntMax999 GetHP(Creature type, uint8_t level)
 {
     IntMax999 k = {0};
@@ -123,6 +136,7 @@ IntMax999 GetHP(Creature type, uint8_t level)
 /**Returns the current and max mp of a creature by type and level
  *  TODO get the values from the DB values and calc with growth
 **********************************************************************************************************************/
+SET_MEMORY(".map")
 IntMax999 GetMP(Creature type, uint8_t level)
 {
     IntMax999 k = {0};

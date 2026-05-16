@@ -9,8 +9,8 @@
 /************************************************************************************************************
  *  Utility functions
  ************************************************************************************************************/
-void RefreshBattler(GraphicsInterface graphics, bool onAttacker, Rect_16 r);
-void ReDrawBattler(GraphicsInterface graphics, bool onAttacker, Rect_16 r);
+void RefreshBattler(GraphicsInterface graphics, MemoryInterface memory, bool onAttacker, Rect_16 r);
+void ReDrawBattler(GraphicsInterface graphics, MemoryInterface memory, bool onAttacker, Rect_16 r);
 Rect_16 GetBattlerRect(bool onAttacker);
 void AnimationsBasicAssert();
 
@@ -33,7 +33,7 @@ void AnimationSpookyMoveCenterToLeft(GraphicsInterface graphics, HardwareInterfa
 void AnimationMirrorImage2(GraphicsInterface graphics, HardwareInterface hardware, Rect_16 r, uint16_t d, uint8_t frameLength);
 void AnimationMirrorImageFloatingUp(GraphicsInterface graphics, HardwareInterface hardware, Rect_16 r, uint16_t d, uint8_t frameLength);
 void AnimationIceShards(GraphicsInterface graphics, HardwareInterface hardware, Rect_16 r, uint16_t d, uint8_t frameLength);
-void AnimationBeam(GraphicsInterface graphics, HardwareInterface hardware, Rect_16 r, uint16_t d, uint8_t frameLength, uint8_t palletIndex);
-void AnimationRandomParticles(GraphicsInterface graphics, HardwareInterface hardware, Rect_16 r, uint16_t d, uint8_t frameLength, uint8_t palletIndex, uint8_t particleCount);
-void AnimationLineEffect(GraphicsInterface graphics, HardwareInterface hardware, Rect_16 r, uint16_t d, uint8_t frameLength, uint8_t palletIndex);
+void AnimationBeam(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, Rect_16 r, uint16_t d, uint8_t frameLength, uint8_t palletIndex);
+void AnimationRandomParticles(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, Rect_16 r, uint16_t d, uint8_t frameLength, uint8_t palletIndex, uint8_t particleCount);
+void AnimationLineEffect(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, Rect_16 r, uint16_t d, uint8_t frameLength, uint8_t palletIndex);
 void AnimationRainbowEffects(Rect_16 r, uint16_t d, uint8_t frameLength, uint8_t palletIndex);

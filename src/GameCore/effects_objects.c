@@ -28,7 +28,7 @@ bool InteractAltar(EntityId item_id, EntityId e_id, ObjectData itemData)
 /*  TODO keeps the player on the boat when moved on water
  *  TODO chance of random movement
 **********************************************************************************************************************/
-bool InteractRaft(HardwareInterface hardware, EntityId object_id, EntityId e_id, ObjectData objectData)
+bool InteractRaft(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractRaft");
     return false;
@@ -37,7 +37,7 @@ bool InteractRaft(HardwareInterface hardware, EntityId object_id, EntityId e_id,
 /**********************************************************************************************************************/
 /*  TODO keeps the player on the boat when moved on water
 **********************************************************************************************************************/
-bool InteractRowBoat(HardwareInterface hardware, EntityId object_id, EntityId e_id, ObjectData objectData)
+bool InteractRowBoat(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractRowBoat");
     return false;
@@ -46,7 +46,7 @@ bool InteractRowBoat(HardwareInterface hardware, EntityId object_id, EntityId e_
 /**********************************************************************************************************************/
 /*  TODO chance of breaking when walked on
 **********************************************************************************************************************/
-bool InteractRopeBridge(HardwareInterface hardware, EntityId object_id, EntityId e_id, ObjectData objectData)
+bool InteractRopeBridge(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractRopeBridge");
     NoEffect();
@@ -56,7 +56,7 @@ bool InteractRopeBridge(HardwareInterface hardware, EntityId object_id, EntityId
 /**********************************************************************************************************************/
 /*  TODO chance of spawning a troll
 **********************************************************************************************************************/
-bool InteractStoneBridge(HardwareInterface hardware, EntityId object_id, EntityId e_id, ObjectData objectData)
+bool InteractStoneBridge(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractStoneBridge");
     NoEffect();
@@ -66,7 +66,7 @@ bool InteractStoneBridge(HardwareInterface hardware, EntityId object_id, EntityI
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool InteractWoodenBridge(HardwareInterface hardware, EntityId object_id, EntityId e_id, ObjectData objectData)
+bool InteractWoodenBridge(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractWoodenBridge");
     NoEffect();
@@ -76,7 +76,7 @@ bool InteractWoodenBridge(HardwareInterface hardware, EntityId object_id, Entity
 /**********************************************************************************************************************/
 /*  TODO generates a spellbook or skillbook item
 **********************************************************************************************************************/
-bool InteractBookCase(HardwareInterface hardware, EntityId object_id, EntityId e_id, ObjectData objectData)
+bool InteractBookCase(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractBookCase");
     return false;
@@ -85,7 +85,7 @@ bool InteractBookCase(HardwareInterface hardware, EntityId object_id, EntityId e
 /**********************************************************************************************************************/
 /*  TODO generates a ring or amulet item
 **********************************************************************************************************************/
-bool InteractJewelleryCase(HardwareInterface hardware, EntityId object_id, EntityId e_id, ObjectData objectData)
+bool InteractJewelleryCase(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractJewelleryCase");
     return false;
@@ -94,7 +94,7 @@ bool InteractJewelleryCase(HardwareInterface hardware, EntityId object_id, Entit
 /**********************************************************************************************************************/
 /*  TODO generates a random scroll
 **********************************************************************************************************************/
-bool InteractScrollCase(HardwareInterface hardware, EntityId object_id, EntityId e_id, ObjectData objectData)
+bool InteractScrollCase(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractScrollCase");
     return false;
@@ -103,7 +103,7 @@ bool InteractScrollCase(HardwareInterface hardware, EntityId object_id, EntityId
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool InteractCauldren(HardwareInterface hardware, EntityId object_id, EntityId e_id, ObjectData objectData)
+bool InteractCauldren(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractCauldren");
     return false;
@@ -113,7 +113,7 @@ bool InteractCauldren(HardwareInterface hardware, EntityId object_id, EntityId e
 /*  TODO chance to do damage
 /*  TODO chance to melt items in bag
 **********************************************************************************************************************/
-bool InteractAcidCloud(HardwareInterface hardware, EntityId object_id, EntityId e_id, ObjectData objectData)
+bool InteractAcidCloud(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractAcidCloud");
     return false;
@@ -122,7 +122,7 @@ bool InteractAcidCloud(HardwareInterface hardware, EntityId object_id, EntityId 
 /**********************************************************************************************************************/
 /*  TODO chance to apply poison
 **********************************************************************************************************************/
-bool InteractPoisonGas(HardwareInterface hardware, EntityId object_id, EntityId e_id, ObjectData objectData)
+bool InteractPoisonGas(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractPoisonGas");
     return false;
@@ -131,7 +131,7 @@ bool InteractPoisonGas(HardwareInterface hardware, EntityId object_id, EntityId 
 /**********************************************************************************************************************/
 /*  TODO chance to do damage
 **********************************************************************************************************************/
-bool InteractSmokeCloud(HardwareInterface hardware, EntityId object_id, EntityId e_id, ObjectData objectData)
+bool InteractSmokeCloud(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractSmokeCloud");
     return false;
@@ -141,7 +141,7 @@ bool InteractSmokeCloud(HardwareInterface hardware, EntityId object_id, EntityId
 /*  TODO chance to spawn an undead
 /*  TODO chance to generate an item
 **********************************************************************************************************************/
-bool InteractCoffin(HardwareInterface hardware, EntityId object_id, EntityId e_id, ObjectData objectData)
+bool InteractCoffin(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractCoffin");
     return false;
@@ -151,7 +151,7 @@ bool InteractCoffin(HardwareInterface hardware, EntityId object_id, EntityId e_i
 /*  TODO chance to spawn an undead
 /*  TODO chance to generate an item
 **********************************************************************************************************************/
-bool InteractSarcophagus(HardwareInterface hardware, EntityId object_id, EntityId e_id, ObjectData objectData)
+bool InteractSarcophagus(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractSarcophagus");
     return false;
@@ -160,7 +160,7 @@ bool InteractSarcophagus(HardwareInterface hardware, EntityId object_id, EntityI
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool InteractHangingCorpse(HardwareInterface hardware, EntityId object_id, EntityId e_id, ObjectData objectData)
+bool InteractHangingCorpse(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractHangingCorpse");
     return false;
@@ -169,7 +169,7 @@ bool InteractHangingCorpse(HardwareInterface hardware, EntityId object_id, Entit
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool InteractLaidCorpse(HardwareInterface hardware, EntityId object_id, EntityId e_id, ObjectData objectData)
+bool InteractLaidCorpse(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractLaidCorpse");
     return false;
@@ -180,7 +180,7 @@ bool InteractLaidCorpse(HardwareInterface hardware, EntityId object_id, EntityId
 /*  TODO chance to break when the player moves onto
 /*  TODO chance to to damage when the player moves onto
 **********************************************************************************************************************/
-bool InteractBarredDoor(HardwareInterface hardware, EntityId object_id, EntityId e_id, ObjectData objectData)
+bool InteractBarredDoor(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractBarredDoor");
     return false;
@@ -191,7 +191,7 @@ bool InteractBarredDoor(HardwareInterface hardware, EntityId object_id, EntityId
 /*  TODO chance to break when the player moves onto
 /*  TODO chance to to damage when the player moves onto
 **********************************************************************************************************************/
-bool InteractIronDoor(HardwareInterface hardware, EntityId object_id, EntityId e_id, ObjectData objectData)
+bool InteractIronDoor(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractIronDoor");
     return false;
@@ -202,7 +202,7 @@ bool InteractIronDoor(HardwareInterface hardware, EntityId object_id, EntityId e
 /*  TODO chance to break when the player moves onto
 /*  TODO chance to to damage when the player moves onto
 **********************************************************************************************************************/
-bool InteractStoneDoor(HardwareInterface hardware, EntityId object_id, EntityId e_id, ObjectData objectData)
+bool InteractStoneDoor(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractStoneDoor");
     return false;
@@ -213,7 +213,7 @@ bool InteractStoneDoor(HardwareInterface hardware, EntityId object_id, EntityId 
 /*  TODO chance to break when the player moves onto
 /*  TODO chance to to damage when the player moves onto
 **********************************************************************************************************************/
-bool InteractWickerDoor(HardwareInterface hardware, EntityId object_id, EntityId e_id, ObjectData objectData)
+bool InteractWickerDoor(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractWickerDoor");
     return false;
@@ -224,7 +224,7 @@ bool InteractWickerDoor(HardwareInterface hardware, EntityId object_id, EntityId
 /*  TODO chance to break when the player moves onto
 /*  TODO chance to to damage when the player moves onto
 **********************************************************************************************************************/
-bool InteractWoodDoor(HardwareInterface hardware, EntityId object_id, EntityId e_id, ObjectData objectData)
+bool InteractWoodDoor(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractWoodDoor");
     return false;
@@ -233,37 +233,37 @@ bool InteractWoodDoor(HardwareInterface hardware, EntityId object_id, EntityId e
 /**********************************************************************************************************************/
 /*  TODO add a success chance
 **********************************************************************************************************************/
-bool InteractLadder(HardwareInterface hardware, EntityId object_id, EntityId e_id, ObjectData objectData)
+bool InteractLadder(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractLadder");
-    MapAscend(hardware, g_run.player.id);
+    MapAscend(hardware, memory, g_run.player.id);
     return false;
 }
 
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool InteractStairs(HardwareInterface hardware, EntityId object_id, EntityId e_id, ObjectData objectData)
+bool InteractStairs(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractStairs");
-    MapDescend(hardware, g_run.player.id);
+    MapDescend(hardware, memory, g_run.player.id);
     return true;
 }
 
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool InteractCave(HardwareInterface hardware, EntityId object_id, EntityId e_id, ObjectData objectData)
+bool InteractCave(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractCave");
-    MapLateral(hardware, g_run.player.id);
+    MapLateral(hardware, memory, g_run.player.id);
     return true;
 }
 
 /**********************************************************************************************************************/
 /*  TODO add light radius
 **********************************************************************************************************************/
-bool InteractBonfire(HardwareInterface hardware, EntityId object_id, EntityId e_id, ObjectData objectData)
+bool InteractBonfire(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractBonfire");
     return false;
@@ -272,7 +272,7 @@ bool InteractBonfire(HardwareInterface hardware, EntityId object_id, EntityId e_
 /**********************************************************************************************************************/
 /*  TODO add light radius
 **********************************************************************************************************************/
-bool InteractBrazier(HardwareInterface hardware, EntityId object_id, EntityId e_id, ObjectData objectData)
+bool InteractBrazier(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractBrazier");
     return false;
@@ -281,7 +281,7 @@ bool InteractBrazier(HardwareInterface hardware, EntityId object_id, EntityId e_
 /**********************************************************************************************************************/
 /*  TODO add light radius
 **********************************************************************************************************************/
-bool InteractCampfire(HardwareInterface hardware, EntityId object_id, EntityId e_id, ObjectData objectData)
+bool InteractCampfire(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractCampfire");
     return false;
@@ -290,7 +290,7 @@ bool InteractCampfire(HardwareInterface hardware, EntityId object_id, EntityId e
 /**********************************************************************************************************************/
 /*  TODO add light radius
 **********************************************************************************************************************/
-bool InteractStandingTorch(HardwareInterface hardware, EntityId object_id, EntityId e_id, ObjectData objectData)
+bool InteractStandingTorch(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractStandingTorch");
     return false;
@@ -299,7 +299,7 @@ bool InteractStandingTorch(HardwareInterface hardware, EntityId object_id, Entit
 /**********************************************************************************************************************/
 /*  TODO add light radius
 **********************************************************************************************************************/
-bool InteractWallTorch(HardwareInterface hardware, EntityId object_id, EntityId e_id, ObjectData objectData)
+bool InteractWallTorch(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractWallTorch");
     return false;
@@ -309,10 +309,10 @@ bool InteractWallTorch(HardwareInterface hardware, EntityId object_id, EntityId 
 /*  TODO add chacne to descend when walked on
 /*  TODO deals damage
 **********************************************************************************************************************/
-bool InteractCrumblingFloor(HardwareInterface hardware, EntityId object_id, EntityId e_id, ObjectData objectData)
+bool InteractCrumblingFloor(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractCrumblingFloor");
-    MapDescend(hardware, g_run.player.id);
+    MapDescend(hardware, memory, g_run.player.id);
     return false;
 }
 
@@ -320,7 +320,7 @@ bool InteractCrumblingFloor(HardwareInterface hardware, EntityId object_id, Enti
 /*  TODO deals damage
 /*  TODO melts items
 **********************************************************************************************************************/
-bool InteractAcidFountain(HardwareInterface hardware, EntityId object_id, EntityId e_id, ObjectData objectData)
+bool InteractAcidFountain(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractAcidFountain");
     return false;
@@ -329,7 +329,7 @@ bool InteractAcidFountain(HardwareInterface hardware, EntityId object_id, Entity
 /**********************************************************************************************************************/
 /*  TODO heals demons
 **********************************************************************************************************************/
-bool InteractBloodFountain(HardwareInterface hardware, EntityId object_id, EntityId e_id, ObjectData objectData)
+bool InteractBloodFountain(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractBloodFountain");
     return false;
@@ -338,7 +338,7 @@ bool InteractBloodFountain(HardwareInterface hardware, EntityId object_id, Entit
 /**********************************************************************************************************************/
 /*  TODO heals
 **********************************************************************************************************************/
-bool InteractWaterFountain(HardwareInterface hardware, EntityId object_id, EntityId e_id, ObjectData objectData)
+bool InteractWaterFountain(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractWaterFountain");
     return false;
@@ -348,7 +348,7 @@ bool InteractWaterFountain(HardwareInterface hardware, EntityId object_id, Entit
 /*  TODO no sprite
 /*  TODO spawns an item
 **********************************************************************************************************************/
-bool InteractHiddenCompartment(HardwareInterface hardware, EntityId object_id, EntityId e_id, ObjectData objectData)
+bool InteractHiddenCompartment(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractHiddenCompartment");
     return false;
@@ -357,7 +357,7 @@ bool InteractHiddenCompartment(HardwareInterface hardware, EntityId object_id, E
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool InteractAcidPit(HardwareInterface hardware, EntityId object_id, EntityId e_id, ObjectData objectData)
+bool InteractAcidPit(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractAcidPit");
     return false;
@@ -366,7 +366,7 @@ bool InteractAcidPit(HardwareInterface hardware, EntityId object_id, EntityId e_
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool InteractLavaPit(HardwareInterface hardware, EntityId object_id, EntityId e_id, ObjectData objectData)
+bool InteractLavaPit(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractLavaPit");
     return false;
@@ -375,7 +375,7 @@ bool InteractLavaPit(HardwareInterface hardware, EntityId object_id, EntityId e_
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool InteractNarowPit(HardwareInterface hardware, EntityId object_id, EntityId e_id, ObjectData objectData)
+bool InteractNarowPit(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractNarowPit");
     return false;
@@ -384,7 +384,7 @@ bool InteractNarowPit(HardwareInterface hardware, EntityId object_id, EntityId e
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool InteractShallowPit(HardwareInterface hardware, EntityId object_id, EntityId e_id, ObjectData objectData)
+bool InteractShallowPit(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractShallowPit");
     return false;
@@ -393,7 +393,7 @@ bool InteractShallowPit(HardwareInterface hardware, EntityId object_id, EntityId
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool InteractSnakesPit(HardwareInterface hardware, EntityId object_id, EntityId e_id, ObjectData objectData)
+bool InteractSnakesPit(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractSnakesPit");
     return false;
@@ -402,7 +402,7 @@ bool InteractSnakesPit(HardwareInterface hardware, EntityId object_id, EntityId 
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool InteractSpkiedPit(HardwareInterface hardware, EntityId object_id, EntityId e_id, ObjectData objectData)
+bool InteractSpkiedPit(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractSpkiedPit");
     return false;
@@ -411,7 +411,7 @@ bool InteractSpkiedPit(HardwareInterface hardware, EntityId object_id, EntityId 
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool InteractPitStandard(HardwareInterface hardware, EntityId object_id, EntityId e_id, ObjectData objectData)
+bool InteractPitStandard(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractPitStandard");
     return false;
@@ -420,7 +420,7 @@ bool InteractPitStandard(HardwareInterface hardware, EntityId object_id, EntityI
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool InteractWaterPit(HardwareInterface hardware, EntityId object_id, EntityId e_id, ObjectData objectData)
+bool InteractWaterPit(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractWaterPit");
     return false;
@@ -429,7 +429,7 @@ bool InteractWaterPit(HardwareInterface hardware, EntityId object_id, EntityId e
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool InteractWidePit(HardwareInterface hardware, EntityId object_id, EntityId e_id, ObjectData objectData)
+bool InteractWidePit(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractWidePit");
     return false;
@@ -438,7 +438,7 @@ bool InteractWidePit(HardwareInterface hardware, EntityId object_id, EntityId e_
 /**********************************************************************************************************************/
 /*  TODO spawns an item
 **********************************************************************************************************************/
-bool InteractArmorRack(HardwareInterface hardware, EntityId object_id, EntityId e_id, ObjectData objectData)
+bool InteractArmorRack(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractArmorRack");
     return false;
@@ -447,7 +447,7 @@ bool InteractArmorRack(HardwareInterface hardware, EntityId object_id, EntityId 
 /**********************************************************************************************************************/
 /*  TODO spawns an item
 **********************************************************************************************************************/
-bool InteractWeaponRack(HardwareInterface hardware, EntityId object_id, EntityId e_id, ObjectData objectData)
+bool InteractWeaponRack(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractWeaponRack");
     return false;
@@ -456,7 +456,7 @@ bool InteractWeaponRack(HardwareInterface hardware, EntityId object_id, EntityId
 /**********************************************************************************************************************/
 /*  TODO spawns an item
 **********************************************************************************************************************/
-bool InteractBarrel(HardwareInterface hardware, EntityId object_id, EntityId e_id, ObjectData objectData)
+bool InteractBarrel(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractBarrel");
     return false;
@@ -465,7 +465,7 @@ bool InteractBarrel(HardwareInterface hardware, EntityId object_id, EntityId e_i
 /**********************************************************************************************************************/
 /*  TODO spawns an item
 **********************************************************************************************************************/
-bool InteractBasket(HardwareInterface hardware, EntityId object_id, EntityId e_id, ObjectData objectData)
+bool InteractBasket(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractBasket");
     return false;
@@ -474,7 +474,7 @@ bool InteractBasket(HardwareInterface hardware, EntityId object_id, EntityId e_i
 /**********************************************************************************************************************/
 /*  TODO spawns an item
 **********************************************************************************************************************/
-bool InteractChest(HardwareInterface hardware, EntityId object_id, EntityId e_id, ObjectData objectData)
+bool InteractChest(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractChest");
     return false;
@@ -483,7 +483,7 @@ bool InteractChest(HardwareInterface hardware, EntityId object_id, EntityId e_id
 /**********************************************************************************************************************/
 /*  TODO spawns an item
 **********************************************************************************************************************/
-bool InteractCoffer(HardwareInterface hardware, EntityId object_id, EntityId e_id, ObjectData objectData)
+bool InteractCoffer(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractCoffer");
     return false;
@@ -492,7 +492,7 @@ bool InteractCoffer(HardwareInterface hardware, EntityId object_id, EntityId e_i
 /**********************************************************************************************************************/
 /*  TODO spawns an item
 **********************************************************************************************************************/
-bool InteractCrate(HardwareInterface hardware, EntityId object_id, EntityId e_id, ObjectData objectData)
+bool InteractCrate(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractCrate");
     return false;
@@ -501,7 +501,7 @@ bool InteractCrate(HardwareInterface hardware, EntityId object_id, EntityId e_id
 /**********************************************************************************************************************/
 /*  TODO spawns an item
 **********************************************************************************************************************/
-bool InteractTrunk(HardwareInterface hardware, EntityId object_id, EntityId e_id, ObjectData objectData)
+bool InteractTrunk(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractTrunk");
     return false;
@@ -510,7 +510,7 @@ bool InteractTrunk(HardwareInterface hardware, EntityId object_id, EntityId e_id
 /**********************************************************************************************************************/
 /*  TODO spawns an item
 **********************************************************************************************************************/
-bool InteractUrn(HardwareInterface hardware, EntityId object_id, EntityId e_id, ObjectData objectData)
+bool InteractUrn(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractUrn");
     return false;
@@ -519,7 +519,7 @@ bool InteractUrn(HardwareInterface hardware, EntityId object_id, EntityId e_id, 
 /**********************************************************************************************************************/
 /*  TODO spawns an item
 **********************************************************************************************************************/
-bool InteractVault(HardwareInterface hardware, EntityId object_id, EntityId e_id, ObjectData objectData)
+bool InteractVault(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractVault");
     return false;
@@ -529,7 +529,7 @@ bool InteractVault(HardwareInterface hardware, EntityId object_id, EntityId e_id
 /*  TODO collision for random creatures
 /*  TODO no collision for trainers
 **********************************************************************************************************************/
-bool InteractWard(HardwareInterface hardware, EntityId object_id, EntityId e_id, ObjectData objectData)
+bool InteractWard(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractWard");
     return false;
@@ -538,7 +538,7 @@ bool InteractWard(HardwareInterface hardware, EntityId object_id, EntityId e_id,
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool InteractWell(HardwareInterface hardware, EntityId object_id, EntityId e_id, ObjectData objectData)
+bool InteractWell(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractWell");
     return false;

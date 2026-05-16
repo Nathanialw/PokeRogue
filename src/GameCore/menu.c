@@ -7,6 +7,7 @@
 #include "lib_debugging.h"
 
 #include "entities.h"
+#include "memory_access.h"
 #include "memory_ram.h"
 #include "memory_rom.h"
 
@@ -23,14 +24,14 @@ uint16_t ListSize(uint16_t n)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool ListJump(InputInterface input)
+bool ListJump(InputInterface input, MemoryInterface memory)
 {
     if (input.GetInputKeyState().d.x != 0)
     {
         Delta d = {};
         d.y = input.GetInputKeyState().d.x * LIST_JUMP_AMOUNT;
-        if (HandleMenuOverflow(input, d)) return true;
-        SetMenuDelta(input, d);
+        if (HandleMenuOverflow(input, memory, d)) return true;
+        SetMenuDelta(input, memory, d);
     }
     return false;
 }
@@ -41,41 +42,43 @@ bool ListJump(InputInterface input)
 void ClearMenu(void)
 {
     DEBUG("Clearing menu");
-    g_run.menu.text[0] = NULL;
+    g_run.menu.text[0][0] = '\0';
 }
 
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-void FillListByEntityID(uint8_t n, uint8_t type, const uint8_t* e_ids)
+void FillListByEntityID(MemoryInterface memory, uint8_t n, uint8_t type, const uint8_t* e_ids)
 {
     uint8_t typeIDs[n];
-    const SmallStringArray* text = GetEntityTypes(typeIDs, e_ids, type, n);
+    const SmallStringArray* text = GetEntityTypes(memory, typeIDs, e_ids, type, n);
 
     uint8_t i = g_run.menu.menuScrollOffset[g_run.menu.depth].y;
     while (i < n)
     {
-        g_run.menu.text[i] = text[typeIDs[i]];
+        for (uint8_t j = 0; j < SMALL_STRINGS; j++)
+        {
+            g_run.menu.text[i][j] = text[typeIDs[i]][j];
+        }
         DEBUG("text: %s enum: %d", g_run.menu.text[i], typeIDs[i]);
         i++;
     }
-    g_run.menu.text[i] = NULL;
+    g_run.menu.text[i][0] = '\0';
 }
 
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-void FillListByTypeID(uint8_t n, const SmallStringArray* text, uint8_t* ids)
+void FillListByTypeID(uint8_t n, uint8_t* ids)
 {
     uint8_t i = g_run.menu.menuScrollOffset[g_run.menu.depth].y;
     while (i < n)
     {
-        const char* name = text[ids[i]];
+        Flash_GetSpellbookText(g_run.menu.text[i], ids[i]);
         DEBUG("spell: %s enum: %d", name, ids[i]);
-        g_run.menu.text[i] = name;
         i++;
     }
-    g_run.menu.text[i] = NULL;
+    g_run.menu.text[i][0] = '\0';
 }
 
 /**********************************************************************************************************************/
@@ -128,7 +131,7 @@ bool ToggleMenu(SubMainMenuWindow menuWin, uint8_t numMenuOptions)
  *  Ensures the cursor wraps around at the top and bottom of the menu lists
  *  maintains the cursor's position in the center of the list when the list length exceeds the screen height
 **********************************************************************************************************************/
-bool HandleMenuOverflow(InputInterface input, Delta delta)
+bool HandleMenuOverflow(InputInterface input, MemoryInterface memory, Delta delta)
 {
     bool options_exceed_menu = g_run.menu.h < g_run.menu.visibleMenuOptions;
     uint8_t sel_pos_y = g_run.menu.sel[g_run.menu.depth].y;
@@ -150,7 +153,7 @@ bool HandleMenuOverflow(InputInterface input, Delta delta)
                 if (!minOffset && !maxOffset)
                 {
                     g_run.menu.menuScrollOffset[g_run.menu.depth].y += delta.y;
-                    g_run.menu.subMenus[g_run.menu.sel[0].y](input, true); // 0 call the function of the menu it is within
+                    g_run.menu.subMenus[g_run.menu.sel[0].y](input, memory, true); // 0 call the function of the menu it is within
                     return true;
                 }
             }
@@ -162,7 +165,7 @@ bool HandleMenuOverflow(InputInterface input, Delta delta)
             {
                 uint8_t topBotPage = g_run.menu.totalMenuOptions - g_run.menu.visibleMenuOptions;
                 g_run.menu.menuScrollOffset[g_run.menu.depth].y = topBotPage;
-                g_run.menu.subMenus[g_run.menu.sel[0].y](input, true); // 0 call the function of the menu it is within
+                g_run.menu.subMenus[g_run.menu.sel[0].y](input, memory, true); // 0 call the function of the menu it is within
             }
         }
         else if (options_within_bot)
@@ -170,7 +173,7 @@ bool HandleMenuOverflow(InputInterface input, Delta delta)
             if (sel_pos_y + delta.y >= g_run.menu.visibleMenuOptions)
             {
                 g_run.menu.menuScrollOffset[g_run.menu.depth].y = 0;
-                g_run.menu.subMenus[g_run.menu.sel[0].y](input, true); // 0 call the function of the menu it is within
+                g_run.menu.subMenus[g_run.menu.sel[0].y](input, memory, true); // 0 call the function of the menu it is within
                 g_run.menu.forceRedraw = true;
             }
         }
@@ -183,10 +186,10 @@ bool HandleMenuOverflow(InputInterface input, Delta delta)
  *  ON SUCCESS - returns true
  *  ON fail - returns false
 **********************************************************************************************************************/
-bool SetMenuDelta(InputInterface input, Delta delta)
+bool SetMenuDelta(InputInterface input, MemoryInterface memory, Delta delta)
 {
     if (delta.y == 0) return false;
-    if (HandleMenuOverflow(input, delta)) return false;
+    if (HandleMenuOverflow(input, memory, delta)) return false;
 
     g_run.menu.eraseSel.y = g_run.menu.sel[g_run.menu.depth].y;
     g_run.menu.sel[g_run.menu.depth].y += delta.y;
@@ -223,15 +226,21 @@ uint8_t GetSelectorY(void)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-const char* GetMenuLine(uint8_t idx)
+void GetMenuLine(char* text, uint8_t idx)
 {
     if (idx >= g_run.menu.visibleMenuOptions)
-        return NULL;
+    {
+        text[0] = '\0';
+        return;
+    }
 
     if (g_run.menu.selectedMenu == MAIN_MENU)
     {
-        return g_gameFlash.text.menus.main[idx];
+        Flash_GetMenuText(text, idx);
     }
 
-    return g_run.menu.text[idx];
+    for (uint8_t i = 0; i < SMALL_STRINGS; ++i)
+    {
+        text[i] = g_run.menu.text[idx][i];
+    }
 }

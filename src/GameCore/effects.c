@@ -11,6 +11,7 @@
 #include "memory_rom.h"
 #include "entities.h"
 #include "lib_debugging.h"
+#include "memory_access.h"
 #include "ui.h"
 
 
@@ -50,11 +51,11 @@ uint16_t CalcHeal(EntityId creatureID, uint16_t abilityPower)
 /********************************************************************************************************************************************************************************************************************************************/
 /*
 /********************************************************************************************************************************************************************************************************************************************/
-void DoDamage(HardwareInterface hardware, EntityId creatureID, uint16_t damage)
+void DoDamage(HardwareInterface hardware, MemoryInterface memory, EntityId creatureID, uint16_t damage)
 {
     uint16_t hp = Int999GetCurrent(&g_run.creatures.hp[creatureID]);
     hp = (hp > damage) ? hp - damage : 0;
-    PrintCombatLog(hardware, creatureID, damage);
+    PrintCombatLog(hardware, memory, creatureID, damage);
     Int999SetCurrent(&g_run.creatures.hp[creatureID], hp);
 }
 
@@ -82,11 +83,12 @@ bool HealTarget(EntityId e_id, uint16_t value)
 /*  Apply the bonus/reduction of attack vs creature types
  *  Apply the damage reduction from defence
 **********************************************************************************************************************/
-uint16_t CalcModifier(EntityId attackerID, EntityId defenderID, Type attackType, uint16_t damage)
+uint16_t CalcModifier(MemoryInterface memory, EntityId attackerID, EntityId defenderID, Type attackType, uint16_t damage)
 {
     Creature creature_type1 = GetCreatureType(attackerID);
-    Type typeA = g_gameFlash.gameData.creatureTypes[creature_type1].typeA;
-    Type typeB = g_gameFlash.gameData.creatureTypes[creature_type1].typeB;
+    MonsterType m_type = Flash_GetType(memory, creature_type1);
+    Type typeA = m_type.typeA;
+    Type typeB = m_type.typeB;
 
     if (typeA == attackType || typeB == attackType)
         damage = (float)damage * 1.25f;
@@ -95,11 +97,12 @@ uint16_t CalcModifier(EntityId attackerID, EntityId defenderID, Type attackType,
     uint16_t base = (g_run.creatures.stats[defenderID].defence / 15);
     uint16_t mod = GetNibble(g_run.creatures.stat.defence, defenderID);
 
-    Type typeC = g_gameFlash.gameData.creatureTypes[creature_type2].typeA;
-    Type typeD = g_gameFlash.gameData.creatureTypes[creature_type2].typeB;
+    MonsterType m_type2 = Flash_GetType(memory, creature_type1);
+    Type typeC = m_type2.typeA;
+    Type typeD = m_type2.typeB;
 
-    int8_t mult_a = g_gameFlash.gameData.typeEffects[(attackType * TYPE_COUNT) + typeC];
-    int8_t mult_b = g_gameFlash.gameData.typeEffects[(attackType * TYPE_COUNT) + typeD];
+    int8_t mult_a = Flash_GetTypeEffects(memory, (attackType * TYPE_COUNT) + typeC);
+    int8_t mult_b = Flash_GetTypeEffects(memory, (attackType * TYPE_COUNT) + typeD);
 
     float mult1 = ((float)mult_a + (float)mult_b) / 200.0f;
     if (mult1 != 0)
@@ -130,30 +133,30 @@ bool NoEffect()
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-void Attack(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+void Attack(HardwareInterface hardware, MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     uint16_t damage = CalcDamage(attackerID, abilityData.power);
-    damage = CalcModifier(attackerID, defenderID, abilityData.type, damage);
-    DoDamage(hardware, defenderID, damage);
+    damage = CalcModifier(memory, attackerID, defenderID, abilityData.type, damage);
+    DoDamage(hardware, memory, defenderID, damage);
 }
 
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-void InstantKill(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+void InstantKill(HardwareInterface hardware, MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     uint16_t damage = CalcDamage(attackerID, 999);
-    damage = CalcModifier(attackerID, defenderID, abilityData.type, damage);
-    DoDamage(hardware, defenderID, damage);
+    damage = CalcModifier(memory, attackerID, defenderID, abilityData.type, damage);
+    DoDamage(hardware, memory, defenderID, damage);
 }
 
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool QuickAttack(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool QuickAttack(HardwareInterface hardware, MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     // TODO: always attack first
-    Attack(hardware, attackerID, defenderID, abilityData);
+    Attack(hardware, memory, attackerID, defenderID, abilityData);
     return true;
 }
 
@@ -303,10 +306,10 @@ bool Summon(CreatureID creature)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-void SacrificeHeal(HardwareInterface hardware, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+void SacrificeHeal(HardwareInterface hardware, MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     DEBUG("SacrificeHeal() - kill team member to heal self - NOT YET IMPLEMENTED");
-    Attack(hardware, attackerID, defenderID, abilityData);
+    Attack(hardware, memory, attackerID, defenderID, abilityData);
 }
 
 /**********************************************************************************************************************/
@@ -1039,27 +1042,30 @@ bool DrainXP(EntityId e_id)
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool MapDescend(HardwareInterface hardware, EntityId e_id)
+SET_MEMORY(".core")
+bool MapDescend(HardwareInterface hardware, MemoryInterface memory, EntityId e_id)
 {
-    GoNextLevel(hardware, MAP_LEVEL_DOWN);
+    GoNextLevel(hardware, memory, MAP_LEVEL_DOWN);
     return true;
 }
 
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool MapAscend(HardwareInterface hardware, EntityId e_id)
+SET_MEMORY(".core")
+bool MapAscend(HardwareInterface hardware, MemoryInterface memory, EntityId e_id)
 {
-    GoNextLevel(hardware, MAP_LEVEL_UP);
+    GoNextLevel(hardware, memory, MAP_LEVEL_UP);
     return true;
 }
 
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool MapLateral(HardwareInterface hardware, EntityId e_id)
+SET_MEMORY(".core")
+bool MapLateral(HardwareInterface hardware, MemoryInterface memory, EntityId e_id)
 {
-    GoNextLevel(hardware, MAP_LEVEL_LATERAL);
+    GoNextLevel(hardware, memory, MAP_LEVEL_LATERAL);
     return true;
 }
 

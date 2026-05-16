@@ -30,10 +30,10 @@ struct
 } DamageTest;
 
 
-bool RunAbilityDamageTest(HardwareInterface hardware, Creature attacker, Creature defender, Ability abilityID, uint8_t attackerLevel, uint8_t defenderLevel, uint16_t maxDamage)
+bool RunAbilityDamageTest(HardwareInterface hardware, MemoryInterface memory, Creature attacker, Creature defender, Ability abilityID, uint8_t attackerLevel, uint8_t defenderLevel, uint16_t maxDamage)
 {
-    EntityId attackerID = SpawnEntity(hardware, CREATURE, attacker, 0, 0, attackerLevel);
-    EntityId defenderID = SpawnEntity(hardware, CREATURE, defender, 0, 0, defenderLevel);
+    EntityId attackerID = SpawnEntity(hardware, memory, CREATURE, attacker, 0, 0, attackerLevel);
+    EntityId defenderID = SpawnEntity(hardware, memory, CREATURE, defender, 0, 0, defenderLevel);
     SkillData ability_data = g_gameFlash.gameData.abilityData[abilityID];
     uint16_t base_damage = CalcDamage(attackerID, ability_data.power);
     uint16_t damage = CalcModifier(attackerID, defenderID, ability_data.type, base_damage);

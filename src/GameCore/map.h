@@ -7,7 +7,7 @@
 
 Position FindOpenMapLocation(HardwareInterface hardware, ObjectsTypes type);
 void InitMap(HardwareInterface hardware);
-void GoNextLevel(HardwareInterface hardware, MapLevelChange dir);
+void GoNextLevel(HardwareInterface hardware, MemoryInterface memory, MapLevelChange dir);
 bool IsFogged(uint16_t x, uint16_t y);
 void SetMapFog(uint8_t set);
 void SetFog(uint16_t x, uint16_t y, bool fogged);

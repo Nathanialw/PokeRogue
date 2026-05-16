@@ -57,7 +57,7 @@ typedef SkillLearnLevel CreatureSkillLearnLevels[16];
 /**********************************************************************************************************************
 *   MENUS
 **********************************************************************************************************************/
-typedef bool (*SubMenu)(InputInterface input, bool update);
+typedef bool (*SubMenu)(InputInterface input, MemoryInterface memory, bool update);
 typedef uint16_t MainMenuPtr[MAIN_MENU_W];
 
 

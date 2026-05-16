@@ -12,16 +12,16 @@
 **********************************************************************************************************************/
 void ClipTile(uint16_t* clip, const uint16_t* pixels, Rect_16 r);
 
-void DrawTile(GraphicsInterface graphics, uint8_t screen_tx, uint8_t screen_ty, uint8_t tile_id);
-void DrawMonster(GraphicsInterface graphics, uint8_t screen_tx, uint8_t screen_ty, Creature tile_id, const Sprite* spriteArray);
-void DrawMonsterCached(GraphicsInterface graphics, uint8_t screen_tx, uint8_t screen_ty, uint8_t tile_id, const Sprite* spriteArray);
-void DrawTileCached(GraphicsInterface graphics, uint8_t screen_tx, uint8_t screen_ty, uint8_t tile_id);
+void DrawTile(GraphicsInterface graphics, MemoryInterface memory, uint8_t screen_tx, uint8_t screen_ty, uint8_t tile_id);
+void DrawSprite(GraphicsInterface graphics, MemoryInterface memory, uint8_t screen_tx, uint8_t screen_ty, Creature tile_id, ObjectsTypes type);
+void DrawSpriteCached(GraphicsInterface graphics, MemoryInterface memory, uint8_t screen_tx, uint8_t screen_ty, uint8_t sprite_id, ObjectsTypes type);
+void DrawTileCached(GraphicsInterface graphics, MemoryInterface memory, uint8_t screen_tx, uint8_t screen_ty, uint8_t tile_id);
 
-FrameBuffer DrawBattlerToBuffer(GraphicsInterface graphics, uint16_t screen_x, uint16_t screen_y, const SpriteLayout layout, const uint8_t* sprite);
-void DrawBattler(GraphicsInterface graphics, uint16_t screen_x, uint16_t screen_y, const SpriteLayout layout, const uint8_t* sprite);
-void HandleMenu(GraphicsInterface graphics, HardwareInterface hardware);
-void HandleGameMenu(GraphicsInterface graphics, HardwareInterface hardware);
-void DrawCursor(GraphicsInterface graphics);
-void HandleBattle(GraphicsInterface graphics, HardwareInterface hardware);
-void HandleBattleMenu(GraphicsInterface graphics, HardwareInterface hardware);
+FrameBuffer DrawBattlerToBuffer(GraphicsInterface graphics, MemoryInterface memory, uint16_t screen_x, uint16_t screen_y, const SpriteLayout layout, const uint8_t* sprite);
+void DrawBattler(GraphicsInterface graphics, MemoryInterface memory, uint16_t screen_x, uint16_t screen_y, const SpriteLayout layout, const uint8_t* sprite);
+void HandleMenu(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory);
+void HandleGameMenu(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory);
+void DrawCursor(GraphicsInterface graphics, MemoryInterface memory);
+void HandleBattle(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory);
+void HandleBattleMenu(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory);
 

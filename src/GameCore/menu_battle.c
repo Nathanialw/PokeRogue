@@ -69,7 +69,7 @@ void ExitMenu(void)
 /** Initial invocation updates the string list cache for display, opening the party frame
  *  Subsequent invocation sets the creature at the cursor position as the active battle creature
 **********************************************************************************************************************/
-bool BattleSwap(InputInterface input, bool update)
+bool BattleSwap(InputInterface input, MemoryInterface memory, bool update)
 {
     DEBUG("BattleSwap");
     if (EnterMenu(MAX_PARTY_SIZE))
@@ -83,7 +83,7 @@ bool BattleSwap(InputInterface input, bool update)
 
     DEBUG("Drawing BattleSwap List");
 
-    FillListByEntityID(MAX_PARTY_SIZE, CREATURE, GetPlayerMonsterIDs());
+    FillListByEntityID(memory, MAX_PARTY_SIZE, CREATURE, GetPlayerMonsterIDs());
     return true;
 }
 
@@ -91,7 +91,7 @@ bool BattleSwap(InputInterface input, bool update)
 /** Initial invocation updates the string list cache for display, opening the spellbook list frame
  *  Subsequent invocation runs the spell action for the spell id at the cursor index of the spellbook
 **********************************************************************************************************************/
-bool BattleSpell(InputInterface input, bool update)
+bool BattleSpell(InputInterface input, MemoryInterface memory, bool update)
 {
     DEBUG("BattleSpell");
     if (EnterMenu(g_run.player.currentSpellbookSize))
@@ -99,13 +99,13 @@ bool BattleSpell(InputInterface input, bool update)
         uint8_t sel = g_run.menu.sel[g_run.menu.depth].y;
         SpellId spell_id = g_run.player.spellID[sel];
         DEBUG("Casting Spell");
-        CastSpell(spell_id, g_run.battleMode.playerMonsterID, g_run.battleMode.enemyMonsterID);
+        CastSpell(memory, spell_id, g_run.battleMode.playerMonsterID, g_run.battleMode.enemyMonsterID);
         return true;
     }
 
     DEBUG("Drawing BattleSpell List");
 
-    FillListByTypeID(g_run.player.currentSpellbookSize, g_gameFlash.text.names.spells, g_run.player.spellID);
+    FillListByTypeID(g_run.player.currentSpellbookSize, g_run.player.spellID);
     return true;
 }
 
@@ -114,7 +114,7 @@ bool BattleSpell(InputInterface input, bool update)
 /** Initial invocation updates the string list cache for display, opening the backpack list frame
  *  Subsequent invocation runs the item action for the item id at the cursor index of the backpack
 **********************************************************************************************************************/
-bool BattleItems(InputInterface input, bool update)
+bool BattleItems(InputInterface input, MemoryInterface memory, bool update)
 {
     DEBUG("BattleItems");
     if (EnterMenu(g_run.player.currentBagSize))
@@ -123,15 +123,15 @@ bool BattleItems(InputInterface input, bool update)
         EntityId item_id = g_run.player.itemID[idx];
         EntityId entity_id = g_run.battleMode.playerMonsterID;
         DEBUG("using battle item %d %d %d", idx, item_id, entity_id);
-        if (UseItem(item_id, entity_id))
+        if (UseItem(memory, item_id, entity_id))
         {
             ConsumeItem(idx, item_id);
-            FillListByEntityID(g_run.player.currentBagSize, ITEM, g_run.player.itemID);
+            FillListByEntityID(memory, g_run.player.currentBagSize, ITEM, g_run.player.itemID);
         }
         return true;
     }
 
-    FillListByEntityID(g_run.player.currentBagSize, ITEM, g_run.player.itemID);
+    FillListByEntityID(memory, g_run.player.currentBagSize, ITEM, g_run.player.itemID);
     return true;
 }
 
@@ -139,7 +139,7 @@ bool BattleItems(InputInterface input, bool update)
 /** attempts the end the battle and queue a move to an empty adjacent map cell
  *  TODO: NOT YET IMPLEMENTED
 **********************************************************************************************************************/
-bool BattleFlee(InputInterface input, bool update)
+bool BattleFlee(InputInterface input, MemoryInterface memory, bool update)
 {
     DEBUG("BattleFlee");
 
@@ -155,7 +155,7 @@ bool BattleFlee(InputInterface input, bool update)
 /** display a full screen of teh combat lines cache
  *  TODO: NOT YET IMPLEMENTED
 **********************************************************************************************************************/
-bool BattleCombatLog(InputInterface input, bool update)
+bool BattleCombatLog(InputInterface input, MemoryInterface memory, bool update)
 {
     DEBUG("BattleCombatLog");
 
@@ -166,15 +166,6 @@ bool BattleCombatLog(InputInterface input, bool update)
     }
 
     return true;
-}
-
-/**********************************************************************************************************************/
-/** Returns a pointer to the char array for the given index of the battle menu
- *  Used for printing the menu options to the screen
-**********************************************************************************************************************/
-const char* GetBattleMenuList(uint8_t idx)
-{
-    return g_gameFlash.text.menus.battleMenu[idx];
 }
 
 /**********************************************************************************************************************/
@@ -257,15 +248,15 @@ void UpdateBattleMenu(InputInterface input)
  *  Returns true if Attacking
  *  Returns false if menu
 **********************************************************************************************************************/
-bool BattleMenuCommand(HardwareInterface hardware, InputInterface input)
+bool BattleMenuCommand(HardwareInterface hardware, InputInterface input, MemoryInterface memory)
 {
     bool b = false;
     DEBUG("BattleMenuCommand===================================");
 
     if (battleMenu == ABILITY_MENU)
-        b = UseSkill(hardware, true);
+        b = UseSkill(hardware, memory, true);
     if (battleMenu == BATTLE_MENU)
-        battleSubmenus[g_run.menu.sel[0].y](input, true); //0 to enter the menu base entry point
+        battleSubmenus[g_run.menu.sel[0].y](input, memory, true); //0 to enter the menu base entry point
 
     return b;
 }

@@ -8,6 +8,7 @@
 
 #include "entities.h"
 #include "graphics.h"
+#include "memory_access.h"
 #include "memory_ram.h"
 #include "memory_rom.h"
 
@@ -44,33 +45,33 @@ Rect_16 GetBattlerRect(bool onAttacker)
     return r;
 }
 
-const uint8_t* GetBattlerSprite(bool onAttacker)
+const uint8_t* GetBattlerSprite(MemoryInterface memory, bool onAttacker)
 {
     if (onAttacker)
-        return g_gameFlash.spriteData.battlers.back;
-    return g_gameFlash.spriteData.battlers.front;
+        return Flash_GetBattlerArray(memory, false);
+    return Flash_GetBattlerArray(memory, true);
 }
 
-SpriteLayout GetBattlerLayout(bool onAttacker)
+SpriteLayout GetBattlerLayout(MemoryInterface memory, bool onAttacker)
 {
     if (onAttacker)
-        return g_gameFlash.spriteData.battlers.backLayout[GetCreatureType(g_run.battleMode.playerMonsterID)];
-    return g_gameFlash.spriteData.battlers.frontLayout[GetCreatureType(g_run.battleMode.enemyMonsterID)];
+        return Flash_GetBattlerLayout(memory, GetCreatureType(g_run.battleMode.enemyMonsterID), false);
+    return Flash_GetBattlerLayout(memory, GetCreatureType(g_run.battleMode.enemyMonsterID), true);
 }
 
-void RefreshBattler(GraphicsInterface graphics, bool onAttacker, Rect_16 r)
+void RefreshBattler(GraphicsInterface graphics, MemoryInterface memory, bool onAttacker, Rect_16 r)
 {
-    SpriteLayout layout = GetBattlerLayout(onAttacker);
-    const uint8_t* sprite = GetBattlerSprite(onAttacker);
-    DrawBattlerToBuffer(graphics, r.x, r.y, layout, sprite);
+    SpriteLayout layout = GetBattlerLayout(memory, onAttacker);
+    const uint8_t* sprite = GetBattlerSprite(memory, onAttacker);
+    DrawBattlerToBuffer(graphics, memory, r.x, r.y, layout, sprite);
 }
 
 
-void ReDrawBattler(GraphicsInterface graphics, bool onAttacker, Rect_16 r)
+void ReDrawBattler(GraphicsInterface graphics, MemoryInterface memory, bool onAttacker, Rect_16 r)
 {
-    SpriteLayout layout = GetBattlerLayout(onAttacker);
-    const uint8_t* sprite = GetBattlerSprite(onAttacker);
-    DrawBattler(graphics, r.x, r.y, layout, sprite);
+    SpriteLayout layout = GetBattlerLayout(memory, onAttacker);
+    const uint8_t* sprite = GetBattlerSprite(memory, onAttacker);
+    DrawBattler(graphics, memory, r.x, r.y, layout, sprite);
 }
 
 /************************************************************************************************************
@@ -363,11 +364,11 @@ void AnimationIceShards(GraphicsInterface graphics,  HardwareInterface hardware,
 /************************************************************************************************************
  *
  ************************************************************************************************************/
-void AnimationBeam(GraphicsInterface graphics,  HardwareInterface hardware, Rect_16 r, uint16_t d, uint8_t frameLength, uint8_t palletIndex)
+void AnimationBeam(GraphicsInterface graphics,  HardwareInterface hardware, MemoryInterface memory, Rect_16 r, uint16_t d, uint8_t frameLength, uint8_t palletIndex)
 {
     BasicAsserts(r);
     ASSERT(d <= r.h, "d is larger than r.h, underflow error");;
-    graphics.SetFrameBuffer(g_gameFlash.GetColor[palletIndex]);
+    graphics.SetFrameBuffer(Flash_GetColor(memory, palletIndex));
     const uint8_t* sprite = graphics.GetFrameBuffer1byte();
 
     uint16_t end_pos = r.x + r.w;
@@ -388,11 +389,11 @@ void AnimationBeam(GraphicsInterface graphics,  HardwareInterface hardware, Rect
 /************************************************************************************************************
  *
  ************************************************************************************************************/
-void AnimationRandomParticles(GraphicsInterface graphics, HardwareInterface hardware, Rect_16 r, uint16_t d, uint8_t frameLength, uint8_t palletIndex, uint8_t particleCount)
+void AnimationRandomParticles(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, Rect_16 r, uint16_t d, uint8_t frameLength, uint8_t palletIndex, uint8_t particleCount)
 {
     BasicAsserts(r);
     ASSERT(d <= r.h, "d is larger than r.h, underflow error");
-    graphics.SetFrameBuffer(g_gameFlash.GetColor[palletIndex]);
+    graphics.SetFrameBuffer(Flash_GetColor(memory, palletIndex));
     const uint8_t* sprite = graphics.GetFrameBuffer1byte();
 
     uint16_t end_pos = particleCount;
@@ -414,7 +415,7 @@ void AnimationRandomParticles(GraphicsInterface graphics, HardwareInterface hard
 /************************************************************************************************************/
 /*  Draws a line of pixels of the given colour for each long in the battler sprite
 ************************************************************************************************************/
-void AnimationLineEffect(GraphicsInterface graphics,  HardwareInterface hardware, Rect_16 r, uint16_t d, uint8_t frameLength, uint8_t palletIndex)
+void AnimationLineEffect(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, Rect_16 r, uint16_t d, uint8_t frameLength, uint8_t palletIndex)
 {
     BasicAsserts(r);
     //Cache the line of pixels
@@ -427,7 +428,7 @@ void AnimationLineEffect(GraphicsInterface graphics,  HardwareInterface hardware
     const uint16_t* sprite = graphics.GetFrameBuffer2bytes();
 
     uint16_t buffer[n];
-    graphics.SetBuffer(n, buffer, g_gameFlash.GetColor[palletIndex]);
+    graphics.SetBuffer(n, buffer, Flash_GetColor(memory, palletIndex));
 
     FrameBuffer f = {r.x, r.y, n, 1};
     uint16_t start_pos = 0;

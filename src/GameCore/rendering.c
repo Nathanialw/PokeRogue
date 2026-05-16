@@ -19,7 +19,7 @@
 /**********************************************************************************************************************/
 /**  Redraws all map tiles and entities ion the camera view to the screen
 **********************************************************************************************************************/
-void FullRedraw(GraphicsInterface graphics)
+void FullRedraw(GraphicsInterface graphics, MemoryInterface memory)
 {
     Camera cam = GetCamera();
 
@@ -30,7 +30,7 @@ void FullRedraw(GraphicsInterface graphics)
         {
             uint16_t mx = cam.x + sx;
             uint16_t id = GetMapTile(mx, my);
-            DrawTile(graphics, sx, sy, id);
+            DrawTile(graphics, memory, sx, sy, id);
             g_run.view.viewTiles[sy][sx] = id;
         }
     }
@@ -45,7 +45,7 @@ void FullRedraw(GraphicsInterface graphics)
         {
             uint8_t rx = (x - cam.x);
             uint8_t ry = (y - cam.y);
-            DrawMonster(graphics, rx, ry, g_run.items.types[i], g_gameFlash.sprites.items);
+            DrawSprite(graphics, memory, rx, ry, g_run.items.types[i], ITEM);
             g_run.view.viewItems.viewEntities[ry][rx] = g_run.items.types[i];
         }
     }
@@ -60,7 +60,7 @@ void FullRedraw(GraphicsInterface graphics)
         {
             uint8_t rx = (x - cam.x);
             uint8_t ry = (y - cam.y);
-            DrawMonster(graphics, rx, ry, g_run.objects.types[i], g_gameFlash.sprites.objects);
+            DrawSprite(graphics, memory, rx, ry, g_run.objects.types[i], OBJECT);
             g_run.view.viewObjects.viewEntities[ry][rx] = g_run.objects.types[i];
         }
     }
@@ -76,7 +76,7 @@ void FullRedraw(GraphicsInterface graphics)
             uint8_t rx = (x - cam.x);
             uint8_t ry = (y - cam.y);
 
-            DrawMonster(graphics, rx, ry, g_run.creatures.types[i], g_gameFlash.sprites.monsters);
+            DrawSprite(graphics, memory, rx, ry, g_run.creatures.types[i], CREATURE);
             g_run.view.viewCreatures.viewEntities[ry][rx] = g_run.creatures.types[i];
         }
     }
@@ -162,7 +162,7 @@ void SetDirty(ViewEntities* view)
 /**********************************************************************************************************************/
 /**  Redraws only the dirty map tiles to the screen
 **********************************************************************************************************************/
-void ReDrawTiles(GraphicsInterface graphics, Camera cam)
+void ReDrawTiles(GraphicsInterface graphics, MemoryInterface memory, Camera cam)
 {
     for (uint16_t sy = 0; sy < VIEW_TH; sy++)
     {
@@ -174,7 +174,7 @@ void ReDrawTiles(GraphicsInterface graphics, Camera cam)
 
             uint16_t mx = cam.x + sx;
             uint16_t map_id = GetMapTile(mx, my);
-            DrawTileCached(graphics, sx, sy, map_id);
+            DrawTileCached(graphics, memory, sx, sy, map_id);
         }
     }
 }
@@ -183,7 +183,7 @@ void ReDrawTiles(GraphicsInterface graphics, Camera cam)
 /**     Redraws only the dirty map sprites to the screen
  *      Objects then Items then Creatures
 **********************************************************************************************************************/
-void ReDrawSprites(GraphicsInterface graphics)
+void ReDrawSprites(GraphicsInterface graphics, MemoryInterface memory)
 {
     for (uint16_t sy = 0; sy < VIEW_TH; sy++)
     {
@@ -195,19 +195,19 @@ void ReDrawSprites(GraphicsInterface graphics)
             if (g_run.view.viewItems.viewEntities[sy][sx] != NO_ITEM)
             {
                 uint8_t item_type = g_run.view.viewItems.viewEntities[sy][sx];
-                DrawMonsterCached(graphics, sx, sy, item_type, g_gameFlash.sprites.items);
+                DrawSpriteCached(graphics, memory, sx, sy, item_type, ITEM);
             }
 
             if (g_run.view.viewObjects.viewEntities[sy][sx] != NO_OBJECT)
             {
                 uint8_t object_type = g_run.view.viewObjects.viewEntities[sy][sx];
-                DrawMonsterCached(graphics, sx, sy, object_type, g_gameFlash.sprites.objects);
+                DrawSpriteCached(graphics, memory, sx, sy, object_type, OBJECT);
             }
 
             if (g_run.view.viewCreatures.viewEntities[sy][sx] != NO_CREATURE)
             {
                 uint8_t creature_type = g_run.view.viewCreatures.viewEntities[sy][sx];
-                DrawMonsterCached(graphics, sx, sy, creature_type, g_gameFlash.sprites.monsters);
+                DrawSpriteCached(graphics, memory, sx, sy, creature_type, CREATURE);
             }
         }
     }
@@ -218,10 +218,10 @@ void ReDrawSprites(GraphicsInterface graphics)
 /**  Routine that runs the dirty tile update
  *  Handles the alternate smooth scrolling animation mode as well
 **********************************************************************************************************************/
-void RenderObjects(GraphicsInterface graphics, HardwareInterface hardware)
+void RenderObjects(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory)
 {
     if (g_run.btns.gameSpeed < 5)
-        AnimationMovement(graphics, hardware);
+        AnimationMovement(graphics, hardware, memory);
 
     hardware.MemSet(g_run.view.dirtyTiles, 0, sizeof(g_run.view.dirtyTiles));
 
@@ -242,9 +242,9 @@ void RenderObjects(GraphicsInterface graphics, HardwareInterface hardware)
     SetDirty(&g_run.view.viewCreatures);
 
     if (g_run.btns.gameSpeed >= 5)
-        ReDrawTiles(graphics, cam);
+        ReDrawTiles(graphics, memory, cam);
 
-    ReDrawSprites(graphics);
+    ReDrawSprites(graphics, memory);
 
     if (g_run.btns.gameSpeed >= 5)
         hardware.SleepMS(1000 / g_run.btns.gameSpeed);

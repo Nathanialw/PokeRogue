@@ -8,6 +8,7 @@
 
 #include "battles.h"
 #include "map.h"
+#include "memory_access.h"
 #include "utils.h"
 #include "stats.h"
 
@@ -16,10 +17,10 @@
 #include "player.h"
 
 
-EntityId SpawnMonster(HardwareInterface hardware, uint8_t monType, uint8_t x, uint8_t y, uint8_t l);
-EntityId SpawnItem(HardwareInterface hardware, uint8_t itmType, uint8_t x, uint8_t y, uint8_t l);
-EntityId SpawnObject(HardwareInterface hardware, uint8_t shrineType, uint8_t x, uint8_t y, uint8_t l);
-typedef EntityId (*Spawn)(HardwareInterface hardware, uint8_t, uint8_t, uint8_t, uint8_t);
+EntityId SpawnMonster(HardwareInterface hardware, MemoryInterface memory, uint8_t monType, uint8_t x, uint8_t y, uint8_t l);
+EntityId SpawnItem(HardwareInterface hardware, MemoryInterface memory, uint8_t itmType, uint8_t x, uint8_t y, uint8_t l);
+EntityId SpawnObject(HardwareInterface hardware, MemoryInterface memory, uint8_t shrineType, uint8_t x, uint8_t y, uint8_t l);
+typedef EntityId (*Spawn)(HardwareInterface hardware, MemoryInterface memory, uint8_t, uint8_t, uint8_t, uint8_t);
 
 /**********************************************************************************************************************/
 /** point array for creating entities
@@ -50,6 +51,7 @@ uint8_t CheckCollision(EntityId id)
  *  Returns NO_OBJECT if none found
 // TODO hashmap was a little pricey on memory, maybe a clever implementation would work, linear search for now
 **********************************************************************************************************************/
+SET_MEMORY(".map")
 EntityId CheckTile(ObjectsTypes type, EntityId e_id, Position pos, Position* positions, uint8_t n)
 {
     uint8_t* onMap = GetEntitiesOnMap(type);
@@ -65,7 +67,7 @@ EntityId CheckTile(ObjectsTypes type, EntityId e_id, Position pos, Position* pos
     }
     return NO_ENTITY;
 }
-
+SET_MEMORY(".map")
 EntityId CheckTileForEntity(ObjectsTypes type, EntityId e_id, Position pos)
 {
     // ASSERT(e_id != NO_CREATURE, "ID is NO_CREATURE it is invalid!");
@@ -201,8 +203,8 @@ Position* GetEntityNewPositions(void)
 /** Sets initial data values of a given entity ID of type creature
 *   TODO - get all values from the db data or generate them
 **********************************************************************************************************************/
-
-EntityId SpawnMonster(HardwareInterface hardware, uint8_t type, uint8_t x, uint8_t y, uint8_t l)
+SET_MEMORY(".map")
+EntityId SpawnMonster(HardwareInterface hardware, MemoryInterface memory, uint8_t type, uint8_t x, uint8_t y, uint8_t l)
 {
     EntityId id = NO_ENTITY;
     for (uint8_t i = 0; i < ENTITY_COUNT; ++i)
@@ -219,7 +221,7 @@ EntityId SpawnMonster(HardwareInterface hardware, uint8_t type, uint8_t x, uint8
     // g_run.objects.position_hash.
     g_run.creatures.level[id].value = l;
     g_run.creatures.types[id] = type;
-    g_run.creatures.stats[id] = GetStats(hardware, monType, l);
+    g_run.creatures.stats[id] = GetStats(hardware, memory, monType, l);
     g_run.creatures.xp[id] = SetXPToLevel(id);
     g_run.creatures.hp[id] = GetHP(monType, l);
     g_run.creatures.mp[id] = GetMP(monType, l);
@@ -229,7 +231,7 @@ EntityId SpawnMonster(HardwareInterface hardware, uint8_t type, uint8_t x, uint8
     g_run.creatures.stealth[id].sight = 3;
     g_run.creatures.stealth[id].sound = 3;
     g_run.creatures.stealth[id].smell = 0;
-    GetSkills(id, type);
+    GetSkills(memory, id, type);
     SetBit(g_run.creatures.alive, id, true);
     SetBit(g_run.creatures.onMap, id, true);
     g_run.creatures.speed[id].current = 0;
@@ -244,7 +246,7 @@ EntityId SpawnMonster(HardwareInterface hardware, uint8_t type, uint8_t x, uint8
  *  //TODO: use 'l' to generate item of the appropriate level
 **********************************************************************************************************************/
 
-EntityId SpawnItem(HardwareInterface hardware, uint8_t type, uint8_t x, uint8_t y, uint8_t l)
+EntityId SpawnItem(HardwareInterface hardware, MemoryInterface memory, uint8_t type, uint8_t x, uint8_t y, uint8_t l)
 {
     EntityId id = NO_ENTITY;
     for (uint8_t i = 0; i < ENTITY_COUNT; ++i)
@@ -268,7 +270,7 @@ EntityId SpawnItem(HardwareInterface hardware, uint8_t type, uint8_t x, uint8_t 
 /** Sets initial data values of a given entity ID of type object
  *  TODO - cahnge to a generic object spawner, we wll have 255 object types, shirne will be one
 **********************************************************************************************************************/
-EntityId SpawnObject(HardwareInterface hardware, uint8_t type, uint8_t x, uint8_t y, uint8_t l)
+EntityId SpawnObject(HardwareInterface hardware, MemoryInterface memory, uint8_t type, uint8_t x, uint8_t y, uint8_t l)
 {
     EntityId id = NO_ENTITY;
     for (uint8_t i = 0; i < ENTITY_COUNT; ++i)
@@ -291,10 +293,10 @@ EntityId SpawnObject(HardwareInterface hardware, uint8_t type, uint8_t x, uint8_
 /**********************************************************************************************************************/
 /** Sets initial data values of a given the type of object, the id of that type, position and level
 **********************************************************************************************************************/
-
-EntityId SpawnEntity(HardwareInterface hardware, ObjectsTypes type, uint8_t t, uint8_t x, uint8_t y, uint8_t l)
+SET_MEMORY(".map")
+EntityId SpawnEntity(HardwareInterface hardware, MemoryInterface memory, ObjectsTypes type, uint8_t t, uint8_t x, uint8_t y, uint8_t l)
 {
-    return spawn[type](hardware, t, x, y, l);;
+    return spawn[type](hardware, memory, t, x, y, l);;
 }
 
 /**********************************************************************************************************************/
@@ -302,6 +304,7 @@ EntityId SpawnEntity(HardwareInterface hardware, ObjectsTypes type, uint8_t t, u
 *   sets creature to false on the map array
 *   returns the entity id of the creature
 **********************************************************************************************************************/
+SET_MEMORY(".core")
 EntityId CaptureMonster(EntityId id)
 {
     ASSERT(id != NO_CREATURE, "ID is NO_CREATURE it is invalid!");
@@ -317,6 +320,7 @@ EntityId CaptureMonster(EntityId id)
 *   sets item to false on the map array
 *   returns the entity id of the item
 **********************************************************************************************************************/
+SET_MEMORY(".core")
 EntityId PickItem(EntityId id)
 {
     ASSERT(id != NO_CREATURE, "ID is NO_CREATURE it is invalid!");
@@ -330,7 +334,7 @@ EntityId PickItem(EntityId id)
 /**********************************************************************************************************************/
 /**Reset all values of the given entity ID
 **********************************************************************************************************************/
-
+SET_MEMORY(".core")
 void DestroyCreature(HardwareInterface hardware, EntityId id)
 {
     Position empty_pos = {.x = 0, .y = 0};
@@ -357,7 +361,6 @@ void DestroyCreature(HardwareInterface hardware, EntityId id)
 }
 
 
-
 void DestroyItem(EntityId id)
 {
     Position empty_pos = {.x = 0, .y = 0};
@@ -382,6 +385,7 @@ void DestroyObject(EntityId id)
 /**********************************************************************************************************************/
 /**Copy all values of the given entity ID
 **********************************************************************************************************************/
+SET_MEMORY(".map")
 void CopyCreature(HardwareInterface hardware, EntityId src_id, EntityId target_id)
 {
     g_run.creatures.position[target_id] = g_run.creatures.position[src_id];
@@ -409,7 +413,7 @@ void CopyCreature(HardwareInterface hardware, EntityId src_id, EntityId target_i
     SetBit(g_run.creatures.active, target_id, GetBit(g_run.creatures.active, src_id));
 }
 
-
+SET_MEMORY(".map_gen")
 void CopyItem(EntityId src_id, EntityId target_id)
 {
     g_run.items.position[target_id] = g_run.items.position[src_id];
@@ -436,7 +440,8 @@ void CopyObject(EntityId src_id, EntityId target_id)
 /** Reset all values of all entities on the map
  *  TODO: may add trainers later
 **********************************************************************************************************************/
-void ResetEntities(HardwareInterface hardware, bool copyPlayer)
+SET_MEMORY(".map_gen")
+void ResetEntities(HardwareInterface hardware, MemoryInterface memory, bool copyPlayer)
 {
     uint16_t creature_start_idx = 0;
     uint16_t item_start_idx = 0;
@@ -463,23 +468,24 @@ void ResetEntities(HardwareInterface hardware, bool copyPlayer)
 /**********************************************************************************************************************/
 /** Creates all the creatures on the map from the BIOME and THEME data
 **********************************************************************************************************************/
-void PopulateLevelCreatures(HardwareInterface hardware)
+SET_MEMORY(".map")
+void PopulateLevelCreatures(HardwareInterface hardware, MemoryInterface memory)
 {
     uint8_t creature_level = g_run.floor;
     for (uint8_t i = 0; i < NUM_BIOME_CREATURES; ++i)
     {
         uint8_t creature_type = hardware.GetRandom_uint8_t(0, BIOME_MONSTER_TYPES);
-        const Creature creature = g_gameFlash.tileset.monsterGroups[g_run.biome][creature_type];
+        const Creature creature = Flash_GetBiomeCreature(memory, g_run.biome, creature_type);
         const Position pos = FindOpenMapLocation(hardware, CREATURE);
-        SpawnEntity(hardware, CREATURE, creature, pos.x, pos.y, creature_level);
+        SpawnEntity(hardware, memory, CREATURE, creature, pos.x, pos.y, creature_level);
     }
 
     for (uint8_t i = 0; i < NUM_THEME_CREATURES; ++i)
     {
         uint8_t creature_type = hardware.GetRandom_uint8_t(0, THEME_MONSTER_TYPES);
-        const Creature creature = g_gameFlash.tileset.themeGroups[g_run.theme][creature_type];
+        const Creature creature = Flash_GetThemeCreature(memory, g_run.theme, creature_type);
         const Position pos = FindOpenMapLocation(hardware, CREATURE);
-        SpawnEntity(hardware, CREATURE, creature, pos.x, pos.y, creature_level);
+        SpawnEntity(hardware, memory, CREATURE, creature, pos.x, pos.y, creature_level);
     }
 
 
@@ -488,18 +494,20 @@ void PopulateLevelCreatures(HardwareInterface hardware)
             g_run.creatures.newPosition[i] = g_run.creatures.position[i];
 }
 
-void PopulateLevelItems(HardwareInterface hardware)
+SET_MEMORY(".map")
+void PopulateLevelItems(HardwareInterface hardware, MemoryInterface memory)
 {
     uint8_t creature_level = 1;
     for (uint8_t i = 0; i < NUM_MAP_ITEMS; ++i)
     {
         const ItemTypes item_type = hardware.GetRandom_uint8_t(0, ITEM_COUNT);
         const Position pos = FindOpenMapLocation(hardware, ITEM);
-        SpawnEntity(hardware, ITEM, item_type, pos.x, pos.y, creature_level);
+        SpawnEntity(hardware, memory, ITEM, item_type, pos.x, pos.y, creature_level);
     }
 }
 
-void PopulateLevelObjects(HardwareInterface hardware)
+SET_MEMORY(".map")
+void PopulateLevelObjects(HardwareInterface hardware, MemoryInterface memory)
 {
     ASSERT(g_run.objects.total == 0, "Objects already populated! %d", g_run.objects.total);
     uint8_t creature_level = 1;
@@ -507,7 +515,7 @@ void PopulateLevelObjects(HardwareInterface hardware)
     {
         const Object object_type = hardware.GetRandom_uint8_t(0, OBJECT_COUNT);
         const Position pos = FindOpenMapLocation(hardware, OBJECT);
-        SpawnEntity(hardware, OBJECT, object_type, pos.x, pos.y, creature_level);
+        SpawnEntity(hardware, memory, OBJECT, object_type, pos.x, pos.y, creature_level);
     }
 }
 
@@ -516,7 +524,7 @@ void PopulateLevelObjects(HardwareInterface hardware)
  *  ON SUCCESS - Returns the type ID of the given entity ID
  *  ON FAIL - sets typeIDs to NULL and returns NULL
 **********************************************************************************************************************/
-const SmallStringArray* GetEntityTypes(uint8_t* typeIDs, const uint8_t* e_ids, ObjectsTypes type, uint8_t n)
+const SmallStringArray* GetEntityTypes(MemoryInterface memory, uint8_t* typeIDs, const uint8_t* e_ids, ObjectsTypes type, uint8_t n)
 {
     const SmallStringArray* text = NULL;
 
@@ -524,21 +532,21 @@ const SmallStringArray* GetEntityTypes(uint8_t* typeIDs, const uint8_t* e_ids, O
     {
     case CREATURE:
         {
-            text = g_gameFlash.text.names.monsters;
+            text = Flash_GetCreatureNameArray(memory);
             for (uint8_t i = 0; i < n; ++i)
                 typeIDs[i] = GetCreatureType(e_ids[i]);
             break;
         }
     case ITEM:
         {
-            text = g_gameFlash.text.names.items;
+            text = Flash_GetItemNameArray(memory);
             for (uint8_t i = 0; i < n; ++i)
                 typeIDs[i] = GetItemType(e_ids[i]);
             break;
         }
     case OBJECT:
         {
-            text = g_gameFlash.text.names.objects;
+            text = Flash_GetObjectNameArray(memory);
             for (uint8_t i = 0; i < n; ++i)
                 typeIDs[i] = GetObjectType(e_ids[i]);
             break;

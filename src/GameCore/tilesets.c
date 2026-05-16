@@ -3,6 +3,7 @@
 //
 #include "tilesets.h"
 
+#include "memory_access.h"
 #include "memory_rom.h"
 
 /**********************************************************************************************************************/
@@ -26,30 +27,32 @@
 **********************************************************************************************************************/
 void TilesetFromGlyph1bpp(TileSet* tileset, uint16_t tile_id, uint8_t glyph_index, uint16_t fg, uint16_t bg)
 {
-    uint16_t tile_base = tile_id * TILE_PIXELS;
-    uint16_t glyph_base = glyph_index * GLYPH_WORDS16x16;
-
-    for (int y = 0; y < GLYPH_ROWS; y++)
-    {
-        uint16_t row_mask = (g_gameFlash.spriteData.font16x16[glyph_base + y * 2] << 8) |
-            g_gameFlash.spriteData.font16x16[glyph_base + y * 2 + 1];
-
-        for (int x = 0; x < TILE_W; x++)
-        {
-            uint16_t bit = 0x8000 >> x;
-            (*tileset)[tile_base + y * TILE_W + x] = (row_mask & bit) ? fg : bg;
-        }
-    }
+    // uint16_t tile_base = tile_id * TILE_PIXELS;
+    // uint16_t glyph_base = glyph_index * GLYPH_WORDS16x16;
+    //
+    // for (int y = 0; y < GLYPH_ROWS; y++)
+    // {
+    //     uint16_t row_mask = (g_gameFlash.spriteData.font16x16[glyph_base + y * 2] << 8) |
+    //         g_gameFlash.spriteData.font16x16[glyph_base + y * 2 + 1];
+    //
+    //     for (int x = 0; x < TILE_W; x++)
+    //     {
+    //         uint16_t bit = 0x8000 >> x;
+    //         (*tileset)[tile_base + y * TILE_W + x] = (row_mask & bit) ? fg : bg;
+    //     }
+    // }
 }
 
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-void CharFromGlyph1bpp(uint16_t* character, uint8_t glyph_index, FontSize fontSize, uint16_t fg, uint16_t bg)
+void CharFromGlyph1bpp(MemoryInterface memory, uint16_t* character, uint8_t glyph_index, FontSize fontSize, uint16_t fg, uint16_t bg)
 {
     if (fontSize == FONT8x8)
     {
-        const uint8_t* glyph = &g_gameFlash.spriteData.font8x8[glyph_index * 8];
+        // const uint8_t* glyph = &g_gameFlash.spriteData.font8x8[glyph_index * 8];
+        uint8_t glyph[8];
+        Flash_GetFontChar8x8(memory, glyph, glyph_index);
 
         for (int y = 0; y < 8; y++)
         {
@@ -62,17 +65,18 @@ void CharFromGlyph1bpp(uint16_t* character, uint8_t glyph_index, FontSize fontSi
     }
     else if (fontSize == FONT16x16)
     {
-        uint16_t glyph_base = glyph_index * GLYPH_WORDS16x16;
+        // uint16_t glyph_base = glyph_index * GLYPH_WORDS16x16;
+        uint16_t glyph[16];
+        Flash_GetFontChar16x16(memory, glyph, glyph_index);
 
         for (int y = 0; y < 16; y++)
         {
-            uint16_t row_mask = (g_gameFlash.spriteData.font16x16[glyph_base + y * 2] << 8) |
-                g_gameFlash.spriteData.font16x16[glyph_base + y * 2 + 1];
+            // uint16_t row_mask = (g_gameFlash.spriteData.font16x16[glyph_base + y * 2] << 8) | g_gameFlash.spriteData.font16x16[glyph_base + y * 2 + 1];
 
             for (int x = 0; x < 16; x++)
             {
                 uint16_t bit = 0x8000 >> x;
-                character[y * 16 + x] = (row_mask & bit) ? fg : bg;
+                // character[y * 16 + x] = (row_mask & bit) ? fg : bg;
             }
         }
     }

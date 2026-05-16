@@ -10,6 +10,7 @@
 #include "battles.h"
 #include "constants.h"
 #include "entities.h"
+#include "memory_access.h"
 #include "memory_rom.h"
 #include "memory_ram.h"
 #include "player.h"
@@ -21,17 +22,17 @@
 /** Forward declared functions for the main menu
 **********************************************************************************************************************/
 
-bool MiniMap(InputInterface input, bool update);
-bool MonsterData(InputInterface input, bool update);
-bool Objectpedia(InputInterface input, bool update);
-bool Itempedia(InputInterface input, bool update);
-bool Spellpedia(InputInterface input, bool update);
-bool Abilitypedia(InputInterface input, bool update);
-bool Party(InputInterface input, bool update);
-bool Bag(InputInterface input, bool update);
-bool Spells(InputInterface input, bool update);
-bool Options(InputInterface input, bool update);
-bool Exit(InputInterface input, bool update);
+bool MiniMap(InputInterface input, MemoryInterface memory, bool update);
+bool MonsterData(InputInterface input, MemoryInterface memory, bool update);
+bool Objectpedia(InputInterface input, MemoryInterface memory, bool update);
+bool Itempedia(InputInterface input, MemoryInterface memory, bool update);
+bool Spellpedia(InputInterface input, MemoryInterface memory, bool update);
+bool Abilitypedia(InputInterface input, MemoryInterface memory, bool update);
+bool Party(InputInterface input, MemoryInterface memory, bool update);
+bool Bag(InputInterface input, MemoryInterface memory, bool update);
+bool Spells(InputInterface input, MemoryInterface memory, bool update);
+bool Options(InputInterface input, MemoryInterface memory, bool update);
+bool Exit(InputInterface input, MemoryInterface memory, bool update);
 
 
 /**********************************************************************************************************************/
@@ -67,7 +68,7 @@ SubMenu submenus[MAIN_MENUS_SIZE] = {
  * Sets the current menu mode to minimap value
  *  the display code handles fetching the object data to draw the pixels to the screen
 **********************************************************************************************************************/
-bool MiniMap(InputInterface input, bool update)
+bool MiniMap(InputInterface input, MemoryInterface memory, bool update)
 {
     if (ToggleMenu(MAP_SUBMENU, 0))
         return true;
@@ -79,12 +80,12 @@ bool MiniMap(InputInterface input, bool update)
 /**********************************************************************************************************************/
 /** LIST
 **********************************************************************************************************************/
-bool MonsterData(InputInterface input, bool update)
+bool MonsterData(InputInterface input, MemoryInterface memory, bool update)
 {
     DEBUG("MonsterData g_run.btns.d.y %d", input.GetInputKeyState().d.y);
     if (ToggleMenu(MONSTER_DATA_LIST_SUBMENU, CREATURE_COUNT) && input.GetInputKeyState().d.y == 0)
     {
-        if (ListJump(input)) return true;
+        if (ListJump(input, memory)) return true;
 
         EntityId creature_id = g_run.menu.sel[g_run.menu.depth].y + g_run.menu.menuScrollOffset[g_run.menu.depth].y;
         DEBUG("Showing Creature id %d", creature_id);
@@ -101,12 +102,15 @@ bool MonsterData(InputInterface input, bool update)
     DEBUG("updating to ----   %d %d", min_s, max_s);
     while ((min_s + i) < max_s)
     {
-        const char* spellStr = g_gameFlash.text.names.monsters[min_s + i];
+        const char* spellStr = Flash_GetCreatureName(memory, min_s + i);
         DEBUG("text: ----   %s", spellStr);
-        g_run.menu.text[i] = spellStr;
+        for (uint8_t j = 0; j < SMALL_STRINGS; j++)
+        {
+            g_run.menu.text[i][j] = spellStr[i];
+        }
         i++;
     }
-    g_run.menu.text[i] = NULL;
+    g_run.menu.text[i][0] = '\0';
 
 
     return true;
@@ -116,12 +120,12 @@ bool MonsterData(InputInterface input, bool update)
 /**********************************************************************************************************************/
 /** LIST
 **********************************************************************************************************************/
-bool Objectpedia(InputInterface input, bool update)
+bool Objectpedia(InputInterface input, MemoryInterface memory, bool update)
 {
     DEBUG("Objectpedia g_run.btns.d.y %d", input.GetInputKeyState().d.y);
     if (ToggleMenu(OBJECT_DATA_LIST_SUBMENU, OBJECT_COUNT) && input.GetInputKeyState().d.y == 0)
     {
-        if (ListJump(input)) return true;
+        if (ListJump(input, memory)) return true;
 
         EntityId object_id = g_run.menu.sel[g_run.menu.depth].y + g_run.menu.menuScrollOffset[g_run.menu.depth].y;
         DEBUG("Showing Object id %d", object_id);
@@ -136,12 +140,16 @@ bool Objectpedia(InputInterface input, bool update)
     DEBUG("updating to ----   %d %d", min_s, max_s);
     while ((min_s + i) < max_s)
     {
-        const char* object_str = g_gameFlash.text.names.objects[min_s + i];
+        const char* object_str = Flash_GetObjectName(memory, min_s + i);
         DEBUG("text: ----   %s", object_str);
-        g_run.menu.text[i] = object_str;
+        for (uint8_t j = 0; j < SMALL_STRINGS; j++)
+        {
+            g_run.menu.text[i][j] = object_str[j];
+        }
+
         i++;
     }
-    g_run.menu.text[i] = NULL;
+    g_run.menu.text[i][0] = '\0';
 
 
     return true;
@@ -150,11 +158,11 @@ bool Objectpedia(InputInterface input, bool update)
 /**********************************************************************************************************************/
 /** LIST
 **********************************************************************************************************************/
-bool Itempedia(InputInterface input, bool update)
+bool Itempedia(InputInterface input, MemoryInterface memory, bool update)
 {
     if (ToggleMenu(ITEM_DATA_LIST_SUBMENU, ITEM_COUNT) && input.GetInputKeyState().d.y == 0)
     {
-        if (ListJump(input)) return true;
+        if (ListJump(input, memory)) return true;
         EntityId item_id = g_run.menu.sel[g_run.menu.depth].y + g_run.menu.menuScrollOffset[g_run.menu.depth].y;
         DEBUG("Showing Item id %d", item_id);
         //open creature info panel
@@ -169,12 +177,16 @@ bool Itempedia(InputInterface input, bool update)
     DEBUG("updating to ----   %d %d", min_s, max_s);
     while ((min_s + i) < max_s)
     {
-        const char* spellStr = g_gameFlash.text.names.items[min_s + i];
+        const char* spellStr = Flash_GetItemName(memory, min_s + i);
         DEBUG("text: ----   %s", spellStr);
-        g_run.menu.text[i] = spellStr;
+        for (uint8_t j = 0; j < SMALL_STRINGS; j++)
+        {
+            g_run.menu.text[i][j] = spellStr[j];
+        }
+
         i++;
     }
-    g_run.menu.text[i] = NULL;
+    g_run.menu.text[i][0] = '\0';
 
     return true;
 };
@@ -182,11 +194,11 @@ bool Itempedia(InputInterface input, bool update)
 /**********************************************************************************************************************/
 /** LIST
 **********************************************************************************************************************/
-bool Spellpedia(InputInterface input, bool update)
+bool Spellpedia(InputInterface input, MemoryInterface memory, bool update)
 {
     if (ToggleMenu(SPELL_DATA_LIST_SUBMENU, SPELL_COUNT) && input.GetInputKeyState().d.y == 0)
     {
-        if (ListJump(input)) return true;
+        if (ListJump(input, memory)) return true;
         EntityId spell_id = g_run.menu.sel[g_run.menu.depth].y + g_run.menu.menuScrollOffset[g_run.menu.depth].y;
         DEBUG("Showing Spell id %d", spell_id);
         //open creature info panel
@@ -201,12 +213,16 @@ bool Spellpedia(InputInterface input, bool update)
     DEBUG("updating to ----   %d %d", min_s, max_s);
     while ((min_s + i) < max_s)
     {
-        const char* spellStr = g_gameFlash.text.names.spells[min_s + i];
+        const char* spellStr = Flash_GetSpellName(memory, min_s + i);
         DEBUG("text: ----   %s", spellStr);
-        g_run.menu.text[i] = spellStr;
+        for (uint8_t j = 0; j < SMALL_STRINGS; j++)
+        {
+            g_run.menu.text[i][j] = spellStr[j];
+        }
+
         i++;
     }
-    g_run.menu.text[i] = NULL;
+    g_run.menu.text[i][0] = '\0';
 
     return true;
 }
@@ -214,11 +230,11 @@ bool Spellpedia(InputInterface input, bool update)
 /**********************************************************************************************************************/
 /** LIST
 **********************************************************************************************************************/
-bool Abilitypedia(InputInterface input, bool update)
+bool Abilitypedia(InputInterface input, MemoryInterface memory, bool update)
 {
     if (ToggleMenu(ABILITY_DATA_LIST_SUBMENU, ABILITY_COUNT) && input.GetInputKeyState().d.y == 0)
     {
-        if (ListJump(input)) return true;
+        if (ListJump(input, memory)) return true;
         EntityId ability_id = g_run.menu.sel[g_run.menu.depth].y + g_run.menu.menuScrollOffset[g_run.menu.depth].y;
         DEBUG("Showing Skill id %d", ability_id);
         //open creature info panel
@@ -233,12 +249,16 @@ bool Abilitypedia(InputInterface input, bool update)
     DEBUG("updating to ----   %d %d", min_s, max_s);
     while ((min_s + i) < max_s)
     {
-        const char* abilityStr = g_gameFlash.text.names.attacks[min_s + i];
-        DEBUG("text: ----   %s", abilityStr);
-        g_run.menu.text[i] = abilityStr;
+        const char* abilityStr = Flash_GetSkillName(memory, min_s + i);
+        DEBUG("text: ----   %s", spellStr);
+        for (uint8_t j = 0; j < SMALL_STRINGS; j++)
+        {
+            g_run.menu.text[i][j] = abilityStr[j];
+        }
+
         i++;
     }
-    g_run.menu.text[i] = NULL;
+    g_run.menu.text[i][0] = '\0';
 
     return true;
 }
@@ -246,10 +266,10 @@ bool Abilitypedia(InputInterface input, bool update)
 /**********************************************************************************************************************/
 /**
 **********************************************************************************************************************/
-void OpenUseOnParty(UseFrameBack f)
+void OpenUseOnParty(MemoryInterface memory, UseFrameBack f)
 {
     DEBUG("creating party list to use");
-    FillListByEntityID(MAX_PARTY_SIZE, CREATURE, GetPlayerMonsterIDs());
+    FillListByEntityID(memory, MAX_PARTY_SIZE, CREATURE, GetPlayerMonsterIDs());
 
     g_run.menu.forceRedraw = true;
     g_run.menu.useOnPartyMember = f;
@@ -265,13 +285,13 @@ void OpenUseOnParty(UseFrameBack f)
 /**********************************************************************************************************************/
 /**
 **********************************************************************************************************************/
-void BackUseOnParty()
+void BackUseOnParty(MemoryInterface memory)
 {
     DEBUG("creating bag list, already open");
     if (g_run.menu.useOnPartyMember == BACK_ITEM)
-        FillListByEntityID(g_run.player.currentBagSize, ITEM, g_run.player.itemID);
+        FillListByEntityID(memory, g_run.player.currentBagSize, ITEM, g_run.player.itemID);
     if (g_run.menu.useOnPartyMember == BACK_SPELL)
-        FillListByTypeID(g_run.player.currentSpellbookSize, g_gameFlash.text.names.spells, g_run.player.spellID);
+        FillListByTypeID(g_run.player.currentSpellbookSize, g_run.player.spellID);
     else
         DEBUG("void BackUseOnParty() invalid 'else' hit %d", g_run.menu.useOnPartyMember);
 
@@ -288,20 +308,20 @@ void BackUseOnParty()
 /**********************************************************************************************************************/
 /** LIST
 **********************************************************************************************************************/
-bool Party(InputInterface input, bool update)
+bool Party(InputInterface input, MemoryInterface memory, bool update)
 {
     if (ToggleMenu(MONSTERS_SUBMENU, MAX_PARTY_SIZE))
     {
     }
 
-    FillListByEntityID(MAX_PARTY_SIZE, CREATURE, GetPlayerMonsterIDs());
+    FillListByEntityID(memory, MAX_PARTY_SIZE, CREATURE, GetPlayerMonsterIDs());
     return true;
 };
 
 /**********************************************************************************************************************/
 /** LIST
 **********************************************************************************************************************/
-bool Bag(InputInterface input, bool update)
+bool Bag(InputInterface input, MemoryInterface memory, bool update)
 {
     DEBUG("initing bag");
     if (ToggleMenu(BAG_SUBMENU, g_run.player.currentBagSize))
@@ -325,10 +345,10 @@ bool Bag(InputInterface input, bool update)
                 return true;
             }
 
-            if (UseItem(item_id, NO_ENTITY))
+            if (UseItem(memory, item_id, NO_ENTITY))
                 ConsumeItem(idx, item_id);
             else
-                OpenUseOnParty(BACK_ITEM);
+                OpenUseOnParty(memory, BACK_ITEM);
 
             return true;
         }
@@ -338,10 +358,10 @@ bool Bag(InputInterface input, bool update)
         EntityId entity_id = g_run.player.partyID[g_run.menu.sel[g_run.menu.depth].y + g_run.menu.menuScrollOffset[g_run.menu.depth].y];
         DEBUG("open party screen %d %d %d", idx, item_id, entity_id);
 
-        if (UseItem(item_id, entity_id))
+        if (UseItem(memory, item_id, entity_id))
         {
             ConsumeItem(idx, item_id);
-            BackUseOnParty();
+            BackUseOnParty(memory);
         }
         else
         {
@@ -358,14 +378,14 @@ bool Bag(InputInterface input, bool update)
     }
     DEBUG("crating bag list");
 
-    FillListByEntityID(g_run.player.currentBagSize, ITEM, g_run.player.itemID);
+    FillListByEntityID(memory, g_run.player.currentBagSize, ITEM, g_run.player.itemID);
     return true;
 };
 
 /**********************************************************************************************************************/
 /** LIST
 **********************************************************************************************************************/
-bool Spells(InputInterface input, bool update)
+bool Spells(InputInterface input, MemoryInterface memory, bool update)
 {
     if (ToggleMenu(SPELLS_SUBMENU, g_run.player.currentSpellbookSize))
     {
@@ -382,8 +402,8 @@ bool Spells(InputInterface input, bool update)
                 return true;
             }
 
-            if (!CastSpell(spell_id, NO_ENTITY, NO_ENTITY))
-                OpenUseOnParty(BACK_SPELL);
+            if (!CastSpell(memory, spell_id, NO_ENTITY, NO_ENTITY))
+                OpenUseOnParty(memory, BACK_SPELL);
 
             return true;
         }
@@ -393,20 +413,20 @@ bool Spells(InputInterface input, bool update)
         EntityId entity_id = g_run.player.partyID[g_run.menu.sel[g_run.menu.depth].y + g_run.menu.menuScrollOffset[g_run.menu.depth].y];
         DEBUG("open party screen %d %d %d", idx, spell_id, entity_id);
 
-        if (CastSpell(spell_id, entity_id, NO_ENTITY))
-            BackUseOnParty();
+        if (CastSpell(memory, spell_id, entity_id, NO_ENTITY))
+            BackUseOnParty(memory);
 
         return true;
     }
 
-    FillListByTypeID(g_run.player.currentSpellbookSize, g_gameFlash.text.names.spells, g_run.player.spellID);
+    FillListByTypeID(g_run.player.currentSpellbookSize, g_run.player.spellID);
     return true;
 };
 
 /**********************************************************************************************************************/
 /** LIST
 **********************************************************************************************************************/
-bool Options(InputInterface input, bool update)
+bool Options(InputInterface input, MemoryInterface memory, bool update)
 {
     if (ToggleMenu(OPTIONS_SUBMENU, OPTIONS_MENU_SIZE))
     {
@@ -442,9 +462,10 @@ bool Options(InputInterface input, bool update)
                 CharStr_uint8 gameSpeedStr;
                 GetAsChars_uint8(g_run.btns.gameSpeed, &gameSpeedStr, false);
                 uint8_t i = 0;
-                while (g_gameFlash.text.menus.options[2][i])
+                const char* option_2 = Flash_GetOptionText(memory, 2);
+                while (option_2[i])
                 {
-                    g_run.btns.gameSpeedStr[i] = g_gameFlash.text.menus.options[2][i];
+                    g_run.btns.gameSpeedStr[i] = option_2[i];
                     i++;
                 }
                 g_run.btns.gameSpeedStr[i] = ' ';
@@ -456,7 +477,10 @@ bool Options(InputInterface input, bool update)
                     j++;
                     i++;
                 }
-                g_run.menu.text[2] = g_run.btns.gameSpeedStr;
+                for (uint8_t i = 0; i < SMALL_STRINGS; i++)
+                {
+                    g_run.menu.text[2][j] = g_run.btns.gameSpeedStr[j];
+                }
 
                 DEBUG("g_run.btns.gameSpeed %d", g_run.btns.gameSpeed);
                 break;
@@ -474,9 +498,11 @@ bool Options(InputInterface input, bool update)
     CharStr_uint8 gameSpeedStr;
     GetAsChars_uint8(g_run.btns.gameSpeed, &gameSpeedStr, false);
     uint8_t i = 0;
-    while (g_gameFlash.text.menus.options[2][i])
+
+    const char* option_2 = Flash_GetOptionText(memory, 2);
+    while (option_2[i])
     {
-        g_run.btns.gameSpeedStr[i] = g_gameFlash.text.menus.options[2][i];
+        g_run.btns.gameSpeedStr[i] = option_2[i];
         i++;
     }
     g_run.btns.gameSpeedStr[i] = ' ';
@@ -490,10 +516,14 @@ bool Options(InputInterface input, bool update)
     }
 
 
-    g_run.menu.text[0] = g_gameFlash.text.menus.options[0];
-    g_run.menu.text[1] = g_run.hardware.volts;
-    g_run.menu.text[2] = g_run.btns.gameSpeedStr;
-    g_run.menu.text[3] = NULL;
+    const char* option_0 = Flash_GetOptionText(memory, 0);
+    for (uint8_t i = 0; i < SMALL_STRINGS; i++)
+    {
+        g_run.menu.text[0][j] = option_0[j];
+        g_run.menu.text[1][j] = g_run.hardware.volts[j];
+        g_run.menu.text[2][j] = g_run.btns.gameSpeedStr[j];
+    }
+    g_run.menu.text[3][0] = '\0';
 
     return true;
 };
@@ -501,7 +531,7 @@ bool Options(InputInterface input, bool update)
 /**********************************************************************************************************************/
 /** Closes the main menu
 **********************************************************************************************************************/
-bool Exit(InputInterface input, bool update)
+bool Exit(InputInterface input, MemoryInterface memory, bool update)
 {
     g_run.menu.displayedMenu = MENU_NONE;
     Back(MAIN_MENU);
@@ -511,17 +541,17 @@ bool Exit(InputInterface input, bool update)
 /**********************************************************************************************************************/
 /** Opens the submenu at the index of the cursor y position
 **********************************************************************************************************************/
-bool OpenSubMenu(InputInterface input)
+bool OpenSubMenu(InputInterface input, MemoryInterface memory)
 {
     DEBUG("opening submenu, %d", g_run.menu.sel[0].y);
-    bool r = submenus[g_run.menu.sel[0].y](input, true); //always use the base index of zero to access the the menu branch
+    bool r = submenus[g_run.menu.sel[0].y](input, memory, true); //always use the base index of zero to access the the menu branch
     return r;
 }
 
 /**********************************************************************************************************************/
 /**
 **********************************************************************************************************************/
-bool MenuBack(void)
+bool MenuBack(MemoryInterface memory)
 {
     //TODO: check if a comfirmation box is open, close it
 
@@ -541,7 +571,7 @@ bool MenuBack(void)
 
     // handle back from using on a party member
     if (g_run.menu.useOnPartyMember)
-        BackUseOnParty();
+        BackUseOnParty(memory);
 
     Back(MAIN_MENU);
 

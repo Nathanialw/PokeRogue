@@ -25,22 +25,25 @@
  *      -> sets camera to player position
 **********************************************************************************************************************/
 
-void InitGame(HardwareInterface hardware)
+// SET_MEMORY(".core")
+SET_MEMORY(".map_gen")
+void InitGame(HardwareInterface hardware, MemoryInterface memory)
 {
     DEBUG("init gmae");
     GameRunInit();
     DEBUG("reset ent");
-    ResetEntities(hardware, false);
+    ResetEntities(hardware, memory, false);
     DEBUG("init map");
     InitMap(hardware);
     DEBUG("init player");
-    InitPlayer(hardware);
+    // InitPlayer(hardware);
     DEBUG("populate level");
-    PopulateLevelItems(hardware);
-    PopulateLevelObjects(hardware);
-    PopulateLevelCreatures(hardware);
-    DEBUG("set camera");
-    SetCameraPlayer();
+    // PopulateLevelItems(hardware);
+    // PopulateLevelObjects(hardware);
+    // PopulateLevelCreatures(hardware);
+
+
+    // DEBUG("set camera");
 }
 
 /**********************************************************************************************************************/

@@ -8,10 +8,13 @@
 
 #include "constants.h"
 
+
 GameRunState g_run = {0};
+
 TitleRunState g_title = {0};
 
 
+SET_MEMORY(".map_gen_entry")
 void GameRunInit()
 {
     g_run.floor = 0;
