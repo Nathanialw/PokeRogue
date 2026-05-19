@@ -3,7 +3,7 @@
 //
 
 
-#include "constants.h"
+#include "../GameCore/common/constants.h"
 #include "core.h"
 #include "memory_ram.h"
 

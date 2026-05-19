@@ -6,7 +6,7 @@
 #include "utils_tests.h"
 
 #include "lib_debugging.h"
-#include "types.h"
+#include "../GameCore/common/types.h"
 
 #define n 10
 

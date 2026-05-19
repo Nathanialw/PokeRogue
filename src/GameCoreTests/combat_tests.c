@@ -4,12 +4,12 @@
 
 #include "effects.h"
 #include "entities.h"
-#include "enums.h"
+#include "../GameCore/common/enums.h"
 #include "combat_tests.h"
 
 #include "lib_debugging.h"
 #include "memory_ram.h"
-#include "memory_rom.h"
+
 
 
 #define MAX_ARRAY_SIZE 4

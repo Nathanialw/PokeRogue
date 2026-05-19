@@ -6,8 +6,8 @@
 
 #include "hash_map.h"
 #include "lib_debugging.h"
-#include "types.h"
-#include "utils.h"
+#include "../GameCore/common/types.h"
+#include "core_utils.h"
 
 void TEST_HashMap()
 {

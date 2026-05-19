@@ -1,0 +1,8 @@
+//
+// Created by nathanial on 5/19/26.
+//
+
+#ifndef PICOROGUE_BATTLE_EFFECTS_SKILLS_H
+#define PICOROGUE_BATTLE_EFFECTS_SKILLS_H
+
+#endif //PICOROGUE_BATTLE_EFFECTS_SKILLS_H
