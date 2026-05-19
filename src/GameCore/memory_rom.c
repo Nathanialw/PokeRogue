@@ -16,6 +16,7 @@
 #include "inc/decl_animation_spells_struck.inc"
 #include "lib_memory.h"
 
+
 #ifdef STANDALONE
 const GameFlash g_gameFlash =
 {

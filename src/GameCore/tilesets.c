@@ -67,7 +67,8 @@ void CharFromGlyph1bpp(MemoryInterface memory, Glyph buffer, uint16_t* character
 
             for (int x = 0; x < 8; x++)
             {
-                character[y * 8 + x] = (row & (1 << (7 - x))) ? fg : bg;
+                character[y * 8 + x] = (row & (1 << x)) ? fg : bg;
+                // character[y * 8 + x] = (row & (1 << (7 - x))) ? fg : bg;
             }
         }
     }
@@ -79,11 +80,14 @@ void CharFromGlyph1bpp(MemoryInterface memory, Glyph buffer, uint16_t* character
         for (int y = 0; y < 16; y++)
         {
             uint16_t row = buffer.glyph[y];
+            row = (row >> 8) | (row << 8);
 
             for (int x = 0; x < 16; x++)
             {
-                uint16_t bit = 0x8000 >> x;
+                uint16_t bit = 1 << x;
                 character[y * 16 + x] = (row & bit) ? fg : bg;
+                // uint16_t bit = 0x8000 >> x;
+                // character[y * 16 + x] = (row & bit) ? fg : bg;
             }
         }
     }
@@ -92,6 +96,7 @@ void CharFromGlyph1bpp(MemoryInterface memory, Glyph buffer, uint16_t* character
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
+SET_MEMORY(".core")
 void Expand4bppPackedToRGB(const uint16_t* src, const uint16_t* pal, uint16_t* dest)
 {
     int dest_idx = 0;
@@ -118,6 +123,7 @@ void Expand4bppPackedToRGB(const uint16_t* src, const uint16_t* pal, uint16_t* d
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
+SET_MEMORY(".core")
 uint8_t Expand4bppPackedToByte(const uint8_t* src, const uint16_t* pal, uint16_t* dest)
 {
     uint16_t dest_idx = 0;

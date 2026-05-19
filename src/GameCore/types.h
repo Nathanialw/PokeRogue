@@ -26,7 +26,7 @@ typedef uint16_t MapSprite[TILE_W * TILE_H];
 
 typedef union
 {
-    uint16_t glyph [16];
+    uint16_t glyph[16];
     uint8_t bytes[32];
 } Glyph;
 
@@ -466,12 +466,16 @@ _Static_assert(sizeof(MonsterType) == 1, "MonsterType must be 1 byte");
 /** index into the font array to retrieve the glyph data
  *  color value of the glyph
 **********************************************************************************************************************/
-typedef struct
+typedef union
 {
-    uint8_t glyph_index;
-    uint8_t fg : 6;
-    //TODO: bits unused - possibly palette data
-    uint8_t _pad : 2; //future use
+    struct
+    {
+        uint8_t glyph_index;
+        uint8_t fg : 6;
+        //TODO: bits unused - possibly palette data
+        uint8_t _pad : 2; //future use
+    };
+    uint8_t bytes[2];
 } Sprite;
 
 _Static_assert(sizeof(Sprite) == 2, "Sprite must be 2 bytes");

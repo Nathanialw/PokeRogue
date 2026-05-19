@@ -978,6 +978,15 @@ EntityData FillObjectData(MemoryInterface memory, EntityData* entityData)
     }
 }
 
+
+
+SET_MEMORY(".map.rodata")
+const char power[] = "Powr:\0";
+
+SET_MEMORY(".map.rodata")
+const char rarity[] = "Rare:\0";
+
+
 /**********************************************************************************************************************/
 /**  Draws the "pokedex" style encyclopedia frame
 **********************************************************************************************************************/
@@ -987,7 +996,6 @@ void HandleGameMenu(GraphicsInterface graphics, HardwareInterface hardware, Memo
     if (!g_core.menu.gameMenu.open && (g_core.menu.gameMenu.displayId == g_core.menu.gameMenu.id)) return;
     g_core.menu.gameMenu.displayId = g_core.menu.gameMenu.id;
 
-    DEBUG("==== DRAWING GAME MENU ====   \n");
     const uint16_t x = 0;
     uint8_t y = 0;
     const FontSize font_size = g_core.settings.fontSize;
@@ -999,8 +1007,8 @@ void HandleGameMenu(GraphicsInterface graphics, HardwareInterface hardware, Memo
     HandleGameMenuBorders(graphics, hardware, memory);
     DrawBattler(graphics, memory, x, y + (size), entityData.layout, g_core.menu.sel[0].y - 1, true);
     HandleGameMenuLeftName(graphics, memory, x, y + (size * 16), entityData.name);
-    HandleGameMenuLeftStat(graphics, memory, x, x + (size * 6), y + (size * 18), size, "Powr:\0");
-    HandleGameMenuLeftStat(graphics, memory, x, x + (size * 6), y + (size * 20) - 4, size, "Rare:\0");
+    HandleGameMenuLeftStat(graphics, memory, x, x + (size * 6), y + (size * 18), size, power);
+    HandleGameMenuLeftStat(graphics, memory, x, x + (size * 6), y + (size * 20) - 4, size, rarity);
     HandleGameMenuTypes(graphics, memory, entityData.typeA, entityData.typeB);
     HandleGameMenuDescription(graphics, hardware, memory, (size * 21), entityData.desc);
 }

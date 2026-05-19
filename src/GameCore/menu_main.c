@@ -90,9 +90,7 @@ bool MonsterData(HardwareInterface hardware, InputInterface input, MemoryInterfa
         if (ListJump(hardware, input, memory)) return true;
 
         EntityId creature_id = g_core.menu.sel[g_core.menu.depth].y + g_core.menu.menuScrollOffset[g_core.menu.depth].y;
-        //open creature info panel
         g_core.menu.gameMenu.id = creature_id;
-        // }
         return true;
     }
 

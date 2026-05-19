@@ -261,7 +261,6 @@ void Flash_GetBiomeTile(MemoryInterface memory, Tile* tile, uint8_t biomeType, u
 /**********************************************************************************************************************/
 /*      SPRITES
 **********************************************************************************************************************/
-//TODO:
 SET_MEMORY(".map")
 void Flash_GetSpriteMetadata(MemoryInterface memory, Sprite* sprite, ObjectsTypes type, uint8_t index)
 {
@@ -279,8 +278,19 @@ void Flash_GetSpriteMetadata(MemoryInterface memory, Sprite* sprite, ObjectsType
         return g_gameFlash.sprites.objects[type];
     }
 #else
-    sprite->glyph_index = 33;
-    sprite->fg = 10;
+
+    if (type == ITEM)
+        memory.GetRom(CHAR_SPRITES_ITEMS_POSITION, sprite->bytes, sizeof(Sprite));
+    else if (type == CREATURE)
+        memory.GetRom(CHAR_SPRITES_MONSTERS_POSITION, sprite->bytes, sizeof(Sprite));
+    else if (type == OBJECT)
+        memory.GetRom(CHAR_SPRITES_OBJECTS_POSITION, sprite->bytes, sizeof(Sprite));
+
+#if defined(MEMORY_PRINT)
+    for (uint8_t i = 0; i < sizeof(Sprite); i++)
+        memory.Print(str_spawn_creature_type, sprite.bytes[i]);
+    memory.Print(new_line);
+#endif
 #endif
 }
 
@@ -594,7 +604,7 @@ void Flash_GetSpellbookText(MemoryInterface memory, char* textBuffer, uint8_t in
 #endif
 }
 
-SET_MEMORY(".core")
+SET_MEMORY(".map")
 void Flash_GetCreatureDescription(MemoryInterface memory, char* text, uint8_t index)
 {
 #ifdef STANDALONE
@@ -628,7 +638,7 @@ void Flash_GetCreatureName(MemoryInterface memory, char* text, uint8_t index)
 }
 
 
-SET_MEMORY(".core")
+SET_MEMORY(".map")
 void Flash_GetObjectDescription(MemoryInterface memory, char* text, uint8_t index)
 {
 #ifdef STANDALONE
@@ -661,7 +671,7 @@ void Flash_GetObjectName(MemoryInterface memory, char* text, uint8_t index)
 }
 
 
-SET_MEMORY(".core")
+SET_MEMORY(".map")
 void Flash_GetItemDescription(MemoryInterface memory, char* text, uint8_t index)
 {
 #ifdef STANDALONE
@@ -694,7 +704,7 @@ void Flash_GetItemName(MemoryInterface memory, char* text, uint8_t index)
 }
 
 
-SET_MEMORY(".core")
+SET_MEMORY(".map")
 void Flash_GetSpellDescription(MemoryInterface memory, char* text, uint8_t index)
 {
 #ifdef STANDALONE
@@ -726,7 +736,7 @@ void Flash_GetSpellName(MemoryInterface memory, char* text, uint8_t index)
 #endif
 }
 
-SET_MEMORY(".core")
+SET_MEMORY(".map")
 void Flash_GetSkillDescription(MemoryInterface memory, char* text, uint8_t index)
 {
 #ifdef STANDALONE

@@ -203,6 +203,7 @@ bool SetMenuDelta(HardwareInterface hardware, InputInterface input, MemoryInterf
 /**********************************************************************************************************************/
 /*  Returns the cursor X position
 **********************************************************************************************************************/
+SET_MEMORY(".core")
 uint8_t GetSelectorX(void)
 {
     return g_core.menu.sel[g_core.menu.depth].x;

@@ -231,7 +231,7 @@ void Pico_ili9341_Init(void)
         (0 << 7) | //  Row order
         (1 << 6) | // Column order
         (0 << 5) | // Row/column exchange (set landscape)
-        (0 << 4) | //  vertical refresh order
+        (1 << 4) | //  vertical refresh order
         (1 << 3) | // BGR: BGR order
         (0 << 2); // horizontal refresh order
 
