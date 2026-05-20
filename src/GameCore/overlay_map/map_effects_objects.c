@@ -9,14 +9,14 @@
 #include "map_effects.h"
 
 
-/**********************************************************************************************************************/
-/*
+/**********************************************************************************************************************
+*
  *  OBJECT INTERACT EFFECTS
  *
 **********************************************************************************************************************/
 
-/**********************************************************************************************************************/
-/*  TODO run the effect stored as the index in the metadata field
+/**********************************************************************************************************************
+*  TODO run the effect stored as the index in the metadata field
 **********************************************************************************************************************/
 bool InteractAltar(HardwareInterface hardware, EntityId item_id, EntityId e_id, ObjectData itemData)
 {
@@ -24,8 +24,8 @@ bool InteractAltar(HardwareInterface hardware, EntityId item_id, EntityId e_id, 
     return false;
 }
 
-/**********************************************************************************************************************/
-/*  TODO keeps the player on the boat when moved on water
+/**********************************************************************************************************************
+*  TODO keeps the player on the boat when moved on water
  *  TODO chance of random movement
 **********************************************************************************************************************/
 bool InteractRaft(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
@@ -34,8 +34,8 @@ bool InteractRaft(HardwareInterface hardware, MemoryInterface memory,EntityId ob
     return false;
 }
 
-/**********************************************************************************************************************/
-/*  TODO keeps the player on the boat when moved on water
+/**********************************************************************************************************************
+*  TODO keeps the player on the boat when moved on water
 **********************************************************************************************************************/
 bool InteractRowBoat(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
 {
@@ -43,8 +43,8 @@ bool InteractRowBoat(HardwareInterface hardware, MemoryInterface memory,EntityId
     return false;
 }
 
-/**********************************************************************************************************************/
-/*  TODO chance of breaking when walked on
+/**********************************************************************************************************************
+*  TODO chance of breaking when walked on
 **********************************************************************************************************************/
 bool InteractRopeBridge(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
 {
@@ -53,8 +53,8 @@ bool InteractRopeBridge(HardwareInterface hardware, MemoryInterface memory,Entit
     return false;
 }
 
-/**********************************************************************************************************************/
-/*  TODO chance of spawning a troll
+/**********************************************************************************************************************
+*  TODO chance of spawning a troll
 **********************************************************************************************************************/
 bool InteractStoneBridge(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
 {
@@ -63,8 +63,8 @@ bool InteractStoneBridge(HardwareInterface hardware, MemoryInterface memory,Enti
     return false;
 }
 
-/**********************************************************************************************************************/
-/*
+/**********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool InteractWoodenBridge(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
 {
@@ -73,8 +73,8 @@ bool InteractWoodenBridge(HardwareInterface hardware, MemoryInterface memory,Ent
     return false;
 }
 
-/**********************************************************************************************************************/
-/*  TODO generates a spellbook or skillbook item
+/**********************************************************************************************************************
+*  TODO generates a spellbook or skillbook item
 **********************************************************************************************************************/
 bool InteractBookCase(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
 {
@@ -82,8 +82,8 @@ bool InteractBookCase(HardwareInterface hardware, MemoryInterface memory,EntityI
     return false;
 }
 
-/**********************************************************************************************************************/
-/*  TODO generates a ring or amulet item
+/**********************************************************************************************************************
+*  TODO generates a ring or amulet item
 **********************************************************************************************************************/
 bool InteractJewelleryCase(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
 {
@@ -91,8 +91,8 @@ bool InteractJewelleryCase(HardwareInterface hardware, MemoryInterface memory,En
     return false;
 }
 
-/**********************************************************************************************************************/
-/*  TODO generates a random scroll
+/**********************************************************************************************************************
+*  TODO generates a random scroll
 **********************************************************************************************************************/
 bool InteractScrollCase(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
 {
@@ -100,8 +100,8 @@ bool InteractScrollCase(HardwareInterface hardware, MemoryInterface memory,Entit
     return false;
 }
 
-/**********************************************************************************************************************/
-/*
+/**********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool InteractCauldren(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
 {
@@ -109,9 +109,9 @@ bool InteractCauldren(HardwareInterface hardware, MemoryInterface memory,EntityI
     return false;
 }
 
-/**********************************************************************************************************************/
-/*  TODO chance to do damage
-/*  TODO chance to melt items in bag
+/**********************************************************************************************************************
+*  TODO chance to do damage
+*  TODO chance to melt items in bag
 **********************************************************************************************************************/
 bool InteractAcidCloud(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
 {
@@ -119,8 +119,8 @@ bool InteractAcidCloud(HardwareInterface hardware, MemoryInterface memory,Entity
     return false;
 }
 
-/**********************************************************************************************************************/
-/*  TODO chance to apply poison
+/**********************************************************************************************************************
+*  TODO chance to apply poison
 **********************************************************************************************************************/
 bool InteractPoisonGas(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
 {
@@ -128,8 +128,8 @@ bool InteractPoisonGas(HardwareInterface hardware, MemoryInterface memory,Entity
     return false;
 }
 
-/**********************************************************************************************************************/
-/*  TODO chance to do damage
+/**********************************************************************************************************************
+*  TODO chance to do damage
 **********************************************************************************************************************/
 bool InteractSmokeCloud(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
 {
@@ -137,9 +137,9 @@ bool InteractSmokeCloud(HardwareInterface hardware, MemoryInterface memory,Entit
     return false;
 }
 
-/**********************************************************************************************************************/
-/*  TODO chance to spawn an undead
-/*  TODO chance to generate an item
+/**********************************************************************************************************************
+*  TODO chance to spawn an undead
+*  TODO chance to generate an item
 **********************************************************************************************************************/
 bool InteractCoffin(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
 {
@@ -147,9 +147,9 @@ bool InteractCoffin(HardwareInterface hardware, MemoryInterface memory,EntityId 
     return false;
 }
 
-/**********************************************************************************************************************/
-/*  TODO chance to spawn an undead
-/*  TODO chance to generate an item
+/**********************************************************************************************************************
+*  TODO chance to spawn an undead
+*  TODO chance to generate an item
 **********************************************************************************************************************/
 bool InteractSarcophagus(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
 {
@@ -157,8 +157,8 @@ bool InteractSarcophagus(HardwareInterface hardware, MemoryInterface memory,Enti
     return false;
 }
 
-/**********************************************************************************************************************/
-/*
+/**********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool InteractHangingCorpse(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
 {
@@ -166,8 +166,8 @@ bool InteractHangingCorpse(HardwareInterface hardware, MemoryInterface memory,En
     return false;
 }
 
-/**********************************************************************************************************************/
-/*
+/**********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool InteractLaidCorpse(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
 {
@@ -175,10 +175,10 @@ bool InteractLaidCorpse(HardwareInterface hardware, MemoryInterface memory,Entit
     return false;
 }
 
-/**********************************************************************************************************************/
-/*  TODO has collision
-/*  TODO chance to break when the player moves onto
-/*  TODO chance to to damage when the player moves onto
+/**********************************************************************************************************************
+*  TODO has collision
+*  TODO chance to break when the player moves onto
+*  TODO chance to to damage when the player moves onto
 **********************************************************************************************************************/
 bool InteractBarredDoor(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
 {
@@ -186,10 +186,10 @@ bool InteractBarredDoor(HardwareInterface hardware, MemoryInterface memory,Entit
     return false;
 }
 
-/**********************************************************************************************************************/
-/*  TODO has collision
-/*  TODO chance to break when the player moves onto
-/*  TODO chance to to damage when the player moves onto
+/**********************************************************************************************************************
+*  TODO has collision
+*  TODO chance to break when the player moves onto
+*  TODO chance to to damage when the player moves onto
 **********************************************************************************************************************/
 bool InteractIronDoor(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
 {
@@ -197,10 +197,10 @@ bool InteractIronDoor(HardwareInterface hardware, MemoryInterface memory,EntityI
     return false;
 }
 
-/**********************************************************************************************************************/
-/*  TODO has collision
-/*  TODO chance to break when the player moves onto
-/*  TODO chance to to damage when the player moves onto
+/**********************************************************************************************************************
+*  TODO has collision
+*  TODO chance to break when the player moves onto
+*  TODO chance to to damage when the player moves onto
 **********************************************************************************************************************/
 bool InteractStoneDoor(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
 {
@@ -208,10 +208,10 @@ bool InteractStoneDoor(HardwareInterface hardware, MemoryInterface memory,Entity
     return false;
 }
 
-/**********************************************************************************************************************/
-/*  TODO has collision
-/*  TODO chance to break when the player moves onto
-/*  TODO chance to to damage when the player moves onto
+/**********************************************************************************************************************
+*  TODO has collision
+*  TODO chance to break when the player moves onto
+*  TODO chance to to damage when the player moves onto
 **********************************************************************************************************************/
 bool InteractWickerDoor(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
 {
@@ -219,10 +219,10 @@ bool InteractWickerDoor(HardwareInterface hardware, MemoryInterface memory,Entit
     return false;
 }
 
-/**********************************************************************************************************************/
-/*  TODO has collision
-/*  TODO chance to break when the player moves onto
-/*  TODO chance to to damage when the player moves onto
+/**********************************************************************************************************************
+*  TODO has collision
+*  TODO chance to break when the player moves onto
+*  TODO chance to to damage when the player moves onto
 **********************************************************************************************************************/
 bool InteractWoodDoor(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
 {
@@ -230,8 +230,8 @@ bool InteractWoodDoor(HardwareInterface hardware, MemoryInterface memory,EntityI
     return false;
 }
 
-/**********************************************************************************************************************/
-/*  TODO add a success chance
+/**********************************************************************************************************************
+*  TODO add a success chance
 **********************************************************************************************************************/
 bool InteractLadder(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
 {
@@ -240,8 +240,8 @@ bool InteractLadder(HardwareInterface hardware, MemoryInterface memory,EntityId 
     return false;
 }
 
-/**********************************************************************************************************************/
-/*
+/**********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool InteractStairs(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
 {
@@ -250,8 +250,8 @@ bool InteractStairs(HardwareInterface hardware, MemoryInterface memory,EntityId 
     return true;
 }
 
-/**********************************************************************************************************************/
-/*
+/**********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool InteractCave(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
 {
@@ -260,8 +260,8 @@ bool InteractCave(HardwareInterface hardware, MemoryInterface memory,EntityId ob
     return true;
 }
 
-/**********************************************************************************************************************/
-/*  TODO add light radius
+/**********************************************************************************************************************
+*  TODO add light radius
 **********************************************************************************************************************/
 bool InteractBonfire(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
 {
@@ -269,8 +269,8 @@ bool InteractBonfire(HardwareInterface hardware, MemoryInterface memory,EntityId
     return false;
 }
 
-/**********************************************************************************************************************/
-/*  TODO add light radius
+/**********************************************************************************************************************
+*  TODO add light radius
 **********************************************************************************************************************/
 bool InteractBrazier(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
 {
@@ -278,8 +278,8 @@ bool InteractBrazier(HardwareInterface hardware, MemoryInterface memory,EntityId
     return false;
 }
 
-/**********************************************************************************************************************/
-/*  TODO add light radius
+/**********************************************************************************************************************
+*  TODO add light radius
 **********************************************************************************************************************/
 bool InteractCampfire(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
 {
@@ -287,8 +287,8 @@ bool InteractCampfire(HardwareInterface hardware, MemoryInterface memory,EntityI
     return false;
 }
 
-/**********************************************************************************************************************/
-/*  TODO add light radius
+/**********************************************************************************************************************
+*  TODO add light radius
 **********************************************************************************************************************/
 bool InteractStandingTorch(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
 {
@@ -296,8 +296,8 @@ bool InteractStandingTorch(HardwareInterface hardware, MemoryInterface memory,En
     return false;
 }
 
-/**********************************************************************************************************************/
-/*  TODO add light radius
+/**********************************************************************************************************************
+*  TODO add light radius
 **********************************************************************************************************************/
 bool InteractWallTorch(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
 {
@@ -305,9 +305,9 @@ bool InteractWallTorch(HardwareInterface hardware, MemoryInterface memory,Entity
     return false;
 }
 
-/**********************************************************************************************************************/
-/*  TODO add chacne to descend when walked on
-/*  TODO deals damage
+/**********************************************************************************************************************
+*  TODO add chacne to descend when walked on
+*  TODO deals damage
 **********************************************************************************************************************/
 bool InteractCrumblingFloor(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
 {
@@ -316,9 +316,9 @@ bool InteractCrumblingFloor(HardwareInterface hardware, MemoryInterface memory,E
     return false;
 }
 
-/**********************************************************************************************************************/
-/*  TODO deals damage
-/*  TODO melts items
+/**********************************************************************************************************************
+*  TODO deals damage
+*  TODO melts items
 **********************************************************************************************************************/
 bool InteractAcidFountain(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
 {
@@ -326,8 +326,8 @@ bool InteractAcidFountain(HardwareInterface hardware, MemoryInterface memory,Ent
     return false;
 }
 
-/**********************************************************************************************************************/
-/*  TODO heals demons
+/**********************************************************************************************************************
+*  TODO heals demons
 **********************************************************************************************************************/
 bool InteractBloodFountain(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
 {
@@ -335,8 +335,8 @@ bool InteractBloodFountain(HardwareInterface hardware, MemoryInterface memory,En
     return false;
 }
 
-/**********************************************************************************************************************/
-/*  TODO heals
+/**********************************************************************************************************************
+*  TODO heals
 **********************************************************************************************************************/
 bool InteractWaterFountain(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
 {
@@ -344,9 +344,9 @@ bool InteractWaterFountain(HardwareInterface hardware, MemoryInterface memory,En
     return false;
 }
 
-/**********************************************************************************************************************/
-/*  TODO no sprite
-/*  TODO spawns an item
+/**********************************************************************************************************************
+*  TODO no sprite
+*  TODO spawns an item
 **********************************************************************************************************************/
 bool InteractHiddenCompartment(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
 {
@@ -354,8 +354,8 @@ bool InteractHiddenCompartment(HardwareInterface hardware, MemoryInterface memor
     return false;
 }
 
-/**********************************************************************************************************************/
-/*
+/**********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool InteractAcidPit(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
 {
@@ -363,8 +363,8 @@ bool InteractAcidPit(HardwareInterface hardware, MemoryInterface memory,EntityId
     return false;
 }
 
-/**********************************************************************************************************************/
-/*
+/**********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool InteractLavaPit(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
 {
@@ -372,8 +372,8 @@ bool InteractLavaPit(HardwareInterface hardware, MemoryInterface memory,EntityId
     return false;
 }
 
-/**********************************************************************************************************************/
-/*
+/**********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool InteractNarowPit(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
 {
@@ -381,8 +381,8 @@ bool InteractNarowPit(HardwareInterface hardware, MemoryInterface memory,EntityI
     return false;
 }
 
-/**********************************************************************************************************************/
-/*
+/**********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool InteractShallowPit(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
 {
@@ -390,8 +390,8 @@ bool InteractShallowPit(HardwareInterface hardware, MemoryInterface memory,Entit
     return false;
 }
 
-/**********************************************************************************************************************/
-/*
+/**********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool InteractSnakesPit(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
 {
@@ -399,8 +399,8 @@ bool InteractSnakesPit(HardwareInterface hardware, MemoryInterface memory,Entity
     return false;
 }
 
-/**********************************************************************************************************************/
-/*
+/**********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool InteractSpkiedPit(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
 {
@@ -408,8 +408,8 @@ bool InteractSpkiedPit(HardwareInterface hardware, MemoryInterface memory,Entity
     return false;
 }
 
-/**********************************************************************************************************************/
-/*
+/**********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool InteractPitStandard(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
 {
@@ -417,8 +417,8 @@ bool InteractPitStandard(HardwareInterface hardware, MemoryInterface memory,Enti
     return false;
 }
 
-/**********************************************************************************************************************/
-/*
+/**********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool InteractWaterPit(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
 {
@@ -426,8 +426,8 @@ bool InteractWaterPit(HardwareInterface hardware, MemoryInterface memory,EntityI
     return false;
 }
 
-/**********************************************************************************************************************/
-/*
+/**********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool InteractWidePit(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
 {
@@ -435,8 +435,8 @@ bool InteractWidePit(HardwareInterface hardware, MemoryInterface memory,EntityId
     return false;
 }
 
-/**********************************************************************************************************************/
-/*  TODO spawns an item
+/**********************************************************************************************************************
+*  TODO spawns an item
 **********************************************************************************************************************/
 bool InteractArmorRack(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
 {
@@ -444,8 +444,8 @@ bool InteractArmorRack(HardwareInterface hardware, MemoryInterface memory,Entity
     return false;
 }
 
-/**********************************************************************************************************************/
-/*  TODO spawns an item
+/**********************************************************************************************************************
+*  TODO spawns an item
 **********************************************************************************************************************/
 bool InteractWeaponRack(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
 {
@@ -453,8 +453,8 @@ bool InteractWeaponRack(HardwareInterface hardware, MemoryInterface memory,Entit
     return false;
 }
 
-/**********************************************************************************************************************/
-/*  TODO spawns an item
+/**********************************************************************************************************************
+*  TODO spawns an item
 **********************************************************************************************************************/
 bool InteractBarrel(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
 {
@@ -462,8 +462,8 @@ bool InteractBarrel(HardwareInterface hardware, MemoryInterface memory,EntityId 
     return false;
 }
 
-/**********************************************************************************************************************/
-/*  TODO spawns an item
+/**********************************************************************************************************************
+*  TODO spawns an item
 **********************************************************************************************************************/
 bool InteractBasket(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
 {
@@ -471,8 +471,8 @@ bool InteractBasket(HardwareInterface hardware, MemoryInterface memory,EntityId 
     return false;
 }
 
-/**********************************************************************************************************************/
-/*  TODO spawns an item
+/**********************************************************************************************************************
+*  TODO spawns an item
 **********************************************************************************************************************/
 bool InteractChest(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
 {
@@ -480,8 +480,8 @@ bool InteractChest(HardwareInterface hardware, MemoryInterface memory,EntityId o
     return false;
 }
 
-/**********************************************************************************************************************/
-/*  TODO spawns an item
+/**********************************************************************************************************************
+*  TODO spawns an item
 **********************************************************************************************************************/
 bool InteractCoffer(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
 {
@@ -489,8 +489,8 @@ bool InteractCoffer(HardwareInterface hardware, MemoryInterface memory,EntityId 
     return false;
 }
 
-/**********************************************************************************************************************/
-/*  TODO spawns an item
+/**********************************************************************************************************************
+*  TODO spawns an item
 **********************************************************************************************************************/
 bool InteractCrate(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
 {
@@ -498,8 +498,8 @@ bool InteractCrate(HardwareInterface hardware, MemoryInterface memory,EntityId o
     return false;
 }
 
-/**********************************************************************************************************************/
-/*  TODO spawns an item
+/**********************************************************************************************************************
+*  TODO spawns an item
 **********************************************************************************************************************/
 bool InteractTrunk(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
 {
@@ -507,8 +507,8 @@ bool InteractTrunk(HardwareInterface hardware, MemoryInterface memory,EntityId o
     return false;
 }
 
-/**********************************************************************************************************************/
-/*  TODO spawns an item
+/**********************************************************************************************************************
+*  TODO spawns an item
 **********************************************************************************************************************/
 bool InteractUrn(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
 {
@@ -516,8 +516,8 @@ bool InteractUrn(HardwareInterface hardware, MemoryInterface memory,EntityId obj
     return false;
 }
 
-/**********************************************************************************************************************/
-/*  TODO spawns an item
+/**********************************************************************************************************************
+*  TODO spawns an item
 **********************************************************************************************************************/
 bool InteractVault(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
 {
@@ -525,9 +525,9 @@ bool InteractVault(HardwareInterface hardware, MemoryInterface memory,EntityId o
     return false;
 }
 
-/**********************************************************************************************************************/
-/*  TODO collision for random creatures
-/*  TODO no collision for trainers
+/**********************************************************************************************************************
+*  TODO collision for random creatures
+*  TODO no collision for trainers
 **********************************************************************************************************************/
 bool InteractWard(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
 {
@@ -535,8 +535,8 @@ bool InteractWard(HardwareInterface hardware, MemoryInterface memory,EntityId ob
     return false;
 }
 
-/**********************************************************************************************************************/
-/*
+/**********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool InteractWell(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
 {

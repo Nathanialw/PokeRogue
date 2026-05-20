@@ -12,6 +12,9 @@
 #include "battle_ram.h"
 
 
+const char text99[] = "0%2x ";
+const char new_line1[] = "\n";
+
 
 //TODO:
 SET_MEMORY(".battle")
@@ -68,8 +71,8 @@ void Flash_BattlerAttackAnimation(MemoryInterface memory, EntityId id, ObjectsTy
 
 #if defined(MEMORY_PRINT)
     for (uint8_t i = 0; i < sizeof(ObjectsTypes); i++)
-        memory.Print(str_spawn_creature_type);
-    memory.Print(new_line);
+        memory.Print(text99);
+    memory.Print(new_line1);
 #endif
 #endif
 }
@@ -95,8 +98,8 @@ void Flash_BattlerStruckAnimation(MemoryInterface memory, EntityId id, ObjectsTy
 
 #if defined(MEMORY_PRINT)
     for (uint8_t i = 0; i < sizeof(ObjectsTypes); i++)
-        memory.Print(str_spawn_creature_type);
-    memory.Print(new_line);
+        memory.Print(text99);
+    memory.Print(new_line1);
 #endif
 #endif
 }
@@ -131,8 +134,8 @@ void Flash_GetBattleMenuList(MemoryInterface memory, uint8_t* text, uint8_t idx)
 
 #if defined(MEMORY_PRINT)
     for (uint8_t i = 0; i < SMALL_STRINGS; i++)
-        memory.Print(str_spawn_creature_type, text[i]);
-    memory.Print(new_line);
+        memory.Print(text99, text[i]);
+    memory.Print(new_line1);
 #endif
 #endif
 }

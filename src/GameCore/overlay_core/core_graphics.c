@@ -132,7 +132,7 @@ void DrawCursor(GraphicsInterface graphics, MemoryInterface memory)
 
 
 SET_MEMORY(".core.data")
-static const char gg[] = "%d\n";
+static const char gg[] = "%lu\n";
 SET_MEMORY(".core.data")
 static const char gag[] = "%s";
 SET_MEMORY(".core.data")
@@ -149,7 +149,7 @@ static const char hf[] = "----------------\n";
  *      Draws the buffer to the screen
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-FrameBuffer DrawBattlerToBuffer(GraphicsInterface graphics, MemoryInterface memory, uint16_t screen_x, uint16_t screen_y, const SpriteLayout layout, ObjectsTypes type, bool front)
+FrameBuffer DrawBattlerToBuffer(GraphicsInterface graphics, MemoryInterface memory, uint16_t screen_x, uint16_t screen_y, const SpriteLayout* layout, ObjectsTypes type, bool front)
 {
     uint32_t byte_offset = 0; // starts at beginning of this sprite's data
     uint8_t tile_counter = 0;
@@ -159,7 +159,7 @@ FrameBuffer DrawBattlerToBuffer(GraphicsInterface graphics, MemoryInterface memo
 
     memory.Print(gg, type);
     memory.Print(gg, front);
-    memory.Print(gg, layout.idx);
+    memory.Print(gg, layout->idx);
     memory.Print(hf);
 
 
@@ -177,7 +177,7 @@ FrameBuffer DrawBattlerToBuffer(GraphicsInterface graphics, MemoryInterface memo
         uint8_t mask_byte = tile_idx / 8;
         uint8_t mask_bit = tile_idx % 8;
         // Check if this tile position is suppposed to be drawn
-        if ((layout.emptyIndexes[mask_byte] & (1u << mask_bit)) == 0)
+        if ((layout->emptyIndexes[mask_byte] & (1u << mask_bit)) == 0)
         {
             tile_counter++;
             continue;
@@ -189,8 +189,8 @@ FrameBuffer DrawBattlerToBuffer(GraphicsInterface graphics, MemoryInterface memo
         int draw_y = row * TILE_H;
 
 
-        memory.Print(gg, layout.idx);
-        const uint32_t index = layout.idx + byte_offset;
+        memory.Print(gg, layout->idx);
+        const uint32_t index = layout->idx + byte_offset;
         memory.Print(hf);
 
         Flash_GetSprite(memory, g_map.spriteCache, index, 256, type, front);
@@ -200,7 +200,7 @@ FrameBuffer DrawBattlerToBuffer(GraphicsInterface graphics, MemoryInterface memo
         memory.Print(hf);
 
         // Decompress and get how many compressed bytes were used
-        byte_offset += Expand4bppPackedToByte(memory, g_map.spriteCache, layout.palette, g_map.tile.pixels);
+        byte_offset += Expand4bppPackedToByte(memory, g_map.spriteCache, layout->palette, g_map.tile.pixels);
 
         Rect_16 r = {draw_x, draw_y, TILE_W, TILE_H};
         graphics.DrawToBuffer(f, g_map.tile.pixels, r);
@@ -217,7 +217,7 @@ FrameBuffer DrawBattlerToBuffer(GraphicsInterface graphics, MemoryInterface memo
  *      Draws the buffer to the screen
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-void DrawBattler(GraphicsInterface graphics, MemoryInterface memory, uint16_t screen_x, uint16_t screen_y, const SpriteLayout layout, ObjectsTypes type, bool front)
+void DrawBattler(GraphicsInterface graphics, MemoryInterface memory, uint16_t screen_x, uint16_t screen_y, const SpriteLayout* layout, ObjectsTypes type, bool front)
 {
     FrameBuffer f = DrawBattlerToBuffer(graphics, memory, screen_x, screen_y, layout, type, front);
     graphics.DrawBuffer(f);

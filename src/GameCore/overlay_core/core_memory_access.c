@@ -61,9 +61,8 @@ void Flash_GetType(MemoryInterface memory, MonsterType* monsterType, uint8_t ind
     memory.GetRom(GAME_DATA_CREATURE_TYPES_POSITION + (index * sizeof(MonsterType)), monsterType->bytes, sizeof(MonsterType));
 #if defined(MEMORY_PRINT)
     for (uint8_t i = 0; i < 1; i++)
-        memory.Print(str_spawn_creature_type, mt.typeA);
+        memory.Print(str_spawn_creature_type, monsterType->typeA);
     memory.Print(new_line);
-    return mt;
 #endif
 #endif
 }
@@ -79,9 +78,8 @@ void Flash_GetTypeEffects(MemoryInterface memory, uint8_t* type, uint8_t index)
     memory.GetRom(GAME_DATA_TYPE_EFFECTS_POSITION + index, type, 1);
 #if defined(MEMORY_PRINT)
     for (uint8_t i = 0; i < 1; i++)
-        memory.Print(str_spawn_creature_type, bytes[0]);
+        memory.Print(str_spawn_creature_type, type[0]);
     memory.Print(new_line);
-    return bytes[0];
 #endif
 #endif
 }
@@ -96,9 +94,8 @@ void Flash_GetSkillData(MemoryInterface memory, SkillData* skillData, uint8_t in
     memory.GetRom(GAME_DATA_ABILITY_POSITION + (index * sizeof(SkillData)), skillData->bytes, sizeof(SkillData));
 #if defined(MEMORY_PRINT)
     for (uint8_t i = 0; i < sizeof(SkillData); i++)
-        memory.Print(str_spawn_creature_type, skillData.bytes[i]);
+        memory.Print(str_spawn_creature_type, skillData->bytes[i]);
     memory.Print(new_line);
-    return skillData;
 #endif
 #endif
 }
@@ -113,11 +110,9 @@ void Flash_GetSpellData(MemoryInterface memory, SpellData* spellData, uint8_t in
     memory.GetRom(GAME_DATA_SPELL_POSITION + (index * sizeof(SpellData)), spellData->bytes, sizeof(SpellData));
 
 #if defined(MEMORY_PRINT)
-    memory.GetRom(GAME_DATA_SPELL_POSITION + index, spell_data.bytes, sizeof(SpellData));
     for (uint8_t i = 0; i < sizeof(SpellData); i++)
-        memory.Print(str_spawn_creature_type, spell_data.bytes[i]);
+        memory.Print(str_spawn_creature_type, spellData->bytes[i]);
     memory.Print(new_line);
-    return spell_data;
 #endif
 #endif
 }
@@ -131,18 +126,16 @@ void Flash_GetItemData(MemoryInterface memory, ItemData* itemData, uint8_t index
 #else
     memory.GetRom(GAME_DATA_ITEM_POSITION + (index * sizeof(ItemData)), itemData->bytes, sizeof(ItemData));
 #if defined(MEMORY_PRINT)
-    memory.GetRom(GAME_DATA_ITEM_POSITION + index, item_data.bytes, sizeof(ItemData));
     for (uint8_t i = 0; i < sizeof(ItemData); i++)
-        memory.Print(str_spawn_creature_type, item_data.bytes[i]);
+        memory.Print(str_spawn_creature_type, itemData->bytes[i]);
     memory.Print(new_line);
-    return item_data;
 #endif
 #endif
 }
 
 
 SET_MEMORY(".core.data")
-static const char aasc[] = "index: %d\n";
+static const char aasc[] = "index: %lu\n";
 
 
 /**********************************************************************************************************************/
@@ -161,7 +154,7 @@ void Flash_GetSpriteLayout(MemoryInterface memory, SpriteLayout* spriteLayout, u
     else if (type == SKILL)
         return &g_gameFlash.spriteData.skillLayout[index];
 #else
-    const uint8_t position = index * sizeof(SpriteLayout);
+    const uint32_t position = index * sizeof(SpriteLayout);
 
     memory.Print(aasc, type);
     memory.Print(aasc, front);
@@ -185,7 +178,7 @@ void Flash_GetSpriteLayout(MemoryInterface memory, SpriteLayout* spriteLayout, u
 
 #if defined(MEMORY_PRINT)
     for (uint8_t i = 0; i < sizeof(SpriteLayout); i++)
-        memory.Print(str_spawn_creature_type, spriteLayout.bytes[i]);
+        memory.Print(str_spawn_creature_type, spriteLayout->bytes[i]);
     memory.Print(new_line);
 #endif
 #endif

@@ -32,8 +32,8 @@ bool Pico_AnimationBattlerFly(GraphicsInterface graphics, HardwareInterface hard
     return false;
 }
 
-/**********************************************************************************************************************/
-/*
+/**********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillAttackAbyssalGrasp(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {

@@ -84,10 +84,13 @@ void CharFromGlyph1bpp(MemoryInterface memory, Glyph buffer, uint16_t* character
 
             for (int x = 0; x < 16; x++)
             {
+#if defined(SDL)
+                uint16_t bit = 0x8000 >> x;
+                character[y * 16 + x] = (row & bit) ? fg : bg;
+#else
                 uint16_t bit = 1 << x;
                 character[y * 16 + x] = (row & bit) ? fg : bg;
-                // uint16_t bit = 0x8000 >> x;
-                // character[y * 16 + x] = (row & bit) ? fg : bg;
+#endif
             }
         }
     }

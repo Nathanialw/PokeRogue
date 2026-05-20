@@ -162,10 +162,10 @@ void HandleBattle(GraphicsInterface graphics, HardwareInterface hardware, Memory
 
 
     const SpriteLayout pLayout = Flash_GetBattlerLayout(memory, GetCreatureType(g_core.battleMode.enemyMonsterID), false);
-    DrawBattler(graphics, memory, player.x + 24, player.y, pLayout, CREATURE, false);
+    DrawBattler(graphics, memory, player.x + 24, player.y, &pLayout, CREATURE, false);
 
     const SpriteLayout eLayout = Flash_GetBattlerLayout(memory, GetCreatureType(g_core.battleMode.enemyMonsterID), true);
-    DrawBattler(graphics, memory, enemy.x + 24, enemy.y, eLayout, CREATURE, true);
+    DrawBattler(graphics, memory, enemy.x + 24, enemy.y, &eLayout, CREATURE, true);
 
     CreatureStats(graphics, hardware, memory, g_core.battleMode.playerMonsterID, playerHP, size, font_size);
     CreatureStats(graphics, hardware, memory, g_core.battleMode.enemyMonsterID, enemyHP, size, font_size);
@@ -189,7 +189,7 @@ void HandleBattle(GraphicsInterface graphics, HardwareInterface hardware, Memory
     i = 0;
     while (i < BATTLE_MENU_SIZE)
     {
-        Flash_GetBattleMenuList(memory, line, i);
+        Flash_GetBattleMenuList(memory, (uint8_t*)line, i);
         y += PrintLineStr(graphics, memory, x, y, font_size, max_chars, line, indent);
         i++;
     }

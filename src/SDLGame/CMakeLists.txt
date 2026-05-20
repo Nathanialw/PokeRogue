@@ -1,20 +1,17 @@
 add_executable(SDLRogue
         main.c
         memory.c
-        memory.h
         input.c
-        input.h
         hardware.c
-        hardware.h
         graphics.c
-        graphics.h
         audio.c
-        audio.h
         debug.c
-        debug.h
+        ram.c
 )
 
-target_compile_definitions(SDLRogue PRIVATE ENABLE_DEBUG_OUTPUT ENABLE_ASSERTS)
+target_compile_definitions(SDLRogue PRIVATE ENABLE_DEBUG_OUTPUT ENABLE_ASSERTS SDL)
+target_compile_definitions(GameCore PRIVATE ENABLE_DEBUG_OUTPUT ENABLE_ASSERTS SDL)#MEMORY_PRINT
+target_compile_definitions(PicoTypes PRIVATE ENABLE_DEBUG_OUTPUT ENABLE_ASSERTS SDL)
 
 
 target_link_libraries(SDLRogue PRIVATE

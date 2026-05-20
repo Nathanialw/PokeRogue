@@ -59,7 +59,7 @@ SET_MEMORY(".battle")
 void RefreshBattler(GraphicsInterface graphics, MemoryInterface memory, bool onAttacker, Rect_16 r)
 {
     SpriteLayout layout = GetBattlerLayout(memory, onAttacker);
-    DrawBattlerToBuffer(graphics, memory, r.x, r.y, layout, CREATURE, onAttacker);
+    DrawBattlerToBuffer(graphics, memory, r.x, r.y, &layout, CREATURE, onAttacker);
 }
 
 
@@ -67,7 +67,7 @@ SET_MEMORY(".battle")
 void ReDrawBattler(GraphicsInterface graphics, MemoryInterface memory, bool onAttacker, Rect_16 r)
 {
     SpriteLayout layout = GetBattlerLayout(memory, onAttacker);
-    DrawBattler(graphics, memory, r.x, r.y, layout, CREATURE, onAttacker);
+    DrawBattler(graphics, memory, r.x, r.y, &layout, CREATURE, onAttacker);
 }
 
 

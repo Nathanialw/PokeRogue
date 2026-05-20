@@ -91,6 +91,7 @@ void HardwareReset(void)
 **********************************************************************************************************************/
 uint8_t GetRandomUniform(uint8_t min, uint8_t max)
 {
+    if (min > max) return min;
     uint8_t range = max - min + 1;
     uint8_t max_acceptable = (RAND_MAX / range) * range;
 
@@ -109,6 +110,7 @@ uint8_t GetRandomUniform(uint8_t min, uint8_t max)
 **********************************************************************************************************************/
 uint8_t GetRandom_uint8_t(uint8_t min, uint8_t max)
 {
+    if (min > max) return min;
     return min + rand() % ((max - min) + 1);
 }
 

@@ -3,8 +3,8 @@ import os
 import serial
 import time
 
-IMAGE_DATA = "../build-cartridge-data/src/GameCartridge/data/cartridge_data.bin"
-IMAGE_CODE = "../build-cartridge-code/src/GameCartridge/code/cartridge_code.bin"
+IMAGE_DATA = "../bin/cartridge_data.bin"
+IMAGE_CODE = "../bin/cartridge_code.bin"
 PORT = "/dev/ttyACM0"
 BAUD = 2000000
 

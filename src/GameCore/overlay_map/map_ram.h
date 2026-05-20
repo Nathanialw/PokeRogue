@@ -8,10 +8,10 @@
 typedef struct
 {
     char name[SMALL_STRINGS];
-    char* desc;
+    char desc[LARGE_STRINGS];
     SpriteLayout layout;
-    char* typeA;
-    char* typeB;
+    char typeA[SMALL_STRINGS];
+    char typeB[SMALL_STRINGS];
 } EntityData;
 
 

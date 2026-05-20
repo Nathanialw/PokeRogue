@@ -496,6 +496,8 @@ static const char str_map_pop_camera_set[] = "PopulateLevelCreatures DONE";
 SET_MEMORY(".map")
 void PopulateLevelCreatures(HardwareInterface hardware, MemoryInterface memory)
 {
+    DEBUG("0");
+
     uint8_t creature_level = g_core.floor;
     for (uint8_t i = 0; i < NUM_BIOME_CREATURES; ++i)
     {
@@ -506,6 +508,9 @@ void PopulateLevelCreatures(HardwareInterface hardware, MemoryInterface memory)
     }
 
 
+    DEBUG("1");
+
+
     for (uint8_t i = 0; i < NUM_THEME_CREATURES; ++i)
     {
         uint8_t index = hardware.GetRandom_uint8_t(0, THEME_MONSTER_TYPES);
@@ -514,9 +519,12 @@ void PopulateLevelCreatures(HardwareInterface hardware, MemoryInterface memory)
         SpawnEntity(hardware, memory, CREATURE, creature, pos.x, pos.y, creature_level);
     }
 
+    DEBUG("2");
     for (uint8_t i = 0; i < g_core.creatures.total; ++i)
         if (GetBit(g_core.creatures.onMap, i) && GetBit(g_core.creatures.alive, i))
             g_core.creatures.newPosition[i] = g_core.creatures.position[i];
+
+    DEBUG("3");
 }
 
 SET_MEMORY(".map")
@@ -534,7 +542,6 @@ void PopulateLevelItems(HardwareInterface hardware, MemoryInterface memory)
 SET_MEMORY(".map")
 void PopulateLevelObjects(HardwareInterface hardware, MemoryInterface memory)
 {
-    ASSERT(g_run.objects.total == 0, "Objects already populated! %d", g_run.objects.total);
     uint8_t creature_level = 1;
     for (uint8_t i = 0; i < NUM_MAP_OBJECTS; ++i)
     {

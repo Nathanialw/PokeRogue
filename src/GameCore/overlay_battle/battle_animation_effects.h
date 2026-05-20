@@ -15,7 +15,7 @@ Rect_16 GetBattlerRect(bool onAttacker);
 
 /******************************************************************************************************
  *  MOVE BATTLER
-/******************************************************************************************************/
+******************************************************************************************************/
 void MoveRightToCenter(GraphicsInterface graphics, HardwareInterface hardware, Rect_16 r, uint16_t d, uint8_t frameLength);
 void MoveCenterToRight(GraphicsInterface graphics, HardwareInterface hardware, Rect_16 r, uint16_t d, uint8_t frameLength);
 void MoveLeftToCenter(GraphicsInterface graphics, HardwareInterface hardware, Rect_16 r, uint16_t d, uint8_t frameLength);
@@ -24,7 +24,7 @@ void MoveCenterToDown(GraphicsInterface graphics, HardwareInterface hardware, Re
 
 /******************************************************************************************************
  *  BATTLER EFFECTS
-/******************************************************************************************************/
+******************************************************************************************************/
 void MoveCenterToTop(GraphicsInterface graphics, HardwareInterface hardware, Rect_16 r, uint16_t d, uint8_t frameLength);
 void AnimationSpooky(GraphicsInterface graphics, HardwareInterface hardware, Rect_16 r, uint16_t d, uint8_t frameLength);
 void AnimationSpookyMoveLeftToCenter(GraphicsInterface graphics, HardwareInterface hardware, Rect_16 r, uint16_t d, uint8_t frameLength);

@@ -7,3 +7,5 @@
 
 
 GraphicsInterface GraphicsInterfaceInit();
+void SetFrameBufferColor(Color rgb565);
+void TestColors();

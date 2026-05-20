@@ -8,7 +8,8 @@ add_executable(GameCartridgeCode
         main.c
 )
 
-target_compile_definitions(GameCore PRIVATE CARTRIDGE_CODE)
+target_compile_definitions(GameCore PRIVATE CARTRIDGE_DATA CARTRIDGE)
+target_compile_definitions(PicoTypes PRIVATE CARTRIDGE)
 
 
 target_link_options(GameCartridgeCode PRIVATE

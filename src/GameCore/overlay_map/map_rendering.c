@@ -10,6 +10,7 @@
 #include "core_map.h"
 #include "core_ram.h"
 #include "core_utils.h"
+#include "lib_debugging.h"
 
 #include "map_camera.h"
 #include "map_graphics.h"

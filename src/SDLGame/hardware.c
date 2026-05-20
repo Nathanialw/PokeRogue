@@ -5,6 +5,7 @@
 #include "hardware.h"
 
 #include <string.h>
+#include <stdlib.h>
 
 #include "lib_decl.h"
 
@@ -33,10 +34,10 @@ uint8_t GetRandomUniform(uint8_t min, uint8_t max)
     return 0;
 }
 
-//TODO
 uint8_t GetRandom_uint8_t(uint8_t min, uint8_t max)
 {
-    return 0;
+    if (min > max) return min;
+    return rand() % (max - min + 1) + min;
 }
 
 

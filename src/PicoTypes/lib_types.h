@@ -14,6 +14,22 @@
 *   linear array of  12544 uint16_t
 *   front buff and back buffers each of 6272 uint16_t
 **********************************************************************************************************************/
+#if defined(SDL)
+typedef union
+{
+    uint16_t frameBuffer[BUFFER_SIZE_2BYTES];
+    uint8_t frameBuffer1byte[BUFFER_SIZE_1BYTE];
+
+    struct
+    {
+        uint16_t front[BUFFER_SIZE_BACK];
+        uint16_t back[BUFFER_SIZE_FRONT];
+    };
+} PartialFrameBuffer;
+
+_Static_assert(409600 == BUFFER_SIZE_1BYTE, "SpriteLayout must be 20480 bytes");
+
+#else
 typedef union
 {
     uint16_t frameBuffer[BUFFER_SIZE_2BYTES];
@@ -28,7 +44,7 @@ typedef union
 
 _Static_assert(20480 == BUFFER_SIZE_1BYTE, "SpriteLayout must be 20480 bytes");
 
-
+#endif
 /**********************************************************************************************************************/
 /**  Stores the current game state
  *   Holds enums:
@@ -128,28 +144,6 @@ typedef struct
 
 _Static_assert(sizeof(FrameBuffer) == 10, "FrameBuffer must be 10 bytes");
 
-typedef struct
-{
-    int8_t x;
-    int8_t y;
-    bool down;
-    bool left;
-    bool right;
-    bool center;
-    bool js_up;
-    bool js_down;
-    bool js_left;
-    bool js_right;
-    bool js_center;
-    bool a;
-    bool b;
-    bool c;
-    bool d;
-    bool start;
-    bool select;
-} ControlState;
-
-
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
@@ -167,8 +161,33 @@ _Static_assert(sizeof(Delta) == 1, "Delta must be 1 bytes");
 /*
 **********************************************************************************************************************/
 typedef struct
+
 {
-    uint16_t buttons;
+    union
+    {
+        struct
+        {
+            uint16_t a : 1;
+            uint16_t b : 1;
+            uint16_t x : 1;
+            uint16_t y : 1;
+            uint16_t start : 1;
+            uint16_t select : 1;
+            uint16_t dp_click : 1;
+            uint16_t js_click : 1;
+            uint16_t up : 1;
+            uint16_t down : 1;
+            uint16_t left : 1;
+            uint16_t right : 1;
+            uint16_t unused_1 : 1;
+            uint16_t unused_2 : 1;
+            uint16_t unused_3 : 1;
+            uint16_t unused_4 : 1;
+        };
+
+        uint16_t buttons;
+    };
+
     Delta d;
     Delta dp;
     Delta js;

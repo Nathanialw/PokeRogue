@@ -4,100 +4,159 @@
 
 #include "input.h"
 
+#include <SDL3/SDL_events.h>
+#include <SDL3/SDL_timer.h>
+
+#include "lib_debugging.h"
 #include "lib_decl.h"
+#include "ram.h"
+
+
+Delta InputDeltaDPad();
+
+
+uint16_t ProcessInput(void)
+{
+    KeyState s_currentKeys = {0};
+    SDL_Event event;
+    while (SDL_PollEvent(&event))
+    {
+        switch (event.type)
+        {
+        case SDL_EVENT_KEY_DOWN:
+        case SDL_EVENT_KEY_UP:
+            {
+                int pressed = (event.type == SDL_EVENT_KEY_DOWN);
+                switch (event.key.key)
+                {
+                case SDLK_UP: s_currentKeys.up = pressed;
+                    break;
+                case SDLK_DOWN: s_currentKeys.down = pressed;
+                    break;
+                case SDLK_LEFT: s_currentKeys.left = pressed;
+                    break;
+                case SDLK_RIGHT: s_currentKeys.right = pressed;
+                    break;
+
+                case SDLK_A: s_currentKeys.a = pressed;
+                    break;
+                case SDLK_B: s_currentKeys.b = pressed;
+                    break;
+                case SDLK_X: s_currentKeys.x = pressed;
+                    break;
+                case SDLK_Y: s_currentKeys.y = pressed;
+                    break;
+
+                    // Add more mappings (Start, Select, etc.) as needed.
+                }
+                break;
+            }
+
+        case SDL_EVENT_QUIT:
+            // handle quit, set a flag, etc.
+            break;
+        }
+    }
+    return s_currentKeys.buttons;
+}
+
+
 
 
 // TODO:
 void HandleInput(void)
 {
+    while (1)
+    {
+        g_ramState.keys.d.x = 0;
+        g_ramState.keys.d.y = 0;
+        const uint16_t key_state = ProcessInput();
+        Delta d1 = InputDeltaDPad();
+        if (key_state == g_ramState.keys.buttons && d1.x == 0 && d1.y == 0)
+        {
+            continue;
+        }
+        g_ramState.keys.buttons = key_state;
+
+        if (d1.x != 0 || d1.y != 0) g_ramState.keys.d = d1;
+        break;
+    }
 }
 
-
-// TODO:
+//TODO
 void SetInputPollingRate(uint16_t time)
 {
 }
 
-
-// TODO:
+//TODO
 void SetInputPollingDefault(void)
 {
 }
 
-// TODO:
+//TODO
 KeyState GetInputKeyState(void)
 {
+    return g_ramState.keys;
 }
 
-// TODO:
 bool GetButtonA(void)
 {
+    return g_ramState.keys.a;
 }
 
-// TODO:
 bool GetButtonB(void)
 {
+    return g_ramState.keys.b;
 }
 
-
-//TODO
 bool GetButtonY(void)
 {
-    return false;
+    return g_ramState.keys.y;
 }
 
-//TODO
 bool GetButtonX(void)
 {
-    return false;
+    return g_ramState.keys.x;
 }
 
-//TODO
 bool GetButtonSelect(void)
 {
-    return false;
+    return g_ramState.keys.select;
 }
 
-//TODO
 bool GetButtonStart(void)
 {
-    return false;
+    return g_ramState.keys.start;
 }
 
-//TODO
 bool GetButtonUp(void)
 {
-    return false;
+    return g_ramState.keys.up;
 }
 
-//TODO
 bool GetButtonDown(void)
 {
-    return false;
+    return g_ramState.keys.down;
 }
 
-//TODO
 bool GetButtonLeft(void)
 {
-    return false;
+    return g_ramState.keys.left;
 }
 
-//TODO
 bool GetButtonRight(void)
 {
-    return false;
+    return g_ramState.keys.right;
 }
 
-//TODO
 bool GetButtonJSClick(void)
 {
-    return false;
+    return g_ramState.keys.js_click;
 }
 
-//TODO
 bool GetButtonDPClick(void)
 {
-    return false;
+    return g_ramState.keys.dp_click;
 }
 
 //TODO
@@ -106,11 +165,8 @@ bool GetJSPressed(void)
     return false;
 }
 
-//TODO
-bool GetDPPressed(void)
-{
-    return false;
-}
+bool GetDPPressed(void) { return g_ramState.keys.d.x != 0 || g_ramState.keys.d.y != 0; }
+
 
 InputInterface InputInterfaceInit()
 {
@@ -140,4 +196,22 @@ InputInterface InputInterfaceInit()
     };
 
     return inputInterface;
+}
+
+
+Delta InputDeltaDPad()
+{
+    Delta d = {0, 0};
+    int8_t dx = 0;
+    int8_t dy = 0;
+
+    if (GetButtonUp()) dy = -1;
+    else if (GetButtonDown()) dy = 1;
+    else if (GetButtonLeft()) dx = -1;
+    else if (GetButtonRight()) dx = 1;
+    d.x = dx;
+    d.y = dy;
+
+
+    return d;
 }

@@ -6,3 +6,4 @@
 
 
 MemoryInterface MemoryInterfaceInit();
+void LoadGameData(void);

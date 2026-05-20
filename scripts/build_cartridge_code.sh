@@ -3,6 +3,5 @@
 
 python -m python.cartridge.make_cartridge_code
 
-cd ..
-cd ..
-cd ..
+#mkdir ../bin
+#cp ../build-cartridge-code/src/GameCartridge/code/cartridge_code.bin ../bin/cartridge_code.bin

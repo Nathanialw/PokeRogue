@@ -119,7 +119,7 @@ static inline uint16_t Pico_SetColorByte(Color c)
 #if defined(SWAP_COLOR_BYTES)
     return (c.color >> 8) | (c.color << 8);
 #else
-    return x;
+    return c;
 #endif
 }
 

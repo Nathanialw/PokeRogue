@@ -13,6 +13,7 @@
 #include "core_menu.h"
 #include "core_ram.h"
 #include "core_state.h"
+#include "lib_debugging.h"
 
 #include "map.h"
 #include "map_camera.h"

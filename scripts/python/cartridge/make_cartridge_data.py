@@ -12,7 +12,7 @@ from python.config import constants
 
 def main():
     elf_path = Path("../build-cartridge-data/src/GameCartridge/data/GameCartridgeData")
-    output_bin = Path("../build-cartridge-data/src/GameCartridge/data/cartridge_data.bin")
+    output_bin = Path("../bin/cartridge_data.bin")
     # rom_size = 0x1000000  # 16MB
     rom_size = 0x0400000  # 4MB
 
