@@ -3,6 +3,7 @@
 //
 
 #include "core_entities.h"
+#include "lib_memory.h"
 
 #include "enums.h"
 #include "types.h"
@@ -41,14 +42,56 @@ EntityId PickItem(EntityId id)
 }
 
 
+
+
+/**********************************************************************************************************************/
+/** Returns the type ID of the given entity ID
+**********************************************************************************************************************/
+SET_MEMORY(".core")
+ItemTypes GetItemType(EntityId id)
+{
+    if (id == NO_ENTITY)
+        return NO_ITEM;
+
+    return g_core.items.types[id];
+}
+
+
+SET_MEMORY(".core")
+Object GetObjectType(EntityId id)
+{
+    if (id == NO_ENTITY)
+        return NO_OBJECT;
+
+    return g_core.objects.types[id];
+}
+
+
+SET_MEMORY(".core")
+Creature GetCreatureType(EntityId id)
+{
+    if (id == NO_ENTITY)
+        return NO_CREATURE;
+
+    return g_core.creatures.types[id];
+}
+
+
 /**********************************************************************************************************************/
 /** Fill typeIDs[] with the types of the given e_ids[] array
  *  ON SUCCESS - Returns the type ID of the given entity ID
  *  ON FAIL - sets typeIDs to NULL and returns NULL
 **********************************************************************************************************************/
+SET_MEMORY(".map.data")
+static const char ppp1[] = "start";
+
+SET_MEMORY(".map.data")
+static const char ppp2[] = "done";
+
 SET_MEMORY(".core")
 void GetEntityTypes(MemoryInterface memory, uint8_t* typeIDs, const uint8_t* e_ids, ObjectsTypes type, uint8_t n, uint8_t offset)
 {
+    memory.Print(ppp1);
     SmallStringArray text[MAX_MENU_SIZE];
     uint8_t i = offset;
 
@@ -92,37 +135,6 @@ void GetEntityTypes(MemoryInterface memory, uint8_t* typeIDs, const uint8_t* e_i
             typeIDs = NULL;
         }
     }
-}
 
-
-/**********************************************************************************************************************/
-/** Returns the type ID of the given entity ID
-**********************************************************************************************************************/
-SET_MEMORY(".core")
-ItemTypes GetItemType(EntityId id)
-{
-    if (id == NO_ENTITY)
-        return NO_ITEM;
-
-    return g_core.items.types[id];
-}
-
-
-SET_MEMORY(".core")
-Object GetObjectType(EntityId id)
-{
-    if (id == NO_ENTITY)
-        return NO_OBJECT;
-
-    return g_core.objects.types[id];
-}
-
-
-SET_MEMORY(".core")
-Creature GetCreatureType(EntityId id)
-{
-    if (id == NO_ENTITY)
-        return NO_CREATURE;
-
-    return g_core.creatures.types[id];
+    memory.Print(ppp2);
 }

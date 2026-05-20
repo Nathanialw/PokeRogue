@@ -3,6 +3,7 @@
 //
 
 #include "splash_ram.h"
+#include "lib_memory.h"
 
 
 SET_MEMORY(".splash.data")

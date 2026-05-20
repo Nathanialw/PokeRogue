@@ -12,8 +12,8 @@
 #include "battle_player.h"
 
 
-/**********************************************************************************************************************/
-/*
+/*********************************************************************************************************************
+*
  *  Initial implementation is simple 1 or 2 effects on each skill.
  *  Effect Functions make it easy to mix and match any effects to build unique skills
  *
@@ -21,17 +21,16 @@
 
 
 
-/*****************************************************************************************************
+/****************************************************************************************************
  *
  *  WORK IN PROGRESS - NEED TO ADD MORE EFFECTS TO MIX AND MATCH FOR MORE INTERESTING MOVES
  *  GOAL IS TO HAVE 4 - 8 EFFECTS PER SKILL WITH AS MANY CUSTOM 1-OFF EFFECTS AS I CAN THINK UP
  *
- ******************************************************************************************************
- */
+*******************************************************************************************************/
 
 
-/**********************************************************************************************************************/
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillNoSkill(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -43,8 +42,8 @@ bool SkillNoSkill(HardwareInterface hardware,  MemoryInterface memory, EntityId 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 /// FIRE SKILLS
 
-/**********************************************************************************************************************/
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillFlameBlast(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -53,8 +52,8 @@ bool SkillFlameBlast(HardwareInterface hardware,  MemoryInterface memory, Entity
     return true;
 }
 
-/**********************************************************************************************************************/
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillFireball(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -63,8 +62,8 @@ bool SkillFireball(HardwareInterface hardware,  MemoryInterface memory, EntityId
     return true;
 }
 
-/**********************************************************************************************************************/
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillEmber(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -73,8 +72,8 @@ bool SkillEmber(HardwareInterface hardware,  MemoryInterface memory, EntityId at
     return true;
 }
 
-/**********************************************************************************************************************/
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillIncinerate(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -83,8 +82,8 @@ bool SkillIncinerate(HardwareInterface hardware,  MemoryInterface memory, Entity
     return true;
 }
 
-/**********************************************************************************************************************/
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillCombustion(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -93,8 +92,8 @@ bool SkillCombustion(HardwareInterface hardware,  MemoryInterface memory, Entity
     return true;
 }
 
-/**********************************************************************************************************************/
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillFlare(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -102,8 +101,8 @@ bool SkillFlare(HardwareInterface hardware,  MemoryInterface memory, EntityId at
     return true;
 }
 
-/**********************************************************************************************************************/
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 //UNUSED
 bool SkillHeatWave(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
@@ -112,8 +111,8 @@ bool SkillHeatWave(HardwareInterface hardware,  MemoryInterface memory, EntityId
     return true;
 }
 
-/**********************************************************************************************************************/
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillFlamePunch(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -122,8 +121,8 @@ bool SkillFlamePunch(HardwareInterface hardware,  MemoryInterface memory, Entity
 }
 
 
-/**********************************************************************************************************************/
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillPyre(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -144,8 +143,8 @@ bool SkillPyre(HardwareInterface hardware,  MemoryInterface memory, EntityId att
     return true;
 }
 
-/**********************************************************************************************************************/
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillScorch(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -154,8 +153,8 @@ bool SkillScorch(HardwareInterface hardware,  MemoryInterface memory, EntityId a
     return true;
 }
 
-/**********************************************************************************************************************/
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillCinderStorm(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -163,8 +162,8 @@ bool SkillCinderStorm(HardwareInterface hardware,  MemoryInterface memory, Entit
     return true;
 }
 
-/**********************************************************************************************************************/
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillMagmaBurst(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -173,8 +172,8 @@ bool SkillMagmaBurst(HardwareInterface hardware,  MemoryInterface memory, Entity
     return true;
 }
 
-/**********************************************************************************************************************/
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillSunfury(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -182,8 +181,8 @@ bool SkillSunfury(HardwareInterface hardware,  MemoryInterface memory, EntityId 
     return true;
 }
 
-/**********************************************************************************************************************/
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillBlazingCharge(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -192,8 +191,8 @@ bool SkillBlazingCharge(HardwareInterface hardware,  MemoryInterface memory, Ent
     return true;
 }
 
-/**********************************************************************************************************************/
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillAshCloud(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -202,8 +201,8 @@ bool SkillAshCloud(HardwareInterface hardware,  MemoryInterface memory, EntityId
     return true;
 }
 
-/**********************************************************************************************************************/
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillInferno(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -212,8 +211,8 @@ bool SkillInferno(HardwareInterface hardware,  MemoryInterface memory, EntityId 
     return true;
 }
 
-/**********************************************************************************************************************/
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillWildfire(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -225,8 +224,8 @@ bool SkillWildfire(HardwareInterface hardware,  MemoryInterface memory, EntityId
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 /// ICE SKILLS
 
-/**********************************************************************************************************************/
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillBlizzard(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -235,8 +234,8 @@ bool SkillBlizzard(HardwareInterface hardware,  MemoryInterface memory, EntityId
     return true;
 }
 
-/**********************************************************************************************************************/
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillIceShard(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -244,8 +243,8 @@ bool SkillIceShard(HardwareInterface hardware,  MemoryInterface memory, EntityId
     return true;
 }
 
-/**********************************************************************************************************************/
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillFrostBite(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -254,8 +253,8 @@ bool SkillFrostBite(HardwareInterface hardware,  MemoryInterface memory, EntityI
     return true;
 }
 
-/**********************************************************************************************************************/
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillFreeze(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -264,8 +263,8 @@ bool SkillFreeze(HardwareInterface hardware,  MemoryInterface memory, EntityId a
     return true;
 }
 
-/**********************************************************************************************************************/
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillHailstorm(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -273,8 +272,8 @@ bool SkillHailstorm(HardwareInterface hardware,  MemoryInterface memory, EntityI
     return true;
 }
 
-/**********************************************************************************************************************/
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillGlacialSpike(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -282,8 +281,8 @@ bool SkillGlacialSpike(HardwareInterface hardware,  MemoryInterface memory, Enti
     return true;
 }
 
-/**********************************************************************************************************************/
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillColdSnap(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -291,8 +290,8 @@ bool SkillColdSnap(HardwareInterface hardware,  MemoryInterface memory, EntityId
     return true;
 }
 
-/**********************************************************************************************************************/
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillIceArmor(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -301,8 +300,8 @@ bool SkillIceArmor(HardwareInterface hardware,  MemoryInterface memory, EntityId
     return true;
 }
 
-/**********************************************************************************************************************/
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillFrostNova(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -322,8 +321,8 @@ bool SkillFrostNova(HardwareInterface hardware,  MemoryInterface memory, EntityI
     return true;
 }
 
-/**********************************************************************************************************************/
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillPermafrost(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -331,8 +330,8 @@ bool SkillPermafrost(HardwareInterface hardware,  MemoryInterface memory, Entity
     return true;
 }
 
-/**********************************************************************************************************************/
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillSnowBlind(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -340,8 +339,8 @@ bool SkillSnowBlind(HardwareInterface hardware,  MemoryInterface memory, EntityI
     return true;
 }
 
-/**********************************************************************************************************************/
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillIceLance(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -349,8 +348,8 @@ bool SkillIceLance(HardwareInterface hardware,  MemoryInterface memory, EntityId
     return true;
 }
 
-/**********************************************************************************************************************/
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillCryoBlast(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -359,8 +358,8 @@ bool SkillCryoBlast(HardwareInterface hardware,  MemoryInterface memory, EntityI
     return true;
 }
 
-/**********************************************************************************************************************/
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillArcticWinds(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -368,8 +367,8 @@ bool SkillArcticWinds(HardwareInterface hardware,  MemoryInterface memory, Entit
     return true;
 }
 
-/**********************************************************************************************************************/
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillFrozenOrb(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -377,8 +376,8 @@ bool SkillFrozenOrb(HardwareInterface hardware,  MemoryInterface memory, EntityI
     return true;
 }
 
-/**********************************************************************************************************************/
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillPolarVortex(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -399,8 +398,8 @@ bool SkillPolarVortex(HardwareInterface hardware,  MemoryInterface memory, Entit
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 /// WATER SKILLS
-/**********************************************************************************************************************/
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillCavitation(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -408,8 +407,8 @@ bool SkillCavitation(HardwareInterface hardware,  MemoryInterface memory, Entity
     return true;
 }
 
-/**********************************************************************************************************************/
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillHypervision(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -417,8 +416,8 @@ bool SkillHypervision(HardwareInterface hardware,  MemoryInterface memory, Entit
     return true;
 }
 
-/**********************************************************************************************************************/
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillShellbreaker(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -427,8 +426,8 @@ bool SkillShellbreaker(HardwareInterface hardware,  MemoryInterface memory, Enti
     return true;
 }
 
-/**********************************************************************************************************************/
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillTorrent(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -436,8 +435,8 @@ bool SkillTorrent(HardwareInterface hardware,  MemoryInterface memory, EntityId 
     return true;
 }
 
-/**********************************************************************************************************************/
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillWhirlpool(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -445,8 +444,8 @@ bool SkillWhirlpool(HardwareInterface hardware,  MemoryInterface memory, EntityI
     return true;
 }
 
-/**********************************************************************************************************************/
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillDrowningGrasp(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -456,8 +455,8 @@ bool SkillDrowningGrasp(HardwareInterface hardware,  MemoryInterface memory, Ent
     return true;
 }
 
-/**********************************************************************************************************************/
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillTidalWave(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -465,8 +464,8 @@ bool SkillTidalWave(HardwareInterface hardware,  MemoryInterface memory, EntityI
     return true;
 }
 
-/**********************************************************************************************************************/
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillWaterWhip(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -474,8 +473,8 @@ bool SkillWaterWhip(HardwareInterface hardware,  MemoryInterface memory, EntityI
     return true;
 }
 
-/**********************************************************************************************************************/
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillAquaJet(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -483,8 +482,8 @@ bool SkillAquaJet(HardwareInterface hardware,  MemoryInterface memory, EntityId 
     return true;
 }
 
-/**********************************************************************************************************************/
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillRiptide(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -492,8 +491,8 @@ bool SkillRiptide(HardwareInterface hardware,  MemoryInterface memory, EntityId 
     return true;
 }
 
-/**********************************************************************************************************************/
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillHydroBlast(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -501,8 +500,8 @@ bool SkillHydroBlast(HardwareInterface hardware,  MemoryInterface memory, Entity
     return true;
 }
 
-/**********************************************************************************************************************/
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillDeepCurrent(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -510,8 +509,8 @@ bool SkillDeepCurrent(HardwareInterface hardware,  MemoryInterface memory, Entit
     return true;
 }
 
-/**********************************************************************************************************************/
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillMaelstrom(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -519,8 +518,8 @@ bool SkillMaelstrom(HardwareInterface hardware,  MemoryInterface memory, EntityI
     return true;
 }
 
-/**********************************************************************************************************************/
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillBrineSpray(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -528,8 +527,8 @@ bool SkillBrineSpray(HardwareInterface hardware,  MemoryInterface memory, Entity
     return true;
 }
 
-/**********************************************************************************************************************/
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillSurge(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -537,8 +536,8 @@ bool SkillSurge(HardwareInterface hardware,  MemoryInterface memory, EntityId at
     return true;
 }
 
-/**********************************************************************************************************************/
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillPressureCrush(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -550,8 +549,8 @@ bool SkillPressureCrush(HardwareInterface hardware,  MemoryInterface memory, Ent
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 /// PLANT SKILLS
-/**********************************************************************************************************************/
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillVineWhip(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -560,8 +559,8 @@ bool SkillVineWhip(HardwareInterface hardware,  MemoryInterface memory, EntityId
     return true;
 }
 
-/**********************************************************************************************************************/
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillPollenCloud(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -570,8 +569,8 @@ bool SkillPollenCloud(HardwareInterface hardware,  MemoryInterface memory, Entit
     return true;
 }
 
-/**********************************************************************************************************************/
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillThornBarrage(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -579,8 +578,8 @@ bool SkillThornBarrage(HardwareInterface hardware,  MemoryInterface memory, Enti
     return true;
 }
 
-/**********************************************************************************************************************/
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillBloom(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -588,8 +587,8 @@ bool SkillBloom(HardwareInterface hardware,  MemoryInterface memory, EntityId at
     return true;
 }
 
-/**********************************************************************************************************************/
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillRootAnchor(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -598,8 +597,8 @@ bool SkillRootAnchor(HardwareInterface hardware,  MemoryInterface memory, Entity
     return true;
 }
 
-/**********************************************************************************************************************/
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillForestWard(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -607,8 +606,8 @@ bool SkillForestWard(HardwareInterface hardware,  MemoryInterface memory, Entity
     return true;
 }
 
-/**********************************************************************************************************************/
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillGravityRoot(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -617,8 +616,8 @@ bool SkillGravityRoot(HardwareInterface hardware,  MemoryInterface memory, Entit
     return true;
 }
 
-/**********************************************************************************************************************/
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillSporeExplosion(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -626,8 +625,8 @@ bool SkillSporeExplosion(HardwareInterface hardware,  MemoryInterface memory, En
     return true;
 }
 
-/**********************************************************************************************************************/
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillLeafStorm(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -635,8 +634,8 @@ bool SkillLeafStorm(HardwareInterface hardware,  MemoryInterface memory, EntityI
     return true;
 }
 
-/**********************************************************************************************************************/
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillBrambleTrap(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -644,8 +643,8 @@ bool SkillBrambleTrap(HardwareInterface hardware,  MemoryInterface memory, Entit
     return true;
 }
 
-/**********************************************************************************************************************/
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillSeedVolley(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -653,8 +652,8 @@ bool SkillSeedVolley(HardwareInterface hardware,  MemoryInterface memory, Entity
     return true;
 }
 
-/**********************************************************************************************************************/
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillVerdantGrowth(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -662,8 +661,8 @@ bool SkillVerdantGrowth(HardwareInterface hardware,  MemoryInterface memory, Ent
     return true;
 }
 
-/**********************************************************************************************************************/
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillToxicIvy(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -671,8 +670,8 @@ bool SkillToxicIvy(HardwareInterface hardware,  MemoryInterface memory, EntityId
     return true;
 }
 
-/**********************************************************************************************************************/
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillCanopyShade(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -680,8 +679,8 @@ bool SkillCanopyShade(HardwareInterface hardware,  MemoryInterface memory, Entit
     return true;
 }
 
-/**********************************************************************************************************************/
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillPetalBlitz(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -690,8 +689,8 @@ bool SkillPetalBlitz(HardwareInterface hardware,  MemoryInterface memory, Entity
     return true;
 }
 
-/**********************************************************************************************************************/
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillOvergrowth(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -701,8 +700,8 @@ bool SkillOvergrowth(HardwareInterface hardware,  MemoryInterface memory, Entity
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 /// ABERRATION SKILLS
-/**********************************************************************************************************************/
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillConsume(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -711,8 +710,8 @@ bool SkillConsume(HardwareInterface hardware,  MemoryInterface memory, EntityId 
     return true;
 }
 
-/**********************************************************************************************************************/
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillPsychicShock(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -720,8 +719,8 @@ bool SkillPsychicShock(HardwareInterface hardware,  MemoryInterface memory, Enti
     return true;
 }
 
-/**********************************************************************************************************************/
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillRealitySlip(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -729,8 +728,8 @@ bool SkillRealitySlip(HardwareInterface hardware,  MemoryInterface memory, Entit
     return true;
 }
 
-/**********************************************************************************************************************/
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillMaddeningGaze(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -738,8 +737,8 @@ bool SkillMaddeningGaze(HardwareInterface hardware,  MemoryInterface memory, Ent
     return true;
 }
 
-/**********************************************************************************************************************/
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillVoidRift(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -747,8 +746,8 @@ bool SkillVoidRift(HardwareInterface hardware,  MemoryInterface memory, EntityId
     return true;
 }
 
-/**********************************************************************************************************************/
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillAnomaly(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -756,8 +755,8 @@ bool SkillAnomaly(HardwareInterface hardware,  MemoryInterface memory, EntityId 
     return true;
 }
 
-/**********************************************************************************************************************/
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillDissonance(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -765,8 +764,8 @@ bool SkillDissonance(HardwareInterface hardware,  MemoryInterface memory, Entity
     return true;
 }
 
-/**********************************************************************************************************************/
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillCorrupt(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -774,8 +773,8 @@ bool SkillCorrupt(HardwareInterface hardware,  MemoryInterface memory, EntityId 
     return true;
 }
 
-/**********************************************************************************************************************/
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillMindSpike(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -783,8 +782,8 @@ bool SkillMindSpike(HardwareInterface hardware,  MemoryInterface memory, EntityI
     return true;
 }
 
-/**********************************************************************************************************************/
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillEldritchBlast(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -792,8 +791,8 @@ bool SkillEldritchBlast(HardwareInterface hardware,  MemoryInterface memory, Ent
     return true;
 }
 
-/**********************************************************************************************************************/
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillWarpPulse(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -801,8 +800,8 @@ bool SkillWarpPulse(HardwareInterface hardware,  MemoryInterface memory, EntityI
     return true;
 }
 
-/**********************************************************************************************************************/
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillThoughtLeech(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -811,8 +810,8 @@ bool SkillThoughtLeech(HardwareInterface hardware,  MemoryInterface memory, Enti
     return true;
 }
 
-/**********************************************************************************************************************/
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillSanityBreak(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -820,8 +819,8 @@ bool SkillSanityBreak(HardwareInterface hardware,  MemoryInterface memory, Entit
     return true;
 }
 
-/**********************************************************************************************************************/
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillAstralChains(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -844,8 +843,8 @@ bool SkillDimensionalTear(HardwareInterface hardware,  MemoryInterface memory, E
     return true;
 }
 
-/**********************************************************************************************************************/
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillPetrifyingGaze(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -853,8 +852,8 @@ bool SkillPetrifyingGaze(HardwareInterface hardware,  MemoryInterface memory, En
     return true;
 }
 
-/**********************************************************************************************************************/
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillPetrifyingTouch(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -865,8 +864,8 @@ bool SkillPetrifyingTouch(HardwareInterface hardware,  MemoryInterface memory, E
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 /// DRAGONS SKILLS
-/**********************************************************************************************************************/
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillTailWhip(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -874,8 +873,8 @@ bool SkillTailWhip(HardwareInterface hardware,  MemoryInterface memory, EntityId
     return true;
 }
 
-/**********************************************************************************************************************/
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillWingBuffet(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -883,8 +882,8 @@ bool SkillWingBuffet(HardwareInterface hardware,  MemoryInterface memory, Entity
     return true;
 }
 
-/**********************************************************************************************************************/
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillDragonBreath(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -892,8 +891,8 @@ bool SkillDragonBreath(HardwareInterface hardware,  MemoryInterface memory, Enti
     return true;
 }
 
-/**********************************************************************************************************************/
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillFearRoar(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -901,8 +900,8 @@ bool SkillFearRoar(HardwareInterface hardware,  MemoryInterface memory, EntityId
     return true;
 }
 
-/**********************************************************************************************************************/
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillFlyby(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -910,8 +909,8 @@ bool SkillFlyby(HardwareInterface hardware,  MemoryInterface memory, EntityId at
     return true;
 }
 
-/**********************************************************************************************************************/
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillScalesHarden(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -919,8 +918,8 @@ bool SkillScalesHarden(HardwareInterface hardware,  MemoryInterface memory, Enti
     return true;
 }
 
-/**********************************************************************************************************************/
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillAncientWrath(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -928,8 +927,8 @@ bool SkillAncientWrath(HardwareInterface hardware,  MemoryInterface memory, Enti
     return true;
 }
 
-/**********************************************************************************************************************/
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillTreasureHunt(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -937,8 +936,8 @@ bool SkillTreasureHunt(HardwareInterface hardware,  MemoryInterface memory, Enti
     return true;
 }
 
-/**********************************************************************************************************************/
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillSkyDive(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -946,8 +945,8 @@ bool SkillSkyDive(HardwareInterface hardware,  MemoryInterface memory, EntityId 
     return true;
 }
 
-/**********************************************************************************************************************/
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillDraconicFury(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -955,8 +954,8 @@ bool SkillDraconicFury(HardwareInterface hardware,  MemoryInterface memory, Enti
     return true;
 }
 
-/**********************************************************************************************************************/
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillTailSweep(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -964,8 +963,8 @@ bool SkillTailSweep(HardwareInterface hardware,  MemoryInterface memory, EntityI
     return true;
 }
 
-/**********************************************************************************************************************/
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillEmberRoar(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -973,8 +972,8 @@ bool SkillEmberRoar(HardwareInterface hardware,  MemoryInterface memory, EntityI
     return true;
 }
 
-/**********************************************************************************************************************/
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillScaleStorm(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -982,8 +981,8 @@ bool SkillScaleStorm(HardwareInterface hardware,  MemoryInterface memory, Entity
     return true;
 }
 
-/**********************************************************************************************************************/
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillWyrmCharge(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -991,8 +990,8 @@ bool SkillWyrmCharge(HardwareInterface hardware,  MemoryInterface memory, Entity
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillAncientGuard(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -1000,8 +999,8 @@ bool SkillAncientGuard(HardwareInterface hardware,  MemoryInterface memory, Enti
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillGoldenInstinct(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -1011,8 +1010,8 @@ bool SkillGoldenInstinct(HardwareInterface hardware,  MemoryInterface memory, En
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 /// GIANTS SKILLS
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillBodySlam(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -1020,8 +1019,8 @@ bool SkillBodySlam(HardwareInterface hardware,  MemoryInterface memory, EntityId
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillStomp(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -1029,8 +1028,8 @@ bool SkillStomp(HardwareInterface hardware,  MemoryInterface memory, EntityId at
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillEarthquake(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -1038,8 +1037,8 @@ bool SkillEarthquake(HardwareInterface hardware,  MemoryInterface memory, Entity
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillMightyThrow(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -1047,8 +1046,8 @@ bool SkillMightyThrow(HardwareInterface hardware,  MemoryInterface memory, Entit
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillGroundPound(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -1056,8 +1055,8 @@ bool SkillGroundPound(HardwareInterface hardware,  MemoryInterface memory, Entit
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillCrush(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -1065,8 +1064,8 @@ bool SkillCrush(HardwareInterface hardware,  MemoryInterface memory, EntityId at
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillTitanSwing(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -1074,8 +1073,8 @@ bool SkillTitanSwing(HardwareInterface hardware,  MemoryInterface memory, Entity
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillMountainBreaker(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -1083,8 +1082,8 @@ bool SkillMountainBreaker(HardwareInterface hardware,  MemoryInterface memory, E
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillBoulderToss(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -1092,8 +1091,8 @@ bool SkillBoulderToss(HardwareInterface hardware,  MemoryInterface memory, Entit
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillSeismicSlam(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -1101,8 +1100,8 @@ bool SkillSeismicSlam(HardwareInterface hardware,  MemoryInterface memory, Entit
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillIronGrip(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -1110,8 +1109,8 @@ bool SkillIronGrip(HardwareInterface hardware,  MemoryInterface memory, EntityId
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillTremorStep(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -1119,8 +1118,8 @@ bool SkillTremorStep(HardwareInterface hardware,  MemoryInterface memory, Entity
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillColossalCharge(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -1128,8 +1127,8 @@ bool SkillColossalCharge(HardwareInterface hardware,  MemoryInterface memory, En
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillLandslide(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -1137,8 +1136,8 @@ bool SkillLandslide(HardwareInterface hardware,  MemoryInterface memory, EntityI
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillBedrockShield(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -1146,8 +1145,8 @@ bool SkillBedrockShield(HardwareInterface hardware,  MemoryInterface memory, Ent
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillTitanicRoar(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -1157,8 +1156,8 @@ bool SkillTitanicRoar(HardwareInterface hardware,  MemoryInterface memory, Entit
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 /// BEAST SKILLS
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillScratch(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -1166,8 +1165,8 @@ bool SkillScratch(HardwareInterface hardware,  MemoryInterface memory, EntityId 
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillPounce(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -1175,8 +1174,8 @@ bool SkillPounce(HardwareInterface hardware,  MemoryInterface memory, EntityId a
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillFeralRage(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -1185,8 +1184,8 @@ bool SkillFeralRage(HardwareInterface hardware,  MemoryInterface memory, EntityI
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillHuntingInstinct(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -1194,8 +1193,8 @@ bool SkillHuntingInstinct(HardwareInterface hardware,  MemoryInterface memory, E
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillPackCall(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -1203,8 +1202,8 @@ bool SkillPackCall(HardwareInterface hardware,  MemoryInterface memory, EntityId
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillTerrifyingRoar(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -1212,8 +1211,8 @@ bool SkillTerrifyingRoar(HardwareInterface hardware,  MemoryInterface memory, En
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillBloodScent(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -1221,8 +1220,8 @@ bool SkillBloodScent(HardwareInterface hardware,  MemoryInterface memory, Entity
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillViciousBite(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -1230,8 +1229,8 @@ bool SkillViciousBite(HardwareInterface hardware,  MemoryInterface memory, Entit
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillRipAndTear(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -1239,8 +1238,8 @@ bool SkillRipAndTear(HardwareInterface hardware,  MemoryInterface memory, Entity
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillAmbushStrike(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -1250,8 +1249,8 @@ bool SkillAmbushStrike(HardwareInterface hardware,  MemoryInterface memory, Enti
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillLunge(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -1259,8 +1258,8 @@ bool SkillLunge(HardwareInterface hardware,  MemoryInterface memory, EntityId at
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillHowlOfThePack(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -1279,8 +1278,8 @@ bool SkillHowlOfThePack(HardwareInterface hardware,  MemoryInterface memory, Ent
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillSavageMaul(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -1288,8 +1287,8 @@ bool SkillSavageMaul(HardwareInterface hardware,  MemoryInterface memory, Entity
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillPredatorFocus(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -1297,8 +1296,8 @@ bool SkillPredatorFocus(HardwareInterface hardware,  MemoryInterface memory, Ent
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillThroatClamp(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -1306,8 +1305,8 @@ bool SkillThroatClamp(HardwareInterface hardware,  MemoryInterface memory, Entit
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillStalk(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -1317,8 +1316,8 @@ bool SkillStalk(HardwareInterface hardware,  MemoryInterface memory, EntityId at
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 /// FEY SKILLS
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillPixieDust(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -1327,8 +1326,8 @@ bool SkillPixieDust(HardwareInterface hardware,  MemoryInterface memory, EntityI
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillGlamour(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -1336,8 +1335,8 @@ bool SkillGlamour(HardwareInterface hardware,  MemoryInterface memory, EntityId 
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillTricksterTreat(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -1345,8 +1344,8 @@ bool SkillTricksterTreat(HardwareInterface hardware,  MemoryInterface memory, En
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillEnchantingMelody(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -1355,8 +1354,8 @@ bool SkillEnchantingMelody(HardwareInterface hardware,  MemoryInterface memory, 
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillFaerieFire(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -1364,8 +1363,8 @@ bool SkillFaerieFire(HardwareInterface hardware,  MemoryInterface memory, Entity
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillDreamDust(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -1374,8 +1373,8 @@ bool SkillDreamDust(HardwareInterface hardware,  MemoryInterface memory, EntityI
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillWildMagic(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -1383,8 +1382,8 @@ bool SkillWildMagic(HardwareInterface hardware,  MemoryInterface memory, EntityI
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillGladeTeleport(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -1392,8 +1391,8 @@ bool SkillGladeTeleport(HardwareInterface hardware,  MemoryInterface memory, Ent
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillMoonbeam(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -1401,8 +1400,8 @@ bool SkillMoonbeam(HardwareInterface hardware,  MemoryInterface memory, EntityId
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillMirrorGlamour(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -1410,8 +1409,8 @@ bool SkillMirrorGlamour(HardwareInterface hardware,  MemoryInterface memory, Ent
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillFaeWhisper(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -1419,8 +1418,8 @@ bool SkillFaeWhisper(HardwareInterface hardware,  MemoryInterface memory, Entity
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillPetalDance(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -1428,8 +1427,8 @@ bool SkillPetalDance(HardwareInterface hardware,  MemoryInterface memory, Entity
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillStarSprinkle(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -1437,8 +1436,8 @@ bool SkillStarSprinkle(HardwareInterface hardware,  MemoryInterface memory, Enti
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillMysticTangle(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -1446,8 +1445,8 @@ bool SkillMysticTangle(HardwareInterface hardware,  MemoryInterface memory, Enti
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillLuminaBlessing(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -1455,8 +1454,8 @@ bool SkillLuminaBlessing(HardwareInterface hardware,  MemoryInterface memory, En
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillTwilightShimmer(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -1466,8 +1465,8 @@ bool SkillTwilightShimmer(HardwareInterface hardware,  MemoryInterface memory, E
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 /// DEMIGOD SKILLS
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillPrayer(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -1486,8 +1485,8 @@ bool SkillPrayer(HardwareInterface hardware,  MemoryInterface memory, EntityId a
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillDivineSmite(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -1495,8 +1494,8 @@ bool SkillDivineSmite(HardwareInterface hardware,  MemoryInterface memory, Entit
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillBlessing(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -1504,8 +1503,8 @@ bool SkillBlessing(HardwareInterface hardware,  MemoryInterface memory, EntityId
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillMiracle(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -1513,8 +1512,8 @@ bool SkillMiracle(HardwareInterface hardware,  MemoryInterface memory, EntityId 
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillJudgement(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -1522,8 +1521,8 @@ bool SkillJudgement(HardwareInterface hardware,  MemoryInterface memory, EntityI
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillAuraOfReverence(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -1531,8 +1530,8 @@ bool SkillAuraOfReverence(HardwareInterface hardware,  MemoryInterface memory, E
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillChannelDivinity(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -1540,8 +1539,8 @@ bool SkillChannelDivinity(HardwareInterface hardware,  MemoryInterface memory, E
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillApotheosis(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -1549,8 +1548,8 @@ bool SkillApotheosis(HardwareInterface hardware,  MemoryInterface memory, Entity
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillHolyLight(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -1558,8 +1557,8 @@ bool SkillHolyLight(HardwareInterface hardware,  MemoryInterface memory, EntityI
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillSacredShield(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -1567,8 +1566,8 @@ bool SkillSacredShield(HardwareInterface hardware,  MemoryInterface memory, Enti
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillCelestialCall(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -1576,8 +1575,8 @@ bool SkillCelestialCall(HardwareInterface hardware,  MemoryInterface memory, Ent
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillPurify(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -1587,16 +1586,16 @@ bool SkillPurify(HardwareInterface hardware,  MemoryInterface memory, EntityId a
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillDivineIntervention(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillHaloOfGrace(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -1604,8 +1603,8 @@ bool SkillHaloOfGrace(HardwareInterface hardware,  MemoryInterface memory, Entit
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillRighteousFury(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -1613,8 +1612,8 @@ bool SkillRighteousFury(HardwareInterface hardware,  MemoryInterface memory, Ent
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillSeraphicWard(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -1624,8 +1623,8 @@ bool SkillSeraphicWard(HardwareInterface hardware,  MemoryInterface memory, Enti
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 /// HUMANOID SKILLS
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillTackle(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -1633,8 +1632,8 @@ bool SkillTackle(HardwareInterface hardware,  MemoryInterface memory, EntityId a
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillSlash(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -1642,8 +1641,8 @@ bool SkillSlash(HardwareInterface hardware,  MemoryInterface memory, EntityId at
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillBash(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -1652,8 +1651,8 @@ bool SkillBash(HardwareInterface hardware,  MemoryInterface memory, EntityId att
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillPreciseStrike(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -1662,8 +1661,8 @@ bool SkillPreciseStrike(HardwareInterface hardware,  MemoryInterface memory, Ent
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillExorcism(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -1671,16 +1670,16 @@ bool SkillExorcism(HardwareInterface hardware,  MemoryInterface memory, EntityId
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillTaunt(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillRally(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -1699,8 +1698,8 @@ bool SkillRally(HardwareInterface hardware,  MemoryInterface memory, EntityId at
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillDisarm(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -1708,8 +1707,8 @@ bool SkillDisarm(HardwareInterface hardware,  MemoryInterface memory, EntityId a
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillCharge(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -1717,8 +1716,8 @@ bool SkillCharge(HardwareInterface hardware,  MemoryInterface memory, EntityId a
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillParry(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -1726,8 +1725,8 @@ bool SkillParry(HardwareInterface hardware,  MemoryInterface memory, EntityId at
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillCripplingBlow(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -1736,8 +1735,8 @@ bool SkillCripplingBlow(HardwareInterface hardware,  MemoryInterface memory, Ent
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillGuardBreak(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -1746,8 +1745,8 @@ bool SkillGuardBreak(HardwareInterface hardware,  MemoryInterface memory, Entity
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillSecondWind(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -1755,8 +1754,8 @@ bool SkillSecondWind(HardwareInterface hardware,  MemoryInterface memory, Entity
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillIronWill(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -1764,8 +1763,8 @@ bool SkillIronWill(HardwareInterface hardware,  MemoryInterface memory, EntityId
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillShieldBash(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -1773,8 +1772,8 @@ bool SkillShieldBash(HardwareInterface hardware,  MemoryInterface memory, Entity
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillTacticalRetreat(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -1784,8 +1783,8 @@ bool SkillTacticalRetreat(HardwareInterface hardware,  MemoryInterface memory, E
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 /// ANCIENT SKILLS
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillPrimordialForce(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -1793,8 +1792,8 @@ bool SkillPrimordialForce(HardwareInterface hardware,  MemoryInterface memory, E
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillTimeWarp(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -1803,8 +1802,8 @@ bool SkillTimeWarp(HardwareInterface hardware,  MemoryInterface memory, EntityId
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillFossilize(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -1812,8 +1811,8 @@ bool SkillFossilize(HardwareInterface hardware,  MemoryInterface memory, EntityI
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillCallOfTheVoid(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -1821,8 +1820,8 @@ bool SkillCallOfTheVoid(HardwareInterface hardware,  MemoryInterface memory, Ent
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillWorldTear(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -1830,8 +1829,8 @@ bool SkillWorldTear(HardwareInterface hardware,  MemoryInterface memory, EntityI
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillSleepOfAges(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -1839,8 +1838,8 @@ bool SkillSleepOfAges(HardwareInterface hardware,  MemoryInterface memory, Entit
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillAncientWisdom(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -1848,8 +1847,8 @@ bool SkillAncientWisdom(HardwareInterface hardware,  MemoryInterface memory, Ent
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillCatastrophe(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -1857,8 +1856,8 @@ bool SkillCatastrophe(HardwareInterface hardware,  MemoryInterface memory, Entit
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillArcaneEruption(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -1866,8 +1865,8 @@ bool SkillArcaneEruption(HardwareInterface hardware,  MemoryInterface memory, En
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillStoneTide(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -1875,8 +1874,8 @@ bool SkillStoneTide(HardwareInterface hardware,  MemoryInterface memory, EntityI
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillTemporalShift(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -1885,8 +1884,8 @@ bool SkillTemporalShift(HardwareInterface hardware,  MemoryInterface memory, Ent
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillPrimalScream(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -1894,8 +1893,8 @@ bool SkillPrimalScream(HardwareInterface hardware,  MemoryInterface memory, Enti
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillCosmicRay(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -1903,8 +1902,8 @@ bool SkillCosmicRay(HardwareInterface hardware,  MemoryInterface memory, EntityI
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillEternalGrasp(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -1914,8 +1913,8 @@ bool SkillEternalGrasp(HardwareInterface hardware,  MemoryInterface memory, Enti
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillVolcanicOutburst(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -1923,8 +1922,8 @@ bool SkillVolcanicOutburst(HardwareInterface hardware,  MemoryInterface memory, 
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillRunicAegis(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -1934,8 +1933,8 @@ bool SkillRunicAegis(HardwareInterface hardware,  MemoryInterface memory, Entity
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 /// UNDEAD SKILLS
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillPlague(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -1944,8 +1943,8 @@ bool SkillPlague(HardwareInterface hardware,  MemoryInterface memory, EntityId a
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillLifeDrain(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -1954,8 +1953,8 @@ bool SkillLifeDrain(HardwareInterface hardware,  MemoryInterface memory, EntityI
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillGraveTouch(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -1964,8 +1963,8 @@ bool SkillGraveTouch(HardwareInterface hardware,  MemoryInterface memory, Entity
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillHaunt(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -1974,8 +1973,8 @@ bool SkillHaunt(HardwareInterface hardware,  MemoryInterface memory, EntityId at
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillNecroticBurst(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -1983,8 +1982,8 @@ bool SkillNecroticBurst(HardwareInterface hardware,  MemoryInterface memory, Ent
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillRaiseMinion(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -1992,8 +1991,8 @@ bool SkillRaiseMinion(HardwareInterface hardware,  MemoryInterface memory, Entit
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillWither(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -2001,8 +2000,8 @@ bool SkillWither(HardwareInterface hardware,  MemoryInterface memory, EntityId a
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillDeathsDoor(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -2010,8 +2009,8 @@ bool SkillDeathsDoor(HardwareInterface hardware,  MemoryInterface memory, Entity
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillWail(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -2026,8 +2025,8 @@ bool SkillSoulSip(HardwareInterface hardware,  MemoryInterface memory, EntityId 
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillBoneSpike(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -2035,8 +2034,8 @@ bool SkillBoneSpike(HardwareInterface hardware,  MemoryInterface memory, EntityI
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillCursedGround(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -2045,8 +2044,8 @@ bool SkillCursedGround(HardwareInterface hardware,  MemoryInterface memory, Enti
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillVampiricWave(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -2055,8 +2054,8 @@ bool SkillVampiricWave(HardwareInterface hardware,  MemoryInterface memory, Enti
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillPhantomGrasp(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -2066,8 +2065,8 @@ bool SkillPhantomGrasp(HardwareInterface hardware,  MemoryInterface memory, Enti
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillTombShield(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -2075,8 +2074,8 @@ bool SkillTombShield(HardwareInterface hardware,  MemoryInterface memory, Entity
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillDarkRitual(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -2084,8 +2083,8 @@ bool SkillDarkRitual(HardwareInterface hardware,  MemoryInterface memory, Entity
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillEpitaph(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -2095,8 +2094,8 @@ bool SkillEpitaph(HardwareInterface hardware,  MemoryInterface memory, EntityId 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 /// DEMONIC SKILLS
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillSultryLook(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -2104,8 +2103,8 @@ bool SkillSultryLook(HardwareInterface hardware,  MemoryInterface memory, Entity
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillKiss(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -2113,8 +2112,8 @@ bool SkillKiss(HardwareInterface hardware,  MemoryInterface memory, EntityId att
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillHellfire(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -2122,8 +2121,8 @@ bool SkillHellfire(HardwareInterface hardware,  MemoryInterface memory, EntityId
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillCorruptingTouch(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -2132,8 +2131,8 @@ bool SkillCorruptingTouch(HardwareInterface hardware,  MemoryInterface memory, E
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillDemonicPact(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -2141,8 +2140,8 @@ bool SkillDemonicPact(HardwareInterface hardware,  MemoryInterface memory, Entit
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillSoulSiphon(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -2151,8 +2150,8 @@ bool SkillSoulSiphon(HardwareInterface hardware,  MemoryInterface memory, Entity
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillTemptation(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -2160,8 +2159,8 @@ bool SkillTemptation(HardwareInterface hardware,  MemoryInterface memory, Entity
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillFelblaze(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -2169,8 +2168,8 @@ bool SkillFelblaze(HardwareInterface hardware,  MemoryInterface memory, EntityId
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillChaosWhisper(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -2178,8 +2177,8 @@ bool SkillChaosWhisper(HardwareInterface hardware,  MemoryInterface memory, Enti
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillLustfulGlare(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -2187,8 +2186,8 @@ bool SkillLustfulGlare(HardwareInterface hardware,  MemoryInterface memory, Enti
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillAbyssalGrasp(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -2198,8 +2197,8 @@ bool SkillAbyssalGrasp(HardwareInterface hardware,  MemoryInterface memory, Enti
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillCursedEmbrace(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -2207,8 +2206,8 @@ bool SkillCursedEmbrace(HardwareInterface hardware,  MemoryInterface memory, Ent
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillInfernalRush(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -2216,8 +2215,8 @@ bool SkillInfernalRush(HardwareInterface hardware,  MemoryInterface memory, Enti
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillDiabolicCry(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -2225,8 +2224,8 @@ bool SkillDiabolicCry(HardwareInterface hardware,  MemoryInterface memory, Entit
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillHellscape(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -2236,8 +2235,8 @@ bool SkillHellscape(HardwareInterface hardware,  MemoryInterface memory, EntityI
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 /// TOXIC SKILLS
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillSting(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -2246,8 +2245,8 @@ bool SkillSting(HardwareInterface hardware,  MemoryInterface memory, EntityId at
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillVenomSpit(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -2256,8 +2255,8 @@ bool SkillVenomSpit(HardwareInterface hardware,  MemoryInterface memory, EntityI
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillToxicCloud(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -2266,8 +2265,8 @@ bool SkillToxicCloud(HardwareInterface hardware,  MemoryInterface memory, Entity
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillParalyze(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -2276,8 +2275,8 @@ bool SkillParalyze(HardwareInterface hardware,  MemoryInterface memory, EntityId
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillAcidSpray(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -2286,8 +2285,8 @@ bool SkillAcidSpray(HardwareInterface hardware,  MemoryInterface memory, EntityI
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillNeurotoxin(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -2296,8 +2295,8 @@ bool SkillNeurotoxin(HardwareInterface hardware,  MemoryInterface memory, Entity
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillContagion(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -2306,8 +2305,8 @@ bool SkillContagion(HardwareInterface hardware,  MemoryInterface memory, EntityI
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillAntidote(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -2315,8 +2314,8 @@ bool SkillAntidote(HardwareInterface hardware,  MemoryInterface memory, EntityId
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillToxicFang(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -2325,8 +2324,8 @@ bool SkillToxicFang(HardwareInterface hardware,  MemoryInterface memory, EntityI
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillVirulentBite(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -2335,8 +2334,8 @@ bool SkillVirulentBite(HardwareInterface hardware,  MemoryInterface memory, Enti
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillToxicBarrage(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -2344,8 +2343,8 @@ bool SkillToxicBarrage(HardwareInterface hardware,  MemoryInterface memory, Enti
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillNerveStrike(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -2354,8 +2353,8 @@ bool SkillNerveStrike(HardwareInterface hardware,  MemoryInterface memory, Entit
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillToxicMist(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -2364,8 +2363,8 @@ bool SkillToxicMist(HardwareInterface hardware,  MemoryInterface memory, EntityI
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillVenomousTail(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -2374,8 +2373,8 @@ bool SkillVenomousTail(HardwareInterface hardware,  MemoryInterface memory, Enti
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillInfectiousTouch(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -2384,8 +2383,8 @@ bool SkillInfectiousTouch(HardwareInterface hardware,  MemoryInterface memory, E
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillPurifyCure(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -2395,8 +2394,8 @@ bool SkillPurifyCure(HardwareInterface hardware,  MemoryInterface memory, Entity
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 /// EARTHEN SKILLS
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillSacrifice(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -2404,8 +2403,8 @@ bool SkillSacrifice(HardwareInterface hardware,  MemoryInterface memory, EntityI
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillRockThrow(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -2413,8 +2412,8 @@ bool SkillRockThrow(HardwareInterface hardware,  MemoryInterface memory, EntityI
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillMudSlide(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -2422,8 +2421,8 @@ bool SkillMudSlide(HardwareInterface hardware,  MemoryInterface memory, EntityId
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillStoneSkin(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -2431,8 +2430,8 @@ bool SkillStoneSkin(HardwareInterface hardware,  MemoryInterface memory, EntityI
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillQuicksand(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -2440,8 +2439,8 @@ bool SkillQuicksand(HardwareInterface hardware,  MemoryInterface memory, EntityI
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillEarthenPrison(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -2449,8 +2448,8 @@ bool SkillEarthenPrison(HardwareInterface hardware,  MemoryInterface memory, Ent
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillLavaBurst(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -2458,8 +2457,8 @@ bool SkillLavaBurst(HardwareInterface hardware,  MemoryInterface memory, EntityI
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillTerraform(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -2467,8 +2466,8 @@ bool SkillTerraform(HardwareInterface hardware,  MemoryInterface memory, EntityI
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillBoulderCrush(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -2476,8 +2475,8 @@ bool SkillBoulderCrush(HardwareInterface hardware,  MemoryInterface memory, Enti
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillEarthquakeStomp(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -2485,8 +2484,8 @@ bool SkillEarthquakeStomp(HardwareInterface hardware,  MemoryInterface memory, E
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillTremorWave(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -2494,8 +2493,8 @@ bool SkillTremorWave(HardwareInterface hardware,  MemoryInterface memory, Entity
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillStoneSpike(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -2503,8 +2502,8 @@ bool SkillStoneSpike(HardwareInterface hardware,  MemoryInterface memory, Entity
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillMudClaw(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -2513,8 +2512,8 @@ bool SkillMudClaw(HardwareInterface hardware,  MemoryInterface memory, EntityId 
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillGeoBarrier(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -2522,8 +2521,8 @@ bool SkillGeoBarrier(HardwareInterface hardware,  MemoryInterface memory, Entity
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillMagmaFlow(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
@@ -2531,8 +2530,8 @@ bool SkillMagmaFlow(HardwareInterface hardware,  MemoryInterface memory, EntityI
     return true;
 }
 
-/**********************************************************************************************************************
-/*
+/*********************************************************************************************************************
+*
 **********************************************************************************************************************/
 bool SkillLandShift(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {

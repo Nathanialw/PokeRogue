@@ -3,6 +3,7 @@
 //
 
 #include "map.h"
+#include "lib_memory.h"
 
 #include "constants.h"
 #include "core_map.h"

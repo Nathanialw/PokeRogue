@@ -5,6 +5,7 @@
 #include "map_actions.h"
 
 #include "lib_decl.h"
+#include "lib_memory.h"
 #include "types.h"
 
 #include "core_memory_access.h"

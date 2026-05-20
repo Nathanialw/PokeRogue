@@ -9,12 +9,11 @@
 
 // ENTITIES
 void Flash_GetCreatureStatsRange(MemoryInterface memory, StatsRange* stats, Creature creature_type);
-MonsterType Flash_GetType(MemoryInterface memory, uint8_t index);
-int8_t Flash_GetTypeEffects(MemoryInterface memory, uint8_t index);
-SkillData Flash_GetSkillData(MemoryInterface memory, uint8_t index);
-SpellData Flash_GetSpellData(MemoryInterface memory, uint8_t index);
-ItemData Flash_GetItemData(MemoryInterface memory, uint8_t index);
-
+void Flash_GetType(MemoryInterface memory, MonsterType* monsterType, uint8_t index);
+void Flash_GetTypeEffects(MemoryInterface memory, uint8_t* type, uint8_t index);
+void Flash_GetSkillData(MemoryInterface memory, SkillData* skillData, uint8_t index);
+void Flash_GetSpellData(MemoryInterface memory, SpellData* spellData, uint8_t index);
+void Flash_GetItemData(MemoryInterface memory, ItemData* itemData, uint8_t index);
 
 
 //GRAPHICS
@@ -46,4 +45,3 @@ void Flash_GetSkillName(MemoryInterface memory, char* text, uint8_t index);
 //FUNCTIONS
 bool Flash_GetSpellEffect(HardwareInterface hardware, MemoryInterface memory, uint8_t index, EntityId id, EntityId target_id, SpellData spellData);
 bool Flash_GetItemEffect(MemoryInterface memory, uint8_t index, EntityId item_id, EntityId id, ItemData itemData);
-

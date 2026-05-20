@@ -4,9 +4,12 @@
 
 #include "generate_map_state.h"
 
-#include "core_ram.h"
-#include "generate_map.h"
+#include "lib_memory.h"
 #include "lib_decl.h"
+
+#include "core_ram.h"
+
+#include "generate_map.h"
 
 
 SET_MEMORY(".map_gen.rodata")

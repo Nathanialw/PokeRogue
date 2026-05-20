@@ -3,6 +3,7 @@
 //
 
 #include "battle_player.h"
+#include "lib_memory.h"
 
 #include "types.h"
 

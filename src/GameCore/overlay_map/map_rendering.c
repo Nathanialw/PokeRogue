@@ -5,6 +5,7 @@
 
 #include "lib_types.h"
 #include "lib_decl.h"
+#include "lib_memory.h"
 
 #include "core_map.h"
 #include "core_ram.h"

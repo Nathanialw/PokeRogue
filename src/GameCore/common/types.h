@@ -9,7 +9,7 @@
 
 /**********************************************************************************************************************
 *
-/**********************************************************************************************************************/
+*********************************************************************************************************************/
 
 typedef uint8_t EntityId;
 typedef uint16_t Pixel;
@@ -367,9 +367,9 @@ typedef struct
 
 _Static_assert(sizeof(Rect_8) == 4, "Rect_8 must be 4 bytes");
 
-/**********************************************************************************************************************/
-/** 16 types of tiles, each have a move limiting effect
-/** ie no_effect, wall, water, lava, acid, etc
+/**********************************************************************************************************************
+** 16 types of tiles, each have a move limiting effect
+** ie no_effect, wall, water, lava, acid, etc
 **********************************************************************************************************************/
 typedef struct
 {
@@ -415,8 +415,8 @@ typedef struct Senses
 
 _Static_assert(sizeof(Senses) == 1, "Senses must be 1 byte");
 
-/**********************************************************************************************************************/
-/** Generated stat values for each creature
+/**********************************************************************************************************************
+** Generated stat values for each creature
  *  Grows with levels and can be modified by items/spells/skill
  *  each value is 1 byte - max <256
 **********************************************************************************************************************/
@@ -435,9 +435,9 @@ typedef union Stats
 
 _Static_assert(sizeof(Stats) == 4, "Stats must be 4 bytes");
 
-/**********************************************************************************************************************/
-/** Min and max values of stats
-/** Growth per level data for a creature
+/**********************************************************************************************************************
+** Min and max values of stats
+** Growth per level data for a creature
 **********************************************************************************************************************/
 typedef union
 {
@@ -458,10 +458,16 @@ _Static_assert(sizeof(StatsRange) == 10, "StatsRange must be 10 bytes");
  *  assumes 16 typ values
  *  each value uses 4 bits
 **********************************************************************************************************************/
-typedef struct MonsterType
+typedef union
 {
-    uint8_t typeA : 4;
-    uint8_t typeB : 4;
+    struct
+    {
+        uint8_t typeA :
+        4;
+        uint8_t typeB : 4;
+    };
+
+    uint8_t bytes[1];
 } MonsterType;
 
 _Static_assert(sizeof(MonsterType) == 1, "MonsterType must be 1 byte");

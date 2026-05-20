@@ -4,6 +4,7 @@
 
 #include "splash_animation.h"
 
+#include "lib_memory.h"
 #include "lib_decl.h"
 #include "lib_types.h"
 /************************************************************************************************************

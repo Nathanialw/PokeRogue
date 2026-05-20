@@ -3,6 +3,7 @@
 //
 
 #include "battle_entities.h"
+#include "lib_memory.h"
 
 #include "types.h"
 

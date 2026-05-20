@@ -3,3 +3,7 @@
 //
 
 #pragma once
+#include "lib_decl.h"
+
+
+uint8_t GameLoopTitleScreen(GameInterface* spi);

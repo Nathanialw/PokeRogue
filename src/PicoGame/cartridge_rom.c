@@ -690,7 +690,6 @@ bool CheckConnection(const char* sent, const char* rec)
 
     while (1)
     {
-
         memset(cmd, 0, sizeof(cmd));
         printf(sent);
         fflush(stdout);
@@ -845,15 +844,31 @@ void EEPROM_Dump(uint32_t cs, uint32_t chip_size)
 }
 
 
-void EEPROM_Verify(uint32_t cs, uint32_t size_bytes)
+void EEPROM_Verify(uint32_t cs)
 {
-    // uint32_t size = 4 * 1024 * 1024; // Change as needed
+    printf("GIVE_SIZE_%lu\n", cs);
+
+    while (fread(Converter.bytes, 1, 4, stdin) != 4)
+    {
+        if (Converter.value > 0) break;
+        printf("ERROR: failed to read size\n");
+        sleep_ms(1000);
+        printf("GIVE_SIZE_%lu\n", cs);
+    }
+
+    uint32_t size_bytes = Converter.value;
+    printf("Size. %lu\n", size_bytes);
+    sleep_ms(100);
+
     const uint32_t buffer_size = 4096;
     uint8_t buf[buffer_size];
     uint8_t verify_buf[buffer_size];
     uint32_t addr = 0;
 
-    printf("BEGIN_VERIFY\n");
+    printf("BEGIN_VERIFY_%lu\n", cs);
+
+    uint32_t num_chunks = buffer_size / size_bytes;
+    uint32_t i = 0;
 
     while (addr < size_bytes)
     {
@@ -870,11 +885,10 @@ void EEPROM_Verify(uint32_t cs, uint32_t size_bytes)
             if (buf[i] != verify_buf[i])
             {
                 printf("ERROR: EEPROM data mismatch at 0x%08lX\n", addr + i);
-                return;
             }
 
         addr += chunk_size;
     }
 
-    printf("VERIFICATION SUCCESSFUL\n");
+    printf("VERIFICATION COMPLETE\n");
 }

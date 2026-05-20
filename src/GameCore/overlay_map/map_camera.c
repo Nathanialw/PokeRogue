@@ -3,6 +3,7 @@
 //
 
 #include "map_camera.h"
+#include "lib_memory.h"
 
 #include "core_ram.h"
 #include "map_player.h"

@@ -2,8 +2,10 @@
 // Created by nathanial on 5/19/26.
 //
 #include "map_ram.h"
+#include "lib_memory.h"
 
 #include "inc/decl_objects.inc"
+
 
 
 SET_MEMORY(".map.rodata")

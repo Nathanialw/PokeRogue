@@ -3,6 +3,8 @@
 //
 #include "battle_ram.h"
 
+#include "lib_memory.h"
+
 #include "data_constants.inc"
 #include "inc/decl_skills.inc"
 #include "inc/decl_animation_items_attack.inc"

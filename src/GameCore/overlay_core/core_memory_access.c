@@ -4,19 +4,16 @@
 
 #include "core_memory_access.h"
 
-#include <stdlib.h>
-
-#include "battle_ram.h"
-#include "core_ram.h"
 #include "lib_decl.h"
 #include "lib_debugging.h"
 
-
 #include "memory_constants.inc"
+#include "enums.h"
+#include "types.h"
 
-#include "common/enums.h"
+#include "core_ram.h"
 
-#include "common/types.h"
+
 
 // #define MEMORY_PRINT
 
@@ -54,16 +51,14 @@ void Flash_GetCreatureStatsRange(MemoryInterface memory, StatsRange* stats, Crea
 
 
 SET_MEMORY(".core")
-MonsterType Flash_GetType(MemoryInterface memory, uint8_t index)
+//TODO
+void Flash_GetType(MemoryInterface memory, MonsterType* monsterType, uint8_t index)
 {
 #ifdef STANDALONE
     return g_gameFlash.gameData.creatureTypes[index];
 #else
 
-    uint8_t bytes[1] = {0};
-    memory.GetRom(STRINGS_TYPES_POSITION + index, bytes, 1);
-    MonsterType mt = {.typeA = bytes[0] << 4, .typeB = bytes[0]};
-
+    memory.GetRom(GAME_DATA_CREATURE_TYPES_POSITION + (index * sizeof(MonsterType)), monsterType->bytes, sizeof(MonsterType));
 #if defined(MEMORY_PRINT)
     for (uint8_t i = 0; i < 1; i++)
         memory.Print(str_spawn_creature_type, mt.typeA);
@@ -73,15 +68,15 @@ MonsterType Flash_GetType(MemoryInterface memory, uint8_t index)
 #endif
 }
 
+
+//TODO
 SET_MEMORY(".core")
-int8_t Flash_GetTypeEffects(MemoryInterface memory, uint8_t index)
+void Flash_GetTypeEffects(MemoryInterface memory, uint8_t* type, uint8_t index)
 {
 #ifdef STANDALONE
     return g_gameFlash.gameData.typeEffects[index];
 #else
-    uint8_t bytes[1] = {0};
-    memory.GetRom(TILESET_THEME_POSITION + index, bytes, 1);
-
+    memory.GetRom(GAME_DATA_TYPE_EFFECTS_POSITION + index, type, 1);
 #if defined(MEMORY_PRINT)
     for (uint8_t i = 0; i < 1; i++)
         memory.Print(str_spawn_creature_type, bytes[0]);
@@ -91,15 +86,14 @@ int8_t Flash_GetTypeEffects(MemoryInterface memory, uint8_t index)
 #endif
 }
 
+//TODO
 SET_MEMORY(".core")
-SkillData Flash_GetSkillData(MemoryInterface memory, uint8_t index)
+void Flash_GetSkillData(MemoryInterface memory, SkillData* skillData, uint8_t index)
 {
 #ifdef STANDALONE
     return g_gameFlash.gameData.abilityData[index];
 #else
-    SkillData skillData = {0};
-    memory.GetRom(GAME_DATA_ABILITY_POSITION + index, skillData.bytes, sizeof(SkillData));
-
+    memory.GetRom(GAME_DATA_ABILITY_POSITION + (index * sizeof(SkillData)), skillData->bytes, sizeof(SkillData));
 #if defined(MEMORY_PRINT)
     for (uint8_t i = 0; i < sizeof(SkillData); i++)
         memory.Print(str_spawn_creature_type, skillData.bytes[i]);
@@ -109,13 +103,14 @@ SkillData Flash_GetSkillData(MemoryInterface memory, uint8_t index)
 #endif
 }
 
+//TODO
 SET_MEMORY(".core")
-SpellData Flash_GetSpellData(MemoryInterface memory, uint8_t index)
+void Flash_GetSpellData(MemoryInterface memory, SpellData* spellData, uint8_t index)
 {
 #ifdef STANDALONE
     return g_gameFlash.gameData.spellData[index];
 #else
-    SpellData spell_data = {0};
+    memory.GetRom(GAME_DATA_SPELL_POSITION + (index * sizeof(SpellData)), spellData->bytes, sizeof(SpellData));
 
 #if defined(MEMORY_PRINT)
     memory.GetRom(GAME_DATA_SPELL_POSITION + index, spell_data.bytes, sizeof(SpellData));
@@ -127,14 +122,14 @@ SpellData Flash_GetSpellData(MemoryInterface memory, uint8_t index)
 #endif
 }
 
+//TODO
 SET_MEMORY(".core")
-ItemData Flash_GetItemData(MemoryInterface memory, uint8_t index)
+void Flash_GetItemData(MemoryInterface memory, ItemData* itemData, uint8_t index)
 {
 #ifdef STANDALONE
     return g_gameFlash.gameData.itemData[index];
 #else
-    ItemData item_data = {0};
-
+    memory.GetRom(GAME_DATA_ITEM_POSITION + (index * sizeof(ItemData)), itemData->bytes, sizeof(ItemData));
 #if defined(MEMORY_PRINT)
     memory.GetRom(GAME_DATA_ITEM_POSITION + index, item_data.bytes, sizeof(ItemData));
     for (uint8_t i = 0; i < sizeof(ItemData); i++)
@@ -339,7 +334,7 @@ void Flash_GetCreatureName(MemoryInterface memory, char* text, uint8_t index)
 #ifdef STANDALONE
     return g_gameFlash.text.descriptions.monsters[index];
 #else
-    memory.GetRom(STRINGS_NAMES_CREATURES_POSITION + (SMALL_STRINGS * index), text, SMALL_STRINGS);
+    memory.GetRom(STRINGS_NAMES_CREATURES_POSITION + (SMALL_STRINGS * index), (uint8_t*)text, SMALL_STRINGS);
 
 #if defined(MEMORY_PRINT)
     for (uint8_t i = 0; i < SMALL_STRINGS; i++)
@@ -356,7 +351,7 @@ void Flash_GetItemName(MemoryInterface memory, char* text, uint8_t index)
 #ifdef STANDALONE
     return g_gameFlash.text.descriptions.items[index];
 #else
-    memory.GetRom(STRINGS_NAMES_ITEMS_POSITION + (SMALL_STRINGS * index), text, SMALL_STRINGS);
+    memory.GetRom(STRINGS_NAMES_ITEMS_POSITION + (SMALL_STRINGS * index), (uint8_t*)text, SMALL_STRINGS);
 
 #if defined(MEMORY_PRINT)
     for (uint8_t i = 0; i < SMALL_STRINGS; i++)
@@ -372,7 +367,7 @@ void Flash_GetSpellName(MemoryInterface memory, char* text, uint8_t index)
 #ifdef STANDALONE
     return g_gameFlash.text.descriptions.spells[index];
 #else
-    memory.GetRom(STRINGS_NAMES_SPELLS_POSITION + (SMALL_STRINGS * index), text, SMALL_STRINGS);
+    memory.GetRom(STRINGS_NAMES_SPELLS_POSITION + (SMALL_STRINGS * index), (uint8_t*)text, SMALL_STRINGS);
 
 #if defined(MEMORY_PRINT)
     for (uint8_t i = 0; i < SMALL_STRINGS; i++)
@@ -388,7 +383,7 @@ void Flash_GetSkillName(MemoryInterface memory, char* text, uint8_t index)
 #ifdef STANDALONE
     return g_gameFlash.text.descriptions.attacks[index];
 #else
-    memory.GetRom(STRINGS_NAMES_SKILLS_POSITION + (SMALL_STRINGS * index), text, SMALL_STRINGS);
+    memory.GetRom(STRINGS_NAMES_SKILLS_POSITION + (SMALL_STRINGS * index), (uint8_t*)text, SMALL_STRINGS);
 
 #if defined(MEMORY_PRINT)
     for (uint8_t i = 0; i < SMALL_STRINGS; i++)
@@ -399,14 +394,13 @@ void Flash_GetSkillName(MemoryInterface memory, char* text, uint8_t index)
 }
 
 
-
 SET_MEMORY(".core")
 void Flash_GetObjectName(MemoryInterface memory, char* text, uint8_t index)
 {
 #ifdef STANDALONE
     return g_gameFlash.text.descriptions.objects[index];
 #else
-    memory.GetRom(STRINGS_NAMES_OBJECTS_POSITION + (SMALL_STRINGS * index), text, SMALL_STRINGS);
+    memory.GetRom(STRINGS_NAMES_OBJECTS_POSITION + (SMALL_STRINGS * index), (uint8_t*)text, SMALL_STRINGS);
 
 #if defined(MEMORY_PRINT)
     for (uint8_t i = 0; i < SMALL_STRINGS; i++)
@@ -436,7 +430,6 @@ bool Flash_GetItemEffect(MemoryInterface memory, uint8_t itemType, EntityId item
     return itemFunctions[itemType](item_id, id, itemData);
 #endif
 }
-
 
 
 SET_MEMORY(".core")

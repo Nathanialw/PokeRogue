@@ -4,6 +4,7 @@
 
 #include "core_sound.h"
 #include "lib_enums.h"
+#include "lib_memory.h"
 
 #include "types.h"
 

@@ -318,16 +318,22 @@ void BackUseOnParty(MemoryInterface memory)
     g_core.menu.useOnPartyMember = BACK_NONE;
 }
 
+
+SET_MEMORY(".map.data")
+static const char ppp[] = "1";
+
 /**********************************************************************************************************************/
 /** LIST
 **********************************************************************************************************************/
 SET_MEMORY(".map")
 bool Party(HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update)
 {
+    hardware.Print(ppp);
     if (ToggleMenu(MONSTERS_SUBMENU, MAX_PARTY_SIZE))
     {
     }
 
+    hardware.Print(ppp);
     FillListByEntityID(memory, MAX_PARTY_SIZE, CREATURE, GetPlayerMonsterIDs());
     return true;
 };
@@ -469,8 +475,7 @@ bool Options(HardwareInterface hardware, InputInterface input, MemoryInterface m
                 CharStr_uint8 gameSpeedStr;
                 GetAsChars_uint8(g_core.btns.gameSpeed, &gameSpeedStr, false);
                 uint8_t i = 0;
-                char option_2[SMALL_STRINGS];
-                Flash_GetOptionText(memory, g_core.btns.gameSpeedStr, 2);
+                Flash_GetOptionText(memory, (uint8_t*)g_core.btns.gameSpeedStr, 2);
                 i = 4;
                 g_core.btns.gameSpeedStr[i] = ' ';
                 i++;
@@ -502,7 +507,7 @@ bool Options(HardwareInterface hardware, InputInterface input, MemoryInterface m
     GetAsChars_uint8(g_core.btns.gameSpeed, &gameSpeedStr, false);
     uint8_t i = 0;
 
-    Flash_GetOptionText(memory, g_core.btns.gameSpeedStr, 2);
+    Flash_GetOptionText(memory, (uint8_t*)g_core.btns.gameSpeedStr, 2);
     i = 4;
     g_core.btns.gameSpeedStr[i] = ' ';
     i++;
@@ -515,7 +520,7 @@ bool Options(HardwareInterface hardware, InputInterface input, MemoryInterface m
     }
 
 
-    Flash_GetOptionText(memory, g_core.menu.text[0], 0);
+    Flash_GetOptionText(memory, (uint8_t*)g_core.menu.text[0], 0);
     for (uint8_t i = 0; i < SMALL_STRINGS; i++)
     {
         g_core.menu.text[1][j] = g_core.hardware.volts[j];

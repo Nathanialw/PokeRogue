@@ -23,4 +23,4 @@ bool EEPROM_VerifySize(uint32_t cs, uint32_t expected_size);
 void EEPROM_PrintBuffer(uint32_t sector, uint8_t* buf, uint32_t BUF_SIZE);
 bool EEPROM_FullTest(uint32_t cs);
 void EEPROM_RetentionCheck(uint32_t cs, uint32_t chip_size);
-void EEPROM_Verify(uint32_t cs, uint32_t chip_size);
+void EEPROM_Verify(uint32_t cs);

@@ -3,7 +3,7 @@
 //
 
 #include "battle_graphics.h"
-
+#include "lib_memory.h"
 #include "lib_decl.h"
 
 #include "core_graphics.h"

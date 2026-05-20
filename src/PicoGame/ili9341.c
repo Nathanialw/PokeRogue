@@ -367,7 +367,6 @@ void Draw(uint16_t x, uint16_t y, uint16_t w, uint16_t h, const uint8_t* data)
 **********************************************************************************************************************/
 void DrawToBuffer(const FrameBuffer frameBuffer, const uint16_t* pixels, const Rect_16 rect)
 {
-    DEBUG("DrawToBuffer: %u,%u %u,%u", rect.x, rect.y, rect.w, rect.h);
     uint16_t width = frameBuffer.w;
     // = Flash_GetColor(memory, PAL_KEY];
 

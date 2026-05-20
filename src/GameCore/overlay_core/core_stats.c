@@ -3,6 +3,8 @@
 //
 
 #include "core_stats.h"
+#include "lib_memory.h"
+
 #include "core_ram.h"
 
 

@@ -161,6 +161,8 @@ while True:
                 send(IMAGE_CODE)
             if "BEGIN_VERIFY_17" in line:
                 send(IMAGE_CODE)
+
+
             # if "BEGIN_DUMP" in line:
             #     dump()
             #     print("Dumping Complete")

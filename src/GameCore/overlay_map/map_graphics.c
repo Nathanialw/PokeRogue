@@ -4,10 +4,11 @@
 
 #include "map_graphics.h"
 
-#include "core_entities.h"
 #include "lib_constants.h"
+#include "lib_memory.h"
 #include "types.h"
 
+#include "core_entities.h"
 #include "core_graphics.h"
 #include "core_map.h"
 #include "core_memory_access.h"
@@ -35,7 +36,6 @@ void ClipTile(uint16_t* clip, const uint16_t* pixels, Rect_16 r)
         }
     }
 }
-
 
 
 SET_MEMORY(".map.data")
@@ -422,7 +422,6 @@ void HandleMenu(GraphicsInterface graphics, HardwareInterface hardware, MemoryIn
 }
 
 
-
 /**********************************************************************************************************************/
 /**  Draws the background panel to the screen for the "pokedex" style encyclopedias
 **********************************************************************************************************************/
@@ -637,7 +636,6 @@ void HandleGameMenuDescription(GraphicsInterface graphics, HardwareInterface har
 }
 
 
-
 /**********************************************************************************************************************/
 /**  Retrieves the entity type data for the entity type found at the menu cursor
 **********************************************************************************************************************/
@@ -651,7 +649,8 @@ EntityData FillObjectData(MemoryInterface memory, EntityData* entityData)
         Flash_GetCreatureName(memory, entityData->name, g_core.menu.gameMenu.displayId);
         Flash_GetCreatureDescription(memory, entityData->desc, g_core.menu.gameMenu.displayId);
         Flash_GetSpriteLayout(memory, &entityData->layout, g_core.menu.gameMenu.displayId, CREATURE, true);
-        MonsterType m_type = Flash_GetType(memory, g_core.menu.gameMenu.displayId);
+        MonsterType m_type;
+        Flash_GetType(memory, &m_type, g_core.menu.gameMenu.displayId);
         Flash_GetTypeName(memory, entityData->typeA, m_type.typeA);
         Flash_GetTypeName(memory, entityData->typeB, m_type.typeA);
     }
@@ -690,9 +689,6 @@ EntityData FillObjectData(MemoryInterface memory, EntityData* entityData)
 }
 
 
-
-
-
 /**********************************************************************************************************************/
 /**  Draws the "pokedex" style encyclopedia frame
 **********************************************************************************************************************/
@@ -707,7 +703,6 @@ void HandleGameMenu(GraphicsInterface graphics, HardwareInterface hardware, Memo
     const FontSize font_size = g_core.settings.fontSize;
     const uint8_t size = (font_size == FONT8x8) ? TEXT_W : TILE_W;
     FillObjectData(memory, &g_map.entityData);
-
 
 
     HandleGameMenuLeftBG(graphics, memory, x, y);

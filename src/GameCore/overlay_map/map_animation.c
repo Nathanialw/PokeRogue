@@ -5,6 +5,7 @@
 #include "map_animation.h"
 
 #include "lib_decl.h"
+#include "lib_memory.h"
 
 #include "core_map.h"
 #include "core_memory_access.h"

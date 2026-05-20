@@ -4,6 +4,7 @@
 
 #include "map_stats.h"
 #include "types.h"
+#include "lib_memory.h"
 
 #include "core_memory_access.h"
 #include "core_utils.h"

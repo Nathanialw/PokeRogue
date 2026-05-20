@@ -1,8 +1,8 @@
 //
 // Created by nathanial on 5/19/26.
 //
+#pragma once
+#include "lib_decl.h"
 
-#ifndef PICOROGUE_GENERATE_MAP_STATE_H
-#define PICOROGUE_GENERATE_MAP_STATE_H
 
-#endif //PICOROGUE_GENERATE_MAP_STATE_H
+uint8_t GameLoopEntry(GameInterface* spi);

@@ -51,21 +51,25 @@ int main()
 
         if (api.input.GetButtonDown())
         {
-            uint32_t size = 4 * 1024 * 1024;
 
-            DEBUG("----- BEGIN TESTS ---");
-            EEPROM_FullTest(EEPROM_CART_FUNC_CS);
-            DEBUG("----- BEGIN TESTS ---");
-            EEPROM_FullTest(EEPROM_CART_DATA_CS);
+            EEPROM_Verify(EEPROM_CART_FUNC_CS);
+            sleep_ms(500);
+            EEPROM_Verify(EEPROM_CART_DATA_CS);
 
+            // DEBUG("----- BEGIN TESTS ---");
+            // EEPROM_FullTest(EEPROM_CART_FUNC_CS);
+            // DEBUG("----- BEGIN TESTS ---");
+            // EEPROM_FullTest(EEPROM_CART_DATA_CS);
             //
-            EEPROM_VerifySize(EEPROM_CART_FUNC_CS, size);
-            EEPROM_FullMemoryTest(EEPROM_CART_FUNC_CS, size);
-            EEPROM_RetentionCheck(EEPROM_CART_FUNC_CS, size);
-
-            EEPROM_VerifySize(EEPROM_CART_DATA_CS, size);
-            EEPROM_FullMemoryTest(EEPROM_CART_DATA_CS, size);
-            EEPROM_RetentionCheck(EEPROM_CART_DATA_CS, size);
+            // //
+            // uint32_t size = 4 * 1024 * 1024;
+            // EEPROM_VerifySize(EEPROM_CART_FUNC_CS, size);
+            // EEPROM_FullMemoryTest(EEPROM_CART_FUNC_CS, size);
+            // EEPROM_RetentionCheck(EEPROM_CART_FUNC_CS, size);
+            //
+            // EEPROM_VerifySize(EEPROM_CART_DATA_CS, size);
+            // EEPROM_FullMemoryTest(EEPROM_CART_DATA_CS, size);
+            // EEPROM_RetentionCheck(EEPROM_CART_DATA_CS, size);
         }
 
         if (api.input.GetButtonA())
@@ -93,14 +97,14 @@ int main()
 
     uint8_t overlay_idx = 0;
     LoadOverlay(g_pico_ram.overlays.overlay[overlay_idx].addr, CORE_VMA, g_pico_ram.overlays.overlay[overlay_idx].size);
-    DEBUG("Reserved Core    RAM size: %d bytes - Used: %d bytes", OVERLAY_VMA - CORE_VMA, g_pico_ram.overlays.overlay[overlay_idx].size);
+    DEBUG("Reserved Core    RAM size: %d bytes - Used: %lu bytes", OVERLAY_VMA - CORE_VMA, g_pico_ram.overlays.overlay[overlay_idx].size);
     if (g_pico_ram.overlays.overlay[overlay_idx].size >= OVERLAY_VMA - CORE_VMA) DEBUG("ERROR CORE EXCEEDS RESERVED SPACE");
 
     // uint32_t overlay_table_addr = 0x20000000 + g_pico_ram.overlays.overlay[overlay_idx].size;
     overlay_idx = 1;
     while (1)
     {
-        DEBUG("Reserved Overlay RAM size: %d bytes - Used: %d bytes", END_VMA - OVERLAY_VMA, g_pico_ram.overlays.overlay[overlay_idx].size);
+        DEBUG("Reserved Overlay RAM size: %d bytes - Used: %lu bytes", END_VMA - OVERLAY_VMA, g_pico_ram.overlays.overlay[overlay_idx].size);
         overlay_idx = RunOverlay(&api, g_pico_ram.overlays.overlay[overlay_idx].addr, OVERLAY_VMA, g_pico_ram.overlays.overlay[overlay_idx].size);
         if (overlay_idx == 0)
         {

@@ -4,8 +4,11 @@
 
 #include "map_effects.h"
 
-#include "lib_decl.h"
 #include "types.h"
+
+#include "lib_decl.h"
+#include "lib_memory.h"
+
 #include "map.h"
 
 

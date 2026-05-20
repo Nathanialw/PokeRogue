@@ -2,7 +2,11 @@
 // Created by nathanial on 4/11/26.
 //
 
+#include "map_status_effects.h"
+
 #include "constants.h"
+#include "lib_memory.h"
+
 #include "core_ram.h"
 
 

@@ -3,6 +3,7 @@
 //
 
 #include "core_player.h"
+#include "lib_memory.h"
 
 #include "core_entities.h"
 #include "core_ram.h"

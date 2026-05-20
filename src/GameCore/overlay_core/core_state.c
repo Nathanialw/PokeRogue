@@ -3,6 +3,7 @@
 //
 
 #include "core_state.h"
+#include "lib_memory.h"
 
 #include "core_ram.h"
 #include "lib_enums.h"

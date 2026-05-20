@@ -7,6 +7,7 @@
 #include "enums.h"
 #include "lib_decl.h"
 #include "lib_enums.h"
+#include "lib_memory.h"
 
 #include "core_graphics.h"
 #include "core_menu.h"

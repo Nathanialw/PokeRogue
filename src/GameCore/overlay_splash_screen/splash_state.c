@@ -4,6 +4,7 @@
 
 #include "splash_state.h"
 
+#include "lib_memory.h"
 #include "lib_decl.h"
 #include "enums.h"
 

@@ -2,6 +2,7 @@
 // Created by nathanial on 2/23/26.
 //
 #include "core_tiles.h"
+#include "lib_memory.h"
 
 #include "core_memory_access.h"
 

@@ -3,6 +3,7 @@
 //
 
 #include "map_memory_access.h"
+#include "lib_memory.h"
 
 #include "types.h"
 

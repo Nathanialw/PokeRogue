@@ -2,6 +2,7 @@
 // Created by nathanial on 3/8/26.
 //
 #include "core_utils.h"
+#include "lib_memory.h"
 
 #include "types.h"
 
