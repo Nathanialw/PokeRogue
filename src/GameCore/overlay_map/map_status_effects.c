@@ -2,7 +2,7 @@
 // Created by nathanial on 4/11/26.
 //
 
-#include "common/constants.h"
+#include "constants.h"
 #include "core_ram.h"
 
 

@@ -18,8 +18,8 @@ ItemData Flash_GetItemData(MemoryInterface memory, uint8_t index);
 
 
 //GRAPHICS
-void Flash_GetSpriteLayout(MemoryInterface memory, SpriteLayout spriteLayout, uint8_t index, ObjectsTypes type, bool front);
-void Flash_GetSprite(MemoryInterface memory, uint8_t* sprite, uint16_t length, ObjectsTypes type, bool front);
+void Flash_GetSpriteLayout(MemoryInterface memory, SpriteLayout* spriteLayout, uint8_t index, ObjectsTypes type, bool front);
+void Flash_GetSprite(MemoryInterface memory, uint8_t* sprite, uint32_t index, uint16_t length, ObjectsTypes type, bool front);
 
 
 ///FONTS
@@ -31,7 +31,9 @@ uint16_t Flash_GetColor(MemoryInterface memory, uint8_t color);
 
 ///TEXT
 
+void Flash_GetObjectName(MemoryInterface memory, char* text, uint8_t index);
 //ui
+void Flash_GetMenuText(MemoryInterface memory, uint8_t* textBuffer, uint8_t index);
 
 //entities
 
@@ -44,3 +46,4 @@ void Flash_GetSkillName(MemoryInterface memory, char* text, uint8_t index);
 //FUNCTIONS
 bool Flash_GetSpellEffect(HardwareInterface hardware, MemoryInterface memory, uint8_t index, EntityId id, EntityId target_id, SpellData spellData);
 bool Flash_GetItemEffect(MemoryInterface memory, uint8_t index, EntityId item_id, EntityId id, ItemData itemData);
+

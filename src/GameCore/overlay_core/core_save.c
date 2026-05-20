@@ -4,8 +4,8 @@
 
 #include "core_save.h"
 
-#include "common/constants.h"
-#include "common/types.h"
+#include "constants.h"
+#include "types.h"
 
 /**********************************************************************************************************************/
 /** Player data

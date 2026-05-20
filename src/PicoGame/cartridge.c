@@ -8,6 +8,7 @@
 #include <stdarg.h>
 
 #include "cartridge_rom.h"
+#include "constants.h"
 #include "lib_debugging.h"
 #include "lib_decl.h"
 #include "pico/time.h"
@@ -21,7 +22,7 @@ bool LoadOverlay(uint32_t lma, uint32_t ram_addr, size_t size)
     // Destination must fit in RAM – your linker script already reserves space
     // EEPROM_Read copies 'size' bytes from SPI flash offset 'lma' to 'ram_addr'
     DEBUG("Loading overlay from 0x%08X to 0x%08X", lma, ram_addr);
-    EEPROM_Read(lma, (uint8_t*)ram_addr, size);
+    EEPROM_Read(EEPROM_CART_FUNC_CS, lma, (uint8_t*)ram_addr, size);
 
     return true;
 }
@@ -39,7 +40,7 @@ uint8_t RunOverlay(GameInterface* spi, uint32_t lma, uint32_t ram_addr, size_t s
     DEBUG("Running overlay at 0x%08X", (uint32_t)entry);
     return entry(spi);
 }
-
+\
 
 void EnterBootloader()
 {
@@ -65,7 +66,7 @@ MemoryInterface GetMemoryInterface()
 
 void GetRom(uint32_t addr, uint8_t* buf, uint32_t size)
 {
-    EEPROM_Read(addr, buf, size);
+    EEPROM_Read(EEPROM_CART_DATA_CS, addr, buf, size);
 }
 
 

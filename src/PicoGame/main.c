@@ -4,13 +4,13 @@
 #include "cartridge.h"
 #include "cartridge_rom.h"
 #include "sounds.h"
+#include "constants.h"
 #include "ili9341.h"
 #include "init.h"
 #include "input.h"
 #include "lib_debugging.h"
 #include "memory_ram.h"
 #include "pico/multicore.h"
-#include "pico/time.h"
 
 /**********************************************************************************************************************/
 /*
@@ -24,7 +24,6 @@ int main()
 {
     Pico_Init();
     InitRam();
-    sleep_ms(1000);;
     // Pico_AudioInit(); // Initialize audio system (this must be done on core 0)
 
     GameInterface api;
@@ -41,12 +40,34 @@ int main()
         api.input.HandleInput();
         if (api.input.GetButtonB())
         {
-            uint32_t size = 4 * 1024 * 1024;
-            EEPROM_Clear(size); // erase whole chip first
-            printf("Erased.\n");
-            EEPROM_Flash();
-            break;
+            EEPROM_Flash(EEPROM_CART_FUNC_CS);
+            DEBUG("CODE EEPROM FLASHED");
         }
+        if (api.input.GetButtonY())
+        {
+            EEPROM_Flash(EEPROM_CART_DATA_CS);
+            DEBUG("DATA EEPROM FLASHED");
+        }
+
+        if (api.input.GetButtonDown())
+        {
+            uint32_t size = 4 * 1024 * 1024;
+
+            DEBUG("----- BEGIN TESTS ---");
+            EEPROM_FullTest(EEPROM_CART_FUNC_CS);
+            DEBUG("----- BEGIN TESTS ---");
+            EEPROM_FullTest(EEPROM_CART_DATA_CS);
+
+            //
+            EEPROM_VerifySize(EEPROM_CART_FUNC_CS, size);
+            EEPROM_FullMemoryTest(EEPROM_CART_FUNC_CS, size);
+            EEPROM_RetentionCheck(EEPROM_CART_FUNC_CS, size);
+
+            EEPROM_VerifySize(EEPROM_CART_DATA_CS, size);
+            EEPROM_FullMemoryTest(EEPROM_CART_DATA_CS, size);
+            EEPROM_RetentionCheck(EEPROM_CART_DATA_CS, size);
+        }
+
         if (api.input.GetButtonA())
         {
             break;
@@ -61,9 +82,9 @@ int main()
 
     uint8_t n;
     uint16_t s = sizeof(Overlay);
-    EEPROM_Read(0, &n, 1);
+    EEPROM_Read(EEPROM_CART_FUNC_CS, 4, &n, 1);
     DEBUG("EEPROM: %d %d %d", n, s, n*s);
-    EEPROM_Read(1, g_pico_ram.overlays.bytes, n * s);
+    EEPROM_Read(EEPROM_CART_FUNC_CS, 5, g_pico_ram.overlays.bytes, n * s);
 
     for (int i = 0; i < n; i++)
     {

@@ -4,11 +4,13 @@
 
 #include "map_animation.h"
 
+#include "lib_decl.h"
+
 #include "core_map.h"
 #include "core_memory_access.h"
 #include "core_ram.h"
 #include "core_tiles.h"
-#include "lib_decl.h"
+
 #include "map_camera.h"
 #include "map_graphics.h"
 #include "map_memory_access.h"

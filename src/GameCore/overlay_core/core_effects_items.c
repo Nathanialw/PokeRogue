@@ -6,7 +6,6 @@
 #include "core_actions.h"
 #include "core_effects.h"
 #include "core_ram.h"
-#include "map.h"
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
@@ -70,8 +69,8 @@ bool UseLevitatePotion(HardwareInterface hardware, MemoryInterface memory, Entit
 **********************************************************************************************************************/
 bool UseTeleportPotion(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
 {
-    Position random_tile_pos = GetSelectedTile(hardware, true);
-    Reposition(e_id, random_tile_pos);
+    // Position random_tile_pos = GetSelectedTile(hardware, true);
+    // Reposition(e_id, random_tile_pos);
     return true;
 }
 
@@ -80,10 +79,10 @@ bool UseTeleportPotion(HardwareInterface hardware, MemoryInterface memory, Entit
 **********************************************************************************************************************/
 bool UseBlinkPotion(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
 {
-    Position random_tile_pos = GetRandomMapTile(hardware, CREATURE, true);
-    uint8_t as = 0b11000001;
-    Reposition(as, random_tile_pos);
-    Reposition(e_id, random_tile_pos);
+    // Position random_tile_pos = GetRandomMapTile(hardware, CREATURE, true);
+    // uint8_t as = 0b11000001;
+    // Reposition(as, random_tile_pos);
+    // Reposition(e_id, random_tile_pos);
     return true;
 }
 

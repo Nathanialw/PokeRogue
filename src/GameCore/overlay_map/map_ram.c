@@ -13,4 +13,7 @@ const ObjectEffect objectFunctions[OBJECT_COUNT] = {
 
 
 SET_MEMORY(".map.data")
-MapRunState g_map = {0};
+MapRunState g_map = {
+    .power = "Powr:\0",
+    .rarity = "Rare:\0",
+};

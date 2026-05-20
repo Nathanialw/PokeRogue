@@ -15,7 +15,7 @@ add_executable(PicoRogue
         memory_rom.c
         memory_psram.c
 
-        pico_constants.h
+        constants.h
 )
 
 

@@ -11,8 +11,8 @@ from python.config import constants
 
 
 def main():
-    elf_path = Path("../build-cartridge-code/src/GameCartridge/GameCartridgeCode")
-    output_bin = Path("../build-cartridge-code/src/GameCartridge/cartridge.bin")
+    elf_path = Path("../build-cartridge-data/src/GameCartridge/data/GameCartridgeData")
+    output_bin = Path("../build-cartridge-data/src/GameCartridge/data/cartridge_data.bin")
     # rom_size = 0x1000000  # 16MB
     rom_size = 0x0400000  # 4MB
 
@@ -27,13 +27,6 @@ def main():
     defines_size = []
 
     sections = [
-        #code
-        ".core",
-        ".splash",
-        ".map",
-        ".map_gen",
-        ".battle",
-
         #   DATA
         # char sprite colors
         ".char_sprites_items",
@@ -122,14 +115,13 @@ def main():
     ]
     print("Building cartridge...")
 
-    header_size = (len(sections) * 8) + 1
-    rom = bytearray(b'\xFF' * (rom_size - (header_size - 4)))
+    # rom = bytearray(b'\xFF' * rom_size)
+    rom = bytearray(b'\xFF')# * rom_size)
 
-    p = 0x0
-    rom[p] = len(sections)
-    p = p + 0x1
 
-    addr = header_size
+    p = 0x4
+
+    addr = p
     # build header
     for section_name in sections:
         tmp_file = Path(f"{section_name}.tmp")
@@ -143,24 +135,18 @@ def main():
 
         if result.returncode == 0 and tmp_file.exists():
             data = tmp_file.read_bytes()
-
-            rom[p:0x4] = addr.to_bytes(4, byteorder='little')
-            p = p + 0x4
             defines_pos.append(addr)
-
             l = len(data)
             defines_size.append(l)
-            rom[p:0x4] = l.to_bytes(4, byteorder='little')
-            p = p + 0x4
-
             addr = addr + l
             tmp_file.unlink()
         else:
             print(f"  No data for {section_name}")
 
 
+    rom[0:0x4] = addr.to_bytes(4, byteorder='little')
+    print(f"{addr}")
     # Generate .ld file
-
 
 
     # build cartridge
@@ -186,7 +172,7 @@ def main():
     # Write final binary
     output_bin.write_bytes(rom)
 
-    print(f"\nSuccess! Created {output_bin.name}  ({rom_size//1024//1024} MB) ({rom_size//1024} KB) ({rom_size} B)")
+    print(f"\nSuccess! Created {output_bin.name} {len(rom)} ({rom_size//1024//1024} MB) ({rom_size//1024} KB) ({rom_size} B)")
 
     # write defines
     filename = f"{constants.INC_FOLDER}/memory_constants.inc"
@@ -194,8 +180,8 @@ def main():
     with open(filename, 'w', encoding='utf-8') as f:
         f.write(f"#pragma once\n\n")
         f.write(f"//  Defines the layout of data in rom\n")
-        f.write(f"///   {len(defines_pos)} entries MAX 255\n\n\n")
-        for i in range(len(defines_pos)):
+        f.write(f"///   {len(sections)} entries MAX 255\n\n\n")
+        for i in range(len(sections)):
             f.write(f"#define {sections[i].upper().lstrip('.')}_POSITION {defines_pos[i]:#x} \n")
             f.write(f"#define {sections[i].upper().lstrip('.')}_SIZE {defines_size[i]:#x} \n")
 

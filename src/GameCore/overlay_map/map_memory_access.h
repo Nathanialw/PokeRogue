@@ -17,13 +17,11 @@ void Flash_GetSpriteMetadata(MemoryInterface memory, Sprite* sprite, ObjectsType
 void Flash_GetOptionText(MemoryInterface memory, uint8_t* textBuffer, uint8_t index);
 
 
-void Flash_GetMenuText(MemoryInterface memory, uint8_t* textBuffer, uint8_t index);
 
 
 //MAP
 void Flash_GetBiomeTile(MemoryInterface memory, Tile* tile, uint8_t biomeType, uint8_t tile_id);
 
-void Flash_GetObjectName(MemoryInterface memory, char* text, uint8_t index);
 
 void Flash_GetCreatureDescription(MemoryInterface memory, char* text, uint8_t index);
 void Flash_GetObjectDescription(MemoryInterface memory, char* text, uint8_t index);

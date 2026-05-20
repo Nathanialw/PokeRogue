@@ -3,6 +3,7 @@
 //
 #include "battle_ram.h"
 
+#include "data_constants.inc"
 #include "inc/decl_skills.inc"
 #include "inc/decl_animation_items_attack.inc"
 #include "inc/decl_animation_skills_attack.inc"
@@ -11,7 +12,6 @@
 #include "inc/decl_animation_skills_struck.inc"
 #include "inc/decl_animation_spells_struck.inc"
 
-#include "data_constants.inc"
 #include "types.h"
 
 

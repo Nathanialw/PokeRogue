@@ -4,9 +4,11 @@
 
 #include "battle_player.h"
 
+#include "types.h"
+
 #include "core_entities.h"
 #include "core_ram.h"
-#include "types.h"
+
 #include "battle_entities.h"
 
 

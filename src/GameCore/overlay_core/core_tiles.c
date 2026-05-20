@@ -122,8 +122,15 @@ void Expand4bppPackedToRGB(const uint16_t* src, const uint16_t* pal, uint16_t* d
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
+SET_MEMORY(".core.data")
+static const char aadc[] = "in while, %d\n";
+
+SET_MEMORY(".core.data")
+static const char aavc[] = "in for, %d %d\n";
+
+
 SET_MEMORY(".core")
-uint8_t Expand4bppPackedToByte(const uint8_t* src, const uint16_t* pal, uint16_t* dest)
+uint8_t Expand4bppPackedToByte(MemoryInterface memory, const uint8_t* src, const uint16_t* pal, uint16_t* dest)
 {
     uint16_t dest_idx = 0;
     uint8_t bytes_read = 0; // renamed for clarity
@@ -131,6 +138,7 @@ uint8_t Expand4bppPackedToByte(const uint8_t* src, const uint16_t* pal, uint16_t
 
     while (dest_idx < 256)
     {
+        // memory.Print(aadc, dest_idx);
         uint8_t byte = *p++; // read first
         bytes_read++; // count AFTER reading
 
@@ -143,6 +151,7 @@ uint8_t Expand4bppPackedToByte(const uint8_t* src, const uint16_t* pal, uint16_t
 
         for (uint8_t k = 0; k < count && dest_idx < 256; k++)
         {
+            // memory.Print(aavc, k, dest_idx);
             dest[dest_idx++] = color;
         }
     }

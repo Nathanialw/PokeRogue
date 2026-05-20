@@ -131,7 +131,16 @@ void DrawCursor(GraphicsInterface graphics, MemoryInterface memory)
 }
 
 
-
+SET_MEMORY(".core.data")
+static const char gg[] = "%d\n";
+SET_MEMORY(".core.data")
+static const char gag[] = "%s";
+SET_MEMORY(".core.data")
+static const char hh[] = "%08b ";
+SET_MEMORY(".core.data")
+static const char hd[] = "0x%2x, ";
+SET_MEMORY(".core.data")
+static const char hf[] = "----------------\n";
 
 
 /**********************************************************************************************************************/
@@ -142,21 +151,17 @@ void DrawCursor(GraphicsInterface graphics, MemoryInterface memory)
 SET_MEMORY(".core")
 FrameBuffer DrawBattlerToBuffer(GraphicsInterface graphics, MemoryInterface memory, uint16_t screen_x, uint16_t screen_y, const SpriteLayout layout, ObjectsTypes type, bool front)
 {
-    Glyph16x16 temp; // temp RGB565 buffer (512 bytes on stack)
-
     uint32_t byte_offset = 0; // starts at beginning of this sprite's data
     uint8_t tile_counter = 0;
 
     uint16_t pixel_w = BATTLER_TILES_W * TILE_W;
     uint16_t pixel_h = BATTLER_TILES_H * TILE_H;
 
-    uint16_t length = 0;
-    for (uint8_t i = 0; i < BATTLER_TILES_H * BATTLER_TILES_W; i++)
-        if (layout.emptyIndexes[i / 8] & (1u << (i % 8)))
-            length++;
+    memory.Print(gg, type);
+    memory.Print(gg, front);
+    memory.Print(gg, layout.idx);
+    memory.Print(hf);
 
-    uint8_t sprite[length * TILE_W * TILE_H];
-    Flash_GetSprite(memory, sprite, length, type, front);
 
     FrameBuffer f = {screen_x, screen_y, pixel_w, pixel_h};
     graphics.SetFrameBuffer(Flash_GetColor(memory, PAL_OFF_WHITE_GRAY));
@@ -166,6 +171,7 @@ FrameBuffer DrawBattlerToBuffer(GraphicsInterface graphics, MemoryInterface memo
         // DEBUG("while (tile_counter < BATTLER_TILES_H * BATTLER_TILES_W)");
         int row = tile_counter / BATTLER_TILES_H;
         int col = tile_counter % BATTLER_TILES_W;
+
 
         uint8_t tile_idx = row * BATTLER_TILES_W + col;
         uint8_t mask_byte = tile_idx / 8;
@@ -177,21 +183,27 @@ FrameBuffer DrawBattlerToBuffer(GraphicsInterface graphics, MemoryInterface memo
             continue;
         }
 
+        memory.Print(gg, tile_counter);
+
         int draw_x = col * TILE_W;
         int draw_y = row * TILE_H;
 
-        const uint8_t* packed_tile = sprite + layout.idx + byte_offset;
+
+        memory.Print(gg, layout.idx);
+        const uint32_t index = layout.idx + byte_offset;
+        memory.Print(hf);
+
+        Flash_GetSprite(memory, g_map.spriteCache, index, 256, type, front);
+
+        for (uint16_t i = 0; i < 256; i++)
+            memory.Print(hd, g_map.spriteCache[i]);
+        memory.Print(hf);
 
         // Decompress and get how many compressed bytes were used
-        uint8_t bytes_used = Expand4bppPackedToByte(packed_tile, layout.palette, temp.pixels);
-
-        // Advance offset for NEXT non-empty tile
-        byte_offset += bytes_used;
+        byte_offset += Expand4bppPackedToByte(memory, g_map.spriteCache, layout.palette, g_map.tile.pixels);
 
         Rect_16 r = {draw_x, draw_y, TILE_W, TILE_H};
-        graphics.DrawToBuffer(f, temp.pixels, r);
-        // DEBUG("DrawBattler");
-
+        graphics.DrawToBuffer(f, g_map.tile.pixels, r);
         tile_counter++;
     }
 
@@ -199,13 +211,12 @@ FrameBuffer DrawBattlerToBuffer(GraphicsInterface graphics, MemoryInterface memo
 }
 
 
-
 /**********************************************************************************************************************/
 /**     Clears the Buffer to gray
  *      Draws a multitile sprite to a buffer one TILE_W x TILE_H tile at a tile
  *      Draws the buffer to the screen
 **********************************************************************************************************************/
-SET_MEMORY(".map")
+SET_MEMORY(".core")
 void DrawBattler(GraphicsInterface graphics, MemoryInterface memory, uint16_t screen_x, uint16_t screen_y, const SpriteLayout layout, ObjectsTypes type, bool front)
 {
     FrameBuffer f = DrawBattlerToBuffer(graphics, memory, screen_x, screen_y, layout, type, front);

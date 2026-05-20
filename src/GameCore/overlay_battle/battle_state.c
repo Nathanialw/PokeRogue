@@ -4,19 +4,21 @@
 
 #include "battle_state.h"
 
-#include "battle_actions.h"
-#include "battle_animation.h"
-#include "battle_graphics.h"
-#include "battle_menu.h"
-#include "battle_player.h"
+#include "enums.h"
+#include "lib_decl.h"
+#include "lib_enums.h"
+
 #include "core_graphics.h"
 #include "core_menu.h"
 #include "core_player.h"
 #include "core_ram.h"
 #include "core_state.h"
-#include "enums.h"
-#include "lib_decl.h"
-#include "lib_enums.h"
+
+#include "battle_actions.h"
+#include "battle_animation.h"
+#include "battle_graphics.h"
+#include "battle_menu.h"
+#include "battle_player.h"
 
 
 /**********************************************************************************************************************/

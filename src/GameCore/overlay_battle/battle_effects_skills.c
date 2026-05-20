@@ -2,11 +2,15 @@
 // Created by nathanial on 2/22/26.
 //
 
-#include "battle_player.h"
+#include "battle_effects_skills.h"
+
+#include "types.h"
+#include "lib_debugging.h"
 #include "core_effects.h"
 #include "core_ram.h"
-#include "common/types.h"
-#include "lib_debugging.h"
+
+#include "battle_player.h"
+
 
 /**********************************************************************************************************************/
 /*

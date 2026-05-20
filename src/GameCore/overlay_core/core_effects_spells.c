@@ -3,12 +3,10 @@
 //
 #include "core_effects_spells.h"
 
-#include "core_effects.h"
 #include "lib_debugging.h"
-#include "map.h"
-#include "map_effects.h"
-#include "map_player.h"
-#include "common/types.h"
+#include "types.h"
+
+#include "core_effects.h"
 
 
 /**********************************************************************************************************************/
@@ -61,8 +59,8 @@ bool CastLevitate(HardwareInterface hardware, MemoryInterface memory,EntityId pa
 **********************************************************************************************************************/
 bool CastDisplacement(HardwareInterface hardware, MemoryInterface memory,EntityId partyID, EntityId enemyID, SpellData spellData)
 {
-    Position random_tile_pos = GetRandomMapTile(hardware, CREATURE, true);
-    Reposition(partyID, random_tile_pos);
+    // Position random_tile_pos = GetRandomMapTile(hardware, CREATURE, true);
+    // Reposition(partyID, random_tile_pos);
     return true;
 }
 
@@ -92,8 +90,8 @@ bool CastWaterBreathing(HardwareInterface hardware, MemoryInterface memory,Entit
 **********************************************************************************************************************/
 bool CastTeleport(HardwareInterface hardware, MemoryInterface memory,EntityId partyID, EntityId enemyID, SpellData spellData)
 {
-    Position random_tile_pos = GetSelectedTile(hardware, true);
-    Reposition(partyID, random_tile_pos);
+    // Position random_tile_pos = GetSelectedTile(hardware, true);
+    // Reposition(partyID, random_tile_pos);
     return true;
 }
 
@@ -113,8 +111,8 @@ bool CastResurrect(HardwareInterface hardware, MemoryInterface memory,EntityId p
 **********************************************************************************************************************/
 bool CastRaiseDead(HardwareInterface hardware, MemoryInterface memory,EntityId partyID, EntityId enemyID, SpellData spellData)
 {
-    TileHasCorpse(GetPlayerPosition());
-    Summon(SKELETON);
+    // TileHasCorpse(GetPlayerPosition());
+    // Summon(SKELETON);
     return true;
 }
 
@@ -125,7 +123,7 @@ bool CastRaiseDead(HardwareInterface hardware, MemoryInterface memory,EntityId p
 bool CastDescend(HardwareInterface hardware, MemoryInterface memory,EntityId partyID, EntityId enemyID, SpellData spellData)
 {
     DEBUG("CastDescend()");
-    MapDescend(hardware, memory, partyID);
+    // MapDescend(hardware, memory, partyID);
     return true;
 }
 
@@ -145,13 +143,13 @@ bool CastFlameEater(HardwareInterface hardware, MemoryInterface memory,EntityId 
 **********************************************************************************************************************/
 bool CastPortal(HardwareInterface hardware, MemoryInterface memory,EntityId partyID, EntityId enemyID, SpellData spellData)
 {
-    uint8_t n = hardware.GetRandom_uint8_t(1, 3);
-    if (n == 1)
-        MapDescend(hardware, memory, partyID);
-    else if (n == 2)
-        MapAscend(hardware, memory, partyID);
-    else
-        MapLateral(hardware, memory, partyID);
+    // uint8_t n = hardware.GetRandom_uint8_t(1, 3);
+    // if (n == 1)
+    //     MapDescend(hardware, memory, partyID);
+    // else if (n == 2)
+    //     MapAscend(hardware, memory, partyID);
+    // else
+    //     MapLateral(hardware, memory, partyID);
     return true;
 }
 
@@ -561,7 +559,7 @@ bool CastGrowMuscle(HardwareInterface hardware, MemoryInterface memory,EntityId 
 **********************************************************************************************************************/
 bool CastClairvoyance(HardwareInterface hardware, MemoryInterface memory,EntityId partyID, EntityId enemyID, SpellData spellData)
 {
-    RevealMap();
+    // RevealMap();
     return true;
 }
 
@@ -581,8 +579,8 @@ bool CastWallWalking(HardwareInterface hardware, MemoryInterface memory,EntityId
 **********************************************************************************************************************/
 bool CastCreatePit(HardwareInterface hardware, MemoryInterface memory,EntityId partyID, EntityId enemyID, SpellData spellData)
 {
-    Position pos = GetSelectedTile(hardware, true);
-    MapModifyTile(pos, PIT);
+    // Position pos = GetSelectedTile(hardware, true);
+    // MapModifyTile(pos, PIT);
     return true;
 }
 
@@ -662,8 +660,8 @@ bool CastPurification(HardwareInterface hardware, MemoryInterface memory,EntityI
 **********************************************************************************************************************/
 bool CastRaiseSkeleton(EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    TileHasCorpse(GetPlayerPosition());
-    Summon(SKELETON);
+    // TileHasCorpse(GetPlayerPosition());
+    // Summon(SKELETON);
     return true;
 }
 

@@ -14,8 +14,8 @@
 #include "core_menu.h"
 #include "core_ram.h"
 #include "core_tiles.h"
-#include "map_entities.h"
 
+#include "map_entities.h"
 #include "map_memory_access.h"
 #include "map_ram.h"
 #include "map_utils.h"
@@ -637,14 +637,6 @@ void HandleGameMenuDescription(GraphicsInterface graphics, HardwareInterface har
 }
 
 
-typedef struct
-{
-    char name[SMALL_STRINGS];
-    char* desc;
-    SpriteLayout layout;
-    char* typeA;
-    char* typeB;
-} EntityData;
 
 /**********************************************************************************************************************/
 /**  Retrieves the entity type data for the entity type found at the menu cursor
@@ -658,7 +650,7 @@ EntityData FillObjectData(MemoryInterface memory, EntityData* entityData)
     {
         Flash_GetCreatureName(memory, entityData->name, g_core.menu.gameMenu.displayId);
         Flash_GetCreatureDescription(memory, entityData->desc, g_core.menu.gameMenu.displayId);
-        Flash_GetSpriteLayout(memory, entityData->layout, g_core.menu.gameMenu.displayId, CREATURE, true);
+        Flash_GetSpriteLayout(memory, &entityData->layout, g_core.menu.gameMenu.displayId, CREATURE, true);
         MonsterType m_type = Flash_GetType(memory, g_core.menu.gameMenu.displayId);
         Flash_GetTypeName(memory, entityData->typeA, m_type.typeA);
         Flash_GetTypeName(memory, entityData->typeB, m_type.typeA);
@@ -667,7 +659,7 @@ EntityData FillObjectData(MemoryInterface memory, EntityData* entityData)
     {
         Flash_GetObjectName(memory, entityData->name, g_core.menu.gameMenu.displayId);
         Flash_GetObjectDescription(memory, entityData->desc, g_core.menu.gameMenu.displayId);
-        Flash_GetSpriteLayout(memory, entityData->layout, g_core.menu.gameMenu.displayId, OBJECT, true);
+        Flash_GetSpriteLayout(memory, &entityData->layout, g_core.menu.gameMenu.displayId, OBJECT, true);
         entityData->typeA = "\0";
         entityData->typeB = "\0";
     }
@@ -675,7 +667,7 @@ EntityData FillObjectData(MemoryInterface memory, EntityData* entityData)
     {
         Flash_GetItemName(memory, entityData->name, g_core.menu.gameMenu.displayId);
         Flash_GetItemDescription(memory, entityData->desc, g_core.menu.gameMenu.displayId);
-        Flash_GetSpriteLayout(memory, entityData->layout, g_core.menu.gameMenu.displayId, ITEM, true);
+        Flash_GetSpriteLayout(memory, &entityData->layout, g_core.menu.gameMenu.displayId, ITEM, true);
         entityData->typeA = "\0";
         entityData->typeB = "\0";
     }
@@ -683,7 +675,7 @@ EntityData FillObjectData(MemoryInterface memory, EntityData* entityData)
     {
         Flash_GetSpellName(memory, entityData->name, g_core.menu.gameMenu.displayId);
         Flash_GetSpellDescription(memory, entityData->desc, g_core.menu.gameMenu.displayId);
-        Flash_GetSpriteLayout(memory, entityData->layout, g_core.menu.gameMenu.displayId, SPELL, true);
+        Flash_GetSpriteLayout(memory, &entityData->layout, g_core.menu.gameMenu.displayId, SPELL, true);
         entityData->typeA = "\0";
         entityData->typeB = "\0";
     }
@@ -691,7 +683,7 @@ EntityData FillObjectData(MemoryInterface memory, EntityData* entityData)
     {
         Flash_GetSkillName(memory, entityData->name, g_core.menu.gameMenu.displayId);
         Flash_GetSkillDescription(memory, entityData->desc, g_core.menu.gameMenu.displayId);
-        Flash_GetSpriteLayout(memory, entityData->layout, g_core.menu.gameMenu.displayId, SKILL, true);
+        Flash_GetSpriteLayout(memory, &entityData->layout, g_core.menu.gameMenu.displayId, SKILL, true);
         entityData->typeA = "\0";
         entityData->typeB = "\0";
     }
@@ -699,11 +691,6 @@ EntityData FillObjectData(MemoryInterface memory, EntityData* entityData)
 
 
 
-SET_MEMORY(".map.rodata")
-const char power[] = "Powr:\0";
-
-SET_MEMORY(".map.rodata")
-const char rarity[] = "Rare:\0";
 
 
 /**********************************************************************************************************************/
@@ -719,15 +706,16 @@ void HandleGameMenu(GraphicsInterface graphics, HardwareInterface hardware, Memo
     uint8_t y = 0;
     const FontSize font_size = g_core.settings.fontSize;
     const uint8_t size = (font_size == FONT8x8) ? TEXT_W : TILE_W;
-    EntityData entityData;
-    FillObjectData(memory, &entityData);
+    FillObjectData(memory, &g_map.entityData);
+
+
 
     HandleGameMenuLeftBG(graphics, memory, x, y);
     HandleGameMenuBorders(graphics, hardware, memory);
-    DrawBattler(graphics, memory, x, y + (size), entityData.layout, g_core.menu.sel[0].y - 1, true);
-    HandleGameMenuLeftName(graphics, memory, x, y + (size * 16), entityData.name);
-    HandleGameMenuLeftStat(graphics, memory, x, x + (size * 6), y + (size * 18), size, power);
-    HandleGameMenuLeftStat(graphics, memory, x, x + (size * 6), y + (size * 20) - 4, size, rarity);
-    HandleGameMenuTypes(graphics, memory, entityData.typeA, entityData.typeB);
-    HandleGameMenuDescription(graphics, hardware, memory, (size * 21), entityData.desc);
+    // DrawBattler(graphics, memory, x, y + (size), g_map.entityData.layout, g_core.menu.sel[0].y - 1, true);
+    HandleGameMenuLeftName(graphics, memory, x, y + (size * 16), g_map.entityData.name);
+    HandleGameMenuLeftStat(graphics, memory, x, x + (size * 6), y + (size * 18), size, g_map.power);
+    HandleGameMenuLeftStat(graphics, memory, x, x + (size * 6), y + (size * 20) - 4, size, g_map.rarity);
+    // HandleGameMenuTypes(graphics, memory, g_map.entityData.typeA, g_map.entityData.typeB);
+    // HandleGameMenuDescription(graphics, hardware, memory, (size * 21), g_map.entityData.desc);
 }

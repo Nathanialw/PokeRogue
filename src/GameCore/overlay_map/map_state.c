@@ -4,12 +4,14 @@
 
 #include "map_state.h"
 
+#include "lib_decl.h"
+#include "lib_enums.h"
+
 #include "core_graphics.h"
 #include "core_menu.h"
 #include "core_ram.h"
 #include "core_state.h"
-#include "lib_decl.h"
-#include "lib_enums.h"
+
 #include "map.h"
 #include "map_camera.h"
 #include "map_entities.h"

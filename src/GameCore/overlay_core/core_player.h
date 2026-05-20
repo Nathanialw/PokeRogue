@@ -11,3 +11,5 @@ EntityId PlayerPickItem(EntityId e_id);
 EntityId* GetPlayerMonsterIDs(void);
 void DestroyPlayerCreature(HardwareInterface hardware);
 void DestroyEnemyCreature(HardwareInterface hardware);
+
+void ConsumeItem(uint8_t idx, EntityId e_id);

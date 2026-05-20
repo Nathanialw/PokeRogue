@@ -18,7 +18,7 @@
 #include "ili9341.h"
 #include "input.h"
 #include "hardware.h"
-#include "pico_constants.h"
+#include "constants.h"
 #include "cartridge_save.h"
 #include "cartridge_rom.h"
 #include "memory_psram.h"
@@ -168,7 +168,8 @@ void Pico_Init(void)
 #endif
 
     SPI0_Init();
-    InitCart();
+    InitCart(EEPROM_CART_FUNC_CS);
+    InitCart(EEPROM_CART_DATA_CS);
     FRAM_Init();
     InitPSram();
 
@@ -182,18 +183,13 @@ void Pico_Init(void)
     Pico_ili9341_Init();
     sleep_ms(200);
 
-    // DEBUG("----- BEGIN TESTS ---");
-    // EEPROM_FullTest();
     // DEBUG("----- EEPROM Test Complete ---");
     // FRAM_FullTest();
     // DEBUG("----- FRAM Test Complete ---");
     // PSRAM_FullTest();
     // DEBUG("----- PSRAM Test Complete ---");
     //
-    uint32_t size = 4 * 1024 * 1024;
-    // EEPROM_VerifySize(size);
-    // EEPROM_FullMemoryTest(size);
-    // EEPROM_RetentionCheck(size);
+
     //
 
 

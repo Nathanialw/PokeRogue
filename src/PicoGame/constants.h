@@ -67,7 +67,8 @@
 #define FM24C256_SDA    20
 #define FM24C256_SCL    21
 //SPI 0
-#define EEPROM_CART_CS 17
+#define EEPROM_CART_FUNC_CS 17
+#define EEPROM_CART_DATA_CS 8
 
 /**********************************************************************************************************************/
 /**  psram
@@ -143,7 +144,7 @@
 // #define SPI0_A_SCK        2
 // #define CART_MOSI       3
 // #define CART_MISO       4
-// #define EEPROM_CART_CS  5
+// #define EEPROM_CART_FUNC_CS  5
 // #define CART_CS_FRAM    6
 //
 // /**********************************************************************************************************************/

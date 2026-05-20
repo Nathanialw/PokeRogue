@@ -3,18 +3,19 @@
 //
 #include "battle_menu.h"
 
+#include "lib_debugging.h"
+#include "lib_decl.h"
+
 #include "battle_actions.h"
 #include "battle_state.h"
+
 #include "core_actions.h"
 #include "core_entities.h"
 #include "core_menu.h"
 #include "core_player.h"
-
 #include "core_ram.h"
 #include "core_state.h"
-#include "lib_debugging.h"
-#include "lib_decl.h"
-#include "map_player.h"
+
 
 /**********************************************************************************************************************/
 /*

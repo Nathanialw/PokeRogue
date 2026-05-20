@@ -4,9 +4,9 @@
 
 #include "map_collision.h"
 
-#include "core_ram.h"
 #include "lib_debugging.h"
-#include "lib_enums.h"
+
+#include "core_ram.h"
 
 
 /**********************************************************************************************************************/

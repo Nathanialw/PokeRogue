@@ -2,12 +2,14 @@
 // Created by nathanial on 5/19/26.
 //
 
-#include "map_ai.h"
+#include "types.h"
+
 #include "core_ram.h"
+
+#include "map_ai.h"
 #include "map_entities.h"
 #include "map_player.h"
 #include "map_utils.h"
-#include "types.h"
 
 typedef void (*AIType)(HardwareInterface hardware, EntityId id);
 

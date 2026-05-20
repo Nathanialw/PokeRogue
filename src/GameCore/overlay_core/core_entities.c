@@ -4,12 +4,12 @@
 
 #include "core_entities.h"
 
+#include "enums.h"
+#include "types.h"
 #include "constants.h"
+
 #include "core_memory_access.h"
 #include "core_ram.h"
-#include "enums.h"
-#include "map_memory_access.h"
-#include "types.h"
 
 
 /**********************************************************************************************************************/

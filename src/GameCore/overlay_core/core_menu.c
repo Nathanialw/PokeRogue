@@ -3,12 +3,12 @@
 //
 #include "core_menu.h"
 
+#include "lib_decl.h"
+#include "lib_debugging.h"
+
 #include "core_entities.h"
 #include "core_memory_access.h"
 #include "core_ram.h"
-#include "lib_decl.h"
-#include "lib_debugging.h"
-#include "map_memory_access.h"
 
 
 #define LIST_JUMP_AMOUNT (-10)
@@ -16,7 +16,7 @@
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-SET_MEMORY(".map")
+SET_MEMORY(".core")
 uint16_t ListSize(uint16_t n)
 {
     return n > (MAIN_MENU_H - 2) ? (MAIN_MENU_H - 1) * g_core.settings.fontSize : n;
@@ -61,7 +61,7 @@ void FillListByEntityID(MemoryInterface memory, uint8_t n, uint8_t type, const u
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-SET_MEMORY(".map")
+SET_MEMORY(".core")
 void FillListByTypeID(MemoryInterface memory, uint8_t n, uint8_t* ids)
 {
     uint8_t i = g_core.menu.menuScrollOffset[g_core.menu.depth].y;
@@ -73,49 +73,7 @@ void FillListByTypeID(MemoryInterface memory, uint8_t n, uint8_t* ids)
     g_core.menu.text[i][0] = '\0';
 }
 
-/**********************************************************************************************************************/
-/*
-**********************************************************************************************************************/
-SET_MEMORY(".map")
-bool Back(SubMainMenuWindow menuWin)
-{
-    if (g_core.menu.selectedMenu == menuWin)
-        return true;
 
-    g_core.menu.lineHeight = 0;
-    if (g_core.menu.useOnPartyMember)
-    {
-        g_core.menu.useOnPartyMember = BACK_NONE;
-        g_core.menu.forceRedraw = true;
-        return true;
-    }
-
-    g_core.menu.selectedMenu = menuWin;
-    g_core.menu.visibleMenuOptions = MAIN_MENUS_SIZE;
-    g_core.menu.menuScrollOffset[g_core.menu.depth].y = 0;
-    g_core.menu.depth--;
-    return true;
-}
-
-/**********************************************************************************************************************/
-/*
-**********************************************************************************************************************/
-SET_MEMORY(".map")
-bool ToggleMenu(SubMainMenuWindow menuWin, uint8_t numMenuOptions)
-{
-    if (g_core.menu.selectedMenu == menuWin)
-    {
-        return true;
-    }
-    g_core.menu.depth++;
-    g_core.menu.sel[g_core.menu.depth].x = 0;
-    g_core.menu.sel[g_core.menu.depth].y = 0;
-    g_core.menu.selectedMenu = menuWin;
-    g_core.menu.visibleMenuOptions = ListSize(numMenuOptions);
-    g_core.menu.totalMenuOptions = numMenuOptions;
-    ClearMenu();
-    return false;
-}
 
 /**********************************************************************************************************************/
 /*  Manages the cursor position relative to the vertical screen list

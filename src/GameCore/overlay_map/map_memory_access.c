@@ -4,11 +4,13 @@
 
 #include "map_memory_access.h"
 
+#include "types.h"
+
 #include "core_ram.h"
+
 #include "map_ram.h"
 #include "memory_constants.inc"
 
-#include "types.h"
 
 
 /**********************************************************************************************************************/
@@ -295,42 +297,8 @@ void Flash_GetTypeName(MemoryInterface memory, char* text, uint8_t typeIndex)
 
 
 
-SET_MEMORY(".map")
-void Flash_GetObjectName(MemoryInterface memory, char* text, uint8_t index)
-{
-#ifdef STANDALONE
-    return g_gameFlash.text.descriptions.objects[index];
-#else
-    memory.GetRom(STRINGS_NAMES_OBJECTS_POSITION + (SMALL_STRINGS * index), text, SMALL_STRINGS);
-
-#if defined(MEMORY_PRINT)
-    for (uint8_t i = 0; i < SMALL_STRINGS; i++)
-        memory.Print(str_spawn_creature_type, text[i]);
-    memory.Print(new_line);
-#endif
-#endif
-}
 
 
-SET_MEMORY(".map")
-void Flash_GetMenuText(MemoryInterface memory, uint8_t* textBuffer, uint8_t index)
-{
-#ifdef STANDALONE
-    for (uint8_t i = 0; i < SMALL_STRINGS; i++)
-    {
-        textBuffer[i] = g_gameFlash.text.menus.main[index][i];
-    }
-#else
-    memory.GetRom(STRINGS_MENU_MAIN_POSITION + (SMALL_STRINGS * index), textBuffer, SMALL_STRINGS);
-
-
-#if defined(MEMORY_PRINT)
-    for (uint8_t i = 0; i < SMALL_STRINGS; i++)
-        memory.Print(str_spawn_creature_type, textBuffer[i]);
-    memory.Print(new_line);
-#endif
-#endif
-}
 
 
 SET_MEMORY(".map")

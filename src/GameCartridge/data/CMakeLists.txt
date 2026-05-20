@@ -4,14 +4,14 @@
 #compiler g++ using Clion
 
 #dummy main so it builds the binary
-add_executable(GameCartridge
+add_executable(GameCartridgeData
         main.c
 )
 
-target_compile_definitions(GameCore PRIVATE CARTRIDGE)
+target_compile_definitions(GameCore PRIVATE CARTRIDGE_DATA)
 
 
-target_link_options(GameCartridge PRIVATE
+target_link_options(GameCartridgeData PRIVATE
         "-nostartfiles"
         "--specs=nosys.specs"
         "-fno-merge-constants"
@@ -20,7 +20,7 @@ target_link_options(GameCartridge PRIVATE
         "-T${CMAKE_CURRENT_SOURCE_DIR}/ram.ld"
 )
 
-target_link_libraries(GameCartridge
+target_link_libraries(GameCartridgeData
         "-Wl,--whole-archive"
         GameCore
         PicoTypes

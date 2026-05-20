@@ -146,12 +146,15 @@ ItemData Flash_GetItemData(MemoryInterface memory, uint8_t index)
 }
 
 
+SET_MEMORY(".core.data")
+static const char aasc[] = "index: %d\n";
+
 
 /**********************************************************************************************************************/
 /*      SPRITES
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-void Flash_GetSpriteLayout(MemoryInterface memory, SpriteLayout spriteLayout, uint8_t index, ObjectsTypes type, bool front)
+void Flash_GetSpriteLayout(MemoryInterface memory, SpriteLayout* spriteLayout, uint8_t index, ObjectsTypes type, bool front)
 {
 #ifdef STANDALONE
     if (type == ITEM)
@@ -163,21 +166,26 @@ void Flash_GetSpriteLayout(MemoryInterface memory, SpriteLayout spriteLayout, ui
     else if (type == SKILL)
         return &g_gameFlash.spriteData.skillLayout[index];
 #else
+    const uint8_t position = index * sizeof(SpriteLayout);
+
+    memory.Print(aasc, type);
+    memory.Print(aasc, front);
+    memory.Print(aasc, SPRITE_BATTLER_LAYOUT_FRONT_POSITION + position);
 
     if (type == ITEM)
-        memory.GetRom(SPRITE_ITEMS_LAYOUT_POSITION, spriteLayout.bytes, sizeof(SpriteLayout));
+        memory.GetRom(SPRITE_ITEMS_LAYOUT_POSITION + position, spriteLayout->bytes, sizeof(SpriteLayout));
     else if (type == OBJECT)
-        memory.GetRom(SPRITE_OBJECTS_LAYOUT_POSITION, spriteLayout.bytes, sizeof(SpriteLayout));
+        memory.GetRom(SPRITE_OBJECTS_LAYOUT_POSITION + position, spriteLayout->bytes, sizeof(SpriteLayout));
     else if (type == SPELL)
-        memory.GetRom(SPRITE_SPELLS_LAYOUT_POSITION, spriteLayout.bytes, sizeof(SpriteLayout));
+        memory.GetRom(SPRITE_SPELLS_LAYOUT_POSITION + position, spriteLayout->bytes, sizeof(SpriteLayout));
     else if (type == SKILL)
-        memory.GetRom(SPRITE_SKILLS_LAYOUT_POSITION, spriteLayout.bytes, sizeof(SpriteLayout));
+        memory.GetRom(SPRITE_SKILLS_LAYOUT_POSITION + position, spriteLayout->bytes, sizeof(SpriteLayout));
     else if (type == CREATURE)
     {
         if (front)
-            memory.GetRom(SPRITE_BATTLER_LAYOUT_FRONT_POSITION, spriteLayout.bytes, sizeof(SpriteLayout));
+            memory.GetRom(SPRITE_BATTLER_LAYOUT_FRONT_POSITION + position, spriteLayout->bytes, sizeof(SpriteLayout));
         else
-            memory.GetRom(SPRITE_BATTLER_LAYOUT_BACK_POSITION, spriteLayout.bytes, sizeof(SpriteLayout));
+            memory.GetRom(SPRITE_BATTLER_LAYOUT_BACK_POSITION + position, spriteLayout->bytes, sizeof(SpriteLayout));
     }
 
 #if defined(MEMORY_PRINT)
@@ -188,8 +196,14 @@ void Flash_GetSpriteLayout(MemoryInterface memory, SpriteLayout spriteLayout, ui
 #endif
 }
 
+#if defined(MEMORY_PRINT)
+SET_MEMORY(".core.data")
+static const char aascyyy[] = "Flash_GetSprite INVALID type! index: %d\n";
+#endif
+
+
 SET_MEMORY(".core")
-void Flash_GetSprite(MemoryInterface memory, uint8_t* sprite, uint16_t length, ObjectsTypes type, bool front)
+void Flash_GetSprite(MemoryInterface memory, uint8_t* sprite, uint32_t index, uint16_t length, ObjectsTypes type, bool front)
 {
 #ifdef STANDALONE
     if (type == ITEM)
@@ -201,24 +215,29 @@ void Flash_GetSprite(MemoryInterface memory, uint8_t* sprite, uint16_t length, O
     else if (type == SKILL)
         return g_gameFlash.spriteData.skills;
 #else
+    memory.Print(aasc, type);
+    memory.Print(aasc, front);
+    memory.Print(aasc, SPRITE_BATTLER_FRONT_POSITION + index);
+
     if (type == ITEM)
-        memory.GetRom(SPRITE_ITEMS_POSITION, sprite, length);
+        memory.GetRom(SPRITE_ITEMS_POSITION + index, sprite, length);
     else if (type == OBJECT)
-        memory.GetRom(SPRITE_OBJECTS_POSITION, sprite, length);
+        memory.GetRom(SPRITE_OBJECTS_POSITION + index, sprite, length);
     else if (type == SPELL)
-        memory.GetRom(SPRITE_SPELLS_POSITION, sprite, length);
+        memory.GetRom(SPRITE_SPELLS_POSITION + index, sprite, length);
     else if (type == SKILL)
-        memory.GetRom(SPRITE_SKILLS_POSITION, sprite, length);
+        memory.GetRom(SPRITE_SKILLS_POSITION + index, sprite, length);
     else if (type == CREATURE)
     {
         if (front)
-            memory.GetRom(SPRITE_BATTLER_FRONT_POSITION, sprite, length);
+            memory.GetRom(SPRITE_BATTLER_FRONT_POSITION + index, sprite, length);
         else
-            memory.GetRom(SPRITE_BATTLER_BACK_POSITION, sprite, length);
+            memory.GetRom(SPRITE_BATTLER_BACK_POSITION + index, sprite, length);
     }
-
-
 #if defined(MEMORY_PRINT)
+    else
+    memory.Print(aascyyy, type);
+
     for (uint8_t i = 0; i < length; i++)
         memory.Print(str_spawn_creature_type, sprite[i]);
     memory.Print(new_line);
@@ -331,7 +350,6 @@ void Flash_GetCreatureName(MemoryInterface memory, char* text, uint8_t index)
 }
 
 
-
 SET_MEMORY(".core")
 void Flash_GetItemName(MemoryInterface memory, char* text, uint8_t index)
 {
@@ -383,6 +401,23 @@ void Flash_GetSkillName(MemoryInterface memory, char* text, uint8_t index)
 
 
 SET_MEMORY(".core")
+void Flash_GetObjectName(MemoryInterface memory, char* text, uint8_t index)
+{
+#ifdef STANDALONE
+    return g_gameFlash.text.descriptions.objects[index];
+#else
+    memory.GetRom(STRINGS_NAMES_OBJECTS_POSITION + (SMALL_STRINGS * index), text, SMALL_STRINGS);
+
+#if defined(MEMORY_PRINT)
+    for (uint8_t i = 0; i < SMALL_STRINGS; i++)
+        memory.Print(str_spawn_creature_type, text[i]);
+    memory.Print(new_line);
+#endif
+#endif
+}
+
+
+SET_MEMORY(".core")
 bool Flash_GetSpellEffect(HardwareInterface hardware, MemoryInterface memory, uint8_t spellType, EntityId id, EntityId target_id, SpellData spellData)
 {
 #ifdef STANDALONE
@@ -402,3 +437,24 @@ bool Flash_GetItemEffect(MemoryInterface memory, uint8_t itemType, EntityId item
 #endif
 }
 
+
+
+SET_MEMORY(".core")
+void Flash_GetMenuText(MemoryInterface memory, uint8_t* textBuffer, uint8_t index)
+{
+#ifdef STANDALONE
+    for (uint8_t i = 0; i < SMALL_STRINGS; i++)
+    {
+        textBuffer[i] = g_gameFlash.text.menus.main[index][i];
+    }
+#else
+    memory.GetRom(STRINGS_MENU_MAIN_POSITION + (SMALL_STRINGS * index), textBuffer, SMALL_STRINGS);
+
+
+#if defined(MEMORY_PRINT)
+    for (uint8_t i = 0; i < SMALL_STRINGS; i++)
+        memory.Print(str_spawn_creature_type, textBuffer[i]);
+    memory.Print(new_line);
+#endif
+#endif
+}

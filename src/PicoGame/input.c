@@ -13,7 +13,7 @@
 #include "pico/bootrom.h"
 #include "hardware/adc.h"
 
-#include "pico_constants.h"
+#include "constants.h"
 #include "memory_ram.h"
 
 #define DEADZONE 600

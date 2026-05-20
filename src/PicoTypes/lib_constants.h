@@ -63,7 +63,7 @@
 **********************************************************************************************************************/
 #if defined(RES_320x240)
 #define BUFFER_H (16)
-#define BUFFER_W (c)
+#define BUFFER_W (320)
 #elif defined(RES_320x320)
 #define BUFFER_H (16)
 #define BUFFER_W (320)

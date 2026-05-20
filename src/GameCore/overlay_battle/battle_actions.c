@@ -4,11 +4,12 @@
 
 #include "battle_actions.h"
 
-#include "battle_memory_access.h"
-#include "core_ram.h"
 #include "lib_debugging.h"
-#include "map_memory_access.h"
+
+#include "core_ram.h"
 #include "core_memory_access.h"
+
+#include "battle_memory_access.h"
 
 
 

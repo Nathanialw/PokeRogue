@@ -4,10 +4,11 @@
 
 #include "cartridge_rom.h"
 
+#include <stdio.h>
 #include <string.h>
 
 #include "lib_debugging.h"
-#include "pico_constants.h"
+#include "constants.h"
 #include "hardware/gpio.h"
 #include "pico/stdio.h"
 
@@ -57,27 +58,27 @@ void EEPROM_PrintBuffer(uint32_t sector, uint8_t* buf, uint32_t BUF_SIZE)
 // Release from Power-down + Read ID
 // Best JEDEC Read
 // Call this once after InitCart()
-void EEPROM_WakeUp(void)
+void EEPROM_WakeUp(uint32_t cs)
 {
     uint8_t cmd = 0xAB;
-    gpio_put(EEPROM_CART_CS, 0);
+    gpio_put(cs, 0);
     sleep_us(20);
     spi_write_blocking(SPI_A, &cmd, 1);
-    gpio_put(EEPROM_CART_CS, 1);
+    gpio_put(cs, 1);
     sleep_ms(20);
 }
 
 
 // Check if busy
-bool EEPROM_IsBusy(void)
+bool EEPROM_IsBusy(uint32_t cs)
 {
     uint8_t cmd = 0x05;
     uint8_t status = 0;
 
-    gpio_put(EEPROM_CART_CS, 0);
+    gpio_put(cs, 0);
     spi_write_blocking(SPI_A, &cmd, 1);
     spi_read_blocking(SPI_A, 0x00, &status, 1);
-    gpio_put(EEPROM_CART_CS, 1);
+    gpio_put(cs, 1);
 
     return (status & 0x01); // BUSY bit
 }
@@ -87,36 +88,36 @@ bool EEPROM_IsBusy(void)
 /**  WRITING
 **********************************************************************************************************************/
 // Enable Write
-void EEPROM_WriteEnable(void)
+void EEPROM_WriteEnable(uint32_t cs)
 {
     uint8_t cmd = 0x06;
-    gpio_put(EEPROM_CART_CS, 0);
+    gpio_put(cs, 0);
     spi_write_blocking(SPI_A, &cmd, 1);
-    gpio_put(EEPROM_CART_CS, 1);
+    gpio_put(cs, 1);
 }
 
 // Page Program (up to 256 bytes)
-void EEPROM_PageProgram(uint32_t addr, uint8_t* data, uint16_t length)
+void EEPROM_PageProgram(uint32_t cs, uint32_t addr, uint8_t* data, uint16_t length)
 {
     if (length > 256) length = 256;
 
-    EEPROM_WriteEnable();
+    EEPROM_WriteEnable(cs);
 
     uint8_t tx[4] = {0x02, (addr >> 16) & 0xFF, (addr >> 8) & 0xFF, addr & 0xFF};
 
-    gpio_put(EEPROM_CART_CS, 0);
+    gpio_put(cs, 0);
     spi_write_blocking(SPI_A, tx, 4);
     spi_write_blocking(SPI_A, data, length);
 
-    gpio_put(EEPROM_CART_CS, 1);
+    gpio_put(cs, 1);
 
     // Wait for completion
-    while (EEPROM_IsBusy()) tight_loop_contents();
+    while (EEPROM_IsBusy(cs)) tight_loop_contents();
 }
 
 
 // Write any amount, automatically crossing page boundaries
-bool EEPROM_WriteAny(uint32_t addr, uint8_t* data, uint32_t length, bool verify)
+bool EEPROM_WriteAny(uint32_t cs, uint32_t addr, uint8_t* data, uint32_t length, bool verify)
 {
     while (length > 0)
     {
@@ -124,12 +125,12 @@ bool EEPROM_WriteAny(uint32_t addr, uint8_t* data, uint32_t length, bool verify)
         uint32_t page_remaining = 256 - (addr & 0xFF); // (addr % 256)
         const uint32_t chunk = (length < page_remaining) ? length : page_remaining;
 
-        EEPROM_PageProgram(addr, data, chunk);
+        EEPROM_PageProgram(cs, addr, data, chunk);
 
         if (verify)
         {
             uint8_t buf1[256] = {0};
-            EEPROM_Read(addr, buf1, chunk);
+            EEPROM_Read(cs, addr, buf1, chunk);
             for (int i = 0; i < chunk; i++)
                 if (data[i] != buf1[i])
                 {
@@ -150,25 +151,25 @@ bool EEPROM_WriteAny(uint32_t addr, uint8_t* data, uint32_t length, bool verify)
 /**  ERASING
 **********************************************************************************************************************/
 // Sector Erase (4KB)
-void EEPROM_EraseSector(uint32_t addr)
+void EEPROM_EraseSector(uint32_t cs, uint32_t addr)
 {
-    EEPROM_WriteEnable();
+    EEPROM_WriteEnable(cs);
     uint8_t tx[4] = {0x20, (addr >> 16) & 0xFF, (addr >> 8) & 0xFF, addr & 0xFF};
 
-    gpio_put(EEPROM_CART_CS, 0);
+    gpio_put(cs, 0);
     spi_write_blocking(SPI_A, tx, 4);
-    gpio_put(EEPROM_CART_CS, 1);
+    gpio_put(cs, 1);
 
-    while (EEPROM_IsBusy()) sleep_ms(1);
+    while (EEPROM_IsBusy(cs)) sleep_ms(1);
 }
 
 
-void EEPROM_Clear(uint32_t expected_size)
+void EEPROM_Clear(uint32_t cs, uint32_t expected_size)
 {
     DEBUG("Clearing EEPROM...");
     for (uint32_t addr = 0; addr < expected_size; addr += 4096)
     {
-        EEPROM_EraseSector(addr);
+        EEPROM_EraseSector(cs, addr);
     }
 }
 
@@ -176,21 +177,21 @@ void EEPROM_Clear(uint32_t expected_size)
 /**  READING
 **********************************************************************************************************************/
 
-void EEPROM_ReadJEDEC(void)
+void EEPROM_ReadJEDEC(uint32_t cs)
 {
     uint8_t tx[4] = {0x9F, 0x00, 0x00, 0x00};
     uint8_t rx[4] = {0};
 
-    gpio_put(EEPROM_CART_CS, 0);
+    gpio_put(cs, 0);
     sleep_us(30);
     spi_write_read_blocking(SPI_A, tx, rx, 4);
-    gpio_put(EEPROM_CART_CS, 1);
+    gpio_put(cs, 1);
 
     DEBUG("JEDEC: %02X %02X %02X", rx[1], rx[2], rx[3]);
 }
 
 // Read single byte
-uint8_t EEPROM_ReadByte(uint32_t addr)
+uint8_t EEPROM_ReadByte(uint32_t cs, int32_t addr)
 {
     uint8_t header[4] =
     {
@@ -202,18 +203,18 @@ uint8_t EEPROM_ReadByte(uint32_t addr)
 
     uint8_t value = 0;
 
-    gpio_put(EEPROM_CART_CS, 0);
+    gpio_put(cs, 0);
 
     spi_write_blocking(SPI_A, header, 4);
     spi_read_blocking(SPI_A, 0x00, &value, 1);
 
-    gpio_put(EEPROM_CART_CS, 1);
+    gpio_put(cs, 1);
 
     return value;
 }
 
 // Read multiple bytes (recommended)
-void EEPROM_ReadBuffer(uint32_t addr, uint8_t* buffer, uint16_t length)
+void EEPROM_ReadBuffer(uint32_t cs, uint32_t addr, uint8_t* buffer, uint16_t length)
 {
     uint8_t tx[4] = {
         0x03,
@@ -222,13 +223,13 @@ void EEPROM_ReadBuffer(uint32_t addr, uint8_t* buffer, uint16_t length)
         (uint8_t)addr
     };
 
-    gpio_put(EEPROM_CART_CS, 0);
+    gpio_put(cs, 0);
     sleep_us(20); // generous setup time
 
     spi_write_blocking(SPI_A, tx, 4);
     spi_read_blocking(SPI_A, 0x00, buffer, length);
 
-    gpio_put(EEPROM_CART_CS, 1);
+    gpio_put(cs, 1);
 }
 
 /**
@@ -237,7 +238,7 @@ void EEPROM_ReadBuffer(uint32_t addr, uint8_t* buffer, uint16_t length)
  * data   : buffer to store read bytes
  * length : number of bytes to read
  */
-void EEPROM_Read(uint32_t addr, uint8_t* data, size_t len)
+void EEPROM_Read(uint32_t cs, uint32_t addr, uint8_t* data, size_t len)
 {
     if (len == 0) return;
 
@@ -247,13 +248,13 @@ void EEPROM_Read(uint32_t addr, uint8_t* data, size_t len)
     cmd[2] = (addr >> 8) & 0xFF;
     cmd[3] = addr & 0xFF;
 
-    gpio_put(EEPROM_CART_CS, 0);
+    gpio_put(cs, 0);
     spi_write_blocking(SPI_A, cmd, 4);
     spi_read_blocking(SPI_A, 0xFF, data, len);
-    gpio_put(EEPROM_CART_CS, 1);
+    gpio_put(cs, 1);
 }
 
-uint8_t EEPROM_ReadHighAddress(void)
+uint8_t EEPROM_ReadHighAddress(uint32_t cs)
 {
     uint32_t high_addr = 0xFFF000; // near the end of 16MB
     uint8_t tx[4] = {
@@ -264,11 +265,11 @@ uint8_t EEPROM_ReadHighAddress(void)
     };
     uint8_t rx[5] = {0};
 
-    gpio_put(EEPROM_CART_CS, 0);
+    gpio_put(cs, 0);
     sleep_us(10);
     spi_write_read_blocking(SPI_A, tx, rx, 5);
     sleep_us(10);
-    gpio_put(EEPROM_CART_CS, 1);
+    gpio_put(cs, 1);
 
     return rx[4];
 }
@@ -289,7 +290,7 @@ uint8_t EEPROM_ReadHighAddress(void)
 
 
 // Fast Read version
-uint8_t EEPROM_FastReadByte(uint32_t addr)
+uint8_t EEPROM_FastReadByte(uint32_t cs, uint32_t addr)
 {
     uint8_t tx[5] = {
         0x0B,
@@ -300,37 +301,40 @@ uint8_t EEPROM_FastReadByte(uint32_t addr)
     };
     uint8_t rx[6] = {0};
 
-    gpio_put(EEPROM_CART_CS, 0);
+    gpio_put(cs, 0);
     sleep_us(5);
 
     spi_write_read_blocking(SPI_A, tx, rx, 6);
 
-    gpio_put(EEPROM_CART_CS, 1);
+    gpio_put(cs, 1);
 
     return rx[5];
 }
 
 
-void InitCart(void)
+void InitCart(uint32_t cs)
 {
-    gpio_init(EEPROM_CART_CS);
-    gpio_set_dir(EEPROM_CART_CS, GPIO_OUT);
-    gpio_put(EEPROM_CART_CS, 1);
+    gpio_init(cs);
+    gpio_set_dir(cs, GPIO_OUT);
+    gpio_put(cs, 1);
+
+    EEPROM_WakeUp(cs);
 }
 
 
 /**********************************************************************************************************************/
 /**  tests
 **********************************************************************************************************************/
-bool EEPROM_FullTest()
+bool EEPROM_FullTest(uint32_t cs)
 {
     DEBUG("=== EEPROM FULL TEST START ===");
+    DEBUG(" Testing at CS %d", cs);
 
     // --------------------------------------------------------------------
     // JEDEC
     // --------------------------------------------------------------------
 
-    EEPROM_ReadJEDEC();
+    EEPROM_ReadJEDEC(cs);
 
     // --------------------------------------------------------------------
     // Read distribution test
@@ -349,14 +353,8 @@ bool EEPROM_FullTest()
 
     for (size_t i = 0; i < count_of(test_addrs); i++)
     {
-        uint8_t value =
-            EEPROM_ReadByte(test_addrs[i]);
-
-        DEBUG(
-            "ADDR 0x%06X = 0x%02X",
-            test_addrs[i],
-            value
-        );
+        uint8_t value = EEPROM_ReadByte(cs, test_addrs[i]);
+        DEBUG("ADDR 0x%06X = 0x%02X", test_addrs[i], value);
     }
 
     // --------------------------------------------------------------------
@@ -367,11 +365,7 @@ bool EEPROM_FullTest()
 
     uint8_t buffer[256];
 
-    EEPROM_Read(
-        0x000000,
-        buffer,
-        sizeof(buffer)
-    );
+    EEPROM_Read(cs, 0x000000, buffer, sizeof(buffer));
 
     for (int i = 0; i < 32; i++)
     {
@@ -400,17 +394,14 @@ bool EEPROM_FullTest()
     for (int i = 0; i < 1000; i++)
     {
         EEPROM_Read(
+            cs,
             0x000000,
             buffer,
             sizeof(buffer)
         );
     }
 
-    int64_t elapsed_us =
-        absolute_time_diff_us(
-            start,
-            get_absolute_time()
-        );
+    int64_t elapsed_us = absolute_time_diff_us(start, get_absolute_time());
 
     DEBUG(
         "256KB READ TIME: %lld us",
@@ -426,17 +417,19 @@ bool EEPROM_FullTest()
         mb_per_sec
     );
 
+    DEBUG(" Complete for CS %d", cs);
     DEBUG("=== EEPROM FULL TEST PASSED ===");
+
 
     return true;
 }
 
 
-bool EEPROM_VerifySize(uint32_t expected_size)
+bool EEPROM_VerifySize(uint32_t cs, uint32_t expected_size)
 {
     DEBUG("========================================");
     DEBUG("=== FULL BRUTE FORCE SIZE TEST ===");
-    DEBUG("Expected: %lu MB (%lu bytes)", expected_size/(1024*1024), expected_size);
+    DEBUG("Expected: %lu MB (%lu bytes) on CS %lu", expected_size/(1024*1024), expected_size, cs);
     DEBUG("========================================");
 
     const uint32_t step = 1024;
@@ -452,7 +445,7 @@ bool EEPROM_VerifySize(uint32_t expected_size)
     // 1. ZERO OUT THE ENTIRE CHIP
     // ===================================================================
     DEBUG("Phase 1: Zeroing out entire chip with 0xFF...");
-    EEPROM_Clear(expected_size);
+    EEPROM_Clear(cs, expected_size);
 
     // ===================================================================
     // 2. WRITE UNIQUE VALUES EVERY 1KB
@@ -463,7 +456,7 @@ bool EEPROM_VerifySize(uint32_t expected_size)
         uint32_t addr = i * step;
         uint8_t value = (uint8_t)(i & 0xFF);
 
-        EEPROM_PageProgram(addr, &value, 1);
+        EEPROM_PageProgram(cs, addr, &value, 1);
 
         if (i % 256 == 0)
         {
@@ -482,7 +475,7 @@ bool EEPROM_VerifySize(uint32_t expected_size)
     {
         uint32_t addr = i * step;
         uint8_t expected = (uint8_t)(i & 0xFF);
-        uint8_t actual = EEPROM_ReadByte(addr);
+        uint8_t actual = EEPROM_ReadByte(cs, addr);
 
         if (actual != expected)
         {
@@ -503,7 +496,7 @@ bool EEPROM_VerifySize(uint32_t expected_size)
         // Skip the marker positions
         if ((addr % step) == 0) continue; // This is rough, but fast
 
-        uint8_t val = EEPROM_ReadByte(addr);
+        uint8_t val = EEPROM_ReadByte(cs, addr);
         if (val != 0xFF)
         {
             if (failure_count < MAX_FAILURES)
@@ -526,7 +519,7 @@ bool EEPROM_VerifySize(uint32_t expected_size)
     // Results
     // ===================================================================
     DEBUG("========================================");
-    DEBUG("Test complete. %d failures found.", failure_count);
+    DEBUG("Test complete for CS %d. %d failures found.", cs, failure_count);
 
     if (failure_count == 0)
     {
@@ -560,11 +553,11 @@ bool EEPROM_VerifySize(uint32_t expected_size)
 /**
  * Full Brute-Force EEPROM Test - Reliable version
  */
-void EEPROM_FullMemoryTest(uint32_t chip_size)
+void EEPROM_FullMemoryTest(uint32_t cs, uint32_t chip_size)
 {
     DEBUG("========================================");
     DEBUG("=== FULL BRUTE FORCE INTEGRITY TEST ===");
-    DEBUG("Expected: %lu MB (%lu bytes)", chip_size/(1024*1024), chip_size);
+    DEBUG("Expected: %lu MB (%lu bytes) for CS %lu", chip_size/(1024*1024), chip_size, cs);
     DEBUG("========================================");
 
     const uint32_t step = 1024;
@@ -576,7 +569,7 @@ void EEPROM_FullMemoryTest(uint32_t chip_size)
     DEBUG("Phase 1: Erasing chip to 0xFF...");
     for (uint32_t addr = 0; addr < chip_size; addr += 4096)
     {
-        EEPROM_EraseSector(addr);
+        EEPROM_EraseSector(cs, addr);
     }
 
     // 2. Write reliable pattern (4 bytes at a time)
@@ -590,7 +583,7 @@ void EEPROM_FullMemoryTest(uint32_t chip_size)
         for (int j = 0; j < 4; j++)
         {
             uint8_t v = value + j;
-            EEPROM_PageProgram(addr + j, &v, 1);
+            EEPROM_PageProgram(cs, addr + j, &v, 1);
         }
 
         if (i % 256 == 0)
@@ -605,7 +598,7 @@ void EEPROM_FullMemoryTest(uint32_t chip_size)
     {
         uint32_t addr = i * step;
         uint8_t expected = 0x80 | (uint8_t)(i & 0x7F);
-        uint8_t actual = EEPROM_ReadByte(addr);
+        uint8_t actual = EEPROM_ReadByte(cs, addr);
 
         if (actual != expected)
         {
@@ -629,7 +622,7 @@ void EEPROM_FullMemoryTest(uint32_t chip_size)
  * Retention Check - Run after power cycle
  * Reports first few failing addresses for debugging
  */
-void EEPROM_RetentionCheck(uint32_t chip_size)
+void EEPROM_RetentionCheck(uint32_t cs, uint32_t chip_size)
 {
     DEBUG("========================================");
     DEBUG("=== EEPROM RETENTION CHECK ===");
@@ -651,7 +644,7 @@ void EEPROM_RetentionCheck(uint32_t chip_size)
     {
         uint32_t addr = i * step;
         uint8_t expected = 0x80 | (uint8_t)(i & 0x7F);
-        uint8_t actual = EEPROM_ReadByte(addr);
+        uint8_t actual = EEPROM_ReadByte(cs, addr);
 
         if (actual != expected)
         {
@@ -697,8 +690,8 @@ bool CheckConnection(const char* sent, const char* rec)
 
     while (1)
     {
-        memset(cmd, 0, sizeof(cmd));
 
+        memset(cmd, 0, sizeof(cmd));
         printf(sent);
         fflush(stdout);
 
@@ -777,18 +770,39 @@ void Signal()
     }
 }
 
-void EEPROM_Flash(void)
+union
 {
-    uint32_t size = 4 * 1024 * 1024; // Change as needed
+    uint32_t value;
+    uint8_t bytes[4];
+} Converter;
+
+void EEPROM_Flash(uint32_t cs)
+{
+    printf("GIVE_SIZE_%lu\n", cs);
+
+    while (fread(Converter.bytes, 1, 4, stdin) != 4)
+    {
+        printf("ERROR: failed to read size\n");
+        sleep_ms(1000);
+        printf("GIVE_SIZE_%lu\n", cs);
+    }
+
+    uint32_t size_bytes = Converter.value;
+    printf("Size. %lu\n", size_bytes);
+    EEPROM_Clear(cs, size_bytes);
+    printf("Erased.\n");
+    sleep_ms(100);
+
+    // uint32_t size = 4 * 1024 * 1024; // Change as needed
     const uint32_t buffer_size = 4096;
     uint8_t buf[buffer_size];
     uint32_t addr = 0;
 
-    printf("BEGIN_FLASH\n");
+    printf("BEGIN_FLASH_%lu\n", cs);
 
-    while (addr < size)
+    while (addr < size_bytes)
     {
-        uint32_t chunk = (size - addr < buffer_size) ? (size - addr) : buffer_size;
+        uint32_t chunk = (size_bytes - addr < buffer_size) ? (size_bytes - addr) : buffer_size;
 
         // Read from serial
         fread(buf, 1, chunk, stdin);
@@ -796,7 +810,7 @@ void EEPROM_Flash(void)
         // Write to EEPROM
         while (1)
         {
-            if (EEPROM_WriteAny(addr, buf, chunk, true))
+            if (EEPROM_WriteAny(cs, addr, buf, chunk, true))
                 break;
         }
 
@@ -805,7 +819,7 @@ void EEPROM_Flash(void)
 }
 
 
-void EEPROM_Dump(uint32_t chip_size)
+void EEPROM_Dump(uint32_t cs, uint32_t chip_size)
 {
     // Wait for DUMP command
 
@@ -820,7 +834,7 @@ void EEPROM_Dump(uint32_t chip_size)
         uint32_t remaining = chip_size - addr;
         uint32_t chunk = (remaining < buffer_size) ? remaining : buffer_size;
 
-        EEPROM_Read(addr, buf, chunk);
+        EEPROM_Read(cs, addr, buf, chunk);
         fwrite(buf, 1, chunk, stdout);
         fflush(stdout);
 
@@ -831,9 +845,9 @@ void EEPROM_Dump(uint32_t chip_size)
 }
 
 
-void EEPROM_Verify(uint32_t chip_size)
+void EEPROM_Verify(uint32_t cs, uint32_t size_bytes)
 {
-    uint32_t size = 4 * 1024 * 1024; // Change as needed
+    // uint32_t size = 4 * 1024 * 1024; // Change as needed
     const uint32_t buffer_size = 4096;
     uint8_t buf[buffer_size];
     uint8_t verify_buf[buffer_size];
@@ -841,15 +855,15 @@ void EEPROM_Verify(uint32_t chip_size)
 
     printf("BEGIN_VERIFY\n");
 
-    while (addr < size)
+    while (addr < size_bytes)
     {
-        uint32_t chunk_size = (size - addr < buffer_size) ? (size - addr) : buffer_size;
+        uint32_t chunk_size = (size_bytes - addr < buffer_size) ? (size_bytes - addr) : buffer_size;
 
         // Read from serial
         fread(buf, 1, chunk_size, stdin);
 
         // Read from EEPROM
-        EEPROM_Read(addr, verify_buf, chunk_size);
+        EEPROM_Read(cs, addr, verify_buf, chunk_size);
 
         //verify
         for (int i = 0; i < chunk_size; i++)

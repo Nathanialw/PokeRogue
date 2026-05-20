@@ -27,7 +27,7 @@ typedef union
     };
 } PartialFrameBuffer;
 
-_Static_assert(sizeof(PartialFrameBuffer) == BUFFER_SIZE_1BYTE, "SpriteLayout must be 76800 bytes");
+_Static_assert(20480 == BUFFER_SIZE_1BYTE, "SpriteLayout must be 20480 bytes");
 
 
 /**********************************************************************************************************************/

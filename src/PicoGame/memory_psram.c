@@ -5,7 +5,7 @@
 #include "memory_psram.h"
 
 #include "lib_debugging.h"
-#include "pico_constants.h"
+#include "constants.h"
 #include "hardware/gpio.h"
 
 void InitPSram()

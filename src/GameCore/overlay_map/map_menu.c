@@ -3,20 +3,22 @@
 //
 #include "map_menu.h"
 
-#include "core_actions.h"
-#include "core_menu.h"
+#include "constants.h"
+
 #include "lib_decl.h"
 #include "lib_debugging.h"
 #include "lib_types.h"
 
-#include "common/constants.h"
+#include "core_actions.h"
+#include "core_menu.h"
 #include "core_ram.h"
-#include "map_memory_access.h"
 #include "core_memory_access.h"
 #include "core_player.h"
+#include "core_utils.h"
+
+#include "map_memory_access.h"
 #include "map_player.h"
 
-#include "core_utils.h"
 
 
 /**********************************************************************************************************************/
@@ -66,6 +68,50 @@ SubMenu submenus[MAIN_MENUS_SIZE] = {
 **********************************************************************************************************************/
 
 /**********************************************************************************************************************/
+/*
+**********************************************************************************************************************/
+SET_MEMORY(".map")
+bool Back(SubMainMenuWindow menuWin)
+{
+    if (g_core.menu.selectedMenu == menuWin)
+        return true;
+
+    g_core.menu.lineHeight = 0;
+    if (g_core.menu.useOnPartyMember)
+    {
+        g_core.menu.useOnPartyMember = BACK_NONE;
+        g_core.menu.forceRedraw = true;
+        return true;
+    }
+
+    g_core.menu.selectedMenu = menuWin;
+    g_core.menu.visibleMenuOptions = MAIN_MENUS_SIZE;
+    g_core.menu.menuScrollOffset[g_core.menu.depth].y = 0;
+    g_core.menu.depth--;
+    return true;
+}
+
+/**********************************************************************************************************************/
+/*
+**********************************************************************************************************************/
+SET_MEMORY(".map")
+bool ToggleMenu(SubMainMenuWindow menuWin, uint8_t numMenuOptions)
+{
+    if (g_core.menu.selectedMenu == menuWin)
+    {
+        return true;
+    }
+    g_core.menu.depth++;
+    g_core.menu.sel[g_core.menu.depth].x = 0;
+    g_core.menu.sel[g_core.menu.depth].y = 0;
+    g_core.menu.selectedMenu = menuWin;
+    g_core.menu.visibleMenuOptions = ListSize(numMenuOptions);
+    g_core.menu.totalMenuOptions = numMenuOptions;
+    ClearMenu();
+    return false;
+}
+
+/**********************************************************************************************************************/
 /** MAP DISPLAY
  * Sets the current menu mode to minimap value
  *  the display code handles fetching the object data to draw the pixels to the screen
@@ -98,7 +144,9 @@ bool MonsterData(HardwareInterface hardware, InputInterface input, MemoryInterfa
     uint8_t i = 0;
     uint8_t min_s = g_core.menu.menuScrollOffset[g_core.menu.depth].y;
     uint8_t max_s = min_s + g_core.menu.visibleMenuOptions;
+
     if (max_s >= 255) max_s = 255; //prevent wraparound, assumes NO_CREATURE is max in Creature enum
+
     while ((min_s + i) < max_s)
     {
         Flash_GetCreatureName(memory, g_core.menu.text[i], min_s + i);

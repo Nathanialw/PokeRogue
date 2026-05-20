@@ -5,6 +5,7 @@
 #include "map_player.h"
 
 #include "core_ram.h"
+
 #include "map.h"
 #include "map_actions.h"
 #include "map_entities.h"
@@ -200,17 +201,6 @@ Delta SetPlayerDelta(Delta newDelta)
 
 
 
-
-/**********************************************************************************************************************/
-/**Destroys the item entity
- * Sets the bag index of the item to NO_ITEM
-**********************************************************************************************************************/
-SET_MEMORY(".map")
-void ConsumeItem(uint8_t idx, EntityId e_id)
-{
-    DestroyItem(e_id);
-    g_core.player.itemID[idx] = NO_ENTITY;
-}
 
 
 /**********************************************************************************************************************/

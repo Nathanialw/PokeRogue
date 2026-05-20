@@ -4,15 +4,16 @@
 
 #include "battle_graphics.h"
 
-#include "battle_memory_access.h"
-#include "battle_stats.h"
-#include "core_entities.h"
+#include "lib_decl.h"
+
 #include "core_graphics.h"
 #include "core_menu.h"
-#include "core_ram.h"
-#include "lib_decl.h"
 #include "core_memory_access.h"
+#include "core_ram.h"
+#include "core_entities.h"
 
+#include "battle_memory_access.h"
+#include "battle_stats.h"
 
 /**********************************************************************************************************************/
 /**  Draws battle mode menu list - ie bag items, party, spells

@@ -8,8 +8,8 @@
 
 #include "core_map.h"
 #include "core_ram.h"
-
 #include "core_utils.h"
+
 #include "map_camera.h"
 #include "map_graphics.h"
 #include "map_ram.h"

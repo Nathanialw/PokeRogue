@@ -5,8 +5,8 @@
 #include "map_effects.h"
 
 #include "lib_decl.h"
-#include "map.h"
 #include "types.h"
+#include "map.h"
 
 
 /**********************************************************************************************************************/

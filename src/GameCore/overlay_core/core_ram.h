@@ -253,5 +253,4 @@ extern const ItemEffect itemFunctions[ITEM_COUNT];
 
 
 
-void GameRunInit();
 void GameRun_Reset(void); // call at new game / death

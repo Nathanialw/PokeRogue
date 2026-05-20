@@ -3,7 +3,8 @@ import os
 import serial
 import time
 
-IMAGE = "cartridge.bin"
+IMAGE_DATA = "../build-cartridge-data/src/GameCartridge/data/cartridge_data.bin"
+IMAGE_CODE = "../build-cartridge-code/src/GameCartridge/code/cartridge_code.bin"
 PORT = "/dev/ttyACM0"
 BAUD = 2000000
 
@@ -39,8 +40,32 @@ def dump():
     print(f"Size: {os.path.getsize(OUTPUT)} bytes")
 
 
-def send():
-    with open(IMAGE, "rb") as f:
+def send_size(binary_file):
+    with open(binary_file, "rb") as f:
+        data = f.read()
+
+    print(f"Loaded {len(data):,} bytes")
+    print("\n=== Starting Send ===\n")
+
+    chunk_size = 4
+    sent = 0
+    try:
+        while sent < len(data):
+            while sent < len(data):
+                chunk = data[sent:sent + chunk_size]
+                ser.write(chunk)
+                sent += len(chunk)
+                return
+        print("\n\nSending complete!")
+
+    except KeyboardInterrupt:
+        print("\n\nSending interrupted.")
+    except Exception as e:
+        print(f"\nError: {e}")
+
+
+def send(binary_file):
+    with open(binary_file, "rb") as f:
         data = f.read()
 
     print(f"Loaded {len(data):,} bytes")
@@ -122,16 +147,24 @@ while True:
             line = ser.readline().decode(errors='ignore').strip()
             if line:
                 print(f"Pico: {line}")
-            if "BEGIN_FLASH" in line:
-                send()
-                print("Flashing Complete")
-            if "BEGIN_VERIFY" in line:
-                send()
-                print("Verification Complete")
-            if "BEGIN_DUMP" in line:
-                dump()
-                print("Dumping Complete")
-                compare_files("cartridge.bin", "eeprom_dump.bin")
+
+            if "GIVE_SIZE_8" in line:
+                send_size(IMAGE_DATA)
+            if "BEGIN_FLASH_8" in line:
+                send(IMAGE_DATA)
+            if "BEGIN_VERIFY_8" in line:
+                send(IMAGE_DATA)
+
+            if "GIVE_SIZE_17" in line:
+                send_size(IMAGE_CODE)
+            if "BEGIN_FLASH_17" in line:
+                send(IMAGE_CODE)
+            if "BEGIN_VERIFY_17" in line:
+                send(IMAGE_CODE)
+            # if "BEGIN_DUMP" in line:
+            #     dump()
+            #     print("Dumping Complete")
+            #     compare_files("cartridge.bin", "eeprom_dump.bin")
 
     except:
         print(f"Connection lost")

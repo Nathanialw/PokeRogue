@@ -4,9 +4,10 @@
 
 #include "battle_animation.h"
 
+#include "core_ram.h"
+
 #include "battle_animation_effects.h"
 #include "battle_memory_access.h"
-#include "core_ram.h"
 
 /************************************************************************************************************
  *

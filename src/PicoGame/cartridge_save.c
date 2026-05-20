@@ -11,7 +11,7 @@
 #include "hardware/gpio.h"
 #include "hardware/i2c.h"
 
-#include "pico_constants.h"
+#include "constants.h"
 
 #define FRAM_ADDR_WRITE   0xA0   // 1010 0000 (A2=A1=A0=0, R/W=0)
 #define FRAM_ADDR_7BIT  (FRAM_ADDR_WRITE >> 1)   // 7‑bit address

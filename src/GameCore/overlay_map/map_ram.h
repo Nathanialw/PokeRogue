@@ -7,6 +7,16 @@
 
 typedef struct
 {
+    char name[SMALL_STRINGS];
+    char* desc;
+    SpriteLayout layout;
+    char* typeA;
+    char* typeB;
+} EntityData;
+
+
+typedef struct
+{
     /**********************************************************************************************************************
  *   graphics cache
  **********************************************************************************************************************/
@@ -44,7 +54,15 @@ typedef struct
     uint8_t meta[TFT_H / BUFFER_H];
     EntityId units[ENTITY_COUNT];
 
+    EntityData entityData;
+
+    uint8_t spriteCache[256];
+    Glyph16x16 tile; // temp RGB565 buffer (512 bytes on stack)
+
     StatsRange statsCache;
+
+    const char power[SMALL_STRINGS];
+    const char rarity[SMALL_STRINGS];
 } MapRunState;
 
 

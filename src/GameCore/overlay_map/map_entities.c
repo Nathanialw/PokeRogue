@@ -4,14 +4,12 @@
 
 #include "map_entities.h"
 
-#include "core_utils.h"
-
 #include "lib_types.h"
 #include "lib_debugging.h"
 
+#include "core_utils.h"
 #include "core_ram.h"
 #include "core_memory_access.h"
-#include "core_stats.h"
 
 #include "map.h"
 #include "map_actions.h"
@@ -46,6 +44,8 @@ uint8_t CheckCollision(EntityId id)
         creature_id = CheckTileForEntity(CREATURE, id, pos);
     return creature_id;
 };
+
+
 
 
 /**********************************************************************************************************************/
@@ -262,7 +262,7 @@ EntityId SpawnMonster(HardwareInterface hardware, MemoryInterface memory, uint8_
 
     hardware.Print(str_spawn_creature_level);
 
-    SetXPToLevel(id, &g_core.creatures.xp[id]);
+    // SetXPToLevel(id, &g_core.creatures.xp[id]);
 
     hardware.Print(str_spawn_creature_hp);
 
@@ -383,17 +383,6 @@ void DestroyCreature(HardwareInterface hardware, EntityId id)
     Int999SetMax(&g_core.creatures.hp[id], 0);
     g_core.creatures.level[id].value = 0;
     SetBit(g_core.creatures.active, id, false);
-}
-
-SET_MEMORY(".map")
-void DestroyItem(EntityId id)
-{
-    Position empty_pos = {.x = 0, .y = 0};
-    g_core.items.position[id] = empty_pos;
-    SetBit(g_core.items.onMap, id, false);
-    g_core.items.types[id] = NO_ENTITY;
-    g_core.items.metaData[id].unused = NO_ENTITY;
-    SetBit(g_core.items.active, id, false);
 }
 
 

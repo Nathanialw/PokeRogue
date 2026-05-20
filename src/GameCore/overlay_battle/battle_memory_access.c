@@ -4,11 +4,12 @@
 
 #include "battle_memory_access.h"
 
-#include "battle_ram.h"
 #include "lib_decl.h"
+#include "types.h"
 #include "memory_constants.inc"
 
-#include "types.h"
+#include "battle_ram.h"
+
 
 
 //TODO:

@@ -4,10 +4,10 @@
 
 #include "map_movement.h"
 
-#include "core_utils.h"
 #include "lib_debugging.h"
 #include "lib_constants.h"
 
+#include "core_utils.h"
 #include "core_map.h"
 #include "core_memory_access.h"
 #include "core_ram.h"

@@ -4,14 +4,16 @@
 
 #include "battle_animation_effects.h"
 
-#include "battle_memory_access.h"
+#include "lib_decl.h"
+#include "lib_types.h"
 #include "constants.h"
+
 #include "core_entities.h"
 #include "core_graphics.h"
 #include "core_memory_access.h"
 #include "core_ram.h"
-#include "lib_decl.h"
-#include "lib_types.h"
+
+#include "battle_memory_access.h"
 
 
 /************************************************************************************************************

@@ -84,3 +84,27 @@ void DestroyEnemyCreature(HardwareInterface hardware)
     GainXP(player_creature_id, ai_creature_id);
     // DestroyCreature(hardware, ai_creature_id);
 }
+
+
+SET_MEMORY(".core")
+void DestroyItem(EntityId id)
+{
+    Position empty_pos = {.x = 0, .y = 0};
+    g_core.items.position[id] = empty_pos;
+    SetBit(g_core.items.onMap, id, false);
+    g_core.items.types[id] = NO_ENTITY;
+    g_core.items.metaData[id].unused = NO_ENTITY;
+    SetBit(g_core.items.active, id, false);
+}
+
+
+/**********************************************************************************************************************/
+/**Destroys the item entity
+ * Sets the bag index of the item to NO_ITEM
+**********************************************************************************************************************/
+SET_MEMORY(".core")
+void ConsumeItem(uint8_t idx, EntityId e_id)
+{
+    DestroyItem(e_id);
+    g_core.player.itemID[idx] = NO_ENTITY;
+}

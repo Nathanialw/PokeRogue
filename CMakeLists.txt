@@ -19,7 +19,7 @@ if (PICO)
 
 
     add_compile_definitions(PICO_FLASH_SIZE_BYTES=4194304) # 4 * 1024 * 1024
-elseif (CARTRIDGE)
+elseif (CARTRIDGE_DATA)
     set(CMAKE_SYSTEM_NAME Generic)
     set(CMAKE_SYSTEM_PROCESSOR arm)
 
@@ -37,6 +37,24 @@ elseif (CARTRIDGE)
 
     # Tell CMake not to run full link tests during configuration
 #    set(CMAKE_TRY_COMPILE_TARGET_TYPE STATIC_LIBRARY)
+elseif (CARTRIDGE_CODE)
+    set(CMAKE_SYSTEM_NAME Generic)
+    set(CMAKE_SYSTEM_PROCESSOR arm)
+
+    set(CMAKE_C_COMPILER arm-none-eabi-gcc)
+    set(CMAKE_CXX_COMPILER arm-none-eabi-g++)
+    set(CMAKE_ASM_COMPILER arm-none-eabi-gcc)
+
+    set(CMAKE_AR arm-none-eabi-ar)
+    set(CMAKE_OBJCOPY arm-none-eabi-objcopy)
+    set(CMAKE_OBJDUMP arm-none-eabi-objdump)
+
+    # Important flags for bare metal
+    set(CMAKE_C_FLAGS_INIT "-mcpu=cortex-m0plus -mthumb -ffreestanding -fno-tree-loop-distribute-patterns -fno-builtin -nostartfiles")
+    set(CMAKE_CXX_FLAGS_INIT "${CMAKE_C_FLAGS_INIT}")
+
+    # Tell CMake not to run full link tests during configuration
+    #    set(CMAKE_TRY_COMPILE_TARGET_TYPE STATIC_LIBRARY)
 endif ()
 
 project(PicoRogue C CXX ASM)
@@ -64,6 +82,8 @@ elseif (SDL)
     add_subdirectory(src/SDLGame)
 elseif (PICO)
     add_subdirectory(src/PicoGame)
-elseif (CARTRIDGE)
-    add_subdirectory(src/GameCartridge)
+elseif (CARTRIDGE_DATA)
+    add_subdirectory(src/GameCartridge/data)
+elseif (CARTRIDGE_CODE)
+    add_subdirectory(src/GameCartridge/code)
 endif ()

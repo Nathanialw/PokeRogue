@@ -9,7 +9,7 @@
 #include "hardware/pwm.h"
 
 // #include "memory_ram.h"
-#include "pico_constants.h"
+#include "constants.h"
 
 /**********************************************************************************************************************/
 /*
@@ -80,7 +80,7 @@ void Pico_BatteryStatus(void)
 
 void SPI0_Init()
 {
-    spi_init(SPI_A, 40 * 1000 * 1000); // 40 MHz
+    spi_init(SPI_A, 20 * 1000 * 1000); // 40 MHz
     spi_set_format(SPI_A, 8, SPI_CPOL_0, SPI_CPHA_0, SPI_MSB_FIRST);
 
     gpio_set_function(SPIA_SCK, GPIO_FUNC_SPI);
@@ -91,7 +91,7 @@ void SPI0_Init()
 
 void SPI1_Init()
 {
-    spi_init(SPI_B, 40 * 1000 * 1000); // 40 MHz
+    spi_init(SPI_B, 60 * 1000 * 1000); // 40 MHz
     spi_set_format(SPI_B, 8, SPI_CPOL_0, SPI_CPHA_0, SPI_MSB_FIRST);
 
     gpio_set_function(SPIB_SCK, GPIO_FUNC_SPI);
