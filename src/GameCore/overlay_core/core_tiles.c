@@ -1,9 +1,9 @@
 //
 // Created by nathanial on 2/23/26.
 //
-#include "core_tiles.h"
 #include "lib_memory.h"
 
+#include "core_tiles.h"
 #include "core_memory_access.h"
 
 /**********************************************************************************************************************/
@@ -49,11 +49,6 @@ void TilesetFromGlyph1bpp(TileSet* tileset, uint16_t tile_id, uint8_t glyph_inde
 *       g_core.tileCache.spriteCache.bytes uint8_t array
 *       g_core.tileCache.spriteCache.glyph uint16_t array
 ********************************************* *************************************************************************/
-SET_MEMORY(".core.data")
-static const char FullRedraw_starsta[] = "0x02x,";
-SET_MEMORY(".core.data")
-static const char FullRedraw_starstab[] = " - %d\n";
-
 SET_MEMORY(".core")
 void CharFromGlyph1bpp(MemoryInterface memory, Glyph buffer, uint16_t* character, uint8_t glyph_index, FontSize fontSize, uint16_t fg, uint16_t bg)
 {
@@ -126,13 +121,6 @@ void Expand4bppPackedToRGB(const uint16_t* src, const uint16_t* pal, uint16_t* d
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-SET_MEMORY(".core.data")
-static const char aadc[] = "in while, %d\n";
-
-SET_MEMORY(".core.data")
-static const char aavc[] = "in for, %d %d\n";
-
-
 SET_MEMORY(".core")
 uint8_t Expand4bppPackedToByte(MemoryInterface memory, const uint8_t* src, const uint16_t* pal, uint16_t* dest)
 {

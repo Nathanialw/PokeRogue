@@ -11,7 +11,8 @@
 typedef enum
 {
     // IDLE,
-    INPUT_MOVING,
+    INPUT_ACTING, //any action that increments a turn
+    INPUT_IDLE,
     INPUT_MENU,
     INPUT_ENTER_BATTLE,
     INPUT_BATTLE,

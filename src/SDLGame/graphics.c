@@ -77,7 +77,7 @@ void SetRectColor(uint32_t length, uint16_t* p, Color rgb565)
 void DrawRect(uint16_t x, uint16_t y, uint16_t w, uint16_t h, Color rgb565)
 {
     // if ((w * h) < (BUFFER_SIZE * 2))
-    if ((w * h) < BUFFER_SIZE_2BYTES)
+    if ((w * h) < (SCREEN_H * SCREEN_W * 2))
     {
         SetFrameBufferColor(rgb565);
         Draw16(x, y, w, h, g_ramState.framebuffer.frameBuffer);
@@ -158,34 +158,34 @@ void DrawSpriteTile(const FrameBuffer f, const uint8_t* sprite)
     Draw(f.x, f.y, f.w, f.h, sprite);
 }
 
-void DrawToBuffer(const FrameBuffer frameBuffer, const uint16_t* pixels, const Rect_16 rect)
+void DrawToBuffer(const FrameBuffer* frameBuffer, const uint16_t* pixels, const Rect_16* rect)
 {
-    uint16_t width = frameBuffer.w;
+    uint16_t width = frameBuffer->w;
     // = Flash_GetColor(memory, PAL_KEY];
 
     uint16_t clip_x = 0;
     uint16_t clip_y = 0;
-    uint16_t dest_x = rect.x;
-    uint16_t dest_y = rect.y;
+    uint16_t dest_x = rect->x;
+    uint16_t dest_y = rect->y;
 
     // handle out of bounds drawing
-    if (rect.x < 0)
+    if (rect->x < 0)
     {
-        clip_x = -rect.x;
+        clip_x = -rect->x;
         dest_x = 0;
     }
-    if (rect.y < 0)
+    if (rect->y < 0)
     {
-        clip_y = -rect.y;
+        clip_y = -rect->y;
         dest_y = 0;
     }
 
-    for (uint16_t y = clip_y; y < rect.h; y++)
+    for (uint16_t y = clip_y; y < rect->h; y++)
     {
-        for (uint16_t x = clip_x; x < rect.w; x++)
+        for (uint16_t x = clip_x; x < rect->w; x++)
         {
             Color color;
-            color.color = pixels[(y * rect.w) + x];
+            color.color = pixels[(y * rect->w) + x];
             if (color.color == TRANSPARENCY) continue;
 
             uint16_t screen_x = dest_x + x;
@@ -198,14 +198,29 @@ void DrawToBuffer(const FrameBuffer frameBuffer, const uint16_t* pixels, const R
     }
 }
 
+
 //TODO:
 void DrawTileKeyed(uint16_t x, uint16_t y, uint16_t w, uint16_t h, const uint16_t* data)
 {
     for (uint16_t row = 0; row < h; row++)
+    {
         for (uint16_t col = 0; col < w; col++)
+        {
             if (data[row * w + col] != TRANSPARENCY)
-                Draw16(x + col, y + row, 1, 1, &data[row * w + col]);
+            {
+                printf("#");
+                uint16_t c = data[row * w + col];
+                Draw16(x + col, y + row, 1, 1, &c);
+            }
+            else
+            {
+                printf(" ");
+            }
+        }
+        printf("\n");
+    }
 }
+
 
 //TODO:
 void SetBuffer(uint16_t length, uint16_t* p, uint16_t rgb565)
@@ -277,33 +292,23 @@ void FillScreenColor(Color rgb565)
 /**********************************************************************************************************************/
 /**  TEMP - for testing animations
 **********************************************************************************************************************/
-void TestAnimation()
+void TestAnimation(FrameBuffer* f, Rect_16* r, Color* color1)
 {
-    FrameBuffer f = {.x = 0, .y = 0, .w = 50, .h = 50};
-    Rect_16 r = {.x = 0, .y = 0, .w = 50, .h = 50};
-    Color color1 = {.color = 0xFFFF};
+    // FrameBuffer f1 = {.x = 0, .y = 0, .w = 50, .h = 50};
+    // Rect_16 r1 = {.x = 0, .y = 0, .w = 50, .h = 50};
+    // Color color11 = {.color = 0xFFFF};
 
     SetFrameBuffer(0xd6fa); // gray
-    uint16_t size = r.w * r.h;
+    uint16_t size = r->w * r->h;
     uint16_t p[size];
 
-    while (true)
-    {
-        DrawToBuffer(f, p, r);
-        SetRectColor(size, p, color1); //blu
-        DrawBuffer(f);
+    DrawToBuffer(f, p, r);
+    SetRectColor(size, p, *color1); //blu
+    DrawBuffer(*f);
 
-        if (f.x <= 100)
-            f.x += 1;
 
-        if (f.x >= 100)
-            f.y += 1;
-
-        if (f.y >= 100)
-            return;
-
-        SDL_Delay(20);
-    }
+    SDL_RenderPresent(g_ramState.renderer);
+    SDL_Delay(20);
 }
 
 
@@ -338,6 +343,7 @@ GraphicsInterface GraphicsInterfaceInit()
         .FillScreen = FillScreen,
         .FillScreenColor = FillScreenColor,
         .EndFrame = EndFrame,
+        .TestAnimation = TestAnimation,
     };
 
     return graphicsInterface;

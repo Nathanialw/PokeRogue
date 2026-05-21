@@ -21,7 +21,7 @@ void AnimationTitle(GraphicsInterface graphics, HardwareInterface hardware)
 
     while (true)
     {
-        graphics.TestAnimation(f, r, c);
+        graphics.TestAnimation(&f, &r, &c);
         hardware.SleepMS(16);
 
         r.h += 1;

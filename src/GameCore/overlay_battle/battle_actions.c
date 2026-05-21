@@ -4,12 +4,13 @@
 
 #include "battle_actions.h"
 
-#include "lib_debugging.h"
+#include "lib_memory.h"
 
 #include "core_ram.h"
 #include "core_memory_access.h"
 
 #include "battle_memory_access.h"
+#include "lib_debugging.h"
 
 
 /**********************************************************************************************************************/
@@ -39,7 +40,16 @@ bool UseSkill(HardwareInterface hardware, MemoryInterface memory, bool player)
                 num_abilities++;
         if (num_abilities == 0) return false;
         uint8_t idx = hardware.GetRandom_uint8_t(0, num_abilities);
+
         ability = g_core.creatures.attacks[ai_creature_id][idx];
+
+        // for debug
+        if (ability == NO_ABILITY)
+            for (uint8_t i = 0; i < MAX_ABILITIES; ++i)
+            {
+                DEBUG("skill %d: %d index - %d ", i, g_core.creatures.attacks[ai_creature_id][i], idx);
+            }
+
         SkillData ability_data;
         Flash_GetSkillData(memory, &ability_data, ability);
         Flash_GetSkillEffect(memory, ability, ai_creature_id, player_creature_id, ability_data);

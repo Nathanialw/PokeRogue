@@ -5,7 +5,7 @@
 #include "core_memory_access.h"
 
 #include "lib_decl.h"
-#include "lib_debugging.h"
+#include "lib_memory.h"
 
 #include "memory_constants.inc"
 #include "enums.h"
@@ -134,10 +134,6 @@ void Flash_GetItemData(MemoryInterface memory, ItemData* itemData, uint8_t index
 }
 
 
-SET_MEMORY(".core.data")
-static const char aasc[] = "index: %lu\n";
-
-
 /**********************************************************************************************************************/
 /*      SPRITES
 **********************************************************************************************************************/
@@ -155,10 +151,6 @@ void Flash_GetSpriteLayout(MemoryInterface memory, SpriteLayout* spriteLayout, u
         return &g_gameFlash.spriteData.skillLayout[index];
 #else
     const uint32_t position = index * sizeof(SpriteLayout);
-
-    memory.Print(aasc, type);
-    memory.Print(aasc, front);
-    memory.Print(aasc, SPRITE_BATTLER_LAYOUT_FRONT_POSITION + position);
 
     if (type == ITEM)
         memory.GetRom(SPRITE_ITEMS_LAYOUT_POSITION + position, spriteLayout->bytes, sizeof(SpriteLayout));
@@ -203,10 +195,6 @@ void Flash_GetSprite(MemoryInterface memory, uint8_t* sprite, uint32_t index, ui
     else if (type == SKILL)
         return g_gameFlash.spriteData.skills;
 #else
-    memory.Print(aasc, type);
-    memory.Print(aasc, front);
-    memory.Print(aasc, SPRITE_BATTLER_FRONT_POSITION + index);
-
     if (type == ITEM)
         memory.GetRom(SPRITE_ITEMS_POSITION + index, sprite, length);
     else if (type == OBJECT)
@@ -288,13 +276,8 @@ uint16_t Flash_GetColor(MemoryInterface memory, uint8_t color)
     // return Flash_GetColor(memory, PAL_OFF_WHITE_GRAY);
 #else
     uint8_t color_value[2];
-    // Read 2 bytes from flash memory starting at the calculated offset
-
-    // Combine two 8-bit bytes into a 16-bit integer
-    // Assuming Big-Endian or specific byte order: High byte << 8 | Low byte
     memory.GetRom(COLORS_16_POSITION + (2 * color), color_value, 2);
     return ((uint16_t)color_value[0] << 8) | color_value[1];
-
 #if defined(MEMORY_PRINT)
     for (uint8_t i = 0; i < 2; i++)
         memory.Print(str_spawn_creature_type, color_value[i]);

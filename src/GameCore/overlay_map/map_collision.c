@@ -4,7 +4,7 @@
 
 #include "map_collision.h"
 
-#include "lib_debugging.h"
+#include "lib_memory.h"
 
 #include "core_ram.h"
 

@@ -21,13 +21,14 @@ void DrawBuffer(const FrameBuffer f);
 void SetFrameBuffer(uint16_t rgb565);
 void SetFrameBufferColor(Color rgb565);
 void Pico_DrawSprite(FrameBuffer f, const uint8_t* sprite);
-void DrawToBuffer(const FrameBuffer frameBuffer, const uint16_t* pixels, const Rect_16 rect);
+void DrawToBuffer(const FrameBuffer* frameBuffer, const uint16_t* pixels, const Rect_16* rect);
 void FillRect(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t rgb565);
 void FillRectColor(uint16_t x, uint16_t y, uint16_t w, uint16_t h, Color rgb565);
 void FillScreen(uint16_t rgb565);
 void FillScreenColor(Color rgb565);
 void DrawTileKeyed(uint16_t x, uint16_t y, uint16_t w, uint16_t h, const uint16_t* data);
 void Draw(uint16_t x, uint16_t y, uint16_t w, uint16_t h, const uint8_t* data);
+void Draw16(uint16_t x, uint16_t y, uint16_t w, uint16_t h, const uint16_t* data);
 void SetBuffer(uint16_t length, uint16_t* p, uint16_t rgb565);
 void SetBufferColor(uint16_t length, uint16_t* p, Color rgb565);
 void EndFrame(void);
@@ -49,6 +50,7 @@ GraphicsInterface GetGraphicsInterface()
         .DrawToBuffer = DrawToBuffer,
         .DrawTileKeyed = DrawTileKeyed,
         .Draw = Draw,
+        .Draw16 = Draw16,
         .SetBuffer = SetBuffer,
         .SetBufferColor = SetBufferColor,
         .SetFrameBuffer = SetFrameBuffer,
@@ -370,42 +372,57 @@ void Draw(uint16_t x, uint16_t y, uint16_t w, uint16_t h, const uint8_t* data)
     Pico_CSDeselect();
 }
 
+void Draw16(uint16_t x, uint16_t y, uint16_t w, uint16_t h, const uint16_t* data)
+{
+    if ((w == 0 || h == 0) || (x >= TFT_W || y >= TFT_H))
+        return;
+    if (x + w > TFT_W) w = TFT_W - x;
+    if (y + h > TFT_H) h = TFT_H - y;
+
+
+    Pico_SetWindow(x, y, x + w - 1, y + h - 1);
+    gpio_put(lcd.dc, 1);
+    Pico_CSSelect();
+    spi_write_blocking(lcd.spi, (uint8_t*)data, w * h * sizeof(uint16_t));
+    Pico_CSDeselect();
+}
+
 /**********************************************************************************************************************/
 /**  writes the uint16_t pixel values into the frame buffer at the given rect posiotion and dimensions
 **********************************************************************************************************************/
-void DrawToBuffer(const FrameBuffer frameBuffer, const uint16_t* pixels, const Rect_16 rect)
+void DrawToBuffer(const FrameBuffer* frameBuffer, const uint16_t* pixels, const Rect_16* rect)
 {
-    uint16_t width = frameBuffer.w;
+    uint16_t width = frameBuffer->w;
     // = Flash_GetColor(memory, PAL_KEY];
 
     uint16_t clip_x = 0;
     uint16_t clip_y = 0;
-    uint16_t dest_x = rect.x;
-    uint16_t dest_y = rect.y;
+    uint16_t dest_x = rect->x;
+    uint16_t dest_y = rect->y;
 
     // handle out of bounds drawing
-    if (rect.x < 0)
+    if (rect->x < 0)
     {
-        clip_x = -rect.x;
+        clip_x = -rect->x;
         dest_x = 0;
     }
-    if (rect.y < 0)
+    if (rect->y < 0)
     {
-        clip_y = -rect.y;
+        clip_y = -rect->y;
         dest_y = 0;
     }
 
-    for (uint16_t y = clip_y; y < rect.h; y++)
+    for (uint16_t y = clip_y; y < rect->h; y++)
     {
-        for (uint16_t x = clip_x; x < rect.w; x++)
+        for (uint16_t x = clip_x; x < rect->w; x++)
         {
             Color color;
-            color.color = pixels[(y * rect.w) + x];
+            color.color = pixels[(y * rect->w) + x];
             if (color.color == TRANSPARENCY) continue;
 
             uint16_t screen_x = dest_x + x;
             uint16_t screen_y = dest_y + y;
-            uint16_t index = (screen_y * width) + screen_x;
+            uint32_t index = (screen_y * width) + screen_x;
 
             // g_run.tileCache.frameBuffer.frameBuffer[index] = Pico_SwapBytes(color);
             g_pico_ram.frameBuffer.frameBuffer[index] = Pico_SetColorByte(color);
@@ -501,17 +518,17 @@ void Pico_TestFrameBuffer()
     r.x = 5;
     Color c = {.color = 0x001f};
     Pico_ili9341_SetRectColor(10 * 40, p, c); //blu
-    DrawToBuffer(f, p, r);
+    DrawToBuffer(&f, p, &r);
 
     r.x = 25;
     c.color = 0x07e0;
     Pico_ili9341_SetRectColor(10 * 40, p, c); //grn
-    DrawToBuffer(f, p, r);
+    DrawToBuffer(&f, p, &r);
 
     r.x = 45;
     c.color = 0xf81f;
     Pico_ili9341_SetRectColor(10 * 40, p, c); //red
-    DrawToBuffer(f, p, r);
+    DrawToBuffer(&f, p, &r);
 
     DrawBuffer(f);
 }
@@ -527,7 +544,7 @@ void TestAnimation(FrameBuffer f, Rect_16 r, Color color1)
     uint16_t p[size];
 
     Pico_ili9341_SetRectColor(size, p, color1); //blu
-    DrawToBuffer(f, p, r);
+    DrawToBuffer(&f, p, &r);
     DrawBuffer(f);
 }
 

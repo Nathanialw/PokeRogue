@@ -8,7 +8,7 @@
 #define MAX_OVERLAYS 256
 
 typedef struct __attribute__((packed))
-    {
+{
     uint32_t addr; //memory adress
     uint32_t size;
 } Overlay;

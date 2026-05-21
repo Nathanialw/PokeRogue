@@ -4,7 +4,7 @@
 
 
 #include "core_map.h"
-#include "lib_debugging.h"
+#include "lib_memory.h"
 
 #include "core_ram.h"
 
@@ -204,18 +204,9 @@ void ConnectRooms(HardwareInterface hardware, Room a, Room b)
  *  Creates random position and dimention rooms of ground tiles around the map
  *  Connects those rooms with corridors of ground tiles
 **********************************************************************************************************************/
-SET_MEMORY(".map_gen.rodata")
-static const char generate_dungeon[] = "GenerateDungeon() BEGIN";
-SET_MEMORY(".map_gen.rodata")
-static const char generate_dungeon_reset[] = "GenerateDungeon() RESET";
-SET_MEMORY(".map_gen.rodata")
-static const char generate_dungeon_done[] = "GenerateDungeon() DONE";
-
-
 SET_MEMORY(".map_gen")
 void DungeonBasic(HardwareInterface hardware)
 {
-    hardware.Print(generate_dungeon);
 
     roomCount = 0;
 
@@ -223,7 +214,6 @@ void DungeonBasic(HardwareInterface hardware)
         for (uint16_t x = 0; x < MAP_W; x++)
             SetMapTile(x, y, WALL_STONE);
 
-    hardware.Print(generate_dungeon_reset);
 
     for (uint8_t i = 0; i < MAX_ROOMS; i++)
     {
@@ -257,7 +247,6 @@ void DungeonBasic(HardwareInterface hardware)
         }
     }
 
-    hardware.Print(generate_dungeon_done);
 }
 
 /**********************************************************************************************************************/
@@ -611,8 +600,6 @@ void DungeonGraph(HardwareInterface hardware)
     BuildEdges();
     BuildMST(hardware);
     AddExtraConnections(hardware);
-    // DebugPrintMap();
-    DEBUG("rooms %d", roomCount);
 }
 
 

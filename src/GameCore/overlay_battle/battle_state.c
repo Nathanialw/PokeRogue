@@ -20,6 +20,7 @@
 #include "battle_graphics.h"
 #include "battle_menu.h"
 #include "battle_player.h"
+#include "core_memory_access.h"
 
 
 /**********************************************************************************************************************/
@@ -82,13 +83,13 @@ void UpdateBattleRunningState(GraphicsInterface graphics, HardwareInterface hard
 
         if (input.GetJSPressed())
         {
-            if (!SetMenuDelta(hardware, input, memory, input.GetInputKeyState().d))
+            if (!SetMenuDelta(hardware, input, memory, input.GetInputKeyState().js))
                 UpdateBattleMenu(input);
         }
 
         if (input.GetDPPressed())
         {
-            if (!SetMenuDelta(hardware, input, memory, input.GetInputKeyState().d))
+            if (!SetMenuDelta(hardware, input, memory, input.GetInputKeyState().dp))
                 UpdateBattleMenu(input);
         }
     }
@@ -103,7 +104,10 @@ void HandleBattleState(GameInterface* spi)
 {
     if (CheckBattleState(BATTLE_INIT))
     {
+        spi->graphics.FillScreen(Flash_GetColor(spi->memory, PAL_OFF_WHITE_GRAY));
         AnimationScreenClearRandom(spi->graphics, spi->hardware); //ANIMATION - move both creatures into place
+        AnimationBattlerStart(spi->graphics, spi->hardware, spi->memory, true);
+        AnimationBattlerStart(spi->graphics, spi->hardware, spi->memory, false);
         HandleBattle(spi->graphics, spi->hardware, spi->memory);
         HandleBattleMenu(spi->graphics, spi->hardware, spi->memory);
         SetBattleState(BATTLE_MENUS);
@@ -117,9 +121,9 @@ void HandleBattleState(GameInterface* spi)
         {
             AnimationBattlerDie(spi->graphics, spi->hardware, spi->memory, false);
             DestroyEnemyCreature(spi->hardware);
-            SetInputState(INPUT_MOVING);
+            SetInputState(INPUT_ACTING);
             g_core.state.overlay = OVERLAY_MAP;
-            g_core.state.battleState = BATTLE_INIT;
+            g_core.state.battleState = BATTLE_INIT; //reset battle state - can me moveed to the battle overlaay struct
             return;
         }
 
@@ -146,9 +150,6 @@ void HandleBattleState(GameInterface* spi)
 }
 
 
-
-
-
 bool MainBattleLoop(GameInterface* spi)
 {
     return true;
@@ -162,11 +163,12 @@ uint8_t BattleLoopMain(GameInterface* spi)
 
     while (g_core.state.overlay == OVERLAY_BATTLE)
     {
+        spi->input.HandleInput();
         UpdateBattleRunningState(spi->graphics, spi->hardware, spi->input, spi->memory);;
         HandleBattleState(spi);
         MainBattleLoop(spi);;
         spi->graphics.EndFrame();
     }
 
-    return OVERLAY_MAP;
+    return g_core.state.overlay;
 }

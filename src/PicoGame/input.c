@@ -39,8 +39,8 @@ bool GetButtonUnused3(void) { return !(g_pico_ram.input.keyState.buttons >> 14 &
 bool GetButtonUnused4(void) { return !(g_pico_ram.input.keyState.buttons >> 15 & 1); } //R2
 
 
-bool GetJSPressed(void) { return g_pico_ram.input.keyState.d.x != 0 || g_pico_ram.input.keyState.d.y != 0; }
-bool GetDPPressed(void) { return g_pico_ram.input.keyState.d.x != 0 || g_pico_ram.input.keyState.d.y != 0; }
+bool GetJSPressed(void) { return g_pico_ram.input.keyState.js.x != 0 || g_pico_ram.input.keyState.js.y != 0; }
+bool GetDPPressed(void) { return g_pico_ram.input.keyState.dp.x != 0 || g_pico_ram.input.keyState.dp.y != 0; }
 void HandleInput();
 KeyState GetInputKeyState();
 
@@ -233,8 +233,10 @@ void HandleInput()
 {
     while (1)
     {
-        g_pico_ram.input.keyState.d.x = 0;
-        g_pico_ram.input.keyState.d.y = 0;
+        g_pico_ram.input.keyState.dp.x = 0;
+        g_pico_ram.input.keyState.dp.y = 0;
+        g_pico_ram.input.keyState.js.x = 0;
+        g_pico_ram.input.keyState.js.y = 0;
         const uint16_t tmp = SN74HC165N_BitBangShiftRegister();
         Delta d1 = Pico_InputDelta();
         Delta d2 = Pico_InputDeltaDPad();
@@ -245,8 +247,8 @@ void HandleInput()
         }
         g_pico_ram.input.keyState.buttons = tmp;
 
-        if (d1.x != 0 || d1.y != 0) g_pico_ram.input.keyState.d = d1;
-        else if (d2.x != 0 || d2.y != 0) g_pico_ram.input.keyState.d = d2;
+        g_pico_ram.input.keyState.dp = d1;
+        g_pico_ram.input.keyState.js = d2;
 
         char binary[16 + 1];
         PrintInput(g_pico_ram.input.keyState.buttons, binary);

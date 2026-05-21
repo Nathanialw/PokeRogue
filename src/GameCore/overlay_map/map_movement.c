@@ -4,13 +4,14 @@
 
 #include "map_movement.h"
 
-#include "lib_debugging.h"
+#include "lib_memory.h"
 #include "lib_constants.h"
 
 #include "core_utils.h"
 #include "core_map.h"
 #include "core_memory_access.h"
 #include "core_ram.h"
+#include "lib_enums.h"
 
 #include "map_ai.h"
 #include "map_camera.h"
@@ -18,7 +19,6 @@
 #include "map_status_effects.h"
 #include "map_entities.h"
 #include "map_player.h"
-
 
 
 /**********************************************************************************************************************/
@@ -52,47 +52,16 @@ void InitTitleScreen(void)
  *  Checks for battle
  *  Iterates through all entities, run the AI function to update their position
 **********************************************************************************************************************/
-SET_MEMORY(".map.rodata")
-const char test07[] = "    EntityId p_id = GetPlayerID();\n";
-
-SET_MEMORY(".map.rodata")
-const char test08[] = "    for (uint8_t id = 0; id < ENTITY_COUNT; ++id)\n";
-
-SET_MEMORY(".map.rodata")
-const char test09[] = " for (uint8_t id = 0; id < ENTITY_COUNT; ++id)\n";
-
-SET_MEMORY(".map.rodata")
-const char test10[] = "    if (combat_id != NO_ENTITY)\n";
-
-SET_MEMORY(".map.rodata")
-const char test11[] = "    UpdatePlayerPosition();\n";
-
-SET_MEMORY(".map.rodata")
-const char test12[] = " ObjectCollision(creature_id)\n";
-
-SET_MEMORY(".map.rodata")
-const char test13[] = "SetCameraPlayer\n";
-
-SET_MEMORY(".map.rodata")
-const char test14[] = "SetCameraPlayer\n";
-
-SET_MEMORY(".map.rodata")
-const char test15[] = "SetCameraPlayer\n";
-
 SET_MEMORY(".map")
 bool UpdatePositions(HardwareInterface hardware)
 {
-    hardware.Print(test07);
-
     EntityId p_id = GetPlayerID();
     IntMax99* speed = GetCreatureSpeeds();
     EntityId combat_id = NO_ENTITY;
     uint8_t player_speed = speed[p_id].current; //awkwardly as my speed value decreases my speed goes 'up', I may need to rethink this
     uint8_t* onMap = GetEntitiesOnMap(CREATURE);
 
-    hardware.Print(test08);
-
-    for (uint8_t id = 0; id < ENTITY_COUNT; ++id)
+    for (uint16_t id = 0; id < ENTITY_COUNT; ++id)
     {
         if (!GetBit(onMap, id)) continue; //need to make sure this only triggers for dynamic map entities
         if (id == p_id) continue;
@@ -109,13 +78,10 @@ bool UpdatePositions(HardwareInterface hardware)
 
         speed[id].current = player_speed - (max - cur);
         CreatureAI(hardware, id);
-
-        hardware.Print(test07);
     }
 
-    hardware.Print(test09);
 
-    for (uint8_t id = 0; id < ENTITY_COUNT; ++id)
+    for (uint16_t id = 0; id < ENTITY_COUNT; ++id)
     {
         if (!GetBit(onMap, id)) continue;
         if (id == p_id) continue;
@@ -123,19 +89,16 @@ bool UpdatePositions(HardwareInterface hardware)
         if (collision_id == p_id) combat_id = id;
     }
 
-    hardware.Print(test10);
     if (combat_id != NO_ENTITY)
     {
         ObjectCollision(combat_id);
         return false;
     }
 
-    hardware.Print(test11);
     UpdatePlayerPosition();
     uint8_t creature_id = CheckCollision(p_id);
     if (creature_id != NO_ENTITY && creature_id != p_id)
     {
-        hardware.Print(test12);
         ObjectCollision(creature_id);
         return false;
     }
@@ -155,7 +118,7 @@ void SetPositions(void)
 
     // DEBUG("Updating Object Positions");
 
-    for (uint8_t id = 0; id < ENTITY_COUNT; ++id)
+    for (uint16_t id = 0; id < ENTITY_COUNT; ++id)
     {
         if (!GetBit(onMap, id)) continue;
 
@@ -182,18 +145,6 @@ void SetPositions(void)
 }
 
 
-SET_MEMORY(".map.data")
-const char test05[] = "UpdateObjectStatusEffects\n";
-
-SET_MEMORY(".map.data")
-const char test06[] = "UpdatePositions\n";
-
-SET_MEMORY(".map.data")
-const char test03[] = "SetPositions\n";
-
-SET_MEMORY(".map.data")
-const char test04[] = "SetCameraPlayer\n";
-
 /**********************************************************************************************************************/
 /** Main update
  *  call every frame
@@ -201,16 +152,11 @@ const char test04[] = "SetCameraPlayer\n";
 SET_MEMORY(".map")
 void UpdateGame(HardwareInterface hardware)
 {
-    hardware.Print(test05);
+    if (g_core.state.inputState == INPUT_ACTING) g_core.turn_count++;
     UpdateObjectStatusEffects(hardware);
-
-    hardware.Print(test06);
     if (UpdatePositions(hardware))
     {
-        hardware.Print(test03);
         SetPositions();
     }
-
-    hardware.Print(test04);
     SetCameraPlayer();
 }

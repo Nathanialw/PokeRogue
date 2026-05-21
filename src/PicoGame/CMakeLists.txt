@@ -16,12 +16,12 @@ add_executable(PicoRogue
         memory_psram.c
 
         constants.h
+        debug.c
 )
 
 
 target_link_libraries(PicoRogue
         PicoTypes
-#        GameCore
         pico_stdlib
         hardware_spi
         hardware_gpio
@@ -29,6 +29,8 @@ target_link_libraries(PicoRogue
         hardware_pio
         hardware_i2c
         hardware_pwm
+        hardware_exception
+        cmsis_core
         pico_audio_i2s
         pico_audio
         pico_multicore
@@ -36,15 +38,16 @@ target_link_libraries(PicoRogue
 
 
 
-target_compile_definitions(PicoRogue PRIVATE ENABLE_DEBUG_OUTPUT ENABLE_ASSERTS)
+target_compile_definitions(PicoRogue PRIVATE ENABLE_DEBUG_OUTPUT ENABLE_ASSERTS CARTRIDGE)
 target_compile_definitions(PicoTypes PRIVATE ENABLE_DEBUG_OUTPUT ENABLE_ASSERTS)
-#target_compile_definitions(GameCore PRIVATE ENABLE_DEBUG_OUTPUT ENABLE_ASSERTS)
 
 
 target_include_directories(PicoRogue PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}
 )
 
+
+target_compile_definitions(PicoRogue PRIVATE PICO_DEBUG_ENABLE_BACKTRACE=1)
 
 pico_set_linker_script(PicoRogue ${CMAKE_CURRENT_LIST_DIR}/memmap_default.ld)
 pico_enable_stdio_usb(PicoRogue 1)

@@ -54,7 +54,15 @@ const SkillEffect abilityFunctions[ABILITY_COUNT] = {
 };
 
 
-
 SET_MEMORY(".battle.data")
 BattleRunState g_battle = {0};
 
+
+/**********************************************************************************************************************/
+/**     FUNCTIONS
+**********************************************************************************************************************/
+SET_MEMORY(".battle")
+bool Flash_GetSkillEffect(MemoryInterface memory, uint8_t skillType, EntityId id, EntityId target_id, SkillData skillData)
+{
+    return abilityFunctions[skillType](id, target_id, skillData);
+}

@@ -12,9 +12,6 @@
 #include "generate_map.h"
 
 
-SET_MEMORY(".map_gen.rodata")
-static const char str_map_gen_entry_entry[] = "Going to map_gen_entry";
-
 
 
 
@@ -52,12 +49,11 @@ void InitGame(HardwareInterface hardware, MemoryInterface memory)
 
 
 SET_MEMORY(".map_gen_entry")
-uint8_t GameLoopEntry(GameInterface* spi)
+uint8_t MapGenEntry(GameInterface* spi)
 {
-    spi->graphics.FillScreen(0x000F); // TODO: update to real title screen
-    spi->hardware.Print(str_map_gen_entry_entry);
-
     InitGame(spi->hardware, spi->memory);
-    return GAME_MAP;;
+
+    g_core.state.overlay = OVERLAY_MAP;
+    return OVERLAY_MAP;;
 }
 

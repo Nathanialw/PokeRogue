@@ -66,8 +66,10 @@ void HandleInput(void)
 {
     while (1)
     {
-        g_ramState.keys.d.x = 0;
-        g_ramState.keys.d.y = 0;
+        g_ramState.keys.dp.x = 0;
+        g_ramState.keys.dp.y = 0;
+        g_ramState.keys.js.x = 0;
+        g_ramState.keys.js.y = 0;
         const uint16_t key_state = ProcessInput();
         Delta d1 = InputDeltaDPad();
         if (key_state == g_ramState.keys.buttons && d1.x == 0 && d1.y == 0)
@@ -75,9 +77,9 @@ void HandleInput(void)
             SDL_Delay(20);
             continue;
         }
-        g_ramState.keys.buttons = key_state;
 
-        if (d1.x != 0 || d1.y != 0) g_ramState.keys.d = d1;
+        g_ramState.keys.buttons = key_state;
+        g_ramState.keys.dp = d1;
         break;
     }
 }
@@ -164,7 +166,7 @@ bool GetJSPressed(void)
     return false;
 }
 
-bool GetDPPressed(void) { return g_ramState.keys.d.x != 0 || g_ramState.keys.d.y != 0; }
+bool GetDPPressed(void) { return g_ramState.keys.dp.x != 0 || g_ramState.keys.dp.y != 0; }
 
 
 InputInterface InputInterfaceInit()

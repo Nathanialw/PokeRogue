@@ -10,14 +10,10 @@
 #include "core_map.h"
 #include "core_ram.h"
 #include "core_utils.h"
-#include "lib_debugging.h"
 
 #include "map_camera.h"
 #include "map_graphics.h"
 #include "map_ram.h"
-
-
-
 
 
 /**********************************************************************************************************************/
@@ -86,8 +82,6 @@ void FullRedraw(GraphicsInterface graphics, HardwareInterface hardware, MemoryIn
         }
     }
 }
-
-
 
 
 /**********************************************************************************************************************/
@@ -238,7 +232,8 @@ void RenderObjects(GraphicsInterface graphics, HardwareInterface hardware, Memor
     // Animat
     // ionMovement(graphics, hardware, memory);
 
-    memset(g_map.view.dirtyTiles, 0, sizeof(g_map.view.dirtyTiles));
+    for (uint8_t i = 0; i < 50; ++i)
+        g_map.view.dirtyTiles[i] = 0;
 
     ResetRenders(&g_map.view.viewItems, NO_ITEM);
     ResetRenders(&g_map.view.viewObjects, NO_OBJECT);

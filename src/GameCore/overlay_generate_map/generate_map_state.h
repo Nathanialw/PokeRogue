@@ -5,4 +5,4 @@
 #include "lib_decl.h"
 
 
-uint8_t GameLoopEntry(GameInterface* spi);
+uint8_t MapGenEntry(GameInterface* spi);

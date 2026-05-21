@@ -3,7 +3,7 @@
 //
 #include "battle_menu.h"
 
-#include "lib_debugging.h"
+#include "lib_memory.h"
 #include "lib_decl.h"
 
 #include "battle_actions.h"
@@ -225,7 +225,7 @@ void InitBattleMenu(void)
 SET_MEMORY(".battle")
 void UpdateBattleMenu(InputInterface input)
 {
-    if (input.GetInputKeyState().d.x == 0) return;
+    if (input.GetInputKeyState().dp.x == 0) return;
 
     if (g_core.menu.x == BATTLE_MENU_X)
     {

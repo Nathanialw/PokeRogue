@@ -31,6 +31,12 @@ typedef uint8_t (*overlay_entry_t)(GameInterface*);
 
 uint8_t RunOverlay(GameInterface* spi, uint32_t lma, uint32_t ram_addr, size_t size)
 {
+
+    // if (ov->bss_size > 0) {
+    //     memset((void*)(ov->ram_addr + ov->size), 0, ov->bss_size);
+    // }
+
+
     // 1. Copy from EEPROM (offset 0x080000) to RAM OVERLAY_VMA
     // load_overlay(TITLE_LMA, OVERLAY_VMA, TITLE_SIZE);
     LoadOverlay(lma, ram_addr, size);
@@ -40,7 +46,7 @@ uint8_t RunOverlay(GameInterface* spi, uint32_t lma, uint32_t ram_addr, size_t s
     DEBUG("Running overlay at 0x%08X", (uint32_t)entry);
     return entry(spi);
 }
-\
+
 
 void EnterBootloader()
 {
@@ -48,7 +54,6 @@ void EnterBootloader()
 
 
 void GetRom(uint32_t addr, uint8_t* buf, uint32_t size);
-void Print(const char* fmt, ...);
 
 
 MemoryInterface GetMemoryInterface()
@@ -80,8 +85,9 @@ void Print(const char* fmt, ...)
 }
 
 
-void PrintVar(const char* fmt, ...)
+void PrintVar(uint32_t d)
 {
-    DEBUG("CART - %s", fmt);
+    printf("%d 0x%2x 0x%4x, 0b%b \n", d, d, d, d);
+    // DEBUG("CART");
     // sleep_ms(10);
 }

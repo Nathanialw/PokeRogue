@@ -2,8 +2,8 @@
 // Created by nathanial on 5/19/26.
 //
 #pragma once
-#include "common/types.h"
-#include "common/enums.h"
+#include "types.h"
+#include "enums.h"
 #include "core_utils.h"
 
 
@@ -71,6 +71,9 @@ typedef struct
     // EntityId objectMap[MAP_H][MAP_W];
     uint8_t fog[(MAP_H * MAP_W) / 8]; // TODO: not yet implemented
     // Node pathing[(MAP_H * MAP_W) / 2]; // TODO: not yet implemented
+    Glyph16x16 tile; // temp RGB565 buffer (512 bytes on stack)
+    Glyph buffer;
+    uint8_t spriteCache[256];
 
 
     /**********************************************************************************************************************
@@ -242,6 +245,7 @@ typedef struct
         uint16_t master_dimmer;
         Note notes[GENERATED_MELODY_LENGTH * 2];
     } music;
+
 } CoreRunState;
 
 

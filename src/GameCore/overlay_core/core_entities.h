@@ -13,3 +13,5 @@ ItemTypes GetItemType(EntityId id);
 Object GetObjectType(EntityId id);
 Creature GetCreatureType(EntityId id);
 
+void DestroyCreature(HardwareInterface hardware, EntityId i);
+void DestroyItem(EntityId id);

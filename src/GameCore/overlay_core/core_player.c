@@ -62,6 +62,8 @@ EntityId* GetPlayerMonsterIDs(void)
 }
 
 
+
+
 /**********************************************************************************************************************/
 /**
 **********************************************************************************************************************/
@@ -71,7 +73,7 @@ void DestroyPlayerCreature(HardwareInterface hardware)
     EntityId player_creature_id = g_core.battleMode.playerMonsterID;
     EntityId ai_creature_id = g_core.battleMode.enemyMonsterID;
     GainXP(player_creature_id, ai_creature_id);
-    // DestroyCreature(hardware, ai_creature_id);
+    DestroyCreature(hardware, ai_creature_id);
 }
 
 /**********************************************************************************************************************/
@@ -83,19 +85,7 @@ void DestroyEnemyCreature(HardwareInterface hardware)
     EntityId player_creature_id = g_core.battleMode.playerMonsterID;
     EntityId ai_creature_id = g_core.battleMode.enemyMonsterID;
     GainXP(player_creature_id, ai_creature_id);
-    // DestroyCreature(hardware, ai_creature_id);
-}
-
-
-SET_MEMORY(".core")
-void DestroyItem(EntityId id)
-{
-    Position empty_pos = {.x = 0, .y = 0};
-    g_core.items.position[id] = empty_pos;
-    SetBit(g_core.items.onMap, id, false);
-    g_core.items.types[id] = NO_ENTITY;
-    g_core.items.metaData[id].unused = NO_ENTITY;
-    SetBit(g_core.items.active, id, false);
+    DestroyCreature(hardware, ai_creature_id);
 }
 
 

@@ -79,7 +79,7 @@
 #define BUFFER_H (16)
 #define BUFFER_W (320)
 #elif defined(CARTRIDGE)
-#define BUFFER_H (16)
+#define BUFFER_H (20)
 #define BUFFER_W (320)
 #elif defined(RES_480x480)
 #define BUFFER_H (16)

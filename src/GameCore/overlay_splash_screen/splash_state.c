@@ -4,6 +4,7 @@
 
 #include "splash_state.h"
 
+#include "core_ram.h"
 #include "lib_memory.h"
 #include "lib_decl.h"
 #include "enums.h"
@@ -26,11 +27,9 @@ void TitleRateDelay(HardwareInterface hardware)
 SET_MEMORY(".splash")
 bool UpdateGameTitleState(InputInterface input)
 {
-    DEBUG("UpdateGameTitleState");
     if (input.GetButtonA())
     {
-        DEBUG("GetButtonA");
-        return true;
+        g_core.state.overlay = OVERLAY_GEN_MAP;
     }
     if (input.GetButtonB())
     {
@@ -73,23 +72,16 @@ bool UpdateGameTitleState(InputInterface input)
 }
 
 
-SET_MEMORY(".splash.rodata")
-const char str_splash_exit[] = "Exiting splash_entry, Going to map_gen_entry";
-
-SET_MEMORY(".splash.rodata")
-const char str_splash_entry[] = "Going to splash_entry";
-
-
 /**********************************************************************************************************************/
 /**  main game state update loop
 **********************************************************************************************************************/
 SET_MEMORY(".splash_entry")
 uint8_t GameLoopTitleScreen(GameInterface* spi)
 {
-    spi->memory.Print(str_splash_entry);
-    spi->hardware.Print(str_splash_entry);
+    g_core.state.overlay = OVERLAY_TITLE_SCREEN;
+
     int start = 0;
-    while (start == 0)
+    while (g_core.state.overlay == OVERLAY_TITLE_SCREEN)
     {
         spi->input.HandleInput();
         start = UpdateGameTitleState(spi->input);
@@ -97,6 +89,5 @@ uint8_t GameLoopTitleScreen(GameInterface* spi)
         spi->graphics.EndFrame();
     }
 
-    spi->hardware.Print(str_splash_exit);
-    return GAME_MAP_GEN;
+    return g_core.state.overlay;
 }

@@ -4,12 +4,14 @@
 
 #include "map_entities.h"
 
+#include "core_entities.h"
 #include "lib_types.h"
-#include "lib_debugging.h"
+#include "lib_memory.h"
 
 #include "core_utils.h"
 #include "core_ram.h"
 #include "core_memory_access.h"
+#include "core_stats.h"
 
 #include "map.h"
 #include "map_actions.h"
@@ -91,7 +93,6 @@ EntityId CheckTileForEntity(ObjectsTypes type, EntityId e_id, Position pos)
         return CheckTile(type, e_id, pos, g_core.objects.position, g_core.objects.total);
     }
 
-    ASSERT(type == CREATURE || type == ITEM || type == OBJECT, "CheckTileForEntity %d invalid type", type);
     return NO_ENTITY;
 }
 
@@ -101,7 +102,6 @@ EntityId CheckTileForEntity(ObjectsTypes type, EntityId e_id, Position pos)
 SET_MEMORY(".map")
 Position QueueObjectMovePosition(EntityId id, uint8_t x, uint8_t y)
 {
-    ASSERT(id != NO_CREATURE, "ID is NO_CREATURE it is invalid!");
 
     Position pos = {.x = x, .y = y};
     g_core.creatures.newPosition[id] = pos;
@@ -131,7 +131,6 @@ Position SetEntityPosition(ObjectsTypes type, EntityId id, uint8_t x, uint8_t y,
         return g_core.objects.position[id];
     }
 
-    ASSERT(type == CREATURE || type == ITEM || type == OBJECT, "SetEntityPosition %d invalid type", type);
     return pos;
 }
 
@@ -163,7 +162,6 @@ uint8_t* GetEntitiesOnMap(ObjectsTypes type)
     if (type == OBJECT)
         return g_core.objects.onMap;
 
-    ASSERT(type == CREATURE || type == ITEM || type == OBJECT, "GetEntityPositions %d invalid type", type);
     return NULL;
 }
 
@@ -197,7 +195,6 @@ Position* GetEntityPositions(ObjectsTypes type)
     if (type == OBJECT)
         return g_core.objects.position;
 
-    ASSERT(type == CREATURE || type == ITEM || type == OBJECT, "GetEntityPositions %d invalid type", type);
     return NULL;
 }
 
@@ -217,8 +214,9 @@ Position* GetEntityNewPositions(void)
 SET_MEMORY(".map")
 EntityId SpawnMonster(HardwareInterface hardware, MemoryInterface memory, uint8_t type, uint8_t x, uint8_t y, uint8_t l)
 {
+
     EntityId id = NO_ENTITY;
-    for (uint8_t i = 0; i < ENTITY_COUNT; ++i)
+    for (uint16_t i = 0; i < ENTITY_COUNT; ++i)
         if (!GetBit(g_core.creatures.active, i))
         {
             id = i;
@@ -234,7 +232,7 @@ EntityId SpawnMonster(HardwareInterface hardware, MemoryInterface memory, uint8_
 
     GetStats(hardware, memory, &g_core.creatures.stats[id], monType, l);
 
-    // SetXPToLevel(id, &g_core.creatures.xp[id]);
+    SetXPToLevel(id, &g_core.creatures.xp[id]);
 
 
     g_core.creatures.hp[id] = GetHP(monType, l);
@@ -267,7 +265,7 @@ SET_MEMORY(".map")
 EntityId SpawnItem(HardwareInterface hardware, MemoryInterface memory, uint8_t type, uint8_t x, uint8_t y, uint8_t l)
 {
     EntityId id = NO_ENTITY;
-    for (uint8_t i = 0; i < ENTITY_COUNT; ++i)
+    for (uint16_t i = 0; i < ENTITY_COUNT; ++i)
         if (!GetBit(g_core.items.active, i))
         {
             id = i;
@@ -292,7 +290,7 @@ SET_MEMORY(".map")
 EntityId SpawnObject(HardwareInterface hardware, MemoryInterface memory, uint8_t type, uint8_t x, uint8_t y, uint8_t l)
 {
     EntityId id = NO_ENTITY;
-    for (uint8_t i = 0; i < ENTITY_COUNT; ++i)
+    for (uint16_t i = 0; i < ENTITY_COUNT; ++i)
         if (!GetBit(g_core.objects.active, i))
         {
             id = i;
@@ -319,34 +317,6 @@ EntityId SpawnEntity(HardwareInterface hardware, MemoryInterface memory, Objects
 }
 
 
-/**********************************************************************************************************************/
-/**Reset all values of the given entity ID
-**********************************************************************************************************************/
-SET_MEMORY(".map")
-void DestroyCreature(HardwareInterface hardware, EntityId id)
-{
-    Position empty_pos = {.x = 0, .y = 0};
-    g_core.creatures.position[id] = empty_pos;
-    SetBit(g_core.creatures.onMap, id, false);
-    g_core.creatures.types[id] = NO_ENTITY;
-    g_core.creatures.metaData[id].unused = NO_ENTITY;
-    SetBit(g_core.creatures.alive, id, false);
-    g_core.creatures.senses[id].sight = 0;
-    g_core.creatures.senses[id].smell = 0;
-    g_core.creatures.senses[id].sound = 0;
-    g_core.creatures.stealth[id].sight = 0;
-    g_core.creatures.stealth[id].sound = 0;
-    g_core.creatures.stealth[id].smell = 0;
-    g_core.creatures.stats[id].attack = 0;
-    g_core.creatures.stats[id].defence = 0;
-    g_core.creatures.stats[id].magic = 0;
-    g_core.creatures.stats[id].speed = 0;
-    memset(g_core.creatures.attacks[id], NO_ABILITY, 8);
-    Int999SetCurrent(&g_core.creatures.hp[id], 0);
-    Int999SetMax(&g_core.creatures.hp[id], 0);
-    g_core.creatures.level[id].value = 0;
-    SetBit(g_core.creatures.active, id, false);
-}
 
 
 SET_MEMORY(".map")
@@ -382,7 +352,8 @@ void CopyCreature(HardwareInterface hardware, EntityId src_id, EntityId target_i
     g_core.creatures.stats[target_id].speed = g_core.creatures.stats[src_id].speed;
     g_core.creatures.level[target_id].value = g_core.creatures.level[src_id].value;
 
-    memset(g_core.creatures.attacks[target_id], NO_ABILITY, 8);
+    for (uint8_t i = 0; i < 8; ++i)
+        g_core.creatures.attacks[target_id][i] = NO_ABILITY;
     Int999SetCurrent(&g_core.creatures.hp[target_id], 0);
     Int999SetMax(&g_core.creatures.hp[target_id], 0);
 

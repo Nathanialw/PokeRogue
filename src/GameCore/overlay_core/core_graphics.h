@@ -2,10 +2,12 @@
 // Created by nathanial on 4/11/26.
 //
 #pragma once
-#include "common/enums.h"
 #include "lib_decl.h"
-#include "common/types.h"
 #include "lib_types.h"
+
+#include "enums.h"
+#include "types.h"
+
 
 /**********************************************************************************************************************/
 /**

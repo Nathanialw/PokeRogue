@@ -16,10 +16,6 @@
 /**********************************************************************************************************************/
 /*      ENTITIES
 **********************************************************************************************************************/
-
-const char str_spawn_creature_type[] = "%2x ";
-const char new_line[] = "\n";
-
 SET_MEMORY(".map")
 SkillLearnLevel Flash_GetSkill(MemoryInterface memory, CreatureSkillLearnLevels c, Type creatureType, uint8_t index)
 {
@@ -139,11 +135,11 @@ void Flash_GetSpriteMetadata(MemoryInterface memory, Sprite* sprite, ObjectsType
 #else
 
     if (type == ITEM)
-        memory.GetRom(CHAR_SPRITES_ITEMS_POSITION, sprite->bytes, sizeof(Sprite));
+        memory.GetRom(CHAR_SPRITES_ITEMS_POSITION + (index * sizeof(Sprite)), sprite->bytes, sizeof(Sprite));
     else if (type == CREATURE)
-        memory.GetRom(CHAR_SPRITES_MONSTERS_POSITION, sprite->bytes, sizeof(Sprite));
+        memory.GetRom(CHAR_SPRITES_MONSTERS_POSITION + (index * sizeof(Sprite)), sprite->bytes, sizeof(Sprite));
     else if (type == OBJECT)
-        memory.GetRom(CHAR_SPRITES_OBJECTS_POSITION, sprite->bytes, sizeof(Sprite));
+        memory.GetRom(CHAR_SPRITES_OBJECTS_POSITION + (index * sizeof(Sprite)), sprite->bytes, sizeof(Sprite));
 
 #if defined(MEMORY_PRINT)
     for (uint8_t i = 0; i < sizeof(Sprite); i++)

@@ -10,6 +10,12 @@
 /**********************************************************************************************************************
 *
 *********************************************************************************************************************/
+typedef char CharStr_uint8[4];
+typedef char CharStr_max999[4];
+typedef char CharStr_max99[4];
+typedef char CharStr_99[3];
+typedef char CharStr_uint16[6];
+
 
 typedef uint8_t EntityId;
 typedef uint16_t Pixel;
@@ -100,7 +106,7 @@ typedef union
     uint16_t pixels_2d[TILE_W][TILE_H];
 } Glyph16x16;
 
-// _Static_assert(sizeof(Glyph16x16) == 512, "Glyph16x16 must be 512 bytes");
+_Static_assert(sizeof(Glyph16x16) == 512, "Glyph16x16 must be 512 bytes");
 
 
 /**********************************************************************************************************************/

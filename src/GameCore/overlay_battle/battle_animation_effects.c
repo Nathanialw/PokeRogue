@@ -92,6 +92,7 @@ void MoveCenterToLeft(GraphicsInterface graphics, HardwareInterface hardware, Re
         f.x -= 1;
 
         graphics.DrawBuffer(f);
+        graphics.EndFrame();
         hardware.SleepMS(frameLength);
     }
 }
@@ -110,6 +111,7 @@ void MoveLeftToCenter(GraphicsInterface graphics, HardwareInterface hardware, Re
     {
         f.x += 1;
         graphics.DrawBuffer(f);
+        graphics.EndFrame();
         hardware.SleepMS(frameLength);
     }
 }
@@ -128,6 +130,7 @@ void MoveCenterToRight(GraphicsInterface graphics, HardwareInterface hardware, R
     {
         f.x += 1;
         graphics.DrawBuffer(f);
+        graphics.EndFrame();
         hardware.SleepMS(frameLength);
     }
 }
@@ -146,6 +149,7 @@ void MoveRightToCenter(GraphicsInterface graphics, HardwareInterface hardware, R
     {
         f.x -= 1;
         graphics.DrawBuffer(f);
+        graphics.EndFrame();
         hardware.SleepMS(frameLength);
     }
 }
@@ -165,6 +169,8 @@ void MoveCenterToDown(GraphicsInterface graphics, HardwareInterface hardware, Re
         f.y += 1;
         f.h -= 1; // ensures the sprite does not draw beyond the bounds of the battler area
         graphics.DrawBuffer(f);
+        graphics.EndFrame();
+        graphics.EndFrame();
         hardware.SleepMS(frameLength);
     }
 }
@@ -186,6 +192,7 @@ void MoveCenterToTop(GraphicsInterface graphics, HardwareInterface hardware, Rec
         sprite += (f.w * sizeof(Pixel)); // increments the pixel array by 1 row of pixels
         f.h -= 1; // shrinks the height draw frame by 1 row
         graphics.DrawSprite(f, sprite);
+        graphics.EndFrame();
         hardware.SleepMS(frameLength);
     }
 }
@@ -214,6 +221,7 @@ void AnimationMirrorImageFloatingUp(GraphicsInterface graphics, HardwareInterfac
         sprite += f.w;
         f.h -= 1;
         graphics.DrawSprite(f, sprite);
+        graphics.EndFrame();
         hardware.SleepMS(frameLength);
     }
 }
@@ -236,6 +244,7 @@ void AnimationSpooky(GraphicsInterface graphics, HardwareInterface hardware, Rec
         sprite++;
         j++;
         graphics.DrawSprite(f, sprite);
+        graphics.EndFrame();
         hardware.SleepMS(frameLength);
     }
 }
@@ -257,6 +266,7 @@ void AnimationSpookyMoveCenterToLeft(GraphicsInterface graphics, HardwareInterfa
         sprite++;
         j++;
         graphics.DrawSprite(f, sprite);
+        graphics.EndFrame();
         hardware.SleepMS(frameLength);
     }
 }
@@ -280,6 +290,7 @@ void AnimationSpookyMoveLeftToCenter(GraphicsInterface graphics, HardwareInterfa
         sprite--;
         j--;
         graphics.DrawSprite(f, sprite);
+        graphics.EndFrame();
         hardware.SleepMS(frameLength);
     }
 }
@@ -302,6 +313,7 @@ void AnimationMirrorImage2(GraphicsInterface graphics, HardwareInterface hardwar
         sprite += f.w;
         f.h--;
         graphics.DrawSprite(f, sprite);
+        graphics.EndFrame();
         hardware.SleepMS(frameLength);
     }
 }
@@ -322,6 +334,7 @@ void AnimationIceShards(GraphicsInterface graphics, HardwareInterface hardware, 
         sprite += f.w;
         f.h--;
         graphics.DrawSprite(f, sprite);
+        graphics.EndFrame();
         hardware.SleepMS(frameLength);
     }
 }
@@ -348,6 +361,7 @@ void AnimationBeam(GraphicsInterface graphics, HardwareInterface hardware, Memor
         f.y -= j % 2;
         f.x++;
         graphics.DrawSprite(f, sprite);
+        graphics.EndFrame();
         hardware.SleepMS(frameLength);
     }
 }
@@ -373,6 +387,7 @@ void AnimationRandomParticles(GraphicsInterface graphics, HardwareInterface hard
         f.y = r.y + hardware.GetRandom_uint8_t(0, r.h - size);
         f.x = r.x + hardware.GetRandom_uint8_t(0, r.w - size);
         graphics.DrawSprite(f, sprite);
+        graphics.EndFrame();
         hardware.SleepMS(frameLength);
     }
 }
@@ -406,6 +421,7 @@ void AnimationLineEffect(GraphicsInterface graphics, HardwareInterface hardware,
         hardware.SleepMS(frameLength);
         const uint16_t* b = sprite + (n * start_pos);
         graphics.DrawSprite(f, (uint8_t*)b);
+        graphics.EndFrame();
         start_pos++;
         f.y++;
     }

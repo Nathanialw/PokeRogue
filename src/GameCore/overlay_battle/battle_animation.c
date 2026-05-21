@@ -90,6 +90,7 @@ void AnimationUpdateHealth(GraphicsInterface graphics, HardwareInterface hardwar
         x -= 1;
 
         graphics.FillRect(x, y, w, h, 0xf00a);
+        graphics.EndFrame();
         hardware.SleepMS(16);
     }
 }
@@ -109,8 +110,9 @@ void AnimationUpdateMana(GraphicsInterface graphics, HardwareInterface hardware)
 
     while (true)
     {
-        graphics.TestAnimation(f, r, c);
+        graphics.TestAnimation(&f, &r, &c);
         hardware.SleepMS(16);
+        graphics.EndFrame();
 
         r.h += 1;
         if (r.h > 60)
@@ -133,8 +135,9 @@ void AnimationUpdateXP(GraphicsInterface graphics, HardwareInterface hardware)
 
     while (true)
     {
-        graphics.TestAnimation(f, r, c);
+        graphics.TestAnimation(&f, &r, &c);
         hardware.SleepMS(16);
+        graphics.EndFrame();
 
         r.h += 1;
         if (r.h > 60)
@@ -157,8 +160,10 @@ void AnimationScreenClearRandom(GraphicsInterface graphics, HardwareInterface ha
 
     while (true)
     {
-        graphics.TestAnimation(f, r, c);
+        graphics.TestAnimation(&f, &r, &c);
         hardware.SleepMS(16);
+        graphics.EndFrame();
+
 
         r.h += 1;
         if (r.h > 60)

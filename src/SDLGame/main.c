@@ -26,7 +26,6 @@
  *
  **************************************************************************************************************************************************/
 
-
 typedef uint8_t (*OverlayEntry)(GameInterface* spi);
 
 
@@ -41,7 +40,7 @@ OverlayEntry overlays[12] =
     NULL,
     GameLoopTitleScreen,
     GameLoopMain,
-    GameLoopEntry,
+    MapGenEntry,
     BattleLoopMain,
 };
 
@@ -63,6 +62,7 @@ int main()
     api.audio = AudioInterfaceInit();
     api.graphics = GraphicsInterfaceInit();
     api.input = InputInterfaceInit();
+
 
     g_core.state.overlay = overlays[1](&api);;
 

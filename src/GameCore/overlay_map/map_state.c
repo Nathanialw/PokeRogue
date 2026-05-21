@@ -7,13 +7,13 @@
 #include "lib_memory.h"
 #include "lib_decl.h"
 #include "lib_enums.h"
+#include "lib_constants.h"
 
 
 #include "core_graphics.h"
 #include "core_menu.h"
 #include "core_ram.h"
 #include "core_state.h"
-#include "lib_debugging.h"
 
 #include "map.h"
 #include "map_camera.h"
@@ -51,8 +51,6 @@ void GameLoopRateDelay(HardwareInterface hardware)
 }
 
 
-
-
 /**********************************************************************************************************************/
 /*  input handling based on game state
 **********************************************************************************************************************/
@@ -65,7 +63,7 @@ void UpdateGameRunningState(GraphicsInterface graphics, HardwareInterface hardwa
         {
             if (!OpenSubMenu(hardware, input, memory))
             {
-                SetInputState(INPUT_MOVING);
+                SetInputState(INPUT_IDLE);
             }
             return;
         }
@@ -74,7 +72,7 @@ void UpdateGameRunningState(GraphicsInterface graphics, HardwareInterface hardwa
         {
             if (!MenuBack(memory))
             {
-                SetInputState(INPUT_MOVING);
+                SetInputState(INPUT_IDLE);
                 SetGameLoopRateDefault();
                 FullRedraw(graphics, hardware, memory);
             }
@@ -100,7 +98,7 @@ void UpdateGameRunningState(GraphicsInterface graphics, HardwareInterface hardwa
 
         if (input.GetJSPressed())
         {
-            if (!SetMenuDelta(hardware, input, memory, input.GetInputKeyState().d))
+            if (!SetMenuDelta(hardware, input, memory, input.GetInputKeyState().js))
                 OpenSubMenu(hardware, input, memory);
             return;
         }
@@ -108,15 +106,55 @@ void UpdateGameRunningState(GraphicsInterface graphics, HardwareInterface hardwa
 
         if (input.GetDPPressed())
         {
-            if (!SetMenuDelta(hardware, input, memory, input.GetInputKeyState().d))
+            if (!SetMenuDelta(hardware, input, memory, input.GetInputKeyState().dp))
                 OpenSubMenu(hardware, input, memory);
             return;
         }
     }
 
 
-    if (g_core.state.inputState == INPUT_MOVING)
+    if (g_core.state.inputState == INPUT_IDLE)
     {
+        if (input.GetButtonA())
+        {
+        }
+
+        if (input.GetButtonB())
+        {
+        }
+
+        if (input.GetButtonX())
+        {
+        }
+
+        if (input.GetButtonY())
+        {
+        }
+
+        if (input.GetButtonJSClick())
+        {
+        }
+
+        if (input.GetButtonDPClick())
+        {
+        }
+
+        if (input.GetJSPressed())
+        {
+            SetInputState(INPUT_ACTING);
+        }
+
+        if (input.GetDPPressed())
+        {
+            SetInputState(INPUT_ACTING);
+        }
+    }
+
+
+    if (g_core.state.inputState == INPUT_ACTING)
+    {
+        SetInputState(INPUT_IDLE);
+
         if (input.GetButtonA())
         {
             PlayerInteractItemInCell();
@@ -149,51 +187,39 @@ void UpdateGameRunningState(GraphicsInterface graphics, HardwareInterface hardwa
 
         if (input.GetJSPressed())
         {
-            SetPlayerDelta(input.GetInputKeyState().d);
+            SetInputState(INPUT_ACTING);
+
+            SetPlayerDelta(input.GetInputKeyState().js);
             return;
         }
 
         if (input.GetDPPressed())
         {
-            SetPlayerDelta(input.GetInputKeyState().d);
+            SetInputState(INPUT_ACTING);
+            SetPlayerDelta(input.GetInputKeyState().dp);
             return;
         }
     }
 }
 
 
-
-SET_MEMORY(".map.rodata")
-const char test01[] = "UpdateGame\n";
-
-SET_MEMORY(".map.rodata")
-const char test02[] = "RenderObjects\n";
-
-
-SET_MEMORY(".map.rodata")
-const char test021[] = "DONE";
 /**********************************************************************************************************************/
 /**  Game State forking
 **********************************************************************************************************************/
 SET_MEMORY(".map")
 void HandleGameState(GameInterface* spi)
 {
-    if (g_core.state.inputState == INPUT_MOVING)
+    if (g_core.state.inputState == INPUT_ACTING)
     {
-        spi->hardware.Print(test01);
         UpdateGame(spi->hardware);
-        spi->hardware.Print(test02);
         RenderObjects(spi->graphics, spi->hardware, spi->memory);
     }
 
     if (g_core.state.inputState == INPUT_MENU)
     {
         HandleMenu(spi->graphics, spi->hardware, spi->memory);
-        spi->hardware.Print(test01);
         HandleGameMenu(spi->graphics, spi->hardware, spi->memory);
-        spi->hardware.Print(test02);
         DrawCursor(spi->graphics, spi->memory);
-        spi->hardware.Print(test021);
     }
 
     // spi.audio.PlaySoundEffect();
@@ -203,21 +229,24 @@ void HandleGameState(GameInterface* spi)
 SET_MEMORY(".map_entry")
 uint8_t GameLoopMain(GameInterface* spi)
 {
-    g_core.state.overlay = OVERLAY_MAP;
-    spi->graphics.FillScreen(0x0f00); // TODO: update to real title screen
-    ResetEntities(spi->hardware, spi->memory, false);
-    InitPlayer(spi->hardware, spi->memory);
-    PopulateLevelCreatures(spi->hardware, spi->memory);
-    PopulateLevelObjects(spi->hardware, spi->memory);
-    PopulateLevelItems(spi->hardware, spi->memory);
-    PlacePlayerOnMap(spi->hardware);
-    SetMapFog(0xFF);
-    InitCamera(0, 0, TILE_W * VIEW_TW, TILE_H * VIEW_TH);
-    SetCameraPlayer();
+    if (g_core.turn_count == 0)
+    {
+        ResetEntities(spi->hardware, spi->memory, false);
+        InitPlayer(spi->hardware, spi->memory);
+        PopulateLevelCreatures(spi->hardware, spi->memory);
+        PopulateLevelObjects(spi->hardware, spi->memory);
+        PopulateLevelItems(spi->hardware, spi->memory);
+        PlacePlayerOnMap(spi->hardware);
+        SetMapFog(0xFF);
+        InitCamera(0, 0, TILE_W * VIEW_TW, TILE_H * VIEW_TH);
+        SetCameraPlayer();
+    }
+
     FullRedraw(spi->graphics, spi->hardware, spi->memory);
 
     while (g_core.state.overlay == OVERLAY_MAP)
     {
+        g_core.turn_count++;
         spi->input.HandleInput();
         UpdateGameRunningState(spi->graphics, spi->hardware, spi->input, spi->memory);
         HandleGameState(spi);

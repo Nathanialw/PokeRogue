@@ -57,9 +57,12 @@ typedef struct
     EntityData entityData;
 
     uint8_t spriteCache[256];
-    Glyph16x16 tile; // temp RGB565 buffer (512 bytes on stack)
 
     StatsRange statsCache;
+
+
+    Glyph16x16 glyph;
+    Glyph buffer;
 
     const char power[SMALL_STRINGS];
     const char rarity[SMALL_STRINGS];

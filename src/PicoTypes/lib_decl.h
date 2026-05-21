@@ -51,7 +51,7 @@ typedef struct __attribute__((packed))
     void (*DrawBuffer)(const FrameBuffer f);
 
     void (*DrawSprite)(FrameBuffer f, const uint8_t* sprite);
-    void (*DrawToBuffer)(const FrameBuffer frameBuffer, const uint16_t* pixels, const Rect_16 rect);
+    void (*DrawToBuffer)(const FrameBuffer* frameBuffer, const uint16_t* pixels, const Rect_16* rect);
     void (*DrawTileKeyed)(uint16_t x, uint16_t y, uint16_t w, uint16_t h, const uint16_t* data);
     void (*Draw)(uint16_t x, uint16_t y, uint16_t w, uint16_t h, const uint8_t* data);
     void (*Draw16)(uint16_t x, uint16_t y, uint16_t w, uint16_t h, const uint16_t* data);
@@ -67,7 +67,7 @@ typedef struct __attribute__((packed))
     void (*FillScreenColor)(Color rgb565);
     void (*EndFrame)(void);
 
-    void (*TestAnimation)(FrameBuffer f, Rect_16 r, Color color1);
+    void (*TestAnimation)(FrameBuffer* f, Rect_16* r, Color* color1);
 } GraphicsInterface;
 
 typedef struct __attribute__((packed))
@@ -87,7 +87,7 @@ typedef struct __attribute__((packed))
     char* (*StrChr)(const char* n, int c);
 
     void (*Print)(const char* fmt, ...);
-    void (*PrintVar)(const char* fmt, ...);
+    void (*PrintVar)(uint32_t d);
 } HardwareInterface;
 
 typedef struct __attribute__((packed))
@@ -100,7 +100,7 @@ typedef struct __attribute__((packed))
     void (*SaveGame)(uint32_t addr, char* buf, uint32_t size); //fram
 
     void (*Print)(const char* fmt, ...);
-    void (*PrintVar)(const char* fmt, ...);
+    void (*PrintVar)(uint32_t d);
 } MemoryInterface;
 
 

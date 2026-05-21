@@ -28,6 +28,8 @@ MEMORY
     RAM(rwx) : ORIGIN = 0x20020000, LENGTH = 128k /*this is the only change made, sets the platform ram to the top have of ram*/
     SCRATCH_X(rwx) : ORIGIN = 0x20040000, LENGTH = 4k
     SCRATCH_Y(rwx) : ORIGIN = 0x20041000, LENGTH = 4k
+
+
 }
 
 ENTRY(_entry_point)

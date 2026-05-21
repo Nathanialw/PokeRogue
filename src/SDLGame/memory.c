@@ -14,6 +14,7 @@
 
 size_t romSize;
 
+
 // TODO:
 void ReadROMemory(uint32_t addr, uint8_t* buf, uint32_t size)
 {
@@ -27,6 +28,7 @@ void ReadROMemory(uint32_t addr, uint8_t* buf, uint32_t size)
 #endif
     memcpy(buf, &g_ramState.bytes[addr], size);
 }
+
 
 // TODO:
 void GetRam(uint32_t addr, char* buf, uint32_t size) //psram
@@ -57,6 +59,7 @@ MemoryInterface MemoryInterfaceInit()
     };
     return memoryInterface;
 }
+
 
 
 void* LoadBinaryFile(const char* filename, size_t* dataSize)

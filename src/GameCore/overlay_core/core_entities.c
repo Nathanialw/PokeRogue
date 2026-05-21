@@ -41,7 +41,47 @@ EntityId PickItem(EntityId id)
     return id;
 }
 
+/**********************************************************************************************************************/
+/**Reset all values of the given entity ID
+**********************************************************************************************************************/
+SET_MEMORY(".core")
+void DestroyCreature(HardwareInterface hardware, EntityId id)
+{
+    Position empty_pos = {.x = 0, .y = 0};
+    g_core.creatures.position[id] = empty_pos;
+    SetBit(g_core.creatures.onMap, id, false);
+    g_core.creatures.types[id] = NO_ENTITY;
+    g_core.creatures.metaData[id].unused = NO_ENTITY;
+    SetBit(g_core.creatures.alive, id, false);
+    g_core.creatures.senses[id].sight = 0;
+    g_core.creatures.senses[id].smell = 0;
+    g_core.creatures.senses[id].sound = 0;
+    g_core.creatures.stealth[id].sight = 0;
+    g_core.creatures.stealth[id].sound = 0;
+    g_core.creatures.stealth[id].smell = 0;
+    g_core.creatures.stats[id].attack = 0;
+    g_core.creatures.stats[id].defence = 0;
+    g_core.creatures.stats[id].magic = 0;
+    g_core.creatures.stats[id].speed = 0;
+    for (uint8_t i = 0; i < 8; ++i)
+        g_core.creatures.attacks[id][i] = NO_ABILITY;
+    Int999SetCurrent(&g_core.creatures.hp[id], 0);
+    Int999SetMax(&g_core.creatures.hp[id], 0);
+    g_core.creatures.level[id].value = 0;
+    SetBit(g_core.creatures.active, id, false);
+}
 
+
+SET_MEMORY(".core")
+void DestroyItem(EntityId id)
+{
+    Position empty_pos = {.x = 0, .y = 0};
+    g_core.items.position[id] = empty_pos;
+    SetBit(g_core.items.onMap, id, false);
+    g_core.items.types[id] = NO_ENTITY;
+    g_core.items.metaData[id].unused = NO_ENTITY;
+    SetBit(g_core.items.active, id, false);
+}
 
 
 /**********************************************************************************************************************/
@@ -82,16 +122,9 @@ Creature GetCreatureType(EntityId id)
  *  ON SUCCESS - Returns the type ID of the given entity ID
  *  ON FAIL - sets typeIDs to NULL and returns NULL
 **********************************************************************************************************************/
-SET_MEMORY(".map.data")
-static const char ppp1[] = "start";
-
-SET_MEMORY(".map.data")
-static const char ppp2[] = "done";
-
 SET_MEMORY(".core")
 void GetEntityTypes(MemoryInterface memory, uint8_t* typeIDs, const uint8_t* e_ids, ObjectsTypes type, uint8_t n, uint8_t offset)
 {
-    memory.Print(ppp1);
     SmallStringArray text[MAX_MENU_SIZE];
     uint8_t i = offset;
 
@@ -135,6 +168,4 @@ void GetEntityTypes(MemoryInterface memory, uint8_t* typeIDs, const uint8_t* e_i
             typeIDs = NULL;
         }
     }
-
-    memory.Print(ppp2);
 }

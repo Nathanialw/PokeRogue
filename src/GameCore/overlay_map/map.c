@@ -8,7 +8,6 @@
 #include "constants.h"
 #include "core_map.h"
 #include "core_ram.h"
-#include "lib_debugging.h"
 
 #include "map_entities.h"
 
@@ -153,10 +152,8 @@ Position FindOpenMapLocation(HardwareInterface hardware, ObjectsTypes type)
         Position pos;
         pos.x = hardware.GetRandom_uint8_t(16, MAP_W - 32);
         pos.y = hardware.GetRandom_uint8_t(16, MAP_H - 32);
-        DEBUG("POS %d %d", pos.x, pos.y);
         if (GetMapTile(pos.x, pos.y) == GROUND && CheckTileForEntity(type, NO_ENTITY, pos) == NO_ENTITY)
         {
-            DEBUG("SUCCESS");
             return pos;
         }
     }

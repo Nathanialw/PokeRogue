@@ -1,3 +1,4 @@
+#include "debug.h"
 #ifdef STANDALONE
 #include "game_state.h"
 #endif
@@ -10,15 +11,13 @@
 #include "input.h"
 #include "lib_debugging.h"
 #include "memory_ram.h"
-#include "pico/multicore.h"
-
-/**********************************************************************************************************************/
-/*
-**********************************************************************************************************************/
+#include "pico/stdlib.h"
 
 #define CORE_VMA    0x20000000
 #define OVERLAY_VMA 0x20010000
 #define END_VMA     0x20020000
+
+
 
 int main()
 {
@@ -34,6 +33,8 @@ int main()
     api.memory = GetMemoryInterface();
 
     Pico_TestColors();
+
+begin:
 
     while (1)
     {
@@ -51,7 +52,6 @@ int main()
 
         if (api.input.GetButtonDown())
         {
-
             EEPROM_Verify(EEPROM_CART_FUNC_CS);
             sleep_ms(500);
             EEPROM_Verify(EEPROM_CART_DATA_CS);
@@ -76,6 +76,11 @@ int main()
         {
             break;
         }
+
+        if (api.input.GetButtonStart())
+        {
+            return 0;
+        }
     }
 
     // load overlay table - save it into ram
@@ -98,7 +103,8 @@ int main()
     uint8_t overlay_idx = 0;
     LoadOverlay(g_pico_ram.overlays.overlay[overlay_idx].addr, CORE_VMA, g_pico_ram.overlays.overlay[overlay_idx].size);
     DEBUG("Reserved Core    RAM size: %d bytes - Used: %lu bytes", OVERLAY_VMA - CORE_VMA, g_pico_ram.overlays.overlay[overlay_idx].size);
-    if (g_pico_ram.overlays.overlay[overlay_idx].size >= OVERLAY_VMA - CORE_VMA) DEBUG("ERROR CORE EXCEEDS RESERVED SPACE");
+    if (g_pico_ram.overlays.overlay[overlay_idx].size >= OVERLAY_VMA - CORE_VMA)
+        DEBUG("ERROR CORE EXCEEDS RESERVED SPACE");
 
     // uint32_t overlay_table_addr = 0x20000000 + g_pico_ram.overlays.overlay[overlay_idx].size;
     overlay_idx = 1;
@@ -113,8 +119,7 @@ int main()
         }
     }
 
-    DEBUG("Program Done!~");
-
+    goto begin;
 #ifdef STANDALONE
     // multicore_launch_core1(ThreadTwo, api.hardware);
     GameLoop(&api);

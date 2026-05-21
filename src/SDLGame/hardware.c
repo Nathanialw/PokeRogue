@@ -6,6 +6,7 @@
 
 #include <string.h>
 #include <stdlib.h>
+#include <SDL3/SDL_timer.h>
 
 #include "lib_decl.h"
 
@@ -20,6 +21,7 @@ void HardwareReset(void)
 //TODO
 void SleepMS(uint32_t uint32)
 {
+    SDL_Delay(uint32);
 }
 
 //TODO

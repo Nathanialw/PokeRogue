@@ -9,4 +9,4 @@
 GraphicsInterface GraphicsInterfaceInit();
 void SetFrameBufferColor(Color rgb565);
 void TestColors();
-void TestAnimation();
+void TestAnimation(FrameBuffer* f, Rect_16* r, Color* color1);

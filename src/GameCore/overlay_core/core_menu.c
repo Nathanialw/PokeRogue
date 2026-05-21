@@ -4,7 +4,7 @@
 #include "core_menu.h"
 
 #include "lib_decl.h"
-#include "lib_debugging.h"
+#include "lib_memory.h"
 
 #include "core_entities.h"
 #include "core_memory_access.h"
@@ -28,10 +28,10 @@ uint16_t ListSize(uint16_t n)
 SET_MEMORY(".core")
 bool ListJump(HardwareInterface hardware, InputInterface input, MemoryInterface memory)
 {
-    if (input.GetInputKeyState().d.x != 0)
+    if (input.GetInputKeyState().dp.x != 0)
     {
         Delta d = {};
-        d.y = input.GetInputKeyState().d.x * LIST_JUMP_AMOUNT;
+        d.y = input.GetInputKeyState().dp.x * LIST_JUMP_AMOUNT;
         if (HandleMenuOverflow(hardware, input, memory, d)) return true;
         SetMenuDelta(hardware, input, memory, d);
     }

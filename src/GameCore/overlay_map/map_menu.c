@@ -6,7 +6,7 @@
 #include "constants.h"
 
 #include "lib_decl.h"
-#include "lib_debugging.h"
+#include "lib_memory.h"
 #include "lib_types.h"
 
 #include "core_actions.h"
@@ -17,7 +17,6 @@
 #include "core_utils.h"
 
 #include "map_memory_access.h"
-#include "map_player.h"
 
 
 
@@ -132,7 +131,7 @@ bool MiniMap(HardwareInterface hardware, InputInterface input, MemoryInterface m
 SET_MEMORY(".map")
 bool MonsterData(HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update)
 {
-    if (ToggleMenu(MONSTER_DATA_LIST_SUBMENU, CREATURE_COUNT) && input.GetInputKeyState().d.y == 0)
+    if (ToggleMenu(MONSTER_DATA_LIST_SUBMENU, CREATURE_COUNT) && input.GetInputKeyState().dp.y == 0)
     {
         if (ListJump(hardware, input, memory)) return true;
 
@@ -165,7 +164,7 @@ bool MonsterData(HardwareInterface hardware, InputInterface input, MemoryInterfa
 SET_MEMORY(".map")
 bool Objectpedia(HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update)
 {
-    if (ToggleMenu(OBJECT_DATA_LIST_SUBMENU, OBJECT_COUNT) && input.GetInputKeyState().d.y == 0)
+    if (ToggleMenu(OBJECT_DATA_LIST_SUBMENU, OBJECT_COUNT) && input.GetInputKeyState().dp.y == 0)
     {
         if (ListJump(hardware, input, memory)) return true;
 
@@ -196,7 +195,7 @@ bool Objectpedia(HardwareInterface hardware, InputInterface input, MemoryInterfa
 SET_MEMORY(".map")
 bool Itempedia(HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update)
 {
-    if (ToggleMenu(ITEM_DATA_LIST_SUBMENU, ITEM_COUNT) && input.GetInputKeyState().d.y == 0)
+    if (ToggleMenu(ITEM_DATA_LIST_SUBMENU, ITEM_COUNT) && input.GetInputKeyState().dp.y == 0)
     {
         if (ListJump(hardware, input, memory)) return true;
         EntityId item_id = g_core.menu.sel[g_core.menu.depth].y + g_core.menu.menuScrollOffset[g_core.menu.depth].y;
@@ -225,7 +224,7 @@ bool Itempedia(HardwareInterface hardware, InputInterface input, MemoryInterface
 SET_MEMORY(".map")
 bool Spellpedia(HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update)
 {
-    if (ToggleMenu(SPELL_DATA_LIST_SUBMENU, SPELL_COUNT) && input.GetInputKeyState().d.y == 0)
+    if (ToggleMenu(SPELL_DATA_LIST_SUBMENU, SPELL_COUNT) && input.GetInputKeyState().dp.y == 0)
     {
         if (ListJump(hardware, input, memory)) return true;
         EntityId spell_id = g_core.menu.sel[g_core.menu.depth].y + g_core.menu.menuScrollOffset[g_core.menu.depth].y;
@@ -255,7 +254,7 @@ bool Spellpedia(HardwareInterface hardware, InputInterface input, MemoryInterfac
 SET_MEMORY(".map")
 bool Abilitypedia(HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update)
 {
-    if (ToggleMenu(ABILITY_DATA_LIST_SUBMENU, ABILITY_COUNT) && input.GetInputKeyState().d.y == 0)
+    if (ToggleMenu(ABILITY_DATA_LIST_SUBMENU, ABILITY_COUNT) && input.GetInputKeyState().dp.y == 0)
     {
         if (ListJump(hardware, input, memory)) return true;
         EntityId ability_id = g_core.menu.sel[g_core.menu.depth].y + g_core.menu.menuScrollOffset[g_core.menu.depth].y;
@@ -457,10 +456,10 @@ bool Options(HardwareInterface hardware, InputInterface input, MemoryInterface m
             }
         case 2:
             {
-                g_core.btns.gameSpeed += input.GetInputKeyState().d.x;
+                g_core.btns.gameSpeed += input.GetInputKeyState().dp.x;
                 if (g_core.btns.gameSpeed > 10 || g_core.btns.gameSpeed < 0)
                 {
-                    g_core.btns.gameSpeed += (-input.GetInputKeyState().d.x);
+                    g_core.btns.gameSpeed += (-input.GetInputKeyState().dp.x);
                     break;
                 }
 

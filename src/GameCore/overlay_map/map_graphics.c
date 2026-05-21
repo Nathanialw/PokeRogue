@@ -192,7 +192,7 @@ void DrawMiniMap(GraphicsInterface graphics, HardwareInterface hardware, MemoryI
     for (uint16_t y = 0; y < MAP_H; y += BUFFER_H)
     {
         graphics.SetFrameBuffer(Flash_GetColor(memory, PAL_OFF_WHITE_GRAY));
-        // memset(graphics.GetFrameBuffer2bytes(), Flash_GetColor(memory, PAL_DARK_GRN_BLACK), sizeof(*graphics.GetFrameBuffer2bytes()));
+
         cursor = (screen_w - MAP_W) / 2; //reset position
         for (uint16_t row = 0; row < BUFFER_H; row++)
         {
@@ -248,7 +248,7 @@ void DrawParty(GraphicsInterface graphics, HardwareInterface hardware, MemoryInt
     const uint8_t max_chars = (((MAIN_MENU_W) * font_size) - indent) + 1;
 
     char border[max_chars + 1];
-    memset(border, '-', max_chars);
+    for (uint8_t i = 0; i < max_chars; i++) border[i] = '-';
     border[max_chars] = '\0';
 
     y += PrintLineStr(graphics, memory, x, y, font_size, max_chars, border, false);
@@ -266,17 +266,17 @@ void DrawParty(GraphicsInterface graphics, HardwareInterface hardware, MemoryInt
 
 
         //level
-        if (GetCreatureType(g_core.player.partyID[i]) == NO_CREATURE)
-        {
-            PrintLineStr(graphics, memory, x, y, font_size, 3, "---", indent);
-        }
-        else
-        {
-            Int99 level = g_core.creatures.level[g_core.player.partyID[i]];
-            CharStr_99 levelStr;
-            GetAsChars_99(level, &levelStr, false);
-            PrintLineStr(graphics, memory, x, y, font_size, 3, levelStr, indent);
-        }
+        // if (GetCreatureType(g_core.player.partyID[i]) == NO_CREATURE)
+        // {
+        //     PrintLineStr(graphics, memory, x, y, font_size, 3, "---", indent);
+        // }
+        // else
+        // {
+        //     Int99 level = g_core.creatures.level[g_core.player.partyID[i]];
+        //     CharStr_99 levelStr;
+        //     GetAsChars_99(level, &levelStr, false);
+        //     PrintLineStr(graphics, memory, x, y, font_size, 3, levelStr, indent);
+        // }
 
         y += PrintLineStr(graphics, memory, x + (3 * size), y + lineHeight, font_size, max_chars, line, indent);
 
@@ -337,35 +337,17 @@ void DrawParty(GraphicsInterface graphics, HardwareInterface hardware, MemoryInt
 }
 
 
-SET_MEMORY(".map.data")
-const char str_splash_exit1[] = "Exiting splash_entry, Going to map_gen_entry\n";
-
-SET_MEMORY(".map.data")
-const char str_splash_entry2[] = "==== DRAWING MENU ====   \n";
-
-SET_MEMORY(".map.data")
-const char str_splash_exit3[] = "const char* line = GetMenuLine(i);\n";
-
-SET_MEMORY(".map.data")
-const char str_splash_entry4[] = "drawing ----   %s\n";
-
-SET_MEMORY(".map.data")
-const char str_splash_entry5[] = "fILL RECT %d %d %d %d\n";
-
 /**********************************************************************************************************************/
 /**  Draws the cached char arrays menu list to the screen
 **********************************************************************************************************************/
 SET_MEMORY(".map")
 void DrawList(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory)
 {
-    memory.Print(str_splash_entry2);
-
     const uint16_t x = MAIN_MENU_X * TILE_W;
     uint8_t y = MAIN_MENU_Y * TILE_H;
     const uint16_t w = MAIN_MENU_W * TILE_W;
     const uint16_t h = MAIN_MENU_H * TILE_H;
     graphics.FillRect(x, y, w, h, Flash_GetColor(memory, PAL_OFF_WHITE_GRAY));
-    memory.Print(str_splash_entry5, x, y, w, h);
 
 
     const uint8_t indent = 1;
@@ -375,7 +357,7 @@ void DrawList(GraphicsInterface graphics, HardwareInterface hardware, MemoryInte
     const uint8_t max_chars = (((MAIN_MENU_W) * font_size) - indent) + 1;
 
     char border[max_chars + 1];
-    memset(border, '-', max_chars);
+    for (uint8_t i = 0; i < max_chars; i++) border[i] = '-';
     border[max_chars] = '\0';
 
     y += PrintLineStr(graphics, memory, x, y, font_size, max_chars, border, false);
@@ -384,9 +366,7 @@ void DrawList(GraphicsInterface graphics, HardwareInterface hardware, MemoryInte
     uint8_t i = 0;
     while (1)
     {
-        memory.Print(str_splash_exit3);
         GetMenuLine(memory, g_core.menu.text[i], i);
-        memory.Print(str_splash_entry4, g_core.menu.text[i]);
         bool line_empty = (g_core.menu.text[i][0] == '\0');
         if (line_empty || i > (max_lines)) break;
         y += PrintLineStr(graphics, memory, x, y, font_size, max_chars, g_core.menu.text[i], indent);
@@ -455,16 +435,18 @@ void HandleGameMenuLeftStat(GraphicsInterface graphics, MemoryInterface memory, 
     const uint8_t indent = 1;
 
     //strength line
-    float power = 115;
-    float max_power = 255;
+    uint16_t power = 115;
+    uint16_t max_power = 255;
     // power
     PrintLineStr(graphics, memory, x, y, g_core.settings.fontSize, 10, power_str, indent);
 
     //strength bar
-    float f_bar_width = power / max_power;
-    uint8_t bar_width = (uint8_t)((float)(4 * size) * f_bar_width);
-    graphics.FillRect(x2, y, (4 * size), size, Flash_GetColor(memory, PAL_OFF_WHITE_GRAY));
-    graphics.FillRect(x2, y, bar_width, size, Flash_GetColor(memory, PAL_BROWN_GREEN));
+    uint16_t bar_width = ((4 * size) * power) / max_power;
+
+    uint16_t c = Flash_GetColor(memory, PAL_OFF_WHITE_GRAY);
+    uint16_t c1 = Flash_GetColor(memory, PAL_BROWN_GREEN);
+    graphics.FillRect(x2, y, (4 * size), size, c);
+    graphics.FillRect(x2, y, bar_width, size, c1);
 }
 
 /**********************************************************************************************************************/
@@ -481,7 +463,8 @@ void HandleGameMenuBorders(GraphicsInterface graphics, HardwareInterface hardwar
     const uint8_t max_chars = (((VIEW_TW) * font_size)) + 1;
 
     char border[max_chars + 1];
-    memset(border, '-', max_chars);
+    for (uint8_t i = 0; i < max_lines; i++)
+        border[i] = '-';
     border[max_chars] = '\0';
     PrintLineStr(graphics, memory, x, y, font_size, max_chars, border, false);
     uint16_t numSpaces = (max_lines - 1) * size;
@@ -537,7 +520,7 @@ void HandleGameMenuDescription(GraphicsInterface graphics, HardwareInterface har
         if (done) break;
 
         char line[LINE_LEN + 2]; // +2 for possible hyphen and null
-        memset(line, ' ', LINE_LEN);
+        for (uint8_t j = 0; j < LINE_LEN + 2; j++) line[j] = ' ';
         line[LINE_LEN] = '\0';
         line[LINE_LEN + 1] = '\0';
 
@@ -655,7 +638,7 @@ void FillObjectData(MemoryInterface memory, EntityData* entityData)
         MonsterType m_type;
         Flash_GetType(memory, &m_type, g_core.menu.gameMenu.displayId);
         Flash_GetTypeName(memory, entityData->typeA, m_type.typeA);
-        Flash_GetTypeName(memory, entityData->typeB, m_type.typeA);
+        Flash_GetTypeName(memory, entityData->typeB, m_type.typeB);
     }
     else if (menu_idx == 2) // objects
     {
@@ -709,10 +692,10 @@ void HandleGameMenu(GraphicsInterface graphics, HardwareInterface hardware, Memo
 
     HandleGameMenuLeftBG(graphics, memory, x, y);
     HandleGameMenuBorders(graphics, hardware, memory);
-    DrawBattler(graphics, memory, x, y + (size), &g_map.entityData.layout, g_core.menu.sel[0].y - 1, true);
     HandleGameMenuLeftName(graphics, memory, x, y + (size * 16), g_map.entityData.name);
-    HandleGameMenuLeftStat(graphics, memory, x, x + (size * 6), y + (size * 18), size, g_map.power);
-    HandleGameMenuLeftStat(graphics, memory, x, x + (size * 6), y + (size * 20) - 4, size, g_map.rarity);
     HandleGameMenuTypes(graphics, memory, g_map.entityData.typeA, g_map.entityData.typeB);
     HandleGameMenuDescription(graphics, hardware, memory, (size * 21), g_map.entityData.desc);
+    DrawBattler(graphics, memory, x, y + (size), &g_map.entityData.layout, g_core.menu.sel[0].y - 1, true);
+    HandleGameMenuLeftStat(graphics, memory, x, x + (size * 6), y + (size * 18), size, g_map.power);
+    HandleGameMenuLeftStat(graphics, memory, x, x + (size * 6), y + (size * 20) - 4, size, g_map.rarity);
 }

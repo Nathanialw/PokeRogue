@@ -4,8 +4,8 @@
 #pragma once
 #include "lib_decl.h"
 
-#include "common/enums.h"
-#include "common/types.h"
+#include "enums.h"
+#include "types.h"
 
 // ENTITIES
 void Flash_GetCreatureStatsRange(MemoryInterface memory, StatsRange* stats, Creature creature_type);

@@ -107,20 +107,6 @@ void Flash_BattlerStruckAnimation(MemoryInterface memory, EntityId id, ObjectsTy
 
 
 
-/**********************************************************************************************************************/
-/**     FUNCTIONS
-**********************************************************************************************************************/
-SET_MEMORY(".battle")
-bool Flash_GetSkillEffect(MemoryInterface memory, uint8_t skillType, EntityId id, EntityId target_id, SkillData skillData)
-{
-#ifdef STANDALONE
-    return g_gameFlash.funcs.abilityFunctions[skillType](id, target_id, skillData);
-#else
-    return abilityFunctions[skillType](id, target_id, skillData);
-#endif
-}
-
-
 
 
 SET_MEMORY(".battle")

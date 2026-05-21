@@ -42,7 +42,7 @@ typedef union
     };
 } PartialFrameBuffer;
 
-_Static_assert(20480 == BUFFER_SIZE_1BYTE, "SpriteLayout must be 20480 bytes");
+_Static_assert(BUFFER_SIZE_1BYTE >= 25088, "SpriteLayout must be 20480 bytes");
 
 #endif
 /**********************************************************************************************************************/
@@ -167,30 +167,35 @@ typedef struct
     {
         struct
         {
-            uint16_t a : 1;
-            uint16_t b : 1;
-            uint16_t x : 1;
-            uint16_t y : 1;
-            uint16_t start : 1;
-            uint16_t select : 1;
-            uint16_t dp_click : 1;
-            uint16_t js_click : 1;
-            uint16_t up : 1;
-            uint16_t down : 1;
-            uint16_t left : 1;
-            uint16_t right : 1;
-            uint16_t unused_1 : 1;
-            uint16_t unused_2 : 1;
-            uint16_t unused_3 : 1;
-            uint16_t unused_4 : 1;
+            uint8_t a : 1;
+            uint8_t b : 1;
+            uint8_t x : 1;
+            uint8_t y : 1;
+
+            uint8_t start : 1;
+            uint8_t select : 1;
+            uint8_t dp_click : 1;
+            uint8_t js_click : 1;
+
+            uint8_t up : 1;
+            uint8_t down : 1;
+            uint8_t left : 1;
+            uint8_t right : 1;
+
+            uint8_t unused_1 : 1;
+            uint8_t unused_2 : 1;
+            uint8_t unused_3 : 1;
+            uint8_t unused_4 : 1;
         };
 
         uint16_t buttons;
     };
 
-    Delta d;
+    // Delta d;
     Delta dp;
     Delta js;
+
+    // uint8_t _pad;
 } KeyState;
 
-_Static_assert(sizeof(KeyState) == 6, "KeyState must be 4 bytes");
+_Static_assert(sizeof(KeyState) == 4, "KeyState must be 4 bytes");
