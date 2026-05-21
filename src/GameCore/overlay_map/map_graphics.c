@@ -38,14 +38,6 @@ void ClipTile(uint16_t* clip, const uint16_t* pixels, Rect_16 r)
 }
 
 
-SET_MEMORY(".map.data")
-static const char FullRedraw_starsta[] = "gl  %d\n";
-SET_MEMORY(".map.data")
-static const char FullRedraw_starstb[] = "fg  %d\n";
-SET_MEMORY(".map.data")
-static const char FullRedraw_starstc[] = "bg  %d\n";
-SET_MEMORY(".map.data")
-static const char FullRedraw_starstd[] = "hex 0x%02x\n";
 /**********************************************************************************************************************/
 /**  Blit the given tile id to the given screen coords
 **********************************************************************************************************************/
@@ -58,22 +50,11 @@ void DrawTile(GraphicsInterface graphics, MemoryInterface memory, uint8_t screen
     g_map.tileCache.tile_id = tile_id;
     Flash_GetBiomeTile(memory, &g_map.tileCache.tileCache, g_core.biome, tile_id);
     CharFromGlyph1bpp(memory, g_map.tileCache.spriteCache, g_map.tileCache.tilePixels.pixels, g_map.tileCache.tileCache.glyph_index, FONT16x16, Flash_GetColor(memory, g_map.tileCache.tileCache.fg), Flash_GetColor(memory, g_map.tileCache.tileCache.bg));
-    graphics.DrawTileKeyed(px, py, TILE_W, TILE_H, g_map.tileCache.tilePixels.pixels);
-}
-
-/**********************************************************************************************************************/
-/**  Blit the given creature id to the given screen coords
-**********************************************************************************************************************/
-SET_MEMORY(".map")
-void DrawSprite(GraphicsInterface graphics, MemoryInterface memory, uint8_t screen_tx, uint8_t screen_ty, Creature sprite_id, ObjectsTypes type)
-{
-    uint16_t px = (uint16_t)(screen_tx * TILE_W);
-    uint16_t py = (uint16_t)(screen_ty * TILE_H);
-
-    g_map.tileCache.sprite_id = sprite_id;
-    Flash_GetSpriteMetadata(memory, &g_map.tileCache.entityCache, type, sprite_id);
-    CharFromGlyph1bpp(memory, g_map.tileCache.spriteCache, g_map.tileCache.spritePixels.pixels, g_map.tileCache.entityCache.glyph_index, FONT16x16, Flash_GetColor(memory, g_map.tileCache.entityCache.fg), Flash_GetColor(memory, PAL_KEY));
-    graphics.DrawTileKeyed(px, py, TILE_W, TILE_H, g_map.tileCache.spritePixels.pixels);
+#if defined(SDL)
+    graphics.Draw16(px, py, TILE_W, TILE_H, g_map.tileCache.tilePixels.pixels);
+#else
+    graphics.Draw(px, py, TILE_W, TILE_H, g_map.tileCache.tilePixels.pixels_bytes);
+#endif
 }
 
 /**********************************************************************************************************************/
@@ -91,10 +72,32 @@ void DrawTileCached(GraphicsInterface graphics, MemoryInterface memory, uint8_t 
     {
         g_map.tileCache.tile_id = tile_id;
         Flash_GetBiomeTile(memory, &g_map.tileCache.tileCache, g_core.biome, tile_id);
+
         CharFromGlyph1bpp(memory, g_map.tileCache.spriteCache, g_map.tileCache.tilePixels.pixels, g_map.tileCache.tileCache.glyph_index, FONT16x16, Flash_GetColor(memory, g_map.tileCache.tileCache.fg), Flash_GetColor(memory, g_map.tileCache.tileCache.bg));
     }
-    graphics.DrawTileKeyed(px, py, TILE_W, TILE_H, g_map.tileCache.tilePixels.pixels);
+#if defined(SDL)
+    graphics.Draw16(px, py, TILE_W, TILE_H, g_map.tileCache.tilePixels.pixels);
+#else
+    graphics.Draw(px, py, TILE_W, TILE_H, g_map.tileCache.tilePixels.pixels_bytes);
+#endif
 }
+
+/**********************************************************************************************************************/
+/**  Blit the given creature id to the given screen coords
+**********************************************************************************************************************/
+SET_MEMORY(".map")
+void DrawSprite(GraphicsInterface graphics, MemoryInterface memory, uint8_t screen_tx, uint8_t screen_ty, Creature sprite_id, ObjectsTypes type)
+{
+    uint16_t px = (uint16_t)(screen_tx * TILE_W);
+    uint16_t py = (uint16_t)(screen_ty * TILE_H);
+
+    g_map.tileCache.sprite_id = sprite_id;
+    Flash_GetSpriteMetadata(memory, &g_map.tileCache.entityCache, type, sprite_id);
+    const uint16_t c = Flash_GetColor(memory, PAL_KEY);
+    CharFromGlyph1bpp(memory, g_map.tileCache.spriteCache, g_map.tileCache.spritePixels.pixels, g_map.tileCache.entityCache.glyph_index, FONT16x16, Flash_GetColor(memory, g_map.tileCache.entityCache.fg), Flash_GetColor(memory, PAL_KEY));
+    graphics.DrawTileKeyed(px, py, TILE_W, TILE_H, g_map.tileCache.spritePixels.pixels);
+}
+
 
 /**********************************************************************************************************************/
 /**  Checks cache

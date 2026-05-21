@@ -319,21 +319,16 @@ void BackUseOnParty(MemoryInterface memory)
 }
 
 
-SET_MEMORY(".map.data")
-static const char ppp[] = "1";
-
 /**********************************************************************************************************************/
 /** LIST
 **********************************************************************************************************************/
 SET_MEMORY(".map")
 bool Party(HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update)
 {
-    hardware.Print(ppp);
     if (ToggleMenu(MONSTERS_SUBMENU, MAX_PARTY_SIZE))
     {
     }
 
-    hardware.Print(ppp);
     FillListByEntityID(memory, MAX_PARTY_SIZE, CREATURE, GetPlayerMonsterIDs());
     return true;
 };

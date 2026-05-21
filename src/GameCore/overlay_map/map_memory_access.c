@@ -13,7 +13,6 @@
 #include "memory_constants.inc"
 
 
-
 /**********************************************************************************************************************/
 /*      ENTITIES
 **********************************************************************************************************************/
@@ -49,13 +48,12 @@ uint8_t Flash_GetStatGrowth(MemoryInterface memory, Creature type)
     const uint8_t length = 1;
     uint8_t struct_bytes[length];
     memory.GetRom(GAME_DATA_CREATURE_STATS_POSITION + type, struct_bytes, length);
-
 #if defined(MEMORY_PRINT)
     for (uint8_t i = 0; i < length; i++)
         memory.Print(str_spawn_creature_type, struct_bytes[i]);
     memory.Print(new_line);
-    return struct_bytes[0];
 #endif
+    return struct_bytes[0];
 #endif
 }
 
@@ -68,13 +66,12 @@ Creature Flash_GetBiomeCreature(MemoryInterface memory, uint8_t biome, Creature 
     const uint8_t length = 1;
     uint8_t struct_bytes[length];
     memory.GetRom(CHAR_SPRITES_BIOMES_POSITION + index, struct_bytes, length);
-
 #if defined(MEMORY_PRINT)
     for (uint8_t i = 0; i < length; i++)
         memory.Print(str_spawn_creature_type, struct_bytes[i]);
     memory.Print(new_line);
-    return struct_bytes[0];
 #endif
+    return struct_bytes[0];
 #endif
 }
 
@@ -92,8 +89,8 @@ Creature Flash_GetThemeCreature(MemoryInterface memory, uint8_t theme, Creature 
     for (uint8_t i = 0; i < length; i++)
         memory.Print(str_spawn_creature_type, struct_bytes[i]);
     memory.Print(new_line);
-    return struct_bytes[0];
 #endif
+    return struct_bytes[0];
 #endif
 }
 
@@ -116,7 +113,6 @@ void Flash_GetBiomeTile(MemoryInterface memory, Tile* tile, uint8_t biomeType, u
 #endif
 #endif
 }
-
 
 
 /**********************************************************************************************************************/
@@ -183,7 +179,6 @@ void Flash_GetOptionText(MemoryInterface memory, uint8_t* textBuffer, uint8_t in
 }
 
 
-
 SET_MEMORY(".map")
 void Flash_GetCreatureDescription(MemoryInterface memory, char* text, uint8_t index)
 {
@@ -235,7 +230,6 @@ void Flash_GetItemDescription(MemoryInterface memory, char* text, uint8_t index)
 }
 
 
-
 SET_MEMORY(".map")
 void Flash_GetSpellDescription(MemoryInterface memory, char* text, uint8_t index)
 {
@@ -281,8 +275,6 @@ bool Flash_GetObjectEffect(MemoryInterface memory, HardwareInterface hardware, u
 }
 
 
-
-
 SET_MEMORY(".map")
 void Flash_GetTypeName(MemoryInterface memory, char* text, uint8_t typeIndex)
 {
@@ -298,11 +290,6 @@ void Flash_GetTypeName(MemoryInterface memory, char* text, uint8_t typeIndex)
 #endif
 #endif
 }
-
-
-
-
-
 
 
 SET_MEMORY(".map")

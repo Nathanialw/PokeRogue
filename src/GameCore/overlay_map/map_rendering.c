@@ -23,27 +23,11 @@
 /**********************************************************************************************************************/
 /**  Redraws all map tiles and entities ion the camera view to the screen
 **********************************************************************************************************************/
-SET_MEMORY(".map.rodata")
-static const char FullRedraw_start[] = "FullRedraw_start";
-SET_MEMORY(".map.rodata")
-static const char FullRedraw_tiles[] = "FullRedraw_tiles";
-SET_MEMORY(".map.rodata")
-static const char FullRedraw_items[] = "FullRedraw_items";
-SET_MEMORY(".map.rodata")
-static const char FullRedraw_objects[] = "FullRedraw_objects";
-SET_MEMORY(".map.rodata")
-static const char FullRedraw_creaturee[] = "FullRedraw_creature";
-SET_MEMORY(".map.rodata")
-static const char FullRedraw_DONE[] = "FullRedraw_DONE";
-
 SET_MEMORY(".map")
 void FullRedraw(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory)
 {
-    hardware.Print(FullRedraw_start);
-
     Camera cam = GetCamera();
 
-    hardware.Print(FullRedraw_tiles);
     for (uint16_t sy = 0; sy < VIEW_TH; sy++)
     {
         uint16_t my = cam.y + sy;
@@ -56,7 +40,6 @@ void FullRedraw(GraphicsInterface graphics, HardwareInterface hardware, MemoryIn
         }
     }
 
-    hardware.Print(FullRedraw_items);
     for (uint8_t i = 0; i < g_core.items.total; ++i)
     {
         if (g_core.items.types[i] == NO_ITEM) continue;
@@ -72,7 +55,6 @@ void FullRedraw(GraphicsInterface graphics, HardwareInterface hardware, MemoryIn
         }
     }
 
-    hardware.Print(FullRedraw_objects);
     for (uint8_t i = 0; i < g_core.objects.total; ++i)
     {
         if (g_core.objects.types[i] == NO_OBJECT) continue;
@@ -88,7 +70,6 @@ void FullRedraw(GraphicsInterface graphics, HardwareInterface hardware, MemoryIn
         }
     }
 
-    hardware.Print(FullRedraw_creaturee);
     for (uint8_t i = 0; i < g_core.creatures.total; ++i)
     {
         if (g_core.creatures.types[i] == NO_CREATURE) continue;
@@ -104,8 +85,6 @@ void FullRedraw(GraphicsInterface graphics, HardwareInterface hardware, MemoryIn
             g_map.view.viewCreatures.viewEntities[ry][rx] = g_core.creatures.types[i];
         }
     }
-
-    hardware.Print(FullRedraw_DONE);
 }
 
 

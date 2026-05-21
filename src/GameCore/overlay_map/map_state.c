@@ -222,6 +222,7 @@ uint8_t GameLoopMain(GameInterface* spi)
         UpdateGameRunningState(spi->graphics, spi->hardware, spi->input, spi->memory);
         HandleGameState(spi);
         GameLoopRateDelay(spi->hardware);
+        spi->graphics.EndFrame();
     }
 
     return g_core.state.overlay;

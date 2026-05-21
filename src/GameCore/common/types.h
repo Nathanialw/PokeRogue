@@ -96,6 +96,7 @@ typedef union
 typedef union
 {
     uint16_t pixels[TILE_PIXELS];
+    uint8_t pixels_bytes[TILE_PIXELS * 2];
     uint16_t pixels_2d[TILE_W][TILE_H];
 } Glyph16x16;
 

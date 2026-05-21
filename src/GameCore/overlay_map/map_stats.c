@@ -33,35 +33,22 @@ SET_MEMORY(".map.rodata")
 static const uint8_t growth_table[8] = {1, 2, 3, 4, 5, 6, 7, 8};
 
 
-SET_MEMORY(".map.rodata")
-static const char str_spawn_creature_type[] = "1";
-SET_MEMORY(".map.rodata")
-static const char str_spawn_creature_skills[] = "2";
-SET_MEMORY(".map.rodata")
-static const char str_spawn_creature_done[] = "3";
-
 /**********************************************************************************************************************/
 /** Returns the stats of a given creature type and level
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-void GetStats(HardwareInterface hardware, MemoryInterface memory, Stats *stats, Creature type, uint8_t level)
+void GetStats(HardwareInterface hardware, MemoryInterface memory, Stats* stats, Creature type, uint8_t level)
 {
-    memory.Print(str_spawn_creature_type);
-
     Flash_GetCreatureStatsRange(memory, &g_map.statsCache, type);
     Stats minStats = g_map.statsCache.min;
     Stats maxStats = g_map.statsCache.max;
-    memory.Print(str_spawn_creature_skills);
 
     uint8_t growth = Flash_GetStatGrowth(memory, type);
 
-    memory.Print(str_spawn_creature_done);
     uint8_t a = growth_table[GrowthAttack(growth)];
     uint8_t d = growth_table[GrowthDefence(growth)];
     uint8_t m = growth_table[GrowthMagic(growth)];
     uint8_t s = growth_table[GrowthSpeed(growth)];
-
-    memory.Print(str_spawn_creature_type);
 
     stats->attack = hardware.GetRandom_uint8_t(minStats.attack, maxStats.attack);
     stats->defence = hardware.GetRandom_uint8_t(minStats.defence, maxStats.defence);
@@ -73,7 +60,6 @@ void GetStats(HardwareInterface hardware, MemoryInterface memory, Stats *stats, 
     stats->magic += m * (level / 4);
     stats->speed += s * (level / 4);
 }
-
 
 
 /**********************************************************************************************************************/

@@ -61,8 +61,6 @@ uint16_t ProcessInput(void)
 }
 
 
-
-
 // TODO:
 void HandleInput(void)
 {
@@ -74,6 +72,7 @@ void HandleInput(void)
         Delta d1 = InputDeltaDPad();
         if (key_state == g_ramState.keys.buttons && d1.x == 0 && d1.y == 0)
         {
+            SDL_Delay(20);
             continue;
         }
         g_ramState.keys.buttons = key_state;

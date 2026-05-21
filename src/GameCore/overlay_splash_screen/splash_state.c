@@ -86,8 +86,6 @@ const char str_splash_entry[] = "Going to splash_entry";
 SET_MEMORY(".splash_entry")
 uint8_t GameLoopTitleScreen(GameInterface* spi)
 {
-    DEBUG("splash_entry");
-
     spi->memory.Print(str_splash_entry);
     spi->hardware.Print(str_splash_entry);
     int start = 0;
@@ -96,9 +94,8 @@ uint8_t GameLoopTitleScreen(GameInterface* spi)
         spi->input.HandleInput();
         start = UpdateGameTitleState(spi->input);
         TitleRateDelay(spi->hardware);
+        spi->graphics.EndFrame();
     }
-
-    DEBUG("splash_done");
 
     spi->hardware.Print(str_splash_exit);
     return GAME_MAP_GEN;

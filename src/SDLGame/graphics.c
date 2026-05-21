@@ -7,6 +7,7 @@
 #include <SDL3/SDL_log.h>
 #include <SDL3/SDL_rect.h>
 #include <SDL3/SDL_render.h>
+#include <SDL3/SDL_timer.h>
 
 #include "lib_constants.h"
 #include "lib_debugging.h"
@@ -116,7 +117,7 @@ void Draw(uint16_t x, uint16_t y, uint16_t w, uint16_t h, const uint8_t* data)
     SDL_UpdateTexture(g_ramState.screen, &rect, g_ramState.framebuffer.frameBuffer, w * sizeof(uint16_t));
     SDL_RenderTexture(g_ramState.renderer, g_ramState.screen, NULL, NULL);
 
-    SDL_RenderPresent(g_ramState.renderer);
+    // SDL_RenderPresent(g_ramState.renderer);
 }
 
 void Draw16(uint16_t x, uint16_t y, uint16_t w, uint16_t h, const uint16_t* data)
@@ -128,7 +129,7 @@ void Draw16(uint16_t x, uint16_t y, uint16_t w, uint16_t h, const uint16_t* data
 
     // printf("Drawing ->  ");
     // for (uint16_t i = 0; i < 16; i++)
-        // printf("%04X ", data[i]);
+    // printf("%04X ", data[i]);
     // printf("\n");
 
 
@@ -138,7 +139,7 @@ void Draw16(uint16_t x, uint16_t y, uint16_t w, uint16_t h, const uint16_t* data
     if (!SDL_RenderTexture(g_ramState.renderer, g_ramState.screen, NULL, NULL))
         SDL_Log("Failed to render texture %s", SDL_GetError());
 
-    SDL_RenderPresent(g_ramState.renderer);
+    // SDL_RenderPresent(g_ramState.renderer);
 }
 
 void ClearBuffer(void)
@@ -200,16 +201,10 @@ void DrawToBuffer(const FrameBuffer frameBuffer, const uint16_t* pixels, const R
 //TODO:
 void DrawTileKeyed(uint16_t x, uint16_t y, uint16_t w, uint16_t h, const uint16_t* data)
 {
-    // DEBUG("data ptr %p", data);
-    // DEBUG("BLIT x=%d y=%d w=%d h=%d", x, y, w, h);
-
     for (uint16_t row = 0; row < h; row++)
         for (uint16_t col = 0; col < w; col++)
             if (data[row * w + col] != TRANSPARENCY)
                 Draw16(x + col, y + row, 1, 1, &data[row * w + col]);
-
-
-    SDL_RenderPresent(g_ramState.renderer);
 }
 
 //TODO:
@@ -278,9 +273,43 @@ void FillScreenColor(Color rgb565)
     FillRectColor(0, 0, TFT_W, TFT_H, rgb565);
 }
 
-void TestAnimation(FrameBuffer frame_buffer, Rect_16 rect_16, Color color1)
+
+/**********************************************************************************************************************/
+/**  TEMP - for testing animations
+**********************************************************************************************************************/
+void TestAnimation()
 {
-    DEBUG("TestAnimation");
+    FrameBuffer f = {.x = 0, .y = 0, .w = 50, .h = 50};
+    Rect_16 r = {.x = 0, .y = 0, .w = 50, .h = 50};
+    Color color1 = {.color = 0xFFFF};
+
+    SetFrameBuffer(0xd6fa); // gray
+    uint16_t size = r.w * r.h;
+    uint16_t p[size];
+
+    while (true)
+    {
+        DrawToBuffer(f, p, r);
+        SetRectColor(size, p, color1); //blu
+        DrawBuffer(f);
+
+        if (f.x <= 100)
+            f.x += 1;
+
+        if (f.x >= 100)
+            f.y += 1;
+
+        if (f.y >= 100)
+            return;
+
+        SDL_Delay(20);
+    }
+}
+
+
+void EndFrame(void)
+{
+    SDL_RenderPresent(g_ramState.renderer);
 }
 
 
@@ -299,6 +328,7 @@ GraphicsInterface GraphicsInterfaceInit()
         .DrawToBuffer = DrawToBuffer,
         .DrawTileKeyed = DrawTileKeyed,
         .Draw = Draw,
+        .Draw16 = Draw16,
         .SetBuffer = SetBuffer,
         .SetBufferColor = SetBufferColor,
         .SetFrameBuffer = SetFrameBuffer,
@@ -307,8 +337,7 @@ GraphicsInterface GraphicsInterfaceInit()
         .FillRectColor = FillRectColor,
         .FillScreen = FillScreen,
         .FillScreenColor = FillScreenColor,
-        .TestAnimation = TestAnimation,
-
+        .EndFrame = EndFrame,
     };
 
     return graphicsInterface;

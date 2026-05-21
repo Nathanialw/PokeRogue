@@ -57,20 +57,17 @@ int main()
 
     InitRamSDL();
     LoadGameData();
-    TestColors();
 
     api.memory = MemoryInterfaceInit();
     api.hardware = HardwareInterfaceInit();
     api.audio = AudioInterfaceInit();
     api.graphics = GraphicsInterfaceInit();
     api.input = InputInterfaceInit();
-    SDL_RenderPresent(g_ramState.renderer);
 
     g_core.state.overlay = overlays[1](&api);;
 
     while (g_core.state.overlay != 0)
     {
-        // SDL_RenderClear(g_ramState.renderer);
         g_core.state.overlay = overlays[g_core.state.overlay](&api);;
     }
 

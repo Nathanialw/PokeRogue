@@ -165,6 +165,7 @@ uint8_t BattleLoopMain(GameInterface* spi)
         UpdateBattleRunningState(spi->graphics, spi->hardware, spi->input, spi->memory);;
         HandleBattleState(spi);
         MainBattleLoop(spi);;
+        spi->graphics.EndFrame();
     }
 
     return OVERLAY_MAP;

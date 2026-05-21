@@ -544,27 +544,27 @@ void AddExtraConnections(HardwareInterface hardware)
 void DebugPrintMap(void)
 {
 #ifdef ENABLE_DEBUG_OUTPUT
-    for (uint16_t y = 0; y < MAP_H; y++)
-    {
-        for (uint16_t x = 0; x < MAP_W; x++)
-        {
-            TileType t = GetMapTile(x, y);
-
-            char c = '?';
-
-            switch (t)
-            {
-            case WALL_STONE: c = '#';
-                break;
-            case GROUND: c = '.';
-                break;
-            default: c = '?';
-                break;
-            }
-            PRINT("%c", c);
-        }
-        PRINT("\n");
-    }
+    // for (uint16_t y = 0; y < MAP_H; y++)
+    // {
+    //     for (uint16_t x = 0; x < MAP_W; x++)
+    //     {
+    //         TileType t = GetMapTile(x, y);
+    //
+    //         char c = '?';
+    //
+    //         switch (t)
+    //         {
+    //         case WALL_STONE: c = '#';
+    //             break;
+    //         case GROUND: c = '.';
+    //             break;
+    //         default: c = '?';
+    //             break;
+    //         }
+    //         PRINT("%c", c);
+    //     }
+    //     PRINT("\n");
+    // }
 #endif
 }
 

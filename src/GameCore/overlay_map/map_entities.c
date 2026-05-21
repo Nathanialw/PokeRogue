@@ -214,31 +214,9 @@ Position* GetEntityNewPositions(void)
 /** Sets initial data values of a given entity ID of type creature
 *   TODO - get all values from the db data or generate them
 **********************************************************************************************************************/
-SET_MEMORY(".map.rodata")
-static const char str_spawn_creature_start[] = "SpawnMonster start\n";
-SET_MEMORY(".map.rodata")
-static const char str_spawn_creature_reset[] = "SpawnMonster reset\n";
-SET_MEMORY(".map.rodata")
-static const char str_spawn_creature_stats[] = "SpawnMonster stats\n";
-SET_MEMORY(".map.rodata")
-static const char str_spawn_creature_level[] = "SpawnMonster level\n";
-SET_MEMORY(".map.rodata")
-static const char str_spawn_creature_hp[] = "SpawnMonster hp\n";
-SET_MEMORY(".map.rodata")
-static const char str_spawn_creature_mp[] = "SpawnMonster mp\n";
-SET_MEMORY(".map.rodata")
-static const char str_spawn_creature_type[] = "SpawnMonster type\n";
-SET_MEMORY(".map.rodata")
-static const char str_spawn_creature_skills[] = "SpawnMonster skills\n";
-SET_MEMORY(".map.rodata")
-static const char str_spawn_creature_done[] = "SpawnMonster done\n";
-
-
 SET_MEMORY(".map")
 EntityId SpawnMonster(HardwareInterface hardware, MemoryInterface memory, uint8_t type, uint8_t x, uint8_t y, uint8_t l)
 {
-    hardware.Print(str_spawn_creature_start);
-
     EntityId id = NO_ENTITY;
     for (uint8_t i = 0; i < ENTITY_COUNT; ++i)
         if (!GetBit(g_core.creatures.active, i))
@@ -248,31 +226,20 @@ EntityId SpawnMonster(HardwareInterface hardware, MemoryInterface memory, uint8_
             break;
         }
 
-    hardware.Print(str_spawn_creature_reset);
-
     Creature monType = (Creature)type;
     Position pos = {.x = x, .y = y};
     g_core.creatures.position[id] = pos;
     g_core.creatures.level[id].value = l;
     g_core.creatures.types[id] = type;
 
-    hardware.Print(str_spawn_creature_stats);
-
     GetStats(hardware, memory, &g_core.creatures.stats[id], monType, l);
-
-    hardware.Print(str_spawn_creature_level);
 
     // SetXPToLevel(id, &g_core.creatures.xp[id]);
 
-    hardware.Print(str_spawn_creature_hp);
 
     g_core.creatures.hp[id] = GetHP(monType, l);
 
-    hardware.Print(str_spawn_creature_mp);
-
     g_core.creatures.mp[id] = GetMP(monType, l);
-
-    hardware.Print(str_spawn_creature_type);
 
     g_core.creatures.senses[id].sight = 7;
     g_core.creatures.senses[id].sound = 7;
@@ -281,16 +248,12 @@ EntityId SpawnMonster(HardwareInterface hardware, MemoryInterface memory, uint8_
     g_core.creatures.stealth[id].sound = 3;
     g_core.creatures.stealth[id].smell = 0;
 
-    hardware.Print(str_spawn_creature_skills);
-
     GetSkills(memory, id, type);
     SetBit(g_core.creatures.alive, id, true);
     SetBit(g_core.creatures.onMap, id, true);
     g_core.creatures.speed[id].current = 0;
     g_core.creatures.speed[id].max = 40;
     g_core.creatures.total++;
-
-    hardware.Print(str_spawn_creature_done);
 
     return id;
 }
@@ -484,20 +447,9 @@ void ResetEntities(HardwareInterface hardware, MemoryInterface memory, bool copy
 /**********************************************************************************************************************/
 /** Creates all the creatures on the map from the BIOME and THEME data
 **********************************************************************************************************************/
-SET_MEMORY(".map.rodata")
-static const char str_map_pop_place_player[] = "PopulateLevelCreatures start";
-SET_MEMORY(".map.rodata")
-static const char str_map_pop_set_fog[] = "PopulateLevelCreatures biome";
-SET_MEMORY(".map.rodata")
-static const char str_map_pop_camera_init[] = "PopulateLevelCreatures theme";
-SET_MEMORY(".map.rodata")
-static const char str_map_pop_camera_set[] = "PopulateLevelCreatures DONE";
-
 SET_MEMORY(".map")
 void PopulateLevelCreatures(HardwareInterface hardware, MemoryInterface memory)
 {
-    DEBUG("0");
-
     uint8_t creature_level = g_core.floor;
     for (uint8_t i = 0; i < NUM_BIOME_CREATURES; ++i)
     {
@@ -507,10 +459,6 @@ void PopulateLevelCreatures(HardwareInterface hardware, MemoryInterface memory)
         SpawnEntity(hardware, memory, CREATURE, creature, pos.x, pos.y, creature_level);
     }
 
-
-    DEBUG("1");
-
-
     for (uint8_t i = 0; i < NUM_THEME_CREATURES; ++i)
     {
         uint8_t index = hardware.GetRandom_uint8_t(0, THEME_MONSTER_TYPES);
@@ -519,12 +467,9 @@ void PopulateLevelCreatures(HardwareInterface hardware, MemoryInterface memory)
         SpawnEntity(hardware, memory, CREATURE, creature, pos.x, pos.y, creature_level);
     }
 
-    DEBUG("2");
     for (uint8_t i = 0; i < g_core.creatures.total; ++i)
         if (GetBit(g_core.creatures.onMap, i) && GetBit(g_core.creatures.alive, i))
             g_core.creatures.newPosition[i] = g_core.creatures.position[i];
-
-    DEBUG("3");
 }
 
 SET_MEMORY(".map")

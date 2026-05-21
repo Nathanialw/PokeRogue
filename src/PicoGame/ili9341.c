@@ -30,6 +30,7 @@ void DrawTileKeyed(uint16_t x, uint16_t y, uint16_t w, uint16_t h, const uint16_
 void Draw(uint16_t x, uint16_t y, uint16_t w, uint16_t h, const uint8_t* data);
 void SetBuffer(uint16_t length, uint16_t* p, uint16_t rgb565);
 void SetBufferColor(uint16_t length, uint16_t* p, Color rgb565);
+void EndFrame(void);
 
 void TestAnimation(FrameBuffer f, Rect_16 r, Color color1);
 
@@ -57,6 +58,7 @@ GraphicsInterface GetGraphicsInterface()
         .FillScreen = FillScreen,
         .FillScreenColor = FillScreenColor,
         .TestAnimation = TestAnimation,
+        .EndFrame = EndFrame,
     };
 
     return graphics;
@@ -94,6 +96,12 @@ uint16_t GetBufferHeight(void)
 {
     return BUFFER_H;
 }
+
+void EndFrame(void)
+{
+    return;
+}
+
 
 /**********************************************************************************************************************/
 /*

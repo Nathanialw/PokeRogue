@@ -288,7 +288,11 @@ uint16_t Flash_GetColor(MemoryInterface memory, uint8_t color)
     // return Flash_GetColor(memory, PAL_OFF_WHITE_GRAY);
 #else
     uint8_t color_value[2];
-    memory.GetRom(COLORS_256_POSITION + (2 * (color)), color_value, 2);
+    // Read 2 bytes from flash memory starting at the calculated offset
+
+    // Combine two 8-bit bytes into a 16-bit integer
+    // Assuming Big-Endian or specific byte order: High byte << 8 | Low byte
+    memory.GetRom(COLORS_16_POSITION + (2 * color), color_value, 2);
     return ((uint16_t)color_value[0] << 8) | color_value[1];
 
 #if defined(MEMORY_PRINT)

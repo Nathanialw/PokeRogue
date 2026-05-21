@@ -54,6 +54,7 @@ typedef struct __attribute__((packed))
     void (*DrawToBuffer)(const FrameBuffer frameBuffer, const uint16_t* pixels, const Rect_16 rect);
     void (*DrawTileKeyed)(uint16_t x, uint16_t y, uint16_t w, uint16_t h, const uint16_t* data);
     void (*Draw)(uint16_t x, uint16_t y, uint16_t w, uint16_t h, const uint8_t* data);
+    void (*Draw16)(uint16_t x, uint16_t y, uint16_t w, uint16_t h, const uint16_t* data);
 
     void (*SetBuffer)(uint16_t length, uint16_t* p, uint16_t rgb565);
     void (*SetBufferColor)(uint16_t length, uint16_t* p, Color rgb565);
@@ -64,6 +65,7 @@ typedef struct __attribute__((packed))
     void (*FillRectColor)(uint16_t x, uint16_t y, uint16_t w, uint16_t h, Color rgb565);
     void (*FillScreen)(uint16_t rgb565);
     void (*FillScreenColor)(Color rgb565);
+    void (*EndFrame)(void);
 
     void (*TestAnimation)(FrameBuffer f, Rect_16 r, Color color1);
 } GraphicsInterface;

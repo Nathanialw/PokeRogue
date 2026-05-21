@@ -29,38 +29,9 @@ EntityId PlayerPickItem(EntityId id);
  *  Sets player to a random empty cell on the map
  *  sets sight rango around player
 **********************************************************************************************************************/
-SET_MEMORY(".map.rodata")
-static const char str_init_player_start[] = "InitPlayer start";
-
-SET_MEMORY(".map.rodata")
-static const char str_init_player_place[] = "Place player";
-
-SET_MEMORY(".map.rodata")
-static const char str_init_player_spawn[] = "spawn player";
-
-SET_MEMORY(".map.rodata")
-static const char str_init_player_party[] = "create party 1";
-
-SET_MEMORY(".map.rodata")
-static const char str_init_player_capture[] = "capture";
-
-SET_MEMORY(".map.rodata")
-static const char str_init_player_item[] = "create item";
-
-SET_MEMORY(".map.rodata")
-static const char str_init_player_picp_up[] = "InitPlayer pick up";
-
-SET_MEMORY(".map.rodata")
-static const char str_init_player_fog[] = "InitPlayer set fog";
-
-SET_MEMORY(".map.rodata")
-static const char str_init_player_DONE[] = "InitPlayer DONE";
-
 SET_MEMORY(".map")
 void InitPlayer(HardwareInterface hardware, MemoryInterface memory)
 {
-    hardware.Print(str_init_player_start);
-
     g_core.player.currentBagSize = DEFAULT_BAG_SIZE;
     g_core.player.currentSpellbookSize = DEFAULT_SPELLBOOK_SIZE;
 
@@ -76,44 +47,33 @@ void InitPlayer(HardwareInterface hardware, MemoryInterface memory)
     g_core.player.spellID[0] = HEAL;
     g_core.player.spellID[1] = DESCEND;
 
-    hardware.Print(str_init_player_place);
-
     Position pos = FindOpenMapLocation(hardware, CREATURE);
     uint8_t x = pos.x;
     uint8_t y = pos.y;
-
-    hardware.Print(str_init_player_spawn);
 
     g_core.player.id = SpawnEntity(hardware, memory, CREATURE, HUMAN, x, y, 0);
 
     g_core.creatures.speed[g_core.player.id].max = 99;
     g_core.creatures.speed[g_core.player.id].current = 15;
 
-    hardware.Print(str_init_player_party);
-
     EntityId e_id;
     e_id = SpawnEntity(hardware, memory, CREATURE, LAMIA, x, y, 5);
 
-    hardware.Print(str_init_player_capture);
     PlayerCaptureMonster(e_id);
 
-    hardware.Print(str_init_player_item);
     e_id = SpawnEntity(hardware, memory, ITEM, HEALTH_POTION, x, y, 0);
 
-    hardware.Print(str_init_player_picp_up);
     PlayerPickItem(e_id);
 
 
-    hardware.Print(str_init_player_fog);
     for (uint16_t j = y - 5; j < y + 5; ++j)
         for (uint16_t i = x - 5; i < x + 5; ++i)
             SetFog(i, j, false);
 
-    hardware.Print(str_init_player_DONE);
 }
 
-/*******************************************************************************************************************/
-/*
+/*******************************************************************************************************************
+*
 **********************************************************************************************************************/
 SET_MEMORY(".map")
 EntityId CachePlayerCreatureData(HardwareInterface hardware)
@@ -162,8 +122,8 @@ EntityId CachePlayerItemData()
 
 
 
-/*******************************************************************************************************************/
-/** Returns the player position as map cell index
+/*******************************************************************************************************************
+** Returns the player position as map cell index
 **********************************************************************************************************************/
 SET_MEMORY(".map")
 Position GetPlayerPosition(void)
@@ -171,8 +131,8 @@ Position GetPlayerPosition(void)
     return GetEntityPosition(CREATURE, g_core.player.id);
 }
 
-/*******************************************************************************************************************/
-/**Sets player Position value to NewPosition value
+/*******************************************************************************************************************
+**Sets player Position value to NewPosition value
  * stores the player delta value into the scroll value
  * clears the player delta value
 **********************************************************************************************************************/
@@ -189,8 +149,8 @@ void UpdatePlayerPosition(void)
     g_core.player.d.y = 0;
 }
 
-/*******************************************************************************************************************/
-/**Set the player movement delta
+/*******************************************************************************************************************
+**Set the player movement delta
  * -1 or 0 or 1 for single cell movement
 **********************************************************************************************************************/
 SET_MEMORY(".map")
@@ -204,8 +164,8 @@ Delta SetPlayerDelta(Delta newDelta)
 
 
 
-/*******************************************************************************************************************/
-/*
+/*******************************************************************************************************************
+*
 **********************************************************************************************************************/
 SET_MEMORY(".map")
 void PlacePlayerOnMap(HardwareInterface hardware)
@@ -215,9 +175,9 @@ void PlacePlayerOnMap(HardwareInterface hardware)
     g_core.creatures.position[g_core.player.id].y = pos.y;
 }
 
-/*******************************************************************************************************************/
-/*  interact with item in player's cell
-/*  interact with object in player's cell
+/*******************************************************************************************************************
+*  interact with item in player's cell
+*  interact with object in player's cell
 **********************************************************************************************************************/
 SET_MEMORY(".map")
 void PlayerInteractItemInCell()
