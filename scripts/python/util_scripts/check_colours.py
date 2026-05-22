@@ -22,4 +22,6 @@ def count_unique_colors(image_path):
 
 
 # Run it
-count_unique_colors("../col_indexed_output-custom-64b.png")  # replace with your file
+count_unique_colors("2.png")  # replace with your file
+count_unique_colors("2-0.png")  # replace with your file
+count_unique_colors("3.png")  # replace with your file

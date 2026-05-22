@@ -159,11 +159,12 @@ typedef union
         uint8_t type : 4;
         uint8_t level : 4;
     };
+    uint8_t consumable;
 
-    uint8_t bytes[2];
+    uint8_t bytes[3];
 } ItemData;
 
-_Static_assert(sizeof(ItemData) == 2, "ItemData must be 2 bytes");
+_Static_assert(sizeof(ItemData) == 3, "ItemData must be 2 bytes");
 
 typedef union
 {
@@ -178,6 +179,7 @@ typedef union
         uint8_t type : 4;
         uint8_t level : 4;
     };
+    uint8_t consumable;
 
     uint8_t bytes[2];
 } ObjectData;

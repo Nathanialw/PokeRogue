@@ -20,15 +20,15 @@
 SET_MEMORY(".map")
 void GetSkills(MemoryInterface memory, EntityId id, Type type)
 {
-    uint8_t i = 0;
-    while (i < MAX_ABILITIES)
+    uint8_t idx = 0;
+    while (idx < MAX_ABILITIES)
     {
-        g_core.creatures.attacks[id][i] = NO_ABILITY;
-        i++;
+        g_core.creatures.attacks[id][idx] = NO_ABILITY;
+        idx++;
     }
 
     CreatureSkillLearnLevels skills = {0};
-    Flash_GetSkill(memory, skills, type, i);
+    Flash_GetSkill(memory, skills, type, idx);
 
     for (uint8_t i = 0; i < MAX_ABILITIES; ++i)
         g_core.creatures.attacks[id][i] = skills.c[i].skillID;

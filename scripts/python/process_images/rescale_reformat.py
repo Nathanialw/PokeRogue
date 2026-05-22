@@ -16,8 +16,8 @@ from pathlib import Path
 
 # ---------------- Keep your existing config ----------------
 
-# MODE = "optimum"      # "custom" or "optimum"
-MODE = "custom"  # "custom" or "optimum"
+MODE = "optimum"      # "custom" or "optimum"
+# MODE = "custom"  # "custom" or "optimum"
 
 # ---------------- SCALE CONFIG ----------------
 

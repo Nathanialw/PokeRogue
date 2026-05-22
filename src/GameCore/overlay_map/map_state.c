@@ -250,7 +250,7 @@ uint8_t GameLoopMain(GameInterface* spi)
         spi->input.HandleInput();
         UpdateGameRunningState(spi->graphics, spi->hardware, spi->input, spi->memory);
         HandleGameState(spi);
-        GameLoopRateDelay(spi->hardware);
+        // GameLoopRateDelay(spi->hardware);
         spi->graphics.EndFrame();
     }
 

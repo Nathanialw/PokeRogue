@@ -2,15 +2,38 @@
 import sys
 import os
 from pathlib import Path
+import numpy as np
 from PIL import Image
 import json
-import settings
+
 
 # ================== ADD YOUR REAL PALETTE HERE ==================
-# Your 64 RGB565 colors as list of uint16_t integers (like in your C example)
-PALETTE_RGB565 = settings.CUSTOM_PALETTE_565
+
+def create_palette_direct(image_path):
+    img = Image.open(image_path).convert("RGB")   # always 8‑bit RGB
+    pixels = np.array(img)
+
+    # unique rows of shape (N, 3)
+    unique_rgb = np.unique(pixels.reshape(-1, 3), axis=0)
+
+    palette_565 = []
+    for r, g, b in unique_rgb:
+        r5 = r >> 3
+        g6 = g >> 2
+        b5 = b >> 3
+        rgb565 = (r5 << 11) | (g6 << 5) | b5
+        palette_565.append(rgb565)
+
+    print(f"Unique colors: {len(palette_565)}")
+    return palette_565
+
+
+# Your 16 RGB565 colors as list of uint16_t integers (like in your C example)
 WIDTH = 112
 HEIGHT = 112
+
+PALETTE_RGB565 = []
+PALETTE_RGB888 = []
 
 
 # Helper: convert RGB565 → RGB888 tuple for distance calculation
@@ -22,7 +45,6 @@ def rgb565_to_rgb888(c):
 
 
 # Precompute RGB888 versions once (faster)
-PALETTE_RGB888 = [rgb565_to_rgb888(c) for c in PALETTE_RGB565]
 
 # Your transparent color index (change if not 15)
 TRANSPARENT_INDEX = 0  # or 0, or whatever is background in your indexed images
@@ -61,8 +83,10 @@ def rle_encode_row(row):
     return rle
 
 
+import numpy as np
+from PIL import Image
+
 def process_sprite(input_path, output_json):
-    """Process a single sprite image and save JSON output"""
     print(f"\nProcessing: {input_path}")
 
     img = Image.open(input_path).convert('RGBA')
@@ -70,21 +94,45 @@ def process_sprite(input_path, output_json):
         print(f"  Resizing from {img.size} to {WIDTH}x{HEIGHT}")
         img = img.resize((WIDTH, HEIGHT), Image.NEAREST)
 
-    pixels = img.load()
-    indexed = [[0 for _ in range(WIDTH)] for _ in range(HEIGHT)]
+    # ---------- 1. Quantize RGB part to exactly 16 colours ----------
+    rgb_img = img.convert("RGB")
+    # Pillow 9+ : method=Image.Quantize.MEDIANCUT, for older: method=0
+    try:
+        quantized = rgb_img.quantize(colors=16, method=Image.Quantize.MEDIANCUT, dither=Image.Dither.NONE)
+    except AttributeError:
+        quantized = rgb_img.quantize(colors=16, method=0, dither=Image.Dither.NONE)  # fallback for older Pillow
 
+    # Extract the 16-colour palette as plain Python ints
+    raw_pal = quantized.getpalette()
+    palette_rgb888 = []
+    palette_rgb565 = []
+    for i in range(16):
+        r = int(raw_pal[3*i])
+        g = int(raw_pal[3*i+1])
+        b = int(raw_pal[3*i+2])
+        palette_rgb888.append((r, g, b))
+        # Convert to RGB565 (all Python ints)
+        r5 = r >> 3
+        g6 = g >> 2
+        b5 = b >> 3
+        palette_rgb565.append((r5 << 11) | (g6 << 5) | b5)
+
+    # ---------- 2. Build indexed image (0‑15), respecting alpha ----------
+    alpha = np.array(img.split()[-1])          # uint8
+    quant_data = np.array(quantized)           # uint8, values 0‑15
+
+    indexed = [[0]*WIDTH for _ in range(HEIGHT)]  # list of lists of ints
     for y in range(HEIGHT):
         for x in range(WIDTH):
-            r, g, b, a = pixels[x, y]
-            if a < 128:  # semi-transparent → treat as transparent
+            if alpha[y, x] < 128:
                 indexed[y][x] = TRANSPARENT_INDEX
             else:
-                indexed[y][x] = nearest_color_index(r, g, b)
+                indexed[y][x] = int(quant_data[y, x])   # ensure Python int
 
-    # Build tiles
-    non_empty_count = 0
+    # ---------- 3. Build tiles and RLE (same as before) ----------
     tiles_rle = []
     empty_mask = [0] * 7
+    non_empty_count = 0
 
     for ty in range(7):
         for tx in range(7):
@@ -95,45 +143,41 @@ def process_sprite(input_path, output_json):
                 row = indexed[row_y][row_start_x: row_start_x + 16]
                 tile.extend(row)
 
-            non_trans_count = sum(1 for p in tile if p != TRANSPARENT_INDEX)
-            is_empty = non_trans_count == 0
-
+            non_trans = sum(1 for p in tile if p != TRANSPARENT_INDEX)
             tile_idx = ty * 7 + tx
             byte_idx = tile_idx // 8
             bit_idx = tile_idx % 8
 
-            if not is_empty:
+            if non_trans > 0:
                 empty_mask[byte_idx] |= (1 << bit_idx)
 
                 rle_tile = []
                 for row_start in range(0, 256, 16):
                     row = tile[row_start: row_start + 16]
-                    rle_tile.extend(rle_encode_row(row))
+                    rle_tile.extend(rle_encode_row(row))   # rle_encode_row returns list of ints
 
                 tiles_rle.append(rle_tile)
                 non_empty_count += 1
-
-                print(f"  Tile {ty:1d},{tx:1d}: {non_trans_count} colored pixels")
+                print(f"  Tile {ty:1d},{tx:1d}: {non_trans} colored pixels")
             else:
-                print(f"  Tile {ty:1d},{tx:1d}: EMPTY")
                 tiles_rle.append(None)
+                print(f"  Tile {ty:1d},{tx:1d}: EMPTY")
 
-    # Prepare output
+    # ---------- 4. Prepare JSON-safe output ----------
     result = {
         "file": os.path.basename(input_path),
+        "palette_rgb565": [f"0x{c:04x}" for c in palette_rgb565],
         "empty_mask": [f"0x{b:02x}" for b in empty_mask],
         "num_nonempty": non_empty_count,
         "rle_tiles": [t for t in tiles_rle if t is not None],
         "rle_lengths": [len(t) for t in tiles_rle if t is not None]
     }
 
-    # Create output directory if it doesn't exist
     os.makedirs(os.path.dirname(output_json), exist_ok=True)
-
     with open(output_json, 'w') as f:
         json.dump(result, f, indent=2)
 
-    print(f"  → Saved: {output_json}")
+    print(f"  Saved: {output_json}")
     print(f"  Non-empty tiles: {result['num_nonempty']}")
     print(f"  Total RLE bytes: {sum(result['rle_lengths'])}")
 
@@ -181,7 +225,7 @@ def process_folder(input_folder):
 
 def main():
     if len(sys.argv) != 2:
-        print("Usage: python tile_and_rle.py <input_folder>")
+        print("Usage: python compress_img.py <input_folder>")
         print("")
         print("This script will recursively find all .png files in the input folder")
         print("and generate .json files alongside each image.")
@@ -190,6 +234,8 @@ def main():
         print("  python tile_and_rle.py ./sprites")
         print("  → Creates ./sprites/character/hero.json from ./sprites/character/hero.png")
         sys.exit(1)
+
+
 
     input_folder = sys.argv[1]
     process_folder(input_folder)

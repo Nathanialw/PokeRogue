@@ -15,7 +15,7 @@ import json
 import os
 from pathlib import Path
 
-from python.config import constants, colors
+from python.config import constants
 from python.data import db_manager
 
 # Starting index for monsters (can be changed)
@@ -65,7 +65,8 @@ def process_json_file(json_path, monster_idx, comment, folder_path, layout_file,
     sprite_size = len(all_rle_bytes)
 
     # Format palette
-    palette_str = ", ".join(f"0x{p:04x}" for p in colors.CUSTOM_PALETTE_565)
+    palette_str = data["palette_rgb565"]
+    # palette_str = ", ".join(f"0x{p:04x}" for p in img_palette)
 
     # Get folder structure for better organization
     folder_info = get_relative_path(json_path, folder_path)
@@ -76,7 +77,7 @@ def process_json_file(json_path, monster_idx, comment, folder_path, layout_file,
 
     # Write layout to layout file with byte offset as the idx
     layout_file.write(f"// {comment}{folder_comment} (sprite index: {monster_idx}, byte offset: {byte_offset}, size: {sprite_size})\n")
-    layout_file.write("{ " + f".idx = {byte_offset}, " + f".palette = {{{palette_str}}}, " + f".emptyIndexes = {{ {', '.join(empty_mask)} }}" + " },\n")
+    layout_file.write("{ " + f".idx = {byte_offset}, " + f".palette = {{ {', '.join(palette_str)} }}, " + f".emptyIndexes = {{ {', '.join(empty_mask)} }}" + " },\n")
 
     # Write data to data file
     data_file.write(f"// {comment}{folder_comment} - RLE compressed data (offset: {byte_offset}, size: {sprite_size})\n")
@@ -117,6 +118,7 @@ def export_image_data(entity, image_type=""):
         bytes_output = f"sprite_{entity}_{image_type}"
 
     creature_names = db_manager.get_folders(entity)
+
     # Find all JSON files recursively
     input_path = Path(input_folder)
     all_json_files = sorted(input_path.rglob("*.json"))

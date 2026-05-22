@@ -1,5 +1,7 @@
 # Build
 assets_processed/
+assets_processed0/
+assets_unused/
 assets_raw/
 
 build-pico/

@@ -4,6 +4,7 @@
 
 #include "battle_animation.h"
 #include "lib_memory.h"
+#include "constants.h"
 
 #include "core_ram.h"
 
