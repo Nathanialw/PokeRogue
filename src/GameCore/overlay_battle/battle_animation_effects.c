@@ -170,7 +170,6 @@ void MoveCenterToDown(GraphicsInterface graphics, HardwareInterface hardware, Re
         f.h -= 1; // ensures the sprite does not draw beyond the bounds of the battler area
         graphics.DrawBuffer(f);
         graphics.EndFrame();
-        graphics.EndFrame();
         hardware.SleepMS(frameLength);
     }
 }

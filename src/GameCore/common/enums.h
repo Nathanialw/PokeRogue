@@ -517,7 +517,9 @@ typedef enum
 {
     FONT16x16 = 1,
     FONT8x8 = 2,
-    FONT96x96 = 3,
+    FONT20x20 = 3,
+    FONT32x32 = 4,
+    FONT96x96 = 5,
 } FontSize;
 
 

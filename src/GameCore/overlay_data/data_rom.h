@@ -1,8 +1,8 @@
 //
 //
 #pragma once
-#include "common/types.h"
-#include "common/enums.h"
+#include "types.h"
+#include "enums.h"
 #include "data_constants.inc"
 
 #define TOTAL_MUSIC_NOTES 815
@@ -120,10 +120,14 @@ const SpriteFrames itemSpritesMetaData[ITEM_COUNT];
 const uint8_t tileSprites[TILE_SPRITE_COUNT];
 const SpriteFrames tileSpritesMetaData[TILE_COUNT];
 
-const uint8_t font8x8[CHARACTER_COUNT * 8];
-const uint16_t font16x16[CHARACTER_COUNT * 32];
+const uint8_t font8x8[CHARACTER_COUNT * FONT_8_BYTES_PER_CHAR];
+const uint8_t font16x16[CHARACTER_COUNT * FONT_16_BYTES_PER_CHAR];
+const uint8_t font20x20[CHARACTER_COUNT * FONT_20_BYTES_PER_CHAR];
+const uint8_t font24x24[CHARACTER_COUNT * FONT_24_BYTES_PER_CHAR];
+const uint8_t font32x32[CHARACTER_COUNT * FONT_32_BYTES_PER_CHAR];
 #endif
 } spriteData;
+
 
 /**********************************************************************************************************************/
 /*

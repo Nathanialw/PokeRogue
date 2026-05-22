@@ -6,7 +6,7 @@
 #include "lib_decl.h"
 #include "types.h"
 
-SkillLearnLevel Flash_GetSkill(MemoryInterface memory, CreatureSkillLearnLevels c, Type creatureType, uint8_t index);
+
 uint8_t Flash_GetStatGrowth(MemoryInterface memory, Creature type);
 Creature Flash_GetBiomeCreature(MemoryInterface memory, uint8_t biome, Creature index);
 Creature Flash_GetThemeCreature(MemoryInterface memory, uint8_t theme, Creature index);

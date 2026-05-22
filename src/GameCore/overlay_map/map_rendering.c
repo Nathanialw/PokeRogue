@@ -229,10 +229,9 @@ SET_MEMORY(".map")
 void RenderObjects(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory)
 {
     // if (g_core.btns.gameSpeed < 5)
-    // Animat
-    // ionMovement(graphics, hardware, memory);
+    // AnimationMovement(graphics, hardware, memory);
 
-    for (uint8_t i = 0; i < 50; ++i)
+    for (uint8_t i = 0; i < (VIEW_TH * VIEW_TW) >> 3; ++i)
         g_map.view.dirtyTiles[i] = 0;
 
     ResetRenders(&g_map.view.viewItems, NO_ITEM);

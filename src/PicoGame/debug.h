@@ -1,8 +1,8 @@
+// //
+// // Created by nathanial on 5/21/26.
+// //
 //
-// Created by nathanial on 5/21/26.
+// #pragma once
 //
-
-#pragma once
-
-void install_hardfault_handler(void);
-
+// void install_hardfault_handler(void);
+//

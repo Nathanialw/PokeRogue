@@ -33,10 +33,10 @@ typedef uint16_t MapSprite[TILE_W * TILE_H];
 typedef union
 {
     uint16_t glyph[16];
-    uint8_t bytes[32];
+    uint8_t bytes[FONT_32_BYTES_PER_CHAR];
 } Glyph;
 
-_Static_assert(sizeof(Glyph) == 32, "SkillLearnLevel must be 32 bytes");
+_Static_assert(sizeof(Glyph) == 128, "SkillLearnLevel must be 128 bytes");
 
 
 /**********************************************************************************************************************/
@@ -106,7 +106,7 @@ typedef union
     uint16_t pixels_2d[TILE_W][TILE_H];
 } Glyph16x16;
 
-_Static_assert(sizeof(Glyph16x16) == 512, "Glyph16x16 must be 512 bytes");
+// _Static_assert(sizeof(Glyph16x16) == 512, "Glyph16x16 must be 512 bytes");
 
 
 /**********************************************************************************************************************/

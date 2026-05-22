@@ -4,6 +4,7 @@
 
 #include "core_stats.h"
 #include "lib_memory.h"
+#include "lib_debugging.h"
 
 #include "core_ram.h"
 
@@ -19,7 +20,7 @@ void SetXPToLevel(EntityId id, IntMax999* xp)
 {
     const Stats stats = g_core.creatures.stats[id];
     const Int99 level = g_core.creatures.level[id];
-    const uint16_t total_stats = (stats.magic + stats.attack + stats.defence + stats.speed + (50 * level.value) >> 2);
+    const uint16_t total_stats = (stats.magic + stats.attack + stats.defence + stats.speed + (50 * level.value)) >> 2;
 
     Int999SetCurrent(xp, 0);
     Int999SetMax(xp, total_stats);

@@ -18,7 +18,6 @@
 #define END_VMA     0x20020000
 
 
-
 int main()
 {
     Pico_Init();
@@ -34,7 +33,10 @@ int main()
 
     Pico_TestColors();
 
+
+
 begin:
+    DEBUG("WELCOME TO PICO ROGUE");
 
     while (1)
     {

@@ -193,7 +193,7 @@ void DrawMiniMap(GraphicsInterface graphics, HardwareInterface hardware, MemoryI
     {
         graphics.SetFrameBuffer(Flash_GetColor(memory, PAL_OFF_WHITE_GRAY));
 
-        cursor = (screen_w - MAP_W) / 2; //reset position
+        cursor = (screen_w - MAP_W) >> 1; //reset position
         for (uint16_t row = 0; row < BUFFER_H; row++)
         {
             uint16_t cy = y + row;
@@ -265,25 +265,25 @@ void DrawParty(GraphicsInterface graphics, HardwareInterface hardware, MemoryInt
         if (line_empty || i > (max_lines)) break;
 
 
-        //level
-        // if (GetCreatureType(g_core.player.partyID[i]) == NO_CREATURE)
-        // {
-        //     PrintLineStr(graphics, memory, x, y, font_size, 3, "---", indent);
-        // }
-        // else
-        // {
-        //     Int99 level = g_core.creatures.level[g_core.player.partyID[i]];
-        //     CharStr_99 levelStr;
-        //     GetAsChars_99(level, &levelStr, false);
-        //     PrintLineStr(graphics, memory, x, y, font_size, 3, levelStr, indent);
-        // }
+        // level
+        if (GetCreatureType(g_core.player.partyID[i]) == NO_CREATURE)
+        {
+            PrintLineStr(graphics, memory, x, y, font_size, 3, "---", indent);
+        }
+        else
+        {
+            Int99 level = g_core.creatures.level[g_core.player.partyID[i]];
+            CharStr_99 levelStr;
+            GetAsChars_99(level, &levelStr, false);
+            PrintLineStr(graphics, memory, x, y, font_size, 3, levelStr, indent);
+        }
 
         y += PrintLineStr(graphics, memory, x + (3 * size), y + lineHeight, font_size, max_chars, line, indent);
 
         if (GetCreatureType(g_core.player.partyID[i]) == NO_CREATURE)
         {
             lineHeight += (size * 3);
-            lineHeight += (size / 2);
+            lineHeight += (size >> 1);
             y += lineHeight;
             i++;
             continue;
@@ -298,34 +298,44 @@ void DrawParty(GraphicsInterface graphics, HardwareInterface hardware, MemoryInt
         IntMax999 hp = g_core.creatures.hp[g_core.player.partyID[i]];
         cur = Int999GetCurrent(&hp);
         max = Int999GetMax(&hp);
-        line_w = (((float)cur / (float)max) * ((float)(max_chars - 2) * (float)size));
-        if (line_w > 2) line_w -= 2;
-        graphics.FillRect(x + size, y + lineHeight, (max_chars - 2) * size, size, Flash_GetColor(memory, PAL_DARK_GRN_BLACK));
-        graphics.FillRect(x + 1 + size, y + lineHeight + 1, ((max_chars - 2) * size) - 2, size - 2, Flash_GetColor(memory, PAL_OFF_WHITE_GRAY));
-        graphics.FillRect(x + 1 + size, y + lineHeight + 1, (uint16_t)line_w, size - 2, Flash_GetColor(memory, PAL_EMERALD_GREEN));
+        if (max > 0)
+        {
+            line_w = (((float)cur / (float)max) * ((float)(max_chars - 2) * (float)size));
+            if (line_w > 2) line_w -= 2;
+            graphics.FillRect(x + size, y + lineHeight, (max_chars - 2) * size, size, Flash_GetColor(memory, PAL_DARK_GRN_BLACK));
+            graphics.FillRect(x + 1 + size, y + lineHeight + 1, ((max_chars - 2) * size) - 2, size - 2, Flash_GetColor(memory, PAL_OFF_WHITE_GRAY));
+            graphics.FillRect(x + 1 + size, y + lineHeight + 1, (uint16_t)line_w, size - 2, Flash_GetColor(memory, PAL_EMERALD_GREEN));
+        }
         lineHeight += size;
 
         IntMax999 mp = g_core.creatures.mp[g_core.player.partyID[i]];
         cur = Int999GetCurrent(&mp);
         max = Int999GetMax(&mp);
-        line_w = (((float)cur / (float)max) * ((float)(max_chars - 2) * (float)size));
-        if (line_w > 2) line_w -= 2;
-        graphics.FillRect(x + size, y + lineHeight, (max_chars - 2) * size, size, Flash_GetColor(memory, PAL_DARK_GRN_BLACK));
-        graphics.FillRect(x + 1 + size, y + lineHeight + 1, ((max_chars - 2) * size) - 2, size - 2, Flash_GetColor(memory, PAL_OFF_WHITE_GRAY));
-        graphics.FillRect(x + 1 + size, y + lineHeight + 1, (uint16_t)line_w, size - 2, Flash_GetColor(memory, PAL_ICE_BLUE));
-        lineHeight += size;
+        if (max > 0)
+        {
+            line_w = (((float)cur / (float)max) * ((float)(max_chars - 2) * (float)size));
+            if (line_w > 2) line_w -= 2;
+            graphics.FillRect(x + size, y + lineHeight, (max_chars - 2) * size, size, Flash_GetColor(memory, PAL_DARK_GRN_BLACK));
+            graphics.FillRect(x + 1 + size, y + lineHeight + 1, ((max_chars - 2) * size) - 2, size - 2, Flash_GetColor(memory, PAL_OFF_WHITE_GRAY));
+            graphics.FillRect(x + 1 + size, y + lineHeight + 1, (uint16_t)line_w, size - 2, Flash_GetColor(memory, PAL_ICE_BLUE));
+            lineHeight += size;
+        }
 
         IntMax999 xp = g_core.creatures.xp[g_core.player.partyID[i]];
         cur = Int999GetCurrent(&xp);
         max = Int999GetMax(&xp);
-        line_w = (((float)cur / (float)max) * ((float)(max_chars - 2) * (float)size));
-        if (line_w > 2) line_w -= 2;
-        graphics.FillRect(x + size, y + lineHeight, (max_chars - 2) * size, size, Flash_GetColor(memory, PAL_DARK_GRN_BLACK));
-        graphics.FillRect(x + 1 + size, y + lineHeight + 1, ((max_chars - 2) * size) - 2, size - 2, Flash_GetColor(memory, PAL_OFF_WHITE_GRAY));
-        graphics.FillRect(x + 1 + size, y + lineHeight + 1, (uint16_t)line_w, size - 2, Flash_GetColor(memory, PAL_MEDIUM_PURPLE));
+        if (max > 0)
+        {
+            line_w = (((float)cur / (float)max) * ((float)(max_chars - 2) * (float)size));
+            if (line_w > 2) line_w -= 2;
+            graphics.FillRect(x + size, y + lineHeight, (max_chars - 2) * size, size, Flash_GetColor(memory, PAL_DARK_GRN_BLACK));
+            graphics.FillRect(x + 1 + size, y + lineHeight + 1, ((max_chars - 2) * size) - 2, size - 2, Flash_GetColor(memory, PAL_OFF_WHITE_GRAY));
+            graphics.FillRect(x + 1 + size, y + lineHeight + 1, (uint16_t)line_w, size - 2, Flash_GetColor(memory, PAL_MEDIUM_PURPLE));
 
-        lineHeight += size;
-        lineHeight += (size / 2);
+            lineHeight += size;
+            lineHeight += (size >> 1);
+        }
+
         y += lineHeight;
         i++;
     }

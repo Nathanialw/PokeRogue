@@ -5,6 +5,7 @@
 
 #include "core_tiles.h"
 #include "core_memory_access.h"
+#include "core_ram.h"
 
 /**********************************************************************************************************************/
 /*
@@ -52,41 +53,48 @@ void TilesetFromGlyph1bpp(TileSet* tileset, uint16_t tile_id, uint8_t glyph_inde
 SET_MEMORY(".core")
 void CharFromGlyph1bpp(MemoryInterface memory, Glyph buffer, uint16_t* character, uint8_t glyph_index, FontSize fontSize, uint16_t fg, uint16_t bg)
 {
-    if (fontSize == FONT8x8)
+    //     if (fontSize == FONT16x16)
+    //     {
+    //         Flash_GetFontChar16x16(memory, buffer.bytes, glyph_index);
+    //
+    //         for (int y = 0; y < 16; y++)
+    //         {
+    //             uint16_t row = buffer.glyph[y];
+    //             row = (row >> 8) | (row << 8);
+    //
+    //             for (int x = 0; x < 16; x++)
+    //             {
+    // #if defined(SDL)
+    //                 uint16_t bit = 0x8000 >> x;
+    //                 character[y * 16 + x] = (row & bit) ? fg : bg;
+    // #else
+    //                 uint16_t bit = 1 << x;
+    //                 character[y * 16 + x] = (row & bit) ? fg : bg;
+    // #endif
+    //             }
+    //         }
+    //         return;
+    //     }
+
+    uint8_t length = 0;
+    switch (fontSize)
     {
-        Flash_GetFontChar8x8(memory, buffer.bytes, glyph_index);
-
-        for (int y = 0; y < 8; y++)
-        {
-            uint8_t row = buffer.bytes[y];
-
-            for (int x = 0; x < 8; x++)
-            {
-                character[y * 8 + x] = (row & (1 << x)) ? fg : bg;
-                // character[y * 8 + x] = (row & (1 << (7 - x))) ? fg : bg;
-            }
-        }
+    case FONT8x8: length = Flash_GetFontChar8x8(memory, buffer.bytes, glyph_index);
+        break;
+    case FONT20x20: length = Flash_GetFontChar20x20(memory, buffer.bytes, glyph_index);
+        break;
+    case FONT16x16: length = Flash_GetFontChar16x16(memory, buffer.bytes, glyph_index);
+        break;
+    default: return;
     }
 
-    else if (fontSize == FONT16x16)
+    for (int y = 0; y < length; y++)
     {
-        Flash_GetFontChar16x16(memory, buffer.bytes, glyph_index);
+        uint8_t row = buffer.bytes[y];
 
-        for (int y = 0; y < 16; y++)
+        for (int x = 0; x < 8; x++)
         {
-            uint16_t row = buffer.glyph[y];
-            row = (row >> 8) | (row << 8);
-
-            for (int x = 0; x < 16; x++)
-            {
-#if defined(SDL)
-                uint16_t bit = 0x8000 >> x;
-                character[y * 16 + x] = (row & bit) ? fg : bg;
-#else
-                uint16_t bit = 1 << x;
-                character[y * 16 + x] = (row & bit) ? fg : bg;
-#endif
-            }
+            character[y * 8 + x] = (row & (1 << x)) ? fg : bg; //place unin16_t colour in the array based on bit value
         }
     }
 }

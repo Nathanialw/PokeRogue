@@ -87,6 +87,9 @@ def main():
         #fonts
         ".font_8x8",
         ".font_16x16",
+        ".font_20x20",
+        ".font_24x24",
+        ".font_32x32",
 
 
         # game_data

@@ -2,8 +2,8 @@
 //
 #include "data_rom.h"
 
-#include "common/types.h"
-#include "common/enums.h"
+#include "types.h"
+#include "enums.h"
 
 #include "lib_memory.h"
 
@@ -242,16 +242,30 @@ const GameFlash g_gameFlash =
 #include "inc/data_font8x8.inc"
 
          },
-
         .font16x16 =
          {
 #include "inc/data_font16x16.inc"
          },
-    },
 
-/**********************************************************************************************************************/
-/*
-**********************************************************************************************************************/
+        .font20x20 =
+         {
+#include "inc/data_font20x20.inc"
+         },
+
+        .font24x24 =
+         {
+#include "inc/data_font24x24.inc"
+         },
+
+        .font32x32 =
+         {
+#include "inc/data_font32x32.inc"
+         },
+
+
+         /**********************************************************************************************************************/
+         /*
+         **********************************************************************************************************************/
     .sounds =
      {
          /**********************************************************************************************************************/
@@ -635,14 +649,25 @@ const SpriteFrames tileSpritesMetaData[TILE_COUNT] = {};
 /* text font data
 **********************************************************************************************************************/
 SET_MEMORY(".font_8x8")
-const uint8_t font8x8[CHARACTER_COUNT * 8] = {
+const uint8_t font8x8[CHARACTER_COUNT * FONT_8_BYTES_PER_CHAR] = {
 #include "inc/data_font8x8.inc"
 };
 SET_MEMORY(".font_16x16")
-const uint8_t font16x16[CHARACTER_COUNT * 32] = {
+const uint8_t font16x16[CHARACTER_COUNT * FONT_16_BYTES_PER_CHAR] = {
 #include "inc/data_font16x16.inc"
 };
-
+SET_MEMORY(".font_20x20")
+const uint8_t font20x20[CHARACTER_COUNT * FONT_20_BYTES_PER_CHAR] = {
+#include "inc/data_font20x20.inc"
+};
+SET_MEMORY(".font_24x24")
+const uint8_t font24x24[CHARACTER_COUNT * FONT_24_BYTES_PER_CHAR] = {
+#include "inc/data_font24x24.inc"
+};
+SET_MEMORY(".font_32x32")
+const uint8_t font32x32[CHARACTER_COUNT * FONT_32_BYTES_PER_CHAR] = {
+#include "inc/data_font32x32.inc"
+};
 
 /**********************************************************************************************************************/
 /* SOUNDS
@@ -737,14 +762,12 @@ const ObjectData objectData[OBJECT_COUNT] = {
 /*      COLOR
 **********************************************************************************************************************/
 SET_MEMORY(".colors_16")
-const uint8_t GetColor[PALETTE_COUNT*2] = {
+const uint8_t GetColor[PALETTE_COUNT * 2] = {
 #include "inc/data_colors16.inc"
 };
 SET_MEMORY(".colors_256")
-const uint8_t GetColor256[256*2] = {
+const uint8_t GetColor256[256 * 2] = {
 #include "inc/data_colors256.inc"
 };
 
 #endif
-
-

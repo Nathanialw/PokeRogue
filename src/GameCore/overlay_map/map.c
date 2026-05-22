@@ -125,11 +125,11 @@ void SetFog(uint16_t x, uint16_t y, bool fogged)
 SET_MEMORY(".map")
 void SetMapFog(uint8_t set)
 {
-    for (uint16_t y = 0; y < MAP_H / 8; y++)
-        for (uint16_t x = 0; x < MAP_W / 8; x++)
+    for (uint16_t y = 0; y < MAP_H >> 3; y++)
+        for (uint16_t x = 0; x < MAP_W >> 3; x++)
         {
             // SetFog(x, y, set);
-            g_core.fog[y + (x * MAP_W / 8)] = set;
+            g_core.fog[y + (x * (MAP_W >> 3))] = set;
         }
 }
 

@@ -29,8 +29,6 @@ target_link_libraries(PicoRogue
         hardware_pio
         hardware_i2c
         hardware_pwm
-        hardware_exception
-        cmsis_core
         pico_audio_i2s
         pico_audio
         pico_multicore

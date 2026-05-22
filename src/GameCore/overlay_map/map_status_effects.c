@@ -226,7 +226,7 @@ uint8_t SlowedEffect(HardwareInterface hardware, uint8_t power, EntityId id)
 SET_MEMORY(".map")
 void UpdateStatusEffect(HardwareInterface hardware, uint8_t* status_effect, TurnEffect turnEffect)
 {
-    for (uint8_t i = 0; i < ENTITY_COUNT / 2; ++i)
+    for (uint8_t i = 0; i < ENTITY_COUNT >> 1; ++i)
     {
         if (status_effect[i] == 0) continue;
         uint8_t lower_unit = GetBottomByte(status_effect[i]);

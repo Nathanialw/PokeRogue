@@ -152,8 +152,6 @@ void Pico_Init(void)
 #include <stdio.h>
     stdio_init_all();
     sleep_ms(500);
-    volatile uint16_t *bad_ptr = (uint16_t *)0x20000001;
-    *bad_ptr = 0xDEAD;   // unaligned access -> hard fault
 #endif
 
     uint32_t freq = clock_get_hz(clk_sys);

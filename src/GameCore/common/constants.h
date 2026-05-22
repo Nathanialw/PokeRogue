@@ -146,6 +146,12 @@ _Static_assert(DIALOGUE_H + RESOURCE_FRAME_H + BATTLER_AREA_H <= TFT_H, "cannot 
 /**********************************************************************************************************************/
 /**MENUS constants
 **********************************************************************************************************************/
+#define FONT_8_BYTES_PER_CHAR 8
+#define FONT_16_BYTES_PER_CHAR 32
+#define FONT_20_BYTES_PER_CHAR 50
+#define FONT_24_BYTES_PER_CHAR 72
+#define FONT_32_BYTES_PER_CHAR 128
+
 #define FONT_OFFSET 32
 
 #define MAIN_MENU_X 11

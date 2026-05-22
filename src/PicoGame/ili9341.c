@@ -33,7 +33,7 @@ void SetBuffer(uint16_t length, uint16_t* p, uint16_t rgb565);
 void SetBufferColor(uint16_t length, uint16_t* p, Color rgb565);
 void EndFrame(void);
 
-void TestAnimation(FrameBuffer f, Rect_16 r, Color color1);
+void TestAnimation(FrameBuffer *f, Rect_16* r, Color* color1);
 
 GraphicsInterface GetGraphicsInterface()
 {
@@ -536,16 +536,16 @@ void Pico_TestFrameBuffer()
 /**********************************************************************************************************************/
 /**  TEMP - for testing animations
 **********************************************************************************************************************/
-void TestAnimation(FrameBuffer f, Rect_16 r, Color color1)
+void TestAnimation(FrameBuffer *f, Rect_16* r, Color* color1)
 {
     SetFrameBuffer(0xd6fa); // gray
 
-    uint16_t size = r.w * r.h;
+    uint16_t size = r->w * r->h;
     uint16_t p[size];
 
-    Pico_ili9341_SetRectColor(size, p, color1); //blu
-    DrawToBuffer(&f, p, &r);
-    DrawBuffer(f);
+    Pico_ili9341_SetRectColor(size, p, *color1); //blu
+    DrawToBuffer(f, p, r);
+    DrawBuffer(*f);
 }
 
 

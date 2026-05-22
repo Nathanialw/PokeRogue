@@ -8,6 +8,7 @@
 #include "types.h"
 
 // ENTITIES
+SkillLearnLevel Flash_GetSkill(MemoryInterface memory, CreatureSkillLearnLevels c, Type creatureType, uint8_t index);
 void Flash_GetCreatureStatsRange(MemoryInterface memory, StatsRange* stats, Creature creature_type);
 void Flash_GetType(MemoryInterface memory, MonsterType* monsterType, uint8_t index);
 void Flash_GetTypeEffects(MemoryInterface memory, uint8_t* type, uint8_t index);
@@ -22,8 +23,9 @@ void Flash_GetSprite(MemoryInterface memory, uint8_t* sprite, uint32_t index, ui
 
 
 ///FONTS
-void Flash_GetFontChar8x8(MemoryInterface memory, uint8_t* glyph, uint8_t index);
-void Flash_GetFontChar16x16(MemoryInterface memory, uint8_t* glyph, uint8_t index);
+uint8_t Flash_GetFontChar8x8(MemoryInterface memory, uint8_t* glyph, uint8_t index);
+uint8_t Flash_GetFontChar16x16(MemoryInterface memory, uint8_t* glyph, uint8_t index);
+uint8_t Flash_GetFontChar20x20(MemoryInterface memory, uint8_t* glyph, uint8_t index);
 
 ///COLORS
 uint16_t Flash_GetColor(MemoryInterface memory, uint8_t color);

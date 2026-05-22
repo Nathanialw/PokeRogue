@@ -208,16 +208,16 @@ void DrawTileKeyed(uint16_t x, uint16_t y, uint16_t w, uint16_t h, const uint16_
         {
             if (data[row * w + col] != TRANSPARENCY)
             {
-                printf("#");
+                // printf("#");
                 uint16_t c = data[row * w + col];
                 Draw16(x + col, y + row, 1, 1, &c);
             }
             else
             {
-                printf(" ");
+                // printf(" ");
             }
         }
-        printf("\n");
+        // printf("\n");
     }
 }
 

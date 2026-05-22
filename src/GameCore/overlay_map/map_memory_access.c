@@ -17,25 +17,6 @@
 /*      ENTITIES
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-SkillLearnLevel Flash_GetSkill(MemoryInterface memory, CreatureSkillLearnLevels c, Type creatureType, uint8_t index)
-{
-#ifdef STANDALONE
-    return g_gameFlash.gameData.levelUpSkills[creatureType][index];
-#else
-    const uint8_t length = sizeof(SkillLearnLevel);
-    memory.GetRom(GAME_DATA_LEVEL_UP_SKILLS_POSITION + (length * index), c.bytes, length);
-
-#if defined(MEMORY_PRINT)
-    for (uint8_t i = 0; i < length; i++)
-        memory.Print(str_spawn_creature_type, c.bytes[i]);
-    memory.Print(new_line);
-#endif
-    return c.c[index];
-#endif
-}
-
-
-SET_MEMORY(".map")
 uint8_t Flash_GetStatGrowth(MemoryInterface memory, Creature type)
 {
 #ifdef STANDALONE

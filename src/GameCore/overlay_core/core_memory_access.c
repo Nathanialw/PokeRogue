@@ -33,6 +33,25 @@ static const char new_line[] = "\n";
 /*      ENTITIES
 **********************************************************************************************************************/
 SET_MEMORY(".core")
+SkillLearnLevel Flash_GetSkill(MemoryInterface memory, CreatureSkillLearnLevels c, Type creatureType, uint8_t index)
+{
+#ifdef STANDALONE
+    return g_gameFlash.gameData.levelUpSkills[creatureType][index];
+#else
+    const uint8_t length = sizeof(SkillLearnLevel);
+    memory.GetRom(GAME_DATA_LEVEL_UP_SKILLS_POSITION + (length * index), c.bytes, length);
+
+#if defined(MEMORY_PRINT)
+    for (uint8_t i = 0; i < length; i++)
+        memory.Print(str_spawn_creature_type, c.bytes[i]);
+    memory.Print(new_line);
+#endif
+    return c.c[index];
+#endif
+}
+
+
+SET_MEMORY(".core")
 void Flash_GetCreatureStatsRange(MemoryInterface memory, StatsRange* stats, Creature creature_type)
 {
 #ifdef STANDALONE
@@ -226,7 +245,7 @@ void Flash_GetSprite(MemoryInterface memory, uint8_t* sprite, uint32_t index, ui
 /*      TEXT
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-void Flash_GetFontChar8x8(MemoryInterface memory, uint8_t* glyph, uint8_t index)
+uint8_t Flash_GetFontChar8x8(MemoryInterface memory, uint8_t* glyph, uint8_t index)
 {
 #ifdef STANDALONE
     for (uint16_t i = 0; i < 8; i++)
@@ -234,7 +253,7 @@ void Flash_GetFontChar8x8(MemoryInterface memory, uint8_t* glyph, uint8_t index)
         glyph[i] = g_gameFlash.spriteData.font8x8[(index * 8) + i];
     }
 #else
-    const uint8_t length = 8;
+    const uint8_t length = FONT_8_BYTES_PER_CHAR;
     memory.GetRom(FONT_8X8_POSITION + (length * index), glyph, length);
 
 #if defined(MEMORY_PRINT)
@@ -243,10 +262,11 @@ void Flash_GetFontChar8x8(MemoryInterface memory, uint8_t* glyph, uint8_t index)
     memory.Print(new_line);
 #endif
 #endif
+    return length;
 }
 
 SET_MEMORY(".core")
-void Flash_GetFontChar16x16(MemoryInterface memory, uint8_t* glyph, uint8_t index)
+uint8_t Flash_GetFontChar16x16(MemoryInterface memory, uint8_t* glyph, uint8_t index)
 {
 #ifdef STANDALONE
     for (uint16_t i = 0; i < 16; i++)
@@ -254,7 +274,7 @@ void Flash_GetFontChar16x16(MemoryInterface memory, uint8_t* glyph, uint8_t inde
         glyph[i] = g_gameFlash.spriteData.font16x16[(index * 16) + i];
     }
 #else
-    const uint16_t length = 32;
+    const uint16_t length = FONT_16_BYTES_PER_CHAR;
     memory.GetRom(FONT_16X16_POSITION + (length * index), glyph, length);
 
 #if defined(MEMORY_PRINT)
@@ -263,6 +283,28 @@ void Flash_GetFontChar16x16(MemoryInterface memory, uint8_t* glyph, uint8_t inde
     memory.Print(new_line);
 #endif
 #endif
+    return length;
+}
+
+
+SET_MEMORY(".core")
+uint8_t Flash_GetFontChar20x20(MemoryInterface memory, uint8_t* glyph, uint8_t index)
+{
+#ifdef STANDALONE
+    for (uint16_t i = 0; i < 16; i++)
+    {
+        glyph[i] = g_gameFlash.spriteData.font16x16[(index * 16) + i];
+    }
+#else
+    const uint16_t length = FONT_20_BYTES_PER_CHAR;
+    memory.GetRom(FONT_20X20_POSITION + (length * index), glyph, length);
+#if defined(MEMORY_PRINT)
+    for (uint8_t i = 0; i < length; i++)
+        memory.Print(str_spawn_creature_type, glyph[i]);
+    memory.Print(new_line);
+#endif
+#endif
+    return length;
 }
 
 
