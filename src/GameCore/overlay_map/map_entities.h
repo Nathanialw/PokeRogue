@@ -22,7 +22,7 @@ void CopyObject(EntityId src_id, EntityId target_id);
 void PopulateLevelCreatures(HardwareInterface hardware, MemoryInterface memory);
 void PopulateLevelItems(HardwareInterface hardware, MemoryInterface memory);
 void PopulateLevelObjects(HardwareInterface hardware, MemoryInterface memory);
-
+void PopulateLevelTrainers(HardwareInterface hardware, MemoryInterface memory);
 
 /**********************************************************************************************************************/
 /*

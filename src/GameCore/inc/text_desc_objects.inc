@@ -11,7 +11,7 @@
 "CASE_BOOK -- PLACEHOLDER TEXT - A mysterious object awaiting discovery.\0",
 "A delicate silver circlet adorned with glowing sapphires, humming with ancient enchantments when worn by moonlight.\0",
 "CASE_SCROLL -- PLACEHOLDER TEXT - A mysterious object awaiting discovery.\0",
-"CAULDREN -- PLACEHOLDER TEXT - A mysterious object awaiting discovery.\0",
+"CAULDRON -- PLACEHOLDER TEXT - A mysterious object awaiting discovery.\0",
 "The swirling, iridescent mist burns with a corrosive glow, melting stone and flesh alike upon contact.\0",
 "A swirling emerald mist coils upward, reeking of sulfur and withering all life in its path with a touch.\0",
 "CLOUD_SMOKE -- PLACEHOLDER TEXT - A mysterious object awaiting discovery.\0",

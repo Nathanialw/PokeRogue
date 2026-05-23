@@ -158,8 +158,10 @@ typedef union
 
         uint8_t type : 4;
         uint8_t level : 4;
+        uint8_t consumable : 1;
+        uint8_t consumable_party : 1;
+        uint8_t _pad : 6;
     };
-    uint8_t consumable;
 
     uint8_t bytes[3];
 } ItemData;
@@ -178,13 +180,14 @@ typedef union
 
         uint8_t type : 4;
         uint8_t level : 4;
+        uint8_t consumable : 1;
+        uint8_t _pad : 7;
     };
-    uint8_t consumable;
 
-    uint8_t bytes[2];
+    uint8_t bytes[3];
 } ObjectData;
 
-_Static_assert(sizeof(ObjectData) == 2, "ObjectData must be 2 bytes");
+_Static_assert(sizeof(ObjectData) == 3, "ObjectData must be 2 bytes");
 
 
 typedef bool (*SkillEffect)(EntityId attackerID, EntityId defenderID, SkillData skillData);

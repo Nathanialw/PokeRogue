@@ -5,4 +5,4 @@
 #include "../common/types.h"
 
 bool CastSpell(HardwareInterface hardware, MemoryInterface memory, SpellId spellID, EntityId partyID, EntityId enemyID);
-bool UseItem(MemoryInterface memory, EntityId item_id, EntityId e_id);
+bool UseItem(MemoryInterface memory, ItemData* itemData, EntityId item_id, EntityId e_id);

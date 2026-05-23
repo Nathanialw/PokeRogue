@@ -46,6 +46,7 @@ void InitPlayer(HardwareInterface hardware, MemoryInterface memory)
 
     g_core.player.spellID[0] = HEAL;
     g_core.player.spellID[1] = DESCEND;
+    g_core.player.spellID[2] = CREATE_COMMON_ITEM;
 
     Position pos = FindOpenMapLocation(hardware, CREATURE);
     uint8_t x = pos.x;
@@ -58,11 +59,9 @@ void InitPlayer(HardwareInterface hardware, MemoryInterface memory)
 
     EntityId e_id;
     e_id = SpawnEntity(hardware, memory, CREATURE, LAMIA, x, y, 5);
-
     PlayerCaptureMonster(e_id);
 
     e_id = SpawnEntity(hardware, memory, ITEM, HEALTH_POTION, x, y, 0);
-
     PlayerPickItem(e_id);
 
 

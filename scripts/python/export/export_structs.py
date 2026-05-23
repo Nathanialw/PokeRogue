@@ -84,9 +84,9 @@ def items(entity):
         # Write individual constants
         f.write(f"// Individual {entity}s data\n")
         desc_vars = []
-        for i, (power, item_level, item_type) in enumerate(names):
+        for i, (power, item_level, item_type, consumable, consumable_party) in enumerate(names):
             # Clean the types for C string
-            f.write("{" + f" .power = {power}, .level = {item_level}, .type = {item_type} " + "},\n")
+            f.write("{" + f" .power = {power}, .level = {item_level}, .type = {item_type}, .consumable = {consumable}, .consumable_party = {consumable_party} " + "},\n")
 
         f.write("\n")
         f.write(f"//ALL_NAMES_COUNT = {len(desc_vars)};\n")
@@ -122,9 +122,9 @@ def objects(entity):
         # Write individual constants
         f.write(f"// Individual {entity}s data\n")
         desc_vars = []
-        for i, (power, object_type) in enumerate(names):
+        for i, (power, object_type, consumable) in enumerate(names):
             # Clean the types for C string
-            f.write("{" + f" .power = {power}, .type = {object_type} " + "},\n")
+            f.write("{" + f" .power = {power}, .type = {object_type}, .consumable = {consumable} " + "},\n")
 
         f.write("\n")
         f.write(f"//ALL_NAMES_COUNT = {len(desc_vars)};\n")

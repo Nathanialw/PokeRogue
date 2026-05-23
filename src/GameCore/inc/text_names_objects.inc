@@ -11,7 +11,7 @@
 "Book Case\0",
 "Jewellery Case\0",
 "Scroll Case\0",
-"Cauldren\0",
+"Cauldron\0",
 "Acid Cloud\0",
 "Poison Gas\0",
 "Smoke Cloud\0",

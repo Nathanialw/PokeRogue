@@ -181,6 +181,22 @@ typedef struct
     struct
     {
         uint8_t total;
+        EntityId partyID[MAX_PARTY_SIZE][ENTITY_COUNT];
+        Position position[ENTITY_COUNT];
+        Position newPosition[ENTITY_COUNT]; // can be changed to hold delta, a uint8_t can hold up to 2
+        uint8_t types[ENTITY_COUNT];
+        ObjectType metaData[ENTITY_COUNT]; //any 8 bit data, Creature type, Item type, etc
+        BitFieldUint8 onMap;
+        BitFieldUint8 active;
+
+        IntMax99 speed[ENTITY_COUNT];
+        Senses senses[ENTITY_COUNT];
+        Senses stealth[ENTITY_COUNT];
+    } trainers;
+
+    struct
+    {
+        uint8_t total;
         Position position[ENTITY_COUNT];
         Position newPosition[ENTITY_COUNT]; // can be changed to hold delta, a uint8_t can hold up to 2
         uint8_t types[ENTITY_COUNT];

@@ -11,7 +11,7 @@ bool InteractWoodenBridge(HardwareInterface hardware, EntityId object_id, Entity
 bool InteractBookCase(HardwareInterface hardware, EntityId object_id, EntityId e_id, ObjectData objectData);
 bool InteractJewelleryCase(HardwareInterface hardware, EntityId object_id, EntityId e_id, ObjectData objectData);
 bool InteractScrollCase(HardwareInterface hardware, EntityId object_id, EntityId e_id, ObjectData objectData);
-bool InteractCauldren(HardwareInterface hardware, EntityId object_id, EntityId e_id, ObjectData objectData);
+bool InteractCauldron(HardwareInterface hardware, EntityId object_id, EntityId e_id, ObjectData objectData);
 bool InteractAcidCloud(HardwareInterface hardware, EntityId object_id, EntityId e_id, ObjectData objectData);
 bool InteractPoisonGas(HardwareInterface hardware, EntityId object_id, EntityId e_id, ObjectData objectData);
 bool InteractSmokeCloud(HardwareInterface hardware, EntityId object_id, EntityId e_id, ObjectData objectData);

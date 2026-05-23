@@ -3,11 +3,13 @@
 //
 
 #include "core_effects.h"
+#include "core_entities.h"
 #include "core_ram.h"
 
 #include "lib_debugging.h"
 #include "lib_memory.h"
 #include "map_effects.h"
+#include "map_entities.h"
 
 
 /**********************************************************************************************************************
@@ -31,7 +33,7 @@ bool InteractAltar(HardwareInterface hardware, EntityId item_id, EntityId e_id, 
  *  TODO chance of random movement
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool InteractRaft(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
+bool InteractRaft(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractRaft");
     return false;
@@ -41,7 +43,7 @@ bool InteractRaft(HardwareInterface hardware, MemoryInterface memory,EntityId ob
 *  TODO keeps the player on the boat when moved on water
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool InteractRowBoat(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
+bool InteractRowBoat(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractRowBoat");
     return false;
@@ -51,7 +53,7 @@ bool InteractRowBoat(HardwareInterface hardware, MemoryInterface memory,EntityId
 *  TODO chance of breaking when walked on
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool InteractRopeBridge(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
+bool InteractRopeBridge(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractRopeBridge");
     NoEffect();
@@ -62,7 +64,7 @@ bool InteractRopeBridge(HardwareInterface hardware, MemoryInterface memory,Entit
 *  TODO chance of spawning a troll
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool InteractStoneBridge(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
+bool InteractStoneBridge(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractStoneBridge");
     NoEffect();
@@ -70,10 +72,10 @@ bool InteractStoneBridge(HardwareInterface hardware, MemoryInterface memory,Enti
 }
 
 /**********************************************************************************************************************
-*
+* TODO supersedes the effect of water lava and acid
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool InteractWoodenBridge(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
+bool InteractWoodenBridge(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractWoodenBridge");
     NoEffect();
@@ -84,9 +86,11 @@ bool InteractWoodenBridge(HardwareInterface hardware, MemoryInterface memory,Ent
 *  TODO generates a spellbook or skillbook item
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool InteractBookCase(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
+bool InteractBookCase(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
-    DEBUG("InteractBookCase");
+    Position pos = GetEntityPosition(OBJECT, object_id);
+    // TODO pick a random of the correwct item type
+    SpawnEntity(hardware, memory, ITEM, HEALTH_POTION, pos.x, pos.y, 0);
     return false;
 }
 
@@ -94,9 +98,11 @@ bool InteractBookCase(HardwareInterface hardware, MemoryInterface memory,EntityI
 *  TODO generates a ring or amulet item
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool InteractJewelleryCase(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
+bool InteractJewelleryCase(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
-    DEBUG("InteractJewelleryCase");
+    Position pos = GetEntityPosition(OBJECT, object_id);
+    // TODO pick a random of the correwct item type
+    SpawnEntity(hardware, memory, ITEM, HEALTH_POTION, pos.x, pos.y, 0);
     return false;
 }
 
@@ -104,19 +110,24 @@ bool InteractJewelleryCase(HardwareInterface hardware, MemoryInterface memory,En
 *  TODO generates a random scroll
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool InteractScrollCase(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
+bool InteractScrollCase(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
-    DEBUG("InteractScrollCase");
+    ItemData itemData = {};
+    Position pos = GetEntityPosition(OBJECT, object_id);
+    // TODO pick a random of the correwct item type
+    SpawnEntity(hardware, memory, ITEM, HEALTH_POTION, pos.x, pos.y, 0);
     return false;
 }
 
 /**********************************************************************************************************************
-*
+*   TODO spawns a random potion
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool InteractCauldren(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
+bool InteractCauldron(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
-    DEBUG("InteractCauldren");
+    Position pos = GetEntityPosition(OBJECT, object_id);
+    // TODO pick a random of the correwct item type
+    SpawnEntity(hardware, memory, ITEM, HEALTH_POTION, pos.x, pos.y, 0);
     return false;
 }
 
@@ -125,7 +136,7 @@ bool InteractCauldren(HardwareInterface hardware, MemoryInterface memory,EntityI
 *  TODO chance to melt items in bag
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool InteractAcidCloud(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
+bool InteractAcidCloud(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractAcidCloud");
     return false;
@@ -135,7 +146,7 @@ bool InteractAcidCloud(HardwareInterface hardware, MemoryInterface memory,Entity
 *  TODO chance to apply poison
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool InteractPoisonGas(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
+bool InteractPoisonGas(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractPoisonGas");
     return false;
@@ -145,7 +156,7 @@ bool InteractPoisonGas(HardwareInterface hardware, MemoryInterface memory,Entity
 *  TODO chance to do damage
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool InteractSmokeCloud(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
+bool InteractSmokeCloud(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractSmokeCloud");
     return false;
@@ -156,7 +167,7 @@ bool InteractSmokeCloud(HardwareInterface hardware, MemoryInterface memory,Entit
 *  TODO chance to generate an item
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool InteractCoffin(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
+bool InteractCoffin(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractCoffin");
     return false;
@@ -167,7 +178,7 @@ bool InteractCoffin(HardwareInterface hardware, MemoryInterface memory,EntityId 
 *  TODO chance to generate an item
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool InteractSarcophagus(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
+bool InteractSarcophagus(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractSarcophagus");
     return false;
@@ -177,7 +188,7 @@ bool InteractSarcophagus(HardwareInterface hardware, MemoryInterface memory,Enti
 *
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool InteractHangingCorpse(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
+bool InteractHangingCorpse(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractHangingCorpse");
     return false;
@@ -187,7 +198,7 @@ bool InteractHangingCorpse(HardwareInterface hardware, MemoryInterface memory,En
 *
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool InteractLaidCorpse(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
+bool InteractLaidCorpse(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractLaidCorpse");
     return false;
@@ -199,7 +210,7 @@ bool InteractLaidCorpse(HardwareInterface hardware, MemoryInterface memory,Entit
 *  TODO chance to to damage when the player moves onto
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool InteractBarredDoor(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
+bool InteractBarredDoor(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractBarredDoor");
     return false;
@@ -211,7 +222,7 @@ bool InteractBarredDoor(HardwareInterface hardware, MemoryInterface memory,Entit
 *  TODO chance to to damage when the player moves onto
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool InteractIronDoor(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
+bool InteractIronDoor(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractIronDoor");
     return false;
@@ -223,7 +234,7 @@ bool InteractIronDoor(HardwareInterface hardware, MemoryInterface memory,EntityI
 *  TODO chance to to damage when the player moves onto
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool InteractStoneDoor(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
+bool InteractStoneDoor(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractStoneDoor");
     return false;
@@ -235,7 +246,7 @@ bool InteractStoneDoor(HardwareInterface hardware, MemoryInterface memory,Entity
 *  TODO chance to to damage when the player moves onto
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool InteractWickerDoor(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
+bool InteractWickerDoor(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractWickerDoor");
     return false;
@@ -247,7 +258,7 @@ bool InteractWickerDoor(HardwareInterface hardware, MemoryInterface memory,Entit
 *  TODO chance to to damage when the player moves onto
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool InteractWoodDoor(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
+bool InteractWoodDoor(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractWoodDoor");
     return false;
@@ -257,7 +268,7 @@ bool InteractWoodDoor(HardwareInterface hardware, MemoryInterface memory,EntityI
 *  TODO add a success chance
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool InteractLadder(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
+bool InteractLadder(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractLadder");
     MapAscend(hardware, memory, g_core.player.id);
@@ -268,7 +279,7 @@ bool InteractLadder(HardwareInterface hardware, MemoryInterface memory,EntityId 
 *
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool InteractStairs(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
+bool InteractStairs(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractStairs");
     MapDescend(hardware, memory, g_core.player.id);
@@ -279,7 +290,7 @@ bool InteractStairs(HardwareInterface hardware, MemoryInterface memory,EntityId 
 *
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool InteractCave(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
+bool InteractCave(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractCave");
     MapLateral(hardware, memory, g_core.player.id);
@@ -290,7 +301,7 @@ bool InteractCave(HardwareInterface hardware, MemoryInterface memory,EntityId ob
 *  TODO add light radius
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool InteractBonfire(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
+bool InteractBonfire(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractBonfire");
     return false;
@@ -300,7 +311,7 @@ bool InteractBonfire(HardwareInterface hardware, MemoryInterface memory,EntityId
 *  TODO add light radius
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool InteractBrazier(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
+bool InteractBrazier(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractBrazier");
     return false;
@@ -310,7 +321,7 @@ bool InteractBrazier(HardwareInterface hardware, MemoryInterface memory,EntityId
 *  TODO add light radius
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool InteractCampfire(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
+bool InteractCampfire(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractCampfire");
     return false;
@@ -320,7 +331,7 @@ bool InteractCampfire(HardwareInterface hardware, MemoryInterface memory,EntityI
 *  TODO add light radius
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool InteractStandingTorch(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
+bool InteractStandingTorch(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractStandingTorch");
     return false;
@@ -330,7 +341,7 @@ bool InteractStandingTorch(HardwareInterface hardware, MemoryInterface memory,En
 *  TODO add light radius
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool InteractWallTorch(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
+bool InteractWallTorch(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractWallTorch");
     return false;
@@ -341,7 +352,7 @@ bool InteractWallTorch(HardwareInterface hardware, MemoryInterface memory,Entity
 *  TODO deals damage
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool InteractCrumblingFloor(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
+bool InteractCrumblingFloor(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractCrumblingFloor");
     MapDescend(hardware, memory, g_core.player.id);
@@ -353,7 +364,7 @@ bool InteractCrumblingFloor(HardwareInterface hardware, MemoryInterface memory,E
 *  TODO melts items
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool InteractAcidFountain(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
+bool InteractAcidFountain(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractAcidFountain");
     return false;
@@ -363,7 +374,7 @@ bool InteractAcidFountain(HardwareInterface hardware, MemoryInterface memory,Ent
 *  TODO heals demons
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool InteractBloodFountain(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
+bool InteractBloodFountain(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractBloodFountain");
     return false;
@@ -373,7 +384,7 @@ bool InteractBloodFountain(HardwareInterface hardware, MemoryInterface memory,En
 *  TODO heals
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool InteractWaterFountain(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
+bool InteractWaterFountain(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractWaterFountain");
     return false;
@@ -384,7 +395,7 @@ bool InteractWaterFountain(HardwareInterface hardware, MemoryInterface memory,En
 *  TODO spawns an item
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool InteractHiddenCompartment(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
+bool InteractHiddenCompartment(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractHiddenCompartment");
     return false;
@@ -394,7 +405,7 @@ bool InteractHiddenCompartment(HardwareInterface hardware, MemoryInterface memor
 *
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool InteractAcidPit(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
+bool InteractAcidPit(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractAcidPit");
     return false;
@@ -404,7 +415,7 @@ bool InteractAcidPit(HardwareInterface hardware, MemoryInterface memory,EntityId
 *
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool InteractLavaPit(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
+bool InteractLavaPit(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractLavaPit");
     return false;
@@ -414,7 +425,7 @@ bool InteractLavaPit(HardwareInterface hardware, MemoryInterface memory,EntityId
 *
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool InteractNarowPit(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
+bool InteractNarowPit(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractNarowPit");
     return false;
@@ -424,7 +435,7 @@ bool InteractNarowPit(HardwareInterface hardware, MemoryInterface memory,EntityI
 *
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool InteractShallowPit(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
+bool InteractShallowPit(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractShallowPit");
     return false;
@@ -434,7 +445,7 @@ bool InteractShallowPit(HardwareInterface hardware, MemoryInterface memory,Entit
 *
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool InteractSnakesPit(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
+bool InteractSnakesPit(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractSnakesPit");
     return false;
@@ -444,7 +455,7 @@ bool InteractSnakesPit(HardwareInterface hardware, MemoryInterface memory,Entity
 *
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool InteractSpkiedPit(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
+bool InteractSpkiedPit(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractSpkiedPit");
     return false;
@@ -454,7 +465,7 @@ bool InteractSpkiedPit(HardwareInterface hardware, MemoryInterface memory,Entity
 *
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool InteractPitStandard(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
+bool InteractPitStandard(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractPitStandard");
     return false;
@@ -464,7 +475,7 @@ bool InteractPitStandard(HardwareInterface hardware, MemoryInterface memory,Enti
 *
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool InteractWaterPit(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
+bool InteractWaterPit(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractWaterPit");
     return false;
@@ -474,7 +485,7 @@ bool InteractWaterPit(HardwareInterface hardware, MemoryInterface memory,EntityI
 *
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool InteractWidePit(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
+bool InteractWidePit(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractWidePit");
     return false;
@@ -484,7 +495,7 @@ bool InteractWidePit(HardwareInterface hardware, MemoryInterface memory,EntityId
 *  TODO spawns an item
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool InteractArmorRack(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
+bool InteractArmorRack(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractArmorRack");
     return false;
@@ -494,7 +505,7 @@ bool InteractArmorRack(HardwareInterface hardware, MemoryInterface memory,Entity
 *  TODO spawns an item
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool InteractWeaponRack(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
+bool InteractWeaponRack(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractWeaponRack");
     return false;
@@ -504,7 +515,7 @@ bool InteractWeaponRack(HardwareInterface hardware, MemoryInterface memory,Entit
 *  TODO spawns an item
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool InteractBarrel(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
+bool InteractBarrel(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractBarrel");
     return false;
@@ -514,7 +525,7 @@ bool InteractBarrel(HardwareInterface hardware, MemoryInterface memory,EntityId 
 *  TODO spawns an item
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool InteractBasket(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
+bool InteractBasket(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractBasket");
     return false;
@@ -524,7 +535,7 @@ bool InteractBasket(HardwareInterface hardware, MemoryInterface memory,EntityId 
 *  TODO spawns an item
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool InteractChest(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
+bool InteractChest(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractChest");
     return false;
@@ -534,7 +545,7 @@ bool InteractChest(HardwareInterface hardware, MemoryInterface memory,EntityId o
 *  TODO spawns an item
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool InteractCoffer(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
+bool InteractCoffer(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractCoffer");
     return false;
@@ -544,7 +555,7 @@ bool InteractCoffer(HardwareInterface hardware, MemoryInterface memory,EntityId 
 *  TODO spawns an item
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool InteractCrate(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
+bool InteractCrate(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractCrate");
     return false;
@@ -554,7 +565,7 @@ bool InteractCrate(HardwareInterface hardware, MemoryInterface memory,EntityId o
 *  TODO spawns an item
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool InteractTrunk(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
+bool InteractTrunk(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractTrunk");
     return false;
@@ -564,7 +575,7 @@ bool InteractTrunk(HardwareInterface hardware, MemoryInterface memory,EntityId o
 *  TODO spawns an item
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool InteractUrn(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
+bool InteractUrn(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractUrn");
     return false;
@@ -574,7 +585,7 @@ bool InteractUrn(HardwareInterface hardware, MemoryInterface memory,EntityId obj
 *  TODO spawns an item
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool InteractVault(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
+bool InteractVault(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractVault");
     return false;
@@ -585,7 +596,7 @@ bool InteractVault(HardwareInterface hardware, MemoryInterface memory,EntityId o
 *  TODO no collision for trainers
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool InteractWard(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
+bool InteractWard(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractWard");
     return false;
@@ -595,7 +606,7 @@ bool InteractWard(HardwareInterface hardware, MemoryInterface memory,EntityId ob
 *
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool InteractWell(HardwareInterface hardware, MemoryInterface memory,EntityId object_id, EntityId e_id, ObjectData objectData)
+bool InteractWell(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractWell");
     return false;

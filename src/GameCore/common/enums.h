@@ -58,15 +58,17 @@ typedef enum
     ITEM_DATA,
     SPELL_DATA,
     ABILITY_DATA,
+    TRAINER_DATA,
     PARTY,
     BAG,
     SPELLS,
+    RELIGION,
     OPTIONS,
     EXIT,
     MAIN_MENUS_SIZE,
 } MainMenu;
 
-_Static_assert((MAIN_MENUS_SIZE == 11), "MainMenu state changed");
+_Static_assert((MAIN_MENUS_SIZE == 13), "MainMenu state changed");
 
 
 /**********************************************************************************************************************/
@@ -202,6 +204,7 @@ typedef enum
     CREATURE,
     OBJECT,
     ITEM,
+    TRAINER,
     SPELL,
     SKILL,
     NO_OBJECT_TYPE,

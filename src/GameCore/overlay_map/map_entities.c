@@ -23,13 +23,14 @@
 EntityId SpawnMonster(HardwareInterface hardware, MemoryInterface memory, uint8_t monType, uint8_t x, uint8_t y, uint8_t l);
 EntityId SpawnItem(HardwareInterface hardware, MemoryInterface memory, uint8_t itmType, uint8_t x, uint8_t y, uint8_t l);
 EntityId SpawnObject(HardwareInterface hardware, MemoryInterface memory, uint8_t shrineType, uint8_t x, uint8_t y, uint8_t l);
+EntityId SpawnTrainer(HardwareInterface hardware, MemoryInterface memory, uint8_t type, uint8_t x, uint8_t y, uint8_t l);
 typedef EntityId (*Spawn)(HardwareInterface hardware, MemoryInterface memory, uint8_t, uint8_t, uint8_t, uint8_t);
 
 /**********************************************************************************************************************/
 /** point array for creating entities
 **********************************************************************************************************************/
 SET_MEMORY(".map.rodata")
-const Spawn spawn[TOTAL_SPAWNABLE_OBJECT_TYPES] = {SpawnMonster, SpawnItem, SpawnObject};
+const Spawn spawn[TOTAL_SPAWNABLE_OBJECT_TYPES] = {SpawnMonster, SpawnObject, SpawnItem, SpawnTrainer};
 
 /**********************************************************************************************************************/
 /**Takes in an entity ID
@@ -46,8 +47,6 @@ uint8_t CheckCollision(EntityId id)
         creature_id = CheckTileForEntity(CREATURE, id, pos);
     return creature_id;
 };
-
-
 
 
 /**********************************************************************************************************************/
@@ -102,7 +101,6 @@ EntityId CheckTileForEntity(ObjectsTypes type, EntityId e_id, Position pos)
 SET_MEMORY(".map")
 Position QueueObjectMovePosition(EntityId id, uint8_t x, uint8_t y)
 {
-
     Position pos = {.x = x, .y = y};
     g_core.creatures.newPosition[id] = pos;
     return g_core.creatures.newPosition[id];
@@ -214,7 +212,6 @@ Position* GetEntityNewPositions(void)
 SET_MEMORY(".map")
 EntityId SpawnMonster(HardwareInterface hardware, MemoryInterface memory, uint8_t type, uint8_t x, uint8_t y, uint8_t l)
 {
-
     EntityId id = NO_ENTITY;
     for (uint16_t i = 0; i < ENTITY_COUNT; ++i)
         if (!GetBit(g_core.creatures.active, i))
@@ -231,12 +228,8 @@ EntityId SpawnMonster(HardwareInterface hardware, MemoryInterface memory, uint8_
     g_core.creatures.types[id] = type;
 
     GetStats(hardware, memory, &g_core.creatures.stats[id], monType, l);
-
     SetXPToLevel(id, &g_core.creatures.xp[id]);
-
-
     g_core.creatures.hp[id] = GetHP(monType, l);
-
     g_core.creatures.mp[id] = GetMP(monType, l);
 
     g_core.creatures.senses[id].sight = 7;
@@ -308,6 +301,32 @@ EntityId SpawnObject(HardwareInterface hardware, MemoryInterface memory, uint8_t
 }
 
 /**********************************************************************************************************************/
+/** Sets initial data values of a given entity ID of type object
+ *  TODO - cahnge to a generic object spawner, we wll have 255 object types, shirne will be one
+**********************************************************************************************************************/
+SET_MEMORY(".map")
+EntityId SpawnTrainer(HardwareInterface hardware, MemoryInterface memory, uint8_t type, uint8_t x, uint8_t y, uint8_t l)
+{
+    EntityId id = NO_ENTITY;
+    for (uint16_t i = 0; i < ENTITY_COUNT; ++i)
+        if (!GetBit(g_core.trainers.active, i))
+        {
+            id = i;
+            SetBit(g_core.trainers.active, id, true);
+            break;
+        }
+
+    SetBit(g_core.trainers.onMap, id, true);
+    Position pos = {.x = x, .y = y};
+    g_core.trainers.position[id] = pos;
+    g_core.trainers.types[id] = type;
+    g_core.trainers.metaData[id].value = (l + 10) + (l * 5);
+    g_core.trainers.total++;
+    return id;
+}
+
+
+/**********************************************************************************************************************/
 /** Sets initial data values of a given the type of object, the id of that type, position and level
 **********************************************************************************************************************/
 SET_MEMORY(".map")
@@ -315,8 +334,6 @@ EntityId SpawnEntity(HardwareInterface hardware, MemoryInterface memory, Objects
 {
     return spawn[type](hardware, memory, t, x, y, l);;
 }
-
-
 
 
 SET_MEMORY(".map")
@@ -446,27 +463,39 @@ void PopulateLevelCreatures(HardwareInterface hardware, MemoryInterface memory)
 SET_MEMORY(".map")
 void PopulateLevelItems(HardwareInterface hardware, MemoryInterface memory)
 {
-    uint8_t creature_level = 1;
+    uint8_t item_level = 1;
     for (uint8_t i = 0; i < NUM_MAP_ITEMS; ++i)
     {
         const ItemTypes item_type = hardware.GetRandom_uint8_t(0, ITEM_COUNT);
         const Position pos = FindOpenMapLocation(hardware, ITEM);
-        SpawnEntity(hardware, memory, ITEM, item_type, pos.x, pos.y, creature_level);
+        SpawnEntity(hardware, memory, ITEM, item_type, pos.x, pos.y, item_level);
     }
 }
 
 SET_MEMORY(".map")
 void PopulateLevelObjects(HardwareInterface hardware, MemoryInterface memory)
 {
-    uint8_t creature_level = 1;
+    uint8_t object_level = 1;
     for (uint8_t i = 0; i < NUM_MAP_OBJECTS; ++i)
     {
         const Object object_type = hardware.GetRandom_uint8_t(0, OBJECT_COUNT);
         const Position pos = FindOpenMapLocation(hardware, OBJECT);
-        SpawnEntity(hardware, memory, OBJECT, object_type, pos.x, pos.y, creature_level);
+        SpawnEntity(hardware, memory, OBJECT, object_type, pos.x, pos.y, object_level);
     }
 }
 
+
+SET_MEMORY(".map")
+void PopulateLevelTrainers(HardwareInterface hardware, MemoryInterface memory)
+{
+    uint8_t trainer_level = 1;
+    for (uint8_t i = 0; i < NUM_MAP_TRAINERS; ++i)
+    {
+        const ItemTypes trainer_type = hardware.GetRandom_uint8_t(0, TRAINER_COUNT);
+        const Position pos = FindOpenMapLocation(hardware, TRAINER);
+        SpawnEntity(hardware, memory, TRAINER, trainer_type, pos.x, pos.y, trainer_level);
+    }
+}
 
 /**********************************************************************************************************************/
 /** Checks whether is given entity ID can detect the target entity ID
@@ -496,7 +525,6 @@ bool InDetectionRange(EntityId id, EntityId targetID)
 
     return false;
 }
-
 
 
 /**********************************************************************************************************************/

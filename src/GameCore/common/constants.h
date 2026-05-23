@@ -96,7 +96,7 @@ _Static_assert(OBJECT_COUNT <= 256, "max must be 256 - one byte");
 #define ENTITY_COUNT 256
 #define NO_ENTITY 255
 #define MAX_ABILITIES 6
-#define TOTAL_SPAWNABLE_OBJECT_TYPES 3
+#define TOTAL_SPAWNABLE_OBJECT_TYPES 4
 
 /**********************************************************************************************************************/
 /**BATTLE FRAMES constants

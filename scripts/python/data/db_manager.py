@@ -749,8 +749,8 @@ CreatureType = namedtuple('CreatureType', ['formatted', 'type_0', 'type_1'])
 CreatureData = namedtuple('CreatureData', ['type_0', 'type_1'])
 SpellData = namedtuple('SpellData', ['power', 'mana_cost', 'type_0', 'power_points'])
 SkillData = namedtuple('AbilityData', ['power', 'mana_cost', 'type_0'])
-ItemData = namedtuple('ItemData', ['power', 'item_level', 'item_type'])
-ObjectData = namedtuple('ObjectData', ['power', 'object_type'])
+ItemData = namedtuple('ItemData', ['power', 'item_level', 'item_type', 'consumable', 'consumable_party'])
+ObjectData = namedtuple('ObjectData', ['power', 'object_type', 'consumable'])
 MapSpriteData = namedtuple('MapSpriteData', ['sprite_idx', 'sprite_color_idx'])
 
 
@@ -944,11 +944,11 @@ def get_items_data():
     # Swap: make type_string the key, enum the value
     type_to_enum = {type_str: enum for enum, type_str in cursor.fetchall()}
 
-    cursor.execute('SELECT power, item_level, item_type FROM items WHERE used = 1 ORDER BY name ASC')
+    cursor.execute('SELECT power, item_level, item_type, consumable, consumable_party FROM items WHERE used = 1 ORDER BY name ASC')
 
     formatted_results = [
-        ItemData(power, item_level, item_type)
-        for power, item_level, item_type in cursor.fetchall()
+        ItemData(power, item_level, item_type, consumable, consumable_party)
+        for power, item_level, item_type, consumable, consumable_party in cursor.fetchall()
     ]
 
     conn.close()
@@ -982,11 +982,11 @@ def get_objects_data():
     # Swap: make type_string the key, enum the value
     type_to_enum = {type_str: enum for enum, type_str in cursor.fetchall()}
 
-    cursor.execute('SELECT power, object_type FROM objects WHERE used = 1 ORDER BY name ASC')
+    cursor.execute('SELECT power, object_type, consumable FROM objects WHERE used = 1 ORDER BY name ASC')
 
     formatted_results = [
-        ObjectData(power, object_type)
-        for power, object_type in cursor.fetchall()
+        ObjectData(power, object_type, consumable)
+        for power, object_type, consumable in cursor.fetchall()
     ]
 
     conn.close()

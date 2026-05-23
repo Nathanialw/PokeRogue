@@ -19,9 +19,8 @@
 #include "map_memory_access.h"
 
 
-
-/**********************************************************************************************************************/
-/** Forward declared functions for the main menu
+/**********************************************************************************************************************
+** Forward declared functions for the main menu
 **********************************************************************************************************************/
 
 bool MiniMap(HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update);
@@ -30,15 +29,17 @@ bool Objectpedia(HardwareInterface hardware, InputInterface input, MemoryInterfa
 bool Itempedia(HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update);
 bool Spellpedia(HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update);
 bool Abilitypedia(HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update);
+bool Trainerpedia(HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update);
 bool Party(HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update);
 bool Bag(HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update);
 bool Spells(HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update);
+bool Religion(HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update);
 bool Options(HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update);
 bool Exit(HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update);
 
 
-/**********************************************************************************************************************/
-/** Function pointers to control which submenu to display
+/**********************************************************************************************************************
+** Function pointers to control which submenu to display
  *  Use the menu cursor position y to index into this array
 **********************************************************************************************************************/
 SET_MEMORY(".map.rodata")
@@ -49,15 +50,17 @@ SubMenu submenus[MAIN_MENUS_SIZE] = {
     Itempedia,
     Spellpedia,
     Abilitypedia,
+    Trainerpedia,
     Party,
     Bag,
     Spells,
+    Religion,
     Options,
     Exit,
 };
 
-/**********************************************************************************************************************/
-/**
+/**********************************************************************************************************************
+**
  *      IMPLEMENTATIONS
  *
  *      For lists:
@@ -66,8 +69,8 @@ SubMenu submenus[MAIN_MENUS_SIZE] = {
  *
 **********************************************************************************************************************/
 
-/**********************************************************************************************************************/
-/*
+/**********************************************************************************************************************
+*
 **********************************************************************************************************************/
 SET_MEMORY(".map")
 bool Back(SubMainMenuWindow menuWin)
@@ -90,8 +93,8 @@ bool Back(SubMainMenuWindow menuWin)
     return true;
 }
 
-/**********************************************************************************************************************/
-/*
+/**********************************************************************************************************************
+*
 **********************************************************************************************************************/
 SET_MEMORY(".map")
 bool ToggleMenu(SubMainMenuWindow menuWin, uint8_t numMenuOptions)
@@ -110,8 +113,8 @@ bool ToggleMenu(SubMainMenuWindow menuWin, uint8_t numMenuOptions)
     return false;
 }
 
-/**********************************************************************************************************************/
-/** MAP DISPLAY
+/**********************************************************************************************************************
+** MAP DISPLAY
  * Sets the current menu mode to minimap value
  *  the display code handles fetching the object data to draw the pixels to the screen
 **********************************************************************************************************************/
@@ -125,8 +128,8 @@ bool MiniMap(HardwareInterface hardware, InputInterface input, MemoryInterface m
 };
 
 
-/**********************************************************************************************************************/
-/** LIST
+/**********************************************************************************************************************
+** LIST
 **********************************************************************************************************************/
 SET_MEMORY(".map")
 bool MonsterData(HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update)
@@ -158,8 +161,8 @@ bool MonsterData(HardwareInterface hardware, InputInterface input, MemoryInterfa
 };
 
 
-/**********************************************************************************************************************/
-/** LIST
+/**********************************************************************************************************************
+** LIST
 **********************************************************************************************************************/
 SET_MEMORY(".map")
 bool Objectpedia(HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update)
@@ -189,8 +192,8 @@ bool Objectpedia(HardwareInterface hardware, InputInterface input, MemoryInterfa
     return true;
 };
 
-/**********************************************************************************************************************/
-/** LIST
+/**********************************************************************************************************************
+** LIST
 **********************************************************************************************************************/
 SET_MEMORY(".map")
 bool Itempedia(HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update)
@@ -208,6 +211,7 @@ bool Itempedia(HardwareInterface hardware, InputInterface input, MemoryInterface
     uint8_t min_s = g_core.menu.menuScrollOffset[g_core.menu.depth].y;
     uint8_t max_s = min_s + g_core.menu.visibleMenuOptions;
     if (max_s >= 255) max_s = 255; //prevent wraparound, assumes NO_CREATURE is max in Creature enum
+
     while ((min_s + i) < max_s)
     {
         Flash_GetItemName(memory, g_core.menu.text[i], min_s + i);
@@ -218,8 +222,8 @@ bool Itempedia(HardwareInterface hardware, InputInterface input, MemoryInterface
     return true;
 };
 
-/**********************************************************************************************************************/
-/** LIST
+/**********************************************************************************************************************
+** LIST
 **********************************************************************************************************************/
 SET_MEMORY(".map")
 bool Spellpedia(HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update)
@@ -248,8 +252,8 @@ bool Spellpedia(HardwareInterface hardware, InputInterface input, MemoryInterfac
     return true;
 }
 
-/**********************************************************************************************************************/
-/** LIST
+/**********************************************************************************************************************
+** LIST
 **********************************************************************************************************************/
 SET_MEMORY(".map")
 bool Abilitypedia(HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update)
@@ -277,8 +281,18 @@ bool Abilitypedia(HardwareInterface hardware, InputInterface input, MemoryInterf
     return true;
 }
 
-/**********************************************************************************************************************/
-/**
+
+/**********************************************************************************************************************
+** LIST /TODO: add the
+**********************************************************************************************************************/
+SET_MEMORY(".map")
+bool Trainerpedia(HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update)
+{
+    return true;
+}
+
+/**********************************************************************************************************************
+**
 **********************************************************************************************************************/
 SET_MEMORY(".map")
 void OpenUseOnParty(HardwareInterface hardware, MemoryInterface memory, UseFrameBack f)
@@ -296,8 +310,8 @@ void OpenUseOnParty(HardwareInterface hardware, MemoryInterface memory, UseFrame
     g_core.menu.totalMenuOptions = MAX_PARTY_SIZE;
 }
 
-/**********************************************************************************************************************/
-/**
+/**********************************************************************************************************************
+**
 **********************************************************************************************************************/
 SET_MEMORY(".map")
 void BackUseOnParty(MemoryInterface memory)
@@ -318,8 +332,8 @@ void BackUseOnParty(MemoryInterface memory)
 }
 
 
-/**********************************************************************************************************************/
-/** LIST
+/**********************************************************************************************************************
+** LIST
 **********************************************************************************************************************/
 SET_MEMORY(".map")
 bool Party(HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update)
@@ -332,8 +346,8 @@ bool Party(HardwareInterface hardware, InputInterface input, MemoryInterface mem
     return true;
 };
 
-/**********************************************************************************************************************/
-/** LIST
+/**********************************************************************************************************************
+** LIST
 **********************************************************************************************************************/
 SET_MEMORY(".map")
 bool Bag(HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update)
@@ -356,10 +370,17 @@ bool Bag(HardwareInterface hardware, InputInterface input, MemoryInterface memor
                 return true;
             }
 
-            if (UseItem(memory, item_id, NO_ENTITY))
+            ItemData itemData;
+            Flash_GetItemData(memory, &itemData, item_id);
+            if (itemData.consumable_party)
+                OpenUseOnParty(hardware, memory, BACK_ITEM);
+
+            if (!itemData.consumable)
+                return true;
+
+            if (UseItem(memory, &itemData, item_id, NO_ENTITY))
                 ConsumeItem(idx, item_id);
             else
-                OpenUseOnParty(hardware, memory, BACK_ITEM);
 
             return true;
         }
@@ -368,7 +389,10 @@ bool Bag(HardwareInterface hardware, InputInterface input, MemoryInterface memor
         EntityId item_id = g_core.player.itemID[idx];
         EntityId entity_id = g_core.player.partyID[g_core.menu.sel[g_core.menu.depth].y + g_core.menu.menuScrollOffset[g_core.menu.depth].y];
 
-        if (UseItem(memory, item_id, entity_id))
+        ItemData itemData;
+        Flash_GetItemData(memory, &itemData, item_id);
+        if (!itemData.consumable_party) return false;
+        if (UseItem(memory, &itemData, item_id, entity_id))
         {
             ConsumeItem(idx, item_id);
             BackUseOnParty(memory);
@@ -390,8 +414,8 @@ bool Bag(HardwareInterface hardware, InputInterface input, MemoryInterface memor
     return true;
 };
 
-/**********************************************************************************************************************/
-/** LIST
+/**********************************************************************************************************************
+** LIST
 **********************************************************************************************************************/
 SET_MEMORY(".map")
 bool Spells(HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update)
@@ -429,8 +453,17 @@ bool Spells(HardwareInterface hardware, InputInterface input, MemoryInterface me
     return true;
 };
 
-/**********************************************************************************************************************/
-/** LIST
+/**********************************************************************************************************************
+** LIST
+**********************************************************************************************************************/
+SET_MEMORY(".map")
+bool Religion(HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update)
+{
+    return true;
+}
+
+/**********************************************************************************************************************
+** LIST
 **********************************************************************************************************************/
 SET_MEMORY(".map")
 bool Options(HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update)
@@ -525,8 +558,8 @@ bool Options(HardwareInterface hardware, InputInterface input, MemoryInterface m
     return true;
 };
 
-/**********************************************************************************************************************/
-/** Closes the main menu
+/**********************************************************************************************************************
+** Closes the main menu
 **********************************************************************************************************************/
 SET_MEMORY(".map")
 bool Exit(HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update)
@@ -536,8 +569,8 @@ bool Exit(HardwareInterface hardware, InputInterface input, MemoryInterface memo
     return false;
 };
 
-/**********************************************************************************************************************/
-/** Opens the submenu at the index of the cursor y position
+/**********************************************************************************************************************
+** Opens the submenu at the index of the cursor y position
 **********************************************************************************************************************/
 SET_MEMORY(".map")
 bool OpenSubMenu(HardwareInterface hardware, InputInterface input, MemoryInterface memory)
@@ -546,8 +579,8 @@ bool OpenSubMenu(HardwareInterface hardware, InputInterface input, MemoryInterfa
     return r;
 }
 
-/**********************************************************************************************************************/
-/**
+/**********************************************************************************************************************
+**
 **********************************************************************************************************************/
 SET_MEMORY(".map")
 bool MenuBack(MemoryInterface memory)
@@ -577,8 +610,8 @@ bool MenuBack(MemoryInterface memory)
     return true;
 }
 
-/**********************************************************************************************************************/
-/** Sets Menu to open
+/**********************************************************************************************************************
+** Sets Menu to open
  *  Reset menu cache values to defaults
 **********************************************************************************************************************/
 SET_MEMORY(".map")

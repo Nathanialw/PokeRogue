@@ -11,6 +11,7 @@
 
 #include "core_actions.h"
 #include "core_entities.h"
+#include "core_memory_access.h"
 #include "core_menu.h"
 #include "core_player.h"
 #include "core_ram.h"
@@ -123,7 +124,10 @@ bool BattleItems(HardwareInterface hardware, InputInterface input, MemoryInterfa
         uint8_t idx = g_core.menu.sel[g_core.menu.depth].y + g_core.menu.menuScrollOffset[g_core.menu.depth].y;
         EntityId item_id = g_core.player.itemID[idx];
         EntityId entity_id = g_core.battleMode.playerMonsterID;
-        if (UseItem(memory, item_id, entity_id))
+        ItemData itemData;
+        Flash_GetItemData(memory, &itemData, item_id);
+        if (!itemData.consumable_party) return true;
+        if (UseItem(memory, &itemData, item_id, entity_id))
         {
             ConsumeItem(idx, item_id);
             FillListByEntityID(memory, g_core.player.currentBagSize, ITEM, g_core.player.itemID);
