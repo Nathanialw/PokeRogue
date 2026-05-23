@@ -23,6 +23,7 @@
 #include "map_movement.h"
 #include "map_player.h"
 #include "map_rendering.h"
+#include "tooltip.h"
 
 
 /**********************************************************************************************************************/
@@ -211,8 +212,9 @@ void HandleGameState(GameInterface* spi)
 {
     if (g_core.state.inputState == INPUT_ACTING)
     {
-        UpdateGame(spi->hardware);
+        UpdateGame(spi->memory, spi->hardware);
         RenderObjects(spi->graphics, spi->hardware, spi->memory);
+        UpdateTooltip(spi->graphics, spi->memory);
     }
 
     if (g_core.state.inputState == INPUT_MENU)

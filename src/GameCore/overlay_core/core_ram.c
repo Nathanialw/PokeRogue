@@ -20,6 +20,7 @@ const ItemEffect itemFunctions[ITEM_COUNT] = {
 
 SET_MEMORY(".core.data")
 CoreRunState g_core = {
+    .floor = 0,
     .btns.defaultGameLoopRate = 10,
     .btns.gameLoopRate = 10,
 };

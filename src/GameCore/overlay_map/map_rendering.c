@@ -234,6 +234,7 @@ void RenderObjects(GraphicsInterface graphics, HardwareInterface hardware, Memor
     for (uint8_t i = 0; i < (VIEW_TH * VIEW_TW) >> 3; ++i)
         g_map.view.dirtyTiles[i] = 0;
 
+
     ResetRenders(&g_map.view.viewItems, NO_ITEM);
     ResetRenders(&g_map.view.viewObjects, NO_OBJECT);
     ResetRenders(&g_map.view.viewCreatures, NO_CREATURE);
@@ -251,13 +252,13 @@ void RenderObjects(GraphicsInterface graphics, HardwareInterface hardware, Memor
     SetDirty(&g_map.view.viewObjects);
     SetDirty(&g_map.view.viewCreatures);
 
-    if (g_core.btns.gameSpeed >= 5)
-        ReDrawTiles(graphics, memory, cam);
+    if (g_map.clearTooltip)
+    {
+        g_map.clearTooltip = false;
+        for (uint16_t i = (VIEW_TW * VIEW_TH) - VIEW_TW; i < VIEW_TW * VIEW_TH; i++)
+            SetBit(g_map.view.dirtyTiles, i, true);
+    }
 
-
+    ReDrawTiles(graphics, memory, cam);
     ReDrawSprites(graphics, memory);
-
-
-    // if (g_core.btns.gameSpeed >= 5)
-    // hardware.SleepMS(1000 / g_core.btns.gameSpeed);
 }

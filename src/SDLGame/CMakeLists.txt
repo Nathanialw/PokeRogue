@@ -10,7 +10,7 @@ add_executable(SDLRogue
 )
 
 target_compile_definitions(SDLRogue PRIVATE ENABLE_DEBUG_OUTPUT ENABLE_ASSERTS SDL)
-target_compile_definitions(GameCore PRIVATE ENABLE_DEBUG_OUTPUT ENABLE_ASSERTS SDL)#MEMORY_PRINT
+target_compile_definitions(GameCore PRIVATE ENABLE_DEBUG_OUTPUT ENABLE_ASSERTS SDL TEST_MAP)#MEMORY_PRINT
 target_compile_definitions(PicoTypes PRIVATE ENABLE_DEBUG_OUTPUT ENABLE_ASSERTS SDL)
 
 

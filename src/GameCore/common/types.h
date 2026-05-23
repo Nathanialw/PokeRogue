@@ -213,11 +213,22 @@ _Static_assert(sizeof(Position) == 2, "ObjectType must be 2 bytes");
 typedef union
 {
     uint8_t unused;
+    uint8_t value;
+
+    //items
     uint8_t CreatureID;
     uint8_t SpellId;
     uint8_t AbilityId;
     uint8_t ItemId;
-    uint8_t value;
+
+
+    //objects
+    union
+    {
+        uint8_t toggleable : 1;
+        uint8_t active : 1;
+        uint8_t active1 : 6;
+    };
 } ObjectType;
 
 _Static_assert(sizeof(ObjectType) == 1, "ObjectType must be 1 byte");

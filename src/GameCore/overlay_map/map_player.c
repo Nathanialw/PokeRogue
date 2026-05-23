@@ -191,5 +191,5 @@ void PlayerInteractObjectInCell(MemoryInterface memory, HardwareInterface hardwa
 {
     Position pos = GetPlayerPosition();
     EntityId object_id = CheckTileForEntity(OBJECT, g_core.player.id, pos);
-    InteractObject(memory, hardware, object_id, g_core.player.id);
+    InteractObject(memory, hardware, object_id, g_core.player.partyID[0]);
 }

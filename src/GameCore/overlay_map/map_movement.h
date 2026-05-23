@@ -8,6 +8,6 @@
 void InitGame(HardwareInterface hardware, MemoryInterface memory);
 void NewMap(void);
 void InitTitleScreen(void);
-void UpdateGame(HardwareInterface hardware);
+void UpdateGame(MemoryInterface memory, HardwareInterface hardware);
 
 

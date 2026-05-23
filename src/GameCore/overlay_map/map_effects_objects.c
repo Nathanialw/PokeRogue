@@ -18,6 +18,14 @@
  *
 **********************************************************************************************************************/
 
+bool SetUsed(EntityId e_id)
+{
+    if (!g_core.objects.interactable[e_id])
+        return false;
+    g_core.objects.interactable[e_id] = false;
+    return true;
+}
+
 /**********************************************************************************************************************
 *  TODO run the effect stored as the index in the metadata field
 **********************************************************************************************************************/
@@ -148,6 +156,7 @@ bool InteractAcidCloud(HardwareInterface hardware, MemoryInterface memory, Entit
 SET_MEMORY(".map")
 bool InteractPoisonGas(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
+    ApplyPoison(e_id, 1);
     DEBUG("InteractPoisonGas");
     return false;
 }
@@ -169,6 +178,8 @@ bool InteractSmokeCloud(HardwareInterface hardware, MemoryInterface memory, Enti
 SET_MEMORY(".map")
 bool InteractCoffin(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
+    if (SetUsed(e_id))
+        CreateItemCommon();
     DEBUG("InteractCoffin");
     return false;
 }
@@ -180,6 +191,8 @@ bool InteractCoffin(HardwareInterface hardware, MemoryInterface memory, EntityId
 SET_MEMORY(".map")
 bool InteractSarcophagus(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
+    if (SetUsed(e_id))
+        CreateItemCommon();
     DEBUG("InteractSarcophagus");
     return false;
 }
@@ -190,6 +203,8 @@ bool InteractSarcophagus(HardwareInterface hardware, MemoryInterface memory, Ent
 SET_MEMORY(".map")
 bool InteractHangingCorpse(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
+    if (SetUsed(e_id))
+        CreateItemCommon();
     DEBUG("InteractHangingCorpse");
     return false;
 }
@@ -200,6 +215,8 @@ bool InteractHangingCorpse(HardwareInterface hardware, MemoryInterface memory, E
 SET_MEMORY(".map")
 bool InteractLaidCorpse(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
+    if (SetUsed(e_id))
+        CreateItemCommon();
     DEBUG("InteractLaidCorpse");
     return false;
 }
@@ -304,6 +321,8 @@ SET_MEMORY(".map")
 bool InteractBonfire(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractBonfire");
+    if (g_core.objects.interactable[e_id])
+        g_core.objects.toggle[e_id] = !g_core.objects.toggle[e_id];
     return false;
 }
 
@@ -314,6 +333,8 @@ SET_MEMORY(".map")
 bool InteractBrazier(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractBrazier");
+    if (g_core.objects.interactable[e_id])
+        g_core.objects.toggle[e_id] = !g_core.objects.toggle[e_id];
     return false;
 }
 
@@ -324,6 +345,8 @@ SET_MEMORY(".map")
 bool InteractCampfire(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractCampfire");
+    if (g_core.objects.interactable[e_id])
+        g_core.objects.toggle[e_id] = !g_core.objects.toggle[e_id];
     return false;
 }
 
@@ -334,6 +357,8 @@ SET_MEMORY(".map")
 bool InteractStandingTorch(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractStandingTorch");
+    if (g_core.objects.interactable[e_id])
+        g_core.objects.toggle[e_id] = !g_core.objects.toggle[e_id];
     return false;
 }
 
@@ -343,6 +368,8 @@ bool InteractStandingTorch(HardwareInterface hardware, MemoryInterface memory, E
 SET_MEMORY(".map")
 bool InteractWallTorch(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
+    if (g_core.objects.interactable[e_id])
+        g_core.objects.toggle[e_id] = !g_core.objects.toggle[e_id];
     DEBUG("InteractWallTorch");
     return false;
 }
@@ -387,6 +414,16 @@ SET_MEMORY(".map")
 bool InteractWaterFountain(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractWaterFountain");
+    return false;
+}
+
+/**********************************************************************************************************************
+*
+**********************************************************************************************************************/
+SET_MEMORY(".map")
+bool InteractWell(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
+{
+    DEBUG("InteractWell");
     return false;
 }
 
@@ -455,7 +492,7 @@ bool InteractSnakesPit(HardwareInterface hardware, MemoryInterface memory, Entit
 *
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool InteractSpkiedPit(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
+bool InteractSpikedPit(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractSpkiedPit");
     return false;
@@ -517,6 +554,8 @@ bool InteractWeaponRack(HardwareInterface hardware, MemoryInterface memory, Enti
 SET_MEMORY(".map")
 bool InteractBarrel(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
+    if (SetUsed(e_id))
+        CreateItemCommon();
     DEBUG("InteractBarrel");
     return false;
 }
@@ -527,6 +566,8 @@ bool InteractBarrel(HardwareInterface hardware, MemoryInterface memory, EntityId
 SET_MEMORY(".map")
 bool InteractBasket(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
+    if (SetUsed(e_id))
+        CreateItemCommon();
     DEBUG("InteractBasket");
     return false;
 }
@@ -537,6 +578,8 @@ bool InteractBasket(HardwareInterface hardware, MemoryInterface memory, EntityId
 SET_MEMORY(".map")
 bool InteractChest(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
+    if (SetUsed(e_id))
+        CreateItemMagic();
     DEBUG("InteractChest");
     return false;
 }
@@ -547,6 +590,8 @@ bool InteractChest(HardwareInterface hardware, MemoryInterface memory, EntityId 
 SET_MEMORY(".map")
 bool InteractCoffer(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
+    if (SetUsed(e_id))
+        CreateItemCommon();
     DEBUG("InteractCoffer");
     return false;
 }
@@ -557,6 +602,8 @@ bool InteractCoffer(HardwareInterface hardware, MemoryInterface memory, EntityId
 SET_MEMORY(".map")
 bool InteractCrate(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
+    if (SetUsed(e_id))
+        CreateItemCommon();
     DEBUG("InteractCrate");
     return false;
 }
@@ -567,6 +614,8 @@ bool InteractCrate(HardwareInterface hardware, MemoryInterface memory, EntityId 
 SET_MEMORY(".map")
 bool InteractTrunk(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
+    if (SetUsed(e_id))
+        CreateItemMagic();
     DEBUG("InteractTrunk");
     return false;
 }
@@ -577,7 +626,8 @@ bool InteractTrunk(HardwareInterface hardware, MemoryInterface memory, EntityId 
 SET_MEMORY(".map")
 bool InteractUrn(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
-    DEBUG("InteractUrn");
+    if (SetUsed(e_id))
+        CreateItemCommon();
     return false;
 }
 
@@ -587,7 +637,8 @@ bool InteractUrn(HardwareInterface hardware, MemoryInterface memory, EntityId ob
 SET_MEMORY(".map")
 bool InteractVault(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
-    DEBUG("InteractVault");
+    if (SetUsed(e_id))
+        CreateItemCommon();
     return false;
 }
 
@@ -599,15 +650,5 @@ SET_MEMORY(".map")
 bool InteractWard(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractWard");
-    return false;
-}
-
-/**********************************************************************************************************************
-*
-**********************************************************************************************************************/
-SET_MEMORY(".map")
-bool InteractWell(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
-{
-    DEBUG("InteractWell");
     return false;
 }

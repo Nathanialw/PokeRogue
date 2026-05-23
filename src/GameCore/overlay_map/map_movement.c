@@ -12,6 +12,7 @@
 #include "core_memory_access.h"
 #include "core_ram.h"
 #include "lib_enums.h"
+#include "map_actions.h"
 
 #include "map_ai.h"
 #include "map_camera.h"
@@ -19,6 +20,8 @@
 #include "map_status_effects.h"
 #include "map_entities.h"
 #include "map_player.h"
+#include "map_ram.h"
+#include "tooltip.h"
 
 
 /**********************************************************************************************************************/
@@ -77,9 +80,12 @@ bool UpdatePositions(HardwareInterface hardware)
         }
 
         speed[id].current = player_speed - (max - cur);
-        CreatureAI(hardware, id);
-    }
+#if defined(TEST_MAP)
 
+#else
+        CreatureAI(hardware, id);
+#endif
+    }
 
     for (uint16_t id = 0; id < ENTITY_COUNT; ++id)
     {
@@ -105,6 +111,54 @@ bool UpdatePositions(HardwareInterface hardware)
 
     return true;
 }
+
+/**********************************************************************************************************************/
+/**Iterates through all entities sets position to the queued position
+**********************************************************************************************************************/
+SET_MEMORY(".map")
+void UpdateObjectCollision(MemoryInterface memory, HardwareInterface hardware)
+{
+    g_map.objectCollision = NO_OBJECT;
+    for (uint16_t e_id = 0; e_id < ENTITY_COUNT; ++e_id)
+    {
+        for (uint16_t o_id = 0; o_id < ENTITY_COUNT; ++o_id)
+        {
+            if (!GetBit(g_core.creatures.active, e_id) || !GetBit(g_core.objects.interactable, o_id)) continue;
+            Position cp = g_core.creatures.newPosition[e_id];
+            Position op = g_core.objects.position[o_id];
+            if (cp.x == op.x && cp.y == op.y)
+            {
+                InteractObject(memory, hardware, e_id, o_id);
+                if (e_id == GetPlayerID())
+                    g_map.objectCollision = e_id;
+            }
+        }
+    }
+
+    for (uint16_t e_id = 0; e_id < ENTITY_COUNT; ++e_id)
+    {
+        for (uint16_t o_id = 0; o_id < ENTITY_COUNT; ++o_id)
+        {
+            if (!GetBit(g_core.trainers.active, e_id) || !GetBit(g_core.objects.interactable, o_id)) continue;
+            Position cp = g_core.trainers.newPosition[e_id];
+            Position op = g_core.objects.position[o_id];
+            if (cp.x == op.x && cp.y == op.y)
+            {
+                InteractObject(memory, hardware, e_id, o_id);
+            }
+        }
+    }
+
+    EntityId e_id = GetPlayerID();
+    Position pos = GetPlayerPosition();
+    for (uint16_t i_id = 0; i_id < ENTITY_COUNT; ++i_id)
+    {
+        Position op = g_core.items.position[e_id];
+        if (pos.x == op.x && pos.y == op.y)
+            g_map.itemCollision = i_id;
+    }
+}
+
 
 /**********************************************************************************************************************/
 /**Iterates through all entities sets position to the queued position
@@ -150,7 +204,7 @@ void SetPositions(void)
  *  call every frame
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-void UpdateGame(HardwareInterface hardware)
+void UpdateGame(MemoryInterface memory, HardwareInterface hardware)
 {
     if (g_core.state.inputState == INPUT_ACTING) g_core.turn_count++;
     UpdateObjectStatusEffects(hardware);
@@ -158,5 +212,6 @@ void UpdateGame(HardwareInterface hardware)
     {
         SetPositions();
     }
+    UpdateObjectCollision(memory, hardware);
     SetCameraPlayer();
 }

@@ -25,7 +25,6 @@ typedef struct
         // uint16_t frameBuffer[BUFFER_H*SCREEN_W];
         // PartialFrameBuffer frameBuffer;
 
-        bool dirtyTiles[VIEW_TH][VIEW_TW];
         Creature newSprites[VIEW_TH][VIEW_TW];
         Tile tileCache;
 
@@ -55,9 +54,7 @@ typedef struct
     EntityId units[ENTITY_COUNT];
 
     EntityData entityData;
-
     uint8_t spriteCache[256];
-
     StatsRange statsCache;
 
 
@@ -66,6 +63,12 @@ typedef struct
 
     const char power[SMALL_STRINGS];
     const char rarity[SMALL_STRINGS];
+
+
+    EntityId objectCollision;
+    EntityId itemCollision;
+    char text[320/8];
+    bool clearTooltip;
 } MapRunState;
 
 

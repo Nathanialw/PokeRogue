@@ -43,6 +43,7 @@ void Flash_GetCreatureName(MemoryInterface memory, char* text, uint8_t index);
 void Flash_GetItemName(MemoryInterface memory, char* text, uint8_t index);
 void Flash_GetSpellName(MemoryInterface memory, char* text, uint8_t index);
 void Flash_GetSkillName(MemoryInterface memory, char* text, uint8_t index);
+void Flash_GetTrainerName(MemoryInterface memory, char* text, uint8_t index);
 
 //FUNCTIONS
 bool Flash_GetSpellEffect(HardwareInterface hardware, MemoryInterface memory, uint8_t index, EntityId id, EntityId target_id, SpellData spellData);

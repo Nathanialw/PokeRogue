@@ -7,8 +7,6 @@
 #include "core_utils.h"
 
 
-
-
 typedef struct
 {
     /**********************************************************************************************************************
@@ -21,6 +19,7 @@ typedef struct
     uint8_t floor;
     uint8_t biome : 4;
     uint8_t theme : 4;
+    uint8_t layout_type : 4;
     Camera camera;
 
 
@@ -203,6 +202,8 @@ typedef struct
         ObjectType metaData[ENTITY_COUNT]; //any 8 bit data, Creature type, Item type, etc
         BitFieldUint8 onMap;
         BitFieldUint8 active;
+        BitFieldUint8 toggle;
+        BitFieldUint8 interactable;
     } objects;
 
     struct
@@ -261,7 +262,6 @@ typedef struct
         uint16_t master_dimmer;
         Note notes[GENERATED_MELODY_LENGTH * 2];
     } music;
-
 } CoreRunState;
 
 
@@ -270,7 +270,6 @@ extern CoreRunState g_core; // Declaration only
 
 extern const SpellEffect spellFunctions[SPELL_COUNT];
 extern const ItemEffect itemFunctions[ITEM_COUNT];
-
 
 
 void GameRun_Reset(void); // call at new game / death

@@ -4,10 +4,10 @@
 
 #include "map_entities.h"
 
-#include "core_entities.h"
 #include "lib_types.h"
 #include "lib_memory.h"
 
+#include "core_entities.h"
 #include "core_utils.h"
 #include "core_ram.h"
 #include "core_memory_access.h"
@@ -438,6 +438,24 @@ void ResetEntities(HardwareInterface hardware, MemoryInterface memory, bool copy
 SET_MEMORY(".map")
 void PopulateLevelCreatures(HardwareInterface hardware, MemoryInterface memory)
 {
+#if defined(TEST_MAP)
+    uint8_t creature_level = g_core.floor;
+    Position pos = {.x = 14, .y = 30};
+    for (uint8_t i = 0; i < CREATURE_COUNT; ++i)
+    {
+        pos.x++;
+        if (i % 75 == 0)
+        {
+            pos.x = 14;
+            pos.y++;
+        }
+        SpawnEntity(hardware, memory, CREATURE, i, pos.x, pos.y, creature_level);
+    }
+
+    for (uint8_t i = 0; i < g_core.creatures.total; ++i)
+        if (GetBit(g_core.creatures.onMap, i) && GetBit(g_core.creatures.alive, i))
+            g_core.creatures.newPosition[i] = g_core.creatures.position[i];
+#else
     uint8_t creature_level = g_core.floor;
     for (uint8_t i = 0; i < NUM_BIOME_CREATURES; ++i)
     {
@@ -458,11 +476,26 @@ void PopulateLevelCreatures(HardwareInterface hardware, MemoryInterface memory)
     for (uint8_t i = 0; i < g_core.creatures.total; ++i)
         if (GetBit(g_core.creatures.onMap, i) && GetBit(g_core.creatures.alive, i))
             g_core.creatures.newPosition[i] = g_core.creatures.position[i];
+#endif
 }
 
 SET_MEMORY(".map")
 void PopulateLevelItems(HardwareInterface hardware, MemoryInterface memory)
 {
+    Position pos = {.x = 14, .y = 40};
+#if defined(TEST_MAP)
+    for (uint8_t i = 0; i < ITEM_COUNT; ++i)
+    {
+        pos.x++;
+        if (i % 75 == 0)
+        {
+            pos.x = 14;
+            pos.y++;
+        }
+        SpawnEntity(hardware, memory, ITEM, i, pos.x, pos.y, 1);
+    }
+
+#else
     uint8_t item_level = 1;
     for (uint8_t i = 0; i < NUM_MAP_ITEMS; ++i)
     {
@@ -470,11 +503,25 @@ void PopulateLevelItems(HardwareInterface hardware, MemoryInterface memory)
         const Position pos = FindOpenMapLocation(hardware, ITEM);
         SpawnEntity(hardware, memory, ITEM, item_type, pos.x, pos.y, item_level);
     }
+#endif
 }
 
 SET_MEMORY(".map")
 void PopulateLevelObjects(HardwareInterface hardware, MemoryInterface memory)
 {
+    Position pos = {.x = 14, .y = 45};
+#if defined(TEST_MAP)
+    for (uint8_t i = 0; i < OBJECT_COUNT; ++i)
+    {
+        pos.x++;
+        if (i % 75 == 0)
+        {
+            pos.x = 14;
+            pos.y++;
+        }
+        SpawnEntity(hardware, memory, OBJECT, i, pos.x, pos.y, 1);
+    }
+#else
     uint8_t object_level = 1;
     for (uint8_t i = 0; i < NUM_MAP_OBJECTS; ++i)
     {
@@ -482,12 +529,27 @@ void PopulateLevelObjects(HardwareInterface hardware, MemoryInterface memory)
         const Position pos = FindOpenMapLocation(hardware, OBJECT);
         SpawnEntity(hardware, memory, OBJECT, object_type, pos.x, pos.y, object_level);
     }
+#endif
 }
 
 
 SET_MEMORY(".map")
 void PopulateLevelTrainers(HardwareInterface hardware, MemoryInterface memory)
 {
+    Position pos = {.x = 14, .y = 55};
+
+#if defined(TEST_MAP)
+    for (uint8_t i = 0; i < TRAINER_COUNT; ++i)
+    {
+        pos.x++;
+        if (i % 75 == 0)
+        {
+            pos.x = 14;
+            pos.y++;
+        }
+        SpawnEntity(hardware, memory, TRAINER, i, pos.x, pos.y, 1);
+    }
+#else
     uint8_t trainer_level = 1;
     for (uint8_t i = 0; i < NUM_MAP_TRAINERS; ++i)
     {
@@ -495,6 +557,7 @@ void PopulateLevelTrainers(HardwareInterface hardware, MemoryInterface memory)
         const Position pos = FindOpenMapLocation(hardware, TRAINER);
         SpawnEntity(hardware, memory, TRAINER, trainer_type, pos.x, pos.y, trainer_level);
     }
+#endif
 }
 
 /**********************************************************************************************************************/

@@ -414,6 +414,21 @@ void Flash_GetSkillName(MemoryInterface memory, char* text, uint8_t index)
 #endif
 }
 
+SET_MEMORY(".core")
+void Flash_GetTrainerName(MemoryInterface memory, char* text, uint8_t index)
+{
+#ifdef STANDALONE
+    return g_gameFlash.text.descriptions.attacks[index];
+#else
+    memory.GetRom(STRINGS_NAMES_TRAINERS_POSITION + (SMALL_STRINGS * index), (uint8_t*)text, SMALL_STRINGS);
+
+#if defined(MEMORY_PRINT)
+    for (uint8_t i = 0; i < SMALL_STRINGS; i++)
+        memory.Print(str_spawn_creature_type, text[i]);
+    memory.Print(new_line);
+#endif
+#endif
+}
 
 SET_MEMORY(".core")
 void Flash_GetObjectName(MemoryInterface memory, char* text, uint8_t index)

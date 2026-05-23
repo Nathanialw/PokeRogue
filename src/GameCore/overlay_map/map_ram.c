@@ -18,4 +18,8 @@ SET_MEMORY(".map.data")
 MapRunState g_map = {
     .power = "Powr:\0",
     .rarity = "Rare:\0",
+
+    .objectCollision = NO_OBJECT,
+    .itemCollision = NO_ITEM,
+    .clearTooltip = false,
 };

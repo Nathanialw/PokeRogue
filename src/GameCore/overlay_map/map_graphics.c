@@ -495,11 +495,8 @@ void HandleGameMenuTypes(GraphicsInterface graphics, MemoryInterface memory, con
     const uint8_t size = (font_size == FONT8x8) ? TEXT_W : TILE_W;
     const uint8_t indent = 1;
 
-
-    if (typeA)
-        PrintLineStr(graphics, memory, x + (size * 10), y + (size * 18), font_size, 10, typeA, indent);
-    if (typeB)
-        PrintLineStr(graphics, memory, x + (size * 10), y + (size * 20) - 4, font_size, 10, typeB, indent);
+    PrintLineStr(graphics, memory, x + (size * 10), y + (size * 18), font_size, 10, typeA, indent);
+    PrintLineStr(graphics, memory, x + (size * 10), y + (size * 20) - 4, font_size, 10, typeB, indent);
 }
 
 /**********************************************************************************************************************/

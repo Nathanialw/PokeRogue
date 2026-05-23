@@ -42,7 +42,7 @@ bool InteractLavaPit(HardwareInterface hardware, EntityId object_id, EntityId e_
 bool InteractNarowPit(HardwareInterface hardware, EntityId object_id, EntityId e_id, ObjectData objectData);
 bool InteractShallowPit(HardwareInterface hardware, EntityId object_id, EntityId e_id, ObjectData objectData);
 bool InteractSnakesPit(HardwareInterface hardware, EntityId object_id, EntityId e_id, ObjectData objectData);
-bool InteractSpkiedPit(HardwareInterface hardware, EntityId object_id, EntityId e_id, ObjectData objectData);
+bool InteractSpikedPit(HardwareInterface hardware, EntityId object_id, EntityId e_id, ObjectData objectData);
 bool InteractPitStandard(HardwareInterface hardware, EntityId object_id, EntityId e_id, ObjectData objectData);
 bool InteractWaterPit(HardwareInterface hardware, EntityId object_id, EntityId e_id, ObjectData objectData);
 bool InteractWidePit(HardwareInterface hardware, EntityId object_id, EntityId e_id, ObjectData objectData);

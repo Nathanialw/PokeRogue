@@ -240,18 +240,6 @@ void Flash_GetSkillDescription(MemoryInterface memory, char* text, uint8_t index
 #endif
 }
 
-
-SET_MEMORY(".map")
-bool Flash_GetObjectEffect(MemoryInterface memory, HardwareInterface hardware, uint8_t objectType, EntityId object_id, EntityId target_id, ObjectData objectData)
-{
-#ifdef STANDALONE
-    return g_gameFlash.funcs.objectFunctions[objectType](object_id, target_id, objectData);
-#else
-    return objectFunctions[objectType](hardware, object_id, target_id, objectData);
-#endif
-}
-
-
 SET_MEMORY(".map")
 void Flash_GetTypeName(MemoryInterface memory, char* text, uint8_t typeIndex)
 {
@@ -284,5 +272,16 @@ void Flash_GetObjectData(MemoryInterface memory, ObjectData* object_data, uint8_
     memory.Print(new_line);
     return object_data;
 #endif
+#endif
+}
+
+
+SET_MEMORY(".map")
+bool Flash_GetObjectEffect(MemoryInterface memory, HardwareInterface hardware, uint8_t objectType, EntityId object_id, EntityId target_id, ObjectData objectData)
+{
+#ifdef STANDALONE
+    return g_gameFlash.funcs.objectFunctions[objectType](object_id, target_id, objectData);
+#else
+    return objectFunctions[objectType](hardware, object_id, target_id, objectData);
 #endif
 }

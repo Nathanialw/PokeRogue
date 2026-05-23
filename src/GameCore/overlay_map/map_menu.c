@@ -288,6 +288,25 @@ bool Abilitypedia(HardwareInterface hardware, InputInterface input, MemoryInterf
 SET_MEMORY(".map")
 bool Trainerpedia(HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update)
 {
+    if (ToggleMenu(TRAINER_DATA_LIST_SUBMENU, ABILITY_COUNT) && input.GetInputKeyState().dp.y == 0)
+    {
+        if (ListJump(hardware, input, memory)) return true;
+        EntityId ability_id = g_core.menu.sel[g_core.menu.depth].y + g_core.menu.menuScrollOffset[g_core.menu.depth].y;
+        g_core.menu.gameMenu.id = ability_id;
+        return true;
+    }
+
+    uint8_t i = 0;
+    uint8_t min_s = g_core.menu.menuScrollOffset[g_core.menu.depth].y;
+    uint8_t max_s = min_s + g_core.menu.visibleMenuOptions;
+    if (max_s >= 255) max_s = 255; //prevent wraparound, assumes NO_CREATURE is max in Creature enum
+    while ((min_s + i) < max_s)
+    {
+        Flash_GetTrainerName(memory, g_core.menu.text[i], min_s + i);
+        i++;
+    }
+    g_core.menu.text[i][0] = '\0';
+
     return true;
 }
 
