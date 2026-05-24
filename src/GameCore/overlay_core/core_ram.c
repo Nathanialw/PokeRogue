@@ -4,6 +4,7 @@
 #include "core_ram.h"
 #include "inc/decl_items.inc"
 #include "inc/decl_spells.inc"
+
 #include "lib_memory.h"
 
 

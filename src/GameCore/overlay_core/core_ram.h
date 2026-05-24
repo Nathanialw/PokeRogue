@@ -80,9 +80,9 @@ typedef struct
     **********************************************************************************************************************/
     struct
     {
-        EntityId partyID[MAX_PARTY_SIZE];
-        EntityId itemID[MAX_BAG_SIZE];
-        SpellId spellID[MAX_SPELLBOOK_SIZE];
+        // EntityId partyID[MAX_PARTY_SIZE];
+        // EntityId itemID[MAX_BAG_SIZE];
+        // SpellId spellID[MAX_SPELLBOOK_SIZE];
 
         uint16_t cur_xp[MAX_PARTY_SIZE];
         uint16_t tar_xp[MAX_PARTY_SIZE];
@@ -98,8 +98,6 @@ typedef struct
         EntityId id;
         uint8_t currentBagSize;
         uint8_t currentSpellbookSize;
-        uint16_t cur_mana;
-        uint16_t max_mana;
         Delta d;
         Delta scroll;
     } player;
@@ -180,7 +178,10 @@ typedef struct
     struct
     {
         uint8_t total;
-        EntityId partyID[MAX_PARTY_SIZE][ENTITY_COUNT];
+        EntityId itemID[ENTITY_COUNT][MAX_BAG_SIZE];
+        EntityId partyID[ENTITY_COUNT][MAX_PARTY_SIZE];
+        SpellId spellID[ENTITY_COUNT][MAX_SPELLBOOK_SIZE];
+
         Position position[ENTITY_COUNT];
         Position newPosition[ENTITY_COUNT]; // can be changed to hold delta, a uint8_t can hold up to 2
         uint8_t types[ENTITY_COUNT];
@@ -188,6 +189,7 @@ typedef struct
         BitFieldUint8 onMap;
         BitFieldUint8 active;
 
+        BitFieldUint8 alive;
         IntMax99 speed[ENTITY_COUNT];
         Senses senses[ENTITY_COUNT];
         Senses stealth[ENTITY_COUNT];

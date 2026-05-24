@@ -19,10 +19,11 @@
 SET_MEMORY(".core")
 EntityId PlayerCaptureMonster(EntityId e_id)
 {
+    EntityId p_ID = GetPlayerID();
     for (uint8_t i = 0; i < MAX_PARTY_SIZE; ++i)
-        if (g_core.player.partyID[i] == NO_ENTITY)
+        if (g_core.trainers.partyID[p_ID][i] == NO_ENTITY)
         {
-            g_core.player.partyID[i] = CaptureMonster(e_id);
+            g_core.trainers.partyID[p_ID][i] = CaptureMonster(e_id);
             g_core.player.cur_xp[i] = 0;
             g_core.player.tar_xp[i] = 100; //TODO: calculate needed xp to level
             return e_id;
@@ -39,11 +40,13 @@ EntityId PlayerCaptureMonster(EntityId e_id)
 SET_MEMORY(".core")
 EntityId PlayerPickItem(EntityId e_id)
 {
+    EntityId p_ID = GetPlayerID();
+
     if (e_id == NO_ENTITY) return e_id;
     for (uint8_t i = 0; i < MAX_BAG_SIZE; ++i)
-        if (g_core.player.itemID[i] == NO_ENTITY)
+        if (g_core.trainers.itemID[p_ID][i] == NO_ENTITY)
         {
-            g_core.player.itemID[i] = PickItem(e_id);
+            g_core.trainers.itemID[p_ID][i] = PickItem(e_id);
             return e_id;
         }
 
@@ -58,10 +61,9 @@ EntityId PlayerPickItem(EntityId e_id)
 SET_MEMORY(".core")
 EntityId* GetPlayerMonsterIDs(void)
 {
-    return g_core.player.partyID;
+    EntityId p_ID = GetPlayerID();
+    return g_core.trainers.partyID[p_ID];
 }
-
-
 
 
 /**********************************************************************************************************************/
@@ -97,5 +99,16 @@ SET_MEMORY(".core")
 void ConsumeItem(uint8_t idx, EntityId e_id)
 {
     DestroyItem(e_id);
-    g_core.player.itemID[idx] = NO_ENTITY;
+    EntityId p_ID = GetPlayerID();
+    g_core.trainers.itemID[p_ID][idx] = NO_ENTITY;
+}
+
+
+/**********************************************************************************************************************/
+/**Returns the player ID
+**********************************************************************************************************************/
+SET_MEMORY(".core")
+EntityId GetPlayerID(void)
+{
+    return g_core.player.id;
 }

@@ -138,13 +138,13 @@ def run():
     # TODO Map sprites
 
     # TRAINERS
+    export.export_map_sprites_char("trainer")
+    export.export_map_sprites("trainer")
     # trainer name strings
     counts.append(export.name_to_c_array("trainer"))
     # trainer description strings
     export.desc_to_c_array("trainer")
     # trainer map sprites
-    export.export_map_sprites_char("trainer")
-    export.export_map_sprites("trainer")
     bytes_count.append(export_battlers.export_image_data("trainer"))
     # TODO Map sprites
 

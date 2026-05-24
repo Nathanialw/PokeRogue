@@ -10,6 +10,7 @@
 #include "core_utils.h"
 #include "core_map.h"
 #include "core_memory_access.h"
+#include "core_player.h"
 #include "core_ram.h"
 #include "lib_enums.h"
 #include "map_actions.h"
@@ -59,10 +60,33 @@ SET_MEMORY(".map")
 bool UpdatePositions(HardwareInterface hardware)
 {
     EntityId p_id = GetPlayerID();
-    IntMax99* speed = GetCreatureSpeeds();
     EntityId combat_id = NO_ENTITY;
+    IntMax99* speed = GetCreatureSpeeds(TRAINER);
+    uint8_t* onMap = GetEntitiesOnMap(TRAINER);
     uint8_t player_speed = speed[p_id].current; //awkwardly as my speed value decreases my speed goes 'up', I may need to rethink this
-    uint8_t* onMap = GetEntitiesOnMap(CREATURE);
+
+
+    for (uint16_t id = 0; id < ENTITY_COUNT; ++id)
+    {
+        if (!GetBit(onMap, id)) continue; //need to make sure this only triggers for dynamic map entities
+        if (id == p_id) continue;
+
+        uint8_t max = speed[id].max;
+        uint8_t cur = speed[id].current;
+
+        if (cur + player_speed < max)
+        {
+            speed[id].current += player_speed;
+            g_core.creatures.newPosition[id] = g_core.creatures.position[id];
+            continue;
+        }
+
+        speed[id].current = player_speed - (max - cur);
+    }
+
+
+    speed = GetCreatureSpeeds(CREATURE);
+    onMap = GetEntitiesOnMap(CREATURE);
 
     for (uint16_t id = 0; id < ENTITY_COUNT; ++id)
     {
@@ -102,12 +126,15 @@ bool UpdatePositions(HardwareInterface hardware)
     }
 
     UpdatePlayerPosition();
-    uint8_t creature_id = CheckCollision(p_id);
-    if (creature_id != NO_ENTITY && creature_id != p_id)
-    {
-        ObjectCollision(creature_id);
-        return false;
-    }
+
+
+    // uint8_t creature_id = CheckCollision(p_id);
+
+    // if (creature_id != NO_ENTITY && creature_id != p_id)
+    // {
+    //     ObjectCollision(creature_id);
+    //     return false;
+    // }
 
     return true;
 }
@@ -119,19 +146,16 @@ SET_MEMORY(".map")
 void UpdateObjectCollision(MemoryInterface memory, HardwareInterface hardware)
 {
     g_map.objectCollision = NO_OBJECT;
+    g_map.itemCollision = NO_ITEM;
     for (uint16_t e_id = 0; e_id < ENTITY_COUNT; ++e_id)
     {
         for (uint16_t o_id = 0; o_id < ENTITY_COUNT; ++o_id)
         {
-            if (!GetBit(g_core.creatures.active, e_id) || !GetBit(g_core.objects.interactable, o_id)) continue;
+            if (!GetBit(g_core.creatures.active, e_id) || !GetBit(g_core.objects.active, o_id)) continue;
             Position cp = g_core.creatures.newPosition[e_id];
             Position op = g_core.objects.position[o_id];
             if (cp.x == op.x && cp.y == op.y)
-            {
                 InteractObject(memory, hardware, e_id, o_id);
-                if (e_id == GetPlayerID())
-                    g_map.objectCollision = e_id;
-            }
         }
     }
 
@@ -139,23 +163,28 @@ void UpdateObjectCollision(MemoryInterface memory, HardwareInterface hardware)
     {
         for (uint16_t o_id = 0; o_id < ENTITY_COUNT; ++o_id)
         {
-            if (!GetBit(g_core.trainers.active, e_id) || !GetBit(g_core.objects.interactable, o_id)) continue;
+            if (!GetBit(g_core.trainers.active, e_id) || !GetBit(g_core.objects.active, o_id)) continue;
             Position cp = g_core.trainers.newPosition[e_id];
             Position op = g_core.objects.position[o_id];
             if (cp.x == op.x && cp.y == op.y)
             {
                 InteractObject(memory, hardware, e_id, o_id);
+                if (e_id == GetPlayerID())
+                    g_map.objectCollision = g_core.objects.types[o_id];
             }
         }
     }
 
-    EntityId e_id = GetPlayerID();
     Position pos = GetPlayerPosition();
     for (uint16_t i_id = 0; i_id < ENTITY_COUNT; ++i_id)
     {
-        Position op = g_core.items.position[e_id];
+        if (!GetBit(g_core.items.active, i_id)) continue;
+        Position op = g_core.items.position[i_id];
         if (pos.x == op.x && pos.y == op.y)
-            g_map.itemCollision = i_id;
+        {
+            g_map.itemCollision = g_core.items.types[i_id];
+            break;
+        }
     }
 }
 
@@ -166,9 +195,36 @@ void UpdateObjectCollision(MemoryInterface memory, HardwareInterface hardware)
 SET_MEMORY(".map")
 void SetPositions(void)
 {
-    uint8_t* onMap = GetEntitiesOnMap(CREATURE); //array is 256 bytes
-    Position* position = GetEntityPositions(CREATURE); //array is 512 bytes
-    Position* newPosition = GetEntityNewPositions(); //array is 512 bytes
+    uint8_t* onMap = GetEntitiesOnMap(TRAINER); //array is 256 bytes
+    Position* position = GetEntityPositions(TRAINER); //array is 512 bytes
+    Position* newPosition = GetEntityNewPositions(TRAINER); //array is 512 bytes
+
+    for (uint16_t id = 0; id < ENTITY_COUNT; ++id)
+    {
+        if (!GetBit(onMap, id)) continue;
+
+        Position pos = position[id];
+        Position nPos = newPosition[id];
+
+        uint8_t x = pos.x;
+        uint8_t y = pos.y;
+
+        uint8_t nx = nPos.x;
+        uint8_t ny = nPos.y;
+
+        //check current tile
+        uint8_t tileID = GetMapTile(x, y);
+        CheckInteraction(tileID, id, x, y);
+
+        //check next tile
+        tileID = GetMapTile(nx, ny);
+        if (CheckInteraction(tileID, id, nx, ny))
+            SetEntityPosition(TRAINER, id, x, y, nx, ny);
+    }
+
+    onMap = GetEntitiesOnMap(CREATURE); //array is 256 bytes
+    position = GetEntityPositions(CREATURE); //array is 512 bytes
+    newPosition = GetEntityNewPositions(CREATURE); //array is 512 bytes
 
     // DEBUG("Updating Object Positions");
 

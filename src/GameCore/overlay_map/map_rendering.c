@@ -81,6 +81,22 @@ void FullRedraw(GraphicsInterface graphics, HardwareInterface hardware, MemoryIn
             g_map.view.viewCreatures.viewEntities[ry][rx] = g_core.creatures.types[i];
         }
     }
+
+    for (uint8_t i = 0; i < g_core.trainers.total; ++i)
+    {
+        if (g_core.trainers.types[i] == NO_TRAINER) continue;
+
+        uint8_t x = g_core.trainers.position[i].x;
+        uint8_t y = g_core.trainers.position[i].y;
+        if (GetBit(g_core.trainers.onMap, i) && CameraContains(x, y))
+        {
+            uint8_t rx = (x - cam.x);
+            uint8_t ry = (y - cam.y);
+
+            DrawSprite(graphics, memory, rx, ry, g_core.trainers.types[i], TRAINER);
+            g_map.view.viewTrainers.viewEntities[ry][rx] = g_core.trainers.types[i];
+        }
+    }
 }
 
 
@@ -208,13 +224,19 @@ void ReDrawSprites(GraphicsInterface graphics, MemoryInterface memory)
             if (g_map.view.viewObjects.viewEntities[sy][sx] != NO_OBJECT)
             {
                 uint8_t object_type = g_map.view.viewObjects.viewEntities[sy][sx];
-                DrawSpriteCached(graphics, memory, sx, sy, object_type, OBJECT);
+                DrawSpriteCached(graphics, memory, sx, sy, object_type, OBJECT);\
             }
 
             if (g_map.view.viewCreatures.viewEntities[sy][sx] != NO_CREATURE)
             {
                 uint8_t creature_type = g_map.view.viewCreatures.viewEntities[sy][sx];
                 DrawSpriteCached(graphics, memory, sx, sy, creature_type, CREATURE);
+            }
+
+            if (g_map.view.viewTrainers.viewEntities[sy][sx] != NO_TRAINER)
+            {
+                uint8_t trainer_type = g_map.view.viewTrainers.viewEntities[sy][sx];
+                DrawSpriteCached(graphics, memory, sx, sy, trainer_type, TRAINER);
             }
         }
     }
@@ -238,6 +260,7 @@ void RenderObjects(GraphicsInterface graphics, HardwareInterface hardware, Memor
     ResetRenders(&g_map.view.viewItems, NO_ITEM);
     ResetRenders(&g_map.view.viewObjects, NO_OBJECT);
     ResetRenders(&g_map.view.viewCreatures, NO_CREATURE);
+    ResetRenders(&g_map.view.viewTrainers, NO_TRAINER);
 
 
     Camera cam = GetCamera();
@@ -247,10 +270,12 @@ void RenderObjects(GraphicsInterface graphics, HardwareInterface hardware, Memor
     GetEntitiesInView(cam, &g_core.items.onMap, &g_map.view.viewItems, g_core.items.position, g_core.items.types, g_core.items.total);
     GetEntitiesInView(cam, &g_core.objects.onMap, &g_map.view.viewObjects, g_core.objects.position, g_core.objects.types, g_core.objects.total);
     GetEntitiesInView(cam, &g_core.creatures.onMap, &g_map.view.viewCreatures, g_core.creatures.position, g_core.creatures.types, g_core.creatures.total);
+    GetEntitiesInView(cam, &g_core.trainers.onMap, &g_map.view.viewTrainers, g_core.trainers.position, g_core.trainers.types, g_core.trainers.total);
 
     SetDirty(&g_map.view.viewItems);
     SetDirty(&g_map.view.viewObjects);
     SetDirty(&g_map.view.viewCreatures);
+    SetDirty(&g_map.view.viewTrainers);
 
     if (g_map.clearTooltip)
     {

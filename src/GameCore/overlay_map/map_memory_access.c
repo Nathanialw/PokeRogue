@@ -121,6 +121,8 @@ void Flash_GetSpriteMetadata(MemoryInterface memory, Sprite* sprite, ObjectsType
         memory.GetRom(CHAR_SPRITES_MONSTERS_POSITION + (index * sizeof(Sprite)), sprite->bytes, sizeof(Sprite));
     else if (type == OBJECT)
         memory.GetRom(CHAR_SPRITES_OBJECTS_POSITION + (index * sizeof(Sprite)), sprite->bytes, sizeof(Sprite));
+    else if (type == TRAINER)
+        memory.GetRom(CHAR_SPRITES_TRAINERS_POSITION + (index * sizeof(Sprite)), sprite->bytes, sizeof(Sprite));
 
 #if defined(MEMORY_PRINT)
     for (uint8_t i = 0; i < sizeof(Sprite); i++)
@@ -275,6 +277,12 @@ void Flash_GetObjectData(MemoryInterface memory, ObjectData* object_data, uint8_
 #endif
 }
 
+
+
+/*****************************************************************************************************************************
+*   FUNCTION ARRAYS
+*
+*****************************************************************************************************************************/
 
 SET_MEMORY(".map")
 bool Flash_GetObjectEffect(MemoryInterface memory, HardwareInterface hardware, uint8_t objectType, EntityId object_id, EntityId target_id, ObjectData objectData)

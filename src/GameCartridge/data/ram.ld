@@ -33,7 +33,8 @@ SECTIONS
     .char_sprites_items              0x1500000 : { KEEP(*(.char_sprites_items))      . = ALIGN(4); }
     .char_sprites_monsters           0x1510000 : { KEEP(*(.char_sprites_monsters))      . = ALIGN(4); }
     .char_sprites_objects            0x1520000 : { KEEP(*(.char_sprites_objects))      . = ALIGN(4); }
-    .char_sprites_biomes             0x1530000 : { KEEP(*(.char_sprites_biomes))      . = ALIGN(4); }
+    .char_sprites_trainers           0x1530000 : { KEEP(*(.char_sprites_trainers))      . = ALIGN(4); }
+    .char_sprites_biomes             0x1540000 : { KEEP(*(.char_sprites_biomes))      . = ALIGN(4); }
 
     /* ========================================== */
     /*     TIELSETS                               */

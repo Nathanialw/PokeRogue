@@ -27,9 +27,9 @@ void PopulateLevelTrainers(HardwareInterface hardware, MemoryInterface memory);
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-IntMax99* GetCreatureSpeeds(void);
+IntMax99* GetCreatureSpeeds(ObjectsTypes type);
 Position* GetEntityPositions(ObjectsTypes type);
-Position* GetEntityNewPositions(void);
+Position* GetEntityNewPositions(ObjectsTypes type);
 uint8_t* GetEntitiesOnMap(ObjectsTypes type);
 BitFieldUint8* GetCreaturesAlive(void);
 
@@ -42,5 +42,4 @@ Position GetEntityPosition(ObjectsTypes type, EntityId id);
 Position SetEntityPosition(ObjectsTypes type, EntityId id, uint8_t x, uint8_t y, uint8_t nx, uint8_t ny);
 Position QueueObjectMovePosition(EntityId id, uint8_t x, uint8_t y);
 void ResetEntities(HardwareInterface hardware, MemoryInterface memory, bool copyPlayer);
-EntityId GetPlayerID(void);
 bool InDetectionRange(EntityId id, EntityId targetID);

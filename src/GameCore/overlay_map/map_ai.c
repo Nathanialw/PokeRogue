@@ -3,6 +3,7 @@
 //
 #include "map_ai.h"
 
+#include "core_player.h"
 #include "types.h"
 #include "lib_memory.h"
 

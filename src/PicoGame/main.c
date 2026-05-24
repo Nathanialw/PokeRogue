@@ -11,7 +11,6 @@
 #include "input.h"
 #include "lib_debugging.h"
 #include "memory_ram.h"
-#include "pico/stdlib.h"
 
 #define CORE_VMA    0x20000000
 #define OVERLAY_VMA 0x20010000
@@ -34,7 +33,6 @@ int main()
     Pico_TestColors();
 
 
-
 begin:
     DEBUG("WELCOME TO PICO ROGUE");
 
@@ -55,23 +53,19 @@ begin:
         if (api.input.GetButtonDown())
         {
             EEPROM_Verify(EEPROM_CART_FUNC_CS);
-            sleep_ms(500);
             EEPROM_Verify(EEPROM_CART_DATA_CS);
-
-            // DEBUG("----- BEGIN TESTS ---");
+            // uint32_t size_data = 4 * 1024 * 1024;
+            // uint32_t size_code = 8 * 1024 * 1024;
+            //
+            // EEPROM_RetentionCheck(EEPROM_CART_FUNC_CS, size_data);
+            // EEPROM_VerifySize(EEPROM_CART_FUNC_CS, size_data);
             // EEPROM_FullTest(EEPROM_CART_FUNC_CS);
-            // DEBUG("----- BEGIN TESTS ---");
+            // EEPROM_FullMemoryTest(EEPROM_CART_FUNC_CS, size_data);
+            //
+            // EEPROM_RetentionCheck(EEPROM_CART_DATA_CS, size_code);
+            // EEPROM_VerifySize(EEPROM_CART_DATA_CS, size_code);
             // EEPROM_FullTest(EEPROM_CART_DATA_CS);
-            //
-            // //
-            // uint32_t size = 4 * 1024 * 1024;
-            // EEPROM_VerifySize(EEPROM_CART_FUNC_CS, size);
-            // EEPROM_FullMemoryTest(EEPROM_CART_FUNC_CS, size);
-            // EEPROM_RetentionCheck(EEPROM_CART_FUNC_CS, size);
-            //
-            // EEPROM_VerifySize(EEPROM_CART_DATA_CS, size);
-            // EEPROM_FullMemoryTest(EEPROM_CART_DATA_CS, size);
-            // EEPROM_RetentionCheck(EEPROM_CART_DATA_CS, size);
+            // EEPROM_FullMemoryTest(EEPROM_CART_DATA_CS, size_code);
         }
 
         if (api.input.GetButtonA())

@@ -32,6 +32,7 @@ def main():
         ".char_sprites_items",
         ".char_sprites_monsters",
         ".char_sprites_objects",
+        ".char_sprites_trainers",
         ".char_sprites_biomes",
 
         # tilesets

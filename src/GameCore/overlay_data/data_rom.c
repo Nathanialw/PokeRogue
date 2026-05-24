@@ -446,8 +446,12 @@ const Sprite char_sprites_monsters[CREATURE_COUNT] = {
 #include "inc/map_sprites_creatures.inc"
 };
 SET_MEMORY(".char_sprites_objects")
-const Sprite char_sprites_objects[CREATURE_COUNT] = {
+const Sprite char_sprites_objects[OBJECT_COUNT] = {
 #include "inc/map_sprites_objects.inc"
+};
+SET_MEMORY(".char_sprites_trainers")
+const Sprite char_sprites_trainers[TRAINER_COUNT] = {
+#include "inc/map_sprites_trainers.inc"
 };
 SET_MEMORY(".char_sprites_biomes")
 const Tile char_sprites_biomes[BIOME_COUNT][NUM_TILES] = {

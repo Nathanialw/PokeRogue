@@ -26,7 +26,6 @@ void UpdateTooltip(GraphicsInterface graphics, MemoryInterface memory)
     const uint8_t size = SCREEN_W / 8;
     g_map.clearTooltip = true;
 
-
     if (g_map.objectCollision != NO_OBJECT)
     {
         Flash_GetObjectName(memory, g_map.text, g_map.objectCollision);

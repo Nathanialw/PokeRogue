@@ -11,7 +11,7 @@
 #include "core_ram.h"
 
 #include "battle_entities.h"
-
+#include "core_player.h"
 
 
 /**********************************************************************************************************************/
@@ -25,9 +25,11 @@ bool PlayerDefeated(void)
     if (CheckAlive(g_core.battleMode.playerMonsterID))
         return false;
 
+    EntityId p_ID = GetPlayerID();
+
     for (uint8_t i = 0; i < MAX_PARTY_SIZE; ++i)
     {
-        uint8_t e_id = g_core.player.partyID[i];
+        uint8_t e_id = g_core.trainers.partyID[p_ID][i];
         if (GetCreatureType(e_id) != NO_CREATURE && CheckAlive(e_id))
         {
             g_core.battleMode.playerMonsterID = e_id;
@@ -84,8 +86,9 @@ bool CheckEnemyAttackOutcome()
 SET_MEMORY(".battle")
 bool IsInParty(EntityId id)
 {
+    EntityId p_ID = GetPlayerID();
     for (uint8_t i = 0; i < MAX_PARTY_SIZE; ++i)
-        if (g_core.player.partyID[i] == id)
+        if (g_core.trainers.partyID[p_ID][i] == id)
             return true;
     return false;
 }

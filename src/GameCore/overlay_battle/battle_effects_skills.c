@@ -11,6 +11,7 @@
 #include "core_ram.h"
 
 #include "battle_player.h"
+#include "core_player.h"
 
 
 /*********************************************************************************************************************
@@ -140,10 +141,11 @@ bool SkillPyre(HardwareInterface hardware,  MemoryInterface memory, EntityId att
     DEBUG("Pyre");
     if (IsInParty(attackerID))
     {
+        EntityId p_ID = GetPlayerID();
         for (uint8_t i = 0; i < MAX_PARTY_SIZE; ++i)
         {
-            if (g_core.player.partyID[i] == NO_ENTITY) continue;
-            RaiseMagic(g_core.player.partyID[i]);
+            if (g_core.trainers.partyID[p_ID][i] == NO_ENTITY) continue;
+            RaiseMagic(g_core.trainers.partyID[p_ID][i]);
         }
     }
     else
@@ -337,7 +339,8 @@ bool SkillFrostNova(HardwareInterface hardware,  MemoryInterface memory, EntityI
     {
         for (uint8_t i = 0; i < MAX_PARTY_SIZE; ++i)
         {
-            if (g_core.player.partyID[i] == NO_ENTITY) continue;
+            EntityId p_ID = GetPlayerID();
+            if (g_core.trainers.partyID[p_ID][i] == NO_ENTITY) continue;
             Attack(hardware, memory, attackerID, defenderID, abilityData);
         }
     }
@@ -420,7 +423,8 @@ bool SkillPolarVortex(HardwareInterface hardware,  MemoryInterface memory, Entit
     {
         for (uint8_t i = 0; i < MAX_PARTY_SIZE; ++i)
         {
-            if (g_core.player.partyID[i] == NO_ENTITY) continue;
+            EntityId p_ID = GetPlayerID();
+            if (g_core.trainers.partyID[p_ID][i] == NO_ENTITY) continue;
             Attack(hardware, memory, attackerID, defenderID, abilityData);
         }
     }
@@ -1396,8 +1400,9 @@ bool SkillHowlOfThePack(HardwareInterface hardware,  MemoryInterface memory, Ent
     {
         for (uint8_t i = 0; i < MAX_PARTY_SIZE; ++i)
         {
-            if (g_core.player.partyID[i] == NO_ENTITY) continue;
-            RaiseStrength(g_core.player.partyID[i]);
+            EntityId p_ID = GetPlayerID();
+            if (g_core.trainers.partyID[p_ID][i] == NO_ENTITY) continue;
+            RaiseStrength(g_core.trainers.partyID[p_ID][i]);
         }
     }
     else
@@ -1624,8 +1629,9 @@ bool SkillPrayer(HardwareInterface hardware,  MemoryInterface memory, EntityId a
     {
         for (uint8_t i = 0; i < MAX_PARTY_SIZE; ++i)
         {
-            if (g_core.player.partyID[i] == NO_ENTITY) continue;
-            HealTarget(g_core.player.partyID[i], abilityData.power);
+            EntityId p_ID = GetPlayerID();
+            if (g_core.trainers.partyID[p_ID][i] == NO_ENTITY) continue;
+            HealTarget(g_core.trainers.partyID[p_ID][i], abilityData.power);
         }
     }
     else
@@ -1859,8 +1865,9 @@ bool SkillRally(HardwareInterface hardware,  MemoryInterface memory, EntityId at
     {
         for (uint8_t i = 0; i < MAX_PARTY_SIZE; ++i)
         {
-            if (g_core.player.partyID[i] == NO_ENTITY) continue;
-            RaiseStrength(g_core.player.partyID[i]);
+            EntityId p_ID = GetPlayerID();
+            if (g_core.trainers.partyID[p_ID][i] == NO_ENTITY) continue;
+            RaiseStrength(g_core.trainers.partyID[p_ID][i]);
         }
     }
     else

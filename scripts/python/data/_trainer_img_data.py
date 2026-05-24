@@ -2,9 +2,11 @@
 # Do not edit manually
 
 Trainers = [
+    "Elizabeth",
 ]
 
 TrainersDict = [
+   { "name": 'Elizabeth', 'prompt': "Elizabeth"},
 ]
 
 BASE_PROMPT = (

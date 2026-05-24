@@ -13,6 +13,7 @@
 #include "core_map.h"
 #include "core_memory_access.h"
 #include "core_menu.h"
+#include "core_player.h"
 #include "core_ram.h"
 #include "core_tiles.h"
 
@@ -265,14 +266,15 @@ void DrawParty(GraphicsInterface graphics, HardwareInterface hardware, MemoryInt
         if (line_empty || i > (max_lines)) break;
 
 
+        EntityId p_ID = GetPlayerID();
         // level
-        if (GetCreatureType(g_core.player.partyID[i]) == NO_CREATURE)
+        if (GetCreatureType(g_core.trainers.partyID[p_ID][i]) == NO_CREATURE)
         {
             PrintLineStr(graphics, memory, x, y, font_size, 3, "---", indent);
         }
         else
         {
-            Int99 level = g_core.creatures.level[g_core.player.partyID[i]];
+            Int99 level = g_core.creatures.level[g_core.trainers.partyID[p_ID][i]];
             CharStr_99 levelStr;
             GetAsChars_99(level, &levelStr, false);
             PrintLineStr(graphics, memory, x, y, font_size, 3, levelStr, indent);
@@ -280,7 +282,7 @@ void DrawParty(GraphicsInterface graphics, HardwareInterface hardware, MemoryInt
 
         y += PrintLineStr(graphics, memory, x + (3 * size), y + lineHeight, font_size, max_chars, line, indent);
 
-        if (GetCreatureType(g_core.player.partyID[i]) == NO_CREATURE)
+        if (GetCreatureType(g_core.trainers.partyID[p_ID][i]) == NO_CREATURE)
         {
             lineHeight += (size * 3);
             lineHeight += (size >> 1);
@@ -295,7 +297,7 @@ void DrawParty(GraphicsInterface graphics, HardwareInterface hardware, MemoryInt
         uint16_t max = 0;
         float line_w = 0.0f;
 
-        IntMax999 hp = g_core.creatures.hp[g_core.player.partyID[i]];
+        IntMax999 hp = g_core.creatures.hp[g_core.trainers.partyID[p_ID][i]];
         cur = Int999GetCurrent(&hp);
         max = Int999GetMax(&hp);
         if (max > 0)
@@ -308,7 +310,7 @@ void DrawParty(GraphicsInterface graphics, HardwareInterface hardware, MemoryInt
         }
         lineHeight += size;
 
-        IntMax999 mp = g_core.creatures.mp[g_core.player.partyID[i]];
+        IntMax999 mp = g_core.creatures.mp[g_core.trainers.partyID[p_ID][i]];
         cur = Int999GetCurrent(&mp);
         max = Int999GetMax(&mp);
         if (max > 0)
@@ -321,7 +323,7 @@ void DrawParty(GraphicsInterface graphics, HardwareInterface hardware, MemoryInt
             lineHeight += size;
         }
 
-        IntMax999 xp = g_core.creatures.xp[g_core.player.partyID[i]];
+        IntMax999 xp = g_core.creatures.xp[g_core.trainers.partyID[p_ID][i]];
         cur = Int999GetCurrent(&xp);
         max = Int999GetMax(&xp);
         if (max > 0)

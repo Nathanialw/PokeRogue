@@ -48,6 +48,7 @@ typedef struct
         ViewEntities viewCreatures;
         ViewEntities viewItems;
         ViewEntities viewObjects;
+        ViewEntities viewTrainers;
     } view;
 
     uint8_t meta[TFT_H / BUFFER_H];

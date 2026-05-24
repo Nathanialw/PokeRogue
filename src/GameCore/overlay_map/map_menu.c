@@ -335,10 +335,11 @@ void OpenUseOnParty(HardwareInterface hardware, MemoryInterface memory, UseFrame
 SET_MEMORY(".map")
 void BackUseOnParty(MemoryInterface memory)
 {
+    EntityId p_ID = GetPlayerID();
     if (g_core.menu.useOnPartyMember == BACK_ITEM)
-        FillListByEntityID(memory, g_core.player.currentBagSize, ITEM, g_core.player.itemID);
+        FillListByEntityID(memory, g_core.player.currentBagSize, ITEM, g_core.trainers.spellID[p_ID]);
     if (g_core.menu.useOnPartyMember == BACK_SPELL)
-        FillListByTypeID(memory, g_core.player.currentSpellbookSize, g_core.player.spellID);
+        FillListByTypeID(memory, g_core.player.currentSpellbookSize, g_core.trainers.spellID[p_ID]);
 
     g_core.menu.sel[g_core.menu.depth].x = 0;
     g_core.menu.sel[g_core.menu.depth].y = 0;
@@ -371,6 +372,7 @@ bool Party(HardwareInterface hardware, InputInterface input, MemoryInterface mem
 SET_MEMORY(".map")
 bool Bag(HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update)
 {
+    EntityId p_ID = GetPlayerID();
     if (ToggleMenu(BAG_SUBMENU, g_core.player.currentBagSize))
     {
         //open use/toss menu
@@ -381,7 +383,7 @@ bool Bag(HardwareInterface hardware, InputInterface input, MemoryInterface memor
         if (g_core.menu.depth == 1)
         {
             uint8_t idx = g_core.menu.sel[g_core.menu.depth].y + g_core.menu.menuScrollOffset[g_core.menu.depth].y;
-            EntityId item_id = g_core.player.itemID[idx];
+            EntityId item_id = g_core.trainers.itemID[p_ID][idx];
 
             if (item_id == NO_ITEM)
             {
@@ -401,12 +403,12 @@ bool Bag(HardwareInterface hardware, InputInterface input, MemoryInterface memor
                 ConsumeItem(idx, item_id);
             else
 
-            return true;
+                return true;
         }
 
         uint8_t idx = g_core.menu.sel[g_core.menu.depth - 1].y + g_core.menu.menuScrollOffset[g_core.menu.depth - 1].y;
-        EntityId item_id = g_core.player.itemID[idx];
-        EntityId entity_id = g_core.player.partyID[g_core.menu.sel[g_core.menu.depth].y + g_core.menu.menuScrollOffset[g_core.menu.depth].y];
+        EntityId item_id = g_core.trainers.itemID[p_ID][idx];
+        EntityId entity_id = g_core.trainers.partyID[p_ID][g_core.menu.sel[g_core.menu.depth].y + g_core.menu.menuScrollOffset[g_core.menu.depth].y];
 
         ItemData itemData;
         Flash_GetItemData(memory, &itemData, item_id);
@@ -429,7 +431,7 @@ bool Bag(HardwareInterface hardware, InputInterface input, MemoryInterface memor
         return true;
     }
 
-    FillListByEntityID(memory, g_core.player.currentBagSize, ITEM, g_core.player.itemID);
+    FillListByEntityID(memory, g_core.player.currentBagSize, ITEM, g_core.trainers.itemID[p_ID]);
     return true;
 };
 
@@ -439,12 +441,13 @@ bool Bag(HardwareInterface hardware, InputInterface input, MemoryInterface memor
 SET_MEMORY(".map")
 bool Spells(HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update)
 {
+    EntityId p_ID = GetPlayerID();
     if (ToggleMenu(SPELLS_SUBMENU, g_core.player.currentSpellbookSize))
     {
         if (g_core.menu.depth == 1)
         {
             uint8_t idx = g_core.menu.sel[g_core.menu.depth].y + g_core.menu.menuScrollOffset[g_core.menu.depth].y;
-            EntityId spell_id = g_core.player.spellID[idx];
+            EntityId spell_id = g_core.trainers.spellID[p_ID][idx];
 
             if (spell_id == NO_SPELL)
             {
@@ -459,8 +462,8 @@ bool Spells(HardwareInterface hardware, InputInterface input, MemoryInterface me
         }
 
         uint8_t idx = g_core.menu.sel[g_core.menu.depth - 1].y + g_core.menu.menuScrollOffset[g_core.menu.depth - 1].y;
-        EntityId spell_id = g_core.player.spellID[idx];
-        EntityId entity_id = g_core.player.partyID[g_core.menu.sel[g_core.menu.depth].y + g_core.menu.menuScrollOffset[g_core.menu.depth].y];
+        EntityId spell_id = g_core.trainers.spellID[p_ID][idx];
+        EntityId entity_id = g_core.trainers.spellID[p_ID][g_core.menu.sel[g_core.menu.depth].y + g_core.menu.menuScrollOffset[g_core.menu.depth].y];
 
         if (CastSpell(hardware, memory, spell_id, entity_id, NO_ENTITY))
             BackUseOnParty(memory);
@@ -468,7 +471,7 @@ bool Spells(HardwareInterface hardware, InputInterface input, MemoryInterface me
         return true;
     }
 
-    FillListByTypeID(memory, g_core.player.currentSpellbookSize, g_core.player.spellID);
+    FillListByTypeID(memory, g_core.player.currentSpellbookSize, g_core.trainers.spellID[p_ID]);
     return true;
 };
 

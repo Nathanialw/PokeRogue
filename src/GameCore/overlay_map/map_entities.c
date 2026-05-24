@@ -92,6 +92,11 @@ EntityId CheckTileForEntity(ObjectsTypes type, EntityId e_id, Position pos)
         return CheckTile(type, e_id, pos, g_core.objects.position, g_core.objects.total);
     }
 
+    if (type == TRAINER)
+    {
+        return CheckTile(type, e_id, pos, g_core.trainers.position, g_core.objects.total);
+    }
+
     return NO_ENTITY;
 }
 
@@ -102,8 +107,8 @@ SET_MEMORY(".map")
 Position QueueObjectMovePosition(EntityId id, uint8_t x, uint8_t y)
 {
     Position pos = {.x = x, .y = y};
-    g_core.creatures.newPosition[id] = pos;
-    return g_core.creatures.newPosition[id];
+    g_core.trainers.newPosition[id] = pos;
+    return g_core.trainers.newPosition[id];
 }
 
 /**********************************************************************************************************************/
@@ -128,6 +133,11 @@ Position SetEntityPosition(ObjectsTypes type, EntityId id, uint8_t x, uint8_t y,
         g_core.objects.position[id] = pos;
         return g_core.objects.position[id];
     }
+    if (type == TRAINER)
+    {
+        g_core.trainers.position[id] = pos;
+        return g_core.objects.position[id];
+    }
 
     return pos;
 }
@@ -144,6 +154,8 @@ Position GetEntityPosition(ObjectsTypes type, EntityId id)
         return g_core.items.position[id];
     if (type == OBJECT)
         return g_core.objects.position[id];
+    if (type == TRAINER)
+        return g_core.trainers.position[id];
     return g_core.creatures.position[id];
 }
 
@@ -159,6 +171,8 @@ uint8_t* GetEntitiesOnMap(ObjectsTypes type)
         return g_core.items.onMap;
     if (type == OBJECT)
         return g_core.objects.onMap;
+    if (type == TRAINER)
+        return g_core.trainers.onMap;
 
     return NULL;
 }
@@ -175,9 +189,13 @@ BitFieldUint8* GetCreaturesAlive(void)
 /**Returns the array of entity speeds
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-IntMax99* GetCreatureSpeeds(void)
+IntMax99* GetCreatureSpeeds(ObjectsTypes type)
 {
-    return g_core.creatures.speed;
+    if (type == CREATURE)
+        return g_core.creatures.speed;
+    if (type == TRAINER)
+        return g_core.trainers.speed;
+    return NULL;
 }
 
 /**********************************************************************************************************************/
@@ -192,6 +210,8 @@ Position* GetEntityPositions(ObjectsTypes type)
         return g_core.items.position;
     if (type == OBJECT)
         return g_core.objects.position;
+    if (type == TRAINER)
+        return g_core.trainers.position;
 
     return NULL;
 }
@@ -200,9 +220,13 @@ Position* GetEntityPositions(ObjectsTypes type)
 /**Returns the array of entity NEW positions
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-Position* GetEntityNewPositions(void)
+Position* GetEntityNewPositions(ObjectsTypes type)
 {
-    return g_core.creatures.newPosition;
+    if (type == CREATURE)
+        return g_core.creatures.newPosition;
+    if (type == TRAINER)
+        return g_core.trainers.newPosition;
+    return NULL;
 }
 
 /**********************************************************************************************************************/
@@ -321,6 +345,12 @@ EntityId SpawnTrainer(HardwareInterface hardware, MemoryInterface memory, uint8_
     g_core.trainers.position[id] = pos;
     g_core.trainers.types[id] = type;
     g_core.trainers.metaData[id].value = (l + 10) + (l * 5);
+
+    SetBit(g_core.trainers.alive, id, true);
+    SetBit(g_core.trainers.onMap, id, true);
+    g_core.trainers.speed[id].current = 0;
+    g_core.trainers.speed[id].max = 40;
+
     g_core.trainers.total++;
     return id;
 }
@@ -590,11 +620,3 @@ bool InDetectionRange(EntityId id, EntityId targetID)
 }
 
 
-/**********************************************************************************************************************/
-/**Returns the player ID
-**********************************************************************************************************************/
-SET_MEMORY(".map")
-EntityId GetPlayerID(void)
-{
-    return g_core.player.id;
-}

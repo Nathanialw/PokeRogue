@@ -16,6 +16,7 @@
 #include "core_player.h"
 #include "core_ram.h"
 #include "core_state.h"
+#include "map_entities.h"
 
 
 /**********************************************************************************************************************/
@@ -78,11 +79,12 @@ void ExitMenu(void)
 SET_MEMORY(".battle")
 bool BattleSwap(HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update)
 {
+    EntityId p_ID = GetPlayerID();
     if (EnterMenu(MAX_PARTY_SIZE))
     {
         uint8_t sel = g_core.menu.sel[g_core.menu.depth].y;
-        if (GetCreatureType(g_core.player.partyID[sel]) == NO_CREATURE) return true;
-        g_core.battleMode.playerMonsterID = g_core.player.partyID[sel];
+        if (GetCreatureType(g_core.trainers.partyID[p_ID][sel]) == NO_CREATURE) return true;
+        g_core.battleMode.playerMonsterID = g_core.trainers.partyID[p_ID][sel];
         return true;
     }
 
@@ -98,16 +100,17 @@ bool BattleSwap(HardwareInterface hardware, InputInterface input, MemoryInterfac
 SET_MEMORY(".battle")
 bool BattleSpell(HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update)
 {
+    EntityId p_ID = GetPlayerID();
     if (EnterMenu(g_core.player.currentSpellbookSize))
     {
         uint8_t sel = g_core.menu.sel[g_core.menu.depth].y;
-        SpellId spell_id = g_core.player.spellID[sel];
+        SpellId spell_id = g_core.trainers.spellID[p_ID][sel];
         CastSpell(hardware, memory, spell_id, g_core.battleMode.playerMonsterID, g_core.battleMode.enemyMonsterID);
         return true;
     }
 
 
-    FillListByTypeID(memory, g_core.player.currentSpellbookSize, g_core.player.spellID);
+    FillListByTypeID(memory, g_core.player.currentSpellbookSize, g_core.trainers.spellID[p_ID]);
     return true;
 }
 
@@ -119,10 +122,11 @@ bool BattleSpell(HardwareInterface hardware, InputInterface input, MemoryInterfa
 SET_MEMORY(".battle")
 bool BattleItems(HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update)
 {
+    EntityId p_ID = GetPlayerID();
     if (EnterMenu(g_core.player.currentBagSize))
     {
         uint8_t idx = g_core.menu.sel[g_core.menu.depth].y + g_core.menu.menuScrollOffset[g_core.menu.depth].y;
-        EntityId item_id = g_core.player.itemID[idx];
+        EntityId item_id = g_core.trainers.itemID[p_ID][idx];
         EntityId entity_id = g_core.battleMode.playerMonsterID;
         ItemData itemData;
         Flash_GetItemData(memory, &itemData, item_id);
@@ -130,12 +134,12 @@ bool BattleItems(HardwareInterface hardware, InputInterface input, MemoryInterfa
         if (UseItem(memory, &itemData, item_id, entity_id))
         {
             ConsumeItem(idx, item_id);
-            FillListByEntityID(memory, g_core.player.currentBagSize, ITEM, g_core.player.itemID);
+            FillListByEntityID(memory, g_core.player.currentBagSize, ITEM, g_core.trainers.itemID[p_ID]);
         }
         return true;
     }
 
-    FillListByEntityID(memory, g_core.player.currentBagSize, ITEM, g_core.player.itemID);
+    FillListByEntityID(memory, g_core.player.currentBagSize, ITEM, g_core.trainers.itemID[p_ID]);
     return true;
 }
 
