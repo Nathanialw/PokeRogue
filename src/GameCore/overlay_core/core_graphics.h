@@ -16,4 +16,3 @@ uint8_t PrintLineStr(GraphicsInterface graphics, MemoryInterface memory, uint16_
 FrameBuffer DrawBattlerToBuffer(GraphicsInterface graphics, MemoryInterface memory, uint16_t screen_x, uint16_t screen_y, const SpriteLayout* layout, ObjectsTypes type, bool front);
 void DrawBattler(GraphicsInterface graphics, MemoryInterface memory, uint16_t screen_x, uint16_t screen_y, const SpriteLayout* layout, ObjectsTypes type, bool front);
 void DrawCursor(GraphicsInterface graphics, MemoryInterface memory);
-

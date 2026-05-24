@@ -213,7 +213,6 @@ SET_MEMORY(".battle")
 void InitBattleMenu(void)
 {
     SetInputState(INPUT_BATTLE);
-    SetBattleState(BATTLE_INIT);
     g_core.menu.x = BATTLE_MENU_X;
     g_core.menu.y = BATTLE_MENU_Y;
     g_core.menu.h = MAX_ABILITIES;

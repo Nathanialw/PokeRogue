@@ -127,7 +127,7 @@ void DrawSpriteCached(GraphicsInterface graphics, MemoryInterface memory, uint8_
 SET_MEMORY(".map")
 void OrderUnitsByBufferLine(GraphicsInterface graphics, EntityId* units, uint8_t* meta)
 {
-    for (uint16_t id = 0; id < ENTITY_COUNT; ++id)
+    for (uint16_t id = 0; id < MAX_ENTITY_CREATURE_COUNT; id++)
     {
         if (!GetBit(g_core.creatures.onMap, id)) continue;
         Position pos = g_core.creatures.position[id];
@@ -141,7 +141,7 @@ void OrderUnitsByBufferLine(GraphicsInterface graphics, EntityId* units, uint8_t
         units[cursor] = id;
         meta[row]++;
 
-        for (uint16_t i = cursor + 1; i < ENTITY_COUNT; i++)
+        for (uint16_t i = cursor + 1; i < MAX_ENTITY_CREATURE_COUNT; i++)
         {
             if (cache1 == NO_ENTITY) break;
             EntityId cache2 = units[i];

@@ -53,28 +53,28 @@ void TilesetFromGlyph1bpp(TileSet* tileset, uint16_t tile_id, uint8_t glyph_inde
 SET_MEMORY(".core")
 void CharFromGlyph1bpp(MemoryInterface memory, Glyph buffer, uint16_t* character, uint8_t glyph_index, FontSize fontSize, uint16_t fg, uint16_t bg)
 {
-    //     if (fontSize == FONT16x16)
-    //     {
-    //         Flash_GetFontChar16x16(memory, buffer.bytes, glyph_index);
-    //
-    //         for (int y = 0; y < 16; y++)
-    //         {
-    //             uint16_t row = buffer.glyph[y];
-    //             row = (row >> 8) | (row << 8);
-    //
-    //             for (int x = 0; x < 16; x++)
-    //             {
-    // #if defined(SDL)
-    //                 uint16_t bit = 0x8000 >> x;
-    //                 character[y * 16 + x] = (row & bit) ? fg : bg;
-    // #else
-    //                 uint16_t bit = 1 << x;
-    //                 character[y * 16 + x] = (row & bit) ? fg : bg;
-    // #endif
-    //             }
-    //         }
-    //         return;
-    //     }
+    if (fontSize == FONT16x16)
+    {
+        Flash_GetFontChar16x16(memory, buffer.bytes, glyph_index);
+
+        for (int y = 0; y < 16; y++)
+        {
+            uint16_t row = buffer.glyph[y];
+            row = (row >> 8) | (row << 8);
+
+            for (int x = 0; x < 16; x++)
+            {
+#if defined(SDL)
+                uint16_t bit = 0x8000 >> x;
+                character[y * 16 + x] = (row & bit) ? fg : bg;
+#else
+                uint16_t bit = 1 << x;
+                character[y * 16 + x] = (row & bit) ? fg : bg;
+#endif
+            }
+        }
+        return;
+    }
 
     uint8_t length = 0;
     switch (fontSize)
@@ -82,8 +82,6 @@ void CharFromGlyph1bpp(MemoryInterface memory, Glyph buffer, uint16_t* character
     case FONT8x8: length = Flash_GetFontChar8x8(memory, buffer.bytes, glyph_index);
         break;
     case FONT20x20: length = Flash_GetFontChar20x20(memory, buffer.bytes, glyph_index);
-        break;
-    case FONT16x16: length = Flash_GetFontChar16x16(memory, buffer.bytes, glyph_index);
         break;
     default: return;
     }

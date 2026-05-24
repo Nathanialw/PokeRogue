@@ -148,7 +148,7 @@ void DungeonPredefined(HardwareInterface hardware)
 
             for (uint16_t y = source_y; y < y_size; y++)
                 for (uint16_t x = (i * 10 + 4); x < (i * 10 + 4) + source_size; x++)
-                    SetMapTile(x, y, index);
+                    SetMapTile(x + 14, y, index);
             index++;
         }
     }

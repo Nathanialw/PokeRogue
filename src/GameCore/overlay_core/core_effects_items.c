@@ -723,4 +723,3 @@ bool UseXPPotion(HardwareInterface hardware, MemoryInterface memory, EntityId it
     if (e_id == NO_ENTITY) return false;
     return true;
 }
-

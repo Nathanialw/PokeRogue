@@ -108,45 +108,45 @@ typedef struct
     **********************************************************************************************************************/
     struct
     {
-        uint8_t total;
-        Position position[ENTITY_COUNT];
-        Position newPosition[ENTITY_COUNT]; // can be changed to hold delta, a uint8_t can hold up to 2
-        uint8_t types[ENTITY_COUNT];
-        ObjectType metaData[ENTITY_COUNT]; //any 8 bit data, Creature type, Item type, etc
+        uint16_t total;
+        Position position[MAX_ENTITY_CREATURE_COUNT];
+        Position newPosition[MAX_ENTITY_CREATURE_COUNT]; // can be changed to hold delta, a uint8_t can hold up to 2
+        uint8_t types[MAX_ENTITY_CREATURE_COUNT];
+        ObjectType metaData[MAX_ENTITY_CREATURE_COUNT]; //any 8 bit data, Creature type, Item type, etc
         BitFieldUint8 onMap;
         BitFieldUint8 active;
 
         struct
         {
-            uint8_t hovering[ENTITY_COUNT / 2];
-            uint8_t waterWalk[ENTITY_COUNT / 2];
-            uint8_t waterBreathing[ENTITY_COUNT / 2];
-            uint8_t repel[ENTITY_COUNT / 2];
-            uint8_t invisibility[ENTITY_COUNT / 2];
-            uint8_t wallWalking[ENTITY_COUNT / 2];
-            uint8_t fireEating[ENTITY_COUNT / 2];
-            uint8_t lineOfSight[ENTITY_COUNT]; // controls whether terrain blocks L/2oS
-            uint8_t paralyzed[ENTITY_COUNT / 2];
-            uint8_t sleep[ENTITY_COUNT / 2];
-            uint8_t poison[ENTITY_COUNT / 2];
-            uint8_t frozen[ENTITY_COUNT / 2];
-            uint8_t disease[ENTITY_COUNT / 2];
-            uint8_t curse[ENTITY_COUNT / 2];
-            uint8_t hasted[ENTITY_COUNT / 2];
-            uint8_t fear[ENTITY_COUNT / 2];
-            uint8_t burned[ENTITY_COUNT / 2];
-            uint8_t light[ENTITY_COUNT / 2];
-            uint8_t slowed[ENTITY_COUNT / 2];
+            uint8_t hovering[MAX_ENTITY_CREATURE_COUNT / 2];
+            uint8_t waterWalk[MAX_ENTITY_CREATURE_COUNT / 2];
+            uint8_t waterBreathing[MAX_ENTITY_CREATURE_COUNT / 2];
+            uint8_t repel[MAX_ENTITY_CREATURE_COUNT / 2];
+            uint8_t invisibility[MAX_ENTITY_CREATURE_COUNT / 2];
+            uint8_t wallWalking[MAX_ENTITY_CREATURE_COUNT / 2];
+            uint8_t fireEating[MAX_ENTITY_CREATURE_COUNT / 2];
+            uint8_t lineOfSight[MAX_ENTITY_CREATURE_COUNT]; // controls whether terrain blocks L/2oS
+            uint8_t paralyzed[MAX_ENTITY_CREATURE_COUNT / 2];
+            uint8_t sleep[MAX_ENTITY_CREATURE_COUNT / 2];
+            uint8_t poison[MAX_ENTITY_CREATURE_COUNT / 2];
+            uint8_t frozen[MAX_ENTITY_CREATURE_COUNT / 2];
+            uint8_t disease[MAX_ENTITY_CREATURE_COUNT / 2];
+            uint8_t curse[MAX_ENTITY_CREATURE_COUNT / 2];
+            uint8_t hasted[MAX_ENTITY_CREATURE_COUNT / 2];
+            uint8_t fear[MAX_ENTITY_CREATURE_COUNT / 2];
+            uint8_t burned[MAX_ENTITY_CREATURE_COUNT / 2];
+            uint8_t light[MAX_ENTITY_CREATURE_COUNT / 2];
+            uint8_t slowed[MAX_ENTITY_CREATURE_COUNT / 2];
         } status;
 
         struct
         {
-            uint8_t toxic[ENTITY_COUNT / 2];
-            uint8_t fire[ENTITY_COUNT / 2];
-            uint8_t water[ENTITY_COUNT / 2];
-            uint8_t ice[ENTITY_COUNT / 2];
-            uint8_t earth[ENTITY_COUNT / 2];
-            uint8_t magic[ENTITY_COUNT / 2];
+            uint8_t toxic[MAX_ENTITY_CREATURE_COUNT / 2];
+            uint8_t fire[MAX_ENTITY_CREATURE_COUNT / 2];
+            uint8_t water[MAX_ENTITY_CREATURE_COUNT / 2];
+            uint8_t ice[MAX_ENTITY_CREATURE_COUNT / 2];
+            uint8_t earth[MAX_ENTITY_CREATURE_COUNT / 2];
+            uint8_t magic[MAX_ENTITY_CREATURE_COUNT / 2];
             BitFieldUint8 toxicEating;
             BitFieldUint8 fireEating;
             BitFieldUint8 waterEating;
@@ -157,51 +157,51 @@ typedef struct
 
         struct
         {
-            uint8_t strength[ENTITY_COUNT / 2];
-            uint8_t defence[ENTITY_COUNT / 2];
-            uint8_t magic[ENTITY_COUNT / 2];
-            uint8_t speed[ENTITY_COUNT / 2];
+            uint8_t strength[MAX_ENTITY_CREATURE_COUNT / 2];
+            uint8_t defence[MAX_ENTITY_CREATURE_COUNT / 2];
+            uint8_t magic[MAX_ENTITY_CREATURE_COUNT / 2];
+            uint8_t speed[MAX_ENTITY_CREATURE_COUNT / 2];
         } stat;
 
         BitFieldUint8 alive;
-        Stats stats[ENTITY_COUNT];
-        Attacks attacks[ENTITY_COUNT];
-        IntMax999 hp[ENTITY_COUNT];
-        IntMax999 mp[ENTITY_COUNT];
-        IntMax999 xp[ENTITY_COUNT]; // can be changed to hold delta, a uint8_t can hold up to 2
-        IntMax99 speed[ENTITY_COUNT];
-        Int99 level[ENTITY_COUNT];
-        Senses senses[ENTITY_COUNT];
-        Senses stealth[ENTITY_COUNT];
+        Stats stats[MAX_ENTITY_CREATURE_COUNT];
+        Attacks attacks[MAX_ENTITY_CREATURE_COUNT];
+        IntMax999 hp[MAX_ENTITY_CREATURE_COUNT];
+        IntMax999 mp[MAX_ENTITY_CREATURE_COUNT];
+        IntMax999 xp[MAX_ENTITY_CREATURE_COUNT]; // can be changed to hold delta, a uint8_t can hold up to 2
+        IntMax99 speed[MAX_ENTITY_CREATURE_COUNT];
+        Int99 level[MAX_ENTITY_CREATURE_COUNT];
+        Senses senses[MAX_ENTITY_CREATURE_COUNT];
+        Senses stealth[MAX_ENTITY_CREATURE_COUNT];
     } creatures;
 
     struct
     {
-        uint8_t total;
-        EntityId itemID[ENTITY_COUNT][MAX_BAG_SIZE];
-        EntityId partyID[ENTITY_COUNT][MAX_PARTY_SIZE];
-        SpellId spellID[ENTITY_COUNT][MAX_SPELLBOOK_SIZE];
+        uint16_t total;
+        EntityId itemID[MAX_ENTITY_TRAINER_COUNT][MAX_BAG_SIZE];
+        EntityId partyID[MAX_ENTITY_TRAINER_COUNT][MAX_PARTY_SIZE];
+        SpellId spellID[MAX_ENTITY_TRAINER_COUNT][MAX_SPELLBOOK_SIZE];
 
-        Position position[ENTITY_COUNT];
-        Position newPosition[ENTITY_COUNT]; // can be changed to hold delta, a uint8_t can hold up to 2
-        uint8_t types[ENTITY_COUNT];
-        ObjectType metaData[ENTITY_COUNT]; //any 8 bit data, Creature type, Item type, etc
+        Position position[MAX_ENTITY_TRAINER_COUNT];
+        Position newPosition[MAX_ENTITY_TRAINER_COUNT]; // can be changed to hold delta, a uint8_t can hold up to 2
+        uint8_t types[MAX_ENTITY_TRAINER_COUNT];
+        ObjectType metaData[MAX_ENTITY_TRAINER_COUNT]; //any 8 bit data, Creature type, Item type, etc
         BitFieldUint8 onMap;
         BitFieldUint8 active;
 
         BitFieldUint8 alive;
-        IntMax99 speed[ENTITY_COUNT];
-        Senses senses[ENTITY_COUNT];
-        Senses stealth[ENTITY_COUNT];
+        IntMax99 speed[MAX_ENTITY_TRAINER_COUNT];
+        Senses senses[MAX_ENTITY_TRAINER_COUNT];
+        Senses stealth[MAX_ENTITY_TRAINER_COUNT];
     } trainers;
 
     struct
     {
-        uint8_t total;
-        Position position[ENTITY_COUNT];
-        Position newPosition[ENTITY_COUNT]; // can be changed to hold delta, a uint8_t can hold up to 2
-        uint8_t types[ENTITY_COUNT];
-        ObjectType metaData[ENTITY_COUNT]; //any 8 bit data, Creature type, Item type, etc
+        uint16_t total;
+        Position position[MAX_ENTITY_OBJECT_COUNT];
+        Position newPosition[MAX_ENTITY_OBJECT_COUNT]; // can be changed to hold delta, a uint8_t can hold up to 2
+        uint8_t types[MAX_ENTITY_OBJECT_COUNT];
+        ObjectType metaData[MAX_ENTITY_OBJECT_COUNT]; //any 8 bit data, Creature type, Item type, etc
         BitFieldUint8 onMap;
         BitFieldUint8 active;
         BitFieldUint8 toggle;
@@ -210,15 +210,14 @@ typedef struct
 
     struct
     {
-        uint8_t total;
-        Position position[ENTITY_COUNT];
-        Position newPosition[ENTITY_COUNT]; // can be changed to hold delta, a uint8_t can hold up to 2
-        uint8_t types[ENTITY_COUNT];
-        ObjectType metaData[ENTITY_COUNT]; //any 8 bit data, Creature type, Item type, etc
+        uint16_t total;
+        Position position[MAX_ENTITY_ITEM_COUNT];
+        Position newPosition[MAX_ENTITY_ITEM_COUNT]; // can be changed to hold delta, a uint8_t can hold up to 2
+        uint8_t types[MAX_ENTITY_ITEM_COUNT];
+        ObjectType metaData[MAX_ENTITY_ITEM_COUNT]; //any 8 bit data, Creature type, Item type, etc
         BitFieldUint8 onMap;
         BitFieldUint8 active;
     } items;
-
 
     /**********************************************************************************************************************
     *   ui cache data
@@ -232,16 +231,16 @@ typedef struct
         Vec_8 menuScrollOffsetCache; //TODO: placeholder until I know the depth
         Vec_8 menuScrollOffset[MAX_MENU_DEPTH]; //TODO: placeholder until I know the depth
         uint8_t selectedMenu;
-        uint8_t lineHeight;
+        uint16_t lineHeight;
         uint8_t displayedMenu;
         uint8_t visibleMenuOptions;
         uint8_t totalMenuOptions;
         bool forceRedraw;
         UseFrameBack useOnPartyMember;
         uint16_t colorCache;
-        uint8_t x; // in tiles
-        uint8_t y;
-        uint8_t h;
+        uint16_t x; // in tiles
+        uint16_t y;
+        uint16_t h;
         SubMenu* subMenus;
         uint16_t menuSleepTime;
 

@@ -6,7 +6,7 @@
 
 
 MusicData InitMusicData();
-void GenerateDungeonMelody(HardwareInterface hardware, Note *melody);
+void GenerateDungeonMelody(HardwareInterface hardware, Note* melody);
 
 
 /**********************************************************************************************************************/
@@ -15,10 +15,3 @@ void GenerateDungeonMelody(HardwareInterface hardware, Note *melody);
 void AudioPlayVoices(const MusicData* music_data, const Note* music);
 void CheckVolume();
 void CheckDimmer();
-
-
-
-
-
-
-

@@ -89,11 +89,20 @@ _Static_assert(OBJECT_COUNT <= 256, "max must be 256 - one byte");
 /**********************************************************************************************************************/
 /** ENTITY constants
 **********************************************************************************************************************/
+#if defined(TEST_MAP)
 #define MAX_ENTITY_ITEM_COUNT 255
 #define MAX_ENTITY_OBJECT_COUNT 255
 #define MAX_ENTITY_CREATURE_COUNT 255
+#define MAX_ENTITY_TRAINER_COUNT 255
+#else
+#define MAX_ENTITY_ITEM_COUNT 64
+#define MAX_ENTITY_OBJECT_COUNT 32
+#define MAX_ENTITY_CREATURE_COUNT 32
+#define MAX_ENTITY_TRAINER_COUNT 8
+#endif
+
 #define ENTITY_ITEM_COUNT 255
-#define ENTITY_COUNT 256
+#define ENTITY_COUNT 100
 #define NO_ENTITY 255
 #define MAX_ABILITIES 6
 #define TOTAL_SPAWNABLE_OBJECT_TYPES 4
@@ -124,8 +133,8 @@ _Static_assert(DIALOGUE_H + RESOURCE_FRAME_H + BATTLER_AREA_H <= TFT_H, "cannot 
 /**********************************************************************************************************************/
 /**MAP constants
 **********************************************************************************************************************/
-#define MAP_W 128
-#define MAP_H 128
+#define MAP_W 160
+#define MAP_H 160
 #define MAP_TILE_BITS 6
 #define MAP_SIZE_CELLS MAP_W * MAP_H
 #define MAP_SIZE_BITS (MAP_SIZE_CELLS * MAP_TILE_BITS)
@@ -160,7 +169,7 @@ _Static_assert(DIALOGUE_H + RESOURCE_FRAME_H + BATTLER_AREA_H <= TFT_H, "cannot 
 #define MAIN_MENU_H (VIEW_TH)
 
 #define BATTLE_MENU_X 0
-#define BATTLE_MENU_Y 22
+#define BATTLE_MENU_Y ((VIEW_TH * 2) - 8)
 #define BATTLE_MENU_W 15
 #define BATTLE_MENU_H 8
 

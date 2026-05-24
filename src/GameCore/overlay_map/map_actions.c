@@ -30,7 +30,7 @@ void GetSkills(MemoryInterface memory, EntityId id, Type type)
     CreatureSkillLearnLevels skills = {0};
     Flash_GetSkill(memory, skills, type, idx);
 
-    for (uint8_t i = 0; i < MAX_ABILITIES; ++i)
+    for (uint8_t i = 0; i < MAX_ABILITIES; i++)
         g_core.creatures.attacks[id][i] = skills.c[i].skillID;
 }
 

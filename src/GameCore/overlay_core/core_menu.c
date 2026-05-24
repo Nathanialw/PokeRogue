@@ -74,7 +74,6 @@ void FillListByTypeID(MemoryInterface memory, uint8_t n, uint8_t* ids)
 }
 
 
-
 /**********************************************************************************************************************/
 /*  Manages the cursor position relative to the vertical screen list
  *  Ensures the cursor wraps around at the top and bottom of the menu lists

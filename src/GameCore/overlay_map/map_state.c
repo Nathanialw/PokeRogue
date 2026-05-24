@@ -235,10 +235,10 @@ uint8_t GameLoopMain(GameInterface* spi)
     {
         ResetEntities(spi->hardware, spi->memory, false);
         InitPlayer(spi->hardware, spi->memory);
+        PopulateLevelTrainers(spi->hardware, spi->memory);
         PopulateLevelCreatures(spi->hardware, spi->memory);
         PopulateLevelObjects(spi->hardware, spi->memory);
         PopulateLevelItems(spi->hardware, spi->memory);
-        PopulateLevelTrainers(spi->hardware, spi->memory);
         PlacePlayerOnMap(spi->hardware);
         SetMapFog(0xFF);
         InitCamera(0, 0, TILE_W * VIEW_TW, TILE_H * VIEW_TH);

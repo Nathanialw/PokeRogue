@@ -30,7 +30,7 @@ bool CastSpell(HardwareInterface hardware, MemoryInterface memory, SpellId spell
 *  is a valid e_id is passed, it will attempt to use the item on that entity
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool UseItem(MemoryInterface memory, ItemData *itemData, EntityId item_id, EntityId e_id)
+bool UseItem(MemoryInterface memory, ItemData* itemData, EntityId item_id, EntityId e_id)
 {
     if (item_id == NO_ENTITY) return false;
     ItemTypes itemType = GetItemType(item_id);

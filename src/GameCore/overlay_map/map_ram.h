@@ -2,8 +2,8 @@
 // Created by nathanial on 5/19/26.
 //
 #pragma once
-#include "common/enums.h"
-#include "common/types.h"
+#include "enums.h"
+#include "types.h"
 
 typedef struct
 {
@@ -22,10 +22,6 @@ typedef struct
  **********************************************************************************************************************/
     struct
     {
-        // uint16_t frameBuffer[BUFFER_H*SCREEN_W];
-        // PartialFrameBuffer frameBuffer;
-
-        Creature newSprites[VIEW_TH][VIEW_TW];
         Tile tileCache;
 
         Glyph16x16 tilePixels; // 512 bytes
@@ -34,7 +30,6 @@ typedef struct
         Sprite entityCache; // 512 bytes
         uint8_t tile_id; // Which tile is cached
         uint8_t sprite_id; // Which sprite is cached
-        uint8_t dirty; // Flag if needs refresh
     } tileCache;
 
     /**********************************************************************************************************************
@@ -51,8 +46,9 @@ typedef struct
         ViewEntities viewTrainers;
     } view;
 
+
     uint8_t meta[TFT_H / BUFFER_H];
-    EntityId units[ENTITY_COUNT];
+    EntityId units[MAX_ENTITY_CREATURE_COUNT];
 
     EntityData entityData;
     uint8_t spriteCache[256];
@@ -68,7 +64,7 @@ typedef struct
 
     EntityId objectCollision;
     EntityId itemCollision;
-    char text[320/8];
+    char text[320 / 8];
     bool clearTooltip;
 } MapRunState;
 

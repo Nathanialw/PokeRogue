@@ -6,15 +6,15 @@
 
 #include "lib_memory.h"
 #include "lib_constants.h"
+#include "lib_enums.h"
 
 #include "core_utils.h"
 #include "core_map.h"
 #include "core_memory_access.h"
 #include "core_player.h"
 #include "core_ram.h"
-#include "lib_enums.h"
-#include "map_actions.h"
 
+#include "map_actions.h"
 #include "map_ai.h"
 #include "map_camera.h"
 #include "map_collision.h"
@@ -22,7 +22,6 @@
 #include "map_entities.h"
 #include "map_player.h"
 #include "map_ram.h"
-#include "tooltip.h"
 
 
 /**********************************************************************************************************************/
@@ -60,13 +59,15 @@ SET_MEMORY(".map")
 bool UpdatePositions(HardwareInterface hardware)
 {
     EntityId p_id = GetPlayerID();
-    EntityId combat_id = NO_ENTITY;
+    UpdatePlayerPosition();
+
+
+    // Trainers
     IntMax99* speed = GetCreatureSpeeds(TRAINER);
     uint8_t* onMap = GetEntitiesOnMap(TRAINER);
     uint8_t player_speed = speed[p_id].current; //awkwardly as my speed value decreases my speed goes 'up', I may need to rethink this
 
-
-    for (uint16_t id = 0; id < ENTITY_COUNT; ++id)
+    for (uint16_t id = 0; id < MAX_ENTITY_TRAINER_COUNT; id++)
     {
         if (!GetBit(onMap, id)) continue; //need to make sure this only triggers for dynamic map entities
         if (id == p_id) continue;
@@ -77,64 +78,62 @@ bool UpdatePositions(HardwareInterface hardware)
         if (cur + player_speed < max)
         {
             speed[id].current += player_speed;
-            g_core.creatures.newPosition[id] = g_core.creatures.position[id];
             continue;
         }
-
-        speed[id].current = player_speed - (max - cur);
-    }
-
-
-    speed = GetCreatureSpeeds(CREATURE);
-    onMap = GetEntitiesOnMap(CREATURE);
-
-    for (uint16_t id = 0; id < ENTITY_COUNT; ++id)
-    {
-        if (!GetBit(onMap, id)) continue; //need to make sure this only triggers for dynamic map entities
-        if (id == p_id) continue;
-
-        uint8_t max = speed[id].max;
-        uint8_t cur = speed[id].current;
-
-        if (cur + player_speed < max)
-        {
-            speed[id].current += player_speed;
-            g_core.creatures.newPosition[id] = g_core.creatures.position[id];
-            continue;
-        }
-
-        speed[id].current = player_speed - (max - cur);
 #if defined(TEST_MAP)
-
+        g_core.trainers.newPosition[id] = g_core.trainers.position[id];
 #else
         CreatureAI(hardware, id);
 #endif
+        speed[id].current = player_speed - (max - cur);
     }
 
-    for (uint16_t id = 0; id < ENTITY_COUNT; ++id)
+    // check for battle
+    Position pos = g_core.trainers.newPosition[p_id];
+    for (uint16_t id = 0; id < MAX_ENTITY_TRAINER_COUNT; id++)
     {
         if (!GetBit(onMap, id)) continue;
         if (id == p_id) continue;
-        EntityId collision_id = CheckCollision(id);
-        if (collision_id == p_id) combat_id = id;
+        Position t_pos = g_core.trainers.newPosition[id];
+        if (t_pos.x == pos.x && t_pos.y == pos.y)
+            StartBattle(g_core.trainers.partyID[id][0]);
     }
 
-    if (combat_id != NO_ENTITY)
+
+    // CREATURES
+    speed = GetCreatureSpeeds(CREATURE);
+    onMap = GetEntitiesOnMap(CREATURE);
+
+    for (uint16_t id = 0; id < MAX_ENTITY_CREATURE_COUNT; id++)
     {
-        ObjectCollision(combat_id);
-        return false;
+        if (!GetBit(onMap, id)) continue; //need to make sure this only triggers for dynamic map entities
+
+        uint8_t max = speed[id].max;
+        uint8_t cur = speed[id].current;
+
+        if (cur + player_speed < max)
+        {
+            speed[id].current += player_speed;
+            continue;
+        }
+#if defined(TEST_MAP)
+        g_core.creatures.newPosition[id] = g_core.creatures.position[id];
+#else
+        CreatureAI(hardware, id);
+#endif
+        speed[id].current = player_speed - (max - cur);
     }
 
-    UpdatePlayerPosition();
+    // check for battle
 
+    for (uint16_t id = 0; id < MAX_ENTITY_CREATURE_COUNT; id++)
+    {
+        if (!GetBit(onMap, id)) continue;
+        Position t_pos = g_core.creatures.newPosition[id];
+        if (t_pos.x == pos.x && t_pos.y == pos.y)
+            StartBattle(id);
+    }
 
-    // uint8_t creature_id = CheckCollision(p_id);
-
-    // if (creature_id != NO_ENTITY && creature_id != p_id)
-    // {
-    //     ObjectCollision(creature_id);
-    //     return false;
-    // }
 
     return true;
 }
@@ -147,11 +146,11 @@ void UpdateObjectCollision(MemoryInterface memory, HardwareInterface hardware)
 {
     g_map.objectCollision = NO_OBJECT;
     g_map.itemCollision = NO_ITEM;
-    for (uint16_t e_id = 0; e_id < ENTITY_COUNT; ++e_id)
+    for (uint16_t e_id = 0; e_id < g_core.creatures.total; e_id++)
     {
-        for (uint16_t o_id = 0; o_id < ENTITY_COUNT; ++o_id)
+        for (uint16_t o_id = 0; o_id < g_core.objects.total; ++o_id)
         {
-            if (!GetBit(g_core.creatures.active, e_id) || !GetBit(g_core.objects.active, o_id)) continue;
+            if (!GetBit(g_core.creatures.onMap, e_id) || !GetBit(g_core.creatures.active, e_id) || !GetBit(g_core.objects.active, o_id)) continue;
             Position cp = g_core.creatures.newPosition[e_id];
             Position op = g_core.objects.position[o_id];
             if (cp.x == op.x && cp.y == op.y)
@@ -159,11 +158,11 @@ void UpdateObjectCollision(MemoryInterface memory, HardwareInterface hardware)
         }
     }
 
-    for (uint16_t e_id = 0; e_id < ENTITY_COUNT; ++e_id)
+    for (uint16_t e_id = 0; e_id < g_core.trainers.total; e_id++)
     {
-        for (uint16_t o_id = 0; o_id < ENTITY_COUNT; ++o_id)
+        for (uint16_t o_id = 0; o_id < g_core.objects.total; o_id++)
         {
-            if (!GetBit(g_core.trainers.active, e_id) || !GetBit(g_core.objects.active, o_id)) continue;
+            if (!GetBit(g_core.trainers.onMap, e_id) || !GetBit(g_core.trainers.active, e_id) || !GetBit(g_core.objects.active, o_id)) continue;
             Position cp = g_core.trainers.newPosition[e_id];
             Position op = g_core.objects.position[o_id];
             if (cp.x == op.x && cp.y == op.y)
@@ -176,9 +175,9 @@ void UpdateObjectCollision(MemoryInterface memory, HardwareInterface hardware)
     }
 
     Position pos = GetPlayerPosition();
-    for (uint16_t i_id = 0; i_id < ENTITY_COUNT; ++i_id)
+    for (uint16_t i_id = 0; i_id < g_core.items.total; i_id++)
     {
-        if (!GetBit(g_core.items.active, i_id)) continue;
+        if (!GetBit(g_core.items.onMap, i_id) || !GetBit(g_core.items.active, i_id)) continue;
         Position op = g_core.items.position[i_id];
         if (pos.x == op.x && pos.y == op.y)
         {
@@ -195,11 +194,12 @@ void UpdateObjectCollision(MemoryInterface memory, HardwareInterface hardware)
 SET_MEMORY(".map")
 void SetPositions(void)
 {
+    //  trainer
     uint8_t* onMap = GetEntitiesOnMap(TRAINER); //array is 256 bytes
     Position* position = GetEntityPositions(TRAINER); //array is 512 bytes
     Position* newPosition = GetEntityNewPositions(TRAINER); //array is 512 bytes
 
-    for (uint16_t id = 0; id < ENTITY_COUNT; ++id)
+    for (uint16_t id = 0; id < MAX_ENTITY_TRAINER_COUNT; id++)
     {
         if (!GetBit(onMap, id)) continue;
 
@@ -222,13 +222,12 @@ void SetPositions(void)
             SetEntityPosition(TRAINER, id, x, y, nx, ny);
     }
 
+    //  creature
     onMap = GetEntitiesOnMap(CREATURE); //array is 256 bytes
     position = GetEntityPositions(CREATURE); //array is 512 bytes
     newPosition = GetEntityNewPositions(CREATURE); //array is 512 bytes
 
-    // DEBUG("Updating Object Positions");
-
-    for (uint16_t id = 0; id < ENTITY_COUNT; ++id)
+    for (uint16_t id = 0; id < MAX_ENTITY_CREATURE_COUNT; id++)
     {
         if (!GetBit(onMap, id)) continue;
 

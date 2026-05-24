@@ -18,4 +18,3 @@ State SetInputState(InputState state)
     g_core.state.inputState = state;
     return g_core.state;
 }
-

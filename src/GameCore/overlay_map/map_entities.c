@@ -39,12 +39,17 @@ const Spawn spawn[TOTAL_SPAWNABLE_OBJECT_TYPES] = {SpawnMonster, SpawnObject, Sp
 *   ON FAIL - returns NO_OBJECT
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-uint8_t CheckCollision(EntityId id)
+EntityId CheckCollision(EntityId id, ObjectsTypes type)
 {
-    Position pos = g_core.creatures.newPosition[id];
-    uint8_t creature_id = CheckTileForEntity(CREATURE, id, pos);
-    if (creature_id == NO_ENTITY)
-        creature_id = CheckTileForEntity(CREATURE, id, pos);
+    Position pos = {0};
+    if (type == CREATURE)
+        pos = g_core.creatures.newPosition[id];
+    else if (type == TRAINER)
+        pos = g_core.trainers.newPosition[id];
+    else
+        return NO_OBJECT;
+
+    EntityId creature_id = CheckTileForEntity(type, id, pos);
     return creature_id;
 };
 
@@ -60,10 +65,10 @@ EntityId CheckTile(ObjectsTypes type, EntityId e_id, Position pos, Position* pos
 {
     uint8_t* onMap = GetEntitiesOnMap(type);
 
-    for (uint16_t i = 0; i < n; ++i)
+    for (uint16_t i = 0; i < n; i++)
     {
         if (!GetBit(onMap, i)) continue;
-        if (type == CREATURE && e_id != NO_ENTITY && i == e_id) continue;
+        if ((type == CREATURE || type == TRAINER) && e_id != NO_ENTITY && i == e_id) continue;
 
         Position t_pos = positions[i];
         if (t_pos.x == pos.x && t_pos.y == pos.y)
@@ -72,11 +77,12 @@ EntityId CheckTile(ObjectsTypes type, EntityId e_id, Position pos, Position* pos
     return NO_ENTITY;
 }
 
+/**********************************************************************************************************************
+*
+**********************************************************************************************************************/
 SET_MEMORY(".map")
 EntityId CheckTileForEntity(ObjectsTypes type, EntityId e_id, Position pos)
 {
-    // ASSERT(e_id != NO_CREATURE, "ID is NO_CREATURE it is invalid!");
-
     if (type == CREATURE)
     {
         return CheckTile(type, e_id, pos, g_core.creatures.position, g_core.creatures.total);
@@ -94,7 +100,7 @@ EntityId CheckTileForEntity(ObjectsTypes type, EntityId e_id, Position pos)
 
     if (type == TRAINER)
     {
-        return CheckTile(type, e_id, pos, g_core.trainers.position, g_core.objects.total);
+        return CheckTile(type, e_id, pos, g_core.trainers.position, g_core.trainers.total);
     }
 
     return NO_ENTITY;
@@ -110,6 +116,7 @@ Position QueueObjectMovePosition(EntityId id, uint8_t x, uint8_t y)
     g_core.trainers.newPosition[id] = pos;
     return g_core.trainers.newPosition[id];
 }
+
 
 /**********************************************************************************************************************/
 /**sets the current position as the newPosition value of the given entity id
@@ -136,7 +143,7 @@ Position SetEntityPosition(ObjectsTypes type, EntityId id, uint8_t x, uint8_t y,
     if (type == TRAINER)
     {
         g_core.trainers.position[id] = pos;
-        return g_core.objects.position[id];
+        return g_core.trainers.position[id];
     }
 
     return pos;
@@ -156,7 +163,8 @@ Position GetEntityPosition(ObjectsTypes type, EntityId id)
         return g_core.objects.position[id];
     if (type == TRAINER)
         return g_core.trainers.position[id];
-    return g_core.creatures.position[id];
+    Position p = {0};
+    return p;
 }
 
 /**********************************************************************************************************************/
@@ -173,7 +181,6 @@ uint8_t* GetEntitiesOnMap(ObjectsTypes type)
         return g_core.objects.onMap;
     if (type == TRAINER)
         return g_core.trainers.onMap;
-
     return NULL;
 }
 
@@ -237,7 +244,7 @@ SET_MEMORY(".map")
 EntityId SpawnMonster(HardwareInterface hardware, MemoryInterface memory, uint8_t type, uint8_t x, uint8_t y, uint8_t l)
 {
     EntityId id = NO_ENTITY;
-    for (uint16_t i = 0; i < ENTITY_COUNT; ++i)
+    for (uint16_t i = 0; i < MAX_ENTITY_CREATURE_COUNT; i++)
         if (!GetBit(g_core.creatures.active, i))
         {
             id = i;
@@ -282,7 +289,7 @@ SET_MEMORY(".map")
 EntityId SpawnItem(HardwareInterface hardware, MemoryInterface memory, uint8_t type, uint8_t x, uint8_t y, uint8_t l)
 {
     EntityId id = NO_ENTITY;
-    for (uint16_t i = 0; i < ENTITY_COUNT; ++i)
+    for (uint16_t i = 0; i < MAX_ENTITY_ITEM_COUNT; i++)
         if (!GetBit(g_core.items.active, i))
         {
             id = i;
@@ -307,7 +314,7 @@ SET_MEMORY(".map")
 EntityId SpawnObject(HardwareInterface hardware, MemoryInterface memory, uint8_t type, uint8_t x, uint8_t y, uint8_t l)
 {
     EntityId id = NO_ENTITY;
-    for (uint16_t i = 0; i < ENTITY_COUNT; ++i)
+    for (uint16_t i = 0; i < MAX_ENTITY_OBJECT_COUNT; i++)
         if (!GetBit(g_core.objects.active, i))
         {
             id = i;
@@ -332,7 +339,7 @@ SET_MEMORY(".map")
 EntityId SpawnTrainer(HardwareInterface hardware, MemoryInterface memory, uint8_t type, uint8_t x, uint8_t y, uint8_t l)
 {
     EntityId id = NO_ENTITY;
-    for (uint16_t i = 0; i < ENTITY_COUNT; ++i)
+    for (uint16_t i = 0; i < MAX_ENTITY_TRAINER_COUNT; i++)
         if (!GetBit(g_core.trainers.active, i))
         {
             id = i;
@@ -342,6 +349,13 @@ EntityId SpawnTrainer(HardwareInterface hardware, MemoryInterface memory, uint8_
 
     SetBit(g_core.trainers.onMap, id, true);
     Position pos = {.x = x, .y = y};
+
+
+    //  TODO: set party as trainer data in the database flash
+    //  currently adds a succubus to each trainer
+    EntityId e_id = SpawnEntity(hardware, memory, CREATURE, SUCCUBUS, x, y, 5);
+    g_core.trainers.partyID[id][0] = CaptureMonster(e_id);
+
     g_core.trainers.position[id] = pos;
     g_core.trainers.types[id] = type;
     g_core.trainers.metaData[id].value = (l + 10) + (l * 5);
@@ -399,7 +413,7 @@ void CopyCreature(HardwareInterface hardware, EntityId src_id, EntityId target_i
     g_core.creatures.stats[target_id].speed = g_core.creatures.stats[src_id].speed;
     g_core.creatures.level[target_id].value = g_core.creatures.level[src_id].value;
 
-    for (uint8_t i = 0; i < 8; ++i)
+    for (uint8_t i = 0; i < 8; i++)
         g_core.creatures.attacks[target_id][i] = NO_ABILITY;
     Int999SetCurrent(&g_core.creatures.hp[target_id], 0);
     Int999SetMax(&g_core.creatures.hp[target_id], 0);
@@ -448,13 +462,17 @@ void ResetEntities(HardwareInterface hardware, MemoryInterface memory, bool copy
         item_start_idx = CachePlayerItemData();
     }
 
-    for (uint16_t i = creature_start_idx; i < ENTITY_COUNT; ++i)
+    for (uint16_t i = creature_start_idx; i < MAX_ENTITY_CREATURE_COUNT; i++)
         DestroyCreature(hardware, i);
 
-    for (uint16_t i = item_start_idx; i < ENTITY_COUNT; ++i)
+    for (uint16_t i = item_start_idx; i < MAX_ENTITY_ITEM_COUNT; i++)
         DestroyItem(i);
 
-    for (uint16_t i = 0; i < ENTITY_COUNT; ++i)
+    for (uint16_t i = 0; i < MAX_ENTITY_OBJECT_COUNT; i++)
+        DestroyObject(i);
+
+
+    for (uint16_t i = 0; i < MAX_ENTITY_TRAINER_COUNT; i++)
         DestroyObject(i);
 
     g_core.creatures.total = 0;
@@ -466,12 +484,11 @@ void ResetEntities(HardwareInterface hardware, MemoryInterface memory, bool copy
 /** Creates all the creatures on the map from the BIOME and THEME data
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-void PopulateLevelCreatures(HardwareInterface hardware, MemoryInterface memory)
+void PopulateLevelTrainers(HardwareInterface hardware, MemoryInterface memory)
 {
+    Position pos = {.x = 14, .y = 55};
 #if defined(TEST_MAP)
-    uint8_t creature_level = g_core.floor;
-    Position pos = {.x = 14, .y = 30};
-    for (uint8_t i = 0; i < CREATURE_COUNT; ++i)
+    for (uint8_t i = 0; i < TRAINER_COUNT; i++)
     {
         pos.x++;
         if (i % 75 == 0)
@@ -479,15 +496,47 @@ void PopulateLevelCreatures(HardwareInterface hardware, MemoryInterface memory)
             pos.x = 14;
             pos.y++;
         }
+        SpawnEntity(hardware, memory, TRAINER, i, pos.x, pos.y, 1);
+    }
+
+    for (uint16_t i = 0; i < g_core.trainers.total; i++)
+        if (GetBit(g_core.trainers.onMap, i) && GetBit(g_core.trainers.alive, i))
+            g_core.trainers.newPosition[i] = g_core.trainers.position[i];
+#else
+    uint8_t trainer_level = 1;
+    for (uint8_t i = 0; i < NUM_MAP_TRAINERS; i++)
+    {
+        const ItemTypes trainer_type = hardware.GetRandom_uint8_t(0, TRAINER_COUNT);
+        const Position pos = FindOpenMapLocation(hardware, TRAINER);
+        SpawnEntity(hardware, memory, TRAINER, trainer_type, pos.x, pos.y, trainer_level);
+    }
+#endif
+}
+
+SET_MEMORY(".map")
+void PopulateLevelCreatures(HardwareInterface hardware, MemoryInterface memory)
+{
+#if defined(TEST_MAP)
+    uint8_t creature_level = g_core.floor;
+    Position pos = {.x = 14, .y = 30};
+    uint8_t max_creatures = CREATURE_COUNT - g_core.creatures.total;
+    for (uint8_t i = 0; i < max_creatures; i++)
+    {
+        pos.x++;
+        if (i % 75 == 0)
+        {
+            pos.x = 14;
+            pos.y += 2;
+        }
         SpawnEntity(hardware, memory, CREATURE, i, pos.x, pos.y, creature_level);
     }
 
-    for (uint8_t i = 0; i < g_core.creatures.total; ++i)
+    for (uint16_t i = 0; i < g_core.creatures.total; i++)
         if (GetBit(g_core.creatures.onMap, i) && GetBit(g_core.creatures.alive, i))
             g_core.creatures.newPosition[i] = g_core.creatures.position[i];
 #else
     uint8_t creature_level = g_core.floor;
-    for (uint8_t i = 0; i < NUM_BIOME_CREATURES; ++i)
+    for (uint8_t i = 0; i < NUM_BIOME_CREATURES; i++)
     {
         uint8_t index = hardware.GetRandom_uint8_t(0, BIOME_MONSTER_TYPES);
         const Creature creature = Flash_GetBiomeCreature(memory, g_core.biome, index);
@@ -495,7 +544,7 @@ void PopulateLevelCreatures(HardwareInterface hardware, MemoryInterface memory)
         SpawnEntity(hardware, memory, CREATURE, creature, pos.x, pos.y, creature_level);
     }
 
-    for (uint8_t i = 0; i < NUM_THEME_CREATURES; ++i)
+    for (uint8_t i = 0; i < NUM_THEME_CREATURES; i++)
     {
         uint8_t index = hardware.GetRandom_uint8_t(0, THEME_MONSTER_TYPES);
         const Creature creature = Flash_GetThemeCreature(memory, g_core.theme, index);
@@ -503,7 +552,7 @@ void PopulateLevelCreatures(HardwareInterface hardware, MemoryInterface memory)
         SpawnEntity(hardware, memory, CREATURE, creature, pos.x, pos.y, creature_level);
     }
 
-    for (uint8_t i = 0; i < g_core.creatures.total; ++i)
+    for (uint8_t i = 0; i < g_core.creatures.total; i++)
         if (GetBit(g_core.creatures.onMap, i) && GetBit(g_core.creatures.alive, i))
             g_core.creatures.newPosition[i] = g_core.creatures.position[i];
 #endif
@@ -512,9 +561,9 @@ void PopulateLevelCreatures(HardwareInterface hardware, MemoryInterface memory)
 SET_MEMORY(".map")
 void PopulateLevelItems(HardwareInterface hardware, MemoryInterface memory)
 {
-    Position pos = {.x = 14, .y = 40};
+    Position pos = {.x = 14, .y = 45};
 #if defined(TEST_MAP)
-    for (uint8_t i = 0; i < ITEM_COUNT; ++i)
+    for (uint8_t i = 0; i < ITEM_COUNT; i++)
     {
         pos.x++;
         if (i % 75 == 0)
@@ -527,7 +576,7 @@ void PopulateLevelItems(HardwareInterface hardware, MemoryInterface memory)
 
 #else
     uint8_t item_level = 1;
-    for (uint8_t i = 0; i < NUM_MAP_ITEMS; ++i)
+    for (uint8_t i = 0; i < NUM_MAP_ITEMS; i++)
     {
         const ItemTypes item_type = hardware.GetRandom_uint8_t(0, ITEM_COUNT);
         const Position pos = FindOpenMapLocation(hardware, ITEM);
@@ -539,9 +588,9 @@ void PopulateLevelItems(HardwareInterface hardware, MemoryInterface memory)
 SET_MEMORY(".map")
 void PopulateLevelObjects(HardwareInterface hardware, MemoryInterface memory)
 {
-    Position pos = {.x = 14, .y = 45};
+    Position pos = {.x = 14, .y = 50};
 #if defined(TEST_MAP)
-    for (uint8_t i = 0; i < OBJECT_COUNT; ++i)
+    for (uint8_t i = 0; i < OBJECT_COUNT; i++)
     {
         pos.x++;
         if (i % 75 == 0)
@@ -553,7 +602,7 @@ void PopulateLevelObjects(HardwareInterface hardware, MemoryInterface memory)
     }
 #else
     uint8_t object_level = 1;
-    for (uint8_t i = 0; i < NUM_MAP_OBJECTS; ++i)
+    for (uint8_t i = 0; i < NUM_MAP_OBJECTS; i++)
     {
         const Object object_type = hardware.GetRandom_uint8_t(0, OBJECT_COUNT);
         const Position pos = FindOpenMapLocation(hardware, OBJECT);
@@ -563,32 +612,6 @@ void PopulateLevelObjects(HardwareInterface hardware, MemoryInterface memory)
 }
 
 
-SET_MEMORY(".map")
-void PopulateLevelTrainers(HardwareInterface hardware, MemoryInterface memory)
-{
-    Position pos = {.x = 14, .y = 55};
-
-#if defined(TEST_MAP)
-    for (uint8_t i = 0; i < TRAINER_COUNT; ++i)
-    {
-        pos.x++;
-        if (i % 75 == 0)
-        {
-            pos.x = 14;
-            pos.y++;
-        }
-        SpawnEntity(hardware, memory, TRAINER, i, pos.x, pos.y, 1);
-    }
-#else
-    uint8_t trainer_level = 1;
-    for (uint8_t i = 0; i < NUM_MAP_TRAINERS; ++i)
-    {
-        const ItemTypes trainer_type = hardware.GetRandom_uint8_t(0, TRAINER_COUNT);
-        const Position pos = FindOpenMapLocation(hardware, TRAINER);
-        SpawnEntity(hardware, memory, TRAINER, trainer_type, pos.x, pos.y, trainer_level);
-    }
-#endif
-}
 
 /**********************************************************************************************************************/
 /** Checks whether is given entity ID can detect the target entity ID
@@ -618,5 +641,3 @@ bool InDetectionRange(EntityId id, EntityId targetID)
 
     return false;
 }
-
-

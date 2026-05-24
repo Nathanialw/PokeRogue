@@ -36,7 +36,7 @@ void FullRedraw(GraphicsInterface graphics, HardwareInterface hardware, MemoryIn
         }
     }
 
-    for (uint8_t i = 0; i < g_core.items.total; ++i)
+    for (uint16_t i = 0; i < g_core.items.total; i++)
     {
         if (g_core.items.types[i] == NO_ITEM) continue;
 
@@ -51,7 +51,7 @@ void FullRedraw(GraphicsInterface graphics, HardwareInterface hardware, MemoryIn
         }
     }
 
-    for (uint8_t i = 0; i < g_core.objects.total; ++i)
+    for (uint16_t i = 0; i < g_core.objects.total; i++)
     {
         if (g_core.objects.types[i] == NO_OBJECT) continue;
 
@@ -66,7 +66,7 @@ void FullRedraw(GraphicsInterface graphics, HardwareInterface hardware, MemoryIn
         }
     }
 
-    for (uint8_t i = 0; i < g_core.creatures.total; ++i)
+    for (uint16_t i = 0; i < g_core.creatures.total; i++)
     {
         if (g_core.creatures.types[i] == NO_CREATURE) continue;
 
@@ -82,7 +82,7 @@ void FullRedraw(GraphicsInterface graphics, HardwareInterface hardware, MemoryIn
         }
     }
 
-    for (uint8_t i = 0; i < g_core.trainers.total; ++i)
+    for (uint16_t i = 0; i < g_core.trainers.total; i++)
     {
         if (g_core.trainers.types[i] == NO_TRAINER) continue;
 
@@ -141,8 +141,7 @@ void CheckForTileChanges(Camera cam)
 SET_MEMORY(".map")
 void GetEntitiesInView(Camera cam, BitFieldUint8* onMap, ViewEntities* view, Position* pos, const uint8_t* types, uint8_t count)
 {
-    uint8_t id = 0;
-    while (1)
+    for (uint16_t id = 0; id < count; id++)
     {
         if (GetBit(*onMap, id))
         {
@@ -155,9 +154,6 @@ void GetEntitiesInView(Camera cam, BitFieldUint8* onMap, ViewEntities* view, Pos
                 view->newSprites[sy][sx] = types[id];
             }
         }
-
-        id++;
-        if (id == count) break;
     }
 }
 
@@ -253,7 +249,7 @@ void RenderObjects(GraphicsInterface graphics, HardwareInterface hardware, Memor
     // if (g_core.btns.gameSpeed < 5)
     // AnimationMovement(graphics, hardware, memory);
 
-    for (uint8_t i = 0; i < (VIEW_TH * VIEW_TW) >> 3; ++i)
+    for (uint8_t i = 0; i < (VIEW_TH * VIEW_TW) >> 3; i++)
         g_map.view.dirtyTiles[i] = 0;
 
 

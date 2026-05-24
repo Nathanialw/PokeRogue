@@ -19,7 +19,7 @@
 SET_MEMORY(".map")
 Position GetRandomMapTile(HardwareInterface hardware, ObjectsTypes type, bool emptyOnly)
 {
-    do
+    while (1)
     {
         uint8_t x = hardware.GetRandom_uint8_t(0, MAP_W - 1);
         uint8_t y = hardware.GetRandom_uint8_t(0, MAP_H - 1);
@@ -37,7 +37,7 @@ Position GetRandomMapTile(HardwareInterface hardware, ObjectsTypes type, bool em
             return pos;
         }
     }
-    while (1);
+
 }
 
 

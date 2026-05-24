@@ -84,7 +84,6 @@ add_library(GameCore STATIC
         overlay_generate_map/generate_map_state.c
         overlay_map/tooltip.c
         overlay_map/tooltip.h
-
 )
 
 

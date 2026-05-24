@@ -38,13 +38,13 @@ void InitPlayer(HardwareInterface hardware, MemoryInterface memory)
     g_core.player.currentSpellbookSize = DEFAULT_SPELLBOOK_SIZE;
     EntityId p_ID = GetPlayerID();
 
-    for (uint8_t i = 0; i < MAX_PARTY_SIZE; ++i)
+    for (uint8_t i = 0; i < MAX_PARTY_SIZE; i++)
         g_core.trainers.partyID[p_ID][i] = NO_ENTITY;
 
-    for (uint8_t i = 0; i < MAX_BAG_SIZE; ++i)
+    for (uint8_t i = 0; i < MAX_BAG_SIZE; i++)
         g_core.trainers.itemID[p_ID][i] = NO_ENTITY;
 
-    for (uint8_t i = 0; i < MAX_SPELLBOOK_SIZE; ++i)
+    for (uint8_t i = 0; i < MAX_SPELLBOOK_SIZE; i++)
         g_core.trainers.spellID[p_ID][i] = NO_ENTITY;
 
     g_core.trainers.spellID[p_ID][0] = HEAL;
@@ -69,9 +69,8 @@ void InitPlayer(HardwareInterface hardware, MemoryInterface memory)
 
 
     for (uint16_t j = y - 5; j < y + 5; ++j)
-        for (uint16_t i = x - 5; i < x + 5; ++i)
+        for (uint16_t i = x - 5; i < x + 5; i++)
             SetFog(i, j, false);
-
 }
 
 /*******************************************************************************************************************
@@ -89,7 +88,7 @@ EntityId CachePlayerCreatureData(HardwareInterface hardware)
     }
     creature_idx++;
 
-    for (uint8_t i = 0; i < MAX_PARTY_SIZE; ++i)
+    for (uint8_t i = 0; i < MAX_PARTY_SIZE; i++)
     {
         if (g_core.trainers.partyID[p_ID][i] != NO_ENTITY && g_core.trainers.partyID[p_ID][i] > creature_idx)
         {
@@ -111,7 +110,7 @@ EntityId CachePlayerItemData()
     EntityId p_ID = GetPlayerID();
     SortEntityArray(sorted_indexes, g_core.trainers.itemID[p_ID], MAX_BAG_SIZE);
 
-    for (uint8_t i = 0; i < MAX_BAG_SIZE; ++i)
+    for (uint8_t i = 0; i < MAX_BAG_SIZE; i++)
     {
         if (sorted_indexes[i] != NO_ENTITY && sorted_indexes[i] != item_idx)
         {
@@ -124,7 +123,6 @@ EntityId CachePlayerItemData()
     //set player items to beginning of the array
     return item_idx;
 }
-
 
 
 /*******************************************************************************************************************
@@ -164,9 +162,6 @@ Delta SetPlayerDelta(Delta newDelta)
     g_core.player.d = newDelta;
     return g_core.player.d;
 }
-
-
-
 
 
 /*******************************************************************************************************************

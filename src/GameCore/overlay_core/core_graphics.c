@@ -103,7 +103,7 @@ void DrawCursor(GraphicsInterface graphics, MemoryInterface memory)
     const uint16_t x = g_core.menu.x * TILE_W;
     const FontSize font_size = g_core.settings.fontSize;
     const uint8_t size = (font_size == FONT8x8) ? TEXT_W : TILE_W;
-    const uint8_t list_y = g_core.menu.y * size;
+    const uint16_t list_y = g_core.menu.y * size;
 
     uint8_t sel_y = GetSelectorY();
     Glyph buffer = {0};

@@ -4,10 +4,11 @@
 
 #include "map_collision.h"
 
-#include "core_player.h"
 #include "lib_memory.h"
 
+#include "core_player.h"
 #include "core_ram.h"
+
 #include "map_entities.h"
 
 
@@ -134,13 +135,11 @@ bool CheckInteraction(uint8_t tile, EntityId id, uint8_t x, uint8_t y)
 /** Triggers the battle state
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-void ObjectCollision(EntityId id)
+void StartBattle(EntityId id)
 {
     EntityId p_ID = GetPlayerID();
     g_core.battleMode.playerMonsterID = g_core.trainers.partyID[p_ID][0];
     g_core.battleMode.enemyMonsterID = id;
 
     g_core.state.overlay = OVERLAY_BATTLE;
-    g_core.state.battleState = BATTLE_INIT;
-
 }
