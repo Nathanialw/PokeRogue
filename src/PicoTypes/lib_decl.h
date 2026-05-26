@@ -56,14 +56,14 @@ typedef struct __attribute__((packed))
     void (*Draw)(uint16_t x, uint16_t y, uint16_t w, uint16_t h, const uint8_t* data);
     void (*Draw16)(uint16_t x, uint16_t y, uint16_t w, uint16_t h, const uint16_t* data);
 
-    void (*SetBuffer)(uint16_t length, uint16_t* p, uint16_t rgb565);
+    void (*SetBuffer)(uint16_t length, uint16_t* p, Color rgb565);
     void (*SetBufferColor)(uint16_t length, uint16_t* p, Color rgb565);
-    void (*SetFrameBuffer)(uint16_t rgb565);
+    void (*SetFrameBuffer)(Color rgb565);
     void (*SetFrameBufferColor)(Color rgb565);
 
-    void (*FillRect)(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t rgb565);
+    void (*FillRect)(uint16_t x, uint16_t y, uint16_t w, uint16_t h, Color rgb565);
     void (*FillRectColor)(uint16_t x, uint16_t y, uint16_t w, uint16_t h, Color rgb565);
-    void (*FillScreen)(uint16_t rgb565);
+    void (*FillScreen)(Color rgb565);
     void (*FillScreenColor)(Color rgb565);
     void (*EndFrame)(void);
 

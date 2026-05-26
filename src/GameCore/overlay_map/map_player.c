@@ -66,11 +66,6 @@ void InitPlayer(HardwareInterface hardware, MemoryInterface memory)
 
     e_id = SpawnEntity(hardware, memory, ITEM, POTION_VISION, x, y, 0);
     PlayerPickItem(e_id);
-
-
-    // for (uint16_t j = y - 5; j < y + 5; ++j)
-        // for (uint16_t i = x - 5; i < x + 5; i++)
-            // SetFog(i, j, false);
 }
 
 /*******************************************************************************************************************

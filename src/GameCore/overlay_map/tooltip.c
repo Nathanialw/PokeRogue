@@ -8,7 +8,6 @@
 
 #include "core_graphics.h"
 #include "core_memory_access.h"
-#include "core_ram.h"
 
 #include "map_ram.h"
 
@@ -20,7 +19,7 @@ void UpdateTooltip(GraphicsInterface graphics, MemoryInterface memory)
     if (g_map.objectCollision == NO_OBJECT && g_map.itemCollision == NO_ITEM)
         return;
 
-    graphics.FillRect(0, SCREEN_H - (2 * 8), SCREEN_W, (2 * 8), PAL_OFF_WHITE_GRAY);
+    graphics.FillRect(0, SCREEN_H - (2 * 8), SCREEN_W, (2 * 8), Flash_GetColor(memory, PAL_OFF_WHITE_GRAY));
     uint16_t x = 0;
     uint16_t y = SCREEN_H - (2 * 8);
     const uint8_t size = SCREEN_W / 8;

@@ -46,7 +46,6 @@
  ************************************************************************************************************/
 
 
-
 /************************************************************************************************************
  *  HEALTH - FALL
  *  HEALTH - RISE TODO: NOT IMPLEMENTED YET
@@ -90,7 +89,7 @@ void AnimationUpdateHealth(GraphicsInterface graphics, HardwareInterface hardwar
             break;
         x -= 1;
 
-        graphics.FillRect(x, y, w, h, 0xf00a);
+        graphics.FillRect(x, y, w, h, (Color){.color = 0xf00a});
         graphics.EndFrame();
         hardware.SleepMS(16);
     }
@@ -171,7 +170,6 @@ void AnimationScreenClearRandom(GraphicsInterface graphics, HardwareInterface ha
             break;
     }
 }
-
 
 
 /************************************************************************************************************

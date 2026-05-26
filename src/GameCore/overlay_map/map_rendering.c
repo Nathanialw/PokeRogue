@@ -19,7 +19,7 @@
 
 
 SET_MEMORY(".map")
-bool CheckVision(HardwareInterface hardware, uint8_t x, uint8_t y)
+bool CheckVision(uint8_t x, uint8_t y)
 {
     return g_map.view.vision[y][x];
 }
@@ -35,7 +35,7 @@ bool CheckVisionMap(uint8_t x, uint8_t y)
 
 
 SET_MEMORY(".map")
-bool CheckFogCleared(HardwareInterface hardware, uint8_t x, uint8_t y)
+bool CheckFogCleared(uint8_t x, uint8_t y)
 {
     return g_core.fog[y][x];
 }
@@ -56,13 +56,9 @@ void UpdateVision(GraphicsInterface graphics, HardwareInterface hardware)
                 g_map.view.vision[i][j] = 1;
                 g_core.fog[c.y + i][c.x + j] = 1;
             }
-            else if (CheckFogCleared(hardware, c.x + j, c.y + i))
-            {
-                graphics.FillRect(j * TILE_W, i * TILE_H, TILE_W, TILE_H, 0xFFFF);
-            }
             else
             {
-                graphics.FillRect(j * TILE_W, i * TILE_H, TILE_W, TILE_H, 0x0000);
+                graphics.FillRect(j * TILE_W, i * TILE_H, TILE_W, TILE_H, (Color){.color = 0x0000});
             }
         }
     }
@@ -130,13 +126,13 @@ static const uint8_t colors[16] =
     PAL_BRIGHT_LIGHT_GRN,
 };
 
-void DrawMinimapEntities(GraphicsInterface graphics, MemoryInterface memory, Position *positions, uint16_t y, uint8_t palette_color)
+void DrawMinimapEntities(GraphicsInterface graphics, MemoryInterface memory, Position* positions, uint16_t y, uint8_t palette_color)
 {
     // DRAW CREATURES
     uint16_t start_pos = (TFT_W - MAP_W) >> 1;
     uint16_t margins = TFT_W - MAP_W;
     uint16_t cursor = 0;
-    uint16_t enemy_color = Flash_GetColor(memory, palette_color);
+    Color enemy_color = Flash_GetColor(memory, palette_color);
 
     for (uint16_t id = 0; id < MAX_ENTITY_CREATURE_COUNT; id++)
     {
@@ -145,10 +141,10 @@ void DrawMinimapEntities(GraphicsInterface graphics, MemoryInterface memory, Pos
             continue;
 
         uint8_t row = pos.y - y;
-        uint16_t color = enemy_color;
+        Color color = enemy_color;
 
         cursor = start_pos + (row * margins) + (row * MAP_W) + pos.x;
-        graphics.GetFrameBuffer2bytes()[cursor] = color;
+        graphics.GetFrameBuffer2bytes()[cursor] = color.color;
     }
 }
 
@@ -161,10 +157,10 @@ void DrawMiniMap(GraphicsInterface graphics, HardwareInterface hardware, MemoryI
     uint8_t buffer_lines = TFT_H / BUFFER_H;
 
     OrderUnitsByBufferLine(graphics, g_map.units, g_map.meta);
-
+    Camera c = GetCamera();
 
     uint16_t cursor = 0;
-    uint16_t transparency = Flash_GetColor(memory, PAL_KEY);
+    Color transparency = Flash_GetColor(memory, PAL_KEY);
     for (uint16_t y = 0; y < MAP_H; y += BUFFER_H)
     {
         graphics.SetFrameBuffer(Flash_GetColor(memory, PAL_OFF_WHITE_GRAY));
@@ -174,15 +170,23 @@ void DrawMiniMap(GraphicsInterface graphics, HardwareInterface hardware, MemoryI
         {
             uint16_t cy = y + row;
             if (cy >= MAP_H) break;
-            uint16_t color;
+            Color color;
             for (uint16_t x = 0; x < MAP_W; x++)
             {
-                if (!CheckFogCleared(hardware, x, cy))
-                    color = 0x0000;
+                if (!CheckFogCleared(x, cy))
+                    color.color = 0x0000;
                 else
+                {
                     color = Flash_GetColor(memory, colors[GetMapTile(x, cy)]);
-                if (color == transparency) continue;
-                graphics.GetFrameBuffer2bytes()[cursor++] = color;
+                    if (cy < c.y || cy >= c.y + VIEW_TH || x < c.x || x >= c.x + VIEW_TW)
+                    {
+                        color.r = (color.r >> 1);
+                        color.g = (color.g >> 1);
+                        color.b = (color.b >> 1);
+                    }
+                }
+                if (color.color == transparency.color) continue;
+                graphics.GetFrameBuffer2bytes()[cursor++] = color.color;
             }
             cursor += (TFT_W - MAP_W);
         }
@@ -212,9 +216,18 @@ void FullRedraw(GraphicsInterface graphics, HardwareInterface hardware, MemoryIn
         {
             uint16_t mx = cam.x + sx;
             uint16_t id = GetMapTile(mx, my);
-            if (!g_map.view.vision[sy][sx]) continue;
-            DrawTile(graphics, memory, sx, sy, id);
-            g_map.view.viewTiles[sy][sx] = id;
+            if (CheckVision(sx, sy))
+            {
+                //Draw normal
+                DrawTile(graphics, memory, sx, sy, id, 15);
+                g_map.view.viewTiles[sy][sx] = id;
+            }
+            else if (CheckFogCleared(cam.x + sx, cam.y + sy))
+            {
+                //draw darkened
+                DrawTile(graphics, memory, sx, sy, id, -50);
+                g_map.view.viewTiles[sy][sx] = id;
+            }
         }
     }
 
@@ -228,7 +241,7 @@ void FullRedraw(GraphicsInterface graphics, HardwareInterface hardware, MemoryIn
         {
             uint8_t rx = (x - cam.x);
             uint8_t ry = (y - cam.y);
-            if (!g_map.view.vision[ry][rx]) continue;
+            if (!CheckVision(rx, ry)) continue;
             DrawSprite(graphics, memory, rx, ry, g_core.items.types[i], ITEM);
             g_map.view.viewItems.viewEntities[ry][rx] = g_core.items.types[i];
         }
@@ -244,7 +257,7 @@ void FullRedraw(GraphicsInterface graphics, HardwareInterface hardware, MemoryIn
         {
             uint8_t rx = (x - cam.x);
             uint8_t ry = (y - cam.y);
-            if (!g_map.view.vision[ry][rx]) continue;
+            if (!CheckVision(rx, ry)) continue;
             DrawSprite(graphics, memory, rx, ry, g_core.objects.types[i], OBJECT);
             g_map.view.viewObjects.viewEntities[ry][rx] = g_core.objects.types[i];
         }
@@ -260,7 +273,7 @@ void FullRedraw(GraphicsInterface graphics, HardwareInterface hardware, MemoryIn
         {
             uint8_t rx = (x - cam.x);
             uint8_t ry = (y - cam.y);
-            if (!g_map.view.vision[ry][rx]) continue;
+            if (!CheckVision(rx, ry)) continue;
             DrawSprite(graphics, memory, rx, ry, g_core.creatures.types[i], CREATURE);
             g_map.view.viewCreatures.viewEntities[ry][rx] = g_core.creatures.types[i];
         }
@@ -276,7 +289,7 @@ void FullRedraw(GraphicsInterface graphics, HardwareInterface hardware, MemoryIn
         {
             uint8_t rx = (x - cam.x);
             uint8_t ry = (y - cam.y);
-            if (!g_map.view.vision[ry][rx]) continue;
+            if (!CheckVision(rx, ry)) continue;
             DrawSprite(graphics, memory, rx, ry, g_core.trainers.types[i], TRAINER);
             g_map.view.viewTrainers.viewEntities[ry][rx] = g_core.trainers.types[i];
         }
@@ -372,14 +385,25 @@ void ReDrawTiles(GraphicsInterface graphics, MemoryInterface memory, Camera cam)
         uint16_t my = cam.y + sy;
         for (uint16_t sx = 0; sx < VIEW_TW; sx++)
         {
-            if (!GetBit(g_map.view.dirtyTiles, (sy * VIEW_TH) + sx) || !g_map.view.vision[sy][sx])
-                continue;
-
-
             uint16_t mx = cam.x + sx;
-            uint16_t map_id = GetMapTile(mx, my);
+            uint16_t id = GetMapTile(mx, my);
 
-            DrawTileCached(graphics, memory, sx, sy, map_id);
+            // DrawTileCached(graphics, memory, sx, sy, map_id);
+
+            if (CheckVision(sx, sy))
+            {
+                if (!GetBit(g_map.view.dirtyTiles, (sy * VIEW_TH) + sx) || !g_map.view.vision[sy][sx])
+                    continue;
+                //Draw normal
+                DrawTile(graphics, memory, sx, sy, id, 15);
+                g_map.view.viewTiles[sy][sx] = id;
+            }
+            else if (CheckFogCleared(cam.x + sx, cam.y + sy))
+            {
+                //draw darkened
+                DrawTile(graphics, memory, sx, sy, id, -50);
+                g_map.view.viewTiles[sy][sx] = id;
+            }
         }
     }
 }

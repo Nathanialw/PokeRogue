@@ -56,7 +56,8 @@ uint8_t PrintLineStr(GraphicsInterface graphics, MemoryInterface memory, uint16_
     maxChars = char_idx;
     char_idx = 0;
 
-    graphics.SetFrameBuffer(0xd6fa); // gray
+    Color color = {.color = 0xd6fa};
+    graphics.SetFrameBuffer(color); // gray
     FrameBuffer frameBuffer = {x, y, maxChars * text_size, text_size, 0xd6fa};
 
     while (textLine[char_idx] && char_idx < maxChars)

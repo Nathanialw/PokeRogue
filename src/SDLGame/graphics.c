@@ -223,10 +223,9 @@ void DrawTileKeyed(uint16_t x, uint16_t y, uint16_t w, uint16_t h, const uint16_
 
 
 //TODO:
-void SetBuffer(uint16_t length, uint16_t* p, uint16_t rgb565)
+void SetBuffer(uint16_t length, uint16_t* p, Color rgb565)
 {
-    Color c = {.color = rgb565};
-    SetRectColor(length, p, c);
+    SetRectColor(length, p, rgb565);
 }
 
 //TODO:
@@ -236,10 +235,9 @@ void SetBufferColor(uint16_t length, uint16_t* p, Color rgb565)
 }
 
 //TODO:
-void SetFrameBuffer(uint16_t rgb565)
+void SetFrameBuffer(Color rgb565)
 {
-    Color c = {.color = rgb565};
-    SetRectColor(BUFFER_SIZE_2BYTES, g_ramState.framebuffer.frameBuffer, c);
+    SetRectColor(BUFFER_SIZE_2BYTES, g_ramState.framebuffer.frameBuffer, rgb565);
 }
 
 //TODO:
@@ -252,7 +250,7 @@ void SetFrameBufferColor(Color rgb565)
 }
 
 //TODO:
-void FillRect(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t rgb565)
+void FillRect(uint16_t x, uint16_t y, uint16_t w, uint16_t h, Color rgb565)
 {
     if ((w == 0 || h == 0) || (x >= TFT_W || y >= TFT_H))
         return;
@@ -260,8 +258,7 @@ void FillRect(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t rgb565)
     if (x + w > TFT_W) w = TFT_W - x;
     if (y + h > TFT_H) h = TFT_H - y;
 
-    Color c = {.color = rgb565};
-    DrawRect(x, y, w, h, c);
+    DrawRect(x, y, w, h, rgb565);
 }
 
 //TODO:
@@ -277,10 +274,9 @@ void FillRectColor(uint16_t x, uint16_t y, uint16_t w, uint16_t h, Color rgb565)
     DrawRect(x, y, w, h, rgb565);
 }
 
-void FillScreen(uint16_t rgb565)
+void FillScreen(Color rgb565)
 {
-    Color c = {.color = rgb565};
-    FillRectColor(0, 0, TFT_W, TFT_H, c);
+    FillRectColor(0, 0, TFT_W, TFT_H, rgb565);
 }
 
 void FillScreenColor(Color rgb565)
@@ -298,7 +294,7 @@ void TestAnimation(FrameBuffer* f, Rect_16* r, Color* color1)
     // Rect_16 r1 = {.x = 0, .y = 0, .w = 50, .h = 50};
     // Color color11 = {.color = 0xFFFF};
 
-    SetFrameBuffer(0xd6fa); // gray
+    SetFrameBuffer((Color){.color = 0xd6fa}); // gray
     uint16_t size = r->w * r->h;
     uint16_t p[size];
 

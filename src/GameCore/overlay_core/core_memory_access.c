@@ -311,14 +311,15 @@ uint8_t Flash_GetFontChar20x20(MemoryInterface memory, uint8_t* glyph, uint8_t i
 /*      Color
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-uint16_t Flash_GetColor(MemoryInterface memory, uint8_t color)
+Color Flash_GetColor(MemoryInterface memory, uint8_t color)
 {
 #ifdef STANDALONE
     // return Flash_GetColor(memory, PAL_OFF_WHITE_GRAY);
 #else
     uint8_t color_value[2];
     memory.GetRom(COLORS_16_POSITION + (2 * color), color_value, 2);
-    return ((uint16_t)color_value[0] << 8) | color_value[1];
+    Color color_return = {.color = ((uint16_t)color_value[0] << 8) | color_value[1]};
+    return color_return;
 #if defined(MEMORY_PRINT)
     for (uint8_t i = 0; i < 2; i++)
         memory.Print(str_spawn_creature_type, color_value[i]);

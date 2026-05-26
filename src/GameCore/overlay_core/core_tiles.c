@@ -51,7 +51,7 @@ void TilesetFromGlyph1bpp(TileSet* tileset, uint16_t tile_id, uint8_t glyph_inde
 *       g_core.tileCache.spriteCache.glyph uint16_t array
 ********************************************* *************************************************************************/
 SET_MEMORY(".core")
-void CharFromGlyph1bpp(MemoryInterface memory, Glyph buffer, uint16_t* character, uint8_t glyph_index, FontSize fontSize, uint16_t fg, uint16_t bg)
+void CharFromGlyph1bpp(MemoryInterface memory, Glyph buffer, uint16_t* character, uint8_t glyph_index, FontSize fontSize, Color fg, Color bg)
 {
     if (fontSize == FONT16x16)
     {
@@ -66,10 +66,10 @@ void CharFromGlyph1bpp(MemoryInterface memory, Glyph buffer, uint16_t* character
             {
 #if defined(SDL)
                 uint16_t bit = 0x8000 >> x;
-                character[y * 16 + x] = (row & bit) ? fg : bg;
+                character[y * 16 + x] = (row & bit) ? fg.color : bg.color;
 #else
                 uint16_t bit = 1 << x;
-                character[y * 16 + x] = (row & bit) ? fg : bg;
+                character[y * 16 + x] = (row & bit) ? fg.color : bg.color;
 #endif
             }
         }
@@ -92,7 +92,7 @@ void CharFromGlyph1bpp(MemoryInterface memory, Glyph buffer, uint16_t* character
 
         for (int x = 0; x < 8; x++)
         {
-            character[y * 8 + x] = (row & (1 << x)) ? fg : bg; //place unin16_t colour in the array based on bit value
+            character[y * 8 + x] = (row & (1 << x)) ? fg.color : bg.color; //place unin16_t colour in the array based on bit value
         }
     }
 }

@@ -28,7 +28,7 @@ uint8_t Flash_GetFontChar16x16(MemoryInterface memory, uint8_t* glyph, uint8_t i
 uint8_t Flash_GetFontChar20x20(MemoryInterface memory, uint8_t* glyph, uint8_t index);
 
 ///COLORS
-uint16_t Flash_GetColor(MemoryInterface memory, uint8_t color);
+Color Flash_GetColor(MemoryInterface memory, uint8_t color);
 
 ///TEXT
 

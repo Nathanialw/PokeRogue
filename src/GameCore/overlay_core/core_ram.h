@@ -238,7 +238,7 @@ typedef struct
         uint8_t totalMenuOptions;
         bool forceRedraw;
         UseFrameBack useOnPartyMember;
-        uint16_t colorCache;
+        Color colorCache;
         uint16_t x; // in tiles
         uint16_t y;
         uint16_t h;
