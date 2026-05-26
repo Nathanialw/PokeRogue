@@ -172,6 +172,12 @@ bool ItemStruckHealthPotion(bool onAttacker)
 }
 
 SET_MEMORY(".battle")
+bool ItemStruckVisionPotion(bool onAttacker)
+{
+    return false;
+}
+
+SET_MEMORY(".battle")
 bool ItemStruckHeartScale(bool onAttacker)
 {
     return false;

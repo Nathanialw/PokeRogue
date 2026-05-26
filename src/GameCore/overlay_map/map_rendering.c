@@ -8,6 +8,8 @@
 #include "lib_memory.h"
 
 #include "core_map.h"
+#include "core_memory_access.h"
+#include "core_player.h"
 #include "core_ram.h"
 #include "core_utils.h"
 
@@ -16,6 +18,184 @@
 #include "map_ram.h"
 
 
+SET_MEMORY(".map")
+bool CheckVision(HardwareInterface hardware, uint8_t x, uint8_t y)
+{
+    return g_map.view.vision[y][x];
+}
+
+SET_MEMORY(".map")
+bool CheckVisionMap(uint8_t x, uint8_t y)
+{
+    Camera c = GetCamera();
+    if (GetPlayerEffects(P_EFFECTS_MAP_VISION_CREATURES)) return true;
+    if (x < c.x || x > c.x + VIEW_TW || y < c.y || y > c.y + VIEW_TH) return false;
+    return g_map.view.vision[y - c.y][x - c.x];
+}
+
+
+SET_MEMORY(".map")
+bool CheckFogCleared(HardwareInterface hardware, uint8_t x, uint8_t y)
+{
+    return g_core.fog[y][x];
+}
+
+
+SET_MEMORY(".map")
+void UpdateVision(GraphicsInterface graphics, HardwareInterface hardware)
+{
+    uint8_t vision_radius = 5;
+    Camera c = GetCamera();
+
+    for (uint8_t i = 0; i < VIEW_TH; i++)
+    {
+        for (uint8_t j = 0; j < VIEW_TW; j++)
+        {
+            if (j > CAM_OFFSET_X - vision_radius && i > CAM_OFFSET_Y - vision_radius && i < CAM_OFFSET_Y + vision_radius && j < CAM_OFFSET_X + vision_radius)
+            {
+                g_map.view.vision[i][j] = 1;
+                g_core.fog[c.y + i][c.x + j] = 1;
+            }
+            else if (CheckFogCleared(hardware, c.x + j, c.y + i))
+            {
+                graphics.FillRect(j * TILE_W, i * TILE_H, TILE_W, TILE_H, 0xFFFF);
+            }
+            else
+            {
+                graphics.FillRect(j * TILE_W, i * TILE_H, TILE_W, TILE_H, 0x0000);
+            }
+        }
+    }
+}
+
+/**********************************************************************************************************************/
+/**  sorts units into the order they are drawn into the partial frame buffer for the minimap
+**********************************************************************************************************************/
+SET_MEMORY(".map")
+void OrderUnitsByBufferLine(GraphicsInterface graphics, EntityId* units, uint8_t* meta)
+{
+    for (uint16_t id = 0; id < MAX_ENTITY_CREATURE_COUNT; id++)
+    {
+        units[id] = NO_ENTITY;
+        meta[id] = 0;
+    }
+
+    for (uint16_t id = 0; id < MAX_ENTITY_CREATURE_COUNT; id++)
+    {
+        if (!GetBit(g_core.creatures.onMap, id)) continue;
+        Position pos = g_core.creatures.position[id];
+        uint8_t row = pos.y / BUFFER_W;
+
+        uint16_t cursor = 0;
+        for (uint8_t i = 0; i <= row; i++)
+            cursor += meta[i];
+
+        EntityId cache1 = units[cursor];
+        units[cursor] = id;
+        meta[row]++;
+
+        for (uint16_t i = cursor + 1; i < MAX_ENTITY_CREATURE_COUNT; i++)
+        {
+            if (cache1 == NO_ENTITY) break;
+            EntityId cache2 = units[i];
+            units[i] = cache1;
+            cache1 = cache2;
+        }
+    }
+}
+
+/**********************************************************************************************************************/
+/**  Draws each tile as a pixel on the screen
+ *  colour coded
+ *  draws creature position pixels on top of their tile position
+**********************************************************************************************************************/
+SET_MEMORY(".map.rodata")
+static const uint8_t colors[16] =
+{
+    PAL_PEACH_SKIN,
+    PAL_MEDIUM_BROWN,
+    PAL_PALE_GREEN,
+    PAL_GRAYISH_GREEN,
+    PAL_DIRTY_YELLOW_GRN,
+    PAL_BROWNISH_RED,
+    PAL_LIGHT_TAN,
+    PAL_GRAY_BLUE,
+    PAL_DULL_ORANGE,
+    PAL_DARK_BROWN,
+    PAL_MUTED_GREEN,
+    PAL_DARK_GRAY_GREEN,
+    PAL_ICE_BLUE,
+    PAL_LIGHT_GRAY,
+    PAL_TAN_BROWN,
+    PAL_BRIGHT_LIGHT_GRN,
+};
+
+void DrawMinimapEntities(GraphicsInterface graphics, MemoryInterface memory, Position *positions, uint16_t y, uint8_t palette_color)
+{
+    // DRAW CREATURES
+    uint16_t start_pos = (TFT_W - MAP_W) >> 1;
+    uint16_t margins = TFT_W - MAP_W;
+    uint16_t cursor = 0;
+    uint16_t enemy_color = Flash_GetColor(memory, palette_color);
+
+    for (uint16_t id = 0; id < MAX_ENTITY_CREATURE_COUNT; id++)
+    {
+        Position pos = positions[id];
+        if (!CheckVisionMap(pos.x, pos.y))
+            continue;
+
+        uint8_t row = pos.y - y;
+        uint16_t color = enemy_color;
+
+        cursor = start_pos + (row * margins) + (row * MAP_W) + pos.x;
+        graphics.GetFrameBuffer2bytes()[cursor] = color;
+    }
+}
+
+/**********************************************************************************************************************/
+/**  Redraws all map tiles and entities ion the camera view to the screen
+**********************************************************************************************************************/
+SET_MEMORY(".map")
+void DrawMiniMap(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory)
+{
+    uint8_t buffer_lines = TFT_H / BUFFER_H;
+
+    OrderUnitsByBufferLine(graphics, g_map.units, g_map.meta);
+
+
+    uint16_t cursor = 0;
+    uint16_t transparency = Flash_GetColor(memory, PAL_KEY);
+    for (uint16_t y = 0; y < MAP_H; y += BUFFER_H)
+    {
+        graphics.SetFrameBuffer(Flash_GetColor(memory, PAL_OFF_WHITE_GRAY));
+
+        cursor = (TFT_W - MAP_W) >> 1; //reset position
+        for (uint16_t row = 0; row < BUFFER_H; row++)
+        {
+            uint16_t cy = y + row;
+            if (cy >= MAP_H) break;
+            uint16_t color;
+            for (uint16_t x = 0; x < MAP_W; x++)
+            {
+                if (!CheckFogCleared(hardware, x, cy))
+                    color = 0x0000;
+                else
+                    color = Flash_GetColor(memory, colors[GetMapTile(x, cy)]);
+                if (color == transparency) continue;
+                graphics.GetFrameBuffer2bytes()[cursor++] = color;
+            }
+            cursor += (TFT_W - MAP_W);
+        }
+
+        DrawMinimapEntities(graphics, memory, g_core.creatures.position, y, PAL_BRIGHT_RED);
+        DrawMinimapEntities(graphics, memory, g_core.items.position, y, PAL_BRIGHT_VINE_GRN);
+        DrawMinimapEntities(graphics, memory, g_core.objects.position, y, PAL_DARK_BROWN);
+        DrawMinimapEntities(graphics, memory, g_core.trainers.position, y, PAL_DARK_BLUE_GRAY);
+
+        graphics.Draw(0, y, TFT_W, BUFFER_H, graphics.GetFrameBuffer1byte());
+    }
+}
+
 /**********************************************************************************************************************/
 /**  Redraws all map tiles and entities ion the camera view to the screen
 **********************************************************************************************************************/
@@ -23,6 +203,7 @@ SET_MEMORY(".map")
 void FullRedraw(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory)
 {
     Camera cam = GetCamera();
+    UpdateVision(graphics, hardware);
 
     for (uint16_t sy = 0; sy < VIEW_TH; sy++)
     {
@@ -31,6 +212,7 @@ void FullRedraw(GraphicsInterface graphics, HardwareInterface hardware, MemoryIn
         {
             uint16_t mx = cam.x + sx;
             uint16_t id = GetMapTile(mx, my);
+            if (!g_map.view.vision[sy][sx]) continue;
             DrawTile(graphics, memory, sx, sy, id);
             g_map.view.viewTiles[sy][sx] = id;
         }
@@ -46,6 +228,7 @@ void FullRedraw(GraphicsInterface graphics, HardwareInterface hardware, MemoryIn
         {
             uint8_t rx = (x - cam.x);
             uint8_t ry = (y - cam.y);
+            if (!g_map.view.vision[ry][rx]) continue;
             DrawSprite(graphics, memory, rx, ry, g_core.items.types[i], ITEM);
             g_map.view.viewItems.viewEntities[ry][rx] = g_core.items.types[i];
         }
@@ -61,6 +244,7 @@ void FullRedraw(GraphicsInterface graphics, HardwareInterface hardware, MemoryIn
         {
             uint8_t rx = (x - cam.x);
             uint8_t ry = (y - cam.y);
+            if (!g_map.view.vision[ry][rx]) continue;
             DrawSprite(graphics, memory, rx, ry, g_core.objects.types[i], OBJECT);
             g_map.view.viewObjects.viewEntities[ry][rx] = g_core.objects.types[i];
         }
@@ -76,7 +260,7 @@ void FullRedraw(GraphicsInterface graphics, HardwareInterface hardware, MemoryIn
         {
             uint8_t rx = (x - cam.x);
             uint8_t ry = (y - cam.y);
-
+            if (!g_map.view.vision[ry][rx]) continue;
             DrawSprite(graphics, memory, rx, ry, g_core.creatures.types[i], CREATURE);
             g_map.view.viewCreatures.viewEntities[ry][rx] = g_core.creatures.types[i];
         }
@@ -92,7 +276,7 @@ void FullRedraw(GraphicsInterface graphics, HardwareInterface hardware, MemoryIn
         {
             uint8_t rx = (x - cam.x);
             uint8_t ry = (y - cam.y);
-
+            if (!g_map.view.vision[ry][rx]) continue;
             DrawSprite(graphics, memory, rx, ry, g_core.trainers.types[i], TRAINER);
             g_map.view.viewTrainers.viewEntities[ry][rx] = g_core.trainers.types[i];
         }
@@ -151,6 +335,7 @@ void GetEntitiesInView(Camera cam, BitFieldUint8* onMap, ViewEntities* view, Pos
             {
                 uint8_t sx = (x - cam.x);
                 uint8_t sy = (y - cam.y);
+                if (!g_map.view.vision[sy][sx]) continue;
                 view->newSprites[sy][sx] = types[id];
             }
         }
@@ -187,11 +372,13 @@ void ReDrawTiles(GraphicsInterface graphics, MemoryInterface memory, Camera cam)
         uint16_t my = cam.y + sy;
         for (uint16_t sx = 0; sx < VIEW_TW; sx++)
         {
-            if (!GetBit(g_map.view.dirtyTiles, (sy * VIEW_TH) + sx))
+            if (!GetBit(g_map.view.dirtyTiles, (sy * VIEW_TH) + sx) || !g_map.view.vision[sy][sx])
                 continue;
+
 
             uint16_t mx = cam.x + sx;
             uint16_t map_id = GetMapTile(mx, my);
+
             DrawTileCached(graphics, memory, sx, sy, map_id);
         }
     }
@@ -246,6 +433,7 @@ void ReDrawSprites(GraphicsInterface graphics, MemoryInterface memory)
 SET_MEMORY(".map")
 void RenderObjects(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory)
 {
+    UpdateVision(graphics, hardware);
     // if (g_core.btns.gameSpeed < 5)
     // AnimationMovement(graphics, hardware, memory);
 

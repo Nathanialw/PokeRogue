@@ -10,13 +10,16 @@
 #include "lib_types.h"
 
 #include "core_actions.h"
+#include "core_entities.h"
 #include "core_menu.h"
 #include "core_ram.h"
 #include "core_memory_access.h"
 #include "core_player.h"
 #include "core_utils.h"
 
+#include "map_graphics.h"
 #include "map_memory_access.h"
+#include "map_rendering.h"
 
 
 /**********************************************************************************************************************
@@ -392,7 +395,8 @@ bool Bag(HardwareInterface hardware, InputInterface input, MemoryInterface memor
             }
 
             ItemData itemData;
-            Flash_GetItemData(memory, &itemData, item_id);
+            ItemTypes item_type = GetItemType(item_id);
+            Flash_GetItemData(memory, &itemData, item_type);
             if (itemData.consumable_party)
                 OpenUseOnParty(hardware, memory, BACK_ITEM);
 
@@ -652,4 +656,32 @@ void InitMainMenu(void)
     g_core.menu.forceRedraw = true;
     g_core.menu.selectedMenu = MAIN_MENU;
     g_core.menu.displayedMenu = MENU_NONE;
+}
+
+
+
+
+/**********************************************************************************************************************/
+/**  handles while menu selection to draw
+**********************************************************************************************************************/
+SET_MEMORY(".map")
+void HandleMenu(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory)
+{
+    if (g_core.menu.displayedMenu == g_core.menu.selectedMenu && (g_core.menu.menuScrollOffset[g_core.menu.depth].y <= 0 && !g_core.menu.forceRedraw)) return;
+    g_core.menu.displayedMenu = g_core.menu.selectedMenu;
+    g_core.menu.forceRedraw = false;
+
+    if (g_core.menu.displayedMenu == MINIMAP) // draw minimap
+    {
+        DrawMiniMap(graphics, hardware, memory);
+        return;
+    }
+
+    if (g_core.menu.displayedMenu == PARTY || g_core.menu.useOnPartyMember) //draw party
+    {
+        DrawParty(graphics, hardware, memory);
+        return;
+    }
+
+    DrawList(graphics, hardware, memory);
 }

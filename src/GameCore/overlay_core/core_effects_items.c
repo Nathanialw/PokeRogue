@@ -568,6 +568,17 @@ bool UseHealthPotion(HardwareInterface hardware, MemoryInterface memory, EntityI
     return HealTarget(e_id, value);
 }
 
+
+/**********************************************************************************************************************/
+/*
+**********************************************************************************************************************/
+SET_MEMORY(".core")
+bool UseVisionPotion(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+{
+    SetBit(g_core.player.effects, P_EFFECTS_MAP_VISION_CREATURES, true);
+    return true;
+}
+
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/

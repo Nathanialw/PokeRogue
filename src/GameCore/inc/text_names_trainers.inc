@@ -1,5 +1,5 @@
 // Generated trainer name strings
-// Database contains 100 total trainer
+// Database contains 106 total trainer
 
 // Individual trainer strings
 "Abelone\0",
@@ -13,13 +13,16 @@
 "Aki\0",
 "Alette\0",
 "Alfrun\0",
+"Anlaf\0",
 "Annabel\0",
 "Antonio\0",
 "Arabella\0",
 "Arild\0",
 "Arnhildur\0",
+"Athelric\0",
 "Audrey\0",
 "Aukje\0",
+"Aylward\0",
 "Bernard\0",
 "Bertrade\0",
 "Blitgilde\0",
@@ -29,6 +32,7 @@
 "Charlotte\0",
 "Chiyo\0",
 "Chunho\0",
+"Coenwulf\0",
 "Daphne\0",
 "Daria\0",
 "Eadgyth\0",
@@ -52,6 +56,7 @@
 "Gytha\0",
 "Haaske\0",
 "Hama\0",
+"Hardred\0",
 "Harlow\0",
 "Hedda\0",
 "Helen\0",
@@ -101,6 +106,7 @@
 "Wilma\0",
 "Winifred\0",
 "Winston\0",
+"Wulfstan\0",
 "Yuuko\0",
 " ------ \0",
 

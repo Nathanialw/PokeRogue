@@ -61,7 +61,6 @@ bool UpdatePositions(HardwareInterface hardware)
     EntityId p_id = GetPlayerID();
     UpdatePlayerPosition();
 
-
     // Trainers
     IntMax99* speed = GetCreatureSpeeds(TRAINER);
     uint8_t* onMap = GetEntitiesOnMap(TRAINER);
@@ -167,7 +166,7 @@ void UpdateObjectCollision(MemoryInterface memory, HardwareInterface hardware)
             Position op = g_core.objects.position[o_id];
             if (cp.x == op.x && cp.y == op.y)
             {
-                InteractObject(memory, hardware, e_id, o_id);
+                InteractObject(memory, hardware, o_id, e_id);
                 if (e_id == GetPlayerID())
                     g_map.objectCollision = g_core.objects.types[o_id];
             }
@@ -261,7 +260,6 @@ void SetPositions(void)
 SET_MEMORY(".map")
 void UpdateGame(MemoryInterface memory, HardwareInterface hardware)
 {
-    if (g_core.state.inputState == INPUT_ACTING) g_core.turn_count++;
     UpdateObjectStatusEffects(hardware);
     if (UpdatePositions(hardware))
     {

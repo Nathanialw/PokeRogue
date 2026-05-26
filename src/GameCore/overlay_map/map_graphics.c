@@ -10,14 +10,12 @@
 
 #include "core_entities.h"
 #include "core_graphics.h"
-#include "core_map.h"
 #include "core_memory_access.h"
 #include "core_menu.h"
 #include "core_player.h"
 #include "core_ram.h"
 #include "core_tiles.h"
 
-#include "map_entities.h"
 #include "map_memory_access.h"
 #include "map_ram.h"
 #include "map_utils.h"
@@ -121,112 +119,9 @@ void DrawSpriteCached(GraphicsInterface graphics, MemoryInterface memory, uint8_
     graphics.DrawTileKeyed(px, py, TILE_W, TILE_H, g_map.tileCache.spritePixels.pixels);
 }
 
-/**********************************************************************************************************************/
-/**  sorts units into the order they are drawn into the partial frame buffer for the minimap
-**********************************************************************************************************************/
-SET_MEMORY(".map")
-void OrderUnitsByBufferLine(GraphicsInterface graphics, EntityId* units, uint8_t* meta)
-{
-    for (uint16_t id = 0; id < MAX_ENTITY_CREATURE_COUNT; id++)
-    {
-        if (!GetBit(g_core.creatures.onMap, id)) continue;
-        Position pos = g_core.creatures.position[id];
-        uint8_t row = pos.y / BUFFER_W;
-
-        uint16_t cursor = 0;
-        for (uint8_t i = 0; i <= row; i++)
-            cursor += meta[i];
-
-        EntityId cache1 = units[cursor];
-        units[cursor] = id;
-        meta[row]++;
-
-        for (uint16_t i = cursor + 1; i < MAX_ENTITY_CREATURE_COUNT; i++)
-        {
-            if (cache1 == NO_ENTITY) break;
-            EntityId cache2 = units[i];
-            units[i] = cache1;
-            cache1 = cache2;
-        }
-    }
-}
 
 
-/**********************************************************************************************************************/
-/**  Draws each tile as a pixel on the screen
- *  colour coded
- *  draws creature position pixels on top of their tile position
-**********************************************************************************************************************/
-SET_MEMORY(".map.rodata")
-static const uint8_t colors[16] =
-{
-    PAL_PEACH_SKIN,
-    PAL_MEDIUM_BROWN,
-    PAL_PALE_GREEN,
-    PAL_GRAYISH_GREEN,
-    PAL_DIRTY_YELLOW_GRN,
-    PAL_BROWNISH_RED,
-    PAL_LIGHT_TAN,
-    PAL_GRAY_BLUE,
-    PAL_DULL_ORANGE,
-    PAL_DARK_BROWN,
-    PAL_MUTED_GREEN,
-    PAL_DARK_GRAY_GREEN,
-    PAL_GRAY_BROWN,
-    PAL_LIGHT_GRAY,
-    PAL_TAN_BROWN,
-    PAL_BRIGHT_LIGHT_GRN,
-};
 
-
-SET_MEMORY(".map")
-void DrawMiniMap(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory)
-{
-    uint16_t screen_w = TFT_H;
-    uint8_t buffer_lines = TFT_H / BUFFER_H;
-    uint8_t centerOffset = 32;
-
-    OrderUnitsByBufferLine(graphics, g_map.units, g_map.meta);
-
-    uint16_t cursor = 0;
-    uint16_t transparency = Flash_GetColor(memory, PAL_KEY);
-    for (uint16_t y = 0; y < MAP_H; y += BUFFER_H)
-    {
-        graphics.SetFrameBuffer(Flash_GetColor(memory, PAL_OFF_WHITE_GRAY));
-
-        cursor = (screen_w - MAP_W) >> 1; //reset position
-        for (uint16_t row = 0; row < BUFFER_H; row++)
-        {
-            uint16_t cy = y + row;
-            if (cy >= MAP_H) break;
-            for (uint16_t x = 0; x < MAP_W; x++)
-            {
-                uint16_t color = Flash_GetColor(memory, colors[GetMapTile(x, cy)]);
-                if (color == transparency) continue;
-                graphics.GetFrameBuffer2bytes()[cursor++] = color;
-            }
-            cursor += (screen_w - MAP_W);
-        }
-
-        uint16_t c = 0;
-        for (uint8_t i = 0; i < y / BUFFER_H; i++) c += g_map.meta[i];
-
-        uint8_t buffer_line = y / BUFFER_H;
-        uint8_t n = g_map.meta[buffer_line];
-        for (uint16_t j = c; j < c + n; j++)
-        {
-            uint16_t color = Flash_GetColor(memory, PAL_BRIGHT_RED);
-            Position pos = g_core.creatures.position[g_map.units[j]];
-            uint8_t row = pos.y - y;
-            if (GetPlayerID() == g_map.units[j])
-                color = Flash_GetColor(memory, PAL_DEEP_BLUE);
-
-            graphics.GetFrameBuffer2bytes()[centerOffset + (row * (centerOffset * 2)) + (row * MAP_W) + pos.x] = color;
-        }
-
-        graphics.Draw(0, y, screen_w, BUFFER_H, graphics.GetFrameBuffer1byte());
-    }
-}
 
 
 /**********************************************************************************************************************/
@@ -389,31 +284,6 @@ void DrawList(GraphicsInterface graphics, HardwareInterface hardware, MemoryInte
     PrintLineStr(graphics, memory, x, y + numSpaces, font_size, max_chars, border, false);
 
     g_core.menu.colorCache = Flash_GetColor(memory, PAL_OFF_WHITE_GRAY);
-}
-
-/**********************************************************************************************************************/
-/**  handles while menu selection to draw
-**********************************************************************************************************************/
-SET_MEMORY(".map")
-void HandleMenu(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory)
-{
-    if (g_core.menu.displayedMenu == g_core.menu.selectedMenu && (g_core.menu.menuScrollOffset[g_core.menu.depth].y <= 0 && !g_core.menu.forceRedraw)) return;
-    g_core.menu.displayedMenu = g_core.menu.selectedMenu;
-    g_core.menu.forceRedraw = false;
-
-    if (g_core.menu.displayedMenu == MINIMAP) // draw minimap
-    {
-        DrawMiniMap(graphics, hardware, memory);
-        return;
-    }
-
-    if (g_core.menu.displayedMenu == PARTY || g_core.menu.useOnPartyMember) //draw party
-    {
-        DrawParty(graphics, hardware, memory);
-        return;
-    }
-
-    DrawList(graphics, hardware, memory);
 }
 
 

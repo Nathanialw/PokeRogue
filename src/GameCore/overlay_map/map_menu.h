@@ -7,3 +7,4 @@
 
 void InitMainMenu(void);
 bool OpenSubMenu(HardwareInterface hardware, InputInterface input, MemoryInterface memory);
+void HandleMenu(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory);

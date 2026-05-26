@@ -232,7 +232,6 @@ typedef enum
 typedef enum
 {
 #include "../inc/data_enum_items.inc"
-
 } ItemTypes;
 
 _Static_assert((NO_ITEM <= 255), "FINAL INDEX MUST BE LESS THAN OR EQUAL TO 255");
@@ -245,7 +244,6 @@ _Static_assert((NO_ITEM <= 255), "FINAL INDEX MUST BE LESS THAN OR EQUAL TO 255"
 typedef enum
 {
 #include "../inc/data_enum_objects.inc"
-
 } Object;
 
 _Static_assert((NO_OBJECT <= 255), "FINAL INDEX MUST BE LESS THAN OR EQUAL TO 255");
@@ -257,7 +255,6 @@ _Static_assert((NO_OBJECT <= 255), "FINAL INDEX MUST BE LESS THAN OR EQUAL TO 25
 typedef enum
 {
 #include "../inc/data_enum_skills.inc"
-
 } Ability;
 
 _Static_assert((NO_ABILITY <= 255), "FINAL INDEX MUST BE LESS THAN OR EQUAL TO 255");
@@ -268,7 +265,6 @@ _Static_assert((NO_ABILITY <= 255), "FINAL INDEX MUST BE LESS THAN OR EQUAL TO 2
 typedef enum
 {
 #include "../inc/data_enum_creatures.inc"
-
 } Creature;
 
 _Static_assert((NO_CREATURE <= 255), "FINAL INDEX MUST BE LESS THAN OR EQUAL TO 255");
@@ -292,7 +288,6 @@ _Static_assert((NO_TRAINER <= 255), "FINAL INDEX MUST BE LESS THAN OR EQUAL TO 2
 typedef enum
 {
 #include "../inc/data_enum_spells.inc"
-
 } Spell;
 
 _Static_assert(NO_SPELL <= 255, "FINAL INDEX MUST BE LESS THAN OR EQUAL TO 255");
@@ -715,3 +710,11 @@ typedef enum
     MAP_LEVEL_LATERAL,
 } MapLevelChange;
 
+
+typedef enum
+{
+    P_EFFECTS_MAP_VISION_CREATURES, //shows all creatures on the map
+    P_EFFECTS_MAP_VISION_OBJECTS, //shows all objects on the map
+    P_EFFECTS_MAP_VISION_ITEMS, //shows all items on the map
+    P_EFFECTS_MAP_VISION_TRAINERS, //shows all trainers on the map
+} PlayerEffects;

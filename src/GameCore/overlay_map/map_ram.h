@@ -37,7 +37,7 @@ typedef struct
     **********************************************************************************************************************/
     struct
     {
-        uint8_t vision[(VIEW_TH * VIEW_TW) / 8]; // TODO: not yet implemented
+        uint8_t vision[VIEW_TH][VIEW_TW]; // TODO: not yet implemented
         uint8_t viewTiles[VIEW_TH][VIEW_TW];
         uint8_t dirtyTiles[(VIEW_TH * VIEW_TW) / 8];
         ViewEntities viewCreatures;

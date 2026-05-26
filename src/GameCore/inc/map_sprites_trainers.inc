@@ -1,5 +1,5 @@
 // Generated trainer sprites and color indexes
-// Database contains 100 total trainer sprites
+// Database contains 106 total trainer sprites
 
 // Individual sprites
 { .glyph_index = CH_T, .fg = PAL_PURPLE_BLUE },
@@ -102,5 +102,11 @@
 { .glyph_index = CH_T, .fg = PAL_PURPLE_BLUE },
 { .glyph_index = CH_T, .fg = PAL_PURPLE_BLUE },
 { .glyph_index = CH_T, .fg = PAL_PURPLE_BLUE },
+{ .glyph_index = CH_T, .fg = PAL_PURPLE_BLUE },
+{ .glyph_index = CH_T, .fg = PAL_PURPLE_BLUE },
+{ .glyph_index = CH_T, .fg = PAL_PURPLE_BLUE },
+{ .glyph_index = CH_T, .fg = PAL_PURPLE_BLUE },
+{ .glyph_index = CH_T, .fg = PAL_PURPLE_BLUE },
+{ .glyph_index = CH_T, .fg = PAL_PURPLE_BLUE },
 
-//Sprites count = 100;
+//Sprites count = 106;

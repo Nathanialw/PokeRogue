@@ -68,7 +68,7 @@ typedef struct
     **********************************************************************************************************************/
     uint8_t map[MAP_SIZE_BYTES];
     // EntityId objectMap[MAP_H][MAP_W];
-    uint8_t fog[(MAP_H * MAP_W) / 8]; // TODO: not yet implemented
+    uint8_t fog[MAP_H][MAP_W]; // TODO: not yet implemented
     // Node pathing[(MAP_H * MAP_W) / 2]; // TODO: not yet implemented
     Glyph16x16 tile; // temp RGB565 buffer (512 bytes on stack)
     Glyph buffer;
@@ -100,6 +100,7 @@ typedef struct
         uint8_t currentSpellbookSize;
         Delta d;
         Delta scroll;
+        BitFieldUint8 effects;
     } player;
 
 

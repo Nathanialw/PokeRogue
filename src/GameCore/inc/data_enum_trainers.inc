@@ -1,5 +1,5 @@
 // Generated trainer data structs
-// Database contains 100 total used trainers
+// Database contains 106 total used trainers
 
 // Individual trainers data
 Abelone,
@@ -13,13 +13,16 @@ Aethelburg,
 Aki,
 Alette,
 Alfrun,
+Anlaf,
 Annabel,
 Antonio,
 Arabella,
 Arild,
 Arnhildur,
+Athelric,
 Audrey,
 Aukje,
+Aylward,
 Bernard,
 Bertrade,
 Blitgilde,
@@ -29,6 +32,7 @@ Cara,
 Charlotte,
 Chiyo,
 Chunho,
+Coenwulf,
 Daphne,
 Daria,
 Eadgyth,
@@ -52,6 +56,7 @@ Gyrid,
 Gytha,
 Haaske,
 Hama,
+Hardred,
 Harlow,
 Hedda,
 Helen,
@@ -101,6 +106,7 @@ Valentine,
 Wilma,
 Winifred,
 Winston,
+Wulfstan,
 Yuuko,
 
-//ALL_NAMES_COUNT = 100;
+//ALL_NAMES_COUNT = 106;

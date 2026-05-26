@@ -102,7 +102,8 @@ SET_MEMORY(".map")
 bool IsFogged(uint16_t x, uint16_t y)
 {
     uint16_t idx = (y * MAP_W) + x;
-    return (g_core.fog[idx >> 3] >> (idx & 7)) & 1;
+    // return (g_core.fog[idx >> 3] >> (idx & 7)) & 1;
+    return g_core.fog[MAP_H-1][MAP_W-1];
 }
 
 /**********************************************************************************************************************/
@@ -113,10 +114,10 @@ void SetFog(uint16_t x, uint16_t y, bool fogged)
 {
     uint16_t idx = y * MAP_W + x;
     uint8_t mask = 1 << (idx & 7);
-    if (fogged)
-        g_core.fog[idx >> 3] |= mask;
-    else
-        g_core.fog[idx >> 3] &= ~mask;
+    // if (fogged)
+        // g_core.fog[idx >> 3] |= mask;
+    // else
+        // g_core.fog[idx >> 3] &= ~mask;
 }
 
 /**********************************************************************************************************************/
@@ -125,11 +126,11 @@ void SetFog(uint16_t x, uint16_t y, bool fogged)
 SET_MEMORY(".map")
 void SetMapFog(uint8_t set)
 {
-    for (uint16_t y = 0; y < MAP_H >> 3; y++)
-        for (uint16_t x = 0; x < MAP_W >> 3; x++)
+    for (uint16_t y = 0; y < MAP_H; y++)
+        for (uint16_t x = 0; x < MAP_W; x++)
         {
             // SetFog(x, y, set);
-            g_core.fog[y + (x * (MAP_W >> 3))] = set;
+            // g_core.fog[MAP_H][MAP_W] = set;
         }
 }
 

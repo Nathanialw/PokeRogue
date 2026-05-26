@@ -82,8 +82,8 @@ _Static_assert(OBJECT_COUNT <= 256, "max must be 256 - one byte");
 /**********************************************************************************************************************/
 /**CAMERA constants
 **********************************************************************************************************************/
-#define CAM_OFFSET_X  (((VIEW_TW / 2) - 1))
 #define CAM_OFFSET_Y  ((VIEW_TH / 2))
+#define CAM_OFFSET_X  (((VIEW_TW / 2) - 1))
 
 
 /**********************************************************************************************************************/
@@ -135,7 +135,7 @@ _Static_assert(DIALOGUE_H + RESOURCE_FRAME_H + BATTLER_AREA_H <= TFT_H, "cannot 
 **********************************************************************************************************************/
 #define MAP_W 160
 #define MAP_H 160
-#define MAP_TILE_BITS 6
+#define MAP_TILE_BITS 4
 #define MAP_SIZE_CELLS MAP_W * MAP_H
 #define MAP_SIZE_BITS (MAP_SIZE_CELLS * MAP_TILE_BITS)
 #define MAP_SIZE_BYTES (MAP_SIZE_BITS / 8)

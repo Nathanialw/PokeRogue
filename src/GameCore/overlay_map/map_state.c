@@ -76,6 +76,7 @@ void UpdateGameRunningState(GraphicsInterface graphics, HardwareInterface hardwa
                 SetInputState(INPUT_IDLE);
                 SetGameLoopRateDefault();
                 FullRedraw(graphics, hardware, memory);
+                graphics.EndFrame();
             }
 
             return;
@@ -215,6 +216,8 @@ void HandleGameState(GameInterface* spi)
         UpdateGame(spi->memory, spi->hardware);
         RenderObjects(spi->graphics, spi->hardware, spi->memory);
         UpdateTooltip(spi->graphics, spi->memory);
+        g_core.turn_count++;
+        spi->graphics.EndFrame();
     }
 
     if (g_core.state.inputState == INPUT_MENU)
@@ -222,6 +225,11 @@ void HandleGameState(GameInterface* spi)
         HandleMenu(spi->graphics, spi->hardware, spi->memory);
         HandleGameMenu(spi->graphics, spi->hardware, spi->memory);
         DrawCursor(spi->graphics, spi->memory);
+        spi->graphics.EndFrame();
+    }
+
+    if (g_core.state.inputState == INPUT_IDLE)
+    {
     }
 
     // spi.audio.PlaySoundEffect();
@@ -243,18 +251,17 @@ uint8_t GameLoopMain(GameInterface* spi)
         SetMapFog(0xFF);
         InitCamera(0, 0, TILE_W * VIEW_TW, TILE_H * VIEW_TH);
         SetCameraPlayer();
+        UpdateVision(spi->graphics, spi->hardware);
     }
 
     FullRedraw(spi->graphics, spi->hardware, spi->memory);
+    spi->graphics.EndFrame();
 
     while (g_core.state.overlay == OVERLAY_MAP)
     {
-        g_core.turn_count++;
         spi->input.HandleInput();
         UpdateGameRunningState(spi->graphics, spi->hardware, spi->input, spi->memory);
         HandleGameState(spi);
-        // GameLoopRateDelay(spi->hardware);
-        spi->graphics.EndFrame();
     }
 
     return g_core.state.overlay;

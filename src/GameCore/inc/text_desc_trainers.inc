@@ -1,5 +1,5 @@
 // Generated creature descriptions
-// Database contains 100 total descriptions
+// Database contains 106 total descriptions
 
 // Individual description strings
 "Abelone -- PLACEHOLDER TEXT - A mysterious trainer awaiting discovery.\0",
@@ -13,13 +13,16 @@
 "Aki -- PLACEHOLDER TEXT - A mysterious trainer awaiting discovery.\0",
 "Alette -- PLACEHOLDER TEXT - A mysterious trainer awaiting discovery.\0",
 "Alfrun -- PLACEHOLDER TEXT - A mysterious trainer awaiting discovery.\0",
+"Anlaf -- PLACEHOLDER TEXT - A mysterious trainer awaiting discovery.\0",
 "Annabel -- PLACEHOLDER TEXT - A mysterious trainer awaiting discovery.\0",
 "Antonio -- PLACEHOLDER TEXT - A mysterious trainer awaiting discovery.\0",
 "Arabella -- PLACEHOLDER TEXT - A mysterious trainer awaiting discovery.\0",
 "Arild -- PLACEHOLDER TEXT - A mysterious trainer awaiting discovery.\0",
 "Arnhildur -- PLACEHOLDER TEXT - A mysterious trainer awaiting discovery.\0",
+"Athelric -- PLACEHOLDER TEXT - A mysterious trainer awaiting discovery.\0",
 "Audrey -- PLACEHOLDER TEXT - A mysterious trainer awaiting discovery.\0",
 "Aukje -- PLACEHOLDER TEXT - A mysterious trainer awaiting discovery.\0",
+"Aylward -- PLACEHOLDER TEXT - A mysterious trainer awaiting discovery.\0",
 "Bernard -- PLACEHOLDER TEXT - A mysterious trainer awaiting discovery.\0",
 "Bertrade -- PLACEHOLDER TEXT - A mysterious trainer awaiting discovery.\0",
 "Blitgilde -- PLACEHOLDER TEXT - A mysterious trainer awaiting discovery.\0",
@@ -29,6 +32,7 @@
 "Charlotte -- PLACEHOLDER TEXT - A mysterious trainer awaiting discovery.\0",
 "Chiyo -- PLACEHOLDER TEXT - A mysterious trainer awaiting discovery.\0",
 "Chunho -- PLACEHOLDER TEXT - A mysterious trainer awaiting discovery.\0",
+"Coenwulf -- PLACEHOLDER TEXT - A mysterious trainer awaiting discovery.\0",
 "Daphne -- PLACEHOLDER TEXT - A mysterious trainer awaiting discovery.\0",
 "Daria -- PLACEHOLDER TEXT - A mysterious trainer awaiting discovery.\0",
 "Eadgyth -- PLACEHOLDER TEXT - A mysterious trainer awaiting discovery.\0",
@@ -52,6 +56,7 @@
 "Gytha -- PLACEHOLDER TEXT - A mysterious trainer awaiting discovery.\0",
 "Haaske -- PLACEHOLDER TEXT - A mysterious trainer awaiting discovery.\0",
 "Hama -- PLACEHOLDER TEXT - A mysterious trainer awaiting discovery.\0",
+"Hardred -- PLACEHOLDER TEXT - A mysterious trainer awaiting discovery.\0",
 "Harlow -- PLACEHOLDER TEXT - A mysterious trainer awaiting discovery.\0",
 "Hedda -- PLACEHOLDER TEXT - A mysterious trainer awaiting discovery.\0",
 "Helen -- PLACEHOLDER TEXT - A mysterious trainer awaiting discovery.\0",
@@ -101,7 +106,8 @@
 "Wilma -- PLACEHOLDER TEXT - A mysterious trainer awaiting discovery.\0",
 "Winifred -- PLACEHOLDER TEXT - A mysterious trainer awaiting discovery.\0",
 "Winston -- PLACEHOLDER TEXT - A mysterious trainer awaiting discovery.\0",
+"Wulfstan -- PLACEHOLDER TEXT - A mysterious trainer awaiting discovery.\0",
 "Yuuko -- PLACEHOLDER TEXT - A mysterious trainer awaiting discovery.\0",
 " ------ \0",
 
-//ALL_DESCRIPTIONS_COUNT = 100;
+//ALL_DESCRIPTIONS_COUNT = 106;

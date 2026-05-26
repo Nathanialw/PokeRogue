@@ -50,6 +50,8 @@ bool UseSkill(HardwareInterface hardware, MemoryInterface memory, bool player)
                 DEBUG("skill %d: %d index - %d ", i, g_core.creatures.attacks[ai_creature_id][i], idx);
             }
 
+        if (ability == NO_ABILITY) return false;
+
         SkillData ability_data;
         Flash_GetSkillData(memory, &ability_data, ability);
         Flash_GetSkillEffect(memory, ability, ai_creature_id, player_creature_id, ability_data);

@@ -370,8 +370,8 @@ EntityId SpawnTrainer(HardwareInterface hardware, MemoryInterface memory, uint8_
 }
 
 
-/**********************************************************************************************************************/
-/** Sets initial data values of a given the type of object, the id of that type, position and level
+/**********************************************************************************************************************
+**  Sets initial data values of a given the type of object, the id of that type, position and level
 **********************************************************************************************************************/
 SET_MEMORY(".map")
 EntityId SpawnEntity(HardwareInterface hardware, MemoryInterface memory, ObjectsTypes type, uint8_t t, uint8_t x, uint8_t y, uint8_t l)
@@ -391,8 +391,8 @@ void DestroyObject(EntityId id)
     SetBit(g_core.objects.active, id, false);
 }
 
-/**********************************************************************************************************************/
-/**Copy all values of the given entity ID
+/**********************************************************************************************************************
+*   Copy all values of the given entity ID
 **********************************************************************************************************************/
 SET_MEMORY(".map")
 void CopyCreature(HardwareInterface hardware, EntityId src_id, EntityId target_id)
@@ -423,6 +423,28 @@ void CopyCreature(HardwareInterface hardware, EntityId src_id, EntityId target_i
     SetBit(g_core.creatures.active, target_id, GetBit(g_core.creatures.active, src_id));
 }
 
+SET_MEMORY(".map")
+void CopyTrainer(HardwareInterface hardware, EntityId src_id, EntityId target_id)
+{
+    g_core.trainers.position[target_id] = g_core.creatures.position[src_id];
+    g_core.trainers.types[target_id] = g_core.creatures.types[src_id];
+
+    g_core.trainers.metaData[target_id].unused = g_core.creatures.metaData[src_id].unused;
+    g_core.trainers.senses[target_id].sight = g_core.creatures.senses[src_id].sight;
+    g_core.trainers.senses[target_id].smell = g_core.creatures.senses[src_id].smell;
+    g_core.trainers.senses[target_id].sound = g_core.creatures.senses[src_id].sound;
+    g_core.trainers.stealth[target_id].sight = g_core.creatures.stealth[src_id].sight;
+    g_core.trainers.stealth[target_id].sound = g_core.creatures.stealth[src_id].sound;
+    g_core.trainers.stealth[target_id].smell = g_core.creatures.stealth[src_id].smell;
+
+    //copy party
+
+
+    SetBit(g_core.trainers.alive, target_id, GetBit(g_core.creatures.alive, src_id));
+    SetBit(g_core.trainers.onMap, target_id, GetBit(g_core.creatures.onMap, src_id));
+    SetBit(g_core.trainers.active, target_id, GetBit(g_core.creatures.active, src_id));
+}
+
 
 SET_MEMORY(".map")
 void CopyItem(EntityId src_id, EntityId target_id)
@@ -436,6 +458,7 @@ void CopyItem(EntityId src_id, EntityId target_id)
 }
 
 
+SET_MEMORY(".map")
 void CopyObject(EntityId src_id, EntityId target_id)
 {
     g_core.items.position[target_id] = g_core.items.position[src_id];

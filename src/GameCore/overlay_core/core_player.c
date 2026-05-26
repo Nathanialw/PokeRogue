@@ -111,3 +111,12 @@ EntityId GetPlayerID(void)
 {
     return g_core.player.id;
 }
+
+/**********************************************************************************************************************/
+/**Returns the player ID
+**********************************************************************************************************************/
+SET_MEMORY(".core")
+EntityId GetPlayerEffects(PlayerEffects playerEffect)
+{
+    return GetBit(g_core.player.effects, playerEffect);
+}

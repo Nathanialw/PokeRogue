@@ -147,6 +147,11 @@ bool ItemAttackHealthPotion(bool onAttacker)
     return false;
 }
 
+bool ItemAttackVisionPotion(bool onAttacker)
+{
+    return false;
+}
+
 bool ItemAttackHeartScale(bool onAttacker)
 {
     return false;

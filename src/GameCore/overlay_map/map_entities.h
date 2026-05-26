@@ -14,6 +14,7 @@ EntityId CheckTileForEntity(ObjectsTypes type, EntityId e_id, Position pos);
 EntityId SpawnEntity(HardwareInterface hardware, MemoryInterface memory, ObjectsTypes type, uint8_t t, uint8_t x, uint8_t y, uint8_t l);
 
 void CopyCreature(HardwareInterface hardware, EntityId src_id, EntityId target_id);
+void CopyTrainer(HardwareInterface hardware, EntityId src_id, EntityId target_id);
 void DestroyObject(EntityId id);
 void CopyItem(EntityId src_id, EntityId target_id);
 void CopyObject(EntityId src_id, EntityId target_id);

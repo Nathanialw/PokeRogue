@@ -98,7 +98,7 @@ bool InteractBookCase(HardwareInterface hardware, MemoryInterface memory, Entity
 {
     Position pos = GetEntityPosition(OBJECT, object_id);
     // TODO pick a random of the correwct item type
-    SpawnEntity(hardware, memory, ITEM, HEALTH_POTION, pos.x, pos.y, 0);
+    SpawnEntity(hardware, memory, ITEM, POTION_HEALTH, pos.x, pos.y, 0);
     return false;
 }
 
@@ -110,7 +110,7 @@ bool InteractJewelleryCase(HardwareInterface hardware, MemoryInterface memory, E
 {
     Position pos = GetEntityPosition(OBJECT, object_id);
     // TODO pick a random of the correwct item type
-    SpawnEntity(hardware, memory, ITEM, HEALTH_POTION, pos.x, pos.y, 0);
+    SpawnEntity(hardware, memory, ITEM, POTION_HEALTH, pos.x, pos.y, 0);
     return false;
 }
 
@@ -123,7 +123,7 @@ bool InteractScrollCase(HardwareInterface hardware, MemoryInterface memory, Enti
     ItemData itemData = {};
     Position pos = GetEntityPosition(OBJECT, object_id);
     // TODO pick a random of the correwct item type
-    SpawnEntity(hardware, memory, ITEM, HEALTH_POTION, pos.x, pos.y, 0);
+    SpawnEntity(hardware, memory, ITEM, POTION_HEALTH, pos.x, pos.y, 0);
     return false;
 }
 
@@ -135,7 +135,7 @@ bool InteractCauldron(HardwareInterface hardware, MemoryInterface memory, Entity
 {
     Position pos = GetEntityPosition(OBJECT, object_id);
     // TODO pick a random of the correwct item type
-    SpawnEntity(hardware, memory, ITEM, HEALTH_POTION, pos.x, pos.y, 0);
+    SpawnEntity(hardware, memory, ITEM, POTION_HEALTH, pos.x, pos.y, 0);
     return false;
 }
 
