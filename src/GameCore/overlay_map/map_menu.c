@@ -524,7 +524,7 @@ bool Options(HardwareInterface hardware, InputInterface input, MemoryInterface m
 
                 /*******************************************
                  * update game speed value
-                 */
+                 ******************************************/
                 CharStr_uint8 gameSpeedStr;
                 GetAsChars_uint8(g_core.btns.gameSpeed, &gameSpeedStr, false);
                 uint8_t i = 0;

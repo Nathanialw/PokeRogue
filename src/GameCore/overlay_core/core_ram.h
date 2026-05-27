@@ -95,6 +95,7 @@ typedef struct
         BitFieldUint8 knownAbilities;
         BitFieldUint8 knownObjects;
 
+        uint8_t vision_radius;
         EntityId id;
         uint8_t currentBagSize;
         uint8_t currentSpellbookSize;

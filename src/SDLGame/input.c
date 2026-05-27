@@ -24,6 +24,8 @@ uint16_t ProcessInput(void)
         switch (event.type)
         {
         case SDL_EVENT_KEY_DOWN:
+            {
+            }
         case SDL_EVENT_KEY_UP:
             {
                 int pressed = (event.type == SDL_EVENT_KEY_DOWN);
@@ -38,13 +40,27 @@ uint16_t ProcessInput(void)
                 case SDLK_RIGHT: s_currentKeys.right = pressed;
                     break;
 
-                case SDLK_A: s_currentKeys.a = pressed;
+                case SDLK_W: s_currentKeys.up = pressed;
                     break;
-                case SDLK_B: s_currentKeys.b = pressed;
+                case SDLK_S: s_currentKeys.down = pressed;
                     break;
-                case SDLK_X: s_currentKeys.x = pressed;
+                case SDLK_A: s_currentKeys.left = pressed;
                     break;
-                case SDLK_Y: s_currentKeys.y = pressed;
+                case SDLK_D: s_currentKeys.right = pressed;
+                    break;
+
+                case SDLK_E: s_currentKeys.a = pressed;
+                    break;
+                case SDLK_Q: s_currentKeys.b = pressed;
+                    break;
+                case SDLK_R: s_currentKeys.x = pressed;
+                    break;
+                case SDLK_F: s_currentKeys.y = pressed;
+                    break;
+
+                case SDLK_RETURN: s_currentKeys.start = pressed;
+                    break;
+                case SDLK_ESCAPE: s_currentKeys.select = pressed;
                     break;
 
                     // Add more mappings (Start, Select, etc.) as needed.

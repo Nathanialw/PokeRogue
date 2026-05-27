@@ -90,6 +90,25 @@ void UpdateGameRunningState(GraphicsInterface graphics, HardwareInterface hardwa
         {
         }
 
+
+        if (input.GetButtonStart())
+        {
+            if (!MenuBack(memory))
+            {
+                SetInputState(INPUT_IDLE);
+                SetGameLoopRateDefault();
+                FullRedraw(graphics, hardware, memory);
+                graphics.EndFrame();
+            }
+
+            return;
+        }
+
+
+        if (input.GetButtonSelect())
+        {
+        }
+
         if (input.GetButtonJSClick())
         {
         }
@@ -119,10 +138,12 @@ void UpdateGameRunningState(GraphicsInterface graphics, HardwareInterface hardwa
     {
         if (input.GetButtonA())
         {
+            PlayerInteractItemInCell();
         }
 
         if (input.GetButtonB())
         {
+            PlayerInteractObjectInCell(memory, hardware);
         }
 
         if (input.GetButtonX())
@@ -130,6 +151,18 @@ void UpdateGameRunningState(GraphicsInterface graphics, HardwareInterface hardwa
         }
 
         if (input.GetButtonY())
+        {
+        }
+
+        if (input.GetButtonStart())
+        {
+            InitMainMenu();
+            SetInputState(INPUT_MENU);
+            SetGameLoopRate(MENU_INPUT_POLLING_RATE);
+            return;
+        }
+
+        if (input.GetButtonSelect())
         {
         }
 
@@ -173,11 +206,20 @@ void UpdateGameRunningState(GraphicsInterface graphics, HardwareInterface hardwa
 
         if (input.GetButtonY())
         {
+        }
+
+        if (input.GetButtonStart())
+        {
             InitMainMenu();
             SetInputState(INPUT_MENU);
             SetGameLoopRate(MENU_INPUT_POLLING_RATE);
             return;
         }
+
+        if (input.GetButtonSelect())
+        {
+        }
+
 
         if (input.GetButtonJSClick())
         {
@@ -190,7 +232,6 @@ void UpdateGameRunningState(GraphicsInterface graphics, HardwareInterface hardwa
         if (input.GetJSPressed())
         {
             SetInputState(INPUT_ACTING);
-
             SetPlayerDelta(input.GetInputKeyState().js);
             return;
         }
@@ -225,7 +266,7 @@ void HandleGameState(GameInterface* spi)
         HandleMenu(spi->graphics, spi->hardware, spi->memory);
         HandleGameMenu(spi->graphics, spi->hardware, spi->memory);
         DrawCursor(spi->graphics, spi->memory);
-        spi->graphics.EndFrame();
+        if (g_core.menu.displayedMenu != MINIMAP) spi->graphics.EndFrame();
     }
 
     if (g_core.state.inputState == INPUT_IDLE)

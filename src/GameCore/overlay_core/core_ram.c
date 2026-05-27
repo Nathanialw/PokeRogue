@@ -24,4 +24,5 @@ CoreRunState g_core = {
     .floor = 0,
     .btns.defaultGameLoopRate = 10,
     .btns.gameLoopRate = 10,
+    .player.vision_radius = 7,
 };

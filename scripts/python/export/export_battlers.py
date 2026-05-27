@@ -121,7 +121,7 @@ def export_image_data(entity, image_type=""):
 
     # Find all JSON files recursively
     input_path = Path(input_folder)
-    all_json_files = sorted(input_path.rglob("*.json"))
+    all_json_files = sorted(input_path.rglob("*_battler.json"))
 
     # Filter to only include files whose parent folder is in creature_names
     json_files = []

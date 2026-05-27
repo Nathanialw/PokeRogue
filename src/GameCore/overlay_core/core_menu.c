@@ -140,6 +140,8 @@ bool SetMenuDelta(HardwareInterface hardware, InputInterface input, MemoryInterf
 {
     if (delta.y == 0) return false;
     if (HandleMenuOverflow(hardware, input, memory, delta)) return false;
+    if (g_core.menu.displayedMenu == MINIMAP) return false;
+
 
     g_core.menu.eraseSel.y = g_core.menu.sel[g_core.menu.depth].y;
     g_core.menu.sel[g_core.menu.depth].y += delta.y;

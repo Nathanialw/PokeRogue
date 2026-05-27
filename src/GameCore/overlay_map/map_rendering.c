@@ -44,7 +44,7 @@ bool CheckFogCleared(uint8_t x, uint8_t y)
 SET_MEMORY(".map")
 void UpdateVision(GraphicsInterface graphics, HardwareInterface hardware)
 {
-    uint8_t vision_radius = 5;
+    uint8_t vision_radius = g_core.player.vision_radius;
     Camera c = GetCamera();
 
     for (uint8_t i = 0; i < VIEW_TH; i++)
@@ -154,8 +154,6 @@ void DrawMinimapEntities(GraphicsInterface graphics, MemoryInterface memory, Pos
 SET_MEMORY(".map")
 void DrawMiniMap(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory)
 {
-    uint8_t buffer_lines = TFT_H / BUFFER_H;
-
     OrderUnitsByBufferLine(graphics, g_map.units, g_map.meta);
     Camera c = GetCamera();
 
@@ -198,6 +196,7 @@ void DrawMiniMap(GraphicsInterface graphics, HardwareInterface hardware, MemoryI
 
         graphics.Draw(0, y, TFT_W, BUFFER_H, graphics.GetFrameBuffer1byte());
     }
+    graphics.EndFrame();
 }
 
 /**********************************************************************************************************************/

@@ -81,57 +81,98 @@ SECTIONS
     .sprite_skills                   0x43000000 : { KEEP(*(.sprite_skills))  . = ALIGN(4); }
     .sprite_objects                  0x44000000 : { KEEP(*(.sprite_objects))  . = ALIGN(4); }
     .sprite_trainers                 0x45000000 : { KEEP(*(.sprite_trainers))  . = ALIGN(4); }
-    .sprite_map_creature             0x46000000 : { KEEP(*(.sprite_map_creature))  . = ALIGN(4); }
-    .sprite_map_item                 0x47000000 : { KEEP(*(.sprite_map_item))  . = ALIGN(4); }
-    .sprite_map_object               0x48000000 : { KEEP(*(.sprite_map_object))  . = ALIGN(4); }
-    .sprite_map_trainer              0x49000000 : { KEEP(*(.sprite_map_trainer))  . = ALIGN(4); }
-    .sprite_map_tile                 0x50000000 : { KEEP(*(.sprite_map_tile))  . = ALIGN(4); }
-    .sprite_map_creature_metaData    0x51000000 : { KEEP(*(.sprite_map_creature_metaData))  . = ALIGN(4); }
-    .sprite_map_item_metaData        0x52000000 : { KEEP(*(.sprite_map_item_metaData))  . = ALIGN(4); }
-    .sprite_map_object_metaData      0x53000000 : { KEEP(*(.sprite_map_object_metaData))  . = ALIGN(4); }
-    .sprite_map_trainer_metaData     0x54000000 : { KEEP(*(.sprite_map_trainer_metaData))  . = ALIGN(4); }
-    .sprite_map_tile_metaData        0x55000000 : { KEEP(*(.sprite_map_tile_metaData))  . = ALIGN(4); }
+    .sprite_16x16_creature           0x50000000 : { KEEP(*(.sprite_16x16_creature))  . = ALIGN(4); }
+    .sprite_16x16_item               0x51000000 : { KEEP(*(.sprite_16x16_item))  . = ALIGN(4); }
+    .sprite_16x16_object             0x52000000 : { KEEP(*(.sprite_16x16_object))  . = ALIGN(4); }
+    .sprite_16x16_trainer            0x53000000 : { KEEP(*(.sprite_16x16_trainer))  . = ALIGN(4); }
+    .sprite_16x16_tile               0x54000000 : { KEEP(*(.sprite_16x16_tile))  . = ALIGN(4); }
+    .sprite_16x16_creature_metaData  0x55000000 : { KEEP(*(.sprite_16x16_creature_metaData))  . = ALIGN(4); }
+    .sprite_16x16_item_metaData      0x56000000 : { KEEP(*(.sprite_16x16_item_metaData))  . = ALIGN(4); }
+    .sprite_16x16_object_metaData    0x57000000 : { KEEP(*(.sprite_16x16_object_metaData))  . = ALIGN(4); }
+    .sprite_16x16_trainer_metaData   0x58000000 : { KEEP(*(.sprite_16x16_trainer_metaData))  . = ALIGN(4); }
+    .sprite_16x16_tile_metaData      0x59000000 : { KEEP(*(.sprite_16x16_tile_metaData))  . = ALIGN(4); }
+    .sprite_20x20_creature           0x60000000 : { KEEP(*(.sprite_20x20_creature))  . = ALIGN(4); }
+    .sprite_20x20_item               0x61000000 : { KEEP(*(.sprite_20x20_item))  . = ALIGN(4); }
+    .sprite_20x20_object             0x62000000 : { KEEP(*(.sprite_20x20_object))  . = ALIGN(4); }
+    .sprite_20x20_trainer            0x63000000 : { KEEP(*(.sprite_20x20_trainer))  . = ALIGN(4); }
+    .sprite_20x20_tile               0x64000000 : { KEEP(*(.sprite_20x20_tile))  . = ALIGN(4); }
+    .sprite_20x20_creature_metaData  0x65000000 : { KEEP(*(.sprite_20x20_creature_metaData))  . = ALIGN(4); }
+    .sprite_20x20_item_metaData      0x66000000 : { KEEP(*(.sprite_20x20_item_metaData))  . = ALIGN(4); }
+    .sprite_20x20_object_metaData    0x67000000 : { KEEP(*(.sprite_20x20_object_metaData))  . = ALIGN(4); }
+    .sprite_20x20_trainer_metaData   0x68000000 : { KEEP(*(.sprite_20x20_trainer_metaData))  . = ALIGN(4); }
+    .sprite_20x20_tile_metaData      0x69000000 : { KEEP(*(.sprite_20x20_tile_metaData))  . = ALIGN(4); }
+    .sprite_24x24_creature           0x70000000 : { KEEP(*(.sprite_24x24_creature))  . = ALIGN(4); }
+    .sprite_24x24_item               0x71000000 : { KEEP(*(.sprite_24x24_item))  . = ALIGN(4); }
+    .sprite_24x24_object             0x72000000 : { KEEP(*(.sprite_24x24_object))  . = ALIGN(4); }
+    .sprite_24x24_trainer            0x73000000 : { KEEP(*(.sprite_24x24_trainer))  . = ALIGN(4); }
+    .sprite_24x24_tile               0x74000000 : { KEEP(*(.sprite_24x24_tile))  . = ALIGN(4); }
+    .sprite_24x24_creature_metaData  0x75000000 : { KEEP(*(.sprite_24x24_creature_metaData))  . = ALIGN(4); }
+    .sprite_24x24_item_metaData      0x76000000 : { KEEP(*(.sprite_24x24_item_metaData))  . = ALIGN(4); }
+    .sprite_24x24_object_metaData    0x77000000 : { KEEP(*(.sprite_24x24_object_metaData))  . = ALIGN(4); }
+    .sprite_24x24_trainer_metaData   0x78000000 : { KEEP(*(.sprite_24x24_trainer_metaData))  . = ALIGN(4); }
+    .sprite_24x24_tile_metaData      0x79000000 : { KEEP(*(.sprite_24x24_tile_metaData))  . = ALIGN(4); }
+    .sprite_32x32_creature           0x80000000 : { KEEP(*(.sprite_32x32_creature))  . = ALIGN(4); }
+    .sprite_32x32_item               0x81000000 : { KEEP(*(.sprite_32x32_item))  . = ALIGN(4); }
+    .sprite_32x32_object             0x82000000 : { KEEP(*(.sprite_32x32_object))  . = ALIGN(4); }
+    .sprite_32x32_trainer            0x83000000 : { KEEP(*(.sprite_32x32_trainer))  . = ALIGN(4); }
+    .sprite_32x32_tile               0x84000000 : { KEEP(*(.sprite_32x32_tile))  . = ALIGN(4); }
+    .sprite_32x32_creature_metaData  0x85000000 : { KEEP(*(.sprite_32x32_creature_metaData))  . = ALIGN(4); }
+    .sprite_32x32_item_metaData      0x86000000 : { KEEP(*(.sprite_32x32_item_metaData))  . = ALIGN(4); }
+    .sprite_32x32_object_metaData    0x87000000 : { KEEP(*(.sprite_32x32_object_metaData))  . = ALIGN(4); }
+    .sprite_32x32_trainer_metaData   0x88000000 : { KEEP(*(.sprite_32x32_trainer_metaData))  . = ALIGN(4); }
+    .sprite_32x32_tile_metaData      0x89000000 : { KEEP(*(.sprite_32x32_tile_metaData))  . = ALIGN(4); }
+    .sprite_64x64_creature           0x90000000 : { KEEP(*(.sprite_64x64_creature))  . = ALIGN(4); }
+    .sprite_64x64_item               0x91000000 : { KEEP(*(.sprite_64x64_item))  . = ALIGN(4); }
+    .sprite_64x64_object             0x92000000 : { KEEP(*(.sprite_64x64_object))  . = ALIGN(4); }
+    .sprite_64x64_trainer            0x93000000 : { KEEP(*(.sprite_64x64_trainer))  . = ALIGN(4); }
+    .sprite_64x64_tile               0x94000000 : { KEEP(*(.sprite_64x64_tile))  . = ALIGN(4); }
+    .sprite_64x64_creature_metaData  0x95000000 : { KEEP(*(.sprite_64x64_creature_metaData))  . = ALIGN(4); }
+    .sprite_64x64_item_metaData      0x96000000 : { KEEP(*(.sprite_64x64_item_metaData))  . = ALIGN(4); }
+    .sprite_64x64_object_metaData    0x97000000 : { KEEP(*(.sprite_64x64_object_metaData))  . = ALIGN(4); }
+    .sprite_64x64_trainer_metaData   0x98000000 : { KEEP(*(.sprite_64x64_trainer_metaData))  . = ALIGN(4); }
+    .sprite_64x64_tile_metaData      0x99000000 : { KEEP(*(.sprite_64x64_tile_metaData))  . = ALIGN(4); }
+
 
     /* ========================================== */
     /*     FONTS                                  */
     /* ========================================== */
-    .font_8x8                        0x56000000 : { KEEP(*(.font_8x8))  . = ALIGN(4); }
-    .font_16x16                      0x57000000 : { KEEP(*(.font_16x16))  . = ALIGN(4); }
-    .font_20x20                      0x58000000 : { KEEP(*(.font_20x20))  . = ALIGN(4); }
-    .font_24x24                      0x59000000 : { KEEP(*(.font_24x24))  . = ALIGN(4); }
-    .font_32x32                      0x60000000 : { KEEP(*(.font_32x32))  . = ALIGN(4); }
+    .font_8x8                        0x176000000 : { KEEP(*(.font_8x8))  . = ALIGN(4); }
+    .font_16x16                      0x177000000 : { KEEP(*(.font_16x16))  . = ALIGN(4); }
+    .font_20x20                      0x178000000 : { KEEP(*(.font_20x20))  . = ALIGN(4); }
+    .font_24x24                      0x179000000 : { KEEP(*(.font_24x24))  . = ALIGN(4); }
+    .font_32x32                      0x180000000 : { KEEP(*(.font_32x32))  . = ALIGN(4); }
 
     /* ========================================== */
     /*      GAME DATA                             */
     /* ========================================== */
-    .game_data_type_effects          0x65000000 : { KEEP(*(.game_data_type_effects))  . = ALIGN(4); }
-    .game_data_creature_types        0x66000000 : { KEEP(*(.game_data_creature_types))  . = ALIGN(4); }
-    .game_data_creature_stats        0x67000000 : { KEEP(*(.game_data_creature_stats))  . = ALIGN(4); }
-    .game_data_learnable_skills      0x68000000 : { KEEP(*(.game_data_learnable_skills))  . = ALIGN(4); }
-    .game_data_level_up_skills       0x69000000 : { KEEP(*(.game_data_level_up_skills))  . = ALIGN(4); }
-    .game_data_ability               0x70000000 : { KEEP(*(.game_data_ability))  . = ALIGN(4); }
-    .game_data_spell                 0x71000000 : { KEEP(*(.game_data_spell))  . = ALIGN(4); }
-    .game_data_item                  0x72000000 : { KEEP(*(.game_data_item))  . = ALIGN(4); }
-    .game_data_object                0x73000000 : { KEEP(*(.game_data_object))  . = ALIGN(4); }
+    .game_data_type_effects          0x185000000 : { KEEP(*(.game_data_type_effects))  . = ALIGN(4); }
+    .game_data_creature_types        0x186000000 : { KEEP(*(.game_data_creature_types))  . = ALIGN(4); }
+    .game_data_creature_stats        0x187000000 : { KEEP(*(.game_data_creature_stats))  . = ALIGN(4); }
+    .game_data_learnable_skills      0x188000000 : { KEEP(*(.game_data_learnable_skills))  . = ALIGN(4); }
+    .game_data_level_up_skills       0x189000000 : { KEEP(*(.game_data_level_up_skills))  . = ALIGN(4); }
+    .game_data_ability               0x190000000 : { KEEP(*(.game_data_ability))  . = ALIGN(4); }
+    .game_data_spell                 0x191000000 : { KEEP(*(.game_data_spell))  . = ALIGN(4); }
+    .game_data_item                  0x192000000 : { KEEP(*(.game_data_item))  . = ALIGN(4); }
+    .game_data_object                0x193000000 : { KEEP(*(.game_data_object))  . = ALIGN(4); }
 
     /* ========================================== */
     /*      COLORS                                */
     /* ========================================== */
-    .colors_16                       0x700000000 : { KEEP(*(.colors_16))  . = ALIGN(4); }
-    .colors_256                      0x710000000 : { KEEP(*(.colors_256))  . = ALIGN(4); }
+    .colors_16                       0x1900000000 : { KEEP(*(.colors_16))  . = ALIGN(4); }
+    .colors_256                      0x1910000000 : { KEEP(*(.colors_256))  . = ALIGN(4); }
     /* ========================================== */
     /*      SOUNDS                                */
     /* ========================================== */
-    .sounds_music_data               0x720000000 : { KEEP(*(.sounds_music_data))  . = ALIGN(4); }
-    .sounds_music_notes              0x730000000 : { KEEP(*(.sounds_music_notes))  . = ALIGN(4); }
-    .sounds_creatures                0x740000000 : { KEEP(*(.sounds_creatures))  . = ALIGN(4); }
-    .sounds_spells                   0x750000000 : { KEEP(*(.sounds_spells))  . = ALIGN(4); }
-    .sounds_skills                   0x760000000 : { KEEP(*(.sounds_skills))  . = ALIGN(4); }
-    .sounds_menus                    0x770000000 : { KEEP(*(.sounds_menus))  . = ALIGN(4); }
-    .sounds_notes                    0x780000000 : { KEEP(*(.sounds_notes))  . = ALIGN(4); }
+    .sounds_music_data               0x1920000000 : { KEEP(*(.sounds_music_data))  . = ALIGN(4); }
+    .sounds_music_notes              0x1930000000 : { KEEP(*(.sounds_music_notes))  . = ALIGN(4); }
+    .sounds_creatures                0x1940000000 : { KEEP(*(.sounds_creatures))  . = ALIGN(4); }
+    .sounds_spells                   0x1950000000 : { KEEP(*(.sounds_spells))  . = ALIGN(4); }
+    .sounds_skills                   0x1960000000 : { KEEP(*(.sounds_skills))  . = ALIGN(4); }
+    .sounds_menus                    0x1970000000 : { KEEP(*(.sounds_menus))  . = ALIGN(4); }
+    .sounds_notes                    0x1980000000 : { KEEP(*(.sounds_notes))  . = ALIGN(4); }
 
 
-    . = 0x800000000;
+    . = 0x10000000000;
 
 
     /* This is the critical one */

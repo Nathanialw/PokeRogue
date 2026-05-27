@@ -74,24 +74,63 @@ def main():
         ".sprite_skills",
         ".sprite_objects",
         ".sprite_trainers",
-        ".sprite_map_creature",
-        ".sprite_map_item",
-        ".sprite_map_object",
-        ".sprite_map_trainer",
-        ".sprite_map_tile",
-        ".sprite_map_creature_metaData",
-        ".sprite_map_item_metaData",
-        ".sprite_map_object_metaData",
-        ".sprite_map_trainer_metaData",
-        ".sprite_map_tile_metaData",
+        ".sprite_16x16_creature",
+        ".sprite_16x16_item",
+        ".sprite_16x16_object",
+        ".sprite_16x16_trainer",
+        ".sprite_16x16_tile",
+        ".sprite_16x16_creature_metaData",
+        ".sprite_16x16_item_metaData",
+        ".sprite_16x16_object_metaData",
+        ".sprite_16x16_trainer_metaData",
+        ".sprite_16x16_tile_metaData",
+        ".sprite_20x20_creature",
+        ".sprite_20x20_item",
+        ".sprite_20x20_object",
+        ".sprite_20x20_trainer",
+        ".sprite_20x20_tile",
+        ".sprite_20x20_creature_metaData",
+        ".sprite_20x20_item_metaData",
+        ".sprite_20x20_object_metaData",
+        ".sprite_20x20_trainer_metaData",
+        ".sprite_20x20_tile_metaData",
+        ".sprite_24x24_creature",
+        ".sprite_24x24_item",
+        ".sprite_24x24_object",
+        ".sprite_24x24_trainer",
+        ".sprite_24x24_tile",
+        ".sprite_24x24_creature_metaData",
+        ".sprite_24x24_item_metaData",
+        ".sprite_24x24_object_metaData",
+        ".sprite_24x24_trainer_metaData",
+        ".sprite_24x24_tile_metaData",
+        ".sprite_32x32_creature",
+        ".sprite_32x32_item",
+        ".sprite_32x32_object",
+        ".sprite_32x32_trainer",
+        ".sprite_32x32_tile",
+        ".sprite_32x32_creature_metaData",
+        ".sprite_32x32_item_metaData",
+        ".sprite_32x32_object_metaData",
+        ".sprite_32x32_trainer_metaData",
+        ".sprite_32x32_tile_metaData",
+        ".sprite_64x64_creature",
+        ".sprite_64x64_item",
+        ".sprite_64x64_object",
+        ".sprite_64x64_trainer",
+        ".sprite_64x64_tile",
+        ".sprite_64x64_creature_metaData",
+        ".sprite_64x64_item_metaData",
+        ".sprite_64x64_object_metaData",
+        ".sprite_64x64_trainer_metaData",
+        ".sprite_64x64_tile_metaData",
 
-        #fonts
+        # fonts
         ".font_8x8",
         ".font_16x16",
         ".font_20x20",
         ".font_24x24",
         ".font_32x32",
-
 
         # game_data
         ".game_data_type_effects",
@@ -120,8 +159,7 @@ def main():
     print("Building cartridge...")
 
     # rom = bytearray(b'\xFF' * rom_size)
-    rom = bytearray(b'\xFF')# * rom_size)
-
+    rom = bytearray(b'\xFF')  # * rom_size)
 
     p = 0x4
 
@@ -147,11 +185,9 @@ def main():
         else:
             print(f"  No data for {section_name}")
 
-
     rom[0:0x4] = addr.to_bytes(4, byteorder='little')
     print(f"{addr}")
     # Generate .ld file
-
 
     # build cartridge
     for section_name in sections:
@@ -176,7 +212,7 @@ def main():
     # Write final binary
     output_bin.write_bytes(rom)
 
-    print(f"\nSuccess! Created {output_bin.name} {len(rom)} ({rom_size//1024//1024} MB) ({rom_size//1024} KB) ({rom_size} B)")
+    print(f"\nSuccess! Created {output_bin.name} {len(rom)} ({rom_size // 1024 // 1024} MB) ({rom_size // 1024} KB) ({rom_size} B)")
 
     # write defines
     filename = f"{constants.INC_FOLDER}/memory_constants.inc"
@@ -192,7 +228,6 @@ def main():
         f.write("\n\n\n")
         f.write(f"///   {len(defines_pos)} entries MAX 255\n")
         f.write("\n")
-
 
 
 if __name__ == "__main__":

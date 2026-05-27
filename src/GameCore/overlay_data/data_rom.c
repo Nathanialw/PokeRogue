@@ -612,41 +612,245 @@ const uint8_t sprites_trainers[TRAINER_COUNT] = {
 #include "inc/sprite_trainer.inc"
 };
 
+/**********************************************************************************************************************/
+/*
+ *      MAP SPRITES
+ *
+**********************************************************************************************************************/
+
+#define MAP_SPRITE_CREATURE_LAYOUT_SIZE (sizeof(SpriteFrames) * CREATURE_COUNT)
+#define MAP_SPRITE_ITEM_LAYOUT_SIZE (sizeof(SpriteFrames) * ITEM_COUNT)
+#define MAP_SPRITE_OBJECT_LAYOUT_SIZE (sizeof(SpriteFrames) * OBJECT_COUNT)
+#define MAP_SPRITE_TRAINER_LAYOUT_SIZE (sizeof(SpriteFrames) * TRAINER_COUNT)
+#define MAP_SPRITE_TILE_LAYOUT_SIZE (sizeof(SpriteFrames) * TILE_COUNT)
+
+/**********************************************************************************************************************/
+/*  16x16 map sprite tiles, may have multiple tiles for idle animations
+**********************************************************************************************************************/
+SET_MEMORY(".sprite_16x16_creature")
+const uint8_t creatureSprites16x16[SPRITE_16x16_CREATURE_BYTES] = {
+#include "inc/sprite_16x16_creature.inc"
+};
+SET_MEMORY(".sprite_16x16_item")
+const uint8_t itemSprites16x16[SPRITE_16x16_ITEM_BYTES] = {
+#include "inc/sprite_16x16_item.inc"
+};
+SET_MEMORY(".sprite_16x16_object")
+const uint8_t objectSprites16x16[SPRITE_16x16_OBJECT_BYTES] = {
+#include "inc/sprite_16x16_object.inc"
+};
+SET_MEMORY(".sprite_16x16_trainer")
+const uint8_t trainerSprites16x16[SPRITE_16x16_TRAINER_BYTES] = {
+#include "inc/sprite_16x16_trainer.inc"
+};
+SET_MEMORY(".sprite_16x16_tile")
+const uint8_t tileSprites16x16[SPRITE_16x16_TILE_BYTES] = {
+#include "inc/sprite_16x16_tile.inc"
+};
+
+SET_MEMORY(".sprite_16x16_creature_metaData")
+const SpriteFrames creatureSpritesMetaData16x16[MAP_SPRITE_CREATURE_LAYOUT_SIZE] = {
+#include "inc/sprite_16x16_creature_metaData.inc"
+};
+SET_MEMORY(".sprite_16x16_item_metaData")
+const SpriteFrames itemSpritesMetaData16x16[MAP_SPRITE_ITEM_LAYOUT_SIZE] = {
+#include "inc/sprite_16x16_item_metaData.inc"
+};
+SET_MEMORY(".sprite_16x16_object_metaData")
+const SpriteFrames objectSpritesMetaData16x16[MAP_SPRITE_OBJECT_LAYOUT_SIZE] = {
+#include "inc/sprite_16x16_object_metaData.inc"
+};
+SET_MEMORY(".sprite_16x16_trainer_metaData")
+const SpriteFrames trainerSpritesMetaData16x16[MAP_SPRITE_TRAINER_LAYOUT_SIZE] = {
+#include "inc/sprite_16x16_trainer_metaData.inc"
+};
+SET_MEMORY(".sprite_16x16_tile_metaData")
+const SpriteFrames tileSpritesMetaData16x16[MAP_SPRITE_TILE_LAYOUT_SIZE] = {
+#include "inc/sprite_16x16_tile_metaData.inc"
+};
 
 /**********************************************************************************************************************/
 /*  20x20 map sprite tiles, may have multiple tiles for idle animations
 **********************************************************************************************************************/
-SET_MEMORY(".sprite_map_creature")
-const uint8_t creatureSprites[CREATURE_SPRITE_COUNT] = {
-#include "inc/sprite_map_creatures.inc"
+SET_MEMORY(".sprite_20x20_creature")
+const uint8_t creatureSprites20x20[SPRITE_20x20_CREATURE_BYTES] = {
+#include "inc/sprite_20x20_creature.inc"
 };
-SET_MEMORY(".sprite_map_item")
-const uint8_t itemSprites[ITEM_SPRITE_COUNT] = {
-#include "inc/sprite_map_items.inc"
+SET_MEMORY(".sprite_20x20_item")
+const uint8_t itemSprites20x20[SPRITE_20x20_ITEM_BYTES] = {
+#include "inc/sprite_20x20_item.inc"
 };
-SET_MEMORY(".sprite_map_object")
-const uint8_t objectSprites[OBJECT_SPRITE_COUNT] = {
-#include "inc/sprite_map_objects.inc"
+SET_MEMORY(".sprite_20x20_object")
+const uint8_t objectSprites0x20[SPRITE_20x20_OBJECT_BYTES] = {
+#include "inc/sprite_20x20_object.inc"
 };
-SET_MEMORY(".sprite_map_trainer")
-const uint8_t trainerSprites[TRAINER_SPRITE_COUNT] = {
-#include "inc/sprite_map_trainers.inc"
+SET_MEMORY(".sprite_20x20_trainer")
+const uint8_t trainerSprites20x20[SPRITE_20x20_TRAINER_BYTES] = {
+#include "inc/sprite_20x20_trainer.inc"
 };
-SET_MEMORY(".sprite_map_tile")
-const uint8_t tileSprites[TILE_SPRITE_COUNT] = {
-#include "inc/sprite_map_tiles.inc"
+SET_MEMORY(".sprite_20x20_tile")
+const uint8_t tileSprites20x20[SPRITE_20x20_TILE_BYTES] = {
+#include "inc/sprite_20x20_tile.inc"
 };
 
-SET_MEMORY(".sprite_map_creature_metaData")
-const SpriteFrames creatureSpritesMetaData[CREATURE_COUNT] = {};
-SET_MEMORY(".sprite_map_item_metaData")
-const SpriteFrames itemSpritesMetaData[ITEM_COUNT] = {};
-SET_MEMORY(".sprite_map_object_metaData")
-const SpriteFrames objectSpritesMetaData[OBJECT_COUNT] = {};
-SET_MEMORY(".sprite_map_trainer_metaData")
-const SpriteFrames trainerSpritesMetaData[TRAINER_COUNT] = {};
-SET_MEMORY(".sprite_map_tile_metaData")
-const SpriteFrames tileSpritesMetaData[TILE_COUNT] = {};
+SET_MEMORY(".sprite_20x20_creature_metaData")
+const SpriteFrames creatureSpritesMetaData20x20[MAP_SPRITE_CREATURE_LAYOUT_SIZE] = {
+#include "inc/sprite_20x20_creature_metaData.inc"
+};
+SET_MEMORY(".sprite_20x20_item_metaData")
+const SpriteFrames itemSpritesMetaData20x20[MAP_SPRITE_ITEM_LAYOUT_SIZE] = {
+#include "inc/sprite_20x20_item_metaData.inc"
+};
+SET_MEMORY(".sprite_20x20_object_metaData")
+const SpriteFrames objectSpritesMetaData20x20[MAP_SPRITE_OBJECT_LAYOUT_SIZE] = {
+#include "inc/sprite_20x20_object_metaData.inc"
+};
+SET_MEMORY(".sprite_20x20_trainer_metaData")
+const SpriteFrames trainerSpritesMetaData20x20[MAP_SPRITE_TRAINER_LAYOUT_SIZE] = {
+#include "inc/sprite_20x20_trainer_metaData.inc"
+};
+SET_MEMORY(".sprite_20x20_tile_metaData")
+const SpriteFrames tileSpritesMetaData20x20[MAP_SPRITE_TILE_LAYOUT_SIZE] = {
+#include "inc/sprite_20x20_tile_metaData.inc"
+};
+
+
+/**********************************************************************************************************************/
+/*  24x24 map sprite tiles, may have multiple tiles for idle animations
+**********************************************************************************************************************/
+SET_MEMORY(".sprite_24x24_creature")
+const uint8_t creatureSprites24x24[SPRITE_24x24_CREATURE_BYTES] = {
+#include "inc/sprite_24x24_creature.inc"
+};
+SET_MEMORY(".sprite_24x24_item")
+const uint8_t itemSprites24x24[SPRITE_24x24_ITEM_BYTES] = {
+#include "inc/sprite_24x24_item.inc"
+};
+SET_MEMORY(".sprite_24x24_object")
+const uint8_t objectSprites24x24[SPRITE_24x24_OBJECT_BYTES] = {
+#include "inc/sprite_24x24_object.inc"
+};
+SET_MEMORY(".sprite_24x24_trainer")
+const uint8_t trainerSprites24x24[SPRITE_24x24_TRAINER_BYTES] = {
+#include "inc/sprite_24x24_trainer.inc"
+};
+SET_MEMORY(".sprite_24x24_tile")
+const uint8_t tileSprites24x24[SPRITE_24x24_TILE_BYTES] = {
+#include "inc/sprite_24x24_tile.inc"
+};
+
+SET_MEMORY(".sprite_24x24_creature_metaData")
+const SpriteFrames creatureSpritesMetaData24x24[MAP_SPRITE_CREATURE_LAYOUT_SIZE] = {
+#include "inc/sprite_24x24_creature_metaData.inc"
+};
+SET_MEMORY(".sprite_24x24_item_metaData")
+const SpriteFrames itemSpritesMetaData24x24[MAP_SPRITE_ITEM_LAYOUT_SIZE] = {
+#include "inc/sprite_24x24_item_metaData.inc"
+};
+SET_MEMORY(".sprite_24x24_object_metaData")
+const SpriteFrames objectSpritesMetaData24x24[MAP_SPRITE_OBJECT_LAYOUT_SIZE] = {
+#include "inc/sprite_24x24_object_metaData.inc"
+};
+SET_MEMORY(".sprite_24x24_trainer_metaData")
+const SpriteFrames trainerSpritesMetaData24x24[MAP_SPRITE_TRAINER_LAYOUT_SIZE] = {
+#include "inc/sprite_24x24_trainer_metaData.inc"
+};
+SET_MEMORY(".sprite_24x24_tile_metaData")
+const SpriteFrames tileSpritesMetaData24x24[MAP_SPRITE_TILE_LAYOUT_SIZE] = {
+#include "inc/sprite_24x24_tile_metaData.inc"
+};
+
+
+/**********************************************************************************************************************/
+/*  32x32 map sprite tiles, may have multiple tiles for idle animations
+**********************************************************************************************************************/
+SET_MEMORY(".sprite_32x32_creature")
+const uint8_t creatureSprites32x32[SPRITE_32x32_CREATURE_BYTES] = {
+#include "inc/sprite_32x32_creature.inc"
+};
+SET_MEMORY(".sprite_32x32_item")
+const uint8_t itemSprites32x32[SPRITE_32x32_ITEM_BYTES] = {
+#include "inc/sprite_32x32_item.inc"
+};
+SET_MEMORY(".sprite_32x32_object")
+const uint8_t objectSprites32x32[SPRITE_32x32_OBJECT_BYTES] = {
+#include "inc/sprite_32x32_object.inc"
+};
+SET_MEMORY(".sprite_32x32_trainer")
+const uint8_t trainerSprites32x32[SPRITE_32x32_TRAINER_BYTES] = {
+#include "inc/sprite_32x32_trainer.inc"
+};
+SET_MEMORY(".sprite_32x32_tile")
+const uint8_t tileSprites32x32[SPRITE_32x32_TILE_BYTES] = {
+#include "inc/sprite_32x32_tile.inc"
+};
+
+SET_MEMORY(".sprite_32x32_creature_metaData")
+const SpriteFrames creatureSpritesMetaData32x32[MAP_SPRITE_CREATURE_LAYOUT_SIZE] = {
+#include "inc/sprite_32x32_creature_metaData.inc"
+};
+SET_MEMORY(".sprite_32x32_item_metaData")
+const SpriteFrames itemSpritesMetaData32x32[MAP_SPRITE_ITEM_LAYOUT_SIZE] = {
+#include "inc/sprite_32x32_item_metaData.inc"
+};
+SET_MEMORY(".sprite_32x32_object_metaData")
+const SpriteFrames objectSpritesMetaData32x32[MAP_SPRITE_OBJECT_LAYOUT_SIZE] = {
+#include "inc/sprite_32x32_object_metaData.inc"
+};
+SET_MEMORY(".sprite_32x32_trainer_metaData")
+const SpriteFrames trainerSpritesMetaData32x32[MAP_SPRITE_TRAINER_LAYOUT_SIZE] = {
+#include "inc/sprite_32x32_trainer_metaData.inc"
+};
+SET_MEMORY(".sprite_32x32_tile_metaData")
+const SpriteFrames tileSpritesMetaData32x32[MAP_SPRITE_TILE_LAYOUT_SIZE] = {
+#include "inc/sprite_32x32_tile_metaData.inc"
+};
+
+/**********************************************************************************************************************/
+/*  64x64 map sprite tiles, may have multiple tiles for idle animations
+**********************************************************************************************************************/
+SET_MEMORY(".sprite_64x64_creature")
+const uint8_t creatureSprites64x64[SPRITE_64x64_CREATURE_BYTES] = {
+#include "inc/sprite_64x64_creature.inc"
+};
+SET_MEMORY(".sprite_64x64_item")
+const uint8_t itemSprites64x64[SPRITE_64x64_ITEM_BYTES] = {
+#include "inc/sprite_64x64_item.inc"
+};
+SET_MEMORY(".sprite_64x64_object")
+const uint8_t objectSprites64x64[SPRITE_64x64_OBJECT_BYTES] = {
+#include "inc/sprite_64x64_object.inc"
+};
+SET_MEMORY(".sprite_64x64_trainer")
+const uint8_t trainerSprites64x64[SPRITE_64x64_TRAINER_BYTES] = {
+#include "inc/sprite_64x64_trainer.inc"
+};
+SET_MEMORY(".sprite_64x64_tile")
+const uint8_t tileSprites64x64[SPRITE_64x64_TILE_BYTES] = {
+#include "inc/sprite_64x64_tile.inc"
+};
+
+SET_MEMORY(".sprite_64x64_creature_metaData")
+const SpriteFrames creatureSpritesMetaData64x64[MAP_SPRITE_CREATURE_LAYOUT_SIZE] = {
+#include "inc/sprite_64x64_creature_metaData.inc"
+};
+SET_MEMORY(".sprite_64x64_item_metaData")
+const SpriteFrames itemSpritesMetaData64x64[MAP_SPRITE_ITEM_LAYOUT_SIZE] = {
+#include "inc/sprite_64x64_item_metaData.inc"
+};
+SET_MEMORY(".sprite_64x64_object_metaData")
+const SpriteFrames objectSpritesMetaData64x64[MAP_SPRITE_OBJECT_LAYOUT_SIZE] = {
+#include "inc/sprite_64x64_object_metaData.inc"
+};
+SET_MEMORY(".sprite_64x64_trainer_metaData")
+const SpriteFrames trainerSpritesMetaData64x64[MAP_SPRITE_TRAINER_LAYOUT_SIZE] = {
+#include "inc/sprite_64x64_trainer_metaData.inc"
+};
+SET_MEMORY(".sprite_64x64_tile_metaData")
+const SpriteFrames tileSpritesMetaData64x64[MAP_SPRITE_TILE_LAYOUT_SIZE] = {
+#include "inc/sprite_64x64_tile_metaData.inc"
+};
+
 
 
 /**********************************************************************************************************************/

@@ -42,15 +42,17 @@ void ClipTile(uint16_t* clip, const uint16_t* pixels, Rect_16 r)
 **********************************************************************************************************************/
 // Helper: Extract RGB565 channels to 8-bit
 SET_MEMORY(".map")
-void rgb565_to_rgb8(uint16_t rgb565, uint8_t* r, uint8_t* g, uint8_t* b) {
+void rgb565_to_rgb8(uint16_t rgb565, uint8_t* r, uint8_t* g, uint8_t* b)
+{
     *r = ((rgb565 >> 11) & 0x1F) << 3; // 5-bit → 8-bit (scale by 8)
-    *g = ((rgb565 >> 5)  & 0x3F) << 2; // 6-bit → 8-bit (scale by 4)
-    *b = (rgb565        & 0x1F) << 3; // 5-bit → 8-bit (scale by 8)
+    *g = ((rgb565 >> 5) & 0x3F) << 2; // 6-bit → 8-bit (scale by 4)
+    *b = (rgb565 & 0x1F) << 3; // 5-bit → 8-bit (scale by 8)
 }
 
 // Helper: Convert 8-bit RGB back to RGB565
 SET_MEMORY(".map")
-uint16_t rgb8_to_rgb565(uint8_t r, uint8_t g, uint8_t b) {
+uint16_t rgb8_to_rgb565(uint8_t r, uint8_t g, uint8_t b)
+{
     uint8_t r5 = r >> 3; // 8-bit → 5-bit
     uint8_t g6 = g >> 2; // 8-bit → 6-bit
     uint8_t b5 = b >> 3; // 8-bit → 5-bit
@@ -59,24 +61,28 @@ uint16_t rgb8_to_rgb565(uint8_t r, uint8_t g, uint8_t b) {
 
 // Brightness: -100 (darkest) to +100 (brightest), 0 = no change
 SET_MEMORY(".map")
-Color ModifyColor(Color color, int8_t brightness) {
+Color ModifyColor(Color color, int8_t brightness)
+{
     uint8_t r, g, b;
     rgb565_to_rgb8(color.color, &r, &g, &b);
 
     // Clamp brightness to valid range
     if (brightness < -100) brightness = -100;
-    if (brightness > 100)  brightness = 100;
+    if (brightness > 100) brightness = 100;
 
     // Apply brightness adjustment
     float factor = 1.0f + (brightness / 100.0f);
 
     // Darken: multiply by factor < 1.0
     // Lighten: interpolate toward 255
-    if (brightness < 0) {
+    if (brightness < 0)
+    {
         r = (uint8_t)(r * factor);
         g = (uint8_t)(g * factor);
         b = (uint8_t)(b * factor);
-    } else {
+    }
+    else
+    {
         r = (uint8_t)(r + (255 - r) * (brightness / 100.0f));
         g = (uint8_t)(g + (255 - g) * (brightness / 100.0f));
         b = (uint8_t)(b + (255 - b) * (brightness / 100.0f));
@@ -107,10 +113,12 @@ void DrawTile(GraphicsInterface graphics, MemoryInterface memory, uint8_t screen
     Color bg = Flash_GetColor(memory, g_map.tileCache.tileCache.bg);
     bg = ModifyColor(bg, brightness);
 
-    CharFromGlyph1bpp(memory, g_map.tileCache.spriteCache, g_map.tileCache.tilePixels.pixels, g_map.tileCache.tileCache.glyph_index, FONT16x16, fg, bg);
+
 #if defined(SDL)
+    UnpackSprite(memory, g_map.tileCache.spriteCache, g_map.tileCache.tilePixels.pixels, g_map.tileCache.tileCache.glyph_index, FONT16x16, fg, bg);
     graphics.Draw16(px, py, TILE_W, TILE_H, g_map.tileCache.tilePixels.pixels);
 #else
+    CharFromGlyph1bpp(memory, g_map.tileCache.spriteCache, g_map.tileCache.tilePixels.pixels, g_map.tileCache.tileCache.glyph_index, FONT16x16, fg, bg);
     graphics.Draw(px, py, TILE_W, TILE_H, g_map.tileCache.tilePixels.pixels_bytes);
 #endif
 }
@@ -130,7 +138,11 @@ void DrawTileCached(GraphicsInterface graphics, MemoryInterface memory, uint8_t 
     {
         g_map.tileCache.tile_id = tile_id;
         Flash_GetBiomeTile(memory, &g_map.tileCache.tileCache, g_core.biome, tile_id);
+#if defined(SDL)
+        UnpackSprite(memory, g_map.tileCache.spriteCache, g_map.tileCache.tilePixels.pixels, g_map.tileCache.tileCache.glyph_index, FONT16x16, Flash_GetColor(memory, g_map.tileCache.tileCache.fg), Flash_GetColor(memory, g_map.tileCache.tileCache.bg));
+#else
         CharFromGlyph1bpp(memory, g_map.tileCache.spriteCache, g_map.tileCache.tilePixels.pixels, g_map.tileCache.tileCache.glyph_index, FONT16x16, Flash_GetColor(memory, g_map.tileCache.tileCache.fg), Flash_GetColor(memory, g_map.tileCache.tileCache.bg));
+#endif
     }
 #if defined(SDL)
     graphics.Draw16(px, py, TILE_W, TILE_H, g_map.tileCache.tilePixels.pixels);
@@ -151,7 +163,12 @@ void DrawSprite(GraphicsInterface graphics, MemoryInterface memory, uint8_t scre
     g_map.tileCache.sprite_id = sprite_id;
     Flash_GetSpriteMetadata(memory, &g_map.tileCache.entityCache, type, sprite_id);
     const Color c = Flash_GetColor(memory, PAL_KEY);
+
+#if defined(SDL)
+    UnpackSprite(memory, g_map.tileCache.spriteCache, g_map.tileCache.spritePixels.pixels, g_map.tileCache.entityCache.glyph_index, FONT16x16, Flash_GetColor(memory, g_map.tileCache.entityCache.fg), Flash_GetColor(memory, PAL_KEY));
+#else
     CharFromGlyph1bpp(memory, g_map.tileCache.spriteCache, g_map.tileCache.spritePixels.pixels, g_map.tileCache.entityCache.glyph_index, FONT16x16, Flash_GetColor(memory, g_map.tileCache.entityCache.fg), Flash_GetColor(memory, PAL_KEY));
+#endif
     graphics.DrawTileKeyed(px, py, TILE_W, TILE_H, g_map.tileCache.spritePixels.pixels);
 }
 
@@ -171,7 +188,12 @@ void DrawSpriteCached(GraphicsInterface graphics, MemoryInterface memory, uint8_
     {
         g_map.tileCache.sprite_id = sprite_id;
         Flash_GetSpriteMetadata(memory, &g_map.tileCache.entityCache, type, sprite_id);
+
+#if defined(SDL)
+        UnpackSprite(memory, g_map.tileCache.spriteCache, g_map.tileCache.spritePixels.pixels, g_map.tileCache.entityCache.glyph_index, FONT16x16, Flash_GetColor(memory, g_map.tileCache.entityCache.fg), Flash_GetColor(memory, PAL_KEY));
+#else
         CharFromGlyph1bpp(memory, g_map.tileCache.spriteCache, g_map.tileCache.spritePixels.pixels, g_map.tileCache.entityCache.glyph_index, FONT16x16, Flash_GetColor(memory, g_map.tileCache.entityCache.fg), Flash_GetColor(memory, PAL_KEY));
+#endif
     }
 
     graphics.DrawTileKeyed(px, py, TILE_W, TILE_H, g_map.tileCache.spritePixels.pixels);

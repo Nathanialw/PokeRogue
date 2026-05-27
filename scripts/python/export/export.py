@@ -190,9 +190,11 @@ def export_map_sprites_char(entity):
     print(f"📄 Exported {count} {entity} sprites to {filename}")
 
 
-def export_map_sprites(entity):
+# TODO:  will need to parse images, conver to compressed format and store the metadata
+#       and the bytes and return the size of the data array in bytes
+def export_map_sprites(entity, size):
     """Export the database contents to a C array file"""
-    filename = f"{constants.INC_FOLDER}/sprite_map_{entity}s.inc"
+    filename = f"{constants.INC_FOLDER}/sprite_{size}x{size}_{entity}.inc"
     sprites = []
     count = len(sprites)
 
@@ -211,8 +213,30 @@ def export_map_sprites(entity):
 
     print(f"📄 Exported {count} {entity} sprites to {filename}")
 
+    filename = f"{constants.INC_FOLDER}/sprite_{size}x{size}_{entity}_metaData.inc"
+    sprites = []
+    count = len(sprites)
 
-def export_constants(byte_counts, counts):
+    with open(filename, 'w', encoding='utf-8') as f:
+        f.write(f"// Generated {entity} sprites and color indexes\n")
+        f.write(f"// Database contains {count} total {entity} sprites\n\n")
+        f.write("// Individual sprites\n")
+
+        desc_vars = []
+        for i, (sprite, color) in enumerate(sprites):
+            #
+            f"{{ 0xFFFF 0xFFFF 0xFFFF}}"
+
+        f.write("\n")
+        f.write(f"//Sprites count = {count};\n")
+
+    print(f"📄 Exported {count} {entity} sprites to {filename}")
+
+    # return the total number of bytes the in the sprites array
+    return 0
+
+
+def export_constants(byte_counts, counts, bytes_count_map_sprites):
     """Export the count constants to a C array file"""
     filename = f"{constants.INC_FOLDER}/data_constants.inc"
     with open(filename, 'w', encoding='utf-8') as f:
@@ -251,7 +275,35 @@ def export_constants(byte_counts, counts):
         f.write(f"#define NO_OBJECT {counts[4]}\n")
         f.write(f"#define NO_TRAINER {counts[5]}\n")
 
+        f.write (f"\n")
+        f.write(f"#define SPRITE_16x16_CREATURE_BYTES {bytes_count_map_sprites[0]}\n")
+        f.write(f"#define SPRITE_20x20_CREATURE_BYTES {bytes_count_map_sprites[1]}\n")
+        f.write(f"#define SPRITE_24x24_CREATURE_BYTES {bytes_count_map_sprites[2]}\n")
+        f.write(f"#define SPRITE_32x32_CREATURE_BYTES {bytes_count_map_sprites[3]}\n")
+        f.write(f"#define SPRITE_64x64_CREATURE_BYTES {bytes_count_map_sprites[4]}\n")
+        f.write(f"#define SPRITE_16x16_ITEM_BYTES {bytes_count_map_sprites[5]}\n")
+        f.write(f"#define SPRITE_20x20_ITEM_BYTES {bytes_count_map_sprites[6]}\n")
+        f.write(f"#define SPRITE_24x24_ITEM_BYTES {bytes_count_map_sprites[7]}\n")
+        f.write(f"#define SPRITE_32x32_ITEM_BYTES {bytes_count_map_sprites[8]}\n")
+        f.write(f"#define SPRITE_64x64_ITEM_BYTES {bytes_count_map_sprites[9]}\n")
+        f.write(f"#define SPRITE_16x16_OBJECT_BYTES {bytes_count_map_sprites[10]}\n")
+        f.write(f"#define SPRITE_20x20_OBJECT_BYTES {bytes_count_map_sprites[11]}\n")
+        f.write(f"#define SPRITE_24x24_OBJECT_BYTES {bytes_count_map_sprites[12]}\n")
+        f.write(f"#define SPRITE_32x32_OBJECT_BYTES {bytes_count_map_sprites[13]}\n")
+        f.write(f"#define SPRITE_64x64_OBJECT_BYTES {bytes_count_map_sprites[14]}\n")
+        f.write(f"#define SPRITE_16x16_TRAINER_BYTES {bytes_count_map_sprites[15]}\n")
+        f.write(f"#define SPRITE_20x20_TRAINER_BYTES {bytes_count_map_sprites[16]}\n")
+        f.write(f"#define SPRITE_24x24_TRAINER_BYTES {bytes_count_map_sprites[17]}\n")
+        f.write(f"#define SPRITE_32x32_TRAINER_BYTES {bytes_count_map_sprites[18]}\n")
+        f.write(f"#define SPRITE_64x64_TRAINER_BYTES {bytes_count_map_sprites[19]}\n")
+        f.write(f"#define SPRITE_16x16_TILE_BYTES {bytes_count_map_sprites[20]}\n")
+        f.write(f"#define SPRITE_20x20_TILE_BYTES {bytes_count_map_sprites[21]}\n")
+        f.write(f"#define SPRITE_24x24_TILE_BYTES {bytes_count_map_sprites[22]}\n")
+        f.write(f"#define SPRITE_32x32_TILE_BYTES {bytes_count_map_sprites[23]}\n")
+        f.write(f"#define SPRITE_64x64_TILE_BYTES {bytes_count_map_sprites[24]}\n")
+
         f.write(f"\n// All values aligned to 2 bytes\n")
+
     print(f"📄 Exported to {filename}")
     print(f"#define SPRITE_CREATURE_FRONT_BYTES {byte_counts[0]}")
     print(f"#define SPRITE_CREATURE_BACK_BYTES {byte_counts[1]}")
@@ -259,11 +311,37 @@ def export_constants(byte_counts, counts):
     print(f"#define SPRITE_SPELL_BYTES {byte_counts[3]}")
     print(f"#define SPRITE_ITEM_BYTES {byte_counts[4]}")
     print(f"#define SPRITE_OBJECT_BYTES {byte_counts[5]}")
-    print(f"#define SPRITE_TRAINER_BYTES {byte_counts[6]}")
+    print(f"#define SPRITE_TRAINER_BYTES {byte_counts[6]}\n")
 
-    print(f"#define CREATURE_COUNT {counts[0]}\n")
-    print(f"#define ABILITY_COUNT {counts[1]}\n")
-    print(f"#define SPELL_COUNT {counts[2]}\n")
-    print(f"#define ITEM_COUNT {counts[3]}\n")
-    print(f"#define OBJECT_COUNT {counts[4]}\n")
+    print(f"#define CREATURE_COUNT {counts[0]}")
+    print(f"#define ABILITY_COUNT {counts[1]}")
+    print(f"#define SPELL_COUNT {counts[2]}")
+    print(f"#define ITEM_COUNT {counts[3]}")
+    print(f"#define OBJECT_COUNT {counts[4]}")
     print(f"#define TRAINER_COUNT {counts[5]}\n")
+
+    print(f"#define SPRITE_16x16_CREATURE_BYTES {bytes_count_map_sprites[0]}")
+    print(f"#define SPRITE_20x20_CREATURE_BYTES {bytes_count_map_sprites[1]}")
+    print(f"#define SPRITE_24x24_CREATURE_BYTES {bytes_count_map_sprites[2]}")
+    print(f"#define SPRITE_32x32_CREATURE_BYTES {bytes_count_map_sprites[3]}")
+    print(f"#define SPRITE_64x64_CREATURE_BYTES {bytes_count_map_sprites[4]}")
+    print(f"#define SPRITE_16x16_ITEM_BYTES {bytes_count_map_sprites[5]}")
+    print(f"#define SPRITE_20x20_ITEM_BYTES {bytes_count_map_sprites[6]}")
+    print(f"#define SPRITE_24x24_ITEM_BYTES {bytes_count_map_sprites[7]}")
+    print(f"#define SPRITE_32x32_ITEM_BYTES {bytes_count_map_sprites[8]}")
+    print(f"#define SPRITE_64x64_ITEM_BYTES {bytes_count_map_sprites[9]}")
+    print(f"#define SPRITE_16x16_OBJECT_BYTES {bytes_count_map_sprites[10]}")
+    print(f"#define SPRITE_20x20_OBJECT_BYTES {bytes_count_map_sprites[11]}")
+    print(f"#define SPRITE_24x24_OBJECT_BYTES {bytes_count_map_sprites[12]}")
+    print(f"#define SPRITE_32x32_OBJECT_BYTES {bytes_count_map_sprites[13]}")
+    print(f"#define SPRITE_64x64_OBJECT_BYTES {bytes_count_map_sprites[14]}")
+    print(f"#define SPRITE_16x16_TRAINER_BYTES {bytes_count_map_sprites[15]}")
+    print(f"#define SPRITE_20x20_TRAINER_BYTES {bytes_count_map_sprites[16]}")
+    print(f"#define SPRITE_24x24_TRAINER_BYTES {bytes_count_map_sprites[17]}")
+    print(f"#define SPRITE_32x32_TRAINER_BYTES {bytes_count_map_sprites[18]}")
+    print(f"#define SPRITE_64x64_TRAINER_BYTES {bytes_count_map_sprites[19]}")
+    print(f"#define SPRITE_16x16_TILE_BYTES {bytes_count_map_sprites[20]}")
+    print(f"#define SPRITE_20x20_TILE_BYTES {bytes_count_map_sprites[21]}")
+    print(f"#define SPRITE_24x24_TILE_BYTES {bytes_count_map_sprites[22]}")
+    print(f"#define SPRITE_32x32_TILE_BYTES {bytes_count_map_sprites[23]}")
+    print(f"#define SPRITE_64x64_TILE_BYTES {bytes_count_map_sprites[24]}")

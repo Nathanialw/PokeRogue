@@ -544,9 +544,15 @@ typedef bool (*Battle_Animation)(bool onAttacker);
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-typedef struct
+typedef union
 {
-    uint32_t index : 28; // 28 bits is a max value of  268,435,455
-    uint32_t numFrames : 2;
-    uint32_t frameRate : 2;
+    struct
+    {
+        uint32_t index;
+    };
+
+    uint8_t bytes[4];
 } SpriteFrames;
+
+
+_Static_assert(sizeof(SpriteFrames) == 4, "Sprite must be 4 bytes");

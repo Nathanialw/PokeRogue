@@ -240,6 +240,27 @@ void Flash_GetSprite(MemoryInterface memory, uint8_t* sprite, uint32_t index, ui
 }
 
 
+SET_MEMORY(".core")
+void Flash_GetSpriteCreature16x16(MemoryInterface memory, uint8_t* glyph, uint8_t index)
+{
+#ifdef STANDALONE
+    for (uint16_t i = 0; i < 16; i++)
+    {
+        glyph[i] = g_gameFlash.spriteData.font16x16[(index * 16) + i];
+    }
+#else
+    const uint16_t length = 0;
+    memory.GetRom(SPRITE_16X16_CREATURE_POSITION + (length * index), glyph, length);
+
+#if defined(MEMORY_PRINT)
+    for (uint8_t i = 0; i < length; i++)
+        memory.Print(str_spawn_creature_type, glyph[i]);
+    memory.Print(new_line);
+#endif
+#endif
+}
+
+
 /**********************************************************************************************************************/
 /*      TEXT
 **********************************************************************************************************************/

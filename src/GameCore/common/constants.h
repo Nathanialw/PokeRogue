@@ -52,6 +52,7 @@ _Static_assert(OBJECT_COUNT <= 256, "max must be 256 - one byte");
 #define ITEM_SPRITE_COUNT (OBJECT_COUNT * NUM_SPRITE_FRAMES)
 #define TILE_SPRITE_COUNT (TILE_COUNT * NUM_SPRITE_FRAMES)
 
+
 /**********************************************************************************************************************/
 /** STRING ARRAYS constants
  *  multiples of 16 for pico cache

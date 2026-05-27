@@ -3,513 +3,513 @@
 // Format: { { .idx = byte_offset, .palette = {...}, .emptyIndexes = {...} },
 // Files are processed in alphabetical order by full path
 
-// ABYSSAL GRASP / Abyssal Grasp Auraflow V0.3 000 S1803367433 Th0.100 [Folder: ABYSSAL_GRASP] (sprite index: 0, byte offset: 0, size: 6324)
+// ABYSSAL GRASP / Abyssal Grasp Auraflow V0.3 000 S1803367433 Th0.100 Battler [Folder: ABYSSAL_GRASP] (sprite index: 0, byte offset: 0, size: 6324)
 { .idx = 0, .palette = { 0xac3a, 0x6a14, 0x5930, 0x38ed, 0x408c, 0x288a, 0x2828, 0x1867, 0x1826, 0x1026, 0x1024, 0x0824, 0x0824, 0x0023, 0xf81f, 0x1005 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// ACID SPRAY / Acid Spray Auraflow V0.3 000 S272070317 Th0.100 [Folder: ACID_SPRAY] (sprite index: 1, byte offset: 6324, size: 4576)
+// ACID SPRAY / Acid Spray Auraflow V0.3 000 S272070317 Th0.100 Battler [Folder: ACID_SPRAY] (sprite index: 1, byte offset: 6324, size: 4576)
 { .idx = 6324, .palette = { 0xf6a5, 0xf464, 0xf285, 0xd268, 0xe946, 0xd107, 0x990a, 0x48ea, 0xc886, 0xa066, 0x7866, 0x5867, 0x3067, 0x1865, 0xf81f, 0x6003 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// AMBUSH STRIKE / Ambush Strike Auraflow V0.3 000 S3045528977 Th0.100 [Folder: AMBUSH_STRIKE] (sprite index: 2, byte offset: 10900, size: 5311)
+// AMBUSH STRIKE / Ambush Strike Auraflow V0.3 000 S3045528977 Th0.100 Battler [Folder: AMBUSH_STRIKE] (sprite index: 2, byte offset: 10900, size: 5311)
 { .idx = 10900, .palette = { 0xbe3c, 0x8478, 0x62d4, 0x39cf, 0x310c, 0x20c8, 0x10a7, 0x1084, 0x1064, 0x0843, 0x0843, 0x0023, 0x0022, 0x0021, 0x0001, 0xf81f }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// ANCIENT GUARD / Ancient Guard Auraflow V0.3 000 S101695990 Th0.100 [Folder: ANCIENT_GUARD] (sprite index: 3, byte offset: 16211, size: 3951)
+// ANCIENT GUARD / Ancient Guard Auraflow V0.3 000 S101695990 Th0.100 Battler [Folder: ANCIENT_GUARD] (sprite index: 3, byte offset: 16211, size: 3951)
 { .idx = 16211, .palette = { 0xee9e, 0x8d1a, 0x8377, 0x4335, 0x3a2f, 0x7215, 0x21ae, 0x18e8, 0x68d2, 0x28c9, 0x1866, 0x1085, 0x10c9, 0x0823, 0xf81f, 0x380a }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// ANCIENT WISDOM / Ancient Wisdom Auraflow V0.3 000 S2800587521 Th0.100 [Folder: ANCIENT_WISDOM] (sprite index: 4, byte offset: 20162, size: 4087)
+// ANCIENT WISDOM / Ancient Wisdom Auraflow V0.3 000 S2800587521 Th0.100 Battler [Folder: ANCIENT_WISDOM] (sprite index: 4, byte offset: 20162, size: 4087)
 { .idx = 20162, .palette = { 0xf81f, 0x53b7, 0x41b0, 0x410d, 0x210b, 0x30aa, 0x20a9, 0x1087, 0x1847, 0x1045, 0x0845, 0x0024, 0x0842, 0x0022, 0x0021, 0x0003 }, .emptyIndexes = { 0x3c, 0xbf, 0xcf, 0x87, 0xe3, 0xf9, 0x00 } },
-// ANCIENT WRATH / Ancient Wrath Auraflow V0.3 000 S4194077560 Th0.100 [Folder: ANCIENT_WRATH] (sprite index: 5, byte offset: 24249, size: 3883)
+// ANCIENT WRATH / Ancient Wrath Auraflow V0.3 000 S4194077560 Th0.100 Battler [Folder: ANCIENT_WRATH] (sprite index: 5, byte offset: 24249, size: 3883)
 { .idx = 24249, .palette = { 0x7e5c, 0x5438, 0x4a93, 0x2a4f, 0x2949, 0x414e, 0x1905, 0x1929, 0x3889, 0x2086, 0x1884, 0x10a5, 0x0864, 0x0862, 0xf81f, 0x280a }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// ANOMALY / Anomaly Auraflow V0.3 000 S4193559857 Th0.100 [Folder: ANOMALY] (sprite index: 6, byte offset: 28132, size: 3592)
+// ANOMALY / Anomaly Auraflow V0.3 000 S4193559857 Th0.100 Battler [Folder: ANOMALY] (sprite index: 6, byte offset: 28132, size: 3592)
 { .idx = 28132, .palette = { 0xeefc, 0xd5db, 0xb419, 0x7b57, 0x89b4, 0x5992, 0x4171, 0x30ee, 0x508f, 0x288b, 0x2089, 0x1868, 0x1065, 0x1046, 0xf81f, 0x280b }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// ANTIDOTE / Antidote Auraflow V0.3 000 S909962510 Th0.100 [Folder: ANTIDOTE] (sprite index: 7, byte offset: 31724, size: 2662)
+// ANTIDOTE / Antidote Auraflow V0.3 000 S909962510 Th0.100 Battler [Folder: ANTIDOTE] (sprite index: 7, byte offset: 31724, size: 2662)
 { .idx = 31724, .palette = { 0xf6ad, 0x8e9e, 0xe410, 0x541b, 0xea0e, 0xd8f0, 0x9212, 0x31d3, 0xa8cd, 0x70cc, 0x704e, 0x38cf, 0x18ee, 0x2086, 0xf81f, 0x8811 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// APOTHEOSIS / Apotheosis Auraflow V0.3 000 S3567958897 Th0.100 [Folder: APOTHEOSIS] (sprite index: 8, byte offset: 34386, size: 3466)
+// APOTHEOSIS / Apotheosis Auraflow V0.3 000 S3567958897 Th0.100 Battler [Folder: APOTHEOSIS] (sprite index: 8, byte offset: 34386, size: 3466)
 { .idx = 34386, .palette = { 0xee18, 0xcbd5, 0xca51, 0x7a32, 0xa12e, 0x692f, 0x490d, 0x30e9, 0x706b, 0x406a, 0x2869, 0x1887, 0x1847, 0x1043, 0xf81f, 0x3807 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// AQUA JET / Aqua Jet Auraflow V0.3 000 S2383669313 Th0.100 [Folder: AQUA_JET] (sprite index: 9, byte offset: 37852, size: 3660)
+// AQUA JET / Aqua Jet Auraflow V0.3 000 S2383669313 Th0.100 Battler [Folder: AQUA_JET] (sprite index: 9, byte offset: 37852, size: 3660)
 { .idx = 37852, .palette = { 0xefdf, 0xe77d, 0xaf3e, 0x5e7d, 0x8498, 0x72b3, 0x1b36, 0x096d, 0x6130, 0x310c, 0x194c, 0x1887, 0x08c7, 0x0865, 0xf81f, 0x280b }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// ARCANE ERUPTION / Arcane Eruption Auraflow V0.3 000 S352595086 Th0.100 [Folder: ARCANE_ERUPTION] (sprite index: 10, byte offset: 41512, size: 5101)
+// ARCANE ERUPTION / Arcane Eruption Auraflow V0.3 000 S352595086 Th0.100 Battler [Folder: ARCANE_ERUPTION] (sprite index: 10, byte offset: 41512, size: 5101)
 { .idx = 41512, .palette = { 0xffbf, 0xee7e, 0xe55d, 0xd41d, 0xcafd, 0xc9bd, 0x9a58, 0x8175, 0x50ce, 0xc0dd, 0xa0b9, 0x8095, 0x506e, 0x2868, 0xf81f, 0x482d }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// ARCTIC WINDS / Arctic Winds Auraflow V0.3 000 S3710557485 Th0.100 [Folder: ARCTIC_WINDS] (sprite index: 11, byte offset: 46613, size: 5043)
+// ARCTIC WINDS / Arctic Winds Auraflow V0.3 000 S3710557485 Th0.100 Battler [Folder: ARCTIC_WINDS] (sprite index: 11, byte offset: 46613, size: 5043)
 { .idx = 46613, .palette = { 0x9d1d, 0x83dc, 0x8afb, 0x4afa, 0x7a3a, 0x4238, 0x31f5, 0x3155, 0x2953, 0x194d, 0x5959, 0x1950, 0x18ee, 0xf81f, 0x20b0, 0x0889 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// ASH CLOUD / Ash Cloud Auraflow V0.3 000 S3329919933 Th0.100 [Folder: ASH_CLOUD] (sprite index: 12, byte offset: 51656, size: 4383)
+// ASH CLOUD / Ash Cloud Auraflow V0.3 000 S3329919933 Th0.100 Battler [Folder: ASH_CLOUD] (sprite index: 12, byte offset: 51656, size: 4383)
 { .idx = 51656, .palette = { 0xffff, 0xef9c, 0xe695, 0xa5d9, 0x9451, 0x3b10, 0xa2a9, 0x2a0b, 0x5924, 0x2106, 0x1148, 0x08a5, 0x00c6, 0x0084, 0xf81f, 0x4001 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// ASTRAL CHAINS / Astral Chains Auraflow V0.3 000 S817910200 Th0.100 [Folder: ASTRAL_CHAINS] (sprite index: 13, byte offset: 56039, size: 4697)
+// ASTRAL CHAINS / Astral Chains Auraflow V0.3 000 S817910200 Th0.100 Battler [Folder: ASTRAL_CHAINS] (sprite index: 13, byte offset: 56039, size: 4697)
 { .idx = 56039, .palette = { 0xe67e, 0xac5a, 0x9299, 0x5233, 0x312e, 0x8139, 0x5113, 0x28cc, 0x6076, 0x4071, 0x286c, 0x1889, 0x1866, 0x1027, 0xf81f, 0x300e }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// AURA OF REVERENCE / Aura Of Reverence Auraflow V0.3 000 S3944385687 Th0.100 [Folder: AURA_OF_REVERENCE] (sprite index: 14, byte offset: 60736, size: 3652)
+// AURA OF REVERENCE / Aura Of Reverence Auraflow V0.3 000 S3944385687 Th0.100 Battler [Folder: AURA_OF_REVERENCE] (sprite index: 14, byte offset: 60736, size: 3652)
 { .idx = 60736, .palette = { 0xeea8, 0xbc42, 0x8ac1, 0x6a21, 0x6181, 0x5161, 0x4141, 0x3901, 0x38e0, 0x30c1, 0x28e1, 0x28a1, 0x18c2, 0x18a2, 0x18a2, 0xf81f }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// BASH / Bash Auraflow V0.3 000 S3895712911 Th0.100 [Folder: BASH] (sprite index: 15, byte offset: 64388, size: 5378)
+// BASH / Bash Auraflow V0.3 000 S3895712911 Th0.100 Battler [Folder: BASH] (sprite index: 15, byte offset: 64388, size: 5378)
 { .idx = 64388, .palette = { 0xe7bf, 0xbfbf, 0xb71d, 0x5f1d, 0x4e1b, 0x4cf7, 0x1cd7, 0x3370, 0x1372, 0x228c, 0x0a6d, 0x11c9, 0x09a9, 0x0926, 0x08a4, 0xf81f }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// BEDROCK SHIELD / Bedrock Shield Auraflow V0.3 000 S1710035300 Th0.100 [Folder: BEDROCK_SHIELD] (sprite index: 16, byte offset: 69766, size: 5146)
+// BEDROCK SHIELD / Bedrock Shield Auraflow V0.3 000 S1710035300 Th0.100 Battler [Folder: BEDROCK_SHIELD] (sprite index: 16, byte offset: 69766, size: 5146)
 { .idx = 69766, .palette = { 0xbedb, 0x8d35, 0x6c11, 0x5b8f, 0x52ec, 0x426b, 0x3229, 0x31c8, 0x3166, 0x2146, 0x2146, 0x1905, 0x1125, 0x10e4, 0x10a3, 0xf81f }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// BLAZING CHARGE / Blazing Charge Auraflow V0.3 000 S1978990713 Th0.100 [Folder: BLAZING_CHARGE] (sprite index: 17, byte offset: 74912, size: 3015)
+// BLAZING CHARGE / Blazing Charge Auraflow V0.3 000 S1978990713 Th0.100 Battler [Folder: BLAZING_CHARGE] (sprite index: 17, byte offset: 74912, size: 3015)
 { .idx = 74912, .palette = { 0xff6a, 0xf649, 0xf4c6, 0xc48d, 0xe346, 0xda05, 0x926a, 0x528d, 0xb0c2, 0x80a2, 0x5882, 0x2883, 0x1084, 0x1842, 0xf81f, 0x7800 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// BLESSING / Blessing Auraflow V0.3 000 S2846841687 Th0.100 [Folder: BLESSING] (sprite index: 18, byte offset: 77927, size: 5312)
+// BLESSING / Blessing Auraflow V0.3 000 S2846841687 Th0.100 Battler [Folder: BLESSING] (sprite index: 18, byte offset: 77927, size: 5312)
 { .idx = 77927, .palette = { 0x94cf, 0x5b6c, 0x4249, 0x21e9, 0x2967, 0x1147, 0x0926, 0x18c5, 0x08c5, 0x08c5, 0x00a5, 0x0884, 0x0084, 0x0064, 0xf81f, 0x0001 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// BLIZZARD / Blizzard Auraflow V0.3 000 S343143016 Th0.100 [Folder: BLIZZARD] (sprite index: 19, byte offset: 83239, size: 5459)
+// BLIZZARD / Blizzard Auraflow V0.3 000 S343143016 Th0.100 Battler [Folder: BLIZZARD] (sprite index: 19, byte offset: 83239, size: 5459)
 { .idx = 83239, .palette = { 0xd79e, 0xb71d, 0x7e3a, 0x5d17, 0x4c33, 0x3453, 0x3370, 0x330e, 0x1b0e, 0x1a4b, 0x122b, 0x11a8, 0xf81f, 0x0988, 0x0947, 0x0905 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// BLOOD SCENT / Blood Scent Auraflow V0.3 000 S3860549283 Th0.100 [Folder: BLOOD_SCENT] (sprite index: 20, byte offset: 88698, size: 3454)
+// BLOOD SCENT / Blood Scent Auraflow V0.3 000 S3860549283 Th0.100 Battler [Folder: BLOOD_SCENT] (sprite index: 20, byte offset: 88698, size: 3454)
 { .idx = 88698, .palette = { 0xfb74, 0xf81f, 0xa0ef, 0x904d, 0x4869, 0x40ec, 0x38ab, 0x308a, 0x306a, 0x3045, 0x2066, 0x2066, 0x1864, 0x1843, 0x1063, 0x0842 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// BLOOM / Bloom Auraflow V0.3 000 S2452107408 Th0.100 [Folder: BLOOM] (sprite index: 21, byte offset: 92152, size: 1191)
+// BLOOM / Bloom Auraflow V0.3 000 S2452107408 Th0.100 Battler [Folder: BLOOM] (sprite index: 21, byte offset: 92152, size: 1191)
 { .idx = 92152, .palette = { 0xf81f, 0xba58, 0x70f0, 0x70af, 0x708f, 0x7850, 0x504c, 0x408b, 0x384a, 0x38aa, 0x3089, 0x2887, 0x2868, 0x2828, 0x3808, 0x1845 }, .emptyIndexes = { 0x00, 0x00, 0x86, 0xc3, 0xe1, 0x00, 0x00 } },
-// BODY SLAM / Body Slam Auraflow V0.3 000 S1310838494 Th0.100 [Folder: BODY_SLAM] (sprite index: 22, byte offset: 93343, size: 4223)
+// BODY SLAM / Body Slam Auraflow V0.3 000 S1310838494 Th0.100 Battler [Folder: BODY_SLAM] (sprite index: 22, byte offset: 93343, size: 4223)
 { .idx = 93343, .palette = { 0xf6c9, 0xcd0b, 0xd368, 0x3b51, 0x2a2d, 0xc1e6, 0x8187, 0x294a, 0x70c5, 0x4084, 0x2063, 0x08a5, 0x0843, 0x0822, 0xf81f, 0x2001 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// BONE SPIKE / Bone Spike Auraflow V0.3 000 S578340293 Th0.100 [Folder: BONE_SPIKE] (sprite index: 23, byte offset: 97566, size: 4637)
+// BONE SPIKE / Bone Spike Auraflow V0.3 000 S578340293 Th0.100 Battler [Folder: BONE_SPIKE] (sprite index: 23, byte offset: 97566, size: 4637)
 { .idx = 97566, .palette = { 0x5c92, 0x32cb, 0x31c8, 0x11a7, 0x1105, 0x2905, 0x08e4, 0x08a3, 0x00a3, 0x2083, 0x1083, 0x0862, 0x0862, 0x0042, 0xf81f, 0x0800 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// BOULDER CRUSH / Boulder Crush Auraflow V0.3 000 S3299922261 Th0.100 [Folder: BOULDER_CRUSH] (sprite index: 24, byte offset: 102203, size: 2224)
+// BOULDER CRUSH / Boulder Crush Auraflow V0.3 000 S3299922261 Th0.100 Battler [Folder: BOULDER_CRUSH] (sprite index: 24, byte offset: 102203, size: 2224)
 { .idx = 102203, .palette = { 0xf81f, 0x63d8, 0x39f1, 0x410c, 0x10eb, 0x1867, 0x4866, 0x2824, 0x0866, 0x0825, 0x0825, 0x0823, 0x1003, 0x0024, 0x0003, 0x0002 }, .emptyIndexes = { 0x1c, 0x9f, 0xcf, 0xc7, 0x21, 0x00, 0x00 } },
-// BOULDER TOSS / Boulder Toss Auraflow V0.3 000 S3937968140 Th0.100 [Folder: BOULDER_TOSS] (sprite index: 25, byte offset: 104427, size: 3470)
+// BOULDER TOSS / Boulder Toss Auraflow V0.3 000 S3937968140 Th0.100 Battler [Folder: BOULDER_TOSS] (sprite index: 25, byte offset: 104427, size: 3470)
 { .idx = 104427, .palette = { 0xdccc, 0xe406, 0xeba4, 0xc387, 0xbac4, 0x7a05, 0x3986, 0x2104, 0x20a2, 0x08a3, 0x08c4, 0x08a3, 0x00c4, 0x00a4, 0xf81f, 0x1000 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// BRAMBLE TRAP / Bramble Trap Auraflow V0.3 000 S1297612625 Th0.100 [Folder: BRAMBLE_TRAP] (sprite index: 26, byte offset: 107897, size: 5824)
+// BRAMBLE TRAP / Bramble Trap Auraflow V0.3 000 S1297612625 Th0.100 Battler [Folder: BRAMBLE_TRAP] (sprite index: 26, byte offset: 107897, size: 5824)
 { .idx = 107897, .palette = { 0xce1a, 0x8373, 0x6210, 0x49ac, 0x48ec, 0x38cb, 0x28a9, 0x3069, 0x2067, 0x2848, 0x2027, 0x1846, 0x1024, 0x1004, 0xf81f, 0x1005 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// BRINE SPRAY / Brine Spray Auraflow V0.3 000 S562155255 Th0.100 [Folder: BRINE_SPRAY] (sprite index: 27, byte offset: 113721, size: 1864)
+// BRINE SPRAY / Brine Spray Auraflow V0.3 000 S562155255 Th0.100 Battler [Folder: BRINE_SPRAY] (sprite index: 27, byte offset: 113721, size: 1864)
 { .idx = 113721, .palette = { 0xb51e, 0x93bd, 0x827b, 0x5258, 0x6177, 0x4954, 0x3131, 0x50b5, 0x38af, 0x28ce, 0x288c, 0x20ac, 0x1887, 0x2047, 0xf81f, 0x2008 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// CALL OF THE VOID / Call Of The Void Auraflow V0.3 000 S97361457 Th0.100 [Folder: CALL_OF_THE_VOID] (sprite index: 28, byte offset: 115585, size: 2371)
+// CALL OF THE VOID / Call Of The Void Auraflow V0.3 000 S97361457 Th0.100 Battler [Folder: CALL_OF_THE_VOID] (sprite index: 28, byte offset: 115585, size: 2371)
 { .idx = 115585, .palette = { 0xffbf, 0xd75e, 0xed9d, 0x8cb9, 0xb9d6, 0x596d, 0x292c, 0x28a8, 0x4849, 0x1846, 0x1044, 0x0824, 0x0821, 0x0021, 0xf81f, 0x3008 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// CANOPY SHADE / Canopy Shade Auraflow V0.3 000 S2255991599 Th0.100 [Folder: CANOPY_SHADE] (sprite index: 29, byte offset: 117956, size: 3951)
+// CANOPY SHADE / Canopy Shade Auraflow V0.3 000 S2255991599 Th0.100 Battler [Folder: CANOPY_SHADE] (sprite index: 29, byte offset: 117956, size: 3951)
 { .idx = 117956, .palette = { 0xdf5c, 0x9573, 0x638c, 0x32e8, 0x31e6, 0x2965, 0x1964, 0x20e3, 0x18e3, 0x10c3, 0x08c2, 0x1082, 0x0882, 0x0841, 0xf81f, 0x0000 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// CATASTROPHE / Catastrophe Auraflow V0.3 000 S3858537613 Th0.100 [Folder: CATASTROPHE] (sprite index: 30, byte offset: 121907, size: 3261)
+// CATASTROPHE / Catastrophe Auraflow V0.3 000 S3858537613 Th0.100 Battler [Folder: CATASTROPHE] (sprite index: 30, byte offset: 121907, size: 3261)
 { .idx = 121907, .palette = { 0xf81f, 0x60d0, 0x306a, 0x302a, 0x3049, 0x2848, 0x2808, 0x0844, 0x0844, 0x1025, 0x0843, 0x0023, 0x0022, 0x0824, 0x0823, 0x0022 }, .emptyIndexes = { 0x04, 0x9f, 0xef, 0xf7, 0xf3, 0x41, 0x00 } },
-// CAVITATION / Cavitation Auraflow V0.3 000 S3678886570 Th0.100 [Folder: CAVITATION] (sprite index: 31, byte offset: 125168, size: 1890)
+// CAVITATION / Cavitation Auraflow V0.3 000 S3678886570 Th0.100 Battler [Folder: CAVITATION] (sprite index: 31, byte offset: 125168, size: 1890)
 { .idx = 125168, .palette = { 0x6e9e, 0x457d, 0x5439, 0x1bfa, 0x12d7, 0x3ad8, 0x29f5, 0x09f5, 0x2975, 0x1153, 0x20f2, 0x08d1, 0x188e, 0x088f, 0x104c, 0xf81f }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// CELESTIAL CALL / Celestial Call Auraflow V0.3 000 S988490950 Th0.100 [Folder: CELESTIAL_CALL] (sprite index: 32, byte offset: 127058, size: 6952)
+// CELESTIAL CALL / Celestial Call Auraflow V0.3 000 S988490950 Th0.100 Battler [Folder: CELESTIAL_CALL] (sprite index: 32, byte offset: 127058, size: 6952)
 { .idx = 127058, .palette = { 0xcd09, 0x72a7, 0x61a4, 0x3186, 0x1966, 0x10e5, 0x28c3, 0x18c4, 0x1084, 0x08a4, 0x0883, 0xf81f, 0x1063, 0x0863, 0x0863, 0x0022 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// CHANNEL DIVINITY / Channel Divinity Auraflow V0.3 000 S2239046229 Th0.100 [Folder: CHANNEL_DIVINITY] (sprite index: 33, byte offset: 134010, size: 3734)
+// CHANNEL DIVINITY / Channel Divinity Auraflow V0.3 000 S2239046229 Th0.100 Battler [Folder: CHANNEL_DIVINITY] (sprite index: 33, byte offset: 134010, size: 3734)
 { .idx = 134010, .palette = { 0xde7d, 0x9b59, 0x8177, 0x312d, 0x60b2, 0x28aa, 0x1888, 0x1085, 0x384c, 0x1846, 0x1025, 0x0843, 0x0823, 0x0822, 0xf81f, 0x1807 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// CHAOS WHISPER / Chaos Whisper Auraflow V0.3 000 S2803241762 Th0.100 [Folder: CHAOS_WHISPER] (sprite index: 34, byte offset: 137744, size: 2122)
+// CHAOS WHISPER / Chaos Whisper Auraflow V0.3 000 S2803241762 Th0.100 Battler [Folder: CHAOS_WHISPER] (sprite index: 34, byte offset: 137744, size: 2122)
 { .idx = 137744, .palette = { 0xf81f, 0x528e, 0x312c, 0x30c9, 0x18cc, 0x2889, 0x2088, 0x108a, 0x2866, 0x1864, 0x1085, 0x1067, 0x5803, 0x1044, 0x0846, 0x0844 }, .emptyIndexes = { 0x0c, 0x1e, 0x8f, 0xc7, 0xe3, 0x00, 0x00 } },
-// CHARGE / Charge Auraflow V0.3 000 S1947346593 Th0.100 [Folder: CHARGE] (sprite index: 35, byte offset: 139866, size: 2354)
+// CHARGE / Charge Auraflow V0.3 000 S1947346593 Th0.100 Battler [Folder: CHARGE] (sprite index: 35, byte offset: 139866, size: 2354)
 { .idx = 139866, .palette = { 0xf81f, 0xa3f4, 0x720f, 0x896f, 0x196d, 0x48aa, 0x20a6, 0x0886, 0x0842, 0x0821, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000 }, .emptyIndexes = { 0x60, 0x1c, 0x87, 0xc7, 0xe7, 0x83, 0x01 } },
-// CINDER STORM / Cinder Storm Auraflow V0.3 000 S772493043 Th0.100 [Folder: CINDER_STORM] (sprite index: 36, byte offset: 142220, size: 6125)
+// CINDER STORM / Cinder Storm Auraflow V0.3 000 S772493043 Th0.100 Battler [Folder: CINDER_STORM] (sprite index: 36, byte offset: 142220, size: 6125)
 { .idx = 142220, .palette = { 0xdff9, 0xbf34, 0x6eae, 0x556b, 0x4c29, 0x23a6, 0x2285, 0x19c4, 0x11a3, 0x1143, 0x1103, 0x10e2, 0x08e2, 0xf81f, 0x08c2, 0x08a2 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// COLD SNAP / Cold Snap Auraflow V0.3 000 S3504459145 Th0.100 [Folder: COLD_SNAP] (sprite index: 37, byte offset: 148345, size: 3893)
+// COLD SNAP / Cold Snap Auraflow V0.3 000 S3504459145 Th0.100 Battler [Folder: COLD_SNAP] (sprite index: 37, byte offset: 148345, size: 3893)
 { .idx = 148345, .palette = { 0xaf3e, 0x5dbd, 0x4c3a, 0x2bf9, 0x3316, 0x2a32, 0x1274, 0x11d0, 0x192c, 0x112b, 0x092c, 0x08e9, 0x10a7, 0x08a7, 0x0866, 0xf81f }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// COLOSSAL CHARGE / Colossal Charge Auraflow V0.3 000 S311746107 Th0.100 [Folder: COLOSSAL_CHARGE] (sprite index: 38, byte offset: 152238, size: 4625)
+// COLOSSAL CHARGE / Colossal Charge Auraflow V0.3 000 S311746107 Th0.100 Battler [Folder: COLOSSAL_CHARGE] (sprite index: 38, byte offset: 152238, size: 4625)
 { .idx = 152238, .palette = { 0xb44f, 0x7a49, 0x7186, 0x3169, 0x50c3, 0x28c5, 0x18c5, 0x1064, 0x2862, 0x1842, 0x0843, 0x1022, 0x0822, 0x0021, 0xf81f, 0x0800 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// COMBUSTION / Combustion Auraflow V0.3 000 S408008209 Th0.100 [Folder: COMBUSTION] (sprite index: 39, byte offset: 156863, size: 4451)
+// COMBUSTION / Combustion Auraflow V0.3 000 S408008209 Th0.100 Battler [Folder: COMBUSTION] (sprite index: 39, byte offset: 156863, size: 4451)
 { .idx = 156863, .palette = { 0xfec6, 0xeda6, 0xeb62, 0xa267, 0xa162, 0x7103, 0x40e4, 0x4082, 0x18e8, 0x2863, 0x1863, 0x0843, 0x0885, 0x0022, 0xf81f, 0x1801 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// CONSUME / Consume Auraflow V0.3 000 S2577639363 Th0.100 [Folder: CONSUME] (sprite index: 40, byte offset: 161314, size: 4028)
+// CONSUME / Consume Auraflow V0.3 000 S2577639363 Th0.100 Battler [Folder: CONSUME] (sprite index: 40, byte offset: 161314, size: 4028)
 { .idx = 161314, .palette = { 0xf6ad, 0xe46a, 0xda45, 0x81ca, 0x98e3, 0x58c4, 0x2885, 0x20ca, 0x1067, 0x6842, 0x4062, 0x2043, 0x1044, 0x1043, 0xf81f, 0x4801 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// CONTAGION / Contagion Auraflow V0.3 000 S3861934107 Th0.100 [Folder: CONTAGION] (sprite index: 41, byte offset: 165342, size: 3386)
+// CONTAGION / Contagion Auraflow V0.3 000 S3861934107 Th0.100 Battler [Folder: CONTAGION] (sprite index: 41, byte offset: 165342, size: 3386)
 { .idx = 165342, .palette = { 0xcced, 0x932f, 0x9a0c, 0x892b, 0x51ef, 0x590e, 0x38f1, 0x38e8, 0x606a, 0x386a, 0x206c, 0x2045, 0x1047, 0x1023, 0xf81f, 0x1806 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// CORRUPT / Corrupt Auraflow V0.3 000 S3103865178 Th0.100 [Folder: CORRUPT] (sprite index: 42, byte offset: 168728, size: 4727)
+// CORRUPT / Corrupt Auraflow V0.3 000 S3103865178 Th0.100 Battler [Folder: CORRUPT] (sprite index: 42, byte offset: 168728, size: 4727)
 { .idx = 168728, .palette = { 0xeede, 0xcd7b, 0xb3fa, 0x8377, 0x9258, 0x7236, 0x51d2, 0x4130, 0x78f3, 0x50f2, 0x408f, 0x290c, 0x20ab, 0x206a, 0xf81f, 0x300a }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// CORRUPTING TOUCH / Corrupting Touch Auraflow V0.3 000 S2650005310 Th0.100 [Folder: CORRUPTING_TOUCH] (sprite index: 43, byte offset: 173455, size: 3965)
+// CORRUPTING TOUCH / Corrupting Touch Auraflow V0.3 000 S2650005310 Th0.100 Battler [Folder: CORRUPTING_TOUCH] (sprite index: 43, byte offset: 173455, size: 3965)
 { .idx = 173455, .palette = { 0x7cd6, 0x4270, 0x294c, 0x8953, 0x98d3, 0x58cd, 0x30a9, 0x10a7, 0x404a, 0x2046, 0x1046, 0x1044, 0x0824, 0x0822, 0xf81f, 0x1005 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// COSMIC RAY / Cosmic Ray Auraflow V0.3 000 S951739968 Th0.100 [Folder: COSMIC_RAY] (sprite index: 44, byte offset: 177420, size: 1784)
+// COSMIC RAY / Cosmic Ray Auraflow V0.3 000 S951739968 Th0.100 Battler [Folder: COSMIC_RAY] (sprite index: 44, byte offset: 177420, size: 1784)
 { .idx = 177420, .palette = { 0xffff, 0xffdf, 0xffde, 0xff9e, 0xff5d, 0xf6dd, 0xee3c, 0xe57b, 0xe4f8, 0xcc59, 0xe456, 0xcb76, 0xaa96, 0x9170, 0x710c, 0xf81f }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// CRIPPLING BLOW / Crippling Blow Auraflow V0.3 000 S615521985 Th0.100 [Folder: CRIPPLING_BLOW] (sprite index: 45, byte offset: 179204, size: 4777)
+// CRIPPLING BLOW / Crippling Blow Auraflow V0.3 000 S615521985 Th0.100 Battler [Folder: CRIPPLING_BLOW] (sprite index: 45, byte offset: 179204, size: 4777)
 { .idx = 179204, .palette = { 0xde9e, 0xa45a, 0x8278, 0x49d2, 0x390f, 0x70f6, 0x5072, 0x20cb, 0x1069, 0x1066, 0x204a, 0x0847, 0x0844, 0x0022, 0xf81f, 0x280c }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// CRUSH / Crush Auraflow V0.3 000 S2717953656 Th0.100 [Folder: CRUSH] (sprite index: 46, byte offset: 183981, size: 3698)
+// CRUSH / Crush Auraflow V0.3 000 S2717953656 Th0.100 Battler [Folder: CRUSH] (sprite index: 46, byte offset: 183981, size: 3698)
 { .idx = 183981, .palette = { 0xff29, 0xf586, 0xf364, 0xc2c8, 0xc944, 0x8126, 0x4906, 0x28e7, 0xb062, 0x7083, 0x3084, 0x1885, 0x1085, 0x1044, 0xf81f, 0x5801 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// CRYO BLAST / Cryo Blast Auraflow V0.3 000 S2603956496 Th0.100 [Folder: CRYO_BLAST] (sprite index: 47, byte offset: 187679, size: 6136)
+// CRYO BLAST / Cryo Blast Auraflow V0.3 000 S2603956496 Th0.100 Battler [Folder: CRYO_BLAST] (sprite index: 47, byte offset: 187679, size: 6136)
 { .idx = 187679, .palette = { 0xb77f, 0x865d, 0x559b, 0x5457, 0x4352, 0x2b75, 0x2a6f, 0x21cb, 0x11ce, 0x112a, 0x1107, 0xf81f, 0x08c7, 0x08a4, 0x0883, 0x0042 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// CURSED EMBRACE / Cursed Embrace Auraflow V0.3 000 S3594820667 Th0.100 [Folder: CURSED_EMBRACE] (sprite index: 48, byte offset: 193815, size: 4030)
+// CURSED EMBRACE / Cursed Embrace Auraflow V0.3 000 S3594820667 Th0.100 Battler [Folder: CURSED_EMBRACE] (sprite index: 48, byte offset: 193815, size: 4030)
 { .idx = 193815, .palette = { 0xef1e, 0xc53c, 0xa2fa, 0x6254, 0x4130, 0x7937, 0x28ec, 0x2089, 0x7856, 0x406f, 0x1849, 0x1047, 0x0845, 0x0825, 0xf81f, 0x2009 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// CURSED GROUND / Cursed Ground Auraflow V0.3 000 S827247805 Th0.100 [Folder: CURSED_GROUND] (sprite index: 49, byte offset: 197845, size: 4051)
+// CURSED GROUND / Cursed Ground Auraflow V0.3 000 S827247805 Th0.100 Battler [Folder: CURSED_GROUND] (sprite index: 49, byte offset: 197845, size: 4051)
 { .idx = 197845, .palette = { 0x2cf4, 0x1b0e, 0x120a, 0x0988, 0x0926, 0x08e5, 0x0883, 0x0083, 0x0042, 0x0042, 0x0021, 0x0001, 0x0000, 0x0001, 0xf81f, 0x0000 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// DARK RITUAL / Dark Ritual Auraflow V0.3 000 S478396432 Th0.100 [Folder: DARK_RITUAL] (sprite index: 50, byte offset: 201896, size: 5374)
+// DARK RITUAL / Dark Ritual Auraflow V0.3 000 S478396432 Th0.100 Battler [Folder: DARK_RITUAL] (sprite index: 50, byte offset: 201896, size: 5374)
 { .idx = 201896, .palette = { 0xf81f, 0x736c, 0x39c6, 0x3965, 0x2144, 0x2904, 0x18e3, 0x18e3, 0x10c3, 0x2082, 0x1082, 0x10a2, 0x1082, 0x0861, 0x0841, 0x1000 }, .emptyIndexes = { 0xbc, 0xff, 0xff, 0xff, 0xff, 0xfb, 0x01 } },
-// DEATH S DOOR / Death S Door Auraflow V0.3 000 S1204011505 Th0.100 [Folder: DEATH_S_DOOR] (sprite index: 51, byte offset: 207270, size: 3490)
+// DEATH S DOOR / Death S Door Auraflow V0.3 000 S1204011505 Th0.100 Battler [Folder: DEATH_S_DOOR] (sprite index: 51, byte offset: 207270, size: 3490)
 { .idx = 207270, .palette = { 0x7c5b, 0x9ada, 0xd9fb, 0xc117, 0x7113, 0x69d5, 0x40ef, 0x18eb, 0x9873, 0x486d, 0x286a, 0x1067, 0x1047, 0x0823, 0xf81f, 0x3809 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// DEEP CURRENT / Deep Current Auraflow V0.3 000 S1608809874 Th0.100 [Folder: DEEP_CURRENT] (sprite index: 52, byte offset: 210760, size: 2871)
+// DEEP CURRENT / Deep Current Auraflow V0.3 000 S1608809874 Th0.100 Battler [Folder: DEEP_CURRENT] (sprite index: 52, byte offset: 210760, size: 2871)
 { .idx = 210760, .palette = { 0x8698, 0x44b2, 0x338e, 0x132d, 0x2249, 0x0a6a, 0x09c8, 0x19a7, 0x1966, 0x1166, 0x0967, 0x0946, 0x1125, 0x0906, 0x08c4, 0xf81f }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// DEMONIC PACT / Demonic Pact Auraflow V0.3 000 S552892241 Th0.100 [Folder: DEMONIC_PACT] (sprite index: 53, byte offset: 213631, size: 5149)
+// DEMONIC PACT / Demonic Pact Auraflow V0.3 000 S552892241 Th0.100 Battler [Folder: DEMONIC_PACT] (sprite index: 53, byte offset: 213631, size: 5149)
 { .idx = 213631, .palette = { 0xde9c, 0xcd7b, 0xbc9a, 0xabda, 0x9ad9, 0x71f4, 0x5131, 0x5091, 0x288b, 0x388e, 0x284b, 0x1868, 0x1848, 0x1027, 0xf81f, 0x0806 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// DIABOLIC CRY / Diabolic Cry Auraflow V0.3 000 S3870864151 Th0.100 [Folder: DIABOLIC_CRY] (sprite index: 54, byte offset: 218780, size: 4216)
+// DIABOLIC CRY / Diabolic Cry Auraflow V0.3 000 S3870864151 Th0.100 Battler [Folder: DIABOLIC_CRY] (sprite index: 54, byte offset: 218780, size: 4216)
 { .idx = 218780, .palette = { 0xe6bd, 0xbd3b, 0x93d7, 0x7295, 0x6195, 0x4970, 0x312b, 0x28ea, 0x2088, 0x1886, 0x4091, 0x288c, 0x1084, 0x1065, 0xf81f, 0x280e }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// DISARM / Disarm Auraflow V0.3 000 S3392887816 Th0.100 [Folder: DISARM] (sprite index: 55, byte offset: 222996, size: 4045)
+// DISARM / Disarm Auraflow V0.3 000 S3392887816 Th0.100 Battler [Folder: DISARM] (sprite index: 55, byte offset: 222996, size: 4045)
 { .idx = 222996, .palette = { 0xcd9c, 0x9359, 0x7a18, 0x59d4, 0x6916, 0x50f2, 0x40ee, 0x28cc, 0x5855, 0x4050, 0x304d, 0x2069, 0x202a, 0x1046, 0xf81f, 0x300c }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// DISSONANCE / Dissonance Auraflow V0.3 000 S3886469037 Th0.100 [Folder: DISSONANCE] (sprite index: 56, byte offset: 227041, size: 4777)
+// DISSONANCE / Dissonance Auraflow V0.3 000 S3886469037 Th0.100 Battler [Folder: DISSONANCE] (sprite index: 56, byte offset: 227041, size: 4777)
 { .idx = 227041, .palette = { 0xf81f, 0x71b6, 0x38cf, 0x308e, 0x286d, 0x188a, 0x1869, 0x1068, 0x0866, 0x302d, 0x1809, 0x1029, 0x0827, 0x0826, 0x0806, 0x0024 }, .emptyIndexes = { 0x7c, 0xbf, 0xdf, 0xc7, 0xe1, 0xf9, 0x00 } },
-// DIVINE INTERVENTION / Divine Intervention Auraflow V0.3 000 S3779430032 Th0.100 [Folder: DIVINE_INTERVENTION] (sprite index: 57, byte offset: 231818, size: 1849)
+// DIVINE INTERVENTION / Divine Intervention Auraflow V0.3 000 S3779430032 Th0.100 Battler [Folder: DIVINE_INTERVENTION] (sprite index: 57, byte offset: 231818, size: 1849)
 { .idx = 231818, .palette = { 0xf62f, 0xdc2b, 0xd329, 0xc247, 0xb9c7, 0xa967, 0x9966, 0x7946, 0x88c4, 0x70c4, 0x58a3, 0x50c4, 0x40c4, 0x38a4, 0x3883, 0xf81f }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// DIVINE SMITE / Divine Smite Auraflow V0.3 000 S1870645657 Th0.100 [Folder: DIVINE_SMITE] (sprite index: 58, byte offset: 233667, size: 4186)
+// DIVINE SMITE / Divine Smite Auraflow V0.3 000 S1870645657 Th0.100 Battler [Folder: DIVINE_SMITE] (sprite index: 58, byte offset: 233667, size: 4186)
 { .idx = 233667, .palette = { 0xf649, 0xec47, 0xe2e5, 0xaaa7, 0xb9a3, 0x8164, 0x6125, 0x5082, 0x30e6, 0x1084, 0x2063, 0x1043, 0x0843, 0x0022, 0xf81f, 0x1002 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// DRACONIC FURY / Draconic Fury Auraflow V0.3 000 S207599588 Th0.100 [Folder: DRACONIC_FURY] (sprite index: 59, byte offset: 237853, size: 1891)
+// DRACONIC FURY / Draconic Fury Auraflow V0.3 000 S207599588 Th0.100 Battler [Folder: DRACONIC_FURY] (sprite index: 59, byte offset: 237853, size: 1891)
 { .idx = 237853, .palette = { 0xedeb, 0xd3a6, 0xba43, 0x79a3, 0x80e1, 0x48c2, 0x30c2, 0x20a2, 0x6060, 0x3841, 0x2841, 0x1861, 0x1861, 0x1021, 0xf81f, 0x2800 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// DRAGON BREATH / Dragon Breath Auraflow V0.3 000 S2809940039 Th0.100 [Folder: DRAGON_BREATH] (sprite index: 60, byte offset: 239744, size: 5704)
+// DRAGON BREATH / Dragon Breath Auraflow V0.3 000 S2809940039 Th0.100 Battler [Folder: DRAGON_BREATH] (sprite index: 60, byte offset: 239744, size: 5704)
 { .idx = 239744, .palette = { 0xff27, 0xf5c4, 0xe3e3, 0xc9e1, 0x7944, 0x88a0, 0x5881, 0x3861, 0x1863, 0x1021, 0x1020, 0x1000, 0x0000, 0x0000, 0xf81f, 0x0000 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// DREAM DUST / Dream Dust Auraflow V0.3 000 S3461526884 Th0.100 [Folder: DREAM_DUST] (sprite index: 61, byte offset: 245448, size: 2589)
+// DREAM DUST / Dream Dust Auraflow V0.3 000 S3461526884 Th0.100 Battler [Folder: DREAM_DUST] (sprite index: 61, byte offset: 245448, size: 2589)
 { .idx = 245448, .palette = { 0x5cfd, 0x32b7, 0x2171, 0x10cc, 0x088a, 0x0866, 0x0864, 0x0844, 0x0825, 0x0823, 0x0822, 0x0022, 0x0022, 0x0022, 0xf81f, 0x0006 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// DROWNING GRASP / Drowning Grasp Auraflow V0.3 000 S2740208144 Th0.100 [Folder: DROWNING_GRASP] (sprite index: 62, byte offset: 248037, size: 3089)
+// DROWNING GRASP / Drowning Grasp Auraflow V0.3 000 S2740208144 Th0.100 Battler [Folder: DROWNING_GRASP] (sprite index: 62, byte offset: 248037, size: 3089)
 { .idx = 248037, .palette = { 0x95f6, 0x3bd1, 0x428a, 0x0a6e, 0x0168, 0x3945, 0x1126, 0x00e5, 0x00a4, 0x2882, 0x1083, 0x0883, 0x00a3, 0x0062, 0xf81f, 0x1801 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// EARTHEN PRISON / Earthen Prison Auraflow V0.3 000 S445220970 Th0.100 [Folder: EARTHEN_PRISON] (sprite index: 63, byte offset: 251126, size: 6878)
+// EARTHEN PRISON / Earthen Prison Auraflow V0.3 000 S445220970 Th0.100 Battler [Folder: EARTHEN_PRISON] (sprite index: 63, byte offset: 251126, size: 6878)
 { .idx = 251126, .palette = { 0xb63c, 0x84b7, 0x6bb3, 0x5332, 0x4aaf, 0x422d, 0x320c, 0x318a, 0x2169, 0x2929, 0x1908, 0x10c6, 0xf81f, 0x1885, 0x1084, 0x0864 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// EARTHQUAKE / Earthquake Auraflow V0.3 000 S100709797 Th0.100 [Folder: EARTHQUAKE] (sprite index: 64, byte offset: 258004, size: 3200)
+// EARTHQUAKE / Earthquake Auraflow V0.3 000 S100709797 Th0.100 Battler [Folder: EARTHQUAKE] (sprite index: 64, byte offset: 258004, size: 3200)
 { .idx = 258004, .palette = { 0xfecd, 0xfdc8, 0xf507, 0xebe7, 0xda87, 0xc107, 0x6906, 0x4864, 0x7824, 0x3823, 0x2023, 0x1022, 0x0802, 0x0022, 0xf81f, 0x2802 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// EARTHQUAKE STOMP / Earthquake Stomp Auraflow V0.3 000 S374279059 Th0.100 [Folder: EARTHQUAKE_STOMP] (sprite index: 65, byte offset: 261204, size: 3444)
+// EARTHQUAKE STOMP / Earthquake Stomp Auraflow V0.3 000 S374279059 Th0.100 Battler [Folder: EARTHQUAKE_STOMP] (sprite index: 65, byte offset: 261204, size: 3444)
 { .idx = 261204, .palette = { 0xb579, 0x7332, 0x79f2, 0x612f, 0x39ca, 0x390a, 0x2107, 0x20c6, 0x50ac, 0x30a8, 0x2066, 0x18a5, 0x10a4, 0x1044, 0xf81f, 0x2806 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// ELDRITCH BLAST / Eldritch Blast Auraflow V0.3 000 S4072231682 Th0.100 [Folder: ELDRITCH_BLAST] (sprite index: 66, byte offset: 264648, size: 3976)
+// ELDRITCH BLAST / Eldritch Blast Auraflow V0.3 000 S4072231682 Th0.100 Battler [Folder: ELDRITCH_BLAST] (sprite index: 66, byte offset: 264648, size: 3976)
 { .idx = 264648, .palette = { 0xf6bf, 0xdc9e, 0xb27d, 0x895a, 0x70b6, 0x408d, 0x2868, 0x2065, 0x402e, 0x2828, 0x1825, 0x1043, 0x1022, 0x1023, 0xf81f, 0x300b }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// EMBER / Ember Auraflow V0.3 000 S265050530 Th0.100 [Folder: EMBER] (sprite index: 67, byte offset: 268624, size: 3367)
+// EMBER / Ember Auraflow V0.3 000 S265050530 Th0.100 Battler [Folder: EMBER] (sprite index: 67, byte offset: 268624, size: 3367)
 { .idx = 268624, .palette = { 0xd4a7, 0xa2c5, 0xa9c2, 0x4985, 0x78c2, 0x48a2, 0x30a3, 0x18a4, 0x3841, 0x1842, 0x1022, 0x0822, 0x0821, 0x0801, 0xf81f, 0x1000 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// EMBER ROAR / Ember Roar Auraflow V0.3 000 S2238599918 Th0.100 [Folder: EMBER_ROAR] (sprite index: 68, byte offset: 271991, size: 4446)
+// EMBER ROAR / Ember Roar Auraflow V0.3 000 S2238599918 Th0.100 Battler [Folder: EMBER_ROAR] (sprite index: 68, byte offset: 271991, size: 4446)
 { .idx = 271991, .palette = { 0xff8a, 0xfe46, 0xf485, 0xe325, 0xda43, 0xc983, 0xa8c2, 0x9166, 0x68c5, 0x88a3, 0x6842, 0x50a6, 0x4843, 0x3044, 0xf81f, 0x5001 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// ENCHANTING MELODY / Enchanting Melody Auraflow V0.3 000 S2680865829 Th0.100 [Folder: ENCHANTING_MELODY] (sprite index: 69, byte offset: 276437, size: 5824)
+// ENCHANTING MELODY / Enchanting Melody Auraflow V0.3 000 S2680865829 Th0.100 Battler [Folder: ENCHANTING_MELODY] (sprite index: 69, byte offset: 276437, size: 5824)
 { .idx = 276437, .palette = { 0xf81f, 0x4170, 0x3857, 0x383a, 0x3072, 0x288e, 0x1849, 0x200e, 0x182a, 0x1067, 0x0844, 0x0824, 0x0821, 0x0021, 0x0000, 0x0001 }, .emptyIndexes = { 0x78, 0xfc, 0xef, 0xff, 0xff, 0xff, 0x01 } },
-// EPITAPH / Epitaph Auraflow V0.3 000 S542839800 Th0.100 [Folder: EPITAPH] (sprite index: 70, byte offset: 282261, size: 4089)
+// EPITAPH / Epitaph Auraflow V0.3 000 S542839800 Th0.100 Battler [Folder: EPITAPH] (sprite index: 70, byte offset: 282261, size: 4089)
 { .idx = 282261, .palette = { 0xf81f, 0x9337, 0x9a33, 0xc192, 0xc111, 0x598f, 0x68ed, 0x4869, 0x40eb, 0x28cb, 0x2046, 0x1044, 0x1004, 0x0824, 0x0822, 0x0001 }, .emptyIndexes = { 0x1c, 0xcf, 0xcf, 0xe7, 0xf7, 0x1f, 0x00 } },
-// ETERNAL GRASP / Eternal Grasp Auraflow V0.3 000 S4013695367 Th0.100 [Folder: ETERNAL_GRASP] (sprite index: 71, byte offset: 286350, size: 3577)
+// ETERNAL GRASP / Eternal Grasp Auraflow V0.3 000 S4013695367 Th0.100 Battler [Folder: ETERNAL_GRASP] (sprite index: 71, byte offset: 286350, size: 3577)
 { .idx = 286350, .palette = { 0xdc3b, 0xc236, 0xc154, 0xa8b1, 0x692f, 0x68ac, 0x40a9, 0x2087, 0x784c, 0x3848, 0x2046, 0x1045, 0x1024, 0x0823, 0xf81f, 0x3807 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// EXORCISM / Exorcism Auraflow V0.3 000 S2577064684 Th0.100 [Folder: EXORCISM] (sprite index: 72, byte offset: 289927, size: 4694)
+// EXORCISM / Exorcism Auraflow V0.3 000 S2577064684 Th0.100 Battler [Folder: EXORCISM] (sprite index: 72, byte offset: 289927, size: 4694)
 { .idx = 289927, .palette = { 0xf81f, 0xc31c, 0x89b7, 0x7916, 0x48ee, 0x6094, 0x408e, 0x4030, 0x306b, 0x2068, 0x282b, 0x2028, 0x1027, 0x1808, 0x0826, 0x0825 }, .emptyIndexes = { 0x1c, 0x8e, 0xef, 0xff, 0xff, 0xff, 0x01 } },
-// FAERIE FIRE / Faerie Fire Auraflow V0.3 000 S271130514 Th0.100 [Folder: FAERIE_FIRE] (sprite index: 73, byte offset: 294621, size: 4515)
+// FAERIE FIRE / Faerie Fire Auraflow V0.3 000 S271130514 Th0.100 Battler [Folder: FAERIE_FIRE] (sprite index: 73, byte offset: 294621, size: 4515)
 { .idx = 294621, .palette = { 0xb7f5, 0xb795, 0x7ff0, 0x770e, 0x3faa, 0x17a7, 0x26c6, 0x1de5, 0x24a4, 0x0c62, 0x0b22, 0x0a61, 0x09e1, 0x0981, 0x0921, 0xf81f }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// FAE WHISPER / Fae Whisper Auraflow V0.3 000 S3112358047 Th0.100 [Folder: FAE_WHISPER] (sprite index: 74, byte offset: 299136, size: 5485)
+// FAE WHISPER / Fae Whisper Auraflow V0.3 000 S3112358047 Th0.100 Battler [Folder: FAE_WHISPER] (sprite index: 74, byte offset: 299136, size: 5485)
 { .idx = 299136, .palette = { 0xde37, 0x9bf0, 0x9aad, 0x5a8d, 0x81aa, 0x618a, 0x4989, 0x298a, 0x68e8, 0x48c6, 0x38a6, 0x20c6, 0x10a5, 0x1843, 0xf81f, 0x2002 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// FEAR ROAR / Fear Roar Auraflow V0.3 000 S2285819134 Th0.100 [Folder: FEAR_ROAR] (sprite index: 75, byte offset: 304621, size: 4819)
+// FEAR ROAR / Fear Roar Auraflow V0.3 000 S2285819134 Th0.100 Battler [Folder: FEAR_ROAR] (sprite index: 75, byte offset: 304621, size: 4819)
 { .idx = 304621, .palette = { 0xe6fe, 0xb55a, 0x7b95, 0x4a11, 0x312f, 0x20ed, 0x10cb, 0x08c8, 0x186a, 0x1068, 0x0887, 0x0066, 0x0846, 0x0024, 0xf81f, 0x0805 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// FELBLAZE / Felblaze Auraflow V0.3 000 S2034854715 Th0.100 [Folder: FELBLAZE] (sprite index: 76, byte offset: 309440, size: 3995)
+// FELBLAZE / Felblaze Auraflow V0.3 000 S2034854715 Th0.100 Battler [Folder: FELBLAZE] (sprite index: 76, byte offset: 309440, size: 3995)
 { .idx = 309440, .palette = { 0xf587, 0xdb84, 0xda61, 0xa224, 0xb961, 0x8921, 0x6901, 0x48e2, 0x7080, 0x4880, 0x3060, 0x2060, 0x1840, 0x1020, 0xf81f, 0x3000 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// FERAL RAGE / Feral Rage Auraflow V0.3 000 S963122910 Th0.100 [Folder: FERAL_RAGE] (sprite index: 77, byte offset: 313435, size: 5271)
+// FERAL RAGE / Feral Rage Auraflow V0.3 000 S963122910 Th0.100 Battler [Folder: FERAL_RAGE] (sprite index: 77, byte offset: 313435, size: 5271)
 { .idx = 313435, .palette = { 0xd5bc, 0x9b17, 0x79b4, 0x516d, 0x5910, 0x410b, 0x30c8, 0x28a7, 0x20a6, 0x5090, 0x388a, 0x2868, 0x1885, 0x2065, 0xf81f, 0x300b }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// FIREBALL / Fireball Auraflow V0.3 000 S2787141155 Th0.100 [Folder: FIREBALL] (sprite index: 78, byte offset: 318706, size: 3266)
+// FIREBALL / Fireball Auraflow V0.3 000 S2787141155 Th0.100 Battler [Folder: FIREBALL] (sprite index: 78, byte offset: 318706, size: 3266)
 { .idx = 318706, .palette = { 0xf74b, 0xe486, 0xd224, 0xb0e3, 0x49ca, 0x68c5, 0x20c6, 0x08c6, 0x6042, 0x1842, 0x0864, 0x0822, 0x0044, 0x0022, 0xf81f, 0x2001 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// FLAME BLAST / Flame Blast Auraflow V0.3 000 S482912973 Th0.100 [Folder: FLAME_BLAST] (sprite index: 79, byte offset: 321972, size: 4651)
+// FLAME BLAST / Flame Blast Auraflow V0.3 000 S482912973 Th0.100 Battler [Folder: FLAME_BLAST] (sprite index: 79, byte offset: 321972, size: 4651)
 { .idx = 321972, .palette = { 0xe7df, 0xc79f, 0x9f3f, 0x76de, 0x5dfe, 0x3d9e, 0x3c9d, 0x245c, 0x235a, 0x1319, 0x1a33, 0x0a14, 0x094e, 0x1108, 0x08a5, 0xf81f }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// FLAME PUNCH / Flame Punch Auraflow V0.3 000 S1061370520 Th0.100 [Folder: FLAME_PUNCH] (sprite index: 80, byte offset: 326623, size: 4317)
+// FLAME PUNCH / Flame Punch Auraflow V0.3 000 S1061370520 Th0.100 Battler [Folder: FLAME_PUNCH] (sprite index: 80, byte offset: 326623, size: 4317)
 { .idx = 326623, .palette = { 0xff69, 0xfec7, 0xfe25, 0xf5a5, 0xf4c3, 0xe485, 0xdb63, 0xd261, 0xa244, 0xa9c1, 0x71e5, 0x7143, 0xa121, 0x50a1, 0xf81f, 0x4000 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// FLARE / Flare Auraflow V0.3 000 S376212413 Th0.100 [Folder: FLARE] (sprite index: 81, byte offset: 330940, size: 3963)
+// FLARE / Flare Auraflow V0.3 000 S376212413 Th0.100 Battler [Folder: FLARE] (sprite index: 81, byte offset: 330940, size: 3963)
 { .idx = 330940, .palette = { 0xf669, 0xed05, 0xebe4, 0xd385, 0xdaa3, 0xd1e3, 0xb1e5, 0x89a6, 0xb0e2, 0x88c3, 0x68a4, 0x48a4, 0x3084, 0x3043, 0xf81f, 0x5001 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// FLYBY / Flyby Auraflow V0.3 000 S3930326551 Th0.100 [Folder: FLYBY] (sprite index: 82, byte offset: 334903, size: 3757)
+// FLYBY / Flyby Auraflow V0.3 000 S3930326551 Th0.100 Battler [Folder: FLYBY] (sprite index: 82, byte offset: 334903, size: 3757)
 { .idx = 334903, .palette = { 0xd73f, 0xae5e, 0x9d7d, 0x853d, 0x84bc, 0x7c1b, 0x6bfb, 0x637a, 0x6338, 0x5339, 0x52d7, 0x5275, 0x4256, 0x4213, 0x39b0, 0xf81f }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// FOREST WARD / Forest Ward Auraflow V0.3 000 S308924279 Th0.100 [Folder: FOREST_WARD] (sprite index: 83, byte offset: 338660, size: 1735)
+// FOREST WARD / Forest Ward Auraflow V0.3 000 S308924279 Th0.100 Battler [Folder: FOREST_WARD] (sprite index: 83, byte offset: 338660, size: 1735)
 { .idx = 338660, .palette = { 0xa76d, 0x7e4a, 0x54e7, 0x4426, 0x2b64, 0x2304, 0x2284, 0x1263, 0x1a03, 0x0a03, 0x11a3, 0x0982, 0x1143, 0x0902, 0x08c2, 0xf81f }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// FOSSILIZE / Fossilize Auraflow V0.3 000 S4162696347 Th0.100 [Folder: FOSSILIZE] (sprite index: 84, byte offset: 340395, size: 3421)
+// FOSSILIZE / Fossilize Auraflow V0.3 000 S4162696347 Th0.100 Battler [Folder: FOSSILIZE] (sprite index: 84, byte offset: 340395, size: 3421)
 { .idx = 340395, .palette = { 0x85fe, 0x857c, 0x8d1c, 0x751b, 0x7cba, 0x5c58, 0x7417, 0x53d5, 0x5373, 0x52f1, 0x3ad0, 0x320c, 0x19ab, 0x08c5, 0xf81f, 0x0002 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// FREEZE / Freeze Auraflow V0.3 000 S2222293793 Th0.100 [Folder: FREEZE] (sprite index: 85, byte offset: 343816, size: 5177)
+// FREEZE / Freeze Auraflow V0.3 000 S2222293793 Th0.100 Battler [Folder: FREEZE] (sprite index: 85, byte offset: 343816, size: 5177)
 { .idx = 343816, .palette = { 0xdfbf, 0xbf7f, 0xaf1e, 0x8e7c, 0xa67d, 0x659a, 0x667c, 0x6cf8, 0x5c34, 0x24b6, 0x23d3, 0x32ef, 0x0aef, 0x19ea, 0x08e5, 0xf81f }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// FROST BITE / Frost Bite Auraflow V0.3 000 S978281154 Th0.100 [Folder: FROST_BITE] (sprite index: 86, byte offset: 348993, size: 4487)
+// FROST BITE / Frost Bite Auraflow V0.3 000 S978281154 Th0.100 Battler [Folder: FROST_BITE] (sprite index: 86, byte offset: 348993, size: 4487)
 { .idx = 348993, .palette = { 0xc77f, 0x96fe, 0xb65c, 0x8e3d, 0x8dbb, 0x44db, 0x7499, 0x3b96, 0x3ab2, 0x1a30, 0x39f0, 0x19ac, 0x212c, 0x1929, 0x08e8, 0xf81f }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// FROST NOVA / Frost Nova Auraflow V0.3 000 S1949092670 Th0.100 [Folder: FROST_NOVA] (sprite index: 87, byte offset: 353480, size: 4370)
+// FROST NOVA / Frost Nova Auraflow V0.3 000 S1949092670 Th0.100 Battler [Folder: FROST_NOVA] (sprite index: 87, byte offset: 353480, size: 4370)
 { .idx = 353480, .palette = { 0xefdf, 0xc7be, 0x8f3d, 0x569c, 0x3d59, 0x2c76, 0x23d4, 0x1b32, 0x1a8f, 0x0a6e, 0x11cb, 0x09ab, 0x0949, 0x0908, 0x00a5, 0xf81f }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// FROZEN ORB / Frozen Orb Auraflow V0.3 000 S4113902898 Th0.100 [Folder: FROZEN_ORB] (sprite index: 88, byte offset: 357850, size: 4421)
+// FROZEN ORB / Frozen Orb Auraflow V0.3 000 S4113902898 Th0.100 Battler [Folder: FROZEN_ORB] (sprite index: 88, byte offset: 357850, size: 4421)
 { .idx = 357850, .palette = { 0xe7df, 0xafbf, 0xa77f, 0x8ebd, 0x5f1e, 0x4e5d, 0x5d5a, 0x2d3b, 0x5415, 0x23f6, 0x4330, 0x22f2, 0x3a2b, 0x1a2d, 0x1148, 0xf81f }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// GEO BARRIER / Geo Barrier Auraflow V0.3 000 S2350503049 Th0.100 [Folder: GEO_BARRIER] (sprite index: 89, byte offset: 362271, size: 4004)
+// GEO BARRIER / Geo Barrier Auraflow V0.3 000 S2350503049 Th0.100 Battler [Folder: GEO_BARRIER] (sprite index: 89, byte offset: 362271, size: 4004)
 { .idx = 362271, .palette = { 0xf81f, 0x9277, 0x6151, 0x50ed, 0x28c8, 0x408b, 0x2086, 0x1885, 0x1063, 0x2047, 0x1023, 0x0821, 0x0001, 0x0000, 0x0001, 0x0000 }, .emptyIndexes = { 0x1c, 0x9f, 0xcf, 0xc7, 0xf7, 0xfd, 0x01 } },
-// GLACIAL SPIKE / Glacial Spike Auraflow V0.3 000 S615170127 Th0.100 [Folder: GLACIAL_SPIKE] (sprite index: 90, byte offset: 366275, size: 3380)
+// GLACIAL SPIKE / Glacial Spike Auraflow V0.3 000 S615170127 Th0.100 Battler [Folder: GLACIAL_SPIKE] (sprite index: 90, byte offset: 366275, size: 3380)
 { .idx = 366275, .palette = { 0x7d7a, 0x4353, 0x3a0d, 0x19cc, 0x2909, 0x1907, 0x10e7, 0x1885, 0x1883, 0x2086, 0x1863, 0x1083, 0x0884, 0x1043, 0xf81f, 0x2005 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// GLADE TELEPORT / Glade Teleport Auraflow V0.3 000 S1517346230 Th0.100 [Folder: GLADE_TELEPORT] (sprite index: 91, byte offset: 369655, size: 5747)
+// GLADE TELEPORT / Glade Teleport Auraflow V0.3 000 S1517346230 Th0.100 Battler [Folder: GLADE_TELEPORT] (sprite index: 91, byte offset: 369655, size: 5747)
 { .idx = 369655, .palette = { 0xe6c5, 0xbce3, 0x9b82, 0x5b04, 0x51e1, 0x39a2, 0x21a4, 0x2123, 0x20e1, 0x10e2, 0x10c2, 0x08a2, 0x0861, 0x0041, 0xf81f, 0x0020 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// GLAMOUR / Glamour Auraflow V0.3 000 S1051670097 Th0.100 [Folder: GLAMOUR] (sprite index: 92, byte offset: 375402, size: 4786)
+// GLAMOUR / Glamour Auraflow V0.3 000 S1051670097 Th0.100 Battler [Folder: GLAMOUR] (sprite index: 92, byte offset: 375402, size: 4786)
 { .idx = 375402, .palette = { 0xf79f, 0xcf1e, 0xc5de, 0x853c, 0x5b99, 0xab7c, 0x4318, 0x4194, 0x3255, 0x2171, 0x1130, 0x10cc, 0x088a, 0x0846, 0x0003, 0xf81f }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// GOLDEN INSTINCT / Golden Instinct Auraflow V0.3 000 S4129381753 Th0.100 [Folder: GOLDEN_INSTINCT] (sprite index: 93, byte offset: 380188, size: 3798)
+// GOLDEN INSTINCT / Golden Instinct Auraflow V0.3 000 S4129381753 Th0.100 Battler [Folder: GOLDEN_INSTINCT] (sprite index: 93, byte offset: 380188, size: 3798)
 { .idx = 380188, .palette = { 0xff87, 0xdda3, 0xb402, 0x8322, 0x6a42, 0x51a1, 0x3961, 0x3101, 0x28c0, 0x20c0, 0x1860, 0x0860, 0x0840, 0x0000, 0xf81f, 0x0000 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// GRAVE TOUCH / Grave Touch Auraflow V0.3 000 S3080543314 Th0.100 [Folder: GRAVE_TOUCH] (sprite index: 94, byte offset: 383986, size: 3280)
+// GRAVE TOUCH / Grave Touch Auraflow V0.3 000 S3080543314 Th0.100 Battler [Folder: GRAVE_TOUCH] (sprite index: 94, byte offset: 383986, size: 3280)
 { .idx = 383986, .palette = { 0xcc38, 0xb2d6, 0xb9d3, 0x71b2, 0x88f0, 0x60ee, 0x48cd, 0x30aa, 0x586c, 0x386b, 0x2849, 0x2049, 0x1846, 0x1024, 0xf81f, 0x2807 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// GRAVITY ROOT / Gravity Root Auraflow V0.3 000 S355233643 Th0.100 [Folder: GRAVITY_ROOT] (sprite index: 95, byte offset: 387266, size: 1609)
+// GRAVITY ROOT / Gravity Root Auraflow V0.3 000 S355233643 Th0.100 Battler [Folder: GRAVITY_ROOT] (sprite index: 95, byte offset: 387266, size: 1609)
 { .idx = 387266, .palette = { 0x9638, 0x7d34, 0x6d14, 0x5410, 0x3b8d, 0x3b6d, 0x22aa, 0x1249, 0x2229, 0x19a6, 0x11a6, 0x11a7, 0x1145, 0x1104, 0x08a2, 0xf81f }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// GROUND POUND / Ground Pound Auraflow V0.3 000 S1585103279 Th0.100 [Folder: GROUND_POUND] (sprite index: 96, byte offset: 388875, size: 4829)
+// GROUND POUND / Ground Pound Auraflow V0.3 000 S1585103279 Th0.100 Battler [Folder: GROUND_POUND] (sprite index: 96, byte offset: 388875, size: 4829)
 { .idx = 388875, .palette = { 0xf79f, 0xe65d, 0xccbb, 0xab19, 0x69b4, 0xb99b, 0x392d, 0x2089, 0x9078, 0x4071, 0x206d, 0x1067, 0x0865, 0x1047, 0xf81f, 0x300f }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// GUARD BREAK / Guard Break Auraflow V0.3 000 S3335749812 Th0.100 [Folder: GUARD_BREAK] (sprite index: 97, byte offset: 393704, size: 4318)
+// GUARD BREAK / Guard Break Auraflow V0.3 000 S3335749812 Th0.100 Battler [Folder: GUARD_BREAK] (sprite index: 97, byte offset: 393704, size: 4318)
 { .idx = 393704, .palette = { 0x5c95, 0x41eb, 0x4926, 0x2108, 0x28a4, 0x48a3, 0x20a4, 0x1863, 0x10a5, 0x3862, 0x2063, 0x1842, 0x1063, 0x1042, 0xf81f, 0x2002 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// HAILSTORM / Hailstorm Auraflow V0.3 000 S3471597166 Th0.100 [Folder: HAILSTORM] (sprite index: 98, byte offset: 398022, size: 4154)
+// HAILSTORM / Hailstorm Auraflow V0.3 000 S3471597166 Th0.100 Battler [Folder: HAILSTORM] (sprite index: 98, byte offset: 398022, size: 4154)
 { .idx = 398022, .palette = { 0xb71e, 0x6e1c, 0x5cd8, 0x3478, 0x3b73, 0x2333, 0x2a6f, 0x1a4f, 0x21ed, 0x11cd, 0x218b, 0x116b, 0x2129, 0x1928, 0x1128, 0xf81f }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// HALO OF GRACE / Halo Of Grace Auraflow V0.3 000 S1946357506 Th0.100 [Folder: HALO_OF_GRACE] (sprite index: 99, byte offset: 402176, size: 3920)
+// HALO OF GRACE / Halo Of Grace Auraflow V0.3 000 S1946357506 Th0.100 Battler [Folder: HALO_OF_GRACE] (sprite index: 99, byte offset: 402176, size: 3920)
 { .idx = 402176, .palette = { 0xf779, 0xf750, 0xe64c, 0xd527, 0xb3a4, 0x7309, 0x59e4, 0x4942, 0x3923, 0x2924, 0x20e2, 0x28c1, 0x20c2, 0x18a1, 0xf81f, 0x2000 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// HAUNT / Haunt Auraflow V0.3 000 S3194914149 Th0.100 [Folder: HAUNT] (sprite index: 100, byte offset: 406096, size: 4010)
+// HAUNT / Haunt Auraflow V0.3 000 S3194914149 Th0.100 Battler [Folder: HAUNT] (sprite index: 100, byte offset: 406096, size: 4010)
 { .idx = 406096, .palette = { 0xef3e, 0xbebe, 0xb55d, 0x74fb, 0x6379, 0x2233, 0x5217, 0x192e, 0x18cd, 0x08a8, 0x08a7, 0x0865, 0x0064, 0x0022, 0xf81f, 0x0003 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// HELLFIRE / Hellfire Auraflow V0.3 000 S557752349 Th0.100 [Folder: HELLFIRE] (sprite index: 101, byte offset: 410106, size: 4022)
+// HELLFIRE / Hellfire Auraflow V0.3 000 S557752349 Th0.100 Battler [Folder: HELLFIRE] (sprite index: 101, byte offset: 410106, size: 4022)
 { .idx = 410106, .palette = { 0xff25, 0xf5a3, 0xf4c2, 0xebe1, 0xeb21, 0xe241, 0xb9e2, 0xb901, 0x90c1, 0x68e1, 0x6860, 0x48a1, 0x4040, 0x1840, 0xf81f, 0x4800 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// HELLSCAPE / Hellscape Auraflow V0.3 000 S1300402822 Th0.100 [Folder: HELLSCAPE] (sprite index: 102, byte offset: 414128, size: 5347)
+// HELLSCAPE / Hellscape Auraflow V0.3 000 S1300402822 Th0.100 Battler [Folder: HELLSCAPE] (sprite index: 102, byte offset: 414128, size: 5347)
 { .idx = 414128, .palette = { 0xf6cd, 0xed6c, 0xdc2a, 0xeac4, 0xd9c4, 0x82ad, 0xc102, 0x8105, 0x6842, 0x498b, 0x3908, 0x30a5, 0xf81f, 0x3043, 0x1843, 0x1022 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// HOLY LIGHT / Holy Light Auraflow V0.3 000 S4081665425 Th0.100 [Folder: HOLY_LIGHT] (sprite index: 103, byte offset: 419475, size: 572)
+// HOLY LIGHT / Holy Light Auraflow V0.3 000 S4081665425 Th0.100 Battler [Folder: HOLY_LIGHT] (sprite index: 103, byte offset: 419475, size: 572)
 { .idx = 419475, .palette = { 0xf81f, 0xa382, 0x5181, 0x38e1, 0x18a1, 0x1860, 0x0860, 0x0840, 0x0820, 0x0040, 0x0020, 0x0020, 0x0020, 0x0020, 0x0020, 0x0000 }, .emptyIndexes = { 0x00, 0x00, 0x00, 0x04, 0x03, 0x03, 0x00 } },
-// HOWL OF THE PACK / Howl Of The Pack Auraflow V0.3 000 S1497366329 Th0.100 [Folder: HOWL_OF_THE_PACK] (sprite index: 104, byte offset: 420047, size: 6018)
+// HOWL OF THE PACK / Howl Of The Pack Auraflow V0.3 000 S1497366329 Th0.100 Battler [Folder: HOWL_OF_THE_PACK] (sprite index: 104, byte offset: 420047, size: 6018)
 { .idx = 420047, .palette = { 0xaaba, 0xf81f, 0x6133, 0x48b2, 0x3870, 0x28ab, 0x206b, 0x1048, 0x202b, 0x0825, 0x1007, 0x0843, 0x0824, 0x0821, 0x0021, 0x0022 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// HUNTING INSTINCT / Hunting Instinct Auraflow V0.3 000 S3549777555 Th0.100 [Folder: HUNTING_INSTINCT] (sprite index: 105, byte offset: 426065, size: 3275)
+// HUNTING INSTINCT / Hunting Instinct Auraflow V0.3 000 S3549777555 Th0.100 Battler [Folder: HUNTING_INSTINCT] (sprite index: 105, byte offset: 426065, size: 3275)
 { .idx = 426065, .palette = { 0xf81f, 0xb387, 0x71e5, 0x6183, 0x4165, 0x5102, 0x3902, 0x30e3, 0x28e2, 0x3881, 0x28a1, 0x28a2, 0x2861, 0x2081, 0x2061, 0x1841 }, .emptyIndexes = { 0x1c, 0x9f, 0xcf, 0xc7, 0xe3, 0xf1, 0x00 } },
-// HYDRO BLAST / Hydro Blast Auraflow V0.3 000 S2613426325 Th0.100 [Folder: HYDRO_BLAST] (sprite index: 106, byte offset: 429340, size: 6826)
+// HYDRO BLAST / Hydro Blast Auraflow V0.3 000 S2613426325 Th0.100 Battler [Folder: HYDRO_BLAST] (sprite index: 106, byte offset: 429340, size: 6826)
 { .idx = 429340, .palette = { 0xaf5f, 0x8e9e, 0x5dfe, 0x4cfd, 0x43fc, 0x2c1d, 0x32b9, 0x1a99, 0x21b6, 0x216f, 0x1172, 0xf81f, 0x18ec, 0x08cb, 0x0888, 0x0843 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// HYPERVISION / Hypervision Auraflow V0.3 000 S4047068950 Th0.100 [Folder: HYPERVISION] (sprite index: 107, byte offset: 436166, size: 6485)
+// HYPERVISION / Hypervision Auraflow V0.3 000 S4047068950 Th0.100 Battler [Folder: HYPERVISION] (sprite index: 107, byte offset: 436166, size: 6485)
 { .idx = 436166, .palette = { 0xce5d, 0x9c7c, 0x9b3a, 0x62f8, 0x71d5, 0x39b2, 0x60d0, 0x48ce, 0x30ad, 0x20ad, 0x2829, 0x1868, 0x1827, 0x0827, 0xf81f, 0x0824 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// ICE ARMOR / Ice Armor Auraflow V0.3 000 S2262701973 Th0.100 [Folder: ICE_ARMOR] (sprite index: 108, byte offset: 442651, size: 4432)
+// ICE ARMOR / Ice Armor Auraflow V0.3 000 S2262701973 Th0.100 Battler [Folder: ICE_ARMOR] (sprite index: 108, byte offset: 442651, size: 4432)
 { .idx = 442651, .palette = { 0xffff, 0xf7ff, 0xd77f, 0xef7f, 0xaf1e, 0xa5fd, 0x6d9e, 0x741b, 0x52b6, 0x3278, 0x2172, 0x28f0, 0x18cb, 0x1088, 0xf81f, 0x100b }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// ICE LANCE / Ice Lance Auraflow V0.3 000 S4073555017 Th0.100 [Folder: ICE_LANCE] (sprite index: 109, byte offset: 447083, size: 3738)
+// ICE LANCE / Ice Lance Auraflow V0.3 000 S4073555017 Th0.100 Battler [Folder: ICE_LANCE] (sprite index: 109, byte offset: 447083, size: 3738)
 { .idx = 447083, .palette = { 0xd7bf, 0xbe7e, 0x56bf, 0x459f, 0x245e, 0x741d, 0x3c1e, 0x233c, 0x71ba, 0x29f9, 0x2239, 0x1935, 0x1194, 0x08ad, 0xf81f, 0x380f }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// ICE SHARD / Ice Shard Auraflow V0.3 000 S678377643 Th0.100 [Folder: ICE_SHARD] (sprite index: 110, byte offset: 450821, size: 3066)
+// ICE SHARD / Ice Shard Auraflow V0.3 000 S678377643 Th0.100 Battler [Folder: ICE_SHARD] (sprite index: 110, byte offset: 450821, size: 3066)
 { .idx = 450821, .palette = { 0xcfdf, 0x9f3e, 0x66be, 0x55dd, 0x4cbb, 0x3b78, 0x2398, 0x2211, 0x11f1, 0x114f, 0x092a, 0x08c9, 0x0088, 0x0064, 0xf81f, 0x0006 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// INCINERATE / Incinerate Auraflow V0.3 000 S2027884613 Th0.100 [Folder: INCINERATE] (sprite index: 111, byte offset: 453887, size: 5300)
+// INCINERATE / Incinerate Auraflow V0.3 000 S2027884613 Th0.100 Battler [Folder: INCINERATE] (sprite index: 111, byte offset: 453887, size: 5300)
 { .idx = 453887, .palette = { 0xe7ff, 0xafbf, 0x879f, 0x76ff, 0x56df, 0x4e3f, 0x459e, 0x355e, 0x349c, 0x2c1b, 0x2b58, 0x1b58, 0x1a94, 0x1211, 0x114a, 0xf81f }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// INFECTIOUS TOUCH / Infectious Touch Auraflow V0.3 000 S509660868 Th0.100 [Folder: INFECTIOUS_TOUCH] (sprite index: 112, byte offset: 459187, size: 2796)
+// INFECTIOUS TOUCH / Infectious Touch Auraflow V0.3 000 S509660868 Th0.100 Battler [Folder: INFECTIOUS_TOUCH] (sprite index: 112, byte offset: 459187, size: 2796)
 { .idx = 459187, .palette = { 0xf81f, 0x612b, 0x4088, 0x606b, 0x684b, 0x680b, 0x3807, 0x1863, 0x2044, 0x2004, 0x1042, 0x0822, 0x0822, 0x0821, 0x0821, 0x0001 }, .emptyIndexes = { 0x10, 0x0e, 0xc7, 0xe3, 0xc3, 0xfd, 0x01 } },
-// INFERNAL RUSH / Infernal Rush Auraflow V0.3 000 S307078676 Th0.100 [Folder: INFERNAL_RUSH] (sprite index: 113, byte offset: 461983, size: 3688)
+// INFERNAL RUSH / Infernal Rush Auraflow V0.3 000 S307078676 Th0.100 Battler [Folder: INFERNAL_RUSH] (sprite index: 113, byte offset: 461983, size: 3688)
 { .idx = 461983, .palette = { 0xf77a, 0xeed7, 0xde13, 0xcd0f, 0xd409, 0xcaa4, 0x736d, 0x5228, 0x8922, 0x3924, 0x2925, 0x2882, 0x18a2, 0x1040, 0xf81f, 0x2800 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// INFERNO / Inferno Auraflow V0.3 000 S1981600042 Th0.100 [Folder: INFERNO] (sprite index: 114, byte offset: 465671, size: 4470)
+// INFERNO / Inferno Auraflow V0.3 000 S1981600042 Th0.100 Battler [Folder: INFERNO] (sprite index: 114, byte offset: 465671, size: 4470)
 { .idx = 465671, .palette = { 0xbf17, 0x2e1f, 0x7c55, 0x141f, 0x12de, 0xd247, 0x227c, 0x11fb, 0xa905, 0x60e6, 0x2087, 0x2111, 0x1115, 0x1089, 0xf81f, 0x4004 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// IRON GRIP / Iron Grip Auraflow V0.3 000 S2514078205 Th0.100 [Folder: IRON_GRIP] (sprite index: 115, byte offset: 470141, size: 4524)
+// IRON GRIP / Iron Grip Auraflow V0.3 000 S2514078205 Th0.100 Battler [Folder: IRON_GRIP] (sprite index: 115, byte offset: 470141, size: 4524)
 { .idx = 470141, .palette = { 0x8cae, 0x524a, 0x0927, 0x7125, 0x5083, 0x1863, 0x0864, 0x0843, 0x1822, 0x0822, 0x0022, 0x0022, 0x0022, 0x0022, 0xf81f, 0x3001 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// IRON WILL / Iron Will Auraflow V0.3 000 S1309031688 Th0.100 [Folder: IRON_WILL] (sprite index: 116, byte offset: 474665, size: 2321)
+// IRON WILL / Iron Will Auraflow V0.3 000 S1309031688 Th0.100 Battler [Folder: IRON_WILL] (sprite index: 116, byte offset: 474665, size: 2321)
 { .idx = 474665, .palette = { 0xf81f, 0xb12c, 0x50a9, 0x20aa, 0x1846, 0x0867, 0x0846, 0x0826, 0x0824, 0x0025, 0x0025, 0x0025, 0x0024, 0x0024, 0x0025, 0x0024 }, .emptyIndexes = { 0x00, 0x0e, 0x87, 0xc7, 0xe3, 0x70, 0x00 } },
-// JUDGEMENT / Judgement Auraflow V0.3 000 S1915507132 Th0.100 [Folder: JUDGEMENT] (sprite index: 117, byte offset: 476986, size: 5595)
+// JUDGEMENT / Judgement Auraflow V0.3 000 S1915507132 Th0.100 Battler [Folder: JUDGEMENT] (sprite index: 117, byte offset: 476986, size: 5595)
 { .idx = 476986, .palette = { 0xf6be, 0xd53c, 0xc3ba, 0x9b38, 0x9a17, 0x79f4, 0x61d2, 0x5150, 0x68d2, 0x48ce, 0x38ac, 0x28cb, 0x2089, 0x1847, 0xf81f, 0x280a }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// KISS / Kiss Auraflow V0.3 000 S2008813933 Th0.100 [Folder: KISS] (sprite index: 118, byte offset: 482581, size: 2998)
+// KISS / Kiss Auraflow V0.3 000 S2008813933 Th0.100 Battler [Folder: KISS] (sprite index: 118, byte offset: 482581, size: 2998)
 { .idx = 482581, .palette = { 0xf81f, 0xa2cc, 0x694b, 0x68cb, 0x6069, 0x2868, 0x18ca, 0x1068, 0x1066, 0x5848, 0x2026, 0x2003, 0x1045, 0x0845, 0x0025, 0x0023 }, .emptyIndexes = { 0x18, 0x1f, 0x8f, 0xc3, 0xf9, 0xfd, 0x01 } },
-// LANDSLIDE / Landslide Auraflow V0.3 000 S486801834 Th0.100 [Folder: LANDSLIDE] (sprite index: 119, byte offset: 485579, size: 4123)
+// LANDSLIDE / Landslide Auraflow V0.3 000 S486801834 Th0.100 Battler [Folder: LANDSLIDE] (sprite index: 119, byte offset: 485579, size: 4123)
 { .idx = 485579, .palette = { 0x963a, 0x53f2, 0x3a6b, 0x220a, 0x2167, 0x1926, 0x1106, 0x10c4, 0x08a4, 0x1083, 0x0883, 0x0883, 0x0862, 0x0022, 0xf81f, 0x0001 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// LAND SHIFT / Land Shift Auraflow V0.3 000 S1555747245 Th0.100 [Folder: LAND_SHIFT] (sprite index: 120, byte offset: 489702, size: 2630)
+// LAND SHIFT / Land Shift Auraflow V0.3 000 S1555747245 Th0.100 Battler [Folder: LAND_SHIFT] (sprite index: 120, byte offset: 489702, size: 2630)
 { .idx = 489702, .palette = { 0xacde, 0x6a5a, 0x40f4, 0x20ac, 0x286c, 0x1866, 0x1066, 0x1064, 0x2030, 0x102d, 0x0828, 0x1045, 0x0844, 0x0844, 0xf81f, 0x1011 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// LAVA BURST / Lava Burst Auraflow V0.3 000 S1904004715 Th0.100 [Folder: LAVA_BURST] (sprite index: 121, byte offset: 492332, size: 4739)
+// LAVA BURST / Lava Burst Auraflow V0.3 000 S1904004715 Th0.100 Battler [Folder: LAVA_BURST] (sprite index: 121, byte offset: 492332, size: 4739)
 { .idx = 492332, .palette = { 0xfee5, 0xf524, 0xf382, 0xc347, 0xd202, 0xb922, 0x7166, 0x3927, 0x8081, 0x4882, 0x2883, 0x1062, 0x0821, 0x0000, 0xf81f, 0x1800 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// LEAF STORM / Leaf Storm Auraflow V0.3 000 S1967058845 Th0.100 [Folder: LEAF_STORM] (sprite index: 122, byte offset: 497071, size: 5520)
+// LEAF STORM / Leaf Storm Auraflow V0.3 000 S1967058845 Th0.100 Battler [Folder: LEAF_STORM] (sprite index: 122, byte offset: 497071, size: 5520)
 { .idx = 497071, .palette = { 0xf759, 0xee30, 0xe4e9, 0xd3c6, 0xcaa3, 0xb9a1, 0x81c4, 0x7122, 0x80a1, 0x6081, 0x4061, 0x3081, 0x2061, 0x1820, 0xf81f, 0x4800 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// LIFE DRAIN / Life Drain Auraflow V0.3 000 S1701013297 Th0.100 [Folder: LIFE_DRAIN] (sprite index: 123, byte offset: 502591, size: 6142)
+// LIFE DRAIN / Life Drain Auraflow V0.3 000 S1701013297 Th0.100 Battler [Folder: LIFE_DRAIN] (sprite index: 123, byte offset: 502591, size: 6142)
 { .idx = 502591, .palette = { 0xff99, 0xf654, 0xecaf, 0xdaea, 0xd9a6, 0xd8c3, 0x78c4, 0xc842, 0x8842, 0x6042, 0x4042, 0x3842, 0xf81f, 0x8001, 0x2041, 0x1820 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// LUMINA BLESSING / Lumina Blessing Auraflow V0.3 000 S2591386203 Th0.100 [Folder: LUMINA_BLESSING] (sprite index: 124, byte offset: 508733, size: 5002)
+// LUMINA BLESSING / Lumina Blessing Auraflow V0.3 000 S2591386203 Th0.100 Battler [Folder: LUMINA_BLESSING] (sprite index: 124, byte offset: 508733, size: 5002)
 { .idx = 508733, .palette = { 0x6bf4, 0x59ce, 0x512a, 0x212b, 0x18c9, 0x48a7, 0x28a8, 0x18a6, 0x3865, 0x2065, 0x1865, 0x1065, 0x1064, 0x1044, 0xf81f, 0x0804 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// LUNGE / Lunge Auraflow V0.3 000 S2961146812 Th0.100 [Folder: LUNGE] (sprite index: 125, byte offset: 513735, size: 4638)
+// LUNGE / Lunge Auraflow V0.3 000 S2961146812 Th0.100 Battler [Folder: LUNGE] (sprite index: 125, byte offset: 513735, size: 4638)
 { .idx = 513735, .palette = { 0x753a, 0x4b31, 0x4a2e, 0x2a0d, 0x396a, 0x2969, 0x216a, 0x2127, 0x30e7, 0x20e6, 0x20e6, 0x20c4, 0x18e7, 0x18c4, 0x1084, 0xf81f }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// LUSTFUL GLARE / Lustful Glare Auraflow V0.3 000 S3358999445 Th0.100 [Folder: LUSTFUL_GLARE] (sprite index: 126, byte offset: 518373, size: 3954)
+// LUSTFUL GLARE / Lustful Glare Auraflow V0.3 000 S3358999445 Th0.100 Battler [Folder: LUSTFUL_GLARE] (sprite index: 126, byte offset: 518373, size: 3954)
 { .idx = 518373, .palette = { 0xf81f, 0x8930, 0x908e, 0x496f, 0x488b, 0x28ca, 0x2068, 0x2828, 0x1846, 0x1066, 0x0845, 0x0844, 0x0843, 0x0825, 0x0824, 0x0824 }, .emptyIndexes = { 0x3e, 0x9f, 0x87, 0xc7, 0xf3, 0x79, 0x00 } },
-// MADDENING GAZE / Maddening Gaze Auraflow V0.3 000 S1455967436 Th0.100 [Folder: MADDENING_GAZE] (sprite index: 127, byte offset: 522327, size: 3907)
+// MADDENING GAZE / Maddening Gaze Auraflow V0.3 000 S1455967436 Th0.100 Battler [Folder: MADDENING_GAZE] (sprite index: 127, byte offset: 522327, size: 3907)
 { .idx = 522327, .palette = { 0xd6bd, 0x8c78, 0x8275, 0x8935, 0x2a51, 0x290c, 0x110b, 0x1087, 0x506d, 0x2068, 0x1045, 0x0867, 0x0844, 0x0024, 0xf81f, 0x0804 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// MAELSTROM / Maelstrom Auraflow V0.3 000 S1673775817 Th0.100 [Folder: MAELSTROM] (sprite index: 128, byte offset: 526234, size: 4061)
+// MAELSTROM / Maelstrom Auraflow V0.3 000 S1673775817 Th0.100 Battler [Folder: MAELSTROM] (sprite index: 128, byte offset: 526234, size: 4061)
 { .idx = 526234, .palette = { 0xf81f, 0x79c8, 0x4106, 0x40c5, 0x3883, 0x28c5, 0x2083, 0x1863, 0x2042, 0x1042, 0x1042, 0x0822, 0x1021, 0x1001, 0x0821, 0x0801 }, .emptyIndexes = { 0x1e, 0xdf, 0xef, 0xf7, 0xf9, 0x78, 0x00 } },
-// MAGMA BURST / Magma Burst Auraflow V0.3 000 S1702035131 Th0.100 [Folder: MAGMA_BURST] (sprite index: 129, byte offset: 530295, size: 1335)
+// MAGMA BURST / Magma Burst Auraflow V0.3 000 S1702035131 Th0.100 Battler [Folder: MAGMA_BURST] (sprite index: 129, byte offset: 530295, size: 1335)
 { .idx = 530295, .palette = { 0xf81f, 0xdb23, 0xa144, 0x78e4, 0x30c6, 0x70a3, 0x7042, 0x3043, 0x30a5, 0x2085, 0x1864, 0x1884, 0x1064, 0x1843, 0x2802, 0x1043 }, .emptyIndexes = { 0x00, 0x06, 0x83, 0xc3, 0x61, 0x00, 0x00 } },
-// MAGMA FLOW / Magma Flow Auraflow V0.3 000 S732755837 Th0.100 [Folder: MAGMA_FLOW] (sprite index: 130, byte offset: 531630, size: 3878)
+// MAGMA FLOW / Magma Flow Auraflow V0.3 000 S732755837 Th0.100 Battler [Folder: MAGMA_FLOW] (sprite index: 130, byte offset: 531630, size: 3878)
 { .idx = 531630, .palette = { 0xff47, 0xfe64, 0xfd63, 0xf463, 0xf342, 0xf1c2, 0xd1c4, 0xd8c3, 0xd062, 0xa0a5, 0xa043, 0x7086, 0x7023, 0x4045, 0xf81f, 0x8002 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// MIGHTY THROW / Mighty Throw Auraflow V0.3 000 S1602366632 Th0.100 [Folder: MIGHTY_THROW] (sprite index: 131, byte offset: 535508, size: 3442)
+// MIGHTY THROW / Mighty Throw Auraflow V0.3 000 S1602366632 Th0.100 Battler [Folder: MIGHTY_THROW] (sprite index: 131, byte offset: 535508, size: 3442)
 { .idx = 535508, .palette = { 0x9450, 0x39eb, 0x1128, 0x3905, 0x20c4, 0x18a4, 0x10a5, 0x2083, 0x1884, 0x1884, 0x18a4, 0x1883, 0x1084, 0x1083, 0xf81f, 0x4800 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// MIND SPIKE / Mind Spike Auraflow V0.3 000 S211887503 Th0.100 [Folder: MIND_SPIKE] (sprite index: 132, byte offset: 538950, size: 4107)
+// MIND SPIKE / Mind Spike Auraflow V0.3 000 S211887503 Th0.100 Battler [Folder: MIND_SPIKE] (sprite index: 132, byte offset: 538950, size: 4107)
 { .idx = 538950, .palette = { 0xe6be, 0xac9b, 0x92b9, 0x5a14, 0x5934, 0x390e, 0x30eb, 0x28aa, 0x4070, 0x286a, 0x2068, 0x1867, 0x1846, 0x1025, 0xf81f, 0x280b }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// MIRACLE / Miracle Auraflow V0.3 000 S2580897087 Th0.100 [Folder: MIRACLE] (sprite index: 133, byte offset: 543057, size: 5067)
+// MIRACLE / Miracle Auraflow V0.3 000 S2580897087 Th0.100 Battler [Folder: MIRACLE] (sprite index: 133, byte offset: 543057, size: 5067)
 { .idx = 543057, .palette = { 0xb48e, 0x7acc, 0x59c9, 0x298b, 0x4929, 0x2929, 0x192a, 0x1908, 0x38c7, 0x20c7, 0x18c7, 0x1886, 0x10c7, 0x1086, 0x0864, 0xf81f }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// MIRROR GLAMOUR / Mirror Glamour Auraflow V0.3 000 S2967106736 Th0.100 [Folder: MIRROR_GLAMOUR] (sprite index: 134, byte offset: 548124, size: 4980)
+// MIRROR GLAMOUR / Mirror Glamour Auraflow V0.3 000 S2967106736 Th0.100 Battler [Folder: MIRROR_GLAMOUR] (sprite index: 134, byte offset: 548124, size: 4980)
 { .idx = 548124, .palette = { 0xb69a, 0x9df9, 0x75b9, 0x5cb7, 0x5b36, 0x3313, 0x1b12, 0x1210, 0x38ef, 0x18ac, 0x10aa, 0x092c, 0x0869, 0x0827, 0xf81f, 0x0807 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// MOONBEAM / Moonbeam Auraflow V0.3 000 S3337634625 Th0.100 [Folder: MOONBEAM] (sprite index: 135, byte offset: 553104, size: 2173)
+// MOONBEAM / Moonbeam Auraflow V0.3 000 S3337634625 Th0.100 Battler [Folder: MOONBEAM] (sprite index: 135, byte offset: 553104, size: 2173)
 { .idx = 553104, .palette = { 0xf7df, 0xdfbf, 0xc79f, 0xb73e, 0x9ede, 0x8e7d, 0x861c, 0x75db, 0x6d7a, 0x6519, 0x5cb8, 0x4c36, 0x43b4, 0x3331, 0x19aa, 0xf81f }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// MOUNTAIN BREAKER / Mountain Breaker Auraflow V0.3 000 S3365660217 Th0.100 [Folder: MOUNTAIN_BREAKER] (sprite index: 136, byte offset: 555277, size: 4148)
+// MOUNTAIN BREAKER / Mountain Breaker Auraflow V0.3 000 S3365660217 Th0.100 Battler [Folder: MOUNTAIN_BREAKER] (sprite index: 136, byte offset: 555277, size: 4148)
 { .idx = 555277, .palette = { 0xbf1b, 0x64d2, 0x3b4c, 0x2269, 0x19c6, 0x1145, 0x1104, 0x08e3, 0x08a2, 0x0082, 0x0882, 0x0861, 0x0061, 0x0041, 0xf81f, 0x0000 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// MUD CLAW / Mud Claw Auraflow V0.3 000 S1095847506 Th0.100 [Folder: MUD_CLAW] (sprite index: 137, byte offset: 559425, size: 4549)
+// MUD CLAW / Mud Claw Auraflow V0.3 000 S1095847506 Th0.100 Battler [Folder: MUD_CLAW] (sprite index: 137, byte offset: 559425, size: 4549)
 { .idx = 559425, .palette = { 0x55fa, 0x6c13, 0x828c, 0x2295, 0x6149, 0x1151, 0x30ec, 0x10ad, 0x3049, 0x1848, 0x104b, 0x1025, 0x0029, 0x0003, 0xf81f, 0x0805 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// MUD SLIDE / Mud Slide Auraflow V0.3 000 S4086714984 Th0.100 [Folder: MUD_SLIDE] (sprite index: 138, byte offset: 563974, size: 2683)
+// MUD SLIDE / Mud Slide Auraflow V0.3 000 S4086714984 Th0.100 Battler [Folder: MUD_SLIDE] (sprite index: 138, byte offset: 563974, size: 2683)
 { .idx = 563974, .palette = { 0xedea, 0xcc29, 0xdb25, 0xb1e3, 0x7ac9, 0x81a4, 0x58c2, 0x3966, 0x30a2, 0x18a3, 0x1841, 0x08a4, 0x0862, 0x0821, 0xf81f, 0x1000 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// MYSTIC TANGLE / Mystic Tangle Auraflow V0.3 000 S2519317899 Th0.100 [Folder: MYSTIC_TANGLE] (sprite index: 139, byte offset: 566657, size: 6664)
+// MYSTIC TANGLE / Mystic Tangle Auraflow V0.3 000 S2519317899 Th0.100 Battler [Folder: MYSTIC_TANGLE] (sprite index: 139, byte offset: 566657, size: 6664)
 { .idx = 566657, .palette = { 0xab0e, 0xf81f, 0x71ca, 0x6148, 0x3948, 0x48e6, 0x3085, 0x30e6, 0x20c6, 0x20c4, 0x2084, 0x1883, 0x1084, 0x1062, 0x1042, 0x1022 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// NECROTIC BURST / Necrotic Burst Auraflow V0.3 000 S558851403 Th0.100 [Folder: NECROTIC_BURST] (sprite index: 140, byte offset: 573321, size: 4126)
+// NECROTIC BURST / Necrotic Burst Auraflow V0.3 000 S558851403 Th0.100 Battler [Folder: NECROTIC_BURST] (sprite index: 140, byte offset: 573321, size: 4126)
 { .idx = 573321, .palette = { 0xf81f, 0x7a93, 0x416b, 0x4129, 0x2926, 0x30e6, 0x20e5, 0x20e5, 0x20e3, 0x20c4, 0x18c4, 0x18c3, 0x18c3, 0x30a7, 0x18a3, 0x2807 }, .emptyIndexes = { 0x3e, 0x9f, 0xc7, 0xe7, 0xf3, 0xf9, 0x00 } },
-// NERVE STRIKE / Nerve Strike Auraflow V0.3 000 S1023260573 Th0.100 [Folder: NERVE_STRIKE] (sprite index: 141, byte offset: 577447, size: 4479)
+// NERVE STRIKE / Nerve Strike Auraflow V0.3 000 S1023260573 Th0.100 Battler [Folder: NERVE_STRIKE] (sprite index: 141, byte offset: 577447, size: 4479)
 { .idx = 577447, .palette = { 0xffff, 0xffbf, 0xef5f, 0xf5ba, 0xa59d, 0xebf7, 0x83bb, 0xd254, 0xa912, 0x8a16, 0x78f0, 0x49f9, 0x48f2, 0x386d, 0xf81f, 0x380b }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// NEUROTOXIN / Neurotoxin Auraflow V0.3 000 S1050767875 Th0.100 [Folder: NEUROTOXIN] (sprite index: 142, byte offset: 581926, size: 4447)
+// NEUROTOXIN / Neurotoxin Auraflow V0.3 000 S1050767875 Th0.100 Battler [Folder: NEUROTOXIN] (sprite index: 142, byte offset: 581926, size: 4447)
 { .idx = 581926, .palette = { 0xf81f, 0xdbd3, 0xd332, 0xc292, 0xb1b4, 0x9171, 0x712f, 0x6891, 0x48ec, 0x486c, 0x306c, 0x3069, 0x2069, 0x280a, 0x1829, 0x1047 }, .emptyIndexes = { 0x3c, 0x9e, 0xcf, 0xff, 0xf7, 0xf9, 0x00 } },
-// OVERGROWTH / Overgrowth Auraflow V0.3 000 S84314187 Th0.100 [Folder: OVERGROWTH] (sprite index: 143, byte offset: 586373, size: 5699)
+// OVERGROWTH / Overgrowth Auraflow V0.3 000 S84314187 Th0.100 Battler [Folder: OVERGROWTH] (sprite index: 143, byte offset: 586373, size: 5699)
 { .idx = 586373, .palette = { 0xd5f8, 0x8b6d, 0x826c, 0x5a69, 0x71ac, 0x598a, 0x4167, 0x3106, 0x58eb, 0x38e7, 0x30a5, 0x20e5, 0x18a4, 0x1863, 0xf81f, 0x1802 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// PACK CALL / Pack Call Auraflow V0.3 000 S1688765915 Th0.100 [Folder: PACK_CALL] (sprite index: 144, byte offset: 592072, size: 3999)
+// PACK CALL / Pack Call Auraflow V0.3 000 S1688765915 Th0.100 Battler [Folder: PACK_CALL] (sprite index: 144, byte offset: 592072, size: 3999)
 { .idx = 592072, .palette = { 0xbe3d, 0x6399, 0x4a34, 0x31d3, 0x3131, 0x290c, 0x20ed, 0x206d, 0x188b, 0x2048, 0x1069, 0x1848, 0x1026, 0x1007, 0xf81f, 0x1808 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// PARALYZE / Paralyze Auraflow V0.3 000 S1982704530 Th0.100 [Folder: PARALYZE] (sprite index: 145, byte offset: 596071, size: 5835)
+// PARALYZE / Paralyze Auraflow V0.3 000 S1982704530 Th0.100 Battler [Folder: PARALYZE] (sprite index: 145, byte offset: 596071, size: 5835)
 { .idx = 596071, .palette = { 0x9f7a, 0x7677, 0x4e74, 0x45b2, 0x3cf0, 0x24ad, 0x1bab, 0x1ae9, 0x0ac8, 0x0a26, 0x1184, 0x0964, 0x0163, 0x08e2, 0xf81f, 0x0081 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// PARRY / Parry Auraflow V0.3 000 S3941725302 Th0.100 [Folder: PARRY] (sprite index: 146, byte offset: 601906, size: 4134)
+// PARRY / Parry Auraflow V0.3 000 S3941725302 Th0.100 Battler [Folder: PARRY] (sprite index: 146, byte offset: 601906, size: 4134)
 { .idx = 601906, .palette = { 0xffbf, 0xedbf, 0xcade, 0x8939, 0x889a, 0x5892, 0x388d, 0x2868, 0x7857, 0x482e, 0x304a, 0x2027, 0x1845, 0x1024, 0xf81f, 0x400f }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// PERMAFROST / Permafrost Auraflow V0.3 000 S2951463434 Th0.100 [Folder: PERMAFROST] (sprite index: 147, byte offset: 606040, size: 3862)
+// PERMAFROST / Permafrost Auraflow V0.3 000 S2951463434 Th0.100 Battler [Folder: PERMAFROST] (sprite index: 147, byte offset: 606040, size: 3862)
 { .idx = 606040, .palette = { 0xf7bf, 0xdf1e, 0xc67e, 0xae3e, 0xa59d, 0x9cbc, 0x747b, 0x6b38, 0x4253, 0x6a38, 0x3990, 0x4111, 0x28eb, 0x1087, 0xf81f, 0x0807 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// PETAL BLITZ / Petal Blitz Auraflow V0.3 000 S1401139085 Th0.100 [Folder: PETAL_BLITZ] (sprite index: 148, byte offset: 609902, size: 6070)
+// PETAL BLITZ / Petal Blitz Auraflow V0.3 000 S1401139085 Th0.100 Battler [Folder: PETAL_BLITZ] (sprite index: 148, byte offset: 609902, size: 6070)
 { .idx = 609902, .palette = { 0xfef2, 0xf54f, 0xf3cd, 0xd38e, 0xda6b, 0xc968, 0x9a2c, 0xa149, 0x8148, 0x5927, 0x3906, 0x5085, 0xf81f, 0x8085, 0x3884, 0x2863 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// PETAL DANCE / Petal Dance Auraflow V0.3 000 S3652281819 Th0.100 [Folder: PETAL_DANCE] (sprite index: 149, byte offset: 615972, size: 4654)
+// PETAL DANCE / Petal Dance Auraflow V0.3 000 S3652281819 Th0.100 Battler [Folder: PETAL_DANCE] (sprite index: 149, byte offset: 615972, size: 4654)
 { .idx = 615972, .palette = { 0xfed0, 0xf56e, 0xec8c, 0xebcc, 0xeb2b, 0xe24a, 0xca69, 0x9a09, 0xd127, 0xa906, 0x7126, 0x5106, 0x40c5, 0x3863, 0xf81f, 0x6802 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// PETRIFYING GAZE / Petrifying Gaze Auraflow V0.3 000 S3144569625 Th0.100 [Folder: PETRIFYING_GAZE] (sprite index: 150, byte offset: 620626, size: 3458)
+// PETRIFYING GAZE / Petrifying Gaze Auraflow V0.3 000 S3144569625 Th0.100 Battler [Folder: PETRIFYING_GAZE] (sprite index: 150, byte offset: 620626, size: 3458)
 { .idx = 620626, .palette = { 0xe77e, 0xb5da, 0x8416, 0x5313, 0x39ce, 0x214b, 0x18a8, 0x10a7, 0x0846, 0x0843, 0x0824, 0x0822, 0x0023, 0x0001, 0xf81f, 0x0002 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// PETRIFYING TOUCH / Petrifying Touch Auraflow V0.3 000 S3178620651 Th0.100 [Folder: PETRIFYING_TOUCH] (sprite index: 151, byte offset: 624084, size: 4695)
+// PETRIFYING TOUCH / Petrifying Touch Auraflow V0.3 000 S3178620651 Th0.100 Battler [Folder: PETRIFYING_TOUCH] (sprite index: 151, byte offset: 624084, size: 4695)
 { .idx = 624084, .palette = { 0xbd14, 0x92b1, 0x9988, 0x4974, 0x70e7, 0x48cc, 0x30d1, 0x30a6, 0x486a, 0x306a, 0x2868, 0x1849, 0x1844, 0x1842, 0xf81f, 0x200b }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// PHANTOM GRASP / Phantom Grasp Auraflow V0.3 000 S3902134547 Th0.100 [Folder: PHANTOM_GRASP] (sprite index: 152, byte offset: 628779, size: 4392)
+// PHANTOM GRASP / Phantom Grasp Auraflow V0.3 000 S3902134547 Th0.100 Battler [Folder: PHANTOM_GRASP] (sprite index: 152, byte offset: 628779, size: 4392)
 { .idx = 628779, .palette = { 0x8d1c, 0x4b38, 0x39f5, 0x21b3, 0x20f3, 0x10d1, 0x10aa, 0x084a, 0x0025, 0x0022, 0x0000, 0x0000, 0x0000, 0x0000, 0xf81f, 0x0001 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// PIXIE DUST / Pixie Dust Auraflow V0.3 000 S1426051296 Th0.100 [Folder: PIXIE_DUST] (sprite index: 153, byte offset: 633171, size: 5246)
+// PIXIE DUST / Pixie Dust Auraflow V0.3 000 S1426051296 Th0.100 Battler [Folder: PIXIE_DUST] (sprite index: 153, byte offset: 633171, size: 5246)
 { .idx = 633171, .palette = { 0xeeff, 0xd5fd, 0xccbd, 0x945a, 0xaafc, 0x7a99, 0x4af6, 0x3a14, 0x7138, 0x4914, 0x3153, 0x3090, 0x190e, 0x104a, 0xf81f, 0x180c }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// PLAGUE / Plague Auraflow V0.3 000 S2166821348 Th0.100 [Folder: PLAGUE] (sprite index: 154, byte offset: 638417, size: 6193)
+// PLAGUE / Plague Auraflow V0.3 000 S2166821348 Th0.100 Battler [Folder: PLAGUE] (sprite index: 154, byte offset: 638417, size: 6193)
 { .idx = 638417, .palette = { 0x9455, 0x6ab1, 0x61af, 0x316a, 0x40cb, 0x20c8, 0x10a6, 0x1065, 0x1846, 0x0844, 0x0823, 0x0022, 0x0003, 0x0021, 0xf81f, 0x0804 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// POISON FANG / Poison Fang Auraflow V0.3 000 S2085298237 Th0.100 [Folder: POISON_FANG] (sprite index: 155, byte offset: 644610, size: 4574)
+// POISON FANG / Poison Fang Auraflow V0.3 000 S2085298237 Th0.100 Battler [Folder: POISON_FANG] (sprite index: 155, byte offset: 644610, size: 4574)
 { .idx = 644610, .palette = { 0x9c94, 0x6275, 0x716f, 0x2174, 0x50a8, 0x1889, 0x088c, 0x0864, 0x2023, 0x0822, 0x0023, 0x0020, 0x0022, 0x0000, 0xf81f, 0x1003 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// POISON IVY / Poison Ivy Auraflow V0.3 000 S2955271353 Th0.100 [Folder: POISON_IVY] (sprite index: 156, byte offset: 649184, size: 3672)
+// POISON IVY / Poison Ivy Auraflow V0.3 000 S2955271353 Th0.100 Battler [Folder: POISON_IVY] (sprite index: 156, byte offset: 649184, size: 3672)
 { .idx = 649184, .palette = { 0xde33, 0xb4ae, 0xa2a7, 0x5a07, 0x60c2, 0x28c3, 0x2821, 0x1862, 0x1021, 0x0821, 0x0800, 0x0020, 0x0000, 0x0000, 0xf81f, 0x1000 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// POISON MIST / Poison Mist Auraflow V0.3 000 S3805852435 Th0.100 [Folder: POISON_MIST] (sprite index: 157, byte offset: 652856, size: 5821)
+// POISON MIST / Poison Mist Auraflow V0.3 000 S3805852435 Th0.100 Battler [Folder: POISON_MIST] (sprite index: 157, byte offset: 652856, size: 5821)
 { .idx = 652856, .palette = { 0xc3b3, 0xc2f2, 0xca36, 0xa996, 0x7173, 0x6a13, 0x516f, 0x396c, 0x8915, 0x68f2, 0x50f0, 0x38cf, 0x30ea, 0x18a9, 0xf81f, 0x284a }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// POLAR VORTEX / Polar Vortex Auraflow V0.3 000 S127769867 Th0.100 [Folder: POLAR_VORTEX] (sprite index: 158, byte offset: 658677, size: 5576)
+// POLAR VORTEX / Polar Vortex Auraflow V0.3 000 S127769867 Th0.100 Battler [Folder: POLAR_VORTEX] (sprite index: 158, byte offset: 658677, size: 5576)
 { .idx = 658677, .palette = { 0xa63e, 0x6d5d, 0x6c1c, 0x43fb, 0x2af8, 0x5afa, 0x42f8, 0x2a76, 0x29f4, 0x41f6, 0x19b2, 0x4135, 0x2932, 0x18cd, 0x1849, 0xf81f }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// POLLEN CLOUD / Pollen Cloud Auraflow V0.3 000 S950483880 Th0.100 [Folder: POLLEN_CLOUD] (sprite index: 159, byte offset: 664253, size: 2356)
+// POLLEN CLOUD / Pollen Cloud Auraflow V0.3 000 S950483880 Th0.100 Battler [Folder: POLLEN_CLOUD] (sprite index: 159, byte offset: 664253, size: 2356)
 { .idx = 664253, .palette = { 0xbbf3, 0x91cf, 0x990a, 0x48ec, 0x208b, 0x7888, 0x5845, 0x4886, 0x2845, 0x2865, 0x3844, 0x2822, 0x1845, 0x1022, 0xf81f, 0x3004 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// POUNCE / Pounce Auraflow V0.3 000 S2061630773 Th0.100 [Folder: POUNCE] (sprite index: 160, byte offset: 666609, size: 3425)
+// POUNCE / Pounce Auraflow V0.3 000 S2061630773 Th0.100 Battler [Folder: POUNCE] (sprite index: 160, byte offset: 666609, size: 3425)
 { .idx = 666609, .palette = { 0xdebd, 0x9bd5, 0x99f3, 0x51ef, 0x790e, 0x410b, 0x28e9, 0x2087, 0x1886, 0x3868, 0x1846, 0x1045, 0x0825, 0x0824, 0xf81f, 0x1005 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// PRAYER / Prayer Auraflow V0.3 000 S2737855477 Th0.100 [Folder: PRAYER] (sprite index: 161, byte offset: 670034, size: 4361)
+// PRAYER / Prayer Auraflow V0.3 000 S2737855477 Th0.100 Battler [Folder: PRAYER] (sprite index: 161, byte offset: 670034, size: 4361)
 { .idx = 670034, .palette = { 0xedc7, 0xc3c4, 0xc2a2, 0x5a67, 0x89a1, 0x5961, 0x38c1, 0x3943, 0x0947, 0x2081, 0x0881, 0x00a3, 0x0041, 0x0020, 0xf81f, 0x0000 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// PRECISE STRIKE / Precise Strike Auraflow V0.3 000 S207928629 Th0.100 [Folder: PRECISE_STRIKE] (sprite index: 162, byte offset: 674395, size: 3953)
+// PRECISE STRIKE / Precise Strike Auraflow V0.3 000 S207928629 Th0.100 Battler [Folder: PRECISE_STRIKE] (sprite index: 162, byte offset: 674395, size: 3953)
 { .idx = 674395, .palette = { 0xde5c, 0x93b8, 0x7a15, 0x39ce, 0x410c, 0x210b, 0x60ef, 0x20c7, 0x386c, 0x2067, 0x1866, 0x1064, 0x0844, 0x0822, 0xf81f, 0x1006 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// PREDATOR FOCUS / Predator Focus Auraflow V0.3 000 S4011680053 Th0.100 [Folder: PREDATOR_FOCUS] (sprite index: 163, byte offset: 678348, size: 5721)
+// PREDATOR FOCUS / Predator Focus Auraflow V0.3 000 S4011680053 Th0.100 Battler [Folder: PREDATOR_FOCUS] (sprite index: 163, byte offset: 678348, size: 5721)
 { .idx = 678348, .palette = { 0xe3c1, 0x89c3, 0x5123, 0x38a2, 0x18a3, 0xf81f, 0x1124, 0x08c4, 0x08a3, 0x0882, 0x0062, 0x0820, 0x0000, 0x0000, 0x0000, 0x0000 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// PRESSURE CRUSH / Pressure Crush Auraflow V0.3 000 S2310853824 Th0.100 [Folder: PRESSURE_CRUSH] (sprite index: 164, byte offset: 684069, size: 2612)
+// PRESSURE CRUSH / Pressure Crush Auraflow V0.3 000 S2310853824 Th0.100 Battler [Folder: PRESSURE_CRUSH] (sprite index: 164, byte offset: 684069, size: 2612)
 { .idx = 684069, .palette = { 0xf81f, 0x81f1, 0x58ab, 0x784a, 0x1848, 0x8029, 0x2827, 0x7809, 0x3007, 0x3006, 0x1806, 0x1027, 0x1025, 0x0806, 0x0805, 0x0804 }, .emptyIndexes = { 0x18, 0x9e, 0xcf, 0xe7, 0xf3, 0x30, 0x00 } },
-// PRIMAL SCREAM / Primal Scream Auraflow V0.3 000 S945545141 Th0.100 [Folder: PRIMAL_SCREAM] (sprite index: 165, byte offset: 686681, size: 3493)
+// PRIMAL SCREAM / Primal Scream Auraflow V0.3 000 S945545141 Th0.100 Battler [Folder: PRIMAL_SCREAM] (sprite index: 165, byte offset: 686681, size: 3493)
 { .idx = 686681, .palette = { 0xf81f, 0x698b, 0x3886, 0x4066, 0x3845, 0x1842, 0x1863, 0x1042, 0x1041, 0x4025, 0x2022, 0x2002, 0x1822, 0x1041, 0x0821, 0x1021 }, .emptyIndexes = { 0x1c, 0x0e, 0x8f, 0xf3, 0xfb, 0xf9, 0x00 } },
-// PRIMORDIAL FORCE / Primordial Force Auraflow V0.3 000 S2386899305 Th0.100 [Folder: PRIMORDIAL_FORCE] (sprite index: 166, byte offset: 690174, size: 3235)
+// PRIMORDIAL FORCE / Primordial Force Auraflow V0.3 000 S2386899305 Th0.100 Battler [Folder: PRIMORDIAL_FORCE] (sprite index: 166, byte offset: 690174, size: 3235)
 { .idx = 690174, .palette = { 0xff2b, 0xf5a4, 0xf422, 0xe2c1, 0xd1c1, 0x9963, 0x5124, 0x30a2, 0x7081, 0x4881, 0x3041, 0x1882, 0x1062, 0x1021, 0xf81f, 0x3800 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// PSYCHIC SHOCK / Psychic Shock Auraflow V0.3 000 S2844985635 Th0.100 [Folder: PSYCHIC_SHOCK] (sprite index: 167, byte offset: 693409, size: 1589)
+// PSYCHIC SHOCK / Psychic Shock Auraflow V0.3 000 S2844985635 Th0.100 Battler [Folder: PSYCHIC_SHOCK] (sprite index: 167, byte offset: 693409, size: 1589)
 { .idx = 693409, .palette = { 0xf81f, 0xd2f6, 0x9132, 0x90af, 0x786d, 0x40aa, 0x3868, 0x2866, 0x2065, 0x2045, 0x1844, 0x9049, 0x600d, 0x5049, 0x3046, 0x2045 }, .emptyIndexes = { 0x80, 0x40, 0xe2, 0xe7, 0xe3, 0x71, 0x00 } },
-// PURIFY / Purify Auraflow V0.3 000 S905511117 Th0.100 [Folder: PURIFY] (sprite index: 168, byte offset: 694998, size: 4383)
+// PURIFY / Purify Auraflow V0.3 000 S905511117 Th0.100 Battler [Folder: PURIFY] (sprite index: 168, byte offset: 694998, size: 4383)
 { .idx = 694998, .palette = { 0xe6ff, 0xb63e, 0xac9d, 0x63fc, 0x7a3b, 0x51b9, 0x31da, 0x4898, 0x28f6, 0x2875, 0x2075, 0x206f, 0x1070, 0x084a, 0xf81f, 0x1813 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// PURIFY CURE / Purify Cure Auraflow V0.3 000 S3228489854 Th0.100 [Folder: PURIFY_CURE] (sprite index: 169, byte offset: 699381, size: 3769)
+// PURIFY CURE / Purify Cure Auraflow V0.3 000 S3228489854 Th0.100 Battler [Folder: PURIFY_CURE] (sprite index: 169, byte offset: 699381, size: 3769)
 { .idx = 699381, .palette = { 0xcdae, 0x8ace, 0x9166, 0x68c5, 0x296f, 0x30c6, 0x4864, 0x18c8, 0x1866, 0x2065, 0x1863, 0x1064, 0x1068, 0x1043, 0xf81f, 0x2004 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// PYRE / Pyre Auraflow V0.3 000 S1853076010 Th0.100 [Folder: PYRE] (sprite index: 170, byte offset: 703150, size: 6306)
+// PYRE / Pyre Auraflow V0.3 000 S1853076010 Th0.100 Battler [Folder: PYRE] (sprite index: 170, byte offset: 703150, size: 6306)
 { .idx = 703150, .palette = { 0xff6a, 0xfe66, 0xf524, 0xf383, 0xd2a3, 0xc9c2, 0xb941, 0x9142, 0x6903, 0x38c3, 0x4881, 0xf81f, 0x2082, 0x1062, 0x1042, 0x0842 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// QUICKSAND / Quicksand Auraflow V0.3 000 S3845623531 Th0.100 [Folder: QUICKSAND] (sprite index: 171, byte offset: 709456, size: 3820)
+// QUICKSAND / Quicksand Auraflow V0.3 000 S3845623531 Th0.100 Battler [Folder: QUICKSAND] (sprite index: 171, byte offset: 709456, size: 3820)
 { .idx = 709456, .palette = { 0xf6a8, 0xeda5, 0xece4, 0xd484, 0xcbe3, 0xc322, 0x9b04, 0x8a42, 0x79a1, 0x5162, 0x3102, 0x18c2, 0x1082, 0x0841, 0xf81f, 0x1000 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// RAISE MINION / Raise Minion Auraflow V0.3 000 S629100825 Th0.100 [Folder: RAISE_MINION] (sprite index: 172, byte offset: 713276, size: 4622)
+// RAISE MINION / Raise Minion Auraflow V0.3 000 S629100825 Th0.100 Battler [Folder: RAISE_MINION] (sprite index: 172, byte offset: 713276, size: 4622)
 { .idx = 713276, .palette = { 0xeede, 0xdd7c, 0xc41a, 0x9a97, 0x8976, 0x592f, 0x390a, 0x30c9, 0x508e, 0x2889, 0x2086, 0x1084, 0x1063, 0x1043, 0xf81f, 0x2809 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// RALLY / Rally Auraflow V0.3 000 S926983945 Th0.100 [Folder: RALLY] (sprite index: 173, byte offset: 717898, size: 5384)
+// RALLY / Rally Auraflow V0.3 000 S926983945 Th0.100 Battler [Folder: RALLY] (sprite index: 173, byte offset: 717898, size: 5384)
 { .idx = 717898, .palette = { 0xf67d, 0xe419, 0xcab7, 0x8254, 0xa153, 0x694f, 0x412f, 0x38e8, 0x586c, 0x3068, 0x2066, 0x1045, 0x1024, 0x0821, 0xf81f, 0x1003 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// REALITY SLIP / Reality Slip Auraflow V0.3 000 S1640047216 Th0.100 [Folder: REALITY_SLIP] (sprite index: 174, byte offset: 723282, size: 2818)
+// REALITY SLIP / Reality Slip Auraflow V0.3 000 S1640047216 Th0.100 Battler [Folder: REALITY_SLIP] (sprite index: 174, byte offset: 723282, size: 2818)
 { .idx = 723282, .palette = { 0xf81f, 0x4b76, 0x39f1, 0x414e, 0x114b, 0x38ec, 0x18c8, 0x08e8, 0x08c5, 0x406b, 0x280a, 0x1867, 0x1085, 0x1065, 0x0886, 0x0864 }, .emptyIndexes = { 0x34, 0x9f, 0x9f, 0xc3, 0xe1, 0x78, 0x00 } },
-// RIGHTEOUS FURY / Righteous Fury Auraflow V0.3 000 S479884941 Th0.100 [Folder: RIGHTEOUS_FURY] (sprite index: 175, byte offset: 726100, size: 3762)
+// RIGHTEOUS FURY / Righteous Fury Auraflow V0.3 000 S479884941 Th0.100 Battler [Folder: RIGHTEOUS_FURY] (sprite index: 175, byte offset: 726100, size: 3762)
 { .idx = 726100, .palette = { 0xff4c, 0xf4ea, 0xeaac, 0xb22e, 0xc10b, 0x80ca, 0x6848, 0x50ca, 0x20a9, 0x2845, 0x1045, 0x0024, 0x0023, 0x0003, 0xf81f, 0x3006 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// RIPTIDE / Riptide Auraflow V0.3 000 S1667913440 Th0.100 [Folder: RIPTIDE] (sprite index: 176, byte offset: 729862, size: 4916)
+// RIPTIDE / Riptide Auraflow V0.3 000 S1667913440 Th0.100 Battler [Folder: RIPTIDE] (sprite index: 176, byte offset: 729862, size: 4916)
 { .idx = 729862, .palette = { 0xa79f, 0x6e9e, 0x463e, 0x357d, 0x3c7c, 0x1c5d, 0x2b39, 0x133a, 0x2235, 0x1215, 0x1153, 0x112d, 0x08ce, 0x088c, 0x0888, 0xf81f }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// RIP AND TEAR / Rip And Tear Auraflow V0.3 000 S1008820787 Th0.100 [Folder: RIP_AND_TEAR] (sprite index: 177, byte offset: 734778, size: 6716)
+// RIP AND TEAR / Rip And Tear Auraflow V0.3 000 S1008820787 Th0.100 Battler [Folder: RIP_AND_TEAR] (sprite index: 177, byte offset: 734778, size: 6716)
 { .idx = 734778, .palette = { 0xef7e, 0xc61b, 0x9bf7, 0x5ad1, 0x5971, 0x392d, 0x20ca, 0x206a, 0x1046, 0x0844, 0x0043, 0x0023, 0x0022, 0xf81f, 0x0804, 0x0001 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// ROCK THROW / Rock Throw Auraflow V0.3 000 S3544623023 Th0.100 [Folder: ROCK_THROW] (sprite index: 178, byte offset: 741494, size: 4083)
+// ROCK THROW / Rock Throw Auraflow V0.3 000 S3544623023 Th0.100 Battler [Folder: ROCK_THROW] (sprite index: 178, byte offset: 741494, size: 4083)
 { .idx = 741494, .palette = { 0xc61b, 0x7352, 0x61ef, 0x29cb, 0x2128, 0x610e, 0x2929, 0x18e7, 0x688e, 0x2888, 0x1886, 0x10a5, 0x1065, 0x1044, 0xf81f, 0x500a }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// ROOT ANCHOR / Root Anchor Auraflow V0.3 000 S890713818 Th0.100 [Folder: ROOT_ANCHOR] (sprite index: 179, byte offset: 745577, size: 5179)
+// ROOT ANCHOR / Root Anchor Auraflow V0.3 000 S890713818 Th0.100 Battler [Folder: ROOT_ANCHOR] (sprite index: 179, byte offset: 745577, size: 5179)
 { .idx = 745577, .palette = { 0xaf9c, 0x34b0, 0x1acb, 0x19c8, 0x09a7, 0x1126, 0x0925, 0x08c5, 0x00c4, 0x0883, 0x0083, 0x0043, 0x0042, 0x0022, 0xf81f, 0x0001 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// RUNIC AEGIS / Runic Aegis Auraflow V0.3 000 S2203984121 Th0.100 [Folder: RUNIC_AEGIS] (sprite index: 180, byte offset: 750756, size: 4531)
+// RUNIC AEGIS / Runic Aegis Auraflow V0.3 000 S2203984121 Th0.100 Battler [Folder: RUNIC_AEGIS] (sprite index: 180, byte offset: 750756, size: 4531)
 { .idx = 750756, .palette = { 0xbdde, 0x9c1d, 0x9b1d, 0x5af8, 0x8a3b, 0x5a17, 0x3a11, 0x216d, 0x6159, 0x3953, 0x20ec, 0x1108, 0x10c6, 0x10a5, 0xf81f, 0x200c }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// SACRED SHIELD / Sacred Shield Auraflow V0.3 000 S3179019098 Th0.100 [Folder: SACRED_SHIELD] (sprite index: 181, byte offset: 755287, size: 3522)
+// SACRED SHIELD / Sacred Shield Auraflow V0.3 000 S3179019098 Th0.100 Battler [Folder: SACRED_SHIELD] (sprite index: 181, byte offset: 755287, size: 3522)
 { .idx = 755287, .palette = { 0xdd05, 0x9aa3, 0x81c1, 0x51a3, 0x6941, 0x4941, 0x4122, 0x3122, 0x48e1, 0x38e1, 0x30e1, 0x30c1, 0x28e1, 0x20c2, 0x18a1, 0xf81f }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// SACRIFICE / Sacrifice Auraflow V0.3 000 S333147100 Th0.100 [Folder: SACRIFICE] (sprite index: 182, byte offset: 758809, size: 5123)
+// SACRIFICE / Sacrifice Auraflow V0.3 000 S333147100 Th0.100 Battler [Folder: SACRIFICE] (sprite index: 182, byte offset: 758809, size: 5123)
 { .idx = 758809, .palette = { 0xd776, 0x3b88, 0x1143, 0x08a1, 0x0040, 0x0020, 0x0020, 0x0020, 0x0020, 0x0020, 0x0020, 0x0020, 0x0020, 0x0020, 0xf81f, 0x0000 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// SANITY BREAK / Sanity Break Auraflow V0.3 000 S40301604 Th0.100 [Folder: SANITY_BREAK] (sprite index: 183, byte offset: 763932, size: 3788)
+// SANITY BREAK / Sanity Break Auraflow V0.3 000 S40301604 Th0.100 Battler [Folder: SANITY_BREAK] (sprite index: 183, byte offset: 763932, size: 3788)
 { .idx = 763932, .palette = { 0xc4d3, 0xa312, 0x9a0e, 0x51ef, 0x78e9, 0x48e9, 0x28e9, 0x20a7, 0x6046, 0x3845, 0x2045, 0x1865, 0x1044, 0x1023, 0xf81f, 0x2803 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// SAVAGE MAUL / Savage Maul Auraflow V0.3 000 S954777060 Th0.100 [Folder: SAVAGE_MAUL] (sprite index: 184, byte offset: 767720, size: 3885)
+// SAVAGE MAUL / Savage Maul Auraflow V0.3 000 S954777060 Th0.100 Battler [Folder: SAVAGE_MAUL] (sprite index: 184, byte offset: 767720, size: 3885)
 { .idx = 767720, .palette = { 0xcd11, 0x92ef, 0x822a, 0x49ec, 0x5926, 0x3906, 0x2906, 0x18e7, 0x38a3, 0x28a4, 0x20a4, 0x2083, 0x18a5, 0x1883, 0x1063, 0xf81f }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// SCALES HARDEN / Scales Harden Auraflow V0.3 000 S3804508430 Th0.100 [Folder: SCALES_HARDEN] (sprite index: 185, byte offset: 771605, size: 3481)
+// SCALES HARDEN / Scales Harden Auraflow V0.3 000 S3804508430 Th0.100 Battler [Folder: SCALES_HARDEN] (sprite index: 185, byte offset: 771605, size: 3481)
 { .idx = 771605, .palette = { 0xad0f, 0x9b49, 0x9226, 0x4209, 0x6924, 0x4125, 0x2106, 0x18a4, 0x4882, 0x2062, 0x0884, 0x1842, 0x0863, 0x0821, 0xf81f, 0x1800 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// SCALE STORM / Scale Storm Auraflow V0.3 000 S4111623187 Th0.100 [Folder: SCALE_STORM] (sprite index: 186, byte offset: 775086, size: 4783)
+// SCALE STORM / Scale Storm Auraflow V0.3 000 S4111623187 Th0.100 Battler [Folder: SCALE_STORM] (sprite index: 186, byte offset: 775086, size: 4783)
 { .idx = 775086, .palette = { 0x8efb, 0x65d7, 0x4c93, 0x3411, 0x332e, 0x22ed, 0x224a, 0x1a2a, 0x19a8, 0x1187, 0x1947, 0x1126, 0x1105, 0x1105, 0x10c4, 0xf81f }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// SCORCH / Scorch Auraflow V0.3 000 S759282369 Th0.100 [Folder: SCORCH] (sprite index: 187, byte offset: 779869, size: 5596)
+// SCORCH / Scorch Auraflow V0.3 000 S759282369 Th0.100 Battler [Folder: SCORCH] (sprite index: 187, byte offset: 779869, size: 5596)
 { .idx = 779869, .palette = { 0xff9d, 0xff2f, 0xf68e, 0xf5ca, 0xf4a6, 0xdb26, 0xda04, 0xc102, 0x71aa, 0x8042, 0x494a, 0x48a5, 0x3843, 0xf81f, 0x2043, 0x1024 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// SCRATCH / Scratch Auraflow V0.3 000 S2779961305 Th0.100 [Folder: SCRATCH] (sprite index: 188, byte offset: 785465, size: 3183)
+// SCRATCH / Scratch Auraflow V0.3 000 S2779961305 Th0.100 Battler [Folder: SCRATCH] (sprite index: 188, byte offset: 785465, size: 3183)
 { .idx = 785465, .palette = { 0xf81f, 0x71d0, 0x492c, 0x50ec, 0x50aa, 0x28a7, 0x28e8, 0x18a6, 0x1885, 0x4047, 0x3005, 0x2045, 0x1065, 0x1044, 0x0843, 0x0823 }, .emptyIndexes = { 0x3e, 0x9f, 0x8f, 0xc7, 0xe3, 0x78, 0x00 } },
-// SECOND WIND / Second Wind Auraflow V0.3 000 S2691127866 Th0.100 [Folder: SECOND_WIND] (sprite index: 189, byte offset: 788648, size: 3831)
+// SECOND WIND / Second Wind Auraflow V0.3 000 S2691127866 Th0.100 Battler [Folder: SECOND_WIND] (sprite index: 189, byte offset: 788648, size: 3831)
 { .idx = 788648, .palette = { 0xd5fb, 0x93b5, 0x8271, 0x520f, 0x494c, 0x394c, 0x712d, 0x30ea, 0x5868, 0x3867, 0x2868, 0x2087, 0x1846, 0x1024, 0xf81f, 0x1804 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// SEED VOLLEY / Seed Volley Auraflow V0.3 000 S1742791252 Th0.100 [Folder: SEED_VOLLEY] (sprite index: 190, byte offset: 792479, size: 1282)
+// SEED VOLLEY / Seed Volley Auraflow V0.3 000 S1742791252 Th0.100 Battler [Folder: SEED_VOLLEY] (sprite index: 190, byte offset: 792479, size: 1282)
 { .idx = 792479, .palette = { 0xf81f, 0xb23a, 0x78f5, 0x6092, 0x304b, 0x382d, 0x280b, 0x2067, 0x1846, 0x2028, 0x1827, 0x1044, 0x1025, 0x1023, 0x1825, 0x1005 }, .emptyIndexes = { 0x00, 0x00, 0x82, 0xc3, 0xf1, 0x70, 0x00 } },
-// SEISMIC SLAM / Seismic Slam Auraflow V0.3 000 S1727200871 Th0.100 [Folder: SEISMIC_SLAM] (sprite index: 191, byte offset: 793761, size: 5154)
+// SEISMIC SLAM / Seismic Slam Auraflow V0.3 000 S1727200871 Th0.100 Battler [Folder: SEISMIC_SLAM] (sprite index: 191, byte offset: 793761, size: 5154)
 { .idx = 793761, .palette = { 0xe58a, 0xabc7, 0x7223, 0x4143, 0x2881, 0x1861, 0x0841, 0x0820, 0x1020, 0x0820, 0x0020, 0x0020, 0x0020, 0x0000, 0xf81f, 0x0800 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// SERAPHIC WARD / Seraphic Ward Auraflow V0.3 000 S553642966 Th0.100 [Folder: SERAPHIC_WARD] (sprite index: 192, byte offset: 798915, size: 2843)
+// SERAPHIC WARD / Seraphic Ward Auraflow V0.3 000 S553642966 Th0.100 Battler [Folder: SERAPHIC_WARD] (sprite index: 192, byte offset: 798915, size: 2843)
 { .idx = 798915, .palette = { 0xecbe, 0xca7c, 0xc17a, 0xa8f8, 0x7157, 0x78f6, 0x48d3, 0x9896, 0x6893, 0x48b2, 0x4871, 0x3090, 0x306f, 0x206c, 0xf81f, 0x5812 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// SHELLBREAKER / Shellbreaker Auraflow V0.3 000 S284196449 Th0.100 [Folder: SHELLBREAKER] (sprite index: 193, byte offset: 801758, size: 4192)
+// SHELLBREAKER / Shellbreaker Auraflow V0.3 000 S284196449 Th0.100 Battler [Folder: SHELLBREAKER] (sprite index: 193, byte offset: 801758, size: 4192)
 { .idx = 801758, .palette = { 0xc55a, 0x82b5, 0x81d5, 0x49b0, 0x6912, 0x38ee, 0x28ec, 0x20c7, 0x408c, 0x2088, 0x1868, 0x1865, 0x1045, 0x0843, 0xf81f, 0x1808 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// SHIELD BASH / Shield Bash Auraflow V0.3 000 S1635615281 Th0.100 [Folder: SHIELD_BASH] (sprite index: 194, byte offset: 805950, size: 4040)
+// SHIELD BASH / Shield Bash Auraflow V0.3 000 S1635615281 Th0.100 Battler [Folder: SHIELD_BASH] (sprite index: 194, byte offset: 805950, size: 4040)
 { .idx = 805950, .palette = { 0xbd33, 0x7aef, 0x79ec, 0x31ed, 0x692a, 0x410a, 0x2109, 0x608b, 0x3087, 0x2087, 0x2045, 0x1886, 0x1864, 0x1024, 0xf81f, 0x1802 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// SKY DIVE / Sky Dive Auraflow V0.3 000 S2725819645 Th0.100 [Folder: SKY_DIVE] (sprite index: 195, byte offset: 809990, size: 399)
+// SKY DIVE / Sky Dive Auraflow V0.3 000 S2725819645 Th0.100 Battler [Folder: SKY_DIVE] (sprite index: 195, byte offset: 809990, size: 399)
 { .idx = 809990, .palette = { 0xf81f, 0x7a0e, 0x290a, 0x28a7, 0x1086, 0x1866, 0x1065, 0x1065, 0x1064, 0x1845, 0x1044, 0x1044, 0x0844, 0x0843, 0x0824, 0x0823 }, .emptyIndexes = { 0x00, 0x00, 0x00, 0xc3, 0x41, 0x00, 0x00 } },
-// SLASH / Slash Auraflow V0.3 000 S646916566 Th0.100 [Folder: SLASH] (sprite index: 196, byte offset: 810389, size: 4322)
+// SLASH / Slash Auraflow V0.3 000 S646916566 Th0.100 Battler [Folder: SLASH] (sprite index: 196, byte offset: 810389, size: 4322)
 { .idx = 810389, .palette = { 0xd6de, 0x8bdc, 0x91fa, 0x41b5, 0x70f7, 0x38ef, 0x28cd, 0x20a7, 0x4870, 0x206a, 0x1867, 0x1065, 0x1025, 0x0822, 0xf81f, 0x280a }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// SLEEP OF AGES / Sleep Of Ages Auraflow V0.3 000 S1499359890 Th0.100 [Folder: SLEEP_OF_AGES] (sprite index: 197, byte offset: 814711, size: 7197)
+// SLEEP OF AGES / Sleep Of Ages Auraflow V0.3 000 S1499359890 Th0.100 Battler [Folder: SLEEP_OF_AGES] (sprite index: 197, byte offset: 814711, size: 7197)
 { .idx = 814711, .palette = { 0x6617, 0x4451, 0x5b0b, 0x130f, 0x49c7, 0x48e3, 0x09c9, 0x20c3, 0x18a3, 0x08e4, 0x0862, 0xf81f, 0x1021, 0x0821, 0x0021, 0x0000 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// SNOW BLIND / Snow Blind Auraflow V0.3 000 S1258227996 Th0.100 [Folder: SNOW_BLIND] (sprite index: 198, byte offset: 821908, size: 2187)
+// SNOW BLIND / Snow Blind Auraflow V0.3 000 S1258227996 Th0.100 Battler [Folder: SNOW_BLIND] (sprite index: 198, byte offset: 821908, size: 2187)
 { .idx = 821908, .palette = { 0xddbe, 0xbc5e, 0xab3d, 0x8abb, 0x89bb, 0x697a, 0x5137, 0x48b5, 0x60b9, 0x5097, 0x4074, 0x3093, 0x3052, 0x286c, 0xf81f, 0x3815 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// SOUL SIPHON / Soul Siphon Auraflow V0.3 000 S1229577160 Th0.100 [Folder: SOUL_SIPHON] (sprite index: 199, byte offset: 824095, size: 4534)
+// SOUL SIPHON / Soul Siphon Auraflow V0.3 000 S1229577160 Th0.100 Battler [Folder: SOUL_SIPHON] (sprite index: 199, byte offset: 824095, size: 4534)
 { .idx = 824095, .palette = { 0xf81f, 0x81f8, 0x58f4, 0x60b4, 0x6074, 0x3870, 0x20ad, 0x186d, 0x1068, 0x184b, 0x7036, 0x4831, 0x4811, 0x282e, 0x1029, 0x0826 }, .emptyIndexes = { 0x3e, 0x9f, 0xef, 0xe7, 0xf3, 0xff, 0x01 } },
-// SPORE EXPLOSION / Spore Explosion Auraflow V0.3 000 S3970370996 Th0.100 [Folder: SPORE_EXPLOSION] (sprite index: 200, byte offset: 828629, size: 3788)
+// SPORE EXPLOSION / Spore Explosion Auraflow V0.3 000 S3970370996 Th0.100 Battler [Folder: SPORE_EXPLOSION] (sprite index: 200, byte offset: 828629, size: 3788)
 { .idx = 828629, .palette = { 0xffa8, 0xfea6, 0xf5a5, 0xf4e5, 0xf405, 0xf345, 0xea65, 0xe985, 0xd166, 0xd8a4, 0xb885, 0x98c7, 0x9844, 0x6066, 0xf81f, 0x8802 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// STALK / Stalk Auraflow V0.3 000 S1083748606 Th0.100 [Folder: STALK] (sprite index: 201, byte offset: 832417, size: 4691)
+// STALK / Stalk Auraflow V0.3 000 S1083748606 Th0.100 Battler [Folder: STALK] (sprite index: 201, byte offset: 832417, size: 4691)
 { .idx = 832417, .palette = { 0xee74, 0x8d32, 0x9b29, 0x89c6, 0x42ec, 0x49a6, 0x2987, 0x48e4, 0x28e4, 0x28e4, 0x20c4, 0x20e4, 0x18e5, 0x20a4, 0xf81f, 0x1800 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// STAR SPRINKLE / Star Sprinkle Auraflow V0.3 000 S205391898 Th0.100 [Folder: STAR_SPRINKLE] (sprite index: 202, byte offset: 837108, size: 2663)
+// STAR SPRINKLE / Star Sprinkle Auraflow V0.3 000 S205391898 Th0.100 Battler [Folder: STAR_SPRINKLE] (sprite index: 202, byte offset: 837108, size: 2663)
 { .idx = 837108, .palette = { 0x8d9d, 0x639a, 0x6a76, 0x3a36, 0x5171, 0x2174, 0x394f, 0x290b, 0x4891, 0x288c, 0x208e, 0x20a7, 0x188b, 0x1065, 0xf81f, 0x280e }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// STING / Sting Auraflow V0.3 000 S3419369391 Th0.100 [Folder: STING] (sprite index: 203, byte offset: 839771, size: 4303)
+// STING / Sting Auraflow V0.3 000 S3419369391 Th0.100 Battler [Folder: STING] (sprite index: 203, byte offset: 839771, size: 4303)
 { .idx = 839771, .palette = { 0xf81f, 0x99b2, 0x60eb, 0x48c8, 0x608a, 0x684b, 0x5809, 0x3086, 0x2085, 0x3046, 0x2064, 0x1884, 0x1863, 0x2044, 0x1043, 0x1063 }, .emptyIndexes = { 0x1c, 0xcf, 0xc7, 0xef, 0xf7, 0x7b, 0x00 } },
-// STOMP / Stomp Auraflow V0.3 000 S2812934167 Th0.100 [Folder: STOMP] (sprite index: 204, byte offset: 844074, size: 3783)
+// STOMP / Stomp Auraflow V0.3 000 S2812934167 Th0.100 Battler [Folder: STOMP] (sprite index: 204, byte offset: 844074, size: 3783)
 { .idx = 844074, .palette = { 0xd77c, 0xbd90, 0x5e17, 0x4cb3, 0x23b3, 0xab4b, 0x534e, 0x1aae, 0x8169, 0x4149, 0x2128, 0x098a, 0x08a4, 0x0842, 0xf81f, 0x0801 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// STONE SKIN / Stone Skin Auraflow V0.3 000 S2940267875 Th0.100 [Folder: STONE_SKIN] (sprite index: 205, byte offset: 847857, size: 4063)
+// STONE SKIN / Stone Skin Auraflow V0.3 000 S2940267875 Th0.100 Battler [Folder: STONE_SKIN] (sprite index: 205, byte offset: 847857, size: 4063)
 { .idx = 847857, .palette = { 0xb551, 0x630a, 0x2104, 0x10c3, 0x1082, 0x0882, 0x0882, 0x0862, 0x0862, 0x0862, 0x0842, 0x0042, 0x0042, 0x0021, 0xf81f, 0x0000 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// STONE SPIKE / Stone Spike Auraflow V0.3 000 S769015735 Th0.100 [Folder: STONE_SPIKE] (sprite index: 206, byte offset: 851920, size: 3992)
+// STONE SPIKE / Stone Spike Auraflow V0.3 000 S769015735 Th0.100 Battler [Folder: STONE_SPIKE] (sprite index: 206, byte offset: 851920, size: 3992)
 { .idx = 851920, .palette = { 0x8513, 0x42eb, 0x3228, 0x21e7, 0x2186, 0x1945, 0x1145, 0x1904, 0x1104, 0x1104, 0x1104, 0x10e3, 0x10e3, 0x08c3, 0xf81f, 0x0000 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// STONE TIDE / Stone Tide Auraflow V0.3 000 S1355065487 Th0.100 [Folder: STONE_TIDE] (sprite index: 207, byte offset: 855912, size: 5750)
+// STONE TIDE / Stone Tide Auraflow V0.3 000 S1355065487 Th0.100 Battler [Folder: STONE_TIDE] (sprite index: 207, byte offset: 855912, size: 5750)
 { .idx = 855912, .palette = { 0xbdf8, 0x8473, 0x7390, 0x4b71, 0x5aad, 0x3a8d, 0x2a2d, 0x29ab, 0x2949, 0x196a, 0x1908, 0x1108, 0x08c7, 0x0865, 0xf81f, 0x0002 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// SULTRY LOOK / Sultry Look Auraflow V0.3 000 S3684724720 Th0.100 [Folder: SULTRY_LOOK] (sprite index: 208, byte offset: 861662, size: 3067)
+// SULTRY LOOK / Sultry Look Auraflow V0.3 000 S3684724720 Th0.100 Battler [Folder: SULTRY_LOOK] (sprite index: 208, byte offset: 861662, size: 3067)
 { .idx = 861662, .palette = { 0xf81f, 0x3a53, 0x30ca, 0x4068, 0x4846, 0x1066, 0x1045, 0x2025, 0x0824, 0x4025, 0x2024, 0x1804, 0x1003, 0x0004, 0x0003, 0x0002 }, .emptyIndexes = { 0x0c, 0x8f, 0xc7, 0xe3, 0xf1, 0x78, 0x00 } },
-// SUNFURY / Sunfury Auraflow V0.3 000 S2673317511 Th0.100 [Folder: SUNFURY] (sprite index: 209, byte offset: 864729, size: 2843)
+// SUNFURY / Sunfury Auraflow V0.3 000 S2673317511 Th0.100 Battler [Folder: SUNFURY] (sprite index: 209, byte offset: 864729, size: 2843)
 { .idx = 864729, .palette = { 0xff4c, 0xed43, 0xc323, 0xa9a1, 0x7982, 0x5162, 0x38e1, 0x5080, 0x3081, 0x2081, 0x2040, 0x1061, 0x0841, 0x0841, 0xf81f, 0x4800 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// SURGE / Surge Auraflow V0.3 000 S1987179271 Th0.100 [Folder: SURGE] (sprite index: 210, byte offset: 867572, size: 5114)
+// SURGE / Surge Auraflow V0.3 000 S1987179271 Th0.100 Battler [Folder: SURGE] (sprite index: 210, byte offset: 867572, size: 5114)
 { .idx = 867572, .palette = { 0xd73e, 0xae1d, 0x8cbb, 0x6bda, 0x62b8, 0x4a36, 0x4974, 0x3152, 0x40b3, 0x30b0, 0x208e, 0x186c, 0x184a, 0x1029, 0xf81f, 0x180d }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// TACKLE / Tackle Auraflow V0.3 000 S1365110091 Th0.100 [Folder: TACKLE] (sprite index: 211, byte offset: 872686, size: 4156)
+// TACKLE / Tackle Auraflow V0.3 000 S1365110091 Th0.100 Battler [Folder: TACKLE] (sprite index: 211, byte offset: 872686, size: 4156)
 { .idx = 872686, .palette = { 0x7453, 0x526d, 0x5168, 0x116a, 0x30c5, 0x1084, 0x00a6, 0x0064, 0x1042, 0x0822, 0x0023, 0x0022, 0x0023, 0x0002, 0xf81f, 0x1002 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// TACTICAL RETREAT / Tactical Retreat Auraflow V0.3 000 S1581698059 Th0.100 [Folder: TACTICAL_RETREAT] (sprite index: 212, byte offset: 876842, size: 3555)
+// TACTICAL RETREAT / Tactical Retreat Auraflow V0.3 000 S1581698059 Th0.100 Battler [Folder: TACTICAL_RETREAT] (sprite index: 212, byte offset: 876842, size: 3555)
 { .idx = 876842, .palette = { 0xcd9e, 0x935b, 0x71f8, 0x49b3, 0x38cf, 0x50d4, 0x20ac, 0x186a, 0x302e, 0x1829, 0x1028, 0x1027, 0x0826, 0x0805, 0xf81f, 0x1808 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// TAIL SWEEP / Tail Sweep Auraflow V0.3 000 S1857041651 Th0.100 [Folder: TAIL_SWEEP] (sprite index: 213, byte offset: 880397, size: 5016)
+// TAIL SWEEP / Tail Sweep Auraflow V0.3 000 S1857041651 Th0.100 Battler [Folder: TAIL_SWEEP] (sprite index: 213, byte offset: 880397, size: 5016)
 { .idx = 880397, .palette = { 0xffdf, 0xeefe, 0xbd1c, 0x935a, 0x81f9, 0x59b4, 0x4190, 0x390e, 0x48b1, 0x30ae, 0x208b, 0x1888, 0x1847, 0x1026, 0xf81f, 0x180a }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// TAIL WHIP / Tail Whip Auraflow V0.3 000 S3932498659 Th0.100 [Folder: TAIL_WHIP] (sprite index: 214, byte offset: 885413, size: 5331)
+// TAIL WHIP / Tail Whip Auraflow V0.3 000 S3932498659 Th0.100 Battler [Folder: TAIL_WHIP] (sprite index: 214, byte offset: 885413, size: 5331)
 { .idx = 885413, .palette = { 0xeede, 0xd59c, 0xbc3c, 0x9b99, 0x8a99, 0x79f7, 0x61d4, 0x5952, 0x50f2, 0x40cf, 0x38ad, 0x286b, 0x2067, 0x1827, 0xf81f, 0x1006 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// TAUNT / Taunt Auraflow V0.3 000 S1523896043 Th0.100 [Folder: TAUNT] (sprite index: 215, byte offset: 890744, size: 4154)
+// TAUNT / Taunt Auraflow V0.3 000 S1523896043 Th0.100 Battler [Folder: TAUNT] (sprite index: 215, byte offset: 890744, size: 4154)
 { .idx = 890744, .palette = { 0xe67d, 0xabf9, 0x79f5, 0x5170, 0x58f1, 0x40ce, 0x30cb, 0x3069, 0x6052, 0x406e, 0x306c, 0x286a, 0x2068, 0x1846, 0xf81f, 0x2008 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// TEMPORAL SHIFT / Temporal Shift Auraflow V0.3 000 S1361048340 Th0.100 [Folder: TEMPORAL_SHIFT] (sprite index: 216, byte offset: 894898, size: 2737)
+// TEMPORAL SHIFT / Temporal Shift Auraflow V0.3 000 S1361048340 Th0.100 Battler [Folder: TEMPORAL_SHIFT] (sprite index: 216, byte offset: 894898, size: 2737)
 { .idx = 894898, .palette = { 0xd405, 0x89e3, 0x7121, 0x4102, 0x50e1, 0x38c2, 0x28c2, 0x28a2, 0x28a2, 0x20a2, 0x48a1, 0x38a1, 0x2881, 0x20a2, 0x2081, 0xf81f }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// TEMPTATION / Temptation Auraflow V0.3 000 S190573161 Th0.100 [Folder: TEMPTATION] (sprite index: 217, byte offset: 897635, size: 4857)
+// TEMPTATION / Temptation Auraflow V0.3 000 S190573161 Th0.100 Battler [Folder: TEMPTATION] (sprite index: 217, byte offset: 897635, size: 4857)
 { .idx = 897635, .palette = { 0x9d35, 0x4aaa, 0x1924, 0x0841, 0x0020, 0x0020, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0xf81f, 0x0000 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// TERRAFORM / Terraform Auraflow V0.3 000 S1111256045 Th0.100 [Folder: TERRAFORM] (sprite index: 218, byte offset: 902492, size: 3488)
+// TERRAFORM / Terraform Auraflow V0.3 000 S1111256045 Th0.100 Battler [Folder: TERRAFORM] (sprite index: 218, byte offset: 902492, size: 3488)
 { .idx = 902492, .palette = { 0xd73c, 0x6dd9, 0x4352, 0x1332, 0x29ed, 0x11ac, 0x294a, 0x20e8, 0x10e8, 0x20a7, 0x18a6, 0x1886, 0x1865, 0x1064, 0xf81f, 0x0805 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// TERRIFYING ROAR / Terrifying Roar Auraflow V0.3 000 S54098818 Th0.100 [Folder: TERRIFYING_ROAR] (sprite index: 219, byte offset: 905980, size: 4956)
+// TERRIFYING ROAR / Terrifying Roar Auraflow V0.3 000 S54098818 Th0.100 Battler [Folder: TERRIFYING_ROAR] (sprite index: 219, byte offset: 905980, size: 4956)
 { .idx = 905980, .palette = { 0xef9e, 0x9557, 0x5b2f, 0x2a4d, 0x298a, 0x196a, 0x1149, 0x08e8, 0x18a6, 0x08a6, 0x0886, 0x0086, 0x0045, 0x0024, 0xf81f, 0x1802 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// THORN BARRAGE / Thorn Barrage Auraflow V0.3 000 S2615249731 Th0.100 [Folder: THORN_BARRAGE] (sprite index: 220, byte offset: 910936, size: 6756)
+// THORN BARRAGE / Thorn Barrage Auraflow V0.3 000 S2615249731 Th0.100 Battler [Folder: THORN_BARRAGE] (sprite index: 220, byte offset: 910936, size: 6756)
 { .idx = 910936, .palette = { 0xd63b, 0x9394, 0x8251, 0x5a0f, 0x696e, 0x494c, 0x392b, 0x48aa, 0x30a9, 0x28a8, 0x2867, 0x1886, 0x1865, 0x1045, 0xf81f, 0x1024 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// THOUGHT LEECH / Thought Leech Auraflow V0.3 000 S1652505579 Th0.100 [Folder: THOUGHT_LEECH] (sprite index: 221, byte offset: 917692, size: 4879)
+// THOUGHT LEECH / Thought Leech Auraflow V0.3 000 S1652505579 Th0.100 Battler [Folder: THOUGHT_LEECH] (sprite index: 221, byte offset: 917692, size: 4879)
 { .idx = 917692, .palette = { 0xf81f, 0x81f1, 0x610d, 0x70ac, 0x706b, 0x286a, 0x20ab, 0x186a, 0x482a, 0x3809, 0x1067, 0x1828, 0x1028, 0x0826, 0x0826, 0x0025 }, .emptyIndexes = { 0x38, 0x9e, 0xcf, 0xe7, 0xfb, 0xfd, 0x01 } },
-// THROAT CLAMP / Throat Clamp Auraflow V0.3 000 S494245220 Th0.100 [Folder: THROAT_CLAMP] (sprite index: 222, byte offset: 922571, size: 4598)
+// THROAT CLAMP / Throat Clamp Auraflow V0.3 000 S494245220 Th0.100 Battler [Folder: THROAT_CLAMP] (sprite index: 222, byte offset: 922571, size: 4598)
 { .idx = 922571, .palette = { 0xdede, 0xad1b, 0x8b7a, 0x62d9, 0x61d8, 0x4195, 0x3133, 0x3092, 0x208f, 0x186e, 0x186b, 0x106a, 0x0845, 0x0004, 0xf81f, 0x0004 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// TIDAL WAVE / Tidal Wave Auraflow V0.3 000 S3710566687 Th0.100 [Folder: TIDAL_WAVE] (sprite index: 223, byte offset: 927169, size: 6369)
+// TIDAL WAVE / Tidal Wave Auraflow V0.3 000 S3710566687 Th0.100 Battler [Folder: TIDAL_WAVE] (sprite index: 223, byte offset: 927169, size: 6369)
 { .idx = 927169, .palette = { 0xed5f, 0xbbbe, 0x8adc, 0x89fc, 0x895a, 0x41f8, 0x6138, 0x4935, 0x3134, 0x28f1, 0x18ef, 0xf81f, 0x3891, 0x188c, 0x10ab, 0x1069 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// TIME WARP / Time Warp Auraflow V0.3 000 S472381473 Th0.100 [Folder: TIME_WARP] (sprite index: 224, byte offset: 933538, size: 3214)
+// TIME WARP / Time Warp Auraflow V0.3 000 S472381473 Th0.100 Battler [Folder: TIME_WARP] (sprite index: 224, byte offset: 933538, size: 3214)
 { .idx = 933538, .palette = { 0xc65e, 0x8c5b, 0x9b19, 0x4ad7, 0xa972, 0x5992, 0x29d2, 0x212d, 0x888f, 0x508b, 0x28a9, 0x2085, 0x0865, 0x0842, 0xf81f, 0x600a }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// TITANIC ROAR / Titanic Roar Auraflow V0.3 000 S2172507329 Th0.100 [Folder: TITANIC_ROAR] (sprite index: 225, byte offset: 936752, size: 4557)
+// TITANIC ROAR / Titanic Roar Auraflow V0.3 000 S2172507329 Th0.100 Battler [Folder: TITANIC_ROAR] (sprite index: 225, byte offset: 936752, size: 4557)
 { .idx = 936752, .palette = { 0xe677, 0xbc4f, 0xbaa9, 0x726a, 0x9124, 0x5905, 0x30c5, 0x4842, 0x2042, 0x1022, 0x0821, 0x0000, 0xf81f, 0x1000, 0x0000, 0x0000 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// TITAN SWING / Titan Swing Auraflow V0.3 000 S121939030 Th0.100 [Folder: TITAN_SWING] (sprite index: 226, byte offset: 941309, size: 4231)
+// TITAN SWING / Titan Swing Auraflow V0.3 000 S121939030 Th0.100 Battler [Folder: TITAN_SWING] (sprite index: 226, byte offset: 941309, size: 4231)
 { .idx = 941309, .palette = { 0xffdf, 0xff5f, 0xf67f, 0xf51f, 0xf3df, 0xea5f, 0xba5c, 0x9998, 0xc0db, 0x90b7, 0x68d3, 0x40cf, 0x28ab, 0x2849, 0xf81f, 0x580c }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// TOMB SHIELD / Tomb Shield Auraflow V0.3 000 S1775528418 Th0.100 [Folder: TOMB_SHIELD] (sprite index: 227, byte offset: 945540, size: 4337)
+// TOMB SHIELD / Tomb Shield Auraflow V0.3 000 S1775528418 Th0.100 Battler [Folder: TOMB_SHIELD] (sprite index: 227, byte offset: 945540, size: 4337)
 { .idx = 945540, .palette = { 0xdcf5, 0xaab1, 0xb16e, 0x596c, 0xb0cd, 0x68ca, 0x48ca, 0x38c8, 0xb06a, 0x6867, 0x4067, 0x2867, 0x2826, 0x1825, 0xf81f, 0x4805 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// TORRENT / Torrent Auraflow V0.3 000 S1823579092 Th0.100 [Folder: TORRENT] (sprite index: 228, byte offset: 949877, size: 2499)
+// TORRENT / Torrent Auraflow V0.3 000 S1823579092 Th0.100 Battler [Folder: TORRENT] (sprite index: 228, byte offset: 949877, size: 2499)
 { .idx = 949877, .palette = { 0xf5e7, 0xe3c5, 0xd224, 0x91a5, 0x98e3, 0x78e3, 0x58c4, 0x38a4, 0x7842, 0x4862, 0x3043, 0x2063, 0x1822, 0x1022, 0xf81f, 0x3801 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// TOXIC BARRAGE / Toxic Barrage Auraflow V0.3 000 S2201361715 Th0.100 [Folder: TOXIC_BARRAGE] (sprite index: 229, byte offset: 952376, size: 5238)
+// TOXIC BARRAGE / Toxic Barrage Auraflow V0.3 000 S2201361715 Th0.100 Battler [Folder: TOXIC_BARRAGE] (sprite index: 229, byte offset: 952376, size: 5238)
 { .idx = 952376, .palette = { 0xf81f, 0x8ada, 0x71b6, 0x7933, 0x392f, 0x70d0, 0x38cd, 0x28cb, 0x20a7, 0x586c, 0x2869, 0x2069, 0x2065, 0x1808, 0x1065, 0x1045 }, .emptyIndexes = { 0x7e, 0xff, 0xff, 0xff, 0xfb, 0xf9, 0x00 } },
-// TOXIC CLOUD / Toxic Cloud Auraflow V0.3 000 S457471327 Th0.100 [Folder: TOXIC_CLOUD] (sprite index: 230, byte offset: 957614, size: 3409)
+// TOXIC CLOUD / Toxic Cloud Auraflow V0.3 000 S457471327 Th0.100 Battler [Folder: TOXIC_CLOUD] (sprite index: 230, byte offset: 957614, size: 3409)
 { .idx = 957614, .palette = { 0x56ec, 0x2d47, 0x1c26, 0x1344, 0x1284, 0x0a83, 0x0a03, 0x09c3, 0x0962, 0x0162, 0x0922, 0x0122, 0x00e2, 0x00c2, 0x0081, 0xf81f }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// TREASURE HUNT / Treasure Hunt Auraflow V0.3 000 S4144651567 Th0.100 [Folder: TREASURE_HUNT] (sprite index: 231, byte offset: 961023, size: 6050)
+// TREASURE HUNT / Treasure Hunt Auraflow V0.3 000 S4144651567 Th0.100 Battler [Folder: TREASURE_HUNT] (sprite index: 231, byte offset: 961023, size: 6050)
 { .idx = 961023, .palette = { 0xd618, 0x9412, 0x8aae, 0x5a6f, 0x79ac, 0x518c, 0x398b, 0x312a, 0x48c9, 0x30c8, 0x20a7, 0x18a6, 0x1865, 0x1044, 0x1804, 0xf81f }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// TREMOR STEP / Tremor Step Auraflow V0.3 000 S1215732019 Th0.100 [Folder: TREMOR_STEP] (sprite index: 232, byte offset: 967073, size: 4154)
+// TREMOR STEP / Tremor Step Auraflow V0.3 000 S1215732019 Th0.100 Battler [Folder: TREMOR_STEP] (sprite index: 232, byte offset: 967073, size: 4154)
 { .idx = 967073, .palette = { 0xf73f, 0xdc7d, 0xe1fe, 0xd8dd, 0x71d5, 0x90b6, 0x9856, 0x504f, 0x48af, 0x384d, 0x3029, 0x202a, 0x2027, 0x1825, 0xf81f, 0x280a }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// TREMOR WAVE / Tremor Wave Auraflow V0.3 000 S2125727531 Th0.100 [Folder: TREMOR_WAVE] (sprite index: 233, byte offset: 971227, size: 3668)
+// TREMOR WAVE / Tremor Wave Auraflow V0.3 000 S2125727531 Th0.100 Battler [Folder: TREMOR_WAVE] (sprite index: 233, byte offset: 971227, size: 3668)
 { .idx = 971227, .palette = { 0xd67c, 0x83f5, 0x6a2f, 0x31cc, 0x60e9, 0x28e8, 0x18e8, 0x18a5, 0x4844, 0x1864, 0x1063, 0x1041, 0x1042, 0x1040, 0xf81f, 0x3003 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// TRICKSTER TREAT / Trickster Treat Auraflow V0.3 000 S3734400036 Th0.100 [Folder: TRICKSTER_TREAT] (sprite index: 234, byte offset: 974895, size: 2901)
+// TRICKSTER TREAT / Trickster Treat Auraflow V0.3 000 S3734400036 Th0.100 Battler [Folder: TRICKSTER_TREAT] (sprite index: 234, byte offset: 974895, size: 2901)
 { .idx = 974895, .palette = { 0xf624, 0xe422, 0xdb00, 0xa2a2, 0xa9c0, 0x8980, 0x7160, 0x68e0, 0x5161, 0x50e0, 0x40c0, 0x28a0, 0x2880, 0x1840, 0xf81f, 0x0800 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// TWILIGHT SHIMMER / Twilight Shimmer Auraflow V0.3 000 S2148480824 Th0.100 [Folder: TWILIGHT_SHIMMER] (sprite index: 235, byte offset: 977796, size: 3235)
+// TWILIGHT SHIMMER / Twilight Shimmer Auraflow V0.3 000 S2148480824 Th0.100 Battler [Folder: TWILIGHT_SHIMMER] (sprite index: 235, byte offset: 977796, size: 3235)
 { .idx = 977796, .palette = { 0x8f5f, 0x1dbe, 0x4d7e, 0x1c7e, 0x331d, 0x1b1d, 0x0b7d, 0x0a7c, 0x29ba, 0x1999, 0x09da, 0x0956, 0x20f5, 0x10f2, 0x08af, 0xf81f }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// VAMPIRIC WAVE / Vampiric Wave Auraflow V0.3 000 S1546279941 Th0.100 [Folder: VAMPIRIC_WAVE] (sprite index: 236, byte offset: 981031, size: 4421)
+// VAMPIRIC WAVE / Vampiric Wave Auraflow V0.3 000 S1546279941 Th0.100 Battler [Folder: VAMPIRIC_WAVE] (sprite index: 236, byte offset: 981031, size: 4421)
 { .idx = 981031, .palette = { 0xeefe, 0xb4d9, 0x7a95, 0x41f3, 0x5132, 0x392f, 0x210e, 0x20cb, 0x488e, 0x288c, 0x206a, 0x10ab, 0x106a, 0x1046, 0xf81f, 0x180a }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// VENOMOUS TAIL / Venomous Tail Auraflow V0.3 000 S833479231 Th0.100 [Folder: VENOMOUS_TAIL] (sprite index: 237, byte offset: 985452, size: 4574)
+// VENOMOUS TAIL / Venomous Tail Auraflow V0.3 000 S833479231 Th0.100 Battler [Folder: VENOMOUS_TAIL] (sprite index: 237, byte offset: 985452, size: 4574)
 { .idx = 985452, .palette = { 0xd63a, 0x9bb2, 0x8a6d, 0x5a2d, 0x7969, 0x3969, 0x4949, 0x3107, 0x60a5, 0x38a5, 0x28a5, 0x20a5, 0x1883, 0x1043, 0xf81f, 0x2002 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// VENOM SPIT / Venom Spit Auraflow V0.3 000 S2145277772 Th0.100 [Folder: VENOM_SPIT] (sprite index: 238, byte offset: 990026, size: 6083)
+// VENOM SPIT / Venom Spit Auraflow V0.3 000 S2145277772 Th0.100 Battler [Folder: VENOM_SPIT] (sprite index: 238, byte offset: 990026, size: 6083)
 { .idx = 990026, .palette = { 0xde7d, 0xa41a, 0x8277, 0x5a34, 0x6972, 0x5151, 0x3930, 0x48af, 0x30ae, 0x28af, 0x188c, 0x288b, 0x184b, 0x1048, 0xf81f, 0x1007 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// VERDANT GROWTH / Verdant Growth Auraflow V0.3 000 S1880030373 Th0.100 [Folder: VERDANT_GROWTH] (sprite index: 239, byte offset: 996109, size: 5601)
+// VERDANT GROWTH / Verdant Growth Auraflow V0.3 000 S1880030373 Th0.100 Battler [Folder: VERDANT_GROWTH] (sprite index: 239, byte offset: 996109, size: 5601)
 { .idx = 996109, .palette = { 0xe6dd, 0xb4d9, 0x8ad5, 0x5a31, 0x6151, 0x412e, 0x292c, 0x20ea, 0x488e, 0x308b, 0x2069, 0x1088, 0x1067, 0x0826, 0xf81f, 0x2008 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// VICIOUS BITE / Vicious Bite Auraflow V0.3 000 S2776995386 Th0.100 [Folder: VICIOUS_BITE] (sprite index: 240, byte offset: 1001710, size: 5404)
+// VICIOUS BITE / Vicious Bite Auraflow V0.3 000 S2776995386 Th0.100 Battler [Folder: VICIOUS_BITE] (sprite index: 240, byte offset: 1001710, size: 5404)
 { .idx = 1001710, .palette = { 0xf81f, 0x9335, 0x5990, 0x50cb, 0x3867, 0x28c9, 0x2067, 0x1865, 0x1023, 0x2825, 0x2003, 0x1823, 0x1021, 0x0822, 0x0821, 0x0820 }, .emptyIndexes = { 0x1c, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// VINE WHIP / Vine Whip Auraflow V0.3 000 S2354664172 Th0.100 [Folder: VINE_WHIP] (sprite index: 241, byte offset: 1007114, size: 5205)
+// VINE WHIP / Vine Whip Auraflow V0.3 000 S2354664172 Th0.100 Battler [Folder: VINE_WHIP] (sprite index: 241, byte offset: 1007114, size: 5205)
 { .idx = 1007114, .palette = { 0xde3b, 0x9bb4, 0x8a52, 0x620e, 0x696f, 0x514d, 0x410b, 0x30a9, 0x48ab, 0x38aa, 0x3049, 0x2088, 0x2047, 0x1826, 0xf81f, 0x1806 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// VIRULENT BITE / Virulent Bite Auraflow V0.3 000 S198472495 Th0.100 [Folder: VIRULENT_BITE] (sprite index: 242, byte offset: 1012319, size: 5470)
+// VIRULENT BITE / Virulent Bite Auraflow V0.3 000 S198472495 Th0.100 Battler [Folder: VIRULENT_BITE] (sprite index: 242, byte offset: 1012319, size: 5470)
 { .idx = 1012319, .palette = { 0xd5fd, 0xabda, 0xb278, 0x6a36, 0x8934, 0x6912, 0x606e, 0x50f1, 0x38ce, 0x404c, 0x304c, 0x2848, 0x1827, 0x0803, 0xf81f, 0x1805 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// VOID RIFT / Void Rift Auraflow V0.3 000 S3673783823 Th0.100 [Folder: VOID_RIFT] (sprite index: 243, byte offset: 1017789, size: 3402)
+// VOID RIFT / Void Rift Auraflow V0.3 000 S3673783823 Th0.100 Battler [Folder: VOID_RIFT] (sprite index: 243, byte offset: 1017789, size: 3402)
 { .idx = 1017789, .palette = { 0xb478, 0x69f1, 0x592f, 0x3929, 0x48cc, 0x30c8, 0x20a6, 0x3068, 0x2065, 0x1884, 0x1044, 0x1063, 0x0842, 0x0822, 0xf81f, 0x1003 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// VOLCANIC OUTBURST / Volcanic Outburst Auraflow V0.3 000 S4167308461 Th0.100 [Folder: VOLCANIC_OUTBURST] (sprite index: 244, byte offset: 1021191, size: 3494)
+// VOLCANIC OUTBURST / Volcanic Outburst Auraflow V0.3 000 S4167308461 Th0.100 Battler [Folder: VOLCANIC_OUTBURST] (sprite index: 244, byte offset: 1021191, size: 3494)
 { .idx = 1021191, .palette = { 0xf664, 0xf4c3, 0xe382, 0xdaa2, 0xc9c1, 0xb121, 0x9102, 0x60e2, 0x8880, 0x6881, 0x4881, 0x28a2, 0x2861, 0x1882, 0xf81f, 0x5000 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// WAIL / Wail Auraflow V0.3 000 S3783345994 Th0.100 [Folder: WAIL] (sprite index: 245, byte offset: 1024685, size: 4278)
+// WAIL / Wail Auraflow V0.3 000 S3783345994 Th0.100 Battler [Folder: WAIL] (sprite index: 245, byte offset: 1024685, size: 4278)
 { .idx = 1024685, .palette = { 0xc57b, 0x72b6, 0x61b5, 0x396e, 0x4912, 0x310d, 0x20ea, 0x18a8, 0x388f, 0x208a, 0x1868, 0x1887, 0x1085, 0x1045, 0xf81f, 0x200a }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// WARP PULSE / Warp Pulse Auraflow V0.3 000 S3824324290 Th0.100 [Folder: WARP_PULSE] (sprite index: 246, byte offset: 1028963, size: 3505)
+// WARP PULSE / Warp Pulse Auraflow V0.3 000 S3824324290 Th0.100 Battler [Folder: WARP_PULSE] (sprite index: 246, byte offset: 1028963, size: 3505)
 { .idx = 1028963, .palette = { 0xf6db, 0xe599, 0xdbd4, 0x9334, 0xb9af, 0x896e, 0x592c, 0x296d, 0x888a, 0x5868, 0x3866, 0x2066, 0x1065, 0x1024, 0xf81f, 0x3004 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// WATER WHIP / Water Whip Auraflow V0.3 000 S2951031486 Th0.100 [Folder: WATER_WHIP] (sprite index: 247, byte offset: 1032468, size: 4860)
+// WATER WHIP / Water Whip Auraflow V0.3 000 S2951031486 Th0.100 Battler [Folder: WATER_WHIP] (sprite index: 247, byte offset: 1032468, size: 4860)
 { .idx = 1032468, .palette = { 0xf7df, 0xd7bf, 0xbf5e, 0x9e7d, 0x66de, 0x5dfe, 0x4d1d, 0x443c, 0x23da, 0x4359, 0x22f8, 0x3213, 0x1a15, 0x192e, 0xf81f, 0x200e }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// WILDFIRE / Wildfire Auraflow V0.3 000 S2404192688 Th0.100 [Folder: WILDFIRE] (sprite index: 248, byte offset: 1037328, size: 4026)
+// WILDFIRE / Wildfire Auraflow V0.3 000 S2404192688 Th0.100 Battler [Folder: WILDFIRE] (sprite index: 248, byte offset: 1037328, size: 4026)
 { .idx = 1037328, .palette = { 0xf74c, 0xee4d, 0xf503, 0xd50d, 0xe383, 0xda01, 0x6a26, 0x20e3, 0xa0c1, 0x68a1, 0x40c2, 0x4061, 0x2082, 0x2061, 0xf81f, 0x5000 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// WILD MAGIC / Wild Magic Auraflow V0.3 000 S3245108821 Th0.100 [Folder: WILD_MAGIC] (sprite index: 249, byte offset: 1041354, size: 3359)
+// WILD MAGIC / Wild Magic Auraflow V0.3 000 S3245108821 Th0.100 Battler [Folder: WILD_MAGIC] (sprite index: 249, byte offset: 1041354, size: 3359)
 { .idx = 1041354, .palette = { 0xff4b, 0xf5ea, 0xe3a8, 0xb988, 0x90a7, 0x4887, 0x2886, 0x1866, 0x6845, 0x3846, 0x2845, 0x1845, 0x1844, 0x0844, 0xf81f, 0x4004 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// WING BUFFET / Wing Buffet Auraflow V0.3 000 S2581863666 Th0.100 [Folder: WING_BUFFET] (sprite index: 250, byte offset: 1044713, size: 4415)
+// WING BUFFET / Wing Buffet Auraflow V0.3 000 S2581863666 Th0.100 Battler [Folder: WING_BUFFET] (sprite index: 250, byte offset: 1044713, size: 4415)
 { .idx = 1044713, .palette = { 0xef9f, 0xc6fd, 0xad9a, 0x755b, 0x83b7, 0x5397, 0x7275, 0x4a52, 0x59b1, 0x418e, 0x314c, 0x412d, 0x30ea, 0x40ec, 0x28a8, 0xf81f }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// WITHER / Wither Auraflow V0.3 000 S3586815296 Th0.100 [Folder: WITHER] (sprite index: 251, byte offset: 1049128, size: 3350)
+// WITHER / Wither Auraflow V0.3 000 S3586815296 Th0.100 Battler [Folder: WITHER] (sprite index: 251, byte offset: 1049128, size: 3350)
 { .idx = 1049128, .palette = { 0xf7bf, 0xeebe, 0x9e3c, 0x94da, 0x9359, 0x79f8, 0x29f0, 0x28cc, 0x58b5, 0x30b0, 0x286c, 0x1888, 0x18c9, 0x1847, 0xf81f, 0x3011 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// WORLD TEAR / World Tear Auraflow V0.3 000 S1336741299 Th0.100 [Folder: WORLD_TEAR] (sprite index: 252, byte offset: 1052478, size: 3217)
+// WORLD TEAR / World Tear Auraflow V0.3 000 S1336741299 Th0.100 Battler [Folder: WORLD_TEAR] (sprite index: 252, byte offset: 1052478, size: 3217)
 { .idx = 1052478, .palette = { 0x8d90, 0x5b2c, 0x49c6, 0x11ca, 0x30e3, 0x08e6, 0x10e5, 0x08a5, 0x1862, 0x0863, 0x0863, 0x0063, 0x0042, 0x0022, 0xf81f, 0x1800 }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
-// WYRM CHARGE / Wyrm Charge Auraflow V0.3 000 S3483501497 Th0.100 [Folder: WYRM_CHARGE] (sprite index: 253, byte offset: 1055695, size: 5703)
+// WYRM CHARGE / Wyrm Charge Auraflow V0.3 000 S3483501497 Th0.100 Battler [Folder: WYRM_CHARGE] (sprite index: 253, byte offset: 1055695, size: 5703)
 { .idx = 1055695, .palette = { 0xf79e, 0xde9c, 0xbcb8, 0x7418, 0x9293, 0x5a93, 0x4252, 0x39d0, 0x710d, 0x390c, 0x290b, 0x210b, 0x18a9, 0x1825, 0x1887, 0xf81f }, .emptyIndexes = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01 } },
 
 // Total sprites processed: 254, total data size: 1061408 bytes

@@ -31,6 +31,7 @@ bool UpdateGameTitleState(InputInterface input)
     {
         g_core.state.overlay = OVERLAY_GEN_MAP;
     }
+
     if (input.GetButtonB())
     {
     }
@@ -45,6 +46,7 @@ bool UpdateGameTitleState(InputInterface input)
 
     if (input.GetButtonStart())
     {
+        g_core.state.overlay = OVERLAY_GEN_MAP;
     }
 
     if (input.GetButtonSelect())
@@ -79,12 +81,14 @@ SET_MEMORY(".splash_entry")
 uint8_t GameLoopTitleScreen(GameInterface* spi)
 {
     g_core.state.overlay = OVERLAY_TITLE_SCREEN;
+    spi->graphics.FillScreen((Color){.color = 0x546a});
+    spi->graphics.EndFrame();
 
-    int start = 0;
+
     while (g_core.state.overlay == OVERLAY_TITLE_SCREEN)
     {
         spi->input.HandleInput();
-        start = UpdateGameTitleState(spi->input);
+        UpdateGameTitleState(spi->input);
         TitleRateDelay(spi->hardware);
         spi->graphics.EndFrame();
     }

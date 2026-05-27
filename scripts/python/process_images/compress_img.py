@@ -2,15 +2,22 @@
 import sys
 import os
 from pathlib import Path
-import numpy as np
-from PIL import Image
 import json
 
+PALETTE_RGB565 = []
+PALETTE_RGB888 = []
+WIDTH = 112
+HEIGHT = 112
 
-# ================== ADD YOUR REAL PALETTE HERE ==================
+import numpy as np
+from PIL import Image
+
+# Your transparent color index (change if not 15)
+TRANSPARENT_INDEX = 0  # or 0, or whatever is background in your indexed images
+
 
 def create_palette_direct(image_path):
-    img = Image.open(image_path).convert("RGB")   # always 8‑bit RGB
+    img = Image.open(image_path).convert("RGB")  # always 8‑bit RGB
     pixels = np.array(img)
 
     # unique rows of shape (N, 3)
@@ -28,12 +35,19 @@ def create_palette_direct(image_path):
     return palette_565
 
 
-# Your 16 RGB565 colors as list of uint16_t integers (like in your C example)
-WIDTH = 112
-HEIGHT = 112
+# Distance function (simple Euclidean in RGB space)
+def nearest_color_index(r, g, b):
+    if r == g == b == 0 and False:  # optional: treat pure black as trans if you want
+        return TRANSPARENT_INDEX
 
-PALETTE_RGB565 = []
-PALETTE_RGB888 = []
+    min_dist = float('inf')
+    best_idx = 0
+    for i, (pr, pg, pb) in enumerate():
+        dist = (pr - r) ** 2 + (pg - g) ** 2 + (pb - b) ** 2
+        if dist < min_dist:
+            min_dist = dist
+            best_idx = i
+    return best_idx
 
 
 # Helper: convert RGB565 → RGB888 tuple for distance calculation
@@ -45,24 +59,6 @@ def rgb565_to_rgb888(c):
 
 
 # Precompute RGB888 versions once (faster)
-
-# Your transparent color index (change if not 15)
-TRANSPARENT_INDEX = 0  # or 0, or whatever is background in your indexed images
-
-
-# Distance function (simple Euclidean in RGB space)
-def nearest_color_index(r, g, b):
-    if r == g == b == 0 and False:  # optional: treat pure black as trans if you want
-        return TRANSPARENT_INDEX
-
-    min_dist = float('inf')
-    best_idx = 0
-    for i, (pr, pg, pb) in enumerate(PALETTE_RGB888):
-        dist = (pr - r) ** 2 + (pg - g) ** 2 + (pb - b) ** 2
-        if dist < min_dist:
-            min_dist = dist
-            best_idx = i
-    return best_idx
 
 
 def rle_encode_row(row):
@@ -82,9 +78,6 @@ def rle_encode_row(row):
 
     return rle
 
-
-import numpy as np
-from PIL import Image
 
 def process_sprite(input_path, output_json):
     print(f"\nProcessing: {input_path}")
@@ -107,9 +100,9 @@ def process_sprite(input_path, output_json):
     palette_rgb888 = []
     palette_rgb565 = []
     for i in range(16):
-        r = int(raw_pal[3*i])
-        g = int(raw_pal[3*i+1])
-        b = int(raw_pal[3*i+2])
+        r = int(raw_pal[3 * i])
+        g = int(raw_pal[3 * i + 1])
+        b = int(raw_pal[3 * i + 2])
         palette_rgb888.append((r, g, b))
         # Convert to RGB565 (all Python ints)
         r5 = r >> 3
@@ -118,16 +111,16 @@ def process_sprite(input_path, output_json):
         palette_rgb565.append((r5 << 11) | (g6 << 5) | b5)
 
     # ---------- 2. Build indexed image (0‑15), respecting alpha ----------
-    alpha = np.array(img.split()[-1])          # uint8
-    quant_data = np.array(quantized)           # uint8, values 0‑15
+    alpha = np.array(img.split()[-1])  # uint8
+    quant_data = np.array(quantized)  # uint8, values 0‑15
 
-    indexed = [[0]*WIDTH for _ in range(HEIGHT)]  # list of lists of ints
+    indexed = [[0] * WIDTH for _ in range(HEIGHT)]  # list of lists of ints
     for y in range(HEIGHT):
         for x in range(WIDTH):
             if alpha[y, x] < 128:
                 indexed[y][x] = TRANSPARENT_INDEX
             else:
-                indexed[y][x] = int(quant_data[y, x])   # ensure Python int
+                indexed[y][x] = int(quant_data[y, x])  # ensure Python int
 
     # ---------- 3. Build tiles and RLE (same as before) ----------
     tiles_rle = []
@@ -154,7 +147,7 @@ def process_sprite(input_path, output_json):
                 rle_tile = []
                 for row_start in range(0, 256, 16):
                     row = tile[row_start: row_start + 16]
-                    rle_tile.extend(rle_encode_row(row))   # rle_encode_row returns list of ints
+                    rle_tile.extend(rle_encode_row(row))  # rle_encode_row returns list of ints
 
                 tiles_rle.append(rle_tile)
                 non_empty_count += 1
@@ -206,8 +199,7 @@ def process_folder(input_folder):
     for png_file in png_files:
         try:
             # Generate output JSON path alongside the image
-            output_json = png_file.with_suffix('.json')
-
+            output_json = png_file.parent / f"{png_file.stem}_battler.json"
             process_sprite(str(png_file), str(output_json))
             processed += 1
 
@@ -234,8 +226,6 @@ def main():
         print("  python tile_and_rle.py ./sprites")
         print("  → Creates ./sprites/character/hero.json from ./sprites/character/hero.png")
         sys.exit(1)
-
-
 
     input_folder = sys.argv[1]
     process_folder(input_folder)

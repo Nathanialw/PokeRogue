@@ -98,6 +98,59 @@ void CharFromGlyph1bpp(MemoryInterface memory, Glyph buffer, uint16_t* character
 }
 
 /**********************************************************************************************************************/
+/* unpacks a sprite saved as 4bpp
+ * saves it into a uint16_t array of rbg565 pixels
+ * fontSize determines the l and w - sprites are all square
+********************************************* *************************************************************************/
+SET_MEMORY(".core")
+void UnpackSprite(MemoryInterface memory, Glyph buffer, uint16_t* character, uint8_t glyph_index, FontSize fontSize, Color fg, Color bg)
+{
+    if (fontSize == FONT16x16)
+    {
+        Flash_GetFontChar16x16(memory, buffer.bytes, glyph_index);
+
+        for (int y = 0; y < 16; y++)
+        {
+            uint16_t row = buffer.glyph[y];
+            row = (row >> 8) | (row << 8);
+
+            for (int x = 0; x < 16; x++)
+            {
+#if defined(SDL)
+                uint16_t bit = 0x8000 >> x;
+                character[y * 16 + x] = (row & bit) ? fg.color : bg.color;
+#else
+                uint16_t bit = 1 << x;
+                character[y * 16 + x] = (row & bit) ? fg.color : bg.color;
+#endif
+            }
+        }
+        return;
+    }
+
+    uint8_t length = 0;
+    switch (fontSize)
+    {
+    case FONT8x8: length = Flash_GetFontChar8x8(memory, buffer.bytes, glyph_index);
+        break;
+    case FONT20x20: length = Flash_GetFontChar20x20(memory, buffer.bytes, glyph_index);
+        break;
+    default: return;
+    }
+
+    for (int y = 0; y < length; y++)
+    {
+        uint8_t row = buffer.bytes[y];
+
+        for (int x = 0; x < 8; x++)
+        {
+            character[y * 8 + x] = (row & (1 << x)) ? fg.color : bg.color; //place unin16_t colour in the array based on bit value
+        }
+    }
+}
+
+
+/**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".core")

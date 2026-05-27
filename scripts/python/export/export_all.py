@@ -2,6 +2,7 @@ from python.config import constants
 from . import export_creatures
 from . import export_core_data
 from . import export_battlers
+from . import export_map_sprites
 from . import export
 from . import export_structs
 from . import export_enums
@@ -11,6 +12,7 @@ from . import export_img_prompts
 def run():
     # CORE DATA
     bytes_count = []
+    bytes_count_map_sprites = []
     counts = []
 
     # update enums
@@ -32,6 +34,7 @@ def run():
     # type strings
     export_core_data.write_types_inc()
 
+    ################################################################################################################################################
     # CREATURES
     export_structs.creatures_skills("creature")
     export_structs.creatures_level_up_skills("creature")
@@ -41,15 +44,20 @@ def run():
     export.desc_to_c_array("creature")
     # creature map sprites
     export.export_map_sprites_char("creature")
-    export.export_map_sprites("creature")
+    bytes_count_map_sprites.append(export_map_sprites.export_image_data("creature", 16))
+    bytes_count_map_sprites.append(export_map_sprites.export_image_data("creature", 20))
+    bytes_count_map_sprites.append(export_map_sprites.export_image_data("creature", 24))
+    bytes_count_map_sprites.append(export_map_sprites.export_image_data("creature", 32))
+    bytes_count_map_sprites.append(export_map_sprites.export_image_data("creature", 64))
+
     # creature type data
     export_creatures.export_types_to_c_array()
     # creature battlers front
     bytes_count.append(export_battlers.export_image_data("creature", "front"))
     # creature battlers back
     bytes_count.append(export_battlers.export_image_data("creature", "back"))
-    # TODO Map sprites
 
+    ################################################################################################################################################
     # ABILITIES
     # ability struct data
     export_structs.abilities("skill")
@@ -70,8 +78,8 @@ def run():
     # ability icons
     # TODO: export images
     bytes_count.append(export_battlers.export_image_data("skill"))
-    # TODO Map sprites
 
+    ################################################################################################################################################
     # SPELLS
     # spell struct data
     export_structs.spells("spell")
@@ -92,14 +100,19 @@ def run():
     # spell icons
     # TODO: export images
     bytes_count.append(export_battlers.export_image_data("spell"))
-    # TODO Map sprites
 
+    ################################################################################################################################################
     # ITEMS
     # item struct data
     export_structs.items("item")
     # item map sprites header
     export.export_map_sprites_char("item")
-    export.export_map_sprites("item")
+    bytes_count_map_sprites.append(export_map_sprites.export_image_data("item", 16))
+    bytes_count_map_sprites.append(export_map_sprites.export_image_data("item", 20))
+    bytes_count_map_sprites.append(export_map_sprites.export_image_data("item", 24))
+    bytes_count_map_sprites.append(export_map_sprites.export_image_data("item", 32))
+    bytes_count_map_sprites.append(export_map_sprites.export_image_data("item", 64))
+
     # item functions header
     export.func_c_headers("item", "Use", "bool", "EntityId item_id, EntityId e_id, ItemData itemData")
     # item functions
@@ -117,13 +130,18 @@ def run():
     # item icons
     # TODO: export images
     bytes_count.append(export_battlers.export_image_data("item"))
-    # TODO Map sprites
 
+    ################################################################################################################################################
     # OBJECTS
     export_structs.objects("object")
     # object map sprites header
     export.export_map_sprites_char("object")
-    export.export_map_sprites("object")
+    bytes_count_map_sprites.append(export_map_sprites.export_image_data("object", 16))
+    bytes_count_map_sprites.append(export_map_sprites.export_image_data("object", 20))
+    bytes_count_map_sprites.append(export_map_sprites.export_image_data("object", 24))
+    bytes_count_map_sprites.append(export_map_sprites.export_image_data("object", 32))
+    bytes_count_map_sprites.append(export_map_sprites.export_image_data("object", 64))
+
     # object functions header
     export.func_c_headers("object", "Interact", "bool", "HardwareInterface hardware, EntityId object_id, EntityId e_id, ObjectData objectData")
     # object functions
@@ -135,23 +153,33 @@ def run():
     # object icons
     # TODO: export images
     bytes_count.append(export_battlers.export_image_data("object"))
-    # TODO Map sprites
 
+    ################################################################################################################################################
     # TRAINERS
     export.export_map_sprites_char("trainer")
-    export.export_map_sprites("trainer")
+    bytes_count_map_sprites.append(export_map_sprites.export_image_data("trainer", 16))
+    bytes_count_map_sprites.append(export_map_sprites.export_image_data("trainer", 20))
+    bytes_count_map_sprites.append(export_map_sprites.export_image_data("trainer", 24))
+    bytes_count_map_sprites.append(export_map_sprites.export_image_data("trainer", 32))
+    bytes_count_map_sprites.append(export_map_sprites.export_image_data("trainer", 64))
+
     # trainer name strings
     counts.append(export.name_to_c_array("trainer"))
     # trainer description strings
     export.desc_to_c_array("trainer")
     # trainer map sprites
     bytes_count.append(export_battlers.export_image_data("trainer"))
-    # TODO Map sprites
 
-    #TILES
-    export.export_map_sprites("tile")
+    ################################################################################################################################################
+    # TILES
+    bytes_count_map_sprites.append(0)
+    bytes_count_map_sprites.append(0)
+    bytes_count_map_sprites.append(0)
+    bytes_count_map_sprites.append(0)
+    bytes_count_map_sprites.append(0)
 
-    export.export_constants(bytes_count, counts)
+
+    export.export_constants(bytes_count, counts, bytes_count_map_sprites)
 
 
 run()
