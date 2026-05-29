@@ -69,7 +69,7 @@ MAX_IMAGES = 1
 MODEL_IDX = 0
 OUT_ROOT = "./images"
 
-SVR_ADDRESS = 'http://192.168.0.4:5000'
+SVR_ADDRESS = 'http://192.168.0.119:5000'
 # SVR_ADDRESS = 'http://0.0.0.0:5000'
 DOWNLOAD_FOLDER = '../assets_raw/sprites'
 

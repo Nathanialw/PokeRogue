@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 import os
+import random
+
 import serial
 import time
 
@@ -139,6 +141,8 @@ def compare_files(file1_path, file2_path):
 
 
 while True:
+    n = random.randint(1, 1000000)
+    print(n)
     try:
         print("Attempting reconnect...")
         ser = serial.Serial(PORT, BAUD, timeout=0.5)  # Short timeout

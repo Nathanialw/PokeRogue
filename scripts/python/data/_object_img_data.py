@@ -73,7 +73,7 @@ ObjectsDict = [
    { "name": 'CASE_BOOK', 'prompt': "The book's leather cover shimmers with enchanted runes, and its pages shift like living shadows when touched."},
    { "name": 'CASE_JEWELLERY', 'prompt': "A delicate silver circlet adorned with glowing sapphires, humming with ancient enchantments when worn by moonlight."},
    { "name": 'CASE_SCROLL', 'prompt': "A shimmering, ancient scroll hums with arcane energy, its edges singed with golden runes and glowing faintly in the dim light."},
-   { "name": 'CAULDRON', 'prompt': "CAULDRON"},
+   { "name": 'CAULDRON', 'prompt': "A massive, black iron vessel stands on three gnarled, clawed legs, its surface etched with swirling runes."},
    { "name": 'CLOUD_ACID', 'prompt': "The swirling, iridescent mist burns with a corrosive glow, melting stone and flesh alike upon contact."},
    { "name": 'CLOUD_POISON_GAS', 'prompt': "A swirling emerald mist coils upward, reeking of sulfur and withering all life in its path with a touch."},
    { "name": 'CLOUD_SMOKE', 'prompt': "A swirling, silver-threaded mist that whispers secrets to those who inhale it, revealing forgotten dreams in its tendrils."},

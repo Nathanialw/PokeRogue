@@ -75,9 +75,9 @@ Items = [
 
 ItemsDict = [
    { "name": 'None', 'prompt': "None"},
-   { "name": 'ABILITY_BOOK', 'prompt': "A leather-bound tome crackles with arcane energy, its pages filled with glowing runes that whisper secrets when opened."},
+   { "name": 'ABILITY_BOOK', 'prompt': "A dusty tome crackles with arcane energy, its leather cover etched in glowing runes, pages whispering forgotten secrets."},
    { "name": 'ACID_RESISTANCE', 'prompt': "A shimmering cloak woven from dragon scales repels acid sprays and corrosive fumes with an iridescent barrier."},
-   { "name": 'ACID_VIAL', 'prompt': "A vial of glowing, swirling emerald liquid hums with a faint, unnatural energy, pulsing like a heartbeat within the glass."},
+   { "name": 'ACID_VIAL', 'prompt': "A vial of glowing emerald liquid bubbling with volatile energy, threatening to dissolve flesh upon contact."},
    { "name": 'ALTAR_STONE', 'prompt': "A jagged obsidian slab crackling with eternal blue flame, adorned with strange, glowing runes etched by unseen hands."},
    { "name": 'AMPHETAMINES', 'prompt': "A vial of shimmering blue liquid crackles with energy as it pulses with an unnatural, electric glow."},
    { "name": 'BACKPACK', 'prompt': "A backpack made of enchanted shadow silk, shifting colors with the wearer's emotions, hums with forgotten spells when opened."},
@@ -85,7 +85,7 @@ ItemsDict = [
    { "name": 'BERRIES', 'prompt': "In the heart of the enchanted forest, they glow with an eerie light, pulsing like tiny hearts."},
    { "name": 'BOOTS_ACID_WALKING', 'prompt': "Glowing with vibrant emerald hues, they dissolve into mist upon contact with acid, leaving no trace behind."},
    { "name": 'BOOTS_LAVA_WALKING', 'prompt': "A pair of boots crafted from obsidian and enchanted ember, allowing the wearer to stride across molten rock unharmed."},
-   { "name": 'BOOTS_WATER_WALKING', 'prompt': "These enchanted boots allow the wearer to stride effortlessly across lakes, rivers, and even stormy seas without sinking."},
+   { "name": 'BOOTS_WATER_WALKING', 'prompt': "Boots that allow the wearer to stride effortlessly across rivers, lakes, and seas, leaving barely a ripple in their wake."},
    { "name": 'CAKE', 'prompt': "A towering, frosting-covered cake floats above the table, its layers shimmering with enchanted colors and glowing with runes."},
    { "name": 'CHAIN', 'prompt': "A shimmering silver bracelet hums with forgotten whispers, its links shifting unnaturally to tighten or loosen on their own."},
    { "name": 'EARMUFFS', 'prompt': "A pair of enchanted ear coverings that glow faintly in the dark, muffling not just sound but also whispers of fate."},
@@ -122,7 +122,7 @@ ItemsDict = [
    { "name": 'POTION_RESTORE_PP', 'prompt': "A glowing vial hums with forgotten magic, its swirling mist mending broken bones and reviving the weary traveler instantly."},
    { "name": 'POTION_REVIVE', 'prompt': "A crimson vial of shimmering liquid glows faintly, swirling with ghostly mist as it hums with forgotten ancient power."},
    { "name": 'POTION_TELEPORT', 'prompt': "A swirling emerald liquid in a cracked glass vial, humming with latent energy, promises instant travel to distant lands."},
-   { "name": 'POTION_VISION', 'prompt': "POTION_VISION"},
+   { "name": 'POTION_VISION', 'prompt': "A swirling emerald liquid in a crystal vial that reveals hidden secrets in the reflections of its luminous tendrils."},
    { "name": 'POUCH', 'prompt': "A small, worn leather pouch hums faintly, its surface etched with glowing runes that shift like living shadows."},
    { "name": 'RAIN_WATER', 'prompt': "The droplets shimmer like liquid silver, swirling in the air before vanishing into a misty veil of forgotten dreams."},
    { "name": 'RARE_CANDY', 'prompt': "A shimmering, translucent orb that bursts with golden light when opened, revealing an entire world inside."},
@@ -140,9 +140,9 @@ ItemsDict = [
    { "name": 'WATER_RESISTANCE', 'prompt': "A shimmering blue cloak woven with enchanted kelp threads repels water like a living barrier, never touching the wearer."},
    { "name": 'WHIP', 'prompt': "A supple leather lash crackles with arcane energy, leaving trails of ghostly fire in its wake."},
    { "name": 'WILD_MUSHROOM', 'prompt': "A gnarled, violet-capped fungus pulses with an eerie inner light, its stem coiled like a sleeping serpent."},
-   { "name": 'WINE', 'prompt': "A bottle filled with swirling liquid gold, its cork sealed by an enchanted rune that glows faintly in the dark."},
-   { "name": 'WISDOM_CROWN', 'prompt': "A crown of gilded oak leaves with a glowing gem at its center that whispers forgotten secrets when worn by the wise."},
-   { "name": 'XP_POTION', 'prompt': "A swirling vial of emerald liquid glows with an inner light, humming faintly when uncorked, promising untold power."},
+   { "name": 'WINE', 'prompt': "A crimson wine swirls with whispers of forgotten spells, its effervescence shimmering like enchanted moonlight on dark waters."},
+   { "name": 'WISDOM_CROWN', 'prompt': "A circlet of silver and sapphire adorned with ancient runes that whisper forgotten knowledge when worn."},
+   { "name": 'XP_POTION', 'prompt': "A shimmering vial of liquid glows with an eerie blue light, swirling with faint, dancing spirits."},
 ]
 
 BASE_PROMPT = (

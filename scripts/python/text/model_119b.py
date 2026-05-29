@@ -1,12 +1,15 @@
+import sys
+import traceback
+
 import requests
 import time
 import re
 import os
 from pathlib import Path
 
-from python.data import creature_descriptors, _object_img_data
-from python.data import _trainer_img_data
-from python.data import _creature_img_data
+from python.data import _object_img_data
+from python.data import _trainer_img_data, trainer_descriptors
+from python.data import _creature_img_data, creature_descriptors
 from python.data import _item_img_data
 from python.data import _skill_img_data
 from python.data import _spell_img_data
@@ -114,12 +117,14 @@ def extract_description(text):
     return text
 
 
-def generate_response(word, table, entity, max_attempts=5):
+def generate_response(word, table, entity, descriptors, max_attempts=5):
     """Send prompt to llama-server and get a proper description"""
 
     system_instruction = f"You are a folklore expert. Provide only the {entity} description, no explanations. Do not include the {entity}'s name."
     # Get terms hint
-    terms_hint = validation.get_terms_hint(word, 1)
+    terms_hint = ""
+    if descriptors:
+        terms_hint = validation.get_terms_hint(word, descriptors, 1)
 
     # Build the user message
     user_message = f"Describe a fantasy {word} {entity} in one vivid sentence, {int(constants.MIN_WORDS)}-{int(constants.MAX_WORDS)} words. {terms_hint}"
@@ -180,7 +185,7 @@ def generate_response(word, table, entity, max_attempts=5):
 
             # Creature validation
             is_valid, matches = validation.validate_creature_description(
-                word, clean_text, attempt
+                word, clean_text, descriptors, attempt
             )
             if not is_valid:
                 continue
@@ -200,12 +205,15 @@ def generate_response(word, table, entity, max_attempts=5):
             time.sleep(5)
         except Exception as e:
             print(f"  ✗ Attempt {attempt + 1}: {type(e).__name__}")
-            time.sleep(2)
+            # time.sleep(2)
+            traceback.print_exc()
+            sys.exit(1)
+
 
     return None, max_attempts
 
 
-def generate_list(test_creatures, table, entity_type):
+def generate_list(test_creatures, table, entity_type, descriptors):
     generated = 0
     skipped = 0
     failed = 0
@@ -221,7 +229,7 @@ def generate_list(test_creatures, table, entity_type):
                 skipped += 1
                 continue
 
-            result = generate_response(word, table, entity_type)
+            result = generate_response(word, table, entity_type, descriptors)
 
             if result is None or result[0] is None:
                 print(f"  ⚠ Failed to generate for {word}")
@@ -232,11 +240,12 @@ def generate_list(test_creatures, table, entity_type):
 
             # Calculate matches
             matches = 0
-            if word in creature_descriptors.CREATURE_VALIDATION:
-                required_terms = creature_descriptors.CREATURE_VALIDATION[word]["required_terms"]
-                matches = sum(1 for term in required_terms if term in response.lower())
-            else:
-                print(f"{word} not in validation")
+            if descriptors:
+                if word in descriptors:
+                    required_terms = descriptors[word]["required_terms"]
+                    matches = sum(1 for term in required_terms if term in response.lower())
+                else:
+                    print(f"{word} not in validation")
 
             # Save to database
             db_manager.save_to_db(
@@ -298,22 +307,22 @@ def main():
 
     # Optional: Test with just a few creatures first
     test = _creature_img_data.Creatures[:5] if TEST_MODE else _creature_img_data.Creatures
-    generate_list(test, constants.CREATURE_TABLE, "creature")
+    generate_list(test, constants.CREATURE_TABLE, "creature", creature_descriptors.CREATURE_VALIDATION)
 
     test = _skill_img_data.Skills[:5] if TEST_MODE else _skill_img_data.Skills
-    generate_list(test, constants.SKILL_TABLE, "skill")
+    generate_list(test, constants.SKILL_TABLE, "skill", None)
 
     test = _spell_img_data.Spells[:5] if TEST_MODE else _spell_img_data.Spells
-    generate_list(test, constants.SPELL_TABLE, "spell")
+    generate_list(test, constants.SPELL_TABLE, "spell", None)
 
     test = _item_img_data.Items[:5] if TEST_MODE else _item_img_data.Items
-    generate_list(test, constants.ITEM_TABLE, "item")
+    generate_list(test, constants.ITEM_TABLE, "item", None)
 
     test = _object_img_data.Objects[:5] if TEST_MODE else _object_img_data.Objects
-    generate_list(test, constants.OBJECT_TABLE, "object")
+    generate_list(test, constants.OBJECT_TABLE, "object", None)
 
     test = _trainer_img_data.Trainers[:5] if TEST_MODE else _trainer_img_data.Trainers
-    generate_list(test, constants.TRAINER_TABLE, "trainer")
+    generate_list(test, constants.TRAINER_TABLE, "trainer", trainer_descriptors.CREATURE_VALIDATION)
 
 
 if __name__ == "__main__":

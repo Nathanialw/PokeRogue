@@ -414,7 +414,7 @@ SkillsDict = [
    { "name": 'PETAL_BLITZ', 'prompt': "The skill conjures a storm of petals, blinding foes in a swirling vortex of razor-sharp blossoms."},
    { "name": 'PETAL_DANCE', 'prompt': "A whirlwind of petals erupts, spinning in a dazzling, chaotic storm before exploding outward in a radiant burst."},
    { "name": 'PETRIFYING_GAZE', 'prompt': "The creature's eyes darken, locking onto its victim whose body stiffens, veins turning to stone as fear grips their heart."},
-   { "name": 'PETRIFYING_TOUCH', 'prompt': "A touch that turns flesh to stone, freezing enemies mid-movement with a single press of your fingertips."},
+   { "name": 'PETRIFYING_TOUCH', 'prompt': "A single touch turns flesh to stone, leaving victims as statues, frozen in terror and silence."},
    { "name": 'PHANTOM_GRASP', 'prompt': "A spectral hand materializes from shadow, seizing foes with ethereal force and dragging them into the darkness to suffocate."},
    { "name": 'PIXIE_DUST', 'prompt': "Crafts shimmering, enchanted motes that weave illusions and grant fleeting luck to those who catch them."},
    { "name": 'PLAGUE', 'prompt': "A necrotic miasma rises from the earth, twisting flesh into writhing, blackened vines that strangle all in their path."},

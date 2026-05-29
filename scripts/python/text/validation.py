@@ -1,7 +1,7 @@
 # validation.py
 import re
 from python.config import constants
-from python.data import creature_descriptors
+# from python.data import creature_descriptors
 
 
 def check_for_name(text, attempt, word):
@@ -44,15 +44,18 @@ def check_for_name(text, attempt, word):
     return text
 
 
-def validate_creature_description(word, clean_text, attempt):
+def validate_creature_description(word, clean_text, descriptors, attempt):
     """
     Validate a description against creature-specific requirements.
     Returns (is_valid, matches) tuple.
     """
-    if word not in creature_descriptors.CREATURE_VALIDATION:
+    if not descriptors:
         return True, 0
 
-    validation = creature_descriptors.CREATURE_VALIDATION[word]
+    if word not in descriptors:
+        return True, 0
+
+    validation = descriptors[word]
     required_terms = validation["required_terms"]
     forbidden_terms = validation.get("forbidden_terms", [])
     min_matches = validation.get("min_matches", 2)
@@ -105,12 +108,19 @@ def check_length_and_format(clean_text, attempt, max_attempts):
         return False, word_count
 
 
-def get_terms_hint(word, attempt, max_hint_attempts=constants.MAX_HINT_ATTEMPTS):
+def get_terms_hint(word, descriptors, attempt, max_hint_attempts=constants.MAX_HINT_ATTEMPTS):
     """
     Get a hint with random required terms for the first X attempts.
     """
+    if not descriptors:
+        RED = '\033[91m'
+        RESET = '\033[0m'
+
+        print(f" {RED} ⚠ No validation data for {word}{RESET}")  # Debug output
+        return ""
+
     # Check if creature exists in validation
-    if word not in creature_descriptors.CREATURE_VALIDATION:
+    if word not in descriptors:
         RED = '\033[91m'
         RESET = '\033[0m'
 
@@ -122,7 +132,7 @@ def get_terms_hint(word, attempt, max_hint_attempts=constants.MAX_HINT_ATTEMPTS)
         return ""
 
     # Get required terms
-    required_terms = creature_descriptors.CREATURE_VALIDATION[word].get("required_terms", [])
+    required_terms = descriptors[word].get("required_terms", [])
 
     # If no terms, log warning
     if not required_terms:

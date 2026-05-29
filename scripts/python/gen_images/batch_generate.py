@@ -8,7 +8,7 @@ import time
 import sys
 import argparse
 from typing import List, Tuple, Dict, Any
-from python.data import _spell_img_data, _item_img_data, _skill_img_data, _creature_img_data, _object_img_data
+from python.data import _spell_img_data, _item_img_data, _skill_img_data, _creature_img_data, _object_img_data, _trainer_img_data
 from python.config import settings
 
 
@@ -19,7 +19,8 @@ def get_all_objects() -> Dict[str, List[str]]:
         'spell': [obj['name'] for obj in _spell_img_data.SpellsDict],
         'skill': [obj['name'] for obj in _skill_img_data.SkillsDict],
         'item': [obj['name'] for obj in _item_img_data.ItemsDict],
-        'object': [obj['name'] for obj in _object_img_data.ObjectsDict]
+        'object': [obj['name'] for obj in _object_img_data.ObjectsDict],
+        'trainer': [obj['name'] for obj in _trainer_img_data.TrainersDict]
     }
 
     # Sort each list alphabetically
@@ -304,7 +305,7 @@ def list_all_objects():
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description='Batch generate all objects (creatures, spells, skills, items, objects)')
+    parser = argparse.ArgumentParser(description='Batch generate all objects (creatures, spells, skills, items, objects, trainers)')
     parser.add_argument('--server', type=str, default=settings.SVR_ADDRESS,
                         help=f'Server URL (default: {settings.SVR_ADDRESS})')
     parser.add_argument('--delay', type=int, default=2,
@@ -319,7 +320,7 @@ if __name__ == "__main__":
                         help='Skip server health check')
     parser.add_argument('--monitor', action='store_true',
                         help='Monitor jobs after submission until all complete')
-    parser.add_argument('--type', type=str, choices=['creature', 'spell', 'skill', 'item', 'object'],
+    parser.add_argument('--type', type=str, choices=['creature', 'spell', 'skill', 'item', 'object', 'trainer'],
                         help='Generate only objects of this type')
     parser.add_argument('--list', action='store_true',
                         help='List all available objects and exit')

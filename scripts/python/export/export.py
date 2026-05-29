@@ -43,7 +43,7 @@ def desc_to_c_array(entity):
 
         f.write(f"//ALL_DESCRIPTIONS_COUNT = {len(desc_vars)};\n")
 
-    # db_manager.cleanup_descriptions(dry_run=False)
+    db_manager.cleanup_descriptions(entity, dry_run=False)
     print(f"📄 Exported {len(descriptions)} descriptions to {filename}")
 
 

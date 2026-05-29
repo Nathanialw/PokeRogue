@@ -1,4 +1,5 @@
 # deploy on local network server
+from random import random
 
 from flask import Flask, request, jsonify, send_file
 from diffusers import AuraFlowPipeline, AuraFlowTransformer2DModel, GGUFQuantizationConfig
@@ -6,6 +7,7 @@ import torch
 import multiprocessing as mp
 import threading
 import hashlib
+import random
 import os
 import time
 import uuid
@@ -21,6 +23,7 @@ from data._spell_img_data import VARIANTS, BASE_PROMPT, SpellsDict
 from data._creature_img_data import VARIANTS, BASE_PROMPT, CreaturesDict
 from data._skill_img_data import VARIANTS, BASE_PROMPT, SkillsDict
 from data._object_img_data import VARIANTS, BASE_PROMPT, ObjectsDict
+from data._trainer_img_data import VARIANTS, BASE_PROMPT, TrainersDict
 from config.settings import OUT_ROOT
 import config.settings as settings
 
@@ -44,7 +47,8 @@ OBJECT_TYPE_DICT = {
     'spell': SpellsDict,
     'skill': SkillsDict,
     'item': ItemsDict,
-    'object': ObjectsDict
+    'object': ObjectsDict,
+    'trainer': TrainersDict
 }
 
 
@@ -207,7 +211,8 @@ def worker_process(gpu_index: int, job_queue_, model_path, out_root):
 
             while remaining > 0:
                 batch = min(batch_size, remaining)
-                current_seeds = [base_seed + seed_offset + i for i in range(batch)]
+                n = random.randint(1, 1000000)
+                current_seeds = [base_seed + seed_offset + n + i for i in range(batch)]
                 prompts = [build_prompt(object_info, current_seeds[i]) for i in range(batch)]
                 generators = [torch.Generator(device=device).manual_seed(current_seeds[i]) for i in range(batch)]
 
@@ -351,7 +356,7 @@ def list_gpus():
 
 @app.route('/objects', methods=['GET'])
 def list_objects():
-    """List all available objects (creatures, spells, skills, items)"""
+    """List all available objects (creatures, spells, skills, items, trainers)"""
     result = {}
     for obj_type, obj_dict in OBJECT_TYPE_DICT.items():
         result[obj_type] = [{

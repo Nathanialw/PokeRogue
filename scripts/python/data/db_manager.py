@@ -613,7 +613,7 @@ def get_all_descriptions(entity):
     return not has_errors, results
 
 
-def purge_unused_descriptions(dry_run=True):
+def purge_unused_descriptions(type, dry_run=True):
     """Delete descriptions with used=0 when a used=1 description exists for the same creature.
 
     Args:
@@ -628,9 +628,9 @@ def purge_unused_descriptions(dry_run=True):
     cursor = conn.cursor()
 
     # Find all creatures that have at least one used=1 description
-    cursor.execute('''
-        SELECT DISTINCT creature_name
-        FROM creature_descriptions
+    cursor.execute(f'''
+        SELECT DISTINCT name
+        FROM {type}_descriptions
         WHERE used = 1
     ''')
 
@@ -647,9 +647,9 @@ def purge_unused_descriptions(dry_run=True):
 
     for creature_name in creatures_with_used:
         # Check if there are unused descriptions for this creature
-        cursor.execute('''
+        cursor.execute(f'''
             SELECT id, description, model_name
-            FROM creature_descriptions
+            FROM {type}_descriptions
             WHERE name = ? AND used = 0
         ''', (creature_name,))
 
@@ -665,8 +665,8 @@ def purge_unused_descriptions(dry_run=True):
                     print(f"   - ID {desc_id} ({model}): {preview}")
             else:
                 # Delete the unused descriptions
-                cursor.execute('''
-                    DELETE FROM creature_descriptions
+                cursor.execute(f'''
+                    DELETE FROM {type}_descriptions
                     WHERE name = ? AND used = 0
                 ''', (creature_name,))
 
@@ -674,10 +674,10 @@ def purge_unused_descriptions(dry_run=True):
                 print(f"🗑️  Deleted {cursor.rowcount} unused description(s) for {creature_name}")
 
     if dry_run and creatures_affected:
-        print(f"\n📋 DRY RUN SUMMARY: Would delete unused descriptions for {len(creatures_affected)} creatures")
+        print(f"\n📋 DRY RUN SUMMARY: Would delete unused descriptions for {len(creatures_affected)} {type}s")
         print(f"   Total unused descriptions: {deleted_count}")
     elif not dry_run and deleted_count > 0:
-        print(f"\n✅ Deleted {deleted_count} unused description(s) across {len(creatures_affected)} creatures")
+        print(f"\n✅ Deleted {deleted_count} unused description(s) across {len(creatures_affected)} {type}s")
         conn.commit()
     elif not dry_run and deleted_count == 0:
         print("No unused descriptions found to delete.")
@@ -725,7 +725,7 @@ def purge_all_unused_descriptions(confirm=False):
     return deleted_count
 
 
-def cleanup_descriptions(dry_run=True, purge_all=False):
+def cleanup_descriptions(type, dry_run=True, purge_all=False):
     """Main cleanup function that purges unused descriptions.
 
     Args:
@@ -742,7 +742,7 @@ def cleanup_descriptions(dry_run=True, purge_all=False):
         print("=" * 60)
         print("PURGING UNUSED DESCRIPTIONS (where used=1 exists)")
         print("=" * 60)
-        return purge_unused_descriptions(dry_run=dry_run)
+        return purge_unused_descriptions(type, dry_run=dry_run)
 
 
 CreatureType = namedtuple('CreatureType', ['formatted', 'type_0', 'type_1'])
