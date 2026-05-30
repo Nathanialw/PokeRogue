@@ -59,59 +59,7 @@ void CharFromGlyph1bpp(MemoryInterface memory, Glyph buffer, uint16_t* character
 
         for (int y = 0; y < 16; y++)
         {
-            uint16_t row = buffer.glyph[y];
-            row = (row >> 8) | (row << 8);
-
-            for (int x = 0; x < 16; x++)
-            {
-#if defined(SDL)
-                uint16_t bit = 0x8000 >> x;
-                character[y * 16 + x] = (row & bit) ? fg.color : bg.color;
-#else
-                uint16_t bit = 1 << x;
-                character[y * 16 + x] = (row & bit) ? fg.color : bg.color;
-#endif
-            }
-        }
-        return;
-    }
-
-    uint8_t length = 0;
-    switch (fontSize)
-    {
-    case FONT8x8: length = Flash_GetFontChar8x8(memory, buffer.bytes, glyph_index);
-        break;
-    case FONT20x20: length = Flash_GetFontChar20x20(memory, buffer.bytes, glyph_index);
-        break;
-    default: return;
-    }
-
-    for (int y = 0; y < length; y++)
-    {
-        uint8_t row = buffer.bytes[y];
-
-        for (int x = 0; x < 8; x++)
-        {
-            character[y * 8 + x] = (row & (1 << x)) ? fg.color : bg.color; //place unin16_t colour in the array based on bit value
-        }
-    }
-}
-
-/**********************************************************************************************************************/
-/* unpacks a sprite saved as 4bpp
- * saves it into a uint16_t array of rbg565 pixels
- * fontSize determines the l and w - sprites are all square
-********************************************* *************************************************************************/
-SET_MEMORY(".core")
-void UnpackSprite(MemoryInterface memory, Glyph buffer, uint16_t* character, uint8_t glyph_index, FontSize fontSize, Color fg, Color bg)
-{
-    if (fontSize == FONT16x16)
-    {
-        Flash_GetFontChar16x16(memory, buffer.bytes, glyph_index);
-
-        for (int y = 0; y < 16; y++)
-        {
-            uint16_t row = buffer.glyph[y];
+            uint16_t row = buffer.pixels[y];
             row = (row >> 8) | (row << 8);
 
             for (int x = 0; x < 16; x++)
@@ -181,13 +129,13 @@ void Expand4bppPackedToRGB(const uint16_t* src, const uint16_t* pal, uint16_t* d
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-uint8_t Expand4bppPackedToByte(MemoryInterface memory, const uint8_t* src, const uint16_t* pal, uint16_t* dest)
+uint8_t Expand4bppPackedToByte(MemoryInterface memory, const uint8_t* src, const uint16_t* pal, uint16_t* dest, uint8_t size)
 {
     uint16_t dest_idx = 0;
     uint8_t bytes_read = 0; // renamed for clarity
     const uint8_t* p = src;
 
-    while (dest_idx < 256)
+    while (dest_idx < (size * size))
     {
         // memory.Print(aadc, dest_idx);
         uint8_t byte = *p++; // read first
@@ -200,7 +148,7 @@ uint8_t Expand4bppPackedToByte(MemoryInterface memory, const uint8_t* src, const
 
         uint16_t color = pal[color_idx];
 
-        for (uint8_t k = 0; k < count && dest_idx < 256; k++)
+        for (uint8_t k = 0; k < count && dest_idx < (size * size); k++)
         {
             // memory.Print(aavc, k, dest_idx);
             dest[dest_idx++] = color;

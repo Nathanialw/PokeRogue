@@ -3,6 +3,8 @@ assets_processed*/
 assets_unused/
 assets_raw/
 
+.proxyai/
+
 build-pico/
 build-sdl/
 build-tests/

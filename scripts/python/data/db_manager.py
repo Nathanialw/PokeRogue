@@ -324,6 +324,54 @@ def init_database():
     ''')
 
     cursor.execute('''
+        CREATE TABLE IF NOT EXISTS tiles (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            name TEXT NOT NULL,
+            formatted TEXT,
+            function_name TEXT,
+            used INTEGER NOT NULL DEFAULT 0,
+            notes TEXT,
+            sprite_idx TEXT,
+            sprite_color_idx TEXT
+        )
+    ''')
+
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS tile_img_prompts (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            name TEXT NOT NULL,
+            prompt TEXT NOT NULL,
+            word_count INTEGER,
+            char_count INTEGER,
+            attempt_number INTEGER,
+            timestamp TEXT,
+            validation_matches INTEGER,
+            model_name TEXT,
+            prompt_version TEXT,
+            temperature REAL,
+            UNIQUE(name, prompt, model_name)
+        )
+    ''')
+
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS tile_descriptions (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            name TEXT NOT NULL,
+            used INTEGER NOT NULL DEFAULT 0,
+            description TEXT NOT NULL,
+            word_count INTEGER,
+            char_count INTEGER,
+            attempt_number INTEGER,
+            timestamp TEXT,
+            validation_matches INTEGER,
+            model_name TEXT,
+            prompt_version TEXT,
+            temperature REAL,
+            UNIQUE(name, used, description, model_name)
+        )
+    ''')
+
+    cursor.execute('''
         CREATE TABLE IF NOT EXISTS creature_skills (
             creature_name TEXT,
             skill_name TEXT,

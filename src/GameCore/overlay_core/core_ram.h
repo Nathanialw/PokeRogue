@@ -70,9 +70,9 @@ typedef struct
     // EntityId objectMap[MAP_H][MAP_W];
     uint8_t fog[MAP_H][MAP_W]; // TODO: not yet implemented
     // Node pathing[(MAP_H * MAP_W) / 2]; // TODO: not yet implemented
-    Glyph16x16 tile; // temp RGB565 buffer (512 bytes on stack)
+    Glyph tile; // temp RGB565 buffer (512 bytes on stack)
     Glyph buffer;
-    uint8_t spriteCache[256];
+    Glyph spriteCache;
 
 
     /**********************************************************************************************************************

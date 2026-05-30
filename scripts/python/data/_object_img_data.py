@@ -127,7 +127,6 @@ ObjectsDict = [
 
 BASE_PROMPT = (
     # f"photo-realistic hi fidelity detailed, "
-    f"Illustrated with contrasting vibrant colours, "
     "fantasy object, full body visible, centered composition, isolated creature, "
     "single subject, no cropping, highly detailed dark fantasy illustration, sharp focus, "
 )

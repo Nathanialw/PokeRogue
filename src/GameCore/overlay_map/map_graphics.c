@@ -27,11 +27,11 @@
 SET_MEMORY(".map")
 void ClipTile(uint16_t* clip, const uint16_t* pixels, Rect_16 r)
 {
-    for (int y = 0; y < TILE_W; ++y)
+    for (int y = 0; y < MAP_TILE_W; ++y)
     {
-        for (int x = 0; x < TILE_H; ++x)
+        for (int x = 0; x < MAP_TILE_H; ++x)
         {
-            clip[(TILE_W * y) + x] = pixels[(TILE_H * y) + x];
+            clip[(MAP_TILE_W * y) + x] = pixels[(MAP_TILE_H * y) + x];
         }
     }
 }
@@ -103,8 +103,8 @@ Color ModifyColor(Color color, int8_t brightness)
 SET_MEMORY(".map")
 void DrawTile(GraphicsInterface graphics, MemoryInterface memory, uint8_t screen_tx, uint8_t screen_ty, uint8_t tile_id, int8_t brightness)
 {
-    uint16_t px = (uint16_t)(screen_tx * TILE_W);
-    uint16_t py = (uint16_t)(screen_ty * TILE_H);
+    uint16_t px = (uint16_t)(screen_tx * MAP_TILE_W);
+    uint16_t py = (uint16_t)(screen_ty * MAP_TILE_H);
 
     g_map.tileCache.tile_id = tile_id;
     Flash_GetBiomeTile(memory, &g_map.tileCache.tileCache, g_core.biome, tile_id);
@@ -114,12 +114,11 @@ void DrawTile(GraphicsInterface graphics, MemoryInterface memory, uint8_t screen
     bg = ModifyColor(bg, brightness);
 
 
-#if defined(SDL)
-    UnpackSprite(memory, g_map.tileCache.spriteCache, g_map.tileCache.tilePixels.pixels, g_map.tileCache.tileCache.glyph_index, FONT16x16, fg, bg);
-    graphics.Draw16(px, py, TILE_W, TILE_H, g_map.tileCache.tilePixels.pixels);
-#else
     CharFromGlyph1bpp(memory, g_map.tileCache.spriteCache, g_map.tileCache.tilePixels.pixels, g_map.tileCache.tileCache.glyph_index, FONT16x16, fg, bg);
-    graphics.Draw(px, py, TILE_W, TILE_H, g_map.tileCache.tilePixels.pixels_bytes);
+#if defined(SDL)
+    graphics.Draw16(px, py, MAP_TILE_W, MAP_TILE_H, g_map.tileCache.tilePixels.pixels);
+#else
+    graphics.Draw(px, py, MAP_TILE_W, MAP_TILE_H, g_map.tileCache.tilePixels.bytes);
 #endif
 }
 
@@ -131,23 +130,26 @@ void DrawTile(GraphicsInterface graphics, MemoryInterface memory, uint8_t screen
 SET_MEMORY(".map")
 void DrawTileCached(GraphicsInterface graphics, MemoryInterface memory, uint8_t screen_tx, uint8_t screen_ty, uint8_t tile_id)
 {
-    uint16_t px = (uint16_t)(screen_tx * TILE_W);
-    uint16_t py = (uint16_t)(screen_ty * TILE_H);
+    uint16_t px = (uint16_t)(screen_tx * MAP_TILE_W);
+    uint16_t py = (uint16_t)(screen_ty * MAP_TILE_H);
 
+#if defined(SDL)
+    SpriteFrames layout = {0};
+    // Flash_GetSpriteMetadata(memory, &layout, type, sprite_id);
+    // (memory, g_map.tileCache.spriteCache.bytes, &layout, type);
+    // Expand4bppPackedToByte(memory, g_map.tileCache.spriteCache.bytes, layout.palette, g_map.tileCache.spritePixels.pixels, TILE_W);
+#else
     if (g_map.tileCache.tile_id != tile_id)
     {
         g_map.tileCache.tile_id = tile_id;
         Flash_GetBiomeTile(memory, &g_map.tileCache.tileCache, g_core.biome, tile_id);
-#if defined(SDL)
-        UnpackSprite(memory, g_map.tileCache.spriteCache, g_map.tileCache.tilePixels.pixels, g_map.tileCache.tileCache.glyph_index, FONT16x16, Flash_GetColor(memory, g_map.tileCache.tileCache.fg), Flash_GetColor(memory, g_map.tileCache.tileCache.bg));
-#else
         CharFromGlyph1bpp(memory, g_map.tileCache.spriteCache, g_map.tileCache.tilePixels.pixels, g_map.tileCache.tileCache.glyph_index, FONT16x16, Flash_GetColor(memory, g_map.tileCache.tileCache.fg), Flash_GetColor(memory, g_map.tileCache.tileCache.bg));
-#endif
     }
+#endif
 #if defined(SDL)
-    graphics.Draw16(px, py, TILE_W, TILE_H, g_map.tileCache.tilePixels.pixels);
+    graphics.Draw16(px, py, MAP_TILE_W, MAP_TILE_H, g_map.tileCache.tilePixels.pixels);
 #else
-    graphics.Draw(px, py, TILE_W, TILE_H, g_map.tileCache.tilePixels.pixels_bytes);
+    graphics.Draw(px, py, MAP_TILE_W, MAP_TILE_H, g_map.tileCache.tilePixels.bytes);
 #endif
 }
 
@@ -157,19 +159,21 @@ void DrawTileCached(GraphicsInterface graphics, MemoryInterface memory, uint8_t 
 SET_MEMORY(".map")
 void DrawSprite(GraphicsInterface graphics, MemoryInterface memory, uint8_t screen_tx, uint8_t screen_ty, Creature sprite_id, ObjectsTypes type)
 {
-    uint16_t px = (uint16_t)(screen_tx * TILE_W);
-    uint16_t py = (uint16_t)(screen_ty * TILE_H);
-
-    g_map.tileCache.sprite_id = sprite_id;
-    Flash_GetSpriteMetadata(memory, &g_map.tileCache.entityCache, type, sprite_id);
-    const Color c = Flash_GetColor(memory, PAL_KEY);
+    uint16_t px = (uint16_t)(screen_tx * MAP_TILE_W);
+    uint16_t py = (uint16_t)(screen_ty * MAP_TILE_H);
 
 #if defined(SDL)
-    UnpackSprite(memory, g_map.tileCache.spriteCache, g_map.tileCache.spritePixels.pixels, g_map.tileCache.entityCache.glyph_index, FONT16x16, Flash_GetColor(memory, g_map.tileCache.entityCache.fg), Flash_GetColor(memory, PAL_KEY));
+    SpriteFrames layout = {0};
+    Flash_GetMapSpriteMetadata(memory, &layout, type, sprite_id);
+    Flash_GetMapSprite(memory, g_map.tileCache.spriteCache.bytes, &layout, type);
+    Expand4bppPackedToByte(memory, g_map.tileCache.spriteCache.bytes, layout.palette, g_map.tileCache.spritePixels.pixels, MAP_TILE_W);
 #else
+    g_map.tileCache.sprite_id = sprite_id;
+    Flash_GetTextSpriteMetadata(memory, &g_map.tileCache.entityCache, type, sprite_id);
+    const Color c = Flash_GetColor(memory, PAL_KEY);
     CharFromGlyph1bpp(memory, g_map.tileCache.spriteCache, g_map.tileCache.spritePixels.pixels, g_map.tileCache.entityCache.glyph_index, FONT16x16, Flash_GetColor(memory, g_map.tileCache.entityCache.fg), Flash_GetColor(memory, PAL_KEY));
 #endif
-    graphics.DrawTileKeyed(px, py, TILE_W, TILE_H, g_map.tileCache.spritePixels.pixels);
+    graphics.DrawTileKeyed(px, py, MAP_TILE_W, MAP_TILE_H, g_map.tileCache.spritePixels.pixels);
 }
 
 
@@ -181,22 +185,25 @@ void DrawSprite(GraphicsInterface graphics, MemoryInterface memory, uint8_t scre
 SET_MEMORY(".map")
 void DrawSpriteCached(GraphicsInterface graphics, MemoryInterface memory, uint8_t screen_tx, uint8_t screen_ty, uint8_t sprite_id, ObjectsTypes type)
 {
-    uint16_t px = (uint16_t)(screen_tx * TILE_W);
-    uint16_t py = (uint16_t)(screen_ty * TILE_H);
+    uint16_t px = (uint16_t)(screen_tx * MAP_TILE_W);
+    uint16_t py = (uint16_t)(screen_ty * MAP_TILE_H);
 
+
+#if defined(SDL)
+    SpriteFrames layout = {0};
+    Flash_GetMapSpriteMetadata(memory, &layout, type, sprite_id);
+    Flash_GetMapSprite(memory, g_map.tileCache.spriteCache.bytes, &layout, type);
+    Expand4bppPackedToByte(memory, g_map.tileCache.spriteCache.bytes, layout.palette, g_map.tileCache.spritePixels.pixels, MAP_TILE_W);
+#else
     if (g_map.tileCache.sprite_id != sprite_id)
     {
         g_map.tileCache.sprite_id = sprite_id;
-        Flash_GetSpriteMetadata(memory, &g_map.tileCache.entityCache, type, sprite_id);
-
-#if defined(SDL)
-        UnpackSprite(memory, g_map.tileCache.spriteCache, g_map.tileCache.spritePixels.pixels, g_map.tileCache.entityCache.glyph_index, FONT16x16, Flash_GetColor(memory, g_map.tileCache.entityCache.fg), Flash_GetColor(memory, PAL_KEY));
-#else
+        Flash_GetTextSpriteMetadata(memory, &g_map.tileCache.entityCache, type, sprite_id);
         CharFromGlyph1bpp(memory, g_map.tileCache.spriteCache, g_map.tileCache.spritePixels.pixels, g_map.tileCache.entityCache.glyph_index, FONT16x16, Flash_GetColor(memory, g_map.tileCache.entityCache.fg), Flash_GetColor(memory, PAL_KEY));
-#endif
     }
+#endif
 
-    graphics.DrawTileKeyed(px, py, TILE_W, TILE_H, g_map.tileCache.spritePixels.pixels);
+    graphics.DrawTileKeyed(px, py, MAP_TILE_W, MAP_TILE_H, g_map.tileCache.spritePixels.pixels);
 }
 
 

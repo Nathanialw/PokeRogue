@@ -83,9 +83,10 @@ _Static_assert(OBJECT_COUNT <= 256, "max must be 256 - one byte");
 /**********************************************************************************************************************/
 /**CAMERA constants
 **********************************************************************************************************************/
+#define VIEW_TW (SCREEN_W / MAP_TILE_W)
+#define VIEW_TH (SCREEN_H / MAP_TILE_H)
 #define CAM_OFFSET_Y  ((VIEW_TH / 2))
 #define CAM_OFFSET_X  (((VIEW_TW / 2) - 1))
-
 
 /**********************************************************************************************************************/
 /** ENTITY constants
@@ -134,6 +135,32 @@ _Static_assert(DIALOGUE_H + RESOURCE_FRAME_H + BATTLER_AREA_H <= TFT_H, "cannot 
 /**********************************************************************************************************************/
 /**MAP constants
 **********************************************************************************************************************/
+
+// #define MAP_TILES_16
+// #define MAP_TILES_20
+#define MAP_TILES_24
+// #define MAP_TILES_32
+// #define MAP_TILES_64
+
+
+#if defined(MAP_TILES_16)
+#define MAP_TILE_W 16
+#define MAP_TILE_H 16
+#elif defined(MAP_TILES_20)
+#define MAP_TILE_W 20
+#define MAP_TILE_H 20
+#elif defined(MAP_TILES_24)
+#define MAP_TILE_W 24
+#define MAP_TILE_H 24
+#elif defined(MAP_TILES_32)
+#define MAP_TILE_W 32
+#define MAP_TILE_H 32
+#elif defined(MAP_TILES_64)
+#define MAP_TILE_W 64
+#define MAP_TILE_H 64
+#else
+#endif
+
 #define MAP_W 160
 #define MAP_H 160
 #define MAP_TILE_BITS 4

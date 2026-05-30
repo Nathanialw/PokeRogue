@@ -30,14 +30,6 @@ typedef char SmallStringArray[SMALL_STRINGS];
 typedef uint16_t MapSprite[TILE_W * TILE_H];
 
 
-typedef union
-{
-    uint16_t glyph[16];
-    uint8_t bytes[FONT_32_BYTES_PER_CHAR];
-} Glyph;
-
-_Static_assert(sizeof(Glyph) == 128, "SkillLearnLevel must be 128 bytes");
-
 
 /**********************************************************************************************************************/
 /**Bitfield types
@@ -102,9 +94,15 @@ typedef union
 typedef union
 {
     uint16_t pixels[TILE_PIXELS];
-    uint8_t pixels_bytes[TILE_PIXELS * 2];
     uint16_t pixels_2d[TILE_W][TILE_H];
-} Glyph16x16;
+    uint8_t bytes[TILE_PIXELS * 2];
+
+
+    // uint16_t glyph[16];
+    // uint8_t bytes[FONT_32_BYTES_PER_CHAR];
+} Glyph;
+
+
 
 // _Static_assert(sizeof(Glyph16x16) == 512, "Glyph16x16 must be 512 bytes");
 
@@ -336,14 +334,14 @@ typedef union
     struct
     {
         uint32_t idx;
-        uint16_t palette[16];
         uint8_t emptyIndexes[7];
+        uint16_t palette[16];
     };
 
     uint8_t bytes[44];
 } SpriteLayout;
 
-_Static_assert(sizeof(SpriteLayout) == 44, "SpriteLayout must be 44 bytes");
+_Static_assert(sizeof(SpriteLayout) == 44, "SpriteLayout must be 48 bytes");
 
 /**********************************************************************************************************************/
 /** holds 2 2-byte unsigned integers
@@ -355,6 +353,7 @@ typedef struct
 } Vec_16;
 
 _Static_assert(sizeof(Vec_16) == 4, "Vec_16 must be 4 bytes");
+
 /**********************************************************************************************************************/
 /** holds 2 1-byte unsigned integers
 **********************************************************************************************************************/
@@ -549,10 +548,12 @@ typedef union
     struct
     {
         uint32_t index;
+        uint32_t size;
+        uint16_t palette[16];
     };
 
-    uint8_t bytes[4];
+    uint8_t bytes[40];
 } SpriteFrames;
 
 
-_Static_assert(sizeof(SpriteFrames) == 4, "Sprite must be 4 bytes");
+_Static_assert(sizeof(SpriteFrames) == 40, "Sprite must be 4 bytes");

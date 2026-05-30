@@ -75,9 +75,7 @@ def process_json_file(json_path, monster_idx, comment, folder_path, layout_file,
 
     # Write layout to layout file with byte offset as the idx
     layout_file.write(f"// {comment}{folder_comment} (sprite index: {monster_idx}, byte offset: {byte_offset}, size: {sprite_size})\n")
-    # layout_file.write(f"{{  .idx = {byte_offset}, .palette = {{ {', '.join(palette_str)} }}, }},\n")
-    layout_file.write(f"{{  .index = {byte_offset}, }},\n")
-    # layout_file.write(f"{{   }},\n")
+    layout_file.write(f"{{  .index = {byte_offset}, .size = {sprite_size}, .palette = {{ {', '.join(palette_str)} }}, }},\n")
 
     # Write data to data file
     data_file.write(f"// {comment}{folder_comment} - RLE compressed data (offset: {byte_offset}, size: {sprite_size})\n")
@@ -159,7 +157,7 @@ def export_image_data(entity, size):
         # Add header comments
         layout_file.write(f"// Layouts generated from {input_folder} (recursive scan)\n")
         layout_file.write(f"// Starting monster index: {START_IDX}\n")
-        layout_file.write(f"// Format: {{ {{ .idx = byte_offset, .palette = {{...}}, .emptyIndexes = {{...}} }},\n")
+        layout_file.write(f"// Format: {{ {{ .idx = byte_offset, .size = size, .palette = {{...}}, .emptyIndexes = {{...}} }},\n")
         layout_file.write(f"// Files are processed in alphabetical order by full path\n\n")
 
         data_file.write(f"// RLE data generated from {input_folder} (recursive scan)\n")
@@ -190,10 +188,7 @@ def export_image_data(entity, size):
             print(f"  [{i + 1:3d}/{len(json_files)}] Processing {json_path.name} -> sprite index {monster_idx}, byte offset {byte_offset}")
 
             try:
-                sprite_size = process_json_file(
-                    json_path, monster_idx, full_comment, input_folder,
-                    layout_file, data_file, byte_offset
-                )
+                sprite_size = process_json_file(json_path, monster_idx, full_comment, input_folder,layout_file, data_file, byte_offset)
                 byte_offset += sprite_size
                 processed_count += 1
             except Exception as e:

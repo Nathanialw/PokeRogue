@@ -11,12 +11,11 @@ uint8_t Flash_GetStatGrowth(MemoryInterface memory, Creature type);
 Creature Flash_GetBiomeCreature(MemoryInterface memory, uint8_t biome, Creature index);
 Creature Flash_GetThemeCreature(MemoryInterface memory, uint8_t theme, Creature index);
 
-void Flash_GetSpriteMetadata(MemoryInterface memory, Sprite* sprite, ObjectsTypes type, uint8_t index);
-
+void Flash_GetTextSpriteMetadata(MemoryInterface memory, Sprite* sprite, ObjectsTypes type, uint8_t index);
+void Flash_GetMapSpriteMetadata(MemoryInterface memory, SpriteFrames* sprite, ObjectsTypes type, uint8_t index);
+void Flash_GetMapSprite(MemoryInterface memory, uint8_t* bytes, SpriteFrames* sprite, ObjectsTypes type);
 
 void Flash_GetOptionText(MemoryInterface memory, uint8_t* textBuffer, uint8_t index);
-
-
 
 
 //MAP

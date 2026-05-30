@@ -10,6 +10,7 @@ from pathlib import Path
 from python.data import _object_img_data
 from python.data import _trainer_img_data, trainer_descriptors
 from python.data import _creature_img_data, creature_descriptors
+from python.data import _tile_img_data, tile_descriptors
 from python.data import _item_img_data
 from python.data import _skill_img_data
 from python.data import _spell_img_data
@@ -324,6 +325,8 @@ def main():
     test = _trainer_img_data.Trainers[:5] if TEST_MODE else _trainer_img_data.Trainers
     generate_list(test, constants.TRAINER_TABLE, "trainer", trainer_descriptors.CREATURE_VALIDATION)
 
+    test = _trainer_img_data.Tiles[:5] if TEST_MODE else _trainer_img_data.Tiles
+    generate_list(test, constants.TILE_TABLE, "tile", trainer_descriptors.CREATURE_VALIDATION)
 
 if __name__ == "__main__":
     main()

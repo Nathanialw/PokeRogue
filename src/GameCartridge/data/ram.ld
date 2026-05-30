@@ -81,6 +81,7 @@ SECTIONS
     .sprite_skills                   0x43000000 : { KEEP(*(.sprite_skills))  . = ALIGN(4); }
     .sprite_objects                  0x44000000 : { KEEP(*(.sprite_objects))  . = ALIGN(4); }
     .sprite_trainers                 0x45000000 : { KEEP(*(.sprite_trainers))  . = ALIGN(4); }
+    /*     MAP SPRITES                               */
     .sprite_16x16_creature           0x50000000 : { KEEP(*(.sprite_16x16_creature))  . = ALIGN(4); }
     .sprite_16x16_item               0x51000000 : { KEEP(*(.sprite_16x16_item))  . = ALIGN(4); }
     .sprite_16x16_object             0x52000000 : { KEEP(*(.sprite_16x16_object))  . = ALIGN(4); }

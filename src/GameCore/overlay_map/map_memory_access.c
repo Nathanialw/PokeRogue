@@ -95,10 +95,8 @@ void Flash_GetBiomeTile(MemoryInterface memory, Tile* tile, uint8_t biomeType, u
 /**********************************************************************************************************************/
 /*      SPRITES
 **********************************************************************************************************************/
-
-
 SET_MEMORY(".map")
-void Flash_GetSpriteMetadata(MemoryInterface memory, Sprite* sprite, ObjectsTypes type, uint8_t index)
+void Flash_GetTextSpriteMetadata(MemoryInterface memory, Sprite* sprite, ObjectsTypes type, uint8_t index)
 {
 #ifdef STANDALONE
     if (type == ITEM)
@@ -131,6 +129,121 @@ void Flash_GetSpriteMetadata(MemoryInterface memory, Sprite* sprite, ObjectsType
 #endif
 #endif
 }
+
+SET_MEMORY(".map")
+void Flash_GetMapSpriteMetadata(MemoryInterface memory, SpriteFrames* sprite, ObjectsTypes type, uint8_t index)
+{
+#if defined(MAP_TILES_16)
+    if (type == ITEM)
+        memory.GetRom(SPRITE_16X16_ITEM_METADATA_POSITION + (index * sizeof(SpriteFrames)), sprite->bytes, sizeof(SpriteFrames));
+    else if (type == CREATURE)
+        memory.GetRom(SPRITE_16X16_CREATURE_METADATA_POSITION + (index * sizeof(SpriteFrames)), sprite->bytes, sizeof(SpriteFrames));
+    else if (type == OBJECT)
+        memory.GetRom(SPRITE_16X16_OBJECT_METADATA_POSITION + (index * sizeof(SpriteFrames)), sprite->bytes, sizeof(SpriteFrames));
+    else if (type == TRAINER)
+        memory.GetRom(SPRITE_16X16_TRAINER_METADATA_POSITION + (index * sizeof(SpriteFrames)), sprite->bytes, sizeof(SpriteFrames));
+#elif defined(MAP_TILES_20)
+    if (type == ITEM)
+        memory.GetRom(SPRITE_20X20_ITEM_METADATA_POSITION + (index * sizeof(SpriteFrames)), sprite->bytes, sizeof(SpriteFrames));
+    else if (type == CREATURE)
+        memory.GetRom(SPRITE_20X20_CREATURE_METADATA_POSITION + (index * sizeof(SpriteFrames)), sprite->bytes, sizeof(SpriteFrames));
+    else if (type == OBJECT)
+        memory.GetRom(SPRITE_20X20_OBJECT_METADATA_POSITION + (index * sizeof(SpriteFrames)), sprite->bytes, sizeof(SpriteFrames));
+    else if (type == TRAINER)
+        memory.GetRom(SPRITE_20X20_TRAINER_METADATA_POSITION + (index * sizeof(SpriteFrames)), sprite->bytes, sizeof(SpriteFrames));
+#elif defined(MAP_TILES_24)
+    if (type == ITEM)
+        memory.GetRom(SPRITE_24X24_ITEM_METADATA_POSITION + (index * sizeof(SpriteFrames)), sprite->bytes, sizeof(SpriteFrames));
+    else if (type == CREATURE)
+        memory.GetRom(SPRITE_24X24_CREATURE_METADATA_POSITION + (index * sizeof(SpriteFrames)), sprite->bytes, sizeof(SpriteFrames));
+    else if (type == OBJECT)
+        memory.GetRom(SPRITE_24X24_OBJECT_METADATA_POSITION + (index * sizeof(SpriteFrames)), sprite->bytes, sizeof(SpriteFrames));
+    else if (type == TRAINER)
+        memory.GetRom(SPRITE_24X24_TRAINER_METADATA_POSITION + (index * sizeof(SpriteFrames)), sprite->bytes, sizeof(SpriteFrames));
+#elif defined(MAP_TILES_32)
+    if (type == ITEM)
+        memory.GetRom(SPRITE_32X32_ITEM_METADATA_POSITION + (index * sizeof(SpriteFrames)), sprite->bytes, sizeof(SpriteFrames));
+    else if (type == CREATURE)
+        memory.GetRom(SPRITE_32X32_CREATURE_METADATA_POSITION + (index * sizeof(SpriteFrames)), sprite->bytes, sizeof(SpriteFrames));
+    else if (type == OBJECT)
+        memory.GetRom(SPRITE_32X32_OBJECT_METADATA_POSITION + (index * sizeof(SpriteFrames)), sprite->bytes, sizeof(SpriteFrames));
+    else if (type == TRAINER)
+        memory.GetRom(SPRITE_32X32_TRAINER_METADATA_POSITION + (index * sizeof(SpriteFrames)), sprite->bytes, sizeof(SpriteFrames));
+#elif defined(MAP_TILES_64)
+    if (type == ITEM)
+        memory.GetRom(SPRITE_16X16_ITEM_METADATA_POSITION + (index * sizeof(SpriteFrames)), sprite->bytes, sizeof(SpriteFrames));
+    else if (type == CREATURE)
+        memory.GetRom(SPRITE_16X16_CREATURE_METADATA_POSITION + (index * sizeof(SpriteFrames)), sprite->bytes, sizeof(SpriteFrames));
+    else if (type == OBJECT)
+        memory.GetRom(SPRITE_16X16_OBJECT_METADATA_POSITION + (index * sizeof(SpriteFrames)), sprite->bytes, sizeof(SpriteFrames));
+    else if (type == TRAINER)
+        memory.GetRom(SPRITE_16X16_TRAINER_METADATA_POSITION + (index * sizeof(SpriteFrames)), sprite->bytes, sizeof(SpriteFrames));
+
+#if defined(MEMORY_PRINT)
+    for (uint8_t i = 0; i < sizeof(Sprite); i++)
+        memory.Print(str_spawn_creature_type, sprite->bytes[i]);
+    memory.Print(new_line);
+#endif
+#endif
+}
+
+SET_MEMORY(".map")
+void Flash_GetMapSprite(MemoryInterface memory, uint8_t* bytes, SpriteFrames* sprite, ObjectsTypes type)
+{
+#if defined(MAP_TILES_16)
+    if (type == ITEM)
+        memory.GetRom(SPRITE_16X16_ITEM_POSITION + sprite->index, bytes, sprite->size);
+    else if (type == CREATURE)
+        memory.GetRom(SPRITE_16X16_CREATURE_POSITION + sprite->index, bytes, sprite->size);
+    else if (type == OBJECT)
+        memory.GetRom(SPRITE_16X16_OBJECT_POSITION + sprite->index, bytes, sprite->size);
+    else if (type == TRAINER)
+        memory.GetRom(SPRITE_16X16_TRAINER_POSITION + sprite->index, bytes, sprite->size);
+#elif  defined(MAP_TILES_20)
+    if (type == ITEM)
+        memory.GetRom(SPRITE_20X20_ITEM_POSITION + sprite->index, bytes, sprite->size);
+    else if (type == CREATURE)
+        memory.GetRom(SPRITE_20X20_CREATURE_POSITION + sprite->index, bytes, sprite->size);
+    else if (type == OBJECT)
+        memory.GetRom(SPRITE_20X20_OBJECT_POSITION + sprite->index, bytes, sprite->size);
+    else if (type == TRAINER)
+        memory.GetRom(SPRITE_20X20_TRAINER_POSITION + sprite->index, bytes, sprite->size);
+#elif  defined(MAP_TILES_24)
+    if (type == ITEM)
+        memory.GetRom(SPRITE_24X24_ITEM_POSITION + sprite->index, bytes, sprite->size);
+    else if (type == CREATURE)
+        memory.GetRom(SPRITE_24X24_CREATURE_POSITION + sprite->index, bytes, sprite->size);
+    else if (type == OBJECT)
+        memory.GetRom(SPRITE_24X24_OBJECT_POSITION + sprite->index, bytes, sprite->size);
+    else if (type == TRAINER)
+        memory.GetRom(SPRITE_24X24_TRAINER_POSITION + sprite->index, bytes, sprite->size);
+#elif  defined(MAP_TILES_32)
+    if (type == ITEM)
+        memory.GetRom(SPRITE_32X32_ITEM_POSITION + sprite->index, bytes, sprite->size);
+    else if (type == CREATURE)
+        memory.GetRom(SPRITE_32X32_CREATURE_POSITION + sprite->index, bytes, sprite->size);
+    else if (type == OBJECT)
+        memory.GetRom(SPRITE_32X32_OBJECT_POSITION + sprite->index, bytes, sprite->size);
+    else if (type == TRAINER)
+        memory.GetRom(SPRITE_32X32_TRAINER_POSITION + sprite->index, bytes, sprite->size);
+#elif  defined(MAP_TILES_64)
+    if (type == ITEM)
+        memory.GetRom(SPRITE_64X64_ITEM_POSITION + sprite->index, bytes, sprite->size);
+    else if (type == CREATURE)
+        memory.GetRom(SPRITE_64X64_CREATURE_POSITION + sprite->index, bytes, sprite->size);
+    else if (type == OBJECT)
+        memory.GetRom(SPRITE_64X64_OBJECT_POSITION + sprite->index, bytes, sprite->size);
+    else if (type == TRAINER)
+        memory.GetRom(SPRITE_64X64_TRAINER_POSITION + sprite->index, bytes, sprite->size);
+
+#if defined(MEMORY_PRINT)
+    for (uint8_t i = 0; i < sizeof(Sprite); i++)
+        memory.Print(str_spawn_creature_type, sprite->bytes[i]);
+    memory.Print(new_line);
+#endif
+#endif
+}
+
 
 /**********************************************************************************************************************/
 /*      Text
@@ -276,7 +389,6 @@ void Flash_GetObjectData(MemoryInterface memory, ObjectData* object_data, uint8_
 #endif
 #endif
 }
-
 
 
 /*****************************************************************************************************************************

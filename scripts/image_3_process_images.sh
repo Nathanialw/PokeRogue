@@ -5,8 +5,8 @@ cd python
 
 cd process_images
 
-image_types=("item" "spell" "skill" "creature" "object" "trainer")
-#image_types=("creature")
+#image_types=("item" "spell" "skill" "creature" "object" "trainer")
+image_types=("trainer")
 
 
 echo $type

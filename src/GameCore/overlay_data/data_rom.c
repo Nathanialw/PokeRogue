@@ -549,7 +549,7 @@ const char Text_types[TYPE_COUNT][SMALL_STRINGS] = {
 };
 
 /**********************************************************************************************************************/
-/*
+/*  BATTLERS
 **********************************************************************************************************************/
 SET_MEMORY(".sprite_battler_layout_back")
 const SpriteLayout battler_back_layout[CREATURE_COUNT] = {
@@ -608,7 +608,7 @@ const uint8_t sprites_objects[SPRITE_OBJECT_BYTES] = {
 #include "inc/sprite_object.inc"
 };
 SET_MEMORY(".sprite_trainers")
-const uint8_t sprites_trainers[TRAINER_COUNT] = {
+const uint8_t sprites_trainers[SPRITE_TRAINER_BYTES] = {
 #include "inc/sprite_trainer.inc"
 };
 
@@ -617,13 +617,6 @@ const uint8_t sprites_trainers[TRAINER_COUNT] = {
  *      MAP SPRITES
  *
 **********************************************************************************************************************/
-
-#define MAP_SPRITE_CREATURE_LAYOUT_SIZE (sizeof(SpriteFrames) * CREATURE_COUNT)
-#define MAP_SPRITE_ITEM_LAYOUT_SIZE (sizeof(SpriteFrames) * ITEM_COUNT)
-#define MAP_SPRITE_OBJECT_LAYOUT_SIZE (sizeof(SpriteFrames) * OBJECT_COUNT)
-#define MAP_SPRITE_TRAINER_LAYOUT_SIZE (sizeof(SpriteFrames) * TRAINER_COUNT)
-#define MAP_SPRITE_TILE_LAYOUT_SIZE (sizeof(SpriteFrames) * TILE_COUNT)
-
 /**********************************************************************************************************************/
 /*  16x16 map sprite tiles, may have multiple tiles for idle animations
 **********************************************************************************************************************/
@@ -649,23 +642,23 @@ const uint8_t tileSprites16x16[SPRITE_16x16_TILE_BYTES] = {
 };
 
 SET_MEMORY(".sprite_16x16_creature_metaData")
-const SpriteFrames creatureSpritesMetaData16x16[MAP_SPRITE_CREATURE_LAYOUT_SIZE] = {
+const SpriteFrames creatureSpritesMetaData16x16[CREATURE_COUNT] = {
 #include "inc/sprite_16x16_creature_metaData.inc"
 };
 SET_MEMORY(".sprite_16x16_item_metaData")
-const SpriteFrames itemSpritesMetaData16x16[MAP_SPRITE_ITEM_LAYOUT_SIZE] = {
+const SpriteFrames itemSpritesMetaData16x16[ITEM_COUNT] = {
 #include "inc/sprite_16x16_item_metaData.inc"
 };
 SET_MEMORY(".sprite_16x16_object_metaData")
-const SpriteFrames objectSpritesMetaData16x16[MAP_SPRITE_OBJECT_LAYOUT_SIZE] = {
+const SpriteFrames objectSpritesMetaData16x16[OBJECT_COUNT] = {
 #include "inc/sprite_16x16_object_metaData.inc"
 };
 SET_MEMORY(".sprite_16x16_trainer_metaData")
-const SpriteFrames trainerSpritesMetaData16x16[MAP_SPRITE_TRAINER_LAYOUT_SIZE] = {
+const SpriteFrames trainerSpritesMetaData16x16[TRAINER_COUNT] = {
 #include "inc/sprite_16x16_trainer_metaData.inc"
 };
 SET_MEMORY(".sprite_16x16_tile_metaData")
-const SpriteFrames tileSpritesMetaData16x16[MAP_SPRITE_TILE_LAYOUT_SIZE] = {
+const SpriteFrames tileSpritesMetaData16x16[TILE_COUNT] = {
 #include "inc/sprite_16x16_tile_metaData.inc"
 };
 
@@ -694,23 +687,23 @@ const uint8_t tileSprites20x20[SPRITE_20x20_TILE_BYTES] = {
 };
 
 SET_MEMORY(".sprite_20x20_creature_metaData")
-const SpriteFrames creatureSpritesMetaData20x20[MAP_SPRITE_CREATURE_LAYOUT_SIZE] = {
+const SpriteFrames creatureSpritesMetaData20x20[CREATURE_COUNT] = {
 #include "inc/sprite_20x20_creature_metaData.inc"
 };
 SET_MEMORY(".sprite_20x20_item_metaData")
-const SpriteFrames itemSpritesMetaData20x20[MAP_SPRITE_ITEM_LAYOUT_SIZE] = {
+const SpriteFrames itemSpritesMetaData20x20[ITEM_COUNT] = {
 #include "inc/sprite_20x20_item_metaData.inc"
 };
 SET_MEMORY(".sprite_20x20_object_metaData")
-const SpriteFrames objectSpritesMetaData20x20[MAP_SPRITE_OBJECT_LAYOUT_SIZE] = {
+const SpriteFrames objectSpritesMetaData20x20[OBJECT_COUNT] = {
 #include "inc/sprite_20x20_object_metaData.inc"
 };
 SET_MEMORY(".sprite_20x20_trainer_metaData")
-const SpriteFrames trainerSpritesMetaData20x20[MAP_SPRITE_TRAINER_LAYOUT_SIZE] = {
+const SpriteFrames trainerSpritesMetaData20x20[TRAINER_COUNT] = {
 #include "inc/sprite_20x20_trainer_metaData.inc"
 };
 SET_MEMORY(".sprite_20x20_tile_metaData")
-const SpriteFrames tileSpritesMetaData20x20[MAP_SPRITE_TILE_LAYOUT_SIZE] = {
+const SpriteFrames tileSpritesMetaData20x20[TILE_COUNT] = {
 #include "inc/sprite_20x20_tile_metaData.inc"
 };
 
@@ -740,23 +733,23 @@ const uint8_t tileSprites24x24[SPRITE_24x24_TILE_BYTES] = {
 };
 
 SET_MEMORY(".sprite_24x24_creature_metaData")
-const SpriteFrames creatureSpritesMetaData24x24[MAP_SPRITE_CREATURE_LAYOUT_SIZE] = {
+const SpriteFrames creatureSpritesMetaData24x24[CREATURE_COUNT] = {
 #include "inc/sprite_24x24_creature_metaData.inc"
 };
 SET_MEMORY(".sprite_24x24_item_metaData")
-const SpriteFrames itemSpritesMetaData24x24[MAP_SPRITE_ITEM_LAYOUT_SIZE] = {
+const SpriteFrames itemSpritesMetaData24x24[ITEM_COUNT] = {
 #include "inc/sprite_24x24_item_metaData.inc"
 };
 SET_MEMORY(".sprite_24x24_object_metaData")
-const SpriteFrames objectSpritesMetaData24x24[MAP_SPRITE_OBJECT_LAYOUT_SIZE] = {
+const SpriteFrames objectSpritesMetaData24x24[OBJECT_COUNT] = {
 #include "inc/sprite_24x24_object_metaData.inc"
 };
 SET_MEMORY(".sprite_24x24_trainer_metaData")
-const SpriteFrames trainerSpritesMetaData24x24[MAP_SPRITE_TRAINER_LAYOUT_SIZE] = {
+const SpriteFrames trainerSpritesMetaData24x24[TRAINER_COUNT] = {
 #include "inc/sprite_24x24_trainer_metaData.inc"
 };
 SET_MEMORY(".sprite_24x24_tile_metaData")
-const SpriteFrames tileSpritesMetaData24x24[MAP_SPRITE_TILE_LAYOUT_SIZE] = {
+const SpriteFrames tileSpritesMetaData24x24[TILE_COUNT] = {
 #include "inc/sprite_24x24_tile_metaData.inc"
 };
 
@@ -786,23 +779,23 @@ const uint8_t tileSprites32x32[SPRITE_32x32_TILE_BYTES] = {
 };
 
 SET_MEMORY(".sprite_32x32_creature_metaData")
-const SpriteFrames creatureSpritesMetaData32x32[MAP_SPRITE_CREATURE_LAYOUT_SIZE] = {
+const SpriteFrames creatureSpritesMetaData32x32[CREATURE_COUNT] = {
 #include "inc/sprite_32x32_creature_metaData.inc"
 };
 SET_MEMORY(".sprite_32x32_item_metaData")
-const SpriteFrames itemSpritesMetaData32x32[MAP_SPRITE_ITEM_LAYOUT_SIZE] = {
+const SpriteFrames itemSpritesMetaData32x32[ITEM_COUNT] = {
 #include "inc/sprite_32x32_item_metaData.inc"
 };
 SET_MEMORY(".sprite_32x32_object_metaData")
-const SpriteFrames objectSpritesMetaData32x32[MAP_SPRITE_OBJECT_LAYOUT_SIZE] = {
+const SpriteFrames objectSpritesMetaData32x32[OBJECT_COUNT] = {
 #include "inc/sprite_32x32_object_metaData.inc"
 };
 SET_MEMORY(".sprite_32x32_trainer_metaData")
-const SpriteFrames trainerSpritesMetaData32x32[MAP_SPRITE_TRAINER_LAYOUT_SIZE] = {
+const SpriteFrames trainerSpritesMetaData32x32[TRAINER_COUNT] = {
 #include "inc/sprite_32x32_trainer_metaData.inc"
 };
 SET_MEMORY(".sprite_32x32_tile_metaData")
-const SpriteFrames tileSpritesMetaData32x32[MAP_SPRITE_TILE_LAYOUT_SIZE] = {
+const SpriteFrames tileSpritesMetaData32x32[TILE_COUNT] = {
 #include "inc/sprite_32x32_tile_metaData.inc"
 };
 
@@ -831,23 +824,23 @@ const uint8_t tileSprites64x64[SPRITE_64x64_TILE_BYTES] = {
 };
 
 SET_MEMORY(".sprite_64x64_creature_metaData")
-const SpriteFrames creatureSpritesMetaData64x64[MAP_SPRITE_CREATURE_LAYOUT_SIZE] = {
+const SpriteFrames creatureSpritesMetaData64x64[CREATURE_COUNT] = {
 #include "inc/sprite_64x64_creature_metaData.inc"
 };
 SET_MEMORY(".sprite_64x64_item_metaData")
-const SpriteFrames itemSpritesMetaData64x64[MAP_SPRITE_ITEM_LAYOUT_SIZE] = {
+const SpriteFrames itemSpritesMetaData64x64[ITEM_COUNT] = {
 #include "inc/sprite_64x64_item_metaData.inc"
 };
 SET_MEMORY(".sprite_64x64_object_metaData")
-const SpriteFrames objectSpritesMetaData64x64[MAP_SPRITE_OBJECT_LAYOUT_SIZE] = {
+const SpriteFrames objectSpritesMetaData64x64[OBJECT_COUNT] = {
 #include "inc/sprite_64x64_object_metaData.inc"
 };
 SET_MEMORY(".sprite_64x64_trainer_metaData")
-const SpriteFrames trainerSpritesMetaData64x64[MAP_SPRITE_TRAINER_LAYOUT_SIZE] = {
+const SpriteFrames trainerSpritesMetaData64x64[TRAINER_COUNT] = {
 #include "inc/sprite_64x64_trainer_metaData.inc"
 };
 SET_MEMORY(".sprite_64x64_tile_metaData")
-const SpriteFrames tileSpritesMetaData64x64[MAP_SPRITE_TILE_LAYOUT_SIZE] = {
+const SpriteFrames tileSpritesMetaData64x64[TILE_COUNT] = {
 #include "inc/sprite_64x64_tile_metaData.inc"
 };
 

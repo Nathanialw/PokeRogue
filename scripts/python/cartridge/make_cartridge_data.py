@@ -74,6 +74,8 @@ def main():
         ".sprite_skills",
         ".sprite_objects",
         ".sprite_trainers",
+
+        # map sprites
         ".sprite_16x16_creature",
         ".sprite_16x16_item",
         ".sprite_16x16_object",
@@ -203,8 +205,8 @@ def main():
         if result.returncode == 0 and tmp_file.exists():
             data = tmp_file.read_bytes()
             rom[p:p + len(data)] = data
-            p = p + len(data)
             print(f"✓ Placed {section_name:<20} at 0x{p:06X}  ({len(data):,} bytes)")
+            p = p + len(data)
             tmp_file.unlink()
         else:
             print(f"  No data for {section_name}")

@@ -172,11 +172,18 @@ def run():
 
     ################################################################################################################################################
     # TILES
-    bytes_count_map_sprites.append(0)
-    bytes_count_map_sprites.append(0)
-    bytes_count_map_sprites.append(0)
-    bytes_count_map_sprites.append(0)
-    bytes_count_map_sprites.append(0)
+    bytes_count_map_sprites.append(export_map_sprites.export_image_data("tile", 16))
+    bytes_count_map_sprites.append(export_map_sprites.export_image_data("tile", 20))
+    bytes_count_map_sprites.append(export_map_sprites.export_image_data("tile", 24))
+    bytes_count_map_sprites.append(export_map_sprites.export_image_data("tile", 32))
+    bytes_count_map_sprites.append(export_map_sprites.export_image_data("tile", 64))
+
+    # trainer name strings
+    counts.append(export.name_to_c_array("tile"))
+    # trainer description strings
+    export.desc_to_c_array("tile")
+    # trainer map sprites
+    bytes_count.append(export_battlers.export_image_data("tile"))
 
 
     export.export_constants(bytes_count, counts, bytes_count_map_sprites)

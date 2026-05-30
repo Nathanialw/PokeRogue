@@ -58,7 +58,7 @@ void UpdateVision(GraphicsInterface graphics, HardwareInterface hardware)
             }
             else
             {
-                graphics.FillRect(j * TILE_W, i * TILE_H, TILE_W, TILE_H, (Color){.color = 0x0000});
+                graphics.FillRect(j * MAP_TILE_W, i * MAP_TILE_H, MAP_TILE_W, MAP_TILE_H, (Color){.color = 0x0000});
             }
         }
     }
@@ -149,7 +149,7 @@ void DrawMinimapEntities(GraphicsInterface graphics, MemoryInterface memory, Pos
 }
 
 /**********************************************************************************************************************/
-/**  Redraws all map tiles and entities ion the camera view to the screen
+/**  Redraws all map tiles and entities in the camera view to the screen
 **********************************************************************************************************************/
 SET_MEMORY(".map")
 void DrawMiniMap(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory)

@@ -62,7 +62,6 @@ def generate_data_from_db(entity):
         f.write(f'''
 BASE_PROMPT = (
     # f"photo-realistic hi fidelity detailed, "
-    f"Illustrated with contrasting vibrant colours, "
     "fantasy {entity}, full body visible, centered composition, isolated creature, "
     "single subject, no cropping, highly detailed dark fantasy illustration, sharp focus, "
 )

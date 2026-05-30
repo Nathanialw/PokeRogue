@@ -156,7 +156,7 @@ TrainersDict = [
    { "name": 'Gwenfrewi', 'prompt': "A beautiful, fair-skinned Welsh trainer with flowing golden hair and a serene, holy presence, her voice like a silver bell."},
    { "name": 'Gyrid', 'prompt': "The monk’s strong hands wove intricate spells from ancient Christian lore, guiding souls through battles of faith and magic."},
    { "name": 'Gytha', 'prompt': "Gytha stands atop a wind-swept cliff, her cloak billowing as she whispers secrets of forgotten magic to her eager pupils."},
-   { "name": 'Haaske', 'prompt': "A glowing Frisian trainer in a bright cloak summons spectral steeds with shimmering manes and eyes."},
+   { "name": 'Haaske', 'prompt': "The trainer, clad in a bright, glowing Frisian outfit, shines with radiant energy as she whirls her hands."},
    { "name": 'Hama', 'prompt': "The trainer's ocean blue kimino shimmers, revealing a beautiful, pale Japanese woman with flowing hair and a mysterious smile."},
    { "name": 'Hardred', 'prompt': "Hardred trains warriors in ancient elven battle tactics, wielding a silver-bladed spear that glows with the light of the moon."},
    { "name": 'Harlow', 'prompt': "A cute English female adventurer in a floral dress waves a sparkly wand and summons a playful fairy with a mischievous grin."},
@@ -181,7 +181,7 @@ TrainersDict = [
    { "name": 'Mairead', 'prompt': "A pretty Celtic girl with fiery red hair and emerald-green eyes trains in misty Irish forests under the moon's glow."},
    { "name": 'Masamune', 'prompt': "A broad-shouldered Japanese man, clad in ornate samurai armor, wields a legendary Masamune blade in battle."},
    { "name": 'Matilda', 'prompt': "A German warrior with light brown hair wields a sentient hammer, channeling storms to crush foes beneath her relentless might."},
-   { "name": 'Maya', 'prompt': "The trainer, a beautiful Greek woman draped in flowing emerald robes, guides adventurers with wisdom and fierce determination."},
+   { "name": 'Maya', 'prompt': "An adventurer, a beautiful woman with sun-kissed skin and golden jewelry and brown hair, dances with fireflies at dusk."},
    { "name": 'Mildrith', 'prompt': "A gentle English woman with a warm smile trains foxes, teaching them to dance and sing like troubadours in ancient folklore."},
    { "name": 'Mindred', 'prompt': "A cute, petite woman with red hair and an English accent dances through enchanted forests"},
    { "name": 'Nadja', 'prompt': "A young, beautiful Slavic woman with blonde hair and emerald-green eyes who whispers ancient spells to her Pokémon."},
@@ -211,7 +211,6 @@ TrainersDict = [
 
 BASE_PROMPT = (
     # f"photo-realistic hi fidelity detailed, "
-    f"Illustrated with contrasting vibrant colours, "
     "fantasy trainer, full body visible, centered composition, isolated creature, "
     "single subject, no cropping, highly detailed dark fantasy illustration, sharp focus, "
 )

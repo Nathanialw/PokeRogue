@@ -224,6 +224,8 @@ def worker_process(gpu_index: int, job_queue_, model_path, out_root):
 
                 while retry_count < max_retries:
                     try:
+                        for p in prompts:
+                            print(f"PROMPT: {p}")
                         result = pipe(
                             prompts,
                             generator=generators,

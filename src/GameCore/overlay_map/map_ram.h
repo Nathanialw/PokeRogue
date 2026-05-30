@@ -24,8 +24,8 @@ typedef struct
     {
         Tile tileCache;
 
-        Glyph16x16 tilePixels; // 512 bytes
-        Glyph16x16 spritePixels; // 512 bytes
+        Glyph tilePixels; // 512 bytes
+        Glyph spritePixels; // 512 bytes
         Glyph spriteCache; // 512 bytes
         Sprite entityCache; // 512 bytes
         uint8_t tile_id; // Which tile is cached
@@ -55,7 +55,7 @@ typedef struct
     StatsRange statsCache;
 
 
-    Glyph16x16 glyph;
+    Glyph glyph;
     Glyph buffer;
 
     const char power[SMALL_STRINGS];

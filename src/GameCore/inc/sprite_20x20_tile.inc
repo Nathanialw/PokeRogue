@@ -1,6 +1,4 @@
-// Generated tile sprites and color indexes
-// Database contains 0 total tile sprites
+// RLE data generated from ../assets_processed/tiles/deployable (recursive scan)
+// Data is concatenated sequentially
 
-// Individual sprites
-
-//Sprites count = 0;
+// Total data size: 16 bytes

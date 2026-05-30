@@ -6,7 +6,7 @@
 
 void Pico_ili9341_Init(void);
 
-void FillScreen(uint16_t rgb565);
+void FillScreen(Color rgb565);
 void FillScreenColor(Color rgb565);
 void ClearBuffer();
 void DrawBuffer(const FrameBuffer f);

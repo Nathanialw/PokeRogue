@@ -119,7 +119,7 @@ void DrawCursor(GraphicsInterface graphics, MemoryInterface memory)
     }
     else
     {
-        Glyph16x16 character;
+        Glyph character;
         CharFromGlyph1bpp(memory, buffer, character.pixels, '>' - FONT_OFFSET, font_size, Flash_GetColor(memory, PAL_DARK_BLUE_GRAY), Flash_GetColor(memory, PAL_KEY));
         graphics.DrawTileKeyed(x, list_y + (sel_y * (size + g_core.menu.lineHeight)), size, size, character.pixels);
     }
@@ -168,10 +168,10 @@ FrameBuffer DrawBattlerToBuffer(GraphicsInterface graphics, MemoryInterface memo
 
         const uint32_t index = layout->idx + byte_offset;
 
-        Flash_GetSprite(memory, g_core.spriteCache, index, 256, type, front);
+        Flash_GetSprite(memory, g_core.spriteCache.bytes, index, 256, type, front);
 
         // Decompress and get how many compressed bytes were used
-        byte_offset += Expand4bppPackedToByte(memory, g_core.spriteCache, layout->palette, g_core.tile.pixels);
+        byte_offset += Expand4bppPackedToByte(memory, g_core.spriteCache.bytes, layout->palette, g_core.tile.pixels, 16);
 
         Rect_16 r = {draw_x, draw_y, TILE_W, TILE_H};
         if (graphics.DrawToBuffer)

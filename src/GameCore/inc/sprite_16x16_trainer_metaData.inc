@@ -1,7 +1,177 @@
 // Layouts generated from ../assets_processed/trainers/deployable (recursive scan)
 // Starting monster index: 0
-// Format: { { .idx = byte_offset, .palette = {...}, .emptyIndexes = {...} },
+// Format: { { .idx = byte_offset, .size = size, .palette = {...}, .emptyIndexes = {...} },
 // Files are processed in alphabetical order by full path
 
+// Adalheid / Adalheid Auraflow V0.3 000 S1070073190 Th0.100 16 [Folder: Adalheid] (sprite index: 0, byte offset: 0, size: 122)
+{  .index = 0, .size = 122, .palette = { 0xad5a, 0x6a95, 0x5951, 0x290e, 0x508d, 0x208c, 0x1068, 0x302b, 0x1028, 0x0825, 0x0024, 0x0022, 0x0001, 0xf81f, 0x0804 }, },
+// Adaltrud / Adaltrud Auraflow V0.3 000 S1299204712 Th0.100 16 [Folder: Adaltrud] (sprite index: 1, byte offset: 122, size: 148)
+{  .index = 122, .size = 148, .palette = { 0x5574, 0x33ae, 0x428a, 0x11e9, 0x3187, 0x2167, 0x1127, 0x20c5, 0x18a5, 0x10a5, 0x08c5, 0x0885, 0x0864, 0xf81f, 0x0001 }, },
+// Adele / Adele Auraflow V0.3 000 S227877819 Th0.100 16 [Folder: Adele] (sprite index: 2, byte offset: 270, size: 147)
+{  .index = 270, .size = 147, .palette = { 0x93cd, 0xf81f, 0x6a0b, 0x7189, 0x3968, 0x6908, 0x38e7, 0x20e6, 0x20a5, 0x3885, 0x2084, 0x1885, 0x1823, 0x1084, 0x1064 }, },
+// Aelfwyn / Aelfwyn Auraflow V0.3 000 S1359526231 Th0.100 16 [Folder: Aelfwyn] (sprite index: 3, byte offset: 417, size: 121)
+{  .index = 417, .size = 121, .palette = { 0x9531, 0x63ab, 0x52a8, 0x3a67, 0x39c5, 0x2984, 0x1964, 0x1923, 0x18e3, 0x10e3, 0x10c2, 0x08c2, 0x0882, 0xf81f, 0x0000 }, },
+// Aethelburg / Aethelburg Auraflow V0.3 000 S1992258905 Th0.100 16 [Folder: Aethelburg] (sprite index: 4, byte offset: 538, size: 85)
+{  .index = 538, .size = 85, .palette = { 0x7c93, 0x620d, 0x692a, 0x1929, 0x68a8, 0x20a7, 0x08a9, 0x0886, 0x0866, 0x5846, 0x2045, 0x1043, 0x0823, 0xf81f, 0x2803 }, },
+// Aki / Aki Auraflow V0.3 000 S1470856418 Th0.100 16 [Folder: Aki] (sprite index: 5, byte offset: 623, size: 119)
+{  .index = 623, .size = 119, .palette = { 0xaced, 0x7a46, 0x3a29, 0x7184, 0x3986, 0x2187, 0x58c3, 0x28c4, 0x2146, 0x18e5, 0x18a3, 0x10e5, 0x08a4, 0x0863, 0xf81f }, },
+// Alette / Alette Auraflow V0.3 000 S684746915 Th0.100 16 [Folder: Alette] (sprite index: 6, byte offset: 742, size: 109)
+{  .index = 742, .size = 109, .palette = { 0xc4f9, 0x7a94, 0x79b0, 0x70ed, 0x30ec, 0x318f, 0x18ec, 0x18c8, 0x5049, 0x2048, 0x104a, 0x1067, 0x0845, 0xf81f, 0x3007 }, },
+// Alfrun / Alfrun Auraflow V0.3 000 S756273886 Th0.100 16 [Folder: Alfrun] (sprite index: 7, byte offset: 851, size: 100)
+{  .index = 851, .size = 100, .palette = { 0xbe3d, 0x7bfb, 0x627a, 0x3216, 0x40f7, 0x20f2, 0x10b1, 0x1831, 0x108a, 0x082b, 0x0025, 0x0027, 0x0002, 0xf81f, 0x100f }, },
+// Amelia / Amelia Auraflow V0.3 000 S557292511 Th0.100 16 [Folder: Amelia] (sprite index: 8, byte offset: 951, size: 126)
+{  .index = 951, .size = 126, .palette = { 0xbc75, 0xab93, 0xaab3, 0x828d, 0x99d3, 0x81ae, 0x618a, 0x70f0, 0x58ea, 0x7093, 0x586f, 0x48c8, 0x384a, 0xf81f, 0x400d }, },
+// Antonio / Antonio Auraflow V0.3 000 S1994314459 Th0.100 16 [Folder: Antonio] (sprite index: 9, byte offset: 1077, size: 101)
+{  .index = 1077, .size = 101, .palette = { 0x8512, 0x538c, 0x42c9, 0x3268, 0x29e7, 0x2185, 0x1965, 0x1144, 0x1104, 0x08c3, 0x08a2, 0x0882, 0x0082, 0x0041, 0xf81f }, },
+// Arabella / Arabella Auraflow V0.3 000 S1663219131 Th0.100 16 [Folder: Arabella] (sprite index: 10, byte offset: 1178, size: 116)
+{  .index = 1178, .size = 116, .palette = { 0x938f, 0x79a9, 0x398c, 0x6907, 0x4908, 0x30e9, 0x5085, 0x3085, 0x2886, 0x2844, 0x1886, 0x1864, 0x1824, 0xf81f, 0x2004 }, },
+// Arild / Arild Auraflow V0.3 000 S1006715818 Th0.100 16 [Folder: Arild] (sprite index: 11, byte offset: 1294, size: 111)
+{  .index = 1294, .size = 111, .palette = { 0xacf7, 0x6292, 0x6993, 0x396c, 0x48ce, 0x28c9, 0x406d, 0x2869, 0x18c7, 0x1867, 0x1065, 0x0843, 0x0824, 0xf81f, 0x1807 }, },
+// Arnhildur / Arnhildur Auraflow V0.3 000 S1320415288 Th0.100 16 [Folder: Arnhildur] (sprite index: 12, byte offset: 1405, size: 94)
+{  .index = 1405, .size = 94, .palette = { 0x6c53, 0x4acd, 0x5209, 0x220a, 0x4947, 0x2146, 0x1126, 0x20a4, 0x10a3, 0x08a3, 0x0862, 0x00a4, 0x0062, 0x0042, 0xf81f }, },
+// Athelric / Athelric Auraflow V0.3 000 S174288195 Th0.100 16 [Folder: Athelric] (sprite index: 13, byte offset: 1499, size: 148)
+{  .index = 1499, .size = 148, .palette = { 0xf81f, 0x6909, 0x3b31, 0x51ac, 0x190a, 0x50a7, 0x2887, 0x2844, 0x1086, 0x1844, 0x1022, 0x0823, 0x0822, 0x0821, 0x1003 }, },
+// Audrey / Audrey Auraflow V0.3 000 S287315167 Th0.100 16 [Folder: Audrey] (sprite index: 14, byte offset: 1647, size: 85)
+{  .index = 1647, .size = 85, .palette = { 0x94d0, 0x632b, 0x6269, 0x3a4a, 0x29c8, 0x61a7, 0x4187, 0x2167, 0x5105, 0x38e5, 0x2906, 0x20e5, 0x10e6, 0x10a5, 0xf81f }, },
+// Aukje / Aukje Auraflow V0.3 000 S714078476 Th0.100 16 [Folder: Aukje] (sprite index: 15, byte offset: 1732, size: 137)
+{  .index = 1732, .size = 137, .palette = { 0xadfc, 0x6397, 0x7234, 0x21f0, 0x192c, 0x490e, 0x10ca, 0x506e, 0x2869, 0x1868, 0x0868, 0x0866, 0x0825, 0xf81f, 0x2809 }, },
+// Bernard / Bernard Auraflow V0.3 000 S3726999665 Th0.100 16 [Folder: Bernard] (sprite index: 16, byte offset: 1869, size: 96)
+{  .index = 1869, .size = 96, .palette = { 0x6bb0, 0x89e9, 0x11ee, 0x98e6, 0x40e7, 0x10e9, 0x0866, 0x6044, 0x2844, 0x1846, 0x1843, 0x0844, 0x0824, 0xf81f, 0x2803 }, },
+// Bertrade / Bertrade Auraflow V0.3 000 S351636727 Th0.100 16 [Folder: Bertrade] (sprite index: 17, byte offset: 1965, size: 86)
+{  .index = 1965, .size = 86, .palette = { 0xddb8, 0xa312, 0x9a10, 0x61cf, 0x794e, 0x594d, 0x412c, 0x312b, 0x58cc, 0x38cb, 0x30ca, 0x20c8, 0x18c7, 0x1887, 0xf81f }, },
+// Bonnie / Bonnie Auraflow V0.3 000 S2889439931 Th0.100 16 [Folder: Bonnie] (sprite index: 18, byte offset: 2051, size: 137)
+{  .index = 2051, .size = 137, .palette = { 0x8bf9, 0x7153, 0x2130, 0x78d1, 0x30ce, 0x18ce, 0x18cb, 0x7870, 0x386d, 0x206a, 0x108a, 0x1049, 0x0846, 0xf81f, 0x380a }, },
+// Caitlin / Caitlin Auraflow V0.3 000 S2452800234 Th0.100 16 [Folder: Caitlin] (sprite index: 19, byte offset: 2188, size: 94)
+{  .index = 2188, .size = 94, .palette = { 0x249e, 0x3afc, 0x11ba, 0x71bb, 0x78d7, 0x4050, 0x28d3, 0x10d7, 0x1090, 0x1030, 0x082d, 0x1029, 0x0825, 0xf81f, 0x180d }, },
+// Cara / Cara Auraflow V0.3 000 S2248599770 Th0.100 16 [Folder: Cara] (sprite index: 20, byte offset: 2282, size: 91)
+{  .index = 2282, .size = 91, .palette = { 0xf72f, 0xcd2d, 0xbae5, 0x626b, 0x9966, 0x5967, 0x3947, 0x58a4, 0x30a4, 0x2947, 0x28a4, 0x20a4, 0x2062, 0xf81f, 0x4801 }, },
+// Charlotte / Charlotte Auraflow V0.3 000 S1707698374 Th0.100 16 [Folder: Charlotte] (sprite index: 21, byte offset: 2373, size: 116)
+{  .index = 2373, .size = 116, .palette = { 0xf81f, 0x6338, 0x6151, 0x78b0, 0x18aa, 0x586c, 0x2066, 0x0865, 0x0823, 0x0822, 0x582c, 0x480a, 0x2026, 0x1026, 0x1023 }, },
+// Chiyo / Chiyo Auraflow V0.3 000 S2265275226 Th0.100 16 [Folder: Chiyo] (sprite index: 22, byte offset: 2489, size: 111)
+{  .index = 2489, .size = 111, .palette = { 0xcc7d, 0xa2da, 0xa9d9, 0x90f6, 0x61b5, 0x68f3, 0x48cf, 0x7073, 0x484e, 0x384b, 0x288b, 0x2048, 0x2046, 0xf81f, 0x400c }, },
+// Coenwulf / Coenwulf Auraflow V0.3 000 S430140604 Th0.100 16 [Folder: Coenwulf] (sprite index: 23, byte offset: 2600, size: 102)
+{  .index = 2600, .size = 102, .palette = { 0xbdba, 0x7b34, 0x69f1, 0x41af, 0x710d, 0x410d, 0x310c, 0x20eb, 0x506a, 0x2048, 0x1047, 0x1026, 0x0806, 0xf81f, 0x2006 }, },
+// Daphne / Daphne Auraflow V0.3 000 S670217622 Th0.100 16 [Folder: Daphne] (sprite index: 24, byte offset: 2702, size: 107)
+{  .index = 2702, .size = 107, .palette = { 0xabf6, 0x8235, 0x8994, 0x5171, 0x80f1, 0x40ce, 0x606e, 0x386b, 0x28cd, 0x186a, 0x286a, 0x1829, 0x1047, 0xf81f, 0x300a }, },
+// Daria / Daria Auraflow V0.3 000 S1561372851 Th0.100 16 [Folder: Daria] (sprite index: 25, byte offset: 2809, size: 133)
+{  .index = 2809, .size = 133, .palette = { 0xf81f, 0x5a52, 0x60ee, 0x30eb, 0x3889, 0x708f, 0x2089, 0x2065, 0x784f, 0x3047, 0x2045, 0x1846, 0x1844, 0x500b, 0x1824 }, },
+// Eadgyth / Eadgyth Auraflow V0.3 000 S3813355689 Th0.100 16 [Folder: Eadgyth] (sprite index: 26, byte offset: 2942, size: 127)
+{  .index = 2942, .size = 127, .palette = { 0x2c16, 0x1a2f, 0x2188, 0x116b, 0x090b, 0x1107, 0x08e6, 0x08a7, 0x08a5, 0x08a4, 0x08a4, 0x08a4, 0x0884, 0x0883, 0xf81f }, },
+// Edith / Edith Auraflow V0.3 000 S1173432826 Th0.100 16 [Folder: Edith] (sprite index: 27, byte offset: 3069, size: 121)
+{  .index = 3069, .size = 121, .palette = { 0xc5dc, 0x82f7, 0x91b5, 0x80f0, 0x3192, 0x20ce, 0x10a9, 0x0067, 0x484b, 0x1049, 0x0848, 0x0027, 0x0045, 0xf81f, 0x2809 }, },
+// Edwin / Edwin Auraflow V0.3 000 S1026364899 Th0.100 16 [Folder: Edwin] (sprite index: 28, byte offset: 3190, size: 116)
+{  .index = 3190, .size = 116, .palette = { 0xf81f, 0x938d, 0x69a8, 0x5925, 0x1909, 0x50c4, 0x20c5, 0x10a6, 0x4063, 0x1863, 0x1084, 0x1043, 0x0864, 0x0863, 0x0843 }, },
+// Eira / Eira Auraflow V0.3 000 S3011963669 Th0.100 16 [Folder: Eira] (sprite index: 29, byte offset: 3306, size: 91)
+{  .index = 3306, .size = 91, .palette = { 0xa4d9, 0x6af4, 0x398f, 0x190c, 0x18ab, 0x10a9, 0x0887, 0x0847, 0x0046, 0x0026, 0x0024, 0x0005, 0x0023, 0xf81f, 0x0007 }, },
+// Eleanor / Eleanor Auraflow V0.3 000 S1910495670 Th0.100 16 [Folder: Eleanor] (sprite index: 30, byte offset: 3397, size: 94)
+{  .index = 3397, .size = 94, .palette = { 0x34b7, 0x426f, 0x61cd, 0x19ad, 0x290a, 0x110a, 0x710d, 0x3068, 0x1867, 0x10c9, 0x0888, 0x0866, 0x0826, 0xf81f, 0x3008 }, },
+// Equitia / Equitia Auraflow V0.3 000 S1927206133 Th0.100 16 [Folder: Equitia] (sprite index: 31, byte offset: 3491, size: 138)
+{  .index = 3491, .size = 138, .palette = { 0xf81f, 0x5a94, 0x2970, 0x794f, 0x18ed, 0x98f2, 0x48eb, 0x4869, 0x20a6, 0x1844, 0x0845, 0x0821, 0x0803, 0x0022, 0x0000 }, },
+// Erna / Erna Auraflow V0.3 000 S3273449518 Th0.100 16 [Folder: Erna] (sprite index: 32, byte offset: 3629, size: 90)
+{  .index = 3629, .size = 90, .palette = { 0xd55b, 0x89f5, 0x7913, 0x30ec, 0x6890, 0x408b, 0x404b, 0x3048, 0x2888, 0x6852, 0x2047, 0x1847, 0x1024, 0xf81f, 0x380a }, },
+// Evelyn / Evelyn Auraflow V0.3 000 S977649817 Th0.100 16 [Folder: Evelyn] (sprite index: 33, byte offset: 3719, size: 94)
+{  .index = 3719, .size = 94, .palette = { 0xf81f, 0x7b53, 0x49f0, 0x214d, 0x610d, 0x2109, 0x18e7, 0x18c7, 0x18c7, 0x9090, 0x7008, 0x588e, 0x38ac, 0x28a7, 0x18a7 }, },
+// Fenja / Fenja Auraflow V0.3 000 S1309731295 Th0.100 16 [Folder: Fenja] (sprite index: 34, byte offset: 3813, size: 109)
+{  .index = 3813, .size = 109, .palette = { 0xf81f, 0x6af8, 0x4952, 0x50f0, 0x60ae, 0x28ab, 0x20ec, 0x18ab, 0x2849, 0x1848, 0x1086, 0x482a, 0x1845, 0x0846, 0x0843 }, },
+// Fiona / Fiona Auraflow V0.3 000 S2086500244 Th0.100 16 [Folder: Fiona] (sprite index: 35, byte offset: 3922, size: 75)
+{  .index = 3922, .size = 75, .palette = { 0x844f, 0x4aa9, 0x4a06, 0x2a06, 0x4963, 0x2964, 0x3943, 0x20e2, 0x1944, 0x10e2, 0x08a2, 0x1081, 0x0881, 0x0040, 0xf81f }, },
+// Gertrude / Gertrude Auraflow V0.3 000 S684767163 Th0.100 16 [Folder: Gertrude] (sprite index: 36, byte offset: 3997, size: 106)
+{  .index = 3997, .size = 106, .palette = { 0xf81f, 0x8af2, 0x79cd, 0x792b, 0x60aa, 0x4129, 0x40a8, 0x28a4, 0x2863, 0x4847, 0x3046, 0x2846, 0x2044, 0x2042, 0x1842 }, },
+// Godwyn / Godwyn Auraflow V0.3 000 S4107432599 Th0.100 16 [Folder: Godwyn] (sprite index: 37, byte offset: 4103, size: 132)
+{  .index = 4103, .size = 132, .palette = { 0xc5d9, 0x83d4, 0x6ab2, 0x3a71, 0x59b0, 0x31ae, 0x216e, 0x18eb, 0x40cd, 0x20cb, 0x1889, 0x10ca, 0x1068, 0x1047, 0xf81f }, },
+// Guinevere / Guinevere Auraflow V0.3 000 S1446325536 Th0.100 16 [Folder: Guinevere] (sprite index: 38, byte offset: 4235, size: 83)
+{  .index = 4235, .size = 83, .palette = { 0xf81f, 0x59cb, 0x5109, 0x18e8, 0x38a8, 0x2086, 0x1083, 0x1087, 0x2045, 0x1044, 0x1043, 0x1023, 0x0822, 0x0801, 0x0821 }, },
+// Gwendolyn / Gwendolyn Auraflow V0.3 000 S3963421381 Th0.100 16 [Folder: Gwendolyn] (sprite index: 39, byte offset: 4318, size: 103)
+{  .index = 4318, .size = 103, .palette = { 0xf81f, 0x4a30, 0x390d, 0x190a, 0x30cd, 0x20c7, 0x18c8, 0x18a4, 0x1083, 0x386d, 0x1867, 0x1886, 0x1808, 0x1065, 0x1063 }, },
+// Gwenfrewi / Gwenfrewi Auraflow V0.3 000 S1514916927 Th0.100 16 [Folder: Gwenfrewi] (sprite index: 40, byte offset: 4421, size: 97)
+{  .index = 4421, .size = 97, .palette = { 0xf81f, 0xb333, 0x718d, 0x610b, 0x3908, 0x58ac, 0x38a7, 0x2085, 0x484d, 0x280a, 0x2847, 0x1845, 0x1044, 0x0843, 0x0824 }, },
+// Gyrid / Gyrid Auraflow V0.3 000 S3621244581 Th0.100 16 [Folder: Gyrid] (sprite index: 41, byte offset: 4518, size: 107)
+{  .index = 4518, .size = 107, .palette = { 0xb67c, 0x6b36, 0x4172, 0x68b1, 0x388c, 0x208d, 0x1887, 0x502d, 0x2828, 0x1828, 0x1824, 0x0825, 0x0802, 0xf81f, 0x1805 }, },
+// Gytha / Gytha Auraflow V0.3 000 S4197618172 Th0.100 16 [Folder: Gytha] (sprite index: 42, byte offset: 4625, size: 99)
+{  .index = 4625, .size = 99, .palette = { 0xa5b8, 0x5391, 0x5a4e, 0x222d, 0x494c, 0x292a, 0x110a, 0x1888, 0x0868, 0x484d, 0x2069, 0x1827, 0x0827, 0x0824, 0xf81f }, },
+// Haaske / Haaske Auraflow V0.3 000 S1231529153 Th0.100 16 [Folder: Haaske] (sprite index: 43, byte offset: 4724, size: 74)
+{  .index = 4724, .size = 74, .palette = { 0x84d9, 0x4272, 0x5950, 0x114c, 0x60ad, 0x08a9, 0x3849, 0x2088, 0x0846, 0x1846, 0x0843, 0x0044, 0x0021, 0xf81f, 0x1005 }, },
+// Hama / Hama Auraflow V0.3 000 S2265939756 Th0.100 16 [Folder: Hama] (sprite index: 44, byte offset: 4798, size: 104)
+{  .index = 4798, .size = 104, .palette = { 0xf81f, 0x9908, 0x6169, 0x51cb, 0x8086, 0x3884, 0x2949, 0x3107, 0x18e6, 0x2002, 0x18a4, 0x1084, 0x0882, 0x1863, 0x0842 }, },
+// Hardred / Hardred Auraflow V0.3 000 S3904188289 Th0.100 16 [Folder: Hardred] (sprite index: 45, byte offset: 4902, size: 87)
+{  .index = 4902, .size = 87, .palette = { 0xf81f, 0xab34, 0x71b2, 0x7111, 0x60ac, 0x310e, 0x3828, 0x208b, 0x1884, 0x1825, 0x1023, 0x0803, 0x0023, 0x0001, 0x0000 }, },
+// Harlow / Harlow Auraflow V0.3 000 S1929790637 Th0.100 16 [Folder: Harlow] (sprite index: 46, byte offset: 4989, size: 83)
+{  .index = 4989, .size = 83, .palette = { 0x4455, 0x32ef, 0x29ea, 0x09ea, 0x1927, 0x1126, 0x0946, 0x08e5, 0x10a4, 0x0883, 0x08a3, 0x0083, 0x0862, 0x0041, 0xf81f }, },
+// Hedda / Hedda Auraflow V0.3 000 S2156791216 Th0.100 16 [Folder: Hedda] (sprite index: 47, byte offset: 5072, size: 90)
+{  .index = 5072, .size = 90, .palette = { 0xce38, 0x8b4b, 0x4aab, 0x51e6, 0x79e7, 0x41c6, 0x29c9, 0x70e7, 0x4104, 0x3124, 0x28a2, 0x18e5, 0x1062, 0xf81f, 0x1000 }, },
+// Hildr / Hildr Auraflow V0.3 000 S2843039031 Th0.100 16 [Folder: Hildr] (sprite index: 48, byte offset: 5162, size: 132)
+{  .index = 5162, .size = 132, .palette = { 0xf81f, 0x7307, 0x41c5, 0x3144, 0x3103, 0x2103, 0x2103, 0x1903, 0x28c3, 0x20c3, 0x18c3, 0x18a2, 0x18c3, 0x10c3, 0x1082 }, },
+// Hyejin / Hyejin Auraflow V0.3 000 S2683279282 Th0.100 16 [Folder: Hyejin] (sprite index: 49, byte offset: 5294, size: 109)
+{  .index = 5294, .size = 109, .palette = { 0xddfc, 0xab59, 0xa1b9, 0x5933, 0x38cf, 0x28ad, 0x20a9, 0x406f, 0x206c, 0x186a, 0x1869, 0x1046, 0x1029, 0xf81f, 0x2009 }, },
+// Ingeborg / Ingeborg Auraflow V0.3 000 S3675268156 Th0.100 16 [Folder: Ingeborg] (sprite index: 50, byte offset: 5403, size: 71)
+{  .index = 5403, .size = 71, .palette = { 0x7498, 0x52d3, 0x51af, 0x21af, 0x190c, 0x50ec, 0x30eb, 0x406a, 0x2089, 0x18cb, 0x1069, 0x0869, 0x0847, 0x0827, 0xf81f }, },
+// Ingrid / Ingrid Auraflow V0.3 000 S2784673098 Th0.100 16 [Folder: Ingrid] (sprite index: 51, byte offset: 5474, size: 110)
+{  .index = 5474, .size = 110, .palette = { 0x9d99, 0x7393, 0x8290, 0x894b, 0x326f, 0x514c, 0x294e, 0x212a, 0x5888, 0x3069, 0x2069, 0x1068, 0x0826, 0xf81f, 0x1005 }, },
+// Irene / Irene Auraflow V0.3 000 S4057013322 Th0.100 16 [Folder: Irene] (sprite index: 52, byte offset: 5584, size: 146)
+{  .index = 5584, .size = 146, .palette = { 0xacb7, 0x9313, 0x9a11, 0x49f1, 0x610d, 0x38ed, 0x28ed, 0x506a, 0x306a, 0x2069, 0x184a, 0x1848, 0x1025, 0xf81f, 0x1806 }, },
+// Isabel / Isabel Auraflow V0.3 000 S855021423 Th0.100 16 [Folder: Isabel] (sprite index: 53, byte offset: 5730, size: 120)
+{  .index = 5730, .size = 120, .palette = { 0xf81f, 0x612d, 0x586a, 0x310b, 0x2886, 0x194f, 0x1866, 0x08ec, 0x1842, 0x0887, 0x0866, 0x0843, 0x0825, 0x0823, 0x0822 }, },
+// Katie / Katie Auraflow V0.3 000 S788095076 Th0.100 16 [Folder: Katie] (sprite index: 54, byte offset: 5850, size: 143)
+{  .index = 5850, .size = 143, .palette = { 0xa49c, 0x8b3b, 0x71f9, 0x6916, 0x48f4, 0x38cf, 0x4873, 0x306e, 0x284d, 0x284a, 0x1848, 0x1828, 0x1045, 0xf81f, 0x280b }, },
+// Kyra / Kyra Auraflow V0.3 000 S3053676957 Th0.100 16 [Folder: Kyra] (sprite index: 55, byte offset: 5993, size: 102)
+{  .index = 5993, .size = 102, .palette = { 0x8c57, 0x39f0, 0x198b, 0x396d, 0x212a, 0x28ca, 0x1907, 0x10a6, 0x508e, 0x208a, 0x1868, 0x1084, 0x1045, 0xf81f, 0x580e }, },
+// Lacey / Lacey Auraflow V0.3 000 S3957669574 Th0.100 16 [Folder: Lacey] (sprite index: 56, byte offset: 6095, size: 106)
+{  .index = 6095, .size = 106, .palette = { 0xf81f, 0x9bb9, 0x71d6, 0x5151, 0x68d4, 0x40ce, 0x28cd, 0x28a7, 0x1867, 0x5871, 0x306b, 0x280a, 0x2869, 0x1027, 0x1043 }, },
+// Leofwynn / Leofwynn Auraflow V0.3 000 S1623296369 Th0.100 16 [Folder: Leofwynn] (sprite index: 57, byte offset: 6201, size: 93)
+{  .index = 6201, .size = 93, .palette = { 0x9df7, 0x5c12, 0x128f, 0x826d, 0x794b, 0x416f, 0x114a, 0x6068, 0x3068, 0x2089, 0x1089, 0x1086, 0x0845, 0xf81f, 0x3804 }, },
+// Lillie / Lillie Auraflow V0.3 000 S3151188633 Th0.100 16 [Folder: Lillie] (sprite index: 58, byte offset: 6294, size: 86)
+{  .index = 6294, .size = 86, .palette = { 0xde98, 0x8bcf, 0x9a44, 0x3989, 0x7924, 0x4863, 0x4105, 0x20c5, 0x2843, 0x1845, 0x1841, 0x0842, 0x0801, 0xf81f, 0x1001 }, },
+// Liselotte / Liselotte Auraflow V0.3 000 S3663373428 Th0.100 16 [Folder: Liselotte] (sprite index: 59, byte offset: 6380, size: 95)
+{  .index = 6380, .size = 95, .palette = { 0xf81f, 0x50f0, 0x206a, 0x1829, 0x200a, 0x180a, 0x0826, 0x0845, 0x0825, 0x0825, 0x0824, 0x0824, 0x0004, 0x0023, 0x0022 }, },
+// Mairead / Mairead Auraflow V0.3 000 S4081909378 Th0.100 16 [Folder: Mairead] (sprite index: 60, byte offset: 6475, size: 113)
+{  .index = 6475, .size = 113, .palette = { 0xc67c, 0x73f5, 0x5a71, 0x3230, 0x414d, 0x312d, 0x214d, 0x20eb, 0x1889, 0x2889, 0x1847, 0x1067, 0x1025, 0xf81f, 0x1005 }, },
+// Masamune / Masamune Auraflow V0.3 000 S790475543 Th0.100 16 [Folder: Masamune] (sprite index: 61, byte offset: 6588, size: 154)
+{  .index = 6588, .size = 154, .palette = { 0xacba, 0x51b4, 0x4934, 0x310f, 0x40b1, 0x20ad, 0x1889, 0x184a, 0x0847, 0x0845, 0x0825, 0x0824, 0x0022, 0xf81f, 0x1007 }, },
+// Matilda / Matilda Auraflow V0.3 000 S1947385606 Th0.100 16 [Folder: Matilda] (sprite index: 62, byte offset: 6742, size: 122)
+{  .index = 6742, .size = 122, .palette = { 0xa3d8, 0x7995, 0x318e, 0x80f4, 0x38ed, 0x18ea, 0x1886, 0x8071, 0x2868, 0x1825, 0x0866, 0x0843, 0x0823, 0xf81f, 0x1806 }, },
+// Maya / Maya Auraflow V0.3 000 S1408416735 Th0.100 16 [Folder: Maya] (sprite index: 63, byte offset: 6864, size: 120)
+{  .index = 6864, .size = 120, .palette = { 0x7cd1, 0x630c, 0x71e9, 0x21ec, 0x8127, 0x3908, 0x2107, 0x28a6, 0x8086, 0x4085, 0x2864, 0x1885, 0x1085, 0x1043, 0xf81f }, },
+// Mildrith / Mildrith Auraflow V0.3 000 S3340343615 Th0.100 16 [Folder: Mildrith] (sprite index: 64, byte offset: 6984, size: 129)
+{  .index = 6984, .size = 129, .palette = { 0x8d78, 0x3aae, 0x1a6f, 0x19aa, 0x096a, 0x1947, 0x0907, 0x10e6, 0x08a5, 0x08a5, 0x0084, 0x0063, 0x0022, 0xf81f, 0x0002 }, },
+// Mindred / Mindred Auraflow V0.3 000 S898503790 Th0.100 16 [Folder: Mindred] (sprite index: 65, byte offset: 7113, size: 107)
+{  .index = 7113, .size = 107, .palette = { 0x8bb7, 0x99d1, 0x31d3, 0x910d, 0x490d, 0x20c8, 0x20f1, 0x5069, 0x2047, 0x106a, 0x1044, 0x0847, 0x0843, 0xf81f, 0x2006 }, },
+// Niall / Niall Auraflow V0.3 000 S76282427 Th0.100 16 [Folder: Niall] (sprite index: 66, byte offset: 7220, size: 129)
+{  .index = 7220, .size = 129, .palette = { 0xcc98, 0x91d2, 0x7911, 0x40ed, 0x388c, 0x302a, 0x1867, 0x1027, 0x0826, 0x0824, 0x0824, 0x0023, 0x0023, 0xf81f, 0x1006 }, },
+// Niamh / Niamh Auraflow V0.3 000 S1271245284 Th0.100 16 [Folder: Niamh] (sprite index: 67, byte offset: 7349, size: 137)
+{  .index = 7349, .size = 137, .palette = { 0xee49, 0xcc62, 0xab21, 0x8aa1, 0x71e0, 0x49a1, 0x4140, 0x4100, 0x30e0, 0x20c0, 0x2080, 0x1060, 0x0840, 0x0020, 0xf81f }, },
+// Octavia / Octavia Auraflow V0.3 000 S3584396241 Th0.100 16 [Folder: Octavia] (sprite index: 68, byte offset: 7486, size: 140)
+{  .index = 7486, .size = 140, .palette = { 0xcd14, 0xa30f, 0xa1eb, 0x39ca, 0x40e7, 0x18e5, 0x0883, 0x4864, 0x1864, 0x0863, 0x0842, 0x0842, 0x0021, 0xf81f, 0x1802 }, },
+// Ottilie / Ottilie Auraflow V0.3 000 S2098295704 Th0.100 16 [Folder: Ottilie] (sprite index: 69, byte offset: 7626, size: 124)
+{  .index = 7626, .size = 124, .palette = { 0xad16, 0x7b93, 0x92b0, 0x79ad, 0x3a91, 0x49ac, 0x296b, 0x20e7, 0x10c7, 0x30c8, 0x1886, 0x1085, 0x0843, 0xf81f, 0x4007 }, },
+// Paige / Paige Auraflow V0.3 000 S834832835 Th0.100 16 [Folder: Paige] (sprite index: 70, byte offset: 7750, size: 131)
+{  .index = 7750, .size = 131, .palette = { 0x7c37, 0x4211, 0x492e, 0x192b, 0x10a8, 0x48ac, 0x28a8, 0x1085, 0x1044, 0x404a, 0x3047, 0x2046, 0x2043, 0x1022, 0xf81f }, },
+// Philippa / Philippa Auraflow V0.3 000 S4148990631 Th0.100 16 [Folder: Philippa] (sprite index: 71, byte offset: 7881, size: 114)
+{  .index = 7881, .size = 114, .palette = { 0xf81f, 0x7986, 0x78a4, 0x40a5, 0x192b, 0x20a6, 0x1250, 0x10a7, 0x0844, 0x5844, 0x3006, 0x3044, 0x1843, 0x0823, 0x0821 }, },
+// Ronja / Ronja Auraflow V0.3 000 S3116314714 Th0.100 16 [Folder: Ronja] (sprite index: 72, byte offset: 7995, size: 108)
+{  .index = 7995, .size = 108, .palette = { 0xc57b, 0x99f7, 0x51d2, 0xa0f6, 0x58f1, 0x30f0, 0x30ca, 0xa053, 0x584f, 0x304a, 0x184b, 0x1847, 0x0824, 0xf81f, 0x2807 }, },
+// Saewynn / Saewynn Auraflow V0.3 000 S4231858548 Th0.100 16 [Folder: Saewynn] (sprite index: 73, byte offset: 8103, size: 92)
+{  .index = 8103, .size = 92, .palette = { 0xf81f, 0x93ab, 0x69e8, 0x6968, 0x60ea, 0x40e7, 0x3968, 0x30e7, 0x20e7, 0x4088, 0x2085, 0x1865, 0x1064, 0x0844, 0x0823 }, },
+// Selina / Selina Auraflow V0.3 000 S3270520343 Th0.100 16 [Folder: Selina] (sprite index: 74, byte offset: 8195, size: 81)
+{  .index = 8195, .size = 81, .palette = { 0xcc99, 0x8993, 0x60ef, 0x50ac, 0x888e, 0x408b, 0x2889, 0x984f, 0x684d, 0x484a, 0x3049, 0x2049, 0x1846, 0xf81f, 0x480a }, },
+// Sigrid / Sigrid Auraflow V0.3 000 S2222740301 Th0.100 16 [Folder: Sigrid] (sprite index: 75, byte offset: 8276, size: 109)
+{  .index = 8276, .size = 109, .palette = { 0xcddc, 0x8b57, 0x79f5, 0x39b0, 0x310d, 0x6911, 0x20eb, 0x6870, 0x306a, 0x2069, 0x1846, 0x1067, 0x1026, 0x0823, 0xf81f }, },
+// Svea / Svea Auraflow V0.3 000 S130673676 Th0.100 16 [Folder: Svea] (sprite index: 76, byte offset: 8385, size: 86)
+{  .index = 8385, .size = 86, .palette = { 0x3dbb, 0x3456, 0x3331, 0x12f1, 0x29ac, 0x118b, 0x096b, 0x1086, 0x0864, 0x0043, 0x0022, 0x0022, 0x0002, 0xf81f, 0x0003 }, },
+// Thea / Thea Auraflow V0.3 000 S1519782795 Th0.100 16 [Folder: Thea] (sprite index: 77, byte offset: 8471, size: 103)
+{  .index = 8471, .size = 103, .palette = { 0xf81f, 0x7b2e, 0x4969, 0x58c5, 0x18c7, 0x3864, 0x0865, 0x1863, 0x0842, 0x2002, 0x1022, 0x0821, 0x0021, 0x0020, 0x0001 }, },
+// Thryth / Thryth Auraflow V0.3 000 S2470870525 Th0.100 16 [Folder: Thryth] (sprite index: 78, byte offset: 8574, size: 111)
+{  .index = 8574, .size = 111, .palette = { 0xf81f, 0x6af3, 0x496e, 0x50cb, 0x08ca, 0x3889, 0x0887, 0x0087, 0x3827, 0x1046, 0x0846, 0x0845, 0x0065, 0x0046, 0x0045 }, },
+// Tuva / Tuva Auraflow V0.3 000 S3838279287 Th0.100 16 [Folder: Tuva] (sprite index: 79, byte offset: 8685, size: 175)
+{  .index = 8685, .size = 175, .palette = { 0x9c0f, 0x5129, 0x1910, 0x38c7, 0x20ca, 0x10aa, 0x2865, 0x1865, 0x1065, 0x0847, 0x0843, 0x0822, 0xf81f, 0x0823, 0x0022 }, },
+// Valentine / Valentine Auraflow V0.3 000 S227310126 Th0.100 16 [Folder: Valentine] (sprite index: 80, byte offset: 8860, size: 173)
+{  .index = 8860, .size = 173, .palette = { 0xb5fb, 0x83b7, 0x8a57, 0x4232, 0x80f5, 0x5931, 0x412e, 0x292d, 0x488f, 0x388c, 0x288a, 0x1867, 0xf81f, 0x282a, 0x1026 }, },
+// Wilma / Wilma Auraflow V0.3 000 S1646864606 Th0.100 16 [Folder: Wilma] (sprite index: 81, byte offset: 9033, size: 104)
+{  .index = 9033, .size = 104, .palette = { 0x8576, 0x83b0, 0x9146, 0x112c, 0x6105, 0x5863, 0x3107, 0x3062, 0x1863, 0x1820, 0x0865, 0x0821, 0x0801, 0xf81f, 0x1801 }, },
+// Winifred / Winifred Auraflow V0.3 000 S4264143701 Th0.100 16 [Folder: Winifred] (sprite index: 82, byte offset: 9137, size: 85)
+{  .index = 9137, .size = 85, .palette = { 0x7438, 0x3a74, 0x61b2, 0x11b0, 0x60d0, 0x28cc, 0x10ca, 0x0867, 0x584d, 0x284a, 0x1849, 0x1825, 0x0826, 0x0823, 0xf81f }, },
+// Wulfstan / Wulfstan Auraflow V0.3 000 S2718660413 Th0.100 16 [Folder: Wulfstan] (sprite index: 83, byte offset: 9222, size: 90)
+{  .index = 9222, .size = 90, .palette = { 0x6d58, 0x52af, 0x118b, 0x18c7, 0x08e8, 0x78c9, 0x0844, 0x08c5, 0x6046, 0x1845, 0x0824, 0x0045, 0x0023, 0xf81f, 0x2804 }, },
+// Yuuko / Yuuko Auraflow V0.3 000 S736091219 Th0.100 16 [Folder: Yuuko] (sprite index: 84, byte offset: 9312, size: 152)
+{  .index = 9312, .size = 152, .palette = { 0x9c3a, 0x4a33, 0x19af, 0x7192, 0x9913, 0x410e, 0x190b, 0x10a9, 0xc8b3, 0x68af, 0x386a, 0x20a9, 0x10a6, 0x0865, 0xf81f }, },
 
-// Total sprites processed: 0, total data size: 16 bytes
+// Total sprites processed: 85, total data size: 9472 bytes

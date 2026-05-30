@@ -10,16 +10,8 @@
 // #define RES_480x480
 
 
-// #define TILES_20
-
-
-#if defined(TILES_20)
-#define TILE_W 20
-#define TILE_H 20
-#else
 #define TILE_W 16
 #define TILE_H 16
-#endif
 
 #if defined(RES_320x240)
 #define TFT_W 320
@@ -28,8 +20,8 @@
 #define SCREEN_H 240
 #define TEXT_W 8
 #define TEXT_H 8
-#define VIEW_TW (SCREEN_W / TILE_W)
-#define VIEW_TH (SCREEN_H / TILE_H)
+// #define VIEW_TW (SCREEN_W / TILE_W)
+// #define VIEW_TH (SCREEN_H / TILE_H)
 #define TILE_PIXELS (TILE_W * TILE_H)
 #define TFT_WIDTH  320
 #define TFT_HEIGHT 240
@@ -40,8 +32,8 @@
 #define SCREEN_H 320
 #define TEXT_W 8
 #define TEXT_H 8
-#define VIEW_TW (SCREEN_W / TILE_W)
-#define VIEW_TH (SCREEN_H / TILE_H)
+// #define VIEW_TW (SCREEN_W / TILE_W)
+// #define VIEW_TH (SCREEN_H / TILE_H)
 #define TILE_PIXELS (TILE_W * TILE_H)
 #define TFT_WIDTH  320
 #define TFT_HEIGHT 320
@@ -52,8 +44,8 @@
 #define SCREEN_H 480
 #define TEXT_W 8
 #define TEXT_H 8
-#define VIEW_TW (SCREEN_W / TILE_W)
-#define VIEW_TH (SCREEN_H / TILE_H)
+// #define VIEW_TW (SCREEN_W / TILE_W)
+// #define VIEW_TH (SCREEN_H / TILE_H)
 #define TILE_PIXELS (TILE_W * TILE_H)
 #define TFT_WIDTH  480
 #define TFT_HEIGHT 480
@@ -64,8 +56,6 @@
 #define SCREEN_H 320
 #define TEXT_W 8
 #define TEXT_H 8
-#define VIEW_TW (SCREEN_W / TILE_W)
-#define VIEW_TH (SCREEN_H / TILE_H)
 #define TILE_PIXELS (TILE_W * TILE_H)
 #define TFT_WIDTH  320
 #define TFT_HEIGHT 320
