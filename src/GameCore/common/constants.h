@@ -30,7 +30,6 @@
 **********************************************************************************************************************/
 #define TYPE_COUNT 16
 #define THEME_COUNT 16
-// #define BIOME_COUNT 16
 #define MAX_LEVELS 35
 
 
@@ -43,7 +42,6 @@ _Static_assert(OBJECT_COUNT <= 256, "max must be 256 - one byte");
 #define PALETTE_COUNT 64
 #define CHARACTER_COUNT 256
 
-#define TILE_COUNT 16
 #define NUM_SPRITE_FRAMES 3
 
 #define CREATURE_SPRITE_COUNT (CREATURE_COUNT * NUM_SPRITE_FRAMES)
@@ -137,8 +135,8 @@ _Static_assert(DIALOGUE_H + RESOURCE_FRAME_H + BATTLER_AREA_H <= TFT_H, "cannot 
 **********************************************************************************************************************/
 
 // #define MAP_TILES_16
-// #define MAP_TILES_20
-#define MAP_TILES_24
+#define MAP_TILES_20
+// #define MAP_TILES_24
 // #define MAP_TILES_32
 // #define MAP_TILES_64
 
@@ -161,6 +159,7 @@ _Static_assert(DIALOGUE_H + RESOURCE_FRAME_H + BATTLER_AREA_H <= TFT_H, "cannot 
 #else
 #endif
 
+#define TILE_PIXELS (MAP_TILE_W * MAP_TILE_H)
 #define MAP_W 160
 #define MAP_H 160
 #define MAP_TILE_BITS 4

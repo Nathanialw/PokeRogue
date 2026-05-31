@@ -126,6 +126,7 @@ static const uint8_t colors[16] =
     PAL_BRIGHT_LIGHT_GRN,
 };
 
+SET_MEMORY(".map")
 void DrawMinimapEntities(GraphicsInterface graphics, MemoryInterface memory, Position* positions, uint16_t y, uint8_t palette_color)
 {
     // DRAW CREATURES

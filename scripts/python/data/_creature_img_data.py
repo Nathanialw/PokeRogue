@@ -805,7 +805,7 @@ CreaturesDict = [
    { "name": 'ZOMBIE_PLAGUE', 'prompt': "A rotting figure lurches forward, its hollow eyes glowing with sickly green light, spreading decay and death in its wake."},
 ]
 
-BASE_PROMPT = (
+CREATURES_BASE_PROMPT = (
     # f"photo-realistic hi fidelity detailed, "
     "fantasy creature, full body visible, centered composition, isolated creature, "
     "single subject, no cropping, highly detailed dark fantasy illustration, sharp focus, "

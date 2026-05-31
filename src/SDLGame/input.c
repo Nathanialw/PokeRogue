@@ -5,8 +5,10 @@
 #include "input.h"
 
 #include <SDL3/SDL_events.h>
+#include <SDL3/SDL_init.h>
 #include <SDL3/SDL_timer.h>
 
+#include "core_ram.h"
 #include "lib_debugging.h"
 #include "lib_decl.h"
 #include "ram.h"
@@ -60,8 +62,12 @@ uint16_t ProcessInput(void)
 
                 case SDLK_RETURN: s_currentKeys.start = pressed;
                     break;
-                case SDLK_ESCAPE: s_currentKeys.select = pressed;
-                    break;
+                case SDLK_ESCAPE:
+                    {
+                        s_currentKeys.select = pressed;
+                        g_core.state.running = 0;
+                        break;
+                    }
 
                     // Add more mappings (Start, Select, etc.) as needed.
                 }
@@ -73,7 +79,11 @@ uint16_t ProcessInput(void)
             break;
         }
     }
-    return s_currentKeys.buttons;
+
+    return
+        s_currentKeys
+        .
+        buttons;
 }
 
 

@@ -30,22 +30,22 @@ bool Acid(EntityId id, uint8_t x, uint8_t y);
 SET_MEMORY(".map.rodata")
 const Interaction TileCollision[NUM_TILES] =
 {
-    NoInteraction,
-    Wall,
-    Wall,
-    Foliage,
-    NoInteraction,
-    NoInteraction,
-    NoInteraction,
-    NoInteraction,
-    NoInteraction,
-    NoInteraction,
-    NoInteraction,
-    NoInteraction,
-    NoInteraction,
-    Water,
     Acid,
+    NoInteraction,
+    NoInteraction,
+    NoInteraction,
+    NoInteraction,
     Lava,
+    NoInteraction,
+    NoInteraction,
+    NoInteraction,
+    NoInteraction,
+    Wall,
+    Wall,
+    Wall,
+    Wall,
+    Wall,
+    Water,
 };
 
 /**********************************************************************************************************************/

@@ -66,10 +66,12 @@ int main()
 
     g_core.state.overlay = overlays[1](&api);;
 
-    while (g_core.state.overlay != 0)
+    while (g_core.state.overlay != 0 && g_core.state.running)
     {
         g_core.state.overlay = overlays[g_core.state.overlay](&api);;
     }
 
+    DEBUG("game qiuit");
+    SDL_Quit();
     return 0;
 }

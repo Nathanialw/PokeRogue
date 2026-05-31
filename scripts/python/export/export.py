@@ -258,6 +258,7 @@ def export_constants(byte_counts, counts, bytes_count_map_sprites):
         f.write(f"#define ITEM_COUNT {counts[3]}\n")
         f.write(f"#define OBJECT_COUNT {counts[4]}\n")
         f.write(f"#define TRAINER_COUNT {counts[5]}\n")
+        f.write(f"#define TILE_COUNT {counts[6]}\n")
         f.write(f"\n")
 
         f.write(f"#define CREATURE_TEXT_ARRAY_SIZE {counts[0] + 1}\n")
@@ -280,6 +281,7 @@ def export_constants(byte_counts, counts, bytes_count_map_sprites):
         f.write(f"#define SPRITE_20x20_CREATURE_BYTES {bytes_count_map_sprites[1]}\n")
         f.write(f"#define SPRITE_24x24_CREATURE_BYTES {bytes_count_map_sprites[2]}\n")
         f.write(f"#define SPRITE_32x32_CREATURE_BYTES {bytes_count_map_sprites[3]}\n")
+        f.write(f"#define SPRITE_64x64_CREATURE_BYTES {bytes_count_map_sprites[4]}\n")
         f.write(f"#define SPRITE_64x64_CREATURE_BYTES {bytes_count_map_sprites[4]}\n")
         f.write(f"#define SPRITE_16x16_ITEM_BYTES {bytes_count_map_sprites[5]}\n")
         f.write(f"#define SPRITE_20x20_ITEM_BYTES {bytes_count_map_sprites[6]}\n")
@@ -319,6 +321,7 @@ def export_constants(byte_counts, counts, bytes_count_map_sprites):
     print(f"#define ITEM_COUNT {counts[3]}")
     print(f"#define OBJECT_COUNT {counts[4]}")
     print(f"#define TRAINER_COUNT {counts[5]}\n")
+    print(f"#define TILE_COUNT {counts[6]}\n")
 
     print(f"#define SPRITE_16x16_CREATURE_BYTES {bytes_count_map_sprites[0]}")
     print(f"#define SPRITE_20x20_CREATURE_BYTES {bytes_count_map_sprites[1]}")

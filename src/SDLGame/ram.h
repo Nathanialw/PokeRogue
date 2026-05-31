@@ -36,6 +36,7 @@ typedef struct
     KeyState keys;
     uint8_t* bytes;
     uint8_t* funcs;
+    bool running;
 } RamState;
 
 

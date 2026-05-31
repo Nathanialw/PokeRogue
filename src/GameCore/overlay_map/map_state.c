@@ -298,7 +298,7 @@ uint8_t GameLoopMain(GameInterface* spi)
     FullRedraw(spi->graphics, spi->hardware, spi->memory);
     spi->graphics.EndFrame();
 
-    while (g_core.state.overlay == OVERLAY_MAP)
+    while (g_core.state.overlay == OVERLAY_MAP && g_core.state.running)
     {
         spi->input.HandleInput();
         UpdateGameRunningState(spi->graphics, spi->hardware, spi->input, spi->memory);

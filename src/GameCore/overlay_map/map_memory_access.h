@@ -12,6 +12,9 @@ Creature Flash_GetBiomeCreature(MemoryInterface memory, uint8_t biome, Creature 
 Creature Flash_GetThemeCreature(MemoryInterface memory, uint8_t theme, Creature index);
 
 void Flash_GetTextSpriteMetadata(MemoryInterface memory, Sprite* sprite, ObjectsTypes type, uint8_t index);
+
+void Flash_GetMapTileMetadata(MemoryInterface memory, SpriteFrames* sprite, uint8_t index);
+void Flash_GetMapTile(MemoryInterface memory, uint8_t* bytes, SpriteFrames* sprite);
 void Flash_GetMapSpriteMetadata(MemoryInterface memory, SpriteFrames* sprite, ObjectsTypes type, uint8_t index);
 void Flash_GetMapSprite(MemoryInterface memory, uint8_t* bytes, SpriteFrames* sprite, ObjectsTypes type);
 

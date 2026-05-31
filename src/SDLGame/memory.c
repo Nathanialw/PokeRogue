@@ -75,7 +75,7 @@ void* LoadBinaryFile(const char* filename, size_t* dataSize)
 
 void LoadGameData(void)
 {
-    void* romData = LoadBinaryFile("../../../bin/cartridge_data.bin", &romSize);
+    void* romData = LoadBinaryFile("bin/cartridge_data.bin", &romSize);
 
     if (romData)
     {

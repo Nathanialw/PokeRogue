@@ -18,12 +18,12 @@ from dataclasses import dataclass
 from enum import Enum
 import logging
 
-from data._item_img_data import VARIANTS, BASE_PROMPT, ItemsDict
-from data._spell_img_data import VARIANTS, BASE_PROMPT, SpellsDict
-from data._creature_img_data import VARIANTS, BASE_PROMPT, CreaturesDict
-from data._skill_img_data import VARIANTS, BASE_PROMPT, SkillsDict
-from data._object_img_data import VARIANTS, BASE_PROMPT, ObjectsDict
-from data._trainer_img_data import VARIANTS, BASE_PROMPT, TrainersDict
+from data._item_img_data import VARIANTS, ITEMS_BASE_PROMPT, ItemsDict
+from data._spell_img_data import VARIANTS, SPELLS_BASE_PROMPT, SpellsDict
+from data._creature_img_data import VARIANTS, CREATURES_BASE_PROMPT, CreaturesDict
+from data._skill_img_data import VARIANTS, SKILLS_BASE_PROMPT, SkillsDict
+from data._object_img_data import VARIANTS, OBJECTS_BASE_PROMPT, ObjectsDict
+from data._trainer_img_data import VARIANTS, TRAINERS_BASE_PROMPT, TrainersDict
 from config.settings import OUT_ROOT
 import config.settings as settings
 
@@ -43,12 +43,21 @@ MODEL_PATH = settings.MODEL_ADDRESS[MODEL_IDX]
 
 # Map object types to their dictionaries
 OBJECT_TYPE_DICT = {
-    'creature': CreaturesDict,
-    'spell': SpellsDict,
-    'skill': SkillsDict,
     'item': ItemsDict,
+    'spell': SpellsDict,
+    'creature': CreaturesDict,
+    'skill': SkillsDict,
     'object': ObjectsDict,
     'trainer': TrainersDict
+}
+
+ENTITY_BASE_PROMPT = {
+    'item': ITEMS_BASE_PROMPT,
+    'spell': SPELLS_BASE_PROMPT,
+    'creature': CREATURES_BASE_PROMPT,
+    'skill': SKILLS_BASE_PROMPT,
+    'object': OBJECTS_BASE_PROMPT,
+    'trainer': TRAINERS_BASE_PROMPT
 }
 
 
@@ -85,9 +94,9 @@ num_gpus = 0
 
 
 # GPU worker functions
-def build_prompt(object_data: dict, variant_index: int) -> str:
+def build_prompt(entity_type, object_data: dict, variant_index: int) -> str:
     variant = VARIANTS[variant_index % len(VARIANTS)]
-    return f"{BASE_PROMPT}, {object_data['prompt']}, {variant}"
+    return f"{ENTITY_BASE_PROMPT[entity_type]}, {object_data['prompt']}, {variant}"
 
 
 def count_existing_pngs(out_dir: str) -> int:
@@ -102,14 +111,15 @@ def stable_seed(name: str) -> int:
     return int(h[:8], 16)
 
 
+
 def get_batch_size(gpu_index: int) -> int:
     props = torch.cuda.get_device_properties(gpu_index)
     vram_gb = props.total_memory / (1024 ** 3)
 
     if vram_gb >= 15:
-        return 6  # 16GB cards
+        return 8  # 16GB cards
     else:
-        return 4  # 12GB cards
+        return 5  # 12GB cards
 
 
 def worker_process(gpu_index: int, job_queue_, model_path, out_root):
@@ -140,11 +150,16 @@ def worker_process(gpu_index: int, job_queue_, model_path, out_root):
             variant="fp16",
         )
 
+        # pipe.vae.to("cpu")
+        # pipe.text_encoder.to("cpu")
         pipe.set_progress_bar_config(disable=True)
         pipe.enable_model_cpu_offload(gpu_id=gpu_index)
 
         batch_size = get_batch_size(gpu_index)
-        logger.info(f"GPU {gpu_index} batch size: {batch_size}")
+        # batch_size = get_batch_size(gpu_index)
+
+        logger.info(f"GPU {gpu_index} optimal batch size: {batch_size}")
+        # logger.info(f"GPU {gpu_index} batch size: {batch_size}")
 
     except Exception as e:
         logger.error(f"GPU {gpu_index} failed to load model: {e}")
@@ -180,6 +195,7 @@ def worker_process(gpu_index: int, job_queue_, model_path, out_root):
             for obj in object_dict:
                 if obj["name"] == object_name:
                     object_info = obj
+                    print(f"{object_info}")
                     break
 
             if not object_info:
@@ -213,7 +229,7 @@ def worker_process(gpu_index: int, job_queue_, model_path, out_root):
                 batch = min(batch_size, remaining)
                 n = random.randint(1, 1000000)
                 current_seeds = [base_seed + seed_offset + n + i for i in range(batch)]
-                prompts = [build_prompt(object_info, current_seeds[i]) for i in range(batch)]
+                prompts = [build_prompt(object_type, object_info, current_seeds[i]) for i in range(batch)]
                 generators = [torch.Generator(device=device).manual_seed(current_seeds[i]) for i in range(batch)]
 
                 logger.info(f"GPU {gpu_index} generating batch of {batch} for {object_type}/{object_name}")
@@ -252,12 +268,13 @@ def worker_process(gpu_index: int, job_queue_, model_path, out_root):
                                 jobs[job_id].progress = int(((num_variants - remaining) / num_variants) * 100)
                                 jobs[job_id].output_files = output_files
 
+                        print(f"DONE! GPU:{gpu_index} with current_batch of: {current_batch}")
                         break
 
                     except torch.cuda.OutOfMemoryError:
                         logger.warning(f"GPU {gpu_index} OOM, reducing batch")
                         if current_batch > 1:
-                            current_batch = max(1, current_batch // 2)
+                            current_batch = max(1, current_batch - 1)
                             retry_count += 1
                             current_seeds = current_seeds[:current_batch]
                             prompts = prompts[:current_batch]
@@ -358,7 +375,7 @@ def list_gpus():
 
 @app.route('/objects', methods=['GET'])
 def list_objects():
-    """List all available objects (creatures, spells, skills, items, trainers)"""
+    """List all available objects (creatures, spells, skills, items, objects, trainers)"""
     result = {}
     for obj_type, obj_dict in OBJECT_TYPE_DICT.items():
         result[obj_type] = [{

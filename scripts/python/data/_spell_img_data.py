@@ -133,7 +133,7 @@ SpellsDict = [
    { "name": 'XRAY_VISION', 'prompt': "Glowing strands of light pierce the darkness, revealing hidden secrets beneath flesh, stone, and shadow alike."},
 ]
 
-BASE_PROMPT = (
+SPELLS_BASE_PROMPT = (
     # f"photo-realistic hi fidelity detailed, "
     "fantasy spell, full body visible, centered composition, isolated creature, "
     "single subject, no cropping, highly detailed dark fantasy illustration, sharp focus, "

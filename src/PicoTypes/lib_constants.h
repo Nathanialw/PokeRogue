@@ -20,9 +20,6 @@
 #define SCREEN_H 240
 #define TEXT_W 8
 #define TEXT_H 8
-// #define VIEW_TW (SCREEN_W / TILE_W)
-// #define VIEW_TH (SCREEN_H / TILE_H)
-#define TILE_PIXELS (TILE_W * TILE_H)
 #define TFT_WIDTH  320
 #define TFT_HEIGHT 240
 #elif defined(CARTRIDGE)
@@ -32,9 +29,6 @@
 #define SCREEN_H 320
 #define TEXT_W 8
 #define TEXT_H 8
-// #define VIEW_TW (SCREEN_W / TILE_W)
-// #define VIEW_TH (SCREEN_H / TILE_H)
-#define TILE_PIXELS (TILE_W * TILE_H)
 #define TFT_WIDTH  320
 #define TFT_HEIGHT 320
 #elif defined(RES_480x480)
@@ -44,9 +38,6 @@
 #define SCREEN_H 480
 #define TEXT_W 8
 #define TEXT_H 8
-// #define VIEW_TW (SCREEN_W / TILE_W)
-// #define VIEW_TH (SCREEN_H / TILE_H)
-#define TILE_PIXELS (TILE_W * TILE_H)
 #define TFT_WIDTH  480
 #define TFT_HEIGHT 480
 #elif defined(SDL)
@@ -56,7 +47,6 @@
 #define SCREEN_H 320
 #define TEXT_W 8
 #define TEXT_H 8
-#define TILE_PIXELS (TILE_W * TILE_H)
 #define TFT_WIDTH  320
 #define TFT_HEIGHT 320
 #else
@@ -88,4 +78,3 @@
 #define BUFFER_SIZE_BACK (BUFFER_W * BUFFER_H)
 #define BUFFER_SIZE_1BYTE ((BUFFER_W * BUFFER_H) * 4)
 #define BUFFER_SIZE_2BYTES ((BUFFER_W * BUFFER_H) * 2)
-

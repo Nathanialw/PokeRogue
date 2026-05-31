@@ -1,5 +1,9 @@
 # generate_data_from_db.py
 import sqlite3
+
+from numpy.core.defchararray import capitalize, upper
+from prompt_toolkit.key_binding.bindings.named_commands import capitalize_word
+
 from ..config import constants
 
 DB_FILE = constants.DB_FILE
@@ -60,7 +64,7 @@ def generate_data_from_db(entity):
         f.write("]\n")
 
         f.write(f'''
-BASE_PROMPT = (
+{upper(entity_type)}_BASE_PROMPT = (
     # f"photo-realistic hi fidelity detailed, "
     "fantasy {entity}, full body visible, centered composition, isolated creature, "
     "single subject, no cropping, highly detailed dark fantasy illustration, sharp focus, "

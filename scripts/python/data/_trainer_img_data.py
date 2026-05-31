@@ -209,7 +209,7 @@ TrainersDict = [
    { "name": 'Yuuko', 'prompt': "A cute young Japanese girl in a frilly pink dress hops playfully with a determined smile, ready to battle."},
 ]
 
-BASE_PROMPT = (
+TRAINERS_BASE_PROMPT = (
     # f"photo-realistic hi fidelity detailed, "
     "fantasy trainer, full body visible, centered composition, isolated creature, "
     "single subject, no cropping, highly detailed dark fantasy illustration, sharp focus, "

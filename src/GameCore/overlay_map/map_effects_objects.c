@@ -17,7 +17,7 @@
  *  OBJECT INTERACT EFFECTS
  *
 **********************************************************************************************************************/
-
+SET_MEMORY(".map")
 bool SetUsed(EntityId e_id)
 {
     if (!g_core.objects.interactable[e_id])

@@ -89,7 +89,7 @@ typedef enum
     RAINFOREST,
     BEACH,
     MOUNTAIN,
-    VOLCANIC,
+    VOLCANICA,
     MYSTICAL_GROVE,
     DEEP_CAVERN,
     MAGMA_CORE,
@@ -128,22 +128,14 @@ typedef enum
 **********************************************************************************************************************/
 typedef enum
 {
-    GROUND,
-    WALL_BRICK,
-    WALL_STONE,
-    FOLIAGE,
-    FOLIAGE3,
-    FOLIAGE4,
-    FOLIAGE5,
-    FOLIAGE6,
-    PIT,
-    ENEMY1,
-    ENEMY2,
-    ENEMY3,
-    ENEMY4,
-    WATER,
-    ACID,
-    LAVA,
+    // GROUND,
+    // WALL_BRICK,
+    // WALL_STONE,
+    // PIT,
+    // WATER,
+    // ACID,
+    // LAVA,
+#include "../inc/data_enum_tiles.inc"
 } TileType;
 
 

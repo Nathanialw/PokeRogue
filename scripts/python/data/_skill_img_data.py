@@ -521,7 +521,7 @@ SkillsDict = [
    { "name": 'WYRM_CHARGE', 'prompt': "A colossal serpent erupts from your chest, coiling around you as arcane energy surges through its scales."},
 ]
 
-BASE_PROMPT = (
+SKILLS_BASE_PROMPT = (
     # f"photo-realistic hi fidelity detailed, "
     "fantasy skill, full body visible, centered composition, isolated creature, "
     "single subject, no cropping, highly detailed dark fantasy illustration, sharp focus, "

@@ -5,10 +5,12 @@ assets_raw/
 
 .proxyai/
 
-build-pico/
-build-sdl/
-build-tests/
-build-cartridge/
+build-pico*/
+build-sdl*/
+build-tests*/
+build-cartridge*/
+build-cartridge-code*/
+build-cartridge-data*/
 
 vendor/
 gameplay/
@@ -18,8 +20,6 @@ TODO.txt
 TODO
 libs/
 bin/
-build-cartridge-code/
-build-cartridge-data/
 
 # Pico SDK generated
 *.uf2

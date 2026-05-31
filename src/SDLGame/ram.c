@@ -13,7 +13,8 @@
 
 RamState g_ramState =
 {
-    .keys = {0}
+    .keys = {0},
+    .running = true
 };
 
 

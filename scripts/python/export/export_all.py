@@ -178,13 +178,13 @@ def run():
     bytes_count_map_sprites.append(export_map_sprites.export_image_data("tile", 32))
     bytes_count_map_sprites.append(export_map_sprites.export_image_data("tile", 64))
 
-    # trainer name strings
-    counts.append(export.name_to_c_array("tile"))
-    # trainer description strings
-    export.desc_to_c_array("tile")
-    # trainer map sprites
-    bytes_count.append(export_battlers.export_image_data("tile"))
-
+    # tile name strings
+    # counts.append(export.name_to_c_array("tile"))
+    # tile description strings
+    # export.desc_to_c_array("tile")
+    # tile map sprites
+    # bytes_count.append(export_battlers.export_image_data("tile"))
+    counts.append(export_enums.enum("tile"))
 
     export.export_constants(bytes_count, counts, bytes_count_map_sprites)
 

@@ -106,18 +106,22 @@ void DrawTile(GraphicsInterface graphics, MemoryInterface memory, uint8_t screen
     uint16_t px = (uint16_t)(screen_tx * MAP_TILE_W);
     uint16_t py = (uint16_t)(screen_ty * MAP_TILE_H);
 
+#if defined(SDL)
+    SpriteFrames layout = {0};
+    Flash_GetMapTileMetadata(memory, &layout, tile_id);
+    Flash_GetMapTile(memory, g_map.tileCache.spriteCache.bytes, &layout);
+    for (uint8_t i = 0; i < 16; i++)
+        layout.palette[i] = ModifyColor((Color)layout.palette[i], brightness).color;
+    Expand4bppPackedToByte(memory, g_map.tileCache.spriteCache.bytes, layout.palette, g_map.tileCache.tilePixels.pixels, MAP_TILE_W);
+    graphics.Draw16(px, py, MAP_TILE_W, MAP_TILE_H, g_map.tileCache.tilePixels.pixels);
+#else
     g_map.tileCache.tile_id = tile_id;
     Flash_GetBiomeTile(memory, &g_map.tileCache.tileCache, g_core.biome, tile_id);
     Color fg = Flash_GetColor(memory, g_map.tileCache.tileCache.fg);
     fg = ModifyColor(fg, brightness);
     Color bg = Flash_GetColor(memory, g_map.tileCache.tileCache.bg);
     bg = ModifyColor(bg, brightness);
-
-
     CharFromGlyph1bpp(memory, g_map.tileCache.spriteCache, g_map.tileCache.tilePixels.pixels, g_map.tileCache.tileCache.glyph_index, FONT16x16, fg, bg);
-#if defined(SDL)
-    graphics.Draw16(px, py, MAP_TILE_W, MAP_TILE_H, g_map.tileCache.tilePixels.pixels);
-#else
     graphics.Draw(px, py, MAP_TILE_W, MAP_TILE_H, g_map.tileCache.tilePixels.bytes);
 #endif
 }
@@ -135,9 +139,9 @@ void DrawTileCached(GraphicsInterface graphics, MemoryInterface memory, uint8_t 
 
 #if defined(SDL)
     SpriteFrames layout = {0};
-    // Flash_GetSpriteMetadata(memory, &layout, type, sprite_id);
-    // (memory, g_map.tileCache.spriteCache.bytes, &layout, type);
-    // Expand4bppPackedToByte(memory, g_map.tileCache.spriteCache.bytes, layout.palette, g_map.tileCache.spritePixels.pixels, TILE_W);
+    Flash_GetMapTileMetadata(memory, &layout, tile_id);
+    Flash_GetMapTile(memory, g_map.tileCache.spriteCache.bytes, &layout);
+    Expand4bppPackedToByte(memory, g_map.tileCache.spriteCache.bytes, layout.palette, g_map.tileCache.tilePixels.pixels, MAP_TILE_W);
 #else
     if (g_map.tileCache.tile_id != tile_id)
     {

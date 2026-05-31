@@ -145,7 +145,7 @@ ItemsDict = [
    { "name": 'XP_POTION', 'prompt': "A shimmering vial of liquid glows with an eerie blue light, swirling with faint, dancing spirits."},
 ]
 
-BASE_PROMPT = (
+ITEMS_BASE_PROMPT = (
     # f"photo-realistic hi fidelity detailed, "
     "fantasy item, full body visible, centered composition, isolated creature, "
     "single subject, no cropping, highly detailed dark fantasy illustration, sharp focus, "

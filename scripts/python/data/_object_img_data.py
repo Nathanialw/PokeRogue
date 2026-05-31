@@ -125,7 +125,7 @@ ObjectsDict = [
    { "name": 'WELL', 'prompt': "The ancient, moss-covered chest hums with forgotten magic, its brass latch glinting under moonlight's spectral glow."},
 ]
 
-BASE_PROMPT = (
+OBJECTS_BASE_PROMPT = (
     # f"photo-realistic hi fidelity detailed, "
     "fantasy object, full body visible, centered composition, isolated creature, "
     "single subject, no cropping, highly detailed dark fantasy illustration, sharp focus, "

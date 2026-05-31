@@ -12,25 +12,42 @@ image_types=("trainer")
 echo $type
 
 #process images for use
-for type in "${image_types[@]}"
-do
-  echo ${type}
-  raw_source_file="../../../assets_raw/sprites/${type}"
-  staged_file="../../../assets_processed/${type}s/staged"
-  with_transparency_file="../../../assets_processed/${type}s/with_transparency"
-  deployable_file="../../../assets_processed/${type}s/deployable"
+#for type in "${image_types[@]}"
+#do
+#  echo ${type}
+#  raw_source_file="../../../assets_raw/sprites/${type}"
+#  staged_file="../../../assets_processed/${type}s/staged"
+#  with_transparency_file="../../../assets_processed/${type}s/with_transparency"
+#  deployable_file="../../../assets_processed/${type}s/deployable"
+#
+#  python copy_first_images.py ${raw_source_file}         ${staged_file}
+#  python transparent_bulk.py  ${staged_file}             ${with_transparency_file}
+#  python rescale_reformat.py  ${with_transparency_file}  ${deployable_file}
+#  python compress_img.py      ${deployable_file}
+#
+#  python compress_map_sprite.py ${deployable_file} 16
+#  python compress_map_sprite.py ${deployable_file} 20
+#  python compress_map_sprite.py ${deployable_file} 24
+#  python compress_map_sprite.py ${deployable_file} 32
+#  python compress_map_sprite.py ${deployable_file} 64
+#done
 
-  python copy_first_images.py ${raw_source_file}         ${staged_file}
-  python transparent_bulk.py  ${staged_file}             ${with_transparency_file}
-  python rescale_reformat.py  ${with_transparency_file}  ${deployable_file}
-  python compress_img.py      ${deployable_file}
+type="tile"
+echo ${type}
 
-  python compress_map_sprite.py ${deployable_file} 16
-  python compress_map_sprite.py ${deployable_file} 20
-  python compress_map_sprite.py ${deployable_file} 24
-  python compress_map_sprite.py ${deployable_file} 32
-  python compress_map_sprite.py ${deployable_file} 64
-done
+raw_source_file="../../../assets_raw/sprites/${type}"
+staged_file="../../../assets_processed/${type}s/staged"
+deployable_file="../../../assets_processed/${type}s/deployable"
+
+python copy_first_images.py ${raw_source_file}         ${staged_file}
+python rescale_reformat.py  ${staged_file}  ${deployable_file}
+python compress_img.py      ${deployable_file}
+
+python compress_map_sprite.py ${deployable_file} 16
+python compress_map_sprite.py ${deployable_file} 20
+python compress_map_sprite.py ${deployable_file} 24
+python compress_map_sprite.py ${deployable_file} 32
+python compress_map_sprite.py ${deployable_file} 64
 
 
 cd ..
