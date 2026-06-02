@@ -5,10 +5,10 @@
 
 
 python -m python.gen_images.batch_generate --type item
-#python -m python.gen_images.batch_generate --type spell
-#python -m python.gen_images.batch_generate --type object
-#python -m python.gen_images.batch_generate --type skill
-#python -m python.gen_images.batch_generate --type trainer
+python -m python.gen_images.batch_generate --type spell
+python -m python.gen_images.batch_generate --type object
+python -m python.gen_images.batch_generate --type skill
+python -m python.gen_images.batch_generate --type trainer
 
 # --start-from SUCCUBUS
 #generate all from local

@@ -929,6 +929,36 @@ def get_folders(table):
     conn.close()
     return formatted_results
 
+def get_image(table, entity_name):
+    image_path = []
+    conn = sqlite3.connect(DB_FILE)
+    cursor = conn.cursor()
+
+    # Use a placeholder for the value; table name must be validated separately
+    cursor.execute(f"SELECT image FROM {table}s WHERE name = ?", (entity_name,))
+
+    for row in cursor.fetchall():
+        image_path.append(row[0])  # Extract the first column from the tuple
+
+    conn.close()
+    if len(image_path) > 0:
+        return image_path[0]
+    return None
+
+
+def set_image(table, entity_name, image):
+    conn = sqlite3.connect(DB_FILE)
+    cursor = conn.cursor()
+
+    sql = f"UPDATE {table}s SET image = ? WHERE name = ?"
+    cursor.execute(sql, (image, entity_name))
+    conn.commit()
+
+    conn.close()
+    return get_image(table, entity_name)
+
+
+
 
 def get_funcs(table):
     formatted_results = []  # Initialize the list

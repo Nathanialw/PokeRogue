@@ -28,8 +28,7 @@ def copy_first_images(source_dir, dest_dir):
             continue
 
         # Get all image files in current directory
-        image_files = [f for f in files
-                       if Path(f).suffix.lower() in IMAGE_EXTENSIONS]
+        image_files = [f for f in files if Path(f).suffix.lower() in IMAGE_EXTENSIONS]
 
         if image_files:
             # Sort to ensure consistent "first" image

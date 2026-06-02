@@ -135,9 +135,9 @@ _Static_assert(DIALOGUE_H + RESOURCE_FRAME_H + BATTLER_AREA_H <= TFT_H, "cannot 
 **********************************************************************************************************************/
 
 // #define MAP_TILES_16
-#define MAP_TILES_20
+// #define MAP_TILES_20
 // #define MAP_TILES_24
-// #define MAP_TILES_32
+#define MAP_TILES_32
 // #define MAP_TILES_64
 
 

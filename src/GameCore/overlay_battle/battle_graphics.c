@@ -23,7 +23,7 @@ void HandleBattleLists(GraphicsInterface graphics, MemoryInterface memory)
 {
     // use screen area of player battler and down to the bottom of the skill list
     const uint16_t x = PLAYER_BATTLER_FRAME.x;
-    const uint8_t y = PLAYER_BATTLER_FRAME.y;
+    const uint16_t y = PLAYER_BATTLER_FRAME.y;
     const uint16_t w = PLAYER_BATTLER_FRAME.w;
 
     const uint8_t indent = 1;
@@ -78,9 +78,9 @@ void HandleBattleMenu(GraphicsInterface graphics, HardwareInterface hardware, Me
 
     // use screen area of player battler and down to the bottom of the skill list
     const uint16_t x = PLAYER_BATTLER_FRAME.x;
-    const uint8_t y = PLAYER_BATTLER_FRAME.y;
+    const uint16_t y = PLAYER_BATTLER_FRAME.y;
     const uint16_t w = PLAYER_BATTLER_FRAME.w;
-    const uint8_t h = PLAYER_BATTLER_FRAME.h + (8 * 6);
+    const uint16_t h = PLAYER_BATTLER_FRAME.h + (8 * 6);
     graphics.FillRect(x, y, w, h, Flash_GetColor(memory, PAL_OFF_WHITE_GRAY));
 
     const uint8_t indent = 1;

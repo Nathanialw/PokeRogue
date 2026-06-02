@@ -5,12 +5,9 @@ assets_raw/
 
 .proxyai/
 
-build-pico*/
-build-sdl*/
-build-tests*/
-build-cartridge*/
-build-cartridge-code*/
-build-cartridge-data*/
+build*
+
+
 
 vendor/
 gameplay/
