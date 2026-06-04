@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """
 Compress all PNG images in a folder into square map sprites of a given size.
-Each sprite is stored as a single tile with RLE compression.
+Each sprite is stored as a single tile with RLE compression, using a
+palette of up to 16 colors (no special transparency index).
 
 Usage:
     python compress_map_sprite.py <input_folder> <size>
@@ -53,57 +54,66 @@ def rle_encode_row(row):
 def compress_sprite_single(input_path, size, output_path):
     """
     Compress an image to a square sprite of given size, store as one tile.
+    Alpha channel is completely ignored – the image is treated as opaque.
     """
     if size not in (16, 20, 24, 32, 64):
         raise ValueError(f"Size must be one of 16,20,24,32,64 (got {size})")
 
     print(f"\nProcessing: {input_path} -> {size}x{size} sprite")
 
-    # 1. Load and resize
-    img = Image.open(input_path).convert('RGBA')
+    # 1. Load image and resize (alpha discarded)
+    img = Image.open(input_path).convert('RGB')   # no alpha
     if img.size != (size, size):
         print(f"  Resizing from {img.size} to {size}x{size}")
         img = img.resize((size, size), Image.NEAREST)
 
-    # 2. Quantize RGB part to 15 colours (indices 0..14)
-    rgb_img = img.convert("RGB")
+    # 2. Quantize to exactly 16 colors (indices 0..15)
     try:
-        quantized = rgb_img.quantize(colors=15,
-                                     method=Image.Quantize.MEDIANCUT,
-                                     dither=Image.Dither.NONE)
+        quantized = img.quantize(colors=16,
+                                 method=Image.Quantize.MEDIANCUT,
+                                 dither=Image.Dither.NONE)
     except AttributeError:
         # Fallback for older Pillow versions
-        quantized = rgb_img.quantize(colors=15, method=0, dither=Image.Dither.NONE)
+        quantized = img.quantize(colors=16, method=0, dither=Image.Dither.NONE)
 
-    # 3. Extract 15‑colour palette (RGB888 and RGB565)
-    raw_pal = quantized.getpalette()
-    if not raw_pal:
-        raise RuntimeError("Failed to get palette from quantized image")
-    palette_rgb888 = []
-    palette_rgb565 = []
-    for i in range(15):
-        r = raw_pal[3 * i]
-        g = raw_pal[3 * i + 1]
-        b = raw_pal[3 * i + 2]
-        palette_rgb888.append((r, g, b))
-        # Convert to RGB565
-        r5 = r >> 3
-        g6 = g >> 2
-        b5 = b >> 3
+    # 3. Extract the 16‑color palette as RGB888 and RGB565
+    # --- after quantize, count colour usage and reorder ---
+    quant_pixels = np.array(quantized, dtype=np.uint8)
+    raw_pal = quantized.getpalette()  # 768 bytes
+    num_colors = max(quantized.getcolors())[0] + 1  # actual number of colours used
+
+    # Frequency of each original index
+    freq = [0] * 256
+    for p in quant_pixels.flat:
+        freq[p] += 1
+
+    # Build list of (original_index, rgb888, rgb565, frequency)
+    entries = []
+    for idx in range(num_colors):
+        r = raw_pal[3 * idx]
+        g = raw_pal[3 * idx + 1]
+        b = raw_pal[3 * idx + 2]
+        r5, g6, b5 = r >> 3, g >> 2, b >> 3
         rgb565 = (r5 << 11) | (g6 << 5) | b5
+        entries.append((idx, (r, g, b), rgb565, freq[idx]))
+
+    # Sort: most frequent first → new index 0
+    entries.sort(key=lambda x: x[3], reverse=True)
+
+    # Build final palette (exactly 16 entries) and remap array
+    palette_rgb565 = []
+    remap = np.zeros(256, dtype=np.uint8)
+    for new_idx, (old_idx, rgb888, rgb565, _) in enumerate(entries):
+        remap[old_idx] = new_idx
         palette_rgb565.append(rgb565)
 
-    # 4. Build indexed image: 0 = transparent, 1..15 = palette colours
-    alpha = np.array(img.split()[-1])          # uint8, 0..255
-    quant_data = np.array(quantized, dtype=np.uint8)  # 0..14
+    # Pad to 16 colours if necessary (with last colour or black)
+    while len(palette_rgb565) < 16:
+        fallback = palette_rgb565[-1] if palette_rgb565 else 0x0000
+        palette_rgb565.append(fallback)
 
-    indexed = np.zeros((size, size), dtype=np.uint8)
-    for y in range(size):
-        for x in range(size):
-            if alpha[y, x] >= 128:             # opaque pixel
-                # shift quant index from 0..14 to 1..15
-                indexed[y, x] = int(quant_data[y, x]) + 1
-            # else: stays 0 (transparent)
+    # Remap the quantized image: background now becomes index 0
+    indexed = remap[quant_pixels]
 
     # 5. Encode whole sprite as a single tile: RLE per row
     rle_bytes = []
@@ -111,12 +121,11 @@ def compress_sprite_single(input_path, size, output_path):
         row = indexed[y, :].tolist()
         rle_bytes.extend(rle_encode_row(row))
 
-    # 6. Prepare JSON output
+    # 6. Prepare JSON output (no transparent_index)
     result = {
         "file": os.path.basename(input_path),
         "width": size,
         "height": size,
-        "transparent_index": 0,
         "palette_rgb565": [f"0x{c:04x}" for c in palette_rgb565],
         "rle_data": rle_bytes,
         "rle_byte_count": len(rle_bytes)
@@ -132,7 +141,7 @@ def compress_sprite_single(input_path, size, output_path):
 
 
 # ----------------------------------------------------------------------
-#  Process a whole folder recursively (same as compress_img.py)
+#  Process a whole folder recursively
 # ----------------------------------------------------------------------
 def process_folder(input_folder, size):
     """Recursively process all PNG images in folder and subfolders."""
@@ -142,7 +151,6 @@ def process_folder(input_folder, size):
         print(f"Error: Folder '{input_folder}' does not exist!")
         return
 
-    # Find all PNG files recursively
     png_files = list(input_path.rglob("*.png"))
 
     if not png_files:
@@ -157,7 +165,6 @@ def process_folder(input_folder, size):
 
     for png_file in png_files:
         try:
-            # Generate output JSON path alongside the image
             output_json = png_file.parent / f"{png_file.stem}_{size}.json"
             compress_sprite_single(str(png_file), size, str(output_json))
             processed += 1
@@ -165,7 +172,6 @@ def process_folder(input_folder, size):
             print(f"❌ Failed to process {png_file}: {e}")
             failed += 1
 
-    # Print summary
     print("\n" + "=" * 60)
     print(f"PROCESSING COMPLETE")
     print(f"Successfully processed: {processed}")

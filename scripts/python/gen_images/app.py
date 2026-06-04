@@ -24,6 +24,10 @@ from data._creature_img_data import VARIANTS, CREATURES_BASE_PROMPT, CreaturesDi
 from data._skill_img_data import VARIANTS, SKILLS_BASE_PROMPT, SkillsDict
 from data._object_img_data import VARIANTS, OBJECTS_BASE_PROMPT, ObjectsDict
 from data._trainer_img_data import VARIANTS, TRAINERS_BASE_PROMPT, TrainersDict
+
+from data import creature_descriptors
+from data import trainer_descriptors
+
 from config.settings import OUT_ROOT
 import config.settings as settings
 
@@ -94,9 +98,22 @@ num_gpus = 0
 
 
 # GPU worker functions
-def build_prompt(entity_type, object_data: dict, variant_index: int) -> str:
+def build_prompt(object_type, object_name, entity_type, object_data: dict, variant_index: int) -> str:
+    terms = []
+    if object_type == 'creature':
+        terms = creature_descriptors.CREATURE_VALIDATION[object_name]["required_terms"]
+    if object_type == 'trainer':
+        terms = trainer_descriptors.CREATURE_VALIDATION[object_name]["required_terms"]
+
+    characteristics = " - KEY CHARACTERISTICS ARE: "
+    for term in terms:
+        num = random.randint(1, 2)
+        if num < 2:
+            characteristics = characteristics + term + ", "
+    # print(f"after prompt {p}")
+
     variant = VARIANTS[variant_index % len(VARIANTS)]
-    return f"{ENTITY_BASE_PROMPT[entity_type]}, {object_data['prompt']}, {variant}"
+    return f"{ENTITY_BASE_PROMPT[entity_type]}, {object_data['prompt']}, {variant}, {characteristics}"
 
 
 def count_existing_pngs(out_dir: str) -> int:
@@ -229,7 +246,10 @@ def worker_process(gpu_index: int, job_queue_, model_path, out_root):
                 batch = min(batch_size, remaining)
                 n = random.randint(1, 1000000)
                 current_seeds = [base_seed + seed_offset + n + i for i in range(batch)]
-                prompts = [build_prompt(object_type, object_info, current_seeds[i]) for i in range(batch)]
+                prompts = [build_prompt(object_type, object_name, object_type, object_info, current_seeds[i]) for i in range(batch)]
+
+
+
                 generators = [torch.Generator(device=device).manual_seed(current_seeds[i]) for i in range(batch)]
 
                 logger.info(f"GPU {gpu_index} generating batch of {batch} for {object_type}/{object_name}")

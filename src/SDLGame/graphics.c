@@ -64,6 +64,34 @@ static inline uint16_t SetColorByte(Color c)
 }
 
 
+void ConvertRGB565ToRGBA8888(uint16_t w, uint16_t h, const uint16_t* data)
+{
+    uint32_t size = w * h;
+    for (uint32_t i = 0; i < size; i++)
+    {
+        if (data[i] == TRANSPARENCY)
+        {
+            g_ramState.pixelArray[i] = (SDL_Color){0, 0, 0, 0};
+        }
+        else
+        {
+            uint16_t pixel = data[i];
+
+            uint8_t red = (pixel >> 11) & 0x1F;
+            uint8_t green = (pixel >> 5) & 0x3F;
+            uint8_t blue = pixel & 0x1F;
+
+            red = (red << 3) | (red >> 2);
+            green = (green << 2) | (green >> 4);
+            blue = (blue << 3) | (blue >> 2);
+
+            SDL_Color c = {.r = red, .g = green, .b = blue, .a = 255};
+            g_ramState.pixelArray[i] = c;
+        }
+    }
+}
+
+
 /**********************************************************************************************************************/
 /**  fills the given buffer with the given colour value
 **********************************************************************************************************************/
@@ -76,28 +104,18 @@ void SetRectColor(uint32_t length, uint16_t* p, Color rgb565)
 
 void DrawRect(uint16_t x, uint16_t y, uint16_t w, uint16_t h, Color rgb565)
 {
-    // if ((w * h) < (BUFFER_SIZE * 2))
     if ((w * h) < (SCREEN_H * SCREEN_W * 2))
     {
-        SetFrameBufferColor(rgb565);
-        Draw16(x, y, w, h, g_ramState.framebuffer.frameBuffer);
-    }
-    else
-    {
-        if (w > h)
-        {
-            w = w / 2;
-            FillRectColor(x, y, w, h, rgb565);
-            x += w;
-            FillRectColor(x, y, w, h, rgb565);
-        }
-        else
-        {
-            h = h / 2;
-            FillRectColor(x, y, w, h, rgb565);
-            y += h;
-            FillRectColor(x, y, w, h, rgb565);
-        }
+
+        uint8_t red = (rgb565.r << 3) | (rgb565.r >> 2);
+        uint8_t green = (rgb565.g << 2) | (rgb565.g >> 4);
+        uint8_t blue = (rgb565.b << 3) | (rgb565.b >> 2);
+
+        SDL_SetRenderDrawColor(g_ramState.renderer, red, green, blue, 255);
+        SDL_FRect r = {x, y, w, h};
+        SDL_RenderFillRect(g_ramState.renderer, &r);
+        SDL_FlushRenderer(g_ramState.renderer);
+        SDL_SetRenderDrawColor(g_ramState.renderer, 255, 255, 255, 255);
     }
 }
 
@@ -111,13 +129,10 @@ void Draw(uint16_t x, uint16_t y, uint16_t w, uint16_t h, const uint8_t* data)
     if (x + w > TFT_W) w = TFT_W - x;
     if (y + h > TFT_H) h = TFT_H - y;
 
-    memcpy(g_ramState.framebuffer.frameBuffer1byte, data, w * h);
+    ConvertRGB565ToRGBA8888(w / 2, h, (uint16_t*)data);
+
     SDL_Rect rect = {x, y, w, h};
-
-    SDL_UpdateTexture(g_ramState.screen, &rect, g_ramState.framebuffer.frameBuffer, w * sizeof(uint16_t));
-    SDL_RenderTexture(g_ramState.renderer, g_ramState.screen, NULL, NULL);
-
-    // SDL_RenderPresent(g_ramState.renderer);
+    SDL_UpdateTexture(g_ramState.screen, &rect, g_ramState.pixelArray, w * sizeof(SDL_Color));
 }
 
 void Draw16(uint16_t x, uint16_t y, uint16_t w, uint16_t h, const uint16_t* data)
@@ -127,19 +142,12 @@ void Draw16(uint16_t x, uint16_t y, uint16_t w, uint16_t h, const uint16_t* data
     if (x + w > TFT_W) w = TFT_W - x;
     if (y + h > TFT_H) h = TFT_H - y;
 
-    // printf("Drawing ->  ");
-    // for (uint16_t i = 0; i < 16; i++)
-    // printf("%04X ", data[i]);
-    // printf("\n");
-
+    ConvertRGB565ToRGBA8888(w, h, data);
 
     SDL_Rect rect = {x, y, w, h};
-    if (!SDL_UpdateTexture(g_ramState.screen, &rect, data, w * sizeof(uint16_t)))
-        SDL_Log("Failed to update texture %s", SDL_GetError());
-    if (!SDL_RenderTexture(g_ramState.renderer, g_ramState.screen, NULL, NULL))
-        SDL_Log("Failed to render texture %s", SDL_GetError());
 
-    // SDL_RenderPresent(g_ramState.renderer);
+    if (!SDL_UpdateTexture(g_ramState.screen, &rect, g_ramState.pixelArray, w * sizeof(SDL_Color)))
+        SDL_Log("Failed to update texture: %s", SDL_GetError());
 }
 
 void ClearBuffer(void)
@@ -161,7 +169,6 @@ void DrawSpriteTile(const FrameBuffer f, const uint8_t* sprite)
 void DrawToBuffer(const FrameBuffer* frameBuffer, const uint16_t* pixels, const Rect_16* rect)
 {
     uint16_t width = frameBuffer->w;
-    // = Flash_GetColor(memory, PAL_KEY];
 
     uint16_t clip_x = 0;
     uint16_t clip_y = 0;
@@ -202,23 +209,21 @@ void DrawToBuffer(const FrameBuffer* frameBuffer, const uint16_t* pixels, const 
 //TODO:
 void DrawTileKeyed(uint16_t x, uint16_t y, uint16_t w, uint16_t h, const uint16_t* data)
 {
-    for (uint16_t row = 0; row < h; row++)
-    {
-        for (uint16_t col = 0; col < w; col++)
-        {
-            if (data[row * w + col] != TRANSPARENCY)
-            {
-                // printf("#");
-                uint16_t c = data[row * w + col];
-                Draw16(x + col, y + row, 1, 1, &c);
-            }
-            else
-            {
-                // printf(" ");
-            }
-        }
-        // printf("\n");
-    }
+    //will add caching later after this is working
+    ConvertRGB565ToRGBA8888(w, h, data);
+
+    // SDL_FRect testArea = {x, y, w, h};   // same as your tile destination
+    // SDL_SetRenderDrawColor(g_ramState.renderer, 255, 0, 0, 255); // opaque red
+    // SDL_RenderFillRect(g_ramState.renderer, &testArea);
+
+    SDL_Texture* spriteTex = SDL_CreateTexture(g_ramState.renderer, SDL_PIXELFORMAT_RGBA32, SDL_TEXTUREACCESS_STREAMING, w, h);
+    SDL_UpdateTexture(spriteTex, NULL, g_ramState.pixelArray, w * sizeof(SDL_Color));
+    SDL_SetTextureBlendMode(spriteTex, SDL_BLENDMODE_BLEND);
+
+    // Draw onto the main canvas
+    SDL_FRect dest = {x, y, w, h};
+    SDL_RenderTexture(g_ramState.renderer, spriteTex, NULL, &dest);
+    SDL_DestroyTexture(spriteTex);
 }
 
 
@@ -310,7 +315,11 @@ void TestAnimation(FrameBuffer* f, Rect_16* r, Color* color1)
 
 void EndFrame(void)
 {
+    SDL_SetRenderTarget(g_ramState.renderer, NULL); // reset to defaul
+    SDL_RenderClear(g_ramState.renderer);
+    SDL_RenderTexture(g_ramState.renderer, g_ramState.screen, NULL, NULL);
     SDL_RenderPresent(g_ramState.renderer);
+    SDL_SetRenderTarget(g_ramState.renderer, g_ramState.screen);
 }
 
 

@@ -74,7 +74,7 @@ CREATURE_VALIDATION = {
 
     # Angel - Divine being
     "ANGEL": {
-        "required_terms": ["wing", "wings", "halo", "divine", "celestial", "holy", "light", "radiant", "golden", "feather", "feathered", "humanoid", "messenger", "god", "heaven", "glowing", "luminous", "blessed", "sacred", "seraph", "cherub", "archangel", "white", "robes", "glory", "ethereal", "graceful", "benevolent", "guardian", "choir", "harp", "trumpet", "six wings", "many eyes"],
+        "required_terms": ["wing", "wings", "breasts exposed", "saggy breasts", "perky breasts", "halo", "divine", "celestial", "holy", "light", "radiant", "golden", "feather", "feathered", "humanoid", "messenger", "god", "heaven", "glowing", "luminous", "blessed", "sacred", "seraph", "cherub", "archangel", "white", "robes", "glory", "ethereal", "graceful", "benevolent", "guardian", "choir", "harp", "trumpet", "six wings", "many eyes"],
         "forbidden_terms": ["demon", "evil", "corrupt", "undead", "hell", "infernal", "devil", "satanic", "malevolent", "wicked", "sinister", "grotesque", "monstrous", "ugly", "rotting", "decayed", "skeletal", "claw", "fang", "tusk", "horn"],
         "min_matches": MIN_MATCHES
     },
@@ -116,7 +116,7 @@ CREATURE_VALIDATION = {
 
     # Baba Yaga - Slavic witch
     "BABA_YAGA": {
-        "required_terms": ["witch", "hut", "chicken", "legs", "chicken legs", "mortar", "pestle", "iron teeth", "crone", "old", "slavic", "russian", "forest", "bony", "iron nose", "fence", "skulls", "dancing", "whirlwind", "broom", "wild", "cannibal", "bone", "hag", "yaga", "baba", "grandmother", "wicked", "ambiguous", "helper", "villain", "forest hut", "moving hut", "skull fence", "mortar boat", "pestle oar"],
+        "required_terms": ["witch", "hut", "breasts exposed", "saggy breasts", "perky breasts", "chicken", "legs", "chicken legs", "mortar", "pestle", "iron teeth", "crone", "old", "slavic", "russian", "forest", "bony", "iron nose", "fence", "skulls", "dancing", "whirlwind", "broom", "wild", "cannibal", "bone", "hag", "yaga", "baba", "grandmother", "wicked", "villain", "forest hut", "mortar boat", "pestle oar"],
         "forbidden_terms": ["beautiful", "young", "maiden", "pretty", "attractive", "handsome", "comely", "fair", "lovely", "gorgeous", "radiant", "glowing with youth", "innocent", "pure", "virginal", "princess-like", "delicate", "gentle", "soft-spoken"],
         "min_matches": MIN_MATCHES
     },
@@ -130,7 +130,7 @@ CREATURE_VALIDATION = {
 
     # Banshee - Wailing spirit
     "BANSHEE": {
-        "required_terms": ["wail", "wailing", "scream", "screaming", "spirit", "woman", "female", "death", "foretell", "omen", "irish", "celtic", "hair", "comb", "gray", "pale", "white", "keening", "lament", "mourn", "mourning", "bean sidhe", "fairy", "faerie", "washerwoman", "stream", "blood", "warning", "bean-nighe", "scottish", "supernatural", "ghost", "apparition", "long hair", "silver hair", "brushing hair", "red eyes from weeping"],
+        "required_terms": ["wail", "wailing", "breasts exposed", "saggy breasts", "perky breasts", "scream", "screaming", "spirit", "woman", "female", "death", "foretell", "omen", "irish", "celtic", "hair", "comb", "gray", "pale", "white", "keening", "lament", "mourn", "mourning", "bean sidhe", "fairy", "faerie", "washerwoman", "stream", "blood", "warning", "bean-nighe", "scottish", "supernatural", "ghost", "apparition", "long hair", "silver hair", "brushing hair", "red eyes from weeping"],
         "forbidden_terms": ["winged", "small", "demon", "malevolent", "evil", "wicked", "harmful", "attacking", "violent", "aggressive", "claw", "fang", "horn", "tail", "scales", "reptile", "insect", "animal face", "beastly", "monstrous appearance", "ugly", "grotesque", "happy", "joyful", "laughing", "celebratory"],
         "min_matches": MIN_MATCHES
     },
@@ -265,7 +265,21 @@ CREATURE_VALIDATION = {
 
     # Centaur - Horse-human hybrid
     "CENTAUR": {
-        "required_terms": ["horse", "human", "torso", "equine", "hybrid", "four-legged", "hooves", "greek", "mythological", "half-man", "half-horse", "upper body", "lower body", "archer", "bow", "wild", "thessalian", "sagittarius", "constellation", "chiron", "pholus", "nessus", "wise", "tutor", "healer", "man-horse", "barbarian", "tribal", "herd", "galloping", "hippocentaur", "centaurides", "female centaur", "centauress", "thessaly", "pelion", "centauromachy", "lapiths", "wine", "wildness", "civilization vs wildness", "dual nature", "horse body", "human chest", "human arms", "human head"],
+        "required_terms": ["breasts exposed", "saggy breasts", "perky breasts", "horse", "human", "torso", "equine", "hybrid", "four-legged", "hooves", "greek", "mythological", "half-man", "half-horse", "upper body", "lower body", "archer", "bow", "wild", "thessalian", "sagittarius", "constellation", "chiron", "pholus", "nessus", "wise", "tutor", "healer", "man-horse", "barbarian", "tribal", "herd", "galloping", "hippocentaur", "centaurides", "female centaur", "centauress", "thessaly", "pelion", "centauromachy", "lapiths", "wine", "wildness", "civilization vs wildness", "dual nature", "horse body", "human chest", "human arms", "human head"],
+        "forbidden_terms": ["scaled", "feathered", "reptile", "snake", "serpent", "lizard", "crocodile", "turtle", "tortoise", "amphibian", "frog", "toad", "fish", "aquatic", "fins", "gills", "insect", "arachnid", "chitin", "exoskeleton", "antennae", "mandibles", "pincers", "stinger", "wings", "winged", "flying", "soaring"],
+        "min_matches": MIN_MATCHES
+    },
+
+    # Centaur - Horse-human hybrid
+    "CENTAUR_ARCHER": {
+        "required_terms": ["breasts exposed", "saggy breasts", "perky breasts", "horse", "human", "torso", "equine", "hybrid", "four-legged", "hooves", "greek", "mythological", "half-man", "half-horse", "upper body", "lower body", "archer", "bow", "wild", "thessalian", "sagittarius", "constellation", "chiron", "pholus", "nessus", "wise", "tutor", "healer", "man-horse", "barbarian", "tribal", "herd", "galloping", "hippocentaur", "centaurides", "female centaur", "centauress", "thessaly", "pelion", "centauromachy", "lapiths", "wine", "wildness", "civilization vs wildness", "dual nature", "horse body", "human chest", "human arms", "human head"],
+        "forbidden_terms": ["scaled", "feathered", "reptile", "snake", "serpent", "lizard", "crocodile", "turtle", "tortoise", "amphibian", "frog", "toad", "fish", "aquatic", "fins", "gills", "insect", "arachnid", "chitin", "exoskeleton", "antennae", "mandibles", "pincers", "stinger", "wings", "winged", "flying", "soaring"],
+        "min_matches": MIN_MATCHES
+    },
+
+    # Centaur - Horse-human hybrid
+    "CENTAUR_WARRIOR": {
+        "required_terms": ["breasts exposed", "saggy breasts", "perky breasts", "horse", "human", "torso", "equine", "hybrid", "four-legged", "hooves", "greek", "mythological", "half-man", "half-horse", "upper body", "lower body", "archer", "bow", "wild", "thessalian", "sagittarius", "constellation", "chiron", "pholus", "nessus", "man-horse", "barbarian", "tribal", "herd", "galloping", "hippocentaur", "centaurides", "female centaur", "centauress", "thessaly", "pelion", "centauromachy", "horse body", "human chest", "human arms", "human head"],
         "forbidden_terms": ["scaled", "feathered", "reptile", "snake", "serpent", "lizard", "crocodile", "turtle", "tortoise", "amphibian", "frog", "toad", "fish", "aquatic", "fins", "gills", "insect", "arachnid", "chitin", "exoskeleton", "antennae", "mandibles", "pincers", "stinger", "wings", "winged", "flying", "soaring"],
         "min_matches": MIN_MATCHES
     },
@@ -411,7 +425,7 @@ CREATURE_VALIDATION = {
 
     # Dryad - Tree nymph
     "DRYAD": {
-        "required_terms": ["tree", "nymph", "forest", "wood", "bark", "leaf", "green", "spirit", "greek", "nature", "dryad", "hamadryad", "oak", "tree spirit", "wood nymph", "female", "beautiful", "ethereal", "graceful", "delicate", "immortal", "long-lived", "bound to tree", "tree life", "dies if tree dies", "protector of trees", "forest guardian", "woodland", "grove", "sacred grove", "wild", "untamed", "shy", "elusive", "rarely seen", "dances in moonlight", "plays with satyrs"],
+        "required_terms": ["tree", "nymph", "breasts exposed", "saggy breasts", "perky breasts", "forest", "wood", "bark", "leaf", "green", "spirit", "greek", "nature", "dryad", "hamadryad", "oak", "tree spirit", "wood nymph", "female", "beautiful", "ethereal", "graceful", "delicate", "immortal", "long-lived", "bound to tree", "tree life", "dies if tree dies", "protector of trees", "forest guardian", "woodland", "grove", "sacred grove", "wild", "untamed", "shy", "elusive", "rarely seen", "dances in moonlight", "plays with satyrs"],
         "forbidden_terms": ["undead", "evil", "demonic", "wicked", "sinister", "malicious", "cruel", "violent", "aggressive", "harmful", "dangerous", "deadly", "lethal", "fatal", "poisonous", "venomous", "corrosive", "acidic", "burning"],
         "min_matches": MIN_MATCHES
     },
@@ -446,7 +460,7 @@ CREATURE_VALIDATION = {
 
     # Ebon - Dark creature
     "EBON": {
-        "required_terms": ["dark", "black", "shadow", "midnight", "void", "darkness", "pitch black", "jet black", "coal black", "sable", "inky", "murky", "gloomy", "tenebrous", "stygian", "cimmerian", "lightless", "unlit", "unilluminated", "darkened", "shaded", "shadowy", "obscure", "hidden", "concealed", "veiled", "shrouded", "cloaked"],
+        "required_terms": ["dark", "black", "shadow", "breasts exposed", "saggy breasts", "perky breasts", "midnight", "void", "darkness", "pitch black", "jet black", "coal black", "sable", "inky", "murky", "gloomy", "tenebrous", "stygian", "cimmerian", "lightless", "unlit", "unilluminated", "darkened", "shaded", "shadowy", "obscure", "hidden", "concealed", "veiled", "shrouded", "cloaked"],
         "forbidden_terms": ["light", "bright", "radiant", "luminous", "incandescent", "fluorescent", "phosphorescent", "glowing", "gleaming", "shining", "sparkling", "glittering", "twinkling", "scintillating", "effulgent", "refulgent", "brilliant"],
         "min_matches": MIN_MATCHES
     },
@@ -488,21 +502,21 @@ CREATURE_VALIDATION = {
 
     # Elf Dark - Dark elf
     "ELF_DARK": {
-        "required_terms": ["dark", "black", "drow", "underdark", "evil", "spider", "nocturnal", "pale", "white hair", "elf", "elven", "humanoid", "pointed ears", "slender", "graceful", "agile", "dexterous", "nimble", "quick", "fast", "stealthy", "sneaky", "magical", "arcane", "spellcaster", "wizard", "sorcerer", "cleric", "priestess", "lolth", "spider goddess", "web", "poison", "darkvision", "sunlight sensitivity", "underground city", "cavern", "cave", "tunnel", "forgotten realms"],
+        "required_terms": ["dark", "black", "drow", "underdark", "breasts exposed", "saggy breasts", "perky breasts", "evil", "spider", "nocturnal", "pale", "white hair", "elf", "elven", "humanoid", "pointed ears", "slender", "graceful", "agile", "dexterous", "nimble", "quick", "fast", "stealthy", "sneaky", "magical", "arcane", "spellcaster", "wizard", "sorcerer", "cleric", "priestess", "lolth", "spider goddess", "web", "poison", "darkvision", "sunlight sensitivity", "underground city", "cavern", "cave", "tunnel", "forgotten realms"],
         "forbidden_terms": ["light", "surface", "day", "sun", "sunlight", "bright", "radiant", "luminous", "golden", "fair", "blonde", "sun-kissed", "outdoors", "forest", "woodland"],
         "min_matches": MIN_MATCHES
     },
 
     # Elf Forest - Wood elf
     "ELF_FOREST": {
-        "required_terms": ["forest", "wood", "green", "nature", "tree", "leaf", "bow", "wild", "camouflage", "elf", "elven", "humanoid", "pointed ears", "slender", "graceful", "agile", "dexterous", "nimble", "quick", "fast", "stealthy", "sneaky", "ranger", "archer", "tracker", "hunter", "woodland", "forest", "grove", "treehouse", "nature magic", "druid", "animal friend", "wilderness", "untamed"],
+        "required_terms": ["forest", "wood", "breasts exposed", "saggy breasts", "perky breasts", "green", "nature", "tree", "leaf", "bow", "wild", "camouflage", "elf", "elven", "humanoid", "pointed ears", "slender", "graceful", "agile", "dexterous", "nimble", "quick", "fast", "stealthy", "sneaky", "ranger", "archer", "tracker", "hunter", "woodland", "forest", "grove", "treehouse", "nature magic", "druid", "animal friend", "wilderness", "untamed"],
         "forbidden_terms": ["underground", "dark", "evil", "cave", "cavern", "tunnel", "underdark", "drow", "spider", "pale", "white hair", "black", "shadow", "umbra"],
         "min_matches": MIN_MATCHES
     },
 
     # Elf High - High elf
     "ELF_HIGH": {
-        "required_terms": ["high", "noble", "elegant", "magic", "ancient", "golden", "regal", "wise", "graceful", "elf", "elven", "humanoid", "pointed ears", "slender", "tall", "beautiful", "fair", "blonde", "silver hair", "golden hair", "pale skin", "arcanist", "wizard", "sorcerer", "mage", "spellcaster", "magical", "arcane", "civilized", "cultured", "sophisticated", "refined", "educated", "learned"],
+        "required_terms": ["high", "noble", "breasts exposed", "saggy breasts", "perky breasts", "elegant", "magic", "ancient", "golden", "regal", "wise", "graceful", "elf", "elven", "humanoid", "pointed ears", "slender", "tall", "beautiful", "fair", "blonde", "silver hair", "golden hair", "pale skin", "arcanist", "wizard", "sorcerer", "mage", "spellcaster", "magical", "arcane", "civilized", "cultured", "sophisticated", "refined", "educated", "learned"],
         "forbidden_terms": ["primitive", "savage", "wild", "untamed", "feral", "barbaric", "rude", "crude", "coarse", "rough", "uncivilized", "uncultured", "uneducated"],
         "min_matches": MIN_MATCHES
     },
@@ -537,7 +551,7 @@ CREATURE_VALIDATION = {
 
     # Fairy - Tiny winged being
     "FAIRY": {
-        "required_terms": ["fairy", "tiny", "small", "wing", "magic", "glow", "sparkle", "flower", "fae", "delicate", "faerie", "faery", "fay", "wee folk", "little people", "diminutive", "minuscule", "miniature", "pixie", "sprite", "elfin", "ethereal", "gossamer", "translucent", "transparent", "iridescent", "rainbow", "butterfly wings", "dragonfly wings", "glowing", "luminous", "sparkling", "shimmering", "glittering", "twinkling", "magical dust", "fairy dust"],
+        "required_terms": ["fairy", "tiny", "small", "breasts exposed", "saggy breasts", "perky breasts", "wing", "magic", "glow", "sparkle", "flower", "fae", "delicate", "faerie", "faery", "fay", "wee folk", "little people", "diminutive", "minuscule", "miniature", "pixie", "sprite", "elfin", "ethereal", "gossamer", "translucent", "transparent", "iridescent", "rainbow", "butterfly wings", "dragonfly wings", "glowing", "luminous", "sparkling", "shimmering", "glittering", "twinkling", "magical dust", "fairy dust"],
         "forbidden_terms": ["large", "massive", "giant", "huge", "enormous", "colossal", "gargantuan", "towering", "mountainous", "immense", "vast", "prodigious", "monstrous size"],
         "min_matches": MIN_MATCHES
     },
@@ -642,7 +656,7 @@ CREATURE_VALIDATION = {
 
     # Ghost - Spirit of dead
     "GHOST": {
-        "required_terms": ["ghost", "spirit", "apparition", "specter", "translucent", "haunt", "dead", "soul", "ethereal", "phantom", "wraith", "shade", "revenant", "spook", "spectre", "visitation", "manifestation", "appearance", "materialization", "incorporeal", "disembodied", "bodiless", "intangible", "impalpable", "insubstantial", "immaterial", "nonphysical", "spiritual", "otherworldly", "mist", "fog", "vapor", "smoke", "shadow", "gloom", "darkness", "light"],
+        "required_terms": ["ghost", "spirit", "breasts exposed", "saggy breasts", "perky breasts", "apparition", "specter", "translucent", "haunt", "dead", "soul", "ethereal", "phantom", "wraith", "shade", "revenant", "spook", "spectre", "visitation", "manifestation", "appearance", "materialization", "incorporeal", "disembodied", "bodiless", "intangible", "impalpable", "insubstantial", "immaterial", "nonphysical", "spiritual", "otherworldly", "mist", "fog", "vapor", "smoke", "shadow", "gloom", "darkness", "light"],
         "forbidden_terms": ["solid", "corporeal", "physical", "tangible", "palpable", "substantial", "material", "bodily", "fleshy", "fleshly", "flesh and blood", "living"],
         "min_matches": MIN_MATCHES
     },
@@ -691,7 +705,7 @@ CREATURE_VALIDATION = {
 
     # Gnome - Small humanoid
     "GNOME": {
-        "required_terms": ["gnome", "small", "beard", "pointed hat", "garden", "trickster", "fae", "earth", "gnomish", "gnomelike", "diminutive", "tiny", "wee", "little", "pointed ears", "pointed shoes", "colorful clothes", "red hat", "blue hat", "gardener", "tinkerer", "inventor", "craftsman", "artisan", "jeweler", "clockmaker", "mechanic", "engineer", "alchemist", "herbalist", "potioneer", "jovial", "cheerful", "merry", "happy", "playful", "mischievous", "prankster"],
+        "required_terms": ["gnome", "small", "breasts exposed", "saggy breasts", "perky breasts", "beard", "pointed hat", "garden", "trickster", "fae", "earth", "gnomish", "gnomelike", "diminutive", "tiny", "wee", "little", "pointed ears", "pointed shoes", "colorful clothes", "red hat", "blue hat", "gardener", "tinkerer", "inventor", "craftsman", "artisan", "jeweler", "clockmaker", "mechanic", "engineer", "alchemist", "herbalist", "potioneer", "jovial", "cheerful", "merry", "happy", "playful", "mischievous", "prankster"],
         "forbidden_terms": ["tall", "large", "evil", "malevolent", "wicked", "sinister", "malicious", "cruel", "violent", "aggressive", "harmful", "dangerous", "deadly", "lethal"],
         "min_matches": MIN_MATCHES
     },
@@ -705,7 +719,7 @@ CREATURE_VALIDATION = {
 
     # Goblin - Small evil humanoid
     "GOBLIN": {
-        "required_terms": ["goblin", "small", "green", "ugly", "pointy ears", "long nose", "greedy", "mischievous", "goblinoid", "goblinkin", "goblinesque", "diminutive", "tiny", "wee", "little", "grotesque", "hideous", "homely", "unattractive", "wicked", "evil", "malevolent", "malicious", "mean-spirited", "cruel", "greedy", "avaricious", "covetous", "acquisitive", "rapacious", "voracious", "sneaky", "sly", "cunning", "crafty", "tricky", "devious", "underhanded"],
+        "required_terms": ["goblin", "small", "breasts exposed", "saggy breasts", "perky breasts", "green", "ugly", "pointy ears", "long nose", "greedy", "mischievous", "goblinoid", "goblinkin", "goblinesque", "diminutive", "tiny", "wee", "little", "grotesque", "hideous", "homely", "unattractive", "wicked", "evil", "malevolent", "malicious", "mean-spirited", "cruel", "greedy", "avaricious", "covetous", "acquisitive", "rapacious", "voracious", "sneaky", "sly", "cunning", "crafty", "tricky", "devious", "underhanded"],
         "forbidden_terms": ["beautiful", "good", "benevolent", "handsome", "pretty", "attractive", "comely", "fair", "lovely", "gorgeous", "radiant", "glowing", "graceful", "elegant", "refined", "cultured", "sophisticated", "educated", "learned"],
         "min_matches": MIN_MATCHES
     },
@@ -775,14 +789,14 @@ CREATURE_VALIDATION = {
 
     # Hob - English house spirit
     "HOB": {
-        "required_terms": ["hob", "english", "northern england", "household", "spirit", "fairy", "fae", "brownie", "helpful", "benevolent", "kind", "cleaning", "chores", "work", "night", "nocturnal", "invisible", "offering", "bowl of milk", "cream", "porridge", "honey", "grateful", "appreciation", "gift", "reward", "offend", "insult", "offended", "angered", "annoyed", "leave", "depart", "abandon", "move", "mischief", "prank", "trickster", "domestic", "home", "hearth", "fireplace"],
+        "required_terms": ["hob", "english", "breasts exposed", "saggy breasts", "perky breasts", "northern england", "household", "spirit", "fairy", "fae", "brownie", "helpful", "benevolent", "kind", "cleaning", "chores", "work", "night", "nocturnal", "invisible", "offering", "bowl of milk", "cream", "porridge", "honey", "grateful", "appreciation", "gift", "reward", "offend", "insult", "offended", "angered", "annoyed", "leave", "depart", "abandon", "move", "mischief", "prank", "trickster", "domestic", "home", "hearth", "fireplace"],
         "forbidden_terms": ["evil", "malevolent", "demon", "wicked", "sinister", "malicious", "cruel", "violent", "aggressive", "harmful", "dangerous", "deadly", "lethal", "fatal", "poisonous", "venomous", "corrosive", "acidic", "burning", "fiery", "flaming"],
         "min_matches": MIN_MATCHES
     },
 
     # Hobgoblin - Mischievous goblin
     "HOBGOBLIN": {
-        "required_terms": ["hobgoblin", "hobgob", "english", "fairy", "fae", "goblin", "mischievous", "trickster", "prankster", "joker", "playful", "fun-loving", "merry", "cheerful", "happy", "joyful", "helpful", "benevolent", "kind", "friendly", "welcoming", "warm", "household", "domestic", "home", "hearth", "fireplace", "brownie-like", "brownie", "small", "tiny", "diminutive", "elusive", "rare", "sighting", "glimpse", "night", "nocturnal", "folklore", "celtic"],
+        "required_terms": ["hobgoblin", "breasts exposed", "saggy breasts", "perky breasts", "hobgob", "english", "fairy", "fae", "goblin", "mischievous", "trickster", "prankster", "joker", "playful", "fun-loving", "merry", "cheerful", "happy", "joyful", "helpful", "benevolent", "kind", "friendly", "welcoming", "warm", "household", "domestic", "home", "hearth", "fireplace", "brownie-like", "brownie", "small", "tiny", "diminutive", "elusive", "rare", "sighting", "glimpse", "night", "nocturnal", "folklore", "celtic"],
         "forbidden_terms": ["evil", "malevolent", "wicked", "sinister", "malicious", "cruel", "violent", "aggressive", "harmful", "dangerous", "deadly", "lethal", "fatal", "poisonous", "venomous", "corrosive", "acidic", "burning"],
         "min_matches": MIN_MATCHES
     },
@@ -838,7 +852,7 @@ CREATURE_VALIDATION = {
 
     # Jinn - Genie
     "JINN": {
-        "required_terms": ["jinn", "genie", "djinn", "spirit", "arabian", "lamp", "wish", "elemental", "jinni", "ifrit", "marid", "shaitan", "qareen", "islamic", "arabian nights", "pre-islamic", "spirit", "entity", "being", "fire", "smokeless fire", "created from fire", "elemental", "shape-shifter", "shapeshifter", "transformer", "invisible", "unseen", "hidden", "concealed", "lamp", "bottle", "vessel", "container", "imprisoned", "bound", "servant"],
+        "required_terms": ["jinn", "genie", "djinn", "breasts exposed", "saggy breasts", "perky breasts", "spirit", "arabian", "lamp", "wish", "elemental", "jinni", "ifrit", "marid", "shaitan", "qareen", "islamic", "arabian nights", "pre-islamic", "spirit", "entity", "being", "fire", "smokeless fire", "created from fire", "elemental", "shape-shifter", "shapeshifter", "transformer", "invisible", "unseen", "hidden", "concealed", "lamp", "bottle", "vessel", "container", "imprisoned", "bound", "servant"],
         "forbidden_terms": ["undead", "corpse", "rotten", "decayed", "skeletal", "ghost", "specter", "phantom", "wraith", "revenant", "zombie", "ghoul", "lich", "dracolich"],
         "min_matches": MIN_MATCHES
     },
@@ -901,14 +915,14 @@ CREATURE_VALIDATION = {
 
     # Korred - Celtic dwarf
     "KORRED": {
-        "required_terms": ["korred", "corred", "celtic", "breton", "brittany", "dwarf", "small", "tiny", "diminutive", "underground", "subterranean", "cavern", "cave", "mine", "miner", "smith", "forge", "metalwork", "craftsman", "artisan", "jeweler", "goldsmith", "silversmith", "treasure", "gold", "silver", "gems", "hoard", "guardian", "protector", "elusive", "rare", "sighting", "glimpse", "night", "nocturnal", "darkness", "shadows", "folklore", "mythology"],
+        "required_terms": ["korred", "corred", "breasts exposed", "saggy breasts", "perky breasts", "celtic", "breton", "brittany", "dwarf", "small", "tiny", "diminutive", "underground", "subterranean", "cavern", "cave", "mine", "miner", "smith", "forge", "metalwork", "craftsman", "artisan", "jeweler", "goldsmith", "silversmith", "treasure", "gold", "silver", "gems", "hoard", "guardian", "protector", "elusive", "rare", "sighting", "glimpse", "night", "nocturnal", "darkness", "shadows", "folklore", "mythology"],
         "forbidden_terms": ["tall", "elf", "slender", "slim", "thin", "lithe", "willowy", "graceful", "elegant", "delicate", "refined", "cultured", "sophisticated", "educated", "evil", "malevolent", "wicked", "sinister", "malicious", "cruel"],
         "min_matches": MIN_MATCHES
     },
 
     # Korrigan - Breton fairy
     "KORRIGAN": {
-        "required_terms": ["korrigan", "corrigan", "breton", "brittany", "fairy", "fae", "female", "woman", "maiden", "beautiful", "lovely", "fair", "radiant", "glowing", "alluring", "enticing", "tempting", "seductive", "long hair", "flowing hair", "golden hair", "red hair", "dance", "dancing", "circle", "ring", "moonlight", "night", "nocturnal", "fountain", "spring", "well", "stone", "megalith", "menhir", "dolmen", "ancient", "old", "primordial", "folklore", "celtic", "mythology"],
+        "required_terms": ["korrigan", "corrigan", "breasts exposed", "saggy breasts", "perky breasts", "breton", "brittany", "fairy", "fae", "female", "woman", "maiden", "beautiful", "lovely", "fair", "radiant", "glowing", "alluring", "enticing", "tempting", "seductive", "long hair", "flowing hair", "golden hair", "red hair", "dance", "dancing", "circle", "ring", "moonlight", "night", "nocturnal", "fountain", "spring", "well", "stone", "megalith", "menhir", "dolmen", "ancient", "old", "primordial", "folklore", "celtic", "mythology"],
         "forbidden_terms": ["evil", "malevolent", "wicked", "sinister", "malicious", "cruel", "violent", "aggressive", "harmful", "dangerous", "deadly", "lethal", "fatal", "poisonous", "venomous", "corrosive", "acidic", "burning"],
         "min_matches": MIN_MATCHES
     },
@@ -936,7 +950,7 @@ CREATURE_VALIDATION = {
 
     # Lamia - Snake woman
     "LAMIA": {
-        "required_terms": ["lamia", "snake", "serpent", "woman", "female", "lower", "body", "greek", "child-eater", "lamiae", "greek mythology", "lybian myth", "libyan myth", "upper body woman", "lower body serpent", "snake lower body", "serpent lower body", "beautiful face", "beautiful upper body", "ugly lower body", "monstrous lower body", "child devourer", "child eater", "infant killer", "baby killer", "youth devourer", "jealous", "envious", "spiteful", "vengeful", "bitter", "resentful", "angry"],
+        "required_terms": ["lamia", "snake", "breasts exposed", "saggy breasts", "perky breasts", "serpent", "woman", "female", "lower", "body", "greek", "child-eater", "lamiae", "greek mythology", "lybian myth", "libyan myth", "upper body woman", "lower body serpent", "snake lower body", "serpent lower body", "beautiful face", "beautiful upper body", "ugly lower body", "monstrous lower body", "child devourer", "child eater", "infant killer", "baby killer", "youth devourer", "jealous", "envious", "spiteful", "vengeful", "bitter", "resentful", "angry"],
         "forbidden_terms": ["bird", "winged", "feathered", "beak", "talons", "mammal", "fur", "hair", "wool", "hide", "pelt", "warm-blooded", "live birth"],
         "min_matches": MIN_MATCHES
     },
@@ -964,7 +978,7 @@ CREATURE_VALIDATION = {
 
     # Leshy - Slavic forest spirit
     "LESHY": {
-        "required_terms": ["leshy", "leshiy", "slavic", "russian", "forest", "spirit", "tree", "wood", "guardian", "shape-shift", "lesovik", "leshak", "lesny", "lesnoy", "borovoy", "forest spirit", "woodland spirit", "forest guardian", "woodland guardian", "tree spirit", "wood spirit", "nature spirit", "wild spirit", "untamed spirit", "shape-shifter", "shapeshifter", "transformer", "tree height", "grass height", "can change size", "size changer", "size shifter", "voice mimics forest sounds", "leads travelers astray", "misleads wanderers", "confuses hikers", "disorients"],
+        "required_terms": ["leshy", "leshiy", "breasts exposed", "saggy breasts", "perky breasts", "slavic", "russian", "forest", "spirit", "tree", "wood", "guardian", "shape-shift", "lesovik", "leshak", "lesny", "lesnoy", "borovoy", "forest spirit", "woodland spirit", "forest guardian", "woodland guardian", "tree spirit", "wood spirit", "nature spirit", "wild spirit", "untamed spirit", "shape-shifter", "shapeshifter", "transformer", "tree height", "grass height", "can change size", "size changer", "size shifter", "voice mimics forest sounds", "leads travelers astray", "misleads wanderers", "confuses hikers", "disorients"],
         "forbidden_terms": ["evil", "demon", "undead", "wicked", "sinister", "malicious", "cruel", "violent", "aggressive", "harmful", "dangerous", "deadly", "lethal", "fatal", "poisonous", "venomous", "corrosive", "acidic", "burning"],
         "min_matches": MIN_MATCHES
     },
@@ -978,7 +992,7 @@ CREATURE_VALIDATION = {
 
     # Lich - Undead wizard
     "LICH": {
-        "required_terms": ["lich", "undead", "wizard", "skeleton", "phylactery", "soul", "magic", "immortal", "liche", "litch", "undead spellcaster", "undead wizard", "undead sorcerer", "skeletal", "bony", "bones", "skull", "ribs", "spine", "skeleton", "hollow eyes", "glowing eyes", "soul gems", "soul jar", "soul container", "phylactery", "horcrux", "soul vessel", "immortality", "eternal life", "necromancy", "dark magic", "forbidden magic", "evil magic", "corrupted magic"],
+        "required_terms": ["lich", "undead", "wizard", "breasts exposed", "saggy breasts", "perky breasts", "skeleton", "phylactery", "soul", "magic", "immortal", "liche", "litch", "undead spellcaster", "undead wizard", "undead sorcerer", "skeletal", "bony", "bones", "skull", "ribs", "spine", "skeleton", "hollow eyes", "glowing eyes", "soul gems", "soul jar", "soul container", "phylactery", "horcrux", "soul vessel", "immortality", "eternal life", "necromancy", "dark magic", "forbidden magic", "evil magic", "corrupted magic"],
         "forbidden_terms": ["living", "alive", "flesh", "skin", "muscle", "tissue", "organ", "heart", "lung", "brain", "blood", "veins", "arteries", "circulatory", "respiratory"],
         "min_matches": MIN_MATCHES
     },
@@ -1013,21 +1027,21 @@ CREATURE_VALIDATION = {
 
     # Lutin - French goblin
     "LUTIN": {
-        "required_terms": ["lutin", "french", "goblin", "spirit", "fairy", "fae", "mischievous", "trickster", "prankster", "joker", "playful", "fun-loving", "merry", "cheerful", "happy", "joyful", "small", "tiny", "diminutive", "pointed ears", "pointed hat", "pointed shoes", "red", "green", "clothes", "nocturnal", "night", "darkness", "shadows", "household", "domestic", "home", "hearth", "fireplace", "farm", "barn", "stable", "folklore", "mythology"],
+        "required_terms": ["lutin", "french", "goblin", "spirit", "breasts exposed", "saggy breasts", "perky breasts", "fairy", "fae", "mischievous", "trickster", "prankster", "joker", "playful", "fun-loving", "merry", "cheerful", "happy", "joyful", "small", "tiny", "diminutive", "pointed ears", "pointed hat", "pointed shoes", "red", "green", "clothes", "nocturnal", "night", "darkness", "shadows", "household", "domestic", "home", "hearth", "fireplace", "farm", "barn", "stable", "folklore", "mythology"],
         "forbidden_terms": ["evil", "malevolent", "wicked", "sinister", "malicious", "cruel", "violent", "aggressive", "harmful", "dangerous", "deadly", "lethal", "fatal", "poisonous", "venomous", "corrosive", "acidic", "burning"],
         "min_matches": MIN_MATCHES
     },
 
     # Ly Erg - Scottish water spirit
     "LY_ERG": {
-        "required_terms": ["ly erg", "scottish", "gaelic", "highlands", "water", "spirit", "fairy", "fae", "river", "stream", "ford", "crossing", "red", "red hair", "red beard", "red clothes", "red cap", "rowan", "rowan berry", "rowan branch", "protective", "ward off", "dangerous", "harmful", "malevolent", "wicked", "evil", "drown", "drowning", "victims", "travelers", "lure", "entice", "tempt", "attract", "folklore", "celtic", "mythology"],
+        "required_terms": ["ly erg", "scottish", "gaelic", "highlands", "breasts exposed", "saggy breasts", "perky breasts", "water", "spirit", "fairy", "fae", "river", "stream", "ford", "crossing", "red", "red hair", "red beard", "red clothes", "red cap", "rowan", "rowan berry", "rowan branch", "protective", "ward off", "dangerous", "harmful", "malevolent", "wicked", "evil", "drown", "drowning", "victims", "travelers", "lure", "entice", "tempt", "attract", "folklore", "celtic", "mythology"],
         "forbidden_terms": ["good", "benevolent", "kind", "gentle", "soft", "tender", "caring", "compassionate", "empathetic", "sympathetic", "helpful", "selfless", "altruistic", "charitable", "giving", "pure", "innocent", "virtuous", "righteous"],
         "min_matches": MIN_MATCHES
     },
 
     # Manticore - Lion-scorpion-dragon
     "MANTICORE": {
-        "required_terms": ["manticore", "lion", "scorpion", "tail", "spikes", "human", "face", "persian", "winged", "mantichora", "manticora", "martichoras", "persian monster", "lion body", "human head", "human face", "man face", "bearded face", "three rows teeth", "triple teeth rows", "multiple teeth rows", "sharp teeth", "scorpion tail", "scorpion stinger", "venomous tail", "poisonous tail", "tail spikes", "tail spines", "shoot spikes", "fire spikes", "volley spikes", "bat wings", "leathery wings", "winged lion", "flying lion", "aerial predator"],
+        "required_terms": ["manticore", "lion mane", "scorpion tail", "spikes", "human face", "persian", "winged", "mantichora", "manticora", "martichoras", "persian monster", "lion body", "human head", "human face", "man face", "bearded face", "three rows teeth", "triple teeth rows", "multiple teeth rows", "sharp teeth", "scorpion tail", "scorpion stinger", "venomous tail", "poisonous tail", "tail spikes", "tail spines", "shoot spikes", "fire spikes", "volley spikes", "bat wings", "leathery wings", "winged lion", "flying lion", "aerial predator"],
         "forbidden_terms": ["snake", "serpent", "bird", "feathered", "beak", "talons", "fish", "aquatic", "fins", "gills", "mammal fur only", "no scales", "no chitin"],
         "min_matches": MIN_MATCHES
     },
@@ -1041,42 +1055,42 @@ CREATURE_VALIDATION = {
 
     # Marid - Water djinn
     "MARID": {
-        "required_terms": ["marid", "djinn", "water", "genie", "arabian", "elemental", "ocean", "powerful", "jinn", "arabian nights", "islamic mythology", "water spirit", "water elemental", "ocean spirit", "sea spirit", "river spirit", "powerful djinn", "strong djinn", "mighty djinn", "great djinn", "ancient djinn", "shape-shifter", "shapeshifter", "transformer", "invisible", "unseen", "lamp", "bottle", "vessel", "container", "imprisoned", "bound", "servant", "wish-granter", "wish fulfillment", "grant wishes", "fulfill desires"],
+        "required_terms": ["marid", "djinn", "water", "genie", "breasts exposed", "saggy breasts", "perky breasts", "arabian", "elemental", "ocean", "powerful", "jinn", "arabian nights", "islamic mythology", "water spirit", "water elemental", "ocean spirit", "sea spirit", "river spirit", "powerful djinn", "strong djinn", "mighty djinn", "great djinn", "ancient djinn", "shape-shifter", "shapeshifter", "transformer", "invisible", "unseen", "lamp", "bottle", "vessel", "container", "imprisoned", "bound", "servant", "wish-granter", "wish fulfillment", "grant wishes", "fulfill desires"],
         "forbidden_terms": ["fire", "flame", "burning", "blazing", "scorching", "searing", "heat", "hot", "warm", "desert", "sand", "dune", "arid", "dry", "drought"],
         "min_matches": MIN_MATCHES
     },
 
     # Marool - Scottish sea spirit
     "MAROOL": {
-        "required_terms": ["marool", "scottish", "gaelic", "highlands", "sea", "ocean", "spirit", "fairy", "fae", "storm", "tempest", "waves", "tide", "current", "shipwreck", "drown", "drowning", "sailors", "fishermen", "dangerous", "harmful", "malevolent", "wicked", "evil", "nocturnal", "night", "darkness", "shadows", "coastal", "shore", "rocks", "cliffs", "caves", "folklore", "celtic", "mythology"],
+        "required_terms": ["marool", "scottish", "gaelic", "breasts exposed", "saggy breasts", "perky breasts", "highlands", "sea", "ocean", "spirit", "fairy", "fae", "storm", "tempest", "waves", "tide", "current", "shipwreck", "drown", "drowning", "sailors", "fishermen", "dangerous", "harmful", "malevolent", "wicked", "evil", "nocturnal", "night", "darkness", "shadows", "coastal", "shore", "rocks", "cliffs", "caves", "folklore", "celtic", "mythology"],
         "forbidden_terms": ["good", "benevolent", "kind", "gentle", "soft", "tender", "caring", "compassionate", "empathetic", "sympathetic", "helpful", "selfless", "altruistic", "charitable", "giving", "pure", "innocent", "virtuous", "righteous"],
         "min_matches": MIN_MATCHES
     },
 
     # Medusa - Snake-haired woman
     "MEDUSA": {
-        "required_terms": ["medusa", "snake", "hair", "greek", "woman", "female", "gaze", "petrify", "stone", "gorgon", "stheno", "euryale", "greek mythology", "mythological", "snake hair", "serpent hair", "snakes for hair", "living hair snakes", "beautiful face", "hideous face", "beautiful originally", "cursed beauty", "petrifying gaze", "stone gaze", "turn to stone", "stone touch", "fatal glance", "winged", "brass claws", "brass hands", "sharp teeth", "boar tusks", "perseus", "perseus slayer", "reflective shield", "mirror shield", "bronze shield"],
+        "required_terms": ["medusa", "snake", "hair", "breasts exposed", "saggy breasts", "perky breasts", "greek", "woman", "female", "gaze", "petrify", "stone", "gorgon", "stheno", "euryale", "greek mythology", "mythological", "snake hair", "serpent hair", "snakes for hair", "living hair snakes", "beautiful face", "hideous face", "beautiful originally", "cursed beauty", "petrifying gaze", "stone gaze", "turn to stone", "stone touch", "fatal glance", "winged", "brass claws", "brass hands", "sharp teeth", "boar tusks", "perseus", "perseus slayer", "reflective shield", "mirror shield", "bronze shield"],
         "forbidden_terms": ["bird", "feather", "reptile body", "scales body", "snake lower body", "lamia-like", "naga-like", "fish tail", "mermaid-like", "aquatic", "fins"],
         "min_matches": MIN_MATCHES
     },
 
     # Menehune - Hawaiian dwarf
     "MENEHUNE": {
-        "required_terms": ["menehune", "hawaiian", "hawaii", "polynesian", "dwarf", "small", "tiny", "diminutive", "ancient", "old", "primordial", "people", "race", "tribe", "forest", "woods", "mountain", "valley", "hidden", "secret", "elusive", "rare", "sighting", "glimpse", "night", "nocturnal", "darkness", "shadows", "craftsman", "artisan", "builder", "constructor", "fishpond", "temple", "heiau", "road", "path", "stonework", "masonry", "folklore", "mythology"],
+        "required_terms": ["menehune", "hawaiian", "hawaii", "breasts exposed", "saggy breasts", "perky breasts", "polynesian", "dwarf", "small", "tiny", "diminutive", "ancient", "old", "primordial", "people", "race", "tribe", "forest", "woods", "mountain", "valley", "hidden", "secret", "elusive", "rare", "sighting", "glimpse", "night", "nocturnal", "darkness", "shadows", "craftsman", "artisan", "builder", "constructor", "fishpond", "temple", "heiau", "road", "path", "stonework", "masonry", "folklore", "mythology"],
         "forbidden_terms": ["evil", "malevolent", "wicked", "sinister", "malicious", "cruel", "violent", "aggressive", "harmful", "dangerous", "deadly", "lethal", "fatal", "poisonous", "venomous", "corrosive", "acidic", "burning"],
         "min_matches": MIN_MATCHES
     },
 
     # Mermaid - Fish-woman
     "MERMAID": {
-        "required_terms": ["mermaid", "fish", "tail", "woman", "female", "sea", "ocean", "scales", "aquatic", "merman", "merfolk", "merpeople", "sea people", "ocean people", "upper body human", "lower body fish", "human torso", "fish tail", "scales", "scaly tail", "colorful scales", "silver scales", "blue scales", "green scales", "long hair", "flowing hair", "beautiful", "lovely", "fair", "siren", "siren song", "enchanting voice", "luring song", "enticing melody", "ocean dweller", "sea dweller", "underwater", "subaquatic", "marine"],
+        "required_terms": ["mermaid", "fish", "tail", "woman", "breasts exposed", "saggy breasts", "perky breasts", "female", "sea", "ocean", "scales", "aquatic", "merman", "merfolk", "merpeople", "sea people", "ocean people", "upper body human", "lower body fish", "human torso", "fish tail", "scales", "scaly tail", "colorful scales", "silver scales", "blue scales", "green scales", "long hair", "flowing hair", "beautiful", "lovely", "fair", "siren", "siren song", "enchanting voice", "luring song", "enticing melody", "ocean dweller", "sea dweller", "underwater", "subaquatic", "marine"],
         "forbidden_terms": ["legs", "feet", "land", "terrestrial", "ground", "earth", "soil", "dirt", "mountain", "hill", "valley", "forest", "wood", "tree", "grass", "field"],
         "min_matches": MIN_MATCHES
     },
 
     # Merrow - Irish mermaid
     "MERROW": {
-        "required_terms": ["merrow", "murúch", "irish", "gaelic", "mermaid", "merman", "sea", "ocean", "spirit", "fairy", "fae", "green", "hair", "green hair", "red cap", "cochull", "magic cap", "seal", "seal-like", "webbed", "fingers", "toes", "scales", "fish tail", "beautiful", "lovely", "fair", "enchanting", "song", "voice", "lure", "entice", "tempt", "sailors", "fishermen", "coastal", "shore", "rocks", "folklore", "celtic", "mythology"],
+        "required_terms": ["merrow", "murúch", "irish", "breasts exposed", "saggy breasts", "perky breasts", "gaelic", "mermaid", "merman", "sea", "ocean", "spirit", "fairy", "fae", "green", "hair", "green hair", "red cap", "cochull", "magic cap", "seal", "seal-like", "webbed", "fingers", "toes", "scales", "fish tail", "beautiful", "lovely", "fair", "enchanting", "song", "voice", "lure", "entice", "tempt", "sailors", "fishermen", "coastal", "shore", "rocks", "folklore", "celtic", "mythology"],
         "forbidden_terms": ["evil", "malevolent", "wicked", "sinister", "malicious", "cruel", "violent", "aggressive", "ugly", "hideous", "grotesque", "repulsive"],
         "min_matches": MIN_MATCHES
     },
@@ -1112,28 +1126,28 @@ CREATURE_VALIDATION = {
 
     # Morgen - Welsh sea spirit
     "MORGEN": {
-        "required_terms": ["morgen", "morgan", "welsh", "cymru", "sea", "ocean", "spirit", "fairy", "fae", "female", "woman", "maiden", "beautiful", "lovely", "fair", "radiant", "glowing", "alluring", "enticing", "tempting", "seductive", "siren", "song", "voice", "lure", "entice", "tempt", "attract", "sailors", "fishermen", "waves", "tide", "current", "coastal", "shore", "rocks", "cliffs", "caves", "folklore", "celtic", "mythology", "arthurian", "morgan le fay"],
+        "required_terms": ["morgen", "morgan", "welsh", "breasts exposed", "saggy breasts", "perky breasts", "cymru", "sea", "ocean", "spirit", "fairy", "fae", "female", "woman", "maiden", "beautiful", "lovely", "fair", "radiant", "glowing", "alluring", "enticing", "tempting", "seductive", "siren", "song", "voice", "lure", "entice", "tempt", "attract", "sailors", "fishermen", "waves", "tide", "current", "coastal", "shore", "rocks", "cliffs", "caves", "folklore", "celtic", "mythology", "arthurian", "morgan le fay"],
         "forbidden_terms": ["evil", "malevolent", "wicked", "sinister", "malicious", "cruel", "violent", "aggressive", "ugly", "hideous", "grotesque", "repulsive"],
         "min_matches": MIN_MATCHES
     },
 
     # Moroi - Vampire
     "MOROI": {
-        "required_terms": ["moroi", "romanian", "vampire", "undead", "blood", "slavic", "strigoi", "night", "moroi", "romanian vampire", "slavic vampire", "eastern european vampire", "undead", "living dead", "risen dead", "returned dead", "revenant", "blood drinker", "blood sucker", "blood consumer", "hematophage", "night stalker", "nocturnal predator", "night hunter", "darkness dweller", "pale skin", "corpse-like", "decayed", "rotting", "decaying", "putrid", "sharp teeth", "fangs", "elongated canines", "pointed canines", "fear of sunlight", "sunlight vulnerability", "sunlight burns"],
+        "required_terms": ["moroi", "romanian", "vampire", "breasts exposed", "saggy breasts", "perky breasts", "undead", "blood", "slavic", "strigoi", "night", "moroi", "romanian vampire", "slavic vampire", "eastern european vampire", "undead", "living dead", "risen dead", "returned dead", "revenant", "blood drinker", "blood sucker", "blood consumer", "hematophage", "night stalker", "nocturnal predator", "night hunter", "darkness dweller", "pale skin", "corpse-like", "decayed", "rotting", "decaying", "putrid", "sharp teeth", "fangs", "elongated canines", "pointed canines", "fear of sunlight", "sunlight vulnerability", "sunlight burns"],
         "forbidden_terms": ["living", "alive", "holy", "divine", "sacred", "blessed", "pure", "innocent", "virtuous", "righteous", "good", "kind", "gentle", "soft", "tender", "caring"],
         "min_matches": MIN_MATCHES
     },
 
     # Mummy - Preserved corpse
     "MUMMY": {
-        "required_terms": ["mummy", "egyptian", "bandage", "wrapped", "undead", "tomb", "ancient", "curse", "mummified", "preserved corpse", "embalmed body", "ancient dead", "egyptian", "pharaonic", "ancient egypt", "old kingdom", "new kingdom", "linen wrappings", "bandages", "wrapped in cloth", "sarcophagus", "coffin", "tomb", "pyramid", "burial chamber", "sepulcher", "crypt", "catacomb", "curse", "mummy's curse", "deadly curse", "fatal curse", "vengeful spirit", "slow movement", "shambling", "lurching", "staggering", "lumbering"],
+        "required_terms": ["mummy", "egyptian", "bandage", "breasts exposed", "saggy breasts", "perky breasts", "wrapped", "undead", "tomb", "ancient", "curse", "mummified", "preserved corpse", "embalmed body", "ancient dead", "egyptian", "pharaonic", "ancient egypt", "old kingdom", "new kingdom", "linen wrappings", "bandages", "wrapped in cloth", "sarcophagus", "coffin", "tomb", "pyramid", "burial chamber", "sepulcher", "crypt", "catacomb", "curse", "mummy's curse", "deadly curse", "fatal curse", "vengeful spirit", "slow movement", "shambling", "lurching", "staggering", "lumbering"],
         "forbidden_terms": ["living", "alive", "fresh", "new", "modern", "contemporary", "recent", "young", "youthful", "healthy", "hearty", "robust", "vigorous", "strong"],
         "min_matches": MIN_MATCHES
     },
 
     # Muryan - Cornish fairy
     "MURYAN": {
-        "required_terms": ["muryan", "cornish", "cornwall", "fairy", "fae", "small", "tiny", "diminutive", "ant", "ant-like", "insect", "tiny people", "little people", "wee folk", "elusive", "rare", "sighting", "glimpse", "night", "nocturnal", "moonlight", "starlight", "ancient", "old", "primordial", "burial mound", "tomb", "barrow", "cairn", "stone circle", "megalith", "menhir", "dolmen", "guardian", "protector", "folklore", "celtic", "mythology"],
+        "required_terms": ["muryan", "cornish", "cornwall", "breasts exposed", "saggy breasts", "perky breasts", "fairy", "fae", "small", "tiny", "diminutive", "ant", "ant-like", "insect", "tiny people", "little people", "wee folk", "elusive", "rare", "sighting", "glimpse", "night", "nocturnal", "moonlight", "starlight", "ancient", "old", "primordial", "burial mound", "tomb", "barrow", "cairn", "stone circle", "megalith", "menhir", "dolmen", "guardian", "protector", "folklore", "celtic", "mythology"],
         "forbidden_terms": ["evil", "malevolent", "wicked", "sinister", "malicious", "cruel", "violent", "aggressive", "harmful", "dangerous", "deadly", "lethal", "fatal", "poisonous", "venomous", "corrosive", "acidic", "burning"],
         "min_matches": MIN_MATCHES
     },
@@ -1154,21 +1168,21 @@ CREATURE_VALIDATION = {
 
     # Naga - Snake-human hybrid
     "NAGA": {
-        "required_terms": ["naga", "snake", "serpent", "human", "hindu", "buddhist", "cobra", "hood", "nagas", "nagini", "female naga", "serpent people", "snake people", "hindu mythology", "buddhist mythology", "indian mythology", "southeast asian", "upper body human", "lower body serpent", "snake lower body", "cobra hood", "spread hood", "hooded cobra", "reptilian", "scaly", "scales", "forked tongue", "divine", "semi-divine", "spiritual", "sacred", "holy", "worshipped", "guardian", "protector", "treasure guardian", "water guardian", "temple guardian"],
+        "required_terms": ["naga", "snake", "serpent", "breasts exposed", "saggy breasts", "perky breasts", "human", "hindu", "buddhist", "cobra", "hood", "nagas", "nagini", "female naga", "serpent people", "snake people", "hindu mythology", "buddhist mythology", "indian mythology", "southeast asian", "upper body human", "lower body serpent", "snake lower body", "cobra hood", "spread hood", "hooded cobra", "reptilian", "scaly", "scales", "forked tongue", "divine", "semi-divine", "spiritual", "sacred", "holy", "worshipped", "guardian", "protector", "treasure guardian", "water guardian", "temple guardian"],
         "forbidden_terms": ["bird", "mammal", "fur", "feather", "hair", "wool", "hide", "pelt", "warm-blooded", "live birth", "nursing young", "milk", "udder", "teats"],
         "min_matches": MIN_MATCHES
     },
 
     # Naiad - Freshwater nymph
     "NAIAD": {
-        "required_terms": ["naiad", "nymph", "water", "freshwater", "spring", "river", "greek", "female", "naiades", "water nymph", "freshwater nymph", "spring nymph", "river nymph", "stream nymph", "brook nymph", "well nymph", "fountain nymph", "greek mythology", "nature spirit", "nature deity", "lesser goddess", "beautiful woman", "beautiful maiden", "lovely female", "fair maiden", "long hair", "flowing hair", "youthful", "young", "eternal youth", "water-associated", "aquatic", "freshwater", "clear water", "pure water"],
+        "required_terms": ["naiad", "nymph", "water", "breasts exposed", "saggy breasts", "perky breasts", "freshwater", "spring", "river", "greek", "female", "naiades", "water nymph", "freshwater nymph", "spring nymph", "river nymph", "stream nymph", "brook nymph", "well nymph", "fountain nymph", "greek mythology", "nature spirit", "nature deity", "lesser goddess", "beautiful woman", "beautiful maiden", "lovely female", "fair maiden", "long hair", "flowing hair", "youthful", "young", "eternal youth", "water-associated", "aquatic", "freshwater", "clear water", "pure water"],
         "forbidden_terms": ["evil", "demonic", "undead", "wicked", "sinister", "malicious", "cruel", "violent", "aggressive", "harmful", "dangerous", "deadly", "lethal", "fatal", "poisonous", "venomous", "corrosive", "acidic", "burning"],
         "min_matches": MIN_MATCHES
     },
 
     # Nereid - Sea nymph
     "NEREID": {
-        "required_terms": ["nereid", "nymph", "sea", "ocean", "greek", "female", "nereids", "sea nymph", "ocean nymph", "salt water nymph", "mediterranean", "aegean", "poseidon", "amphitrite", "thetis", "achilles mother", "galatea", "fifty sisters", "daughters of nereus", "sea goddess", "marine deity", "lesser goddess", "beautiful woman", "beautiful maiden", "lovely female", "fair maiden", "long hair", "flowing hair", "youthful", "young", "eternal youth", "dolphin", "hippocamp", "sea creature companion"],
+        "required_terms": ["nereid", "nymph", "sea", "breasts exposed", "saggy breasts", "perky breasts", "ocean", "greek", "female", "nereids", "sea nymph", "ocean nymph", "salt water nymph", "mediterranean", "aegean", "poseidon", "amphitrite", "thetis", "achilles mother", "galatea", "fifty sisters", "daughters of nereus", "sea goddess", "marine deity", "lesser goddess", "beautiful woman", "beautiful maiden", "lovely female", "fair maiden", "long hair", "flowing hair", "youthful", "young", "eternal youth", "dolphin", "hippocamp", "sea creature companion"],
         "forbidden_terms": ["evil", "demonic", "undead", "wicked", "sinister", "malicious", "cruel", "violent", "aggressive", "harmful", "dangerous", "deadly", "lethal", "fatal", "poisonous", "venomous", "corrosive", "acidic", "burning"],
         "min_matches": MIN_MATCHES
     },
@@ -1189,7 +1203,7 @@ CREATURE_VALIDATION = {
 
     # Nuckelavee - Orcadian monster
     "NUCKELAVEE": {
-        "required_terms": ["nuckelavee", "nuckalavee", "orkney", "orcadian", "scottish", "horse", "human", "skinless", "sea", "plague", "nuckelavee", "nuckelavee", "nuckalavee", "orkney", "orcadian mythology", "scottish folklore", "norse mythology influence", "scottish islands", "horse body", "human torso", "human torso growing from back", "centaur-like", "skinless", "no skin", "flayed", "raw flesh", "exposed muscles", "visible veins", "single eye", "one eye", "cyclopean", "huge mouth", "gaping maw", "fiery breath", "poisonous breath", "plague bringer", "disease bringer", "blight", "crop failure", "drought", "famine", "sickness", "illness"],
+        "required_terms": ["nuckelavee", "nuckalavee", "orkney", "orcadian", "scottish", "horse", "human", "skinless", "sea", "plague", "nuckelavee", "nuckelavee", "nuckalavee", "orkney", "orcadian mythology", "scottish folklore", "norse mythology influence", "scottish islands", "horse body", "human torso", "human torso growing from back", "centaur-like", "skinless", "no skin", "flayed", "raw flesh", "exposed muscles", "visible veins", "single eye", "one eye", "cyclopean", "huge mouth", "gaping maw", "fiery breath", "poisonous breath", "plague bringer", "disease bringer", "blight", "crop failure", "drought", "famine", "sickness", "illness", "breasts exposed", "saggy breasts", "perky breasts"],
         "forbidden_terms": ["beautiful", "skin", "fur", "hair", "hide", "pelt", "scales", "feathers", "attractive", "handsome", "pretty", "lovely", "gorgeous", "radiant"],
         "min_matches": MIN_MATCHES
     },
@@ -1226,7 +1240,7 @@ CREATURE_VALIDATION = {
 
     # Nymph - Nature spirit
     "NYMPH": {
-        "required_terms": ["nymph", "nymphai", "nature spirit", "nature deity", "lesser goddess", "greek mythology", "hellenic", "ancient greece", "classical mythology", "beautiful woman", "beautiful maiden", "lovely female", "fair maiden", "youthful", "young", "eternal youth", "immortal", "long-lived", "ageless", "associated with nature", "nature location", "specific location bound", "dryad", "tree nymph", "naiad", "water nymph", "oread", "mountain nymph", "oceanid", "sea nymph", "nereid", "salt water nymph", "limoniad", "meadow nymph"],
+        "required_terms": ["nymph", "nymphai", "nature spirit", "breasts exposed", "saggy breasts", "perky breasts", "nature deity", "lesser goddess", "greek mythology", "hellenic", "ancient greece", "classical mythology", "beautiful woman", "beautiful maiden", "lovely female", "fair maiden", "youthful", "young", "eternal youth", "immortal", "long-lived", "ageless", "associated with nature", "nature location", "specific location bound", "dryad", "tree nymph", "naiad", "water nymph", "oread", "mountain nymph", "oceanid", "sea nymph", "nereid", "salt water nymph", "limoniad", "meadow nymph"],
         "forbidden_terms": ["evil", "demonic", "undead", "wicked", "sinister", "malicious", "cruel", "violent", "aggressive", "harmful", "dangerous", "deadly", "lethal", "fatal", "poisonous", "venomous", "corrosive", "acidic", "burning"],
         "min_matches": MIN_MATCHES
     },
@@ -1268,14 +1282,14 @@ CREATURE_VALIDATION = {
 
     # Orc - Brutal humanoid
     "ORC": {
-        "required_terms": ["brutal", "savage", "green", "tusks", "muscular", "warrior", "tribe", "goblinoid", "brutish", "powerful", "mighty", "muscular", "well-built", "heavily built", "green skin", "gray skin", "dusky skin", "dark skin", "mottled skin", "tusks", "boar tusks", "lower tusks", "protruding tusks", "ivory tusks", "savage", "ferocious", "fierce", "wild", "untamed", "barbaric", "primitive", "weapon", "axe", "sword", "club", "mace", "spear", "bow", "shield", "tribe", "clan", "horde", "warlike", "aggressive", "warmongering"],
+        "required_terms": ["brutal", "savage", "green", "tusks", "breasts exposed", "saggy breasts", "perky breasts", "muscular", "warrior", "tribe", "goblinoid", "brutish", "powerful", "mighty", "muscular", "well-built", "heavily built", "green skin", "gray skin", "dusky skin", "dark skin", "mottled skin", "tusks", "boar tusks", "lower tusks", "protruding tusks", "ivory tusks", "savage", "ferocious", "fierce", "wild", "untamed", "barbaric", "primitive", "weapon", "axe", "sword", "club", "mace", "spear", "bow", "shield", "tribe", "clan", "horde", "warlike", "aggressive", "warmongering"],
         "forbidden_terms": ["beautiful", "graceful", "elegant", "refined", "cultured", "sophisticated", "educated", "learned", "wise", "intelligent", "cunning", "clever", "peaceful", "gentle", "kind"],
         "min_matches": MIN_MATCHES
     },
 
     # Oread - Mountain nymph
     "OREAD": {
-        "required_terms": ["mountain", "nymph", "hill", "rock", "stone", "greek", "female", "nature", "oreas", "oreades", "mountain nymph", "hill nymph", "grotto nymph", "greek mythology", "nature spirit", "nature deity", "lesser goddess", "beautiful woman", "beautiful maiden", "lovely female", "fair maiden", "youthful", "young", "eternal youth", "immortal", "long-lived", "ageless", "mountain dweller", "mountain resident", "peak inhabitant", "cliff dweller", "rocky terrain", "rocky area", "stone area", "mountain landscape", "associated with mountains", "connected to mountains", "bound to mountain"],
+        "required_terms": ["mountain", "nymph", "breasts exposed", "saggy breasts", "perky breasts", "hill", "rock", "stone", "greek", "female", "nature", "oreas", "oreades", "mountain nymph", "hill nymph", "grotto nymph", "greek mythology", "nature spirit", "nature deity", "lesser goddess", "beautiful woman", "beautiful maiden", "lovely female", "fair maiden", "youthful", "young", "eternal youth", "immortal", "long-lived", "ageless", "mountain dweller", "mountain resident", "peak inhabitant", "cliff dweller", "rocky terrain", "rocky area", "stone area", "mountain landscape", "associated with mountains", "connected to mountains", "bound to mountain"],
         "forbidden_terms": ["evil", "demonic", "undead", "wicked", "sinister", "malicious", "cruel", "violent", "aggressive", "harmful", "dangerous", "deadly", "lethal", "fatal", "poisonous", "venomous", "corrosive", "acidic", "burning"],
         "min_matches": MIN_MATCHES
     },
@@ -1310,7 +1324,7 @@ CREATURE_VALIDATION = {
 
     # Phaya Nak - Thai naga
     "PHAYA_NAK": {
-        "required_terms": ["thai", "thailand", "southeast asian", "serpent", "snake", "dragon", "water", "river", "mekong", "guardian", "protector", "temple", "shrine", "scales", "scaly", "reptilian", "long body", "elongated", "coiling", "hood", "cobra-like", "multiple heads", "multi-headed", "crown", "regal", "majestic", "divine", "sacred", "holy", "worshipped", "offerings", "festival", "naga fireballs", "mekong lights", "luminous", "glowing", "buddhist", "hindu", "mythology", "legendary"],
+        "required_terms": ["thai", "thailand", "breasts exposed", "saggy breasts", "perky breasts", "southeast asian", "serpent", "snake", "dragon", "water", "river", "mekong", "guardian", "protector", "temple", "shrine", "scales", "scaly", "reptilian", "long body", "elongated", "coiling", "hood", "cobra-like", "multiple heads", "multi-headed", "crown", "regal", "majestic", "divine", "sacred", "holy", "worshipped", "offerings", "festival", "naga fireballs", "mekong lights", "luminous", "glowing", "buddhist", "hindu", "mythology", "legendary"],
         "forbidden_terms": ["european", "western", "christian", "biblical", "greek", "norse", "celtic", "slavic", "egyptian", "mesopotamian", "persian", "evil", "malevolent", "wicked", "sinister", "malicious"],
         "min_matches": MIN_MATCHES
     },
@@ -1331,7 +1345,7 @@ CREATURE_VALIDATION = {
 
     # Pixie - Small fairy
     "PIXIE": {
-        "required_terms": ["small", "fairy", "winged", "magic", "mischievous", "pointed ears", "pixy", "piskie", "pigsie", "little fairy", "wee fairy", "diminutive", "tiny", "wee", "little", "petite", "miniature", "minuscule", "winged", "butterfly wings", "dragonfly wings", "gossamer wings", "iridescent wings", "magic", "magical", "enchanting", "spell-casting", "charming", "bewitching", "mischievous", "playful", "prankish", "tricky", "cunning", "sly", "crafty", "pointed ears", "elven ears", "leaf-shaped ears", "tapered ears", "cornwall", "devon", "somerset", "west country", "celtic folklore"],
+        "required_terms": ["small", "fairy", "breasts exposed", "saggy breasts", "perky breasts", "winged", "magic", "mischievous", "pointed ears", "pixy", "piskie", "pigsie", "little fairy", "wee fairy", "diminutive", "tiny", "wee", "little", "petite", "miniature", "minuscule", "winged", "butterfly wings", "dragonfly wings", "gossamer wings", "iridescent wings", "magic", "magical", "enchanting", "spell-casting", "charming", "bewitching", "mischievous", "playful", "prankish", "tricky", "cunning", "sly", "crafty", "pointed ears", "elven ears", "leaf-shaped ears", "tapered ears", "cornwall", "devon", "somerset", "west country", "celtic folklore"],
         "forbidden_terms": ["large", "evil", "demonic", "wicked", "sinister", "malicious", "cruel", "violent", "aggressive", "harmful", "dangerous", "deadly", "lethal", "fatal", "poisonous", "venomous", "corrosive", "acidic", "burning"],
         "min_matches": MIN_MATCHES
     },
@@ -1373,7 +1387,7 @@ CREATURE_VALIDATION = {
 
     # Rakshasa - Hindu demon
     "RAKSHASA": {
-        "required_terms": ["hindu", "demon", "tiger", "animal", "head", "backward", "hands", "rakshas", "rakshasi", "female rakshasa", "hindu mythology", "indian mythology", "ramayana", "mahabharata", "puranas", "vedic", "evil spirit", "malevolent being", "dark entity", "tiger", "tiger features", "tiger-like", "feline features", "animal head", "beast head", "predator head", "wild animal head", "backward hands", "reversed palms", "palms reversed", "hands backwards", "shape-shifter", "shapeshifter", "illusion caster", "magic user", "cannibal", "man-eater", "flesh eater", "corpse eater"],
+        "required_terms": ["hindu", "demon", "breasts exposed", "saggy breasts", "perky breasts", "tiger", "animal", "head", "backward", "hands", "rakshas", "rakshasi", "female rakshasa", "hindu mythology", "indian mythology", "ramayana", "mahabharata", "puranas", "vedic", "evil spirit", "malevolent being", "dark entity", "tiger", "tiger features", "tiger-like", "feline features", "animal head", "beast head", "predator head", "wild animal head", "backward hands", "reversed palms", "palms reversed", "hands backwards", "shape-shifter", "shapeshifter", "illusion caster", "magic user", "cannibal", "man-eater", "flesh eater", "corpse eater"],
         "forbidden_terms": ["holy", "divine", "good", "angelic", "benevolent", "kind", "gentle", "caring", "compassionate", "empathetic", "sympathetic", "helpful", "selfless", "altruistic", "charitable", "giving", "pure", "innocent"],
         "min_matches": MIN_MATCHES
     },
@@ -1423,14 +1437,14 @@ CREATURE_VALIDATION = {
 
     # Rusalka - Slavic water spirit
     "RUSALKA": {
-        "required_terms": ["slavic", "water", "spirit", "drowned", "woman", "female", "river", "rusalki", "slavic mythology", "east slavic", "russian", "ukrainian", "polish", "czech", "slovak", "serbian", "bulgarian", "water spirit", "river spirit", "lake spirit", "pond spirit", "drowned woman", "drowned maiden", "drowned girl", "untimely death", "beautiful woman", "pale beauty", "ethereal beauty", "alluring maiden", "long hair", "green hair", "flowing hair", "wet hair", "water hair", "naked", "undressed", "unclothed", "bare", "without clothes", "lure men", "entice men", "attract men", "seduce men", "drown men"],
+        "required_terms": ["slavic", "water", "breasts exposed", "saggy breasts", "perky breasts", "spirit", "drowned", "woman", "female", "river", "rusalki", "slavic mythology", "east slavic", "russian", "ukrainian", "polish", "czech", "slovak", "serbian", "bulgarian", "water spirit", "river spirit", "lake spirit", "pond spirit", "drowned woman", "drowned maiden", "drowned girl", "untimely death", "beautiful woman", "pale beauty", "ethereal beauty", "alluring maiden", "long hair", "green hair", "flowing hair", "wet hair", "water hair", "naked", "undressed", "unclothed", "bare", "without clothes", "lure men", "entice men", "attract men", "seduce men", "drown men"],
         "forbidden_terms": ["good", "benevolent", "holy", "sacred", "blessed", "pure", "innocent", "virtuous", "righteous", "kind", "gentle", "soft", "tender", "caring"],
         "min_matches": MIN_MATCHES
     },
 
     # Satyr - Goat-man
     "SATYR": {
-        "required_terms": ["goat", "man", "hooves", "horns", "greek", "pan", "flute", "wine", "satyrs", "satyress", "female satyr", "greek mythology", "goat-like", "caprine", "bovid features", "goat legs", "goat hooves", "horns", "goat horns", "small horns", "curving horns", "horned", "human torso", "man's body", "human upper body", "muscular chest", "pointed ears", "elven ears", "animal ears", "furry ears", "pan pipes", "syrinx", "flute", "pipe", "musical instrument", "wine", "dionysus", "bacchus", "revelry", "party", "celebration", "wild", "untamed", "woodland", "forest", "rural", "pastoral"],
+        "required_terms": ["goat", "breasts exposed", "saggy breasts", "perky breasts", "man", "hooves", "horns", "greek", "pan", "flute", "wine", "satyrs", "satyress", "female satyr", "greek mythology", "goat-like", "caprine", "bovid features", "goat legs", "goat hooves", "horns", "goat horns", "small horns", "curving horns", "horned", "human torso", "man's body", "human upper body", "muscular chest", "pointed ears", "elven ears", "animal ears", "furry ears", "pan pipes", "syrinx", "flute", "pipe", "musical instrument", "wine", "dionysus", "bacchus", "revelry", "party", "celebration", "wild", "untamed", "woodland", "forest", "rural", "pastoral"],
         "forbidden_terms": ["reptile", "scales", "bird", "feathered", "beak", "talons", "fish", "aquatic", "fins", "gills", "insect", "arachnid", "chitin", "exoskeleton"],
         "min_matches": MIN_MATCHES
     },
@@ -1451,7 +1465,7 @@ CREATURE_VALIDATION = {
 
     # Selkie - Seal-folk
     "SELKIE": {
-        "required_terms": ["seal", "skin", "folk", "celtic", "scottish", "irish", "shape-shift", "selchie", "seal folk", "seal people", "seal-folk", "scottish folklore", "irish folklore", "celtic mythology", "gaelic", "orkney", "shetland", "hebrides", "scottish islands", "coastal", "seal form", "seal shape", "animal form", "marine form", "human form", "human shape", "land form", "skin shed", "seal skin", "animal skin", "magic skin", "transformation skin", "skin hidden", "skin stolen", "cannot return to sea", "trapped on land", "beautiful", "comely", "fair", "lovely", "attractive", "handsome"],
+        "required_terms": ["seal", "skin", "breasts exposed", "saggy breasts", "perky breasts", "folk", "celtic", "scottish", "irish", "shape-shift", "selchie", "seal folk", "seal people", "seal-folk", "scottish folklore", "irish folklore", "celtic mythology", "gaelic", "orkney", "shetland", "hebrides", "scottish islands", "coastal", "seal form", "seal shape", "animal form", "marine form", "human form", "human shape", "land form", "skin shed", "seal skin", "animal skin", "magic skin", "transformation skin", "skin hidden", "skin stolen", "cannot return to sea", "trapped on land", "beautiful", "comely", "fair", "lovely", "attractive", "handsome"],
         "forbidden_terms": ["reptile", "scales", "snake", "lizard", "crocodile", "turtle", "tortoise", "amphibian", "frog", "toad", "bird", "feathered", "beak", "talons"],
         "min_matches": MIN_MATCHES
     },
@@ -1465,14 +1479,14 @@ CREATURE_VALIDATION = {
 
     # Shadow - Dark spirit
     "SHADOW": {
-        "required_terms": ["dark", "shade", "umbra", "spirit", "incorporeal", "darkness", "lightless", "tenebrous", "gloom", "entity", "being", "presence", "manifestation", "disembodied", "bodiless", "intangible", "insubstantial", "black", "pitch black", "jet black", "coal black", "sable", "inky", "murky", "formless", "shapeless", "amorphous", "fluid form", "flowing shape", "drains life", "life drain", "energy drain", "vitality sapper", "cold touch", "freezing touch", "icy grasp", "chilling contact", "fear aura", "terror aura", "dread presence", "horror manifestation"],
+        "required_terms": ["dark", "shade", "umbra", "breasts exposed", "saggy breasts", "perky breasts", "spirit", "incorporeal", "darkness", "lightless", "tenebrous", "gloom", "entity", "being", "presence", "manifestation", "disembodied", "bodiless", "intangible", "insubstantial", "black", "pitch black", "jet black", "coal black", "sable", "inky", "murky", "formless", "shapeless", "amorphous", "fluid form", "flowing shape", "drains life", "life drain", "energy drain", "vitality sapper", "cold touch", "freezing touch", "icy grasp", "chilling contact", "fear aura", "terror aura", "dread presence", "horror manifestation"],
         "forbidden_terms": ["solid", "corporeal", "bright", "luminous", "radiant", "incandescent", "fluorescent", "phosphorescent", "glowing", "gleaming", "shining", "sparkling", "glittering", "twinkling", "scintillating", "brilliant"],
         "min_matches": MIN_MATCHES
     },
 
     # Siren - Seductive bird-woman
     "SIREN": {
-        "required_terms": ["song", "voice", "lure", "sailor", "sea", "greek", "bird", "woman", "seiren", "greek mythology", "odyssey", "homer", "odysseus", "bird-like", "avian", "bird body", "bird legs", "bird wings", "woman head", "woman torso", "female upper body", "beautiful face", "enchanting song", "beautiful voice", "luring melody", "enticing music", "lure sailors", "attract sailors", "draw ships", "tempt seafarers", "shipwreck", "crash boats", "destroy vessels", "kill sailors", "meadow", "flowery meadow", "coastal", "shore", "island", "rocky outcrop", "sirenomelia", "mermaid confusion", "fish tail variant later"],
+        "required_terms": ["song", "voice", "breasts exposed", "saggy breasts", "perky breasts", "lure", "sailor", "sea", "greek", "bird", "woman", "seiren", "greek mythology", "odyssey", "homer", "odysseus", "bird-like", "avian", "bird body", "bird legs", "bird wings", "woman head", "woman torso", "female upper body", "beautiful face", "enchanting song", "beautiful voice", "luring melody", "enticing music", "lure sailors", "attract sailors", "draw ships", "tempt seafarers", "shipwreck", "crash boats", "destroy vessels", "kill sailors", "meadow", "flowery meadow", "coastal", "shore", "island", "rocky outcrop", "sirenomelia", "mermaid confusion", "fish tail variant later"],
         "forbidden_terms": ["reptile", "scales", "fish tail", "mermaid", "aquatic mammal", "fins", "gills", "smooth skin", "scaly lower body", "serpentine"],
         "min_matches": MIN_MATCHES
     },
@@ -1514,7 +1528,7 @@ CREATURE_VALIDATION = {
 
     # Spriggan - Cornish fairy
     "SPRIGGAN": {
-        "required_terms": ["cornish", "cornwall", "fairy", "fae", "guardian", "ancient", "tomb", "shape-shift", "spriggans", "cornish folklore", "west country", "fairy", "fae", "faerie", "fairy folk", "little people", "guardian", "protector", "warden", "sentinel", "watchman", "ancient sites", "burial mounds", "tombs", "standing stones", "ancient ruins", "treasure guardian", "hidden treasure", "ancient wealth", "buried gold", "shape-shifter", "shapeshifter", "size changer", "grow larger", "become huge", "ugly", "grotesque", "wrinkled", "wizened", "old appearance", "carry off children", "kidnap children", "steal children", "child thief", "mischievous", "malevolent", "dangerous", "harmful", "wicked"],
+        "required_terms": ["cornish", "cornwall", "breasts exposed", "saggy breasts", "perky breasts", "fairy", "fae", "guardian", "ancient", "tomb", "shape-shift", "spriggans", "cornish folklore", "west country", "fairy", "fae", "faerie", "fairy folk", "little people", "guardian", "protector", "warden", "sentinel", "watchman", "ancient sites", "burial mounds", "tombs", "standing stones", "ancient ruins", "treasure guardian", "hidden treasure", "ancient wealth", "buried gold", "shape-shifter", "shapeshifter", "size changer", "grow larger", "become huge", "ugly", "grotesque", "wrinkled", "wizened", "old appearance", "carry off children", "kidnap children", "steal children", "child thief", "mischievous", "malevolent", "dangerous", "harmful", "wicked"],
         "forbidden_terms": ["evil", "demonic", "undead", "holy", "divine", "angelic", "blessed", "pure", "innocent", "virtuous", "righteous", "good", "kind", "gentle"],
         "min_matches": MIN_MATCHES
     },
@@ -1535,14 +1549,14 @@ CREATURE_VALIDATION = {
 
     # Striga - Vampiric witch
     "STRIGA": {
-        "required_terms": ["vampire", "witch", "slavic", "blood", "night", "bird", "undead", "strigoi", "strigon", "slavic vampire", "romanian vampire", "eastern european", "slavic folklore", "balkan", "carpathian", "undead", "revenant", "risen dead", "walking dead", "blood drinker", "blood sucker", "blood consumer", "hematophage", "sorceress", "dark magic user", "evil spellcaster", "night stalker", "nocturnal", "darkness dweller", "moonlight hunter", "bird form", "transform to bird", "bird shape", "avian shape", "pale skin", "corpse-like", "decayed", "rotting", "foul appearance"],
+        "required_terms": ["vampire", "witch", "breasts exposed", "saggy breasts", "perky breasts", "slavic", "blood", "night", "bird", "undead", "strigoi", "strigon", "slavic vampire", "romanian vampire", "eastern european", "slavic folklore", "balkan", "carpathian", "undead", "revenant", "risen dead", "walking dead", "blood drinker", "blood sucker", "blood consumer", "hematophage", "sorceress", "dark magic user", "evil spellcaster", "night stalker", "nocturnal", "darkness dweller", "moonlight hunter", "bird form", "transform to bird", "bird shape", "avian shape", "pale skin", "corpse-like", "decayed", "rotting", "foul appearance"],
         "forbidden_terms": ["holy", "divine", "good", "angelic", "benevolent", "kind", "gentle", "caring", "compassionate", "empathetic", "sympathetic", "helpful", "selfless", "altruistic", "charitable", "giving", "pure", "innocent"],
         "min_matches": MIN_MATCHES
     },
 
     # Succubus - Female demon of lust
     "SUCCUBUS": {
-        "required_terms": ["female", "demon", "seductive", "lust", "dream", "wing", "tail", "succubi", "demoness", "devil woman", "seductive", "alluring", "enticing", "tempting", "irresistible", "beautiful", "gorgeous", "stunning", "ravishing", "breathtaking", "lust", "desire", "passion", "carnal", "sensual", "erotic", "sexual", "dream visitor", "night visitor", "sleep invader", "dream demon", "life drain", "energy drain", "vitality drain", "soul drain", "bat wings", "leathery wings", "demon wings", "winged", "tail", "pointed tail", "spade-tipped tail", "prehensile tail", "horns", "small horns", "curving horns", "demon horns"],
+        "required_terms": ["female", "demon", "breasts exposed", "saggy breasts", "perky breasts", "seductive", "sexy", "lust", "dream", "wing", "tail", "succubi", "demoness", "devil woman", "seductive", "alluring", "enticing", "tempting", "irresistible", "beautiful", "gorgeous", "stunning", "ravishing", "breathtaking", "lust", "desire", "passion", "carnal", "sensual", "erotic", "sexual", "dream visitor", "night visitor", "sleep invader", "dream demon", "life drain", "energy drain", "vitality drain", "soul drain", "bat wings", "leathery wings", "demon wings", "winged", "tail", "pointed tail", "spade-tipped tail", "prehensile tail", "horns", "small horns", "curving horns", "demon horns"],
         "forbidden_terms": ["holy", "divine", "innocent", "pure", "virginal", "chaste", "virtuous", "righteous", "good", "benevolent", "kind", "gentle", "soft", "tender"],
         "min_matches": MIN_MATCHES
     },
@@ -1626,7 +1640,7 @@ CREATURE_VALIDATION = {
 
     # Valkyrie - Norse warrior maiden
     "VALKYRIE": {
-        "required_terms": ["norse", "warrior", "maiden", "winged", "horse", "fallen", "odin", "valkyrja", "valkyries", "norse mythology", "viking", "warrior maiden", "shield maiden", "battle maiden", "female warrior", "choose slain", "choose fallen", "select heroes", "choose worthy dead", "fallen warriors", "einherjar", "valhalla", "odin's hall", "winged", "feathered wings", "swan wings", "bird-like wings", "horse", "flying horse", "winged horse", "steed", "mount", "armor", "battle armor", "helmet", "shield", "spear", "sword", "beautiful", "fair", "radiant", "shining", "glorious", "majestic"],
+        "required_terms": ["norse", "warrior", "breasts exposed", "saggy breasts", "perky breasts", "maiden", "winged", "horse", "fallen", "odin", "valkyrja", "valkyries", "norse mythology", "viking", "warrior maiden", "shield maiden", "battle maiden", "female warrior", "choose slain", "choose fallen", "select heroes", "choose worthy dead", "fallen warriors", "einherjar", "valhalla", "odin's hall", "winged", "feathered wings", "swan wings", "bird-like wings", "horse", "flying horse", "winged horse", "steed", "mount", "armor", "battle armor", "helmet", "shield", "spear", "sword", "beautiful", "fair", "radiant", "shining", "glorious", "majestic"],
         "forbidden_terms": ["evil", "demonic", "undead", "wicked", "sinister", "malicious", "cruel", "violent", "aggressive", "harmful", "dangerous", "deadly", "lethal", "fatal", "poisonous", "venomous", "corrosive", "acidic", "burning"],
         "min_matches": MIN_MATCHES
     },
@@ -1640,14 +1654,14 @@ CREATURE_VALIDATION = {
 
     # Vetala - Indian vampire
     "VETALA": {
-        "required_terms": ["corpse", "possess", "animate", "hanging", "tree", "graveyard", "hindu", "indian", "baital", "pachisi", "vikram", "stories", "riddles", "wisdom", "corpse-dweller", "body-occupier", "flesh-inhabiter", "dead-host", "cremation ground", "burning ghat", "funeral pyre", "death site", "bat", "vampire bat", "nocturnal", "night-wanderer", "darkness-haunter", "upside-down", "inverted", "suspended", "dangling", "pendant"],
+        "required_terms": ["corpse", "possess", "animate", "breasts exposed", "saggy breasts", "perky breasts", "hanging", "tree", "graveyard", "hindu", "indian", "baital", "pachisi", "vikram", "stories", "riddles", "wisdom", "corpse-dweller", "body-occupier", "flesh-inhabiter", "dead-host", "cremation ground", "burning ghat", "funeral pyre", "death site", "bat", "vampire bat", "nocturnal", "night-wanderer", "darkness-haunter", "upside-down", "inverted", "suspended", "dangling", "pendant"],
         "forbidden_terms": ["european", "western", "holy", "divine", "angelic", "blessed", "sacred", "church", "cathedral", "cross", "crucifix", "stake", "garlic", "sunlight"],
         "min_matches": MIN_MATCHES
     },
 
     # Vodyanoi - Slavic water spirit
     "VODYANOI": {
-        "required_terms": ["water", "river", "lake", "pond", "slavic", "russian", "drown", "green", "beard", "mud", "algae", "weed", "frog", "fish", "catfish", "moss", "water mill", "mill wheel", "dam", "deep water", "whirlpool", "naked", "slimy", "slippery", "webbed", "paddle", "bubbles", "drowning victim", "underwater", "submerged", "watery grave"],
+        "required_terms": ["water", "river", "lake", "breasts exposed", "saggy breasts", "perky breasts", "pond", "slavic", "russian", "drown", "green", "beard", "mud", "algae", "weed", "frog", "fish", "catfish", "moss", "water mill", "mill wheel", "dam", "deep water", "whirlpool", "naked", "slimy", "slippery", "webbed", "paddle", "bubbles", "drowning victim", "underwater", "submerged", "watery grave"],
         "forbidden_terms": ["fire", "air", "earth", "mountain", "desert", "forest", "wood", "winged", "feathered", "furry", "hairy", "warm-blooded", "mammal"],
         "min_matches": MIN_MATCHES
     },
@@ -1689,7 +1703,7 @@ CREATURE_VALIDATION = {
 
     # Will O Wisp - Ghostly light
     "WILL_O_WISP": {
-        "required_terms": ["light", "flickering", "floating", "marsh", "swamp", "bog", "night", "will-o'-the-wisp", "jack-o'-lantern", "corpse candle", "fairy fire", "ghost light", "ignis fatuus", "foolish fire", "hinkypunk", "spooklight", "swamp gas", "methane", "phosphorescent", "glowing", "luminous", "hovering", "drifting", "floating", "mislead", "lead astray", "lure", "entice", "tempt", "dangerous", "deadly", "fatal", "folklore", "european", "celtic", "germanic"],
+        "required_terms": ["light", "flickering", "breasts exposed", "saggy breasts", "perky breasts", "floating", "marsh", "swamp", "bog", "night", "will-o'-the-wisp", "jack-o'-lantern", "corpse candle", "fairy fire", "ghost light", "ignis fatuus", "foolish fire", "hinkypunk", "spooklight", "swamp gas", "methane", "phosphorescent", "glowing", "luminous", "hovering", "drifting", "floating", "mislead", "lead astray", "lure", "entice", "tempt", "dangerous", "deadly", "fatal", "folklore", "european", "celtic", "germanic"],
         "forbidden_terms": ["solid", "corporeal", "physical", "tangible", "palpable", "substantial", "material", "bodily", "fleshy", "fleshly", "flesh and blood", "living"],
         "min_matches": MIN_MATCHES
     },
@@ -1710,7 +1724,7 @@ CREATURE_VALIDATION = {
 
     # Wraith - Ghost
     "WRAITH": {
-        "required_terms": ["shadow", "darkness", "gloom", "tenebrous", "umbral", "hate", "malice", "spite", "vengeance", "wrath", "anger", "drain", "siphon", "consume", "devour", "feed", "hunger", "cold", "chill", "frost", "ice", "freezing", "numb", "ringwraith", "nazgul", "fell spirit", "dark rider", "soul", "spirit", "essence", "being", "entity", "presence"],
+        "required_terms": ["shadow", "darkness", "breasts exposed", "saggy breasts", "perky breasts", "gloom", "tenebrous", "umbral", "hate", "malice", "spite", "vengeance", "wrath", "anger", "drain", "siphon", "consume", "devour", "feed", "hunger", "cold", "chill", "frost", "ice", "freezing", "numb", "ringwraith", "nazgul", "fell spirit", "dark rider", "soul", "spirit", "essence", "being", "entity", "presence"],
         "forbidden_terms": ["solid", "corporeal", "physical", "tangible", "palpable", "substantial", "material", "bodily", "fleshy", "fleshly", "flesh and blood", "living"],
         "min_matches": MIN_MATCHES
     },
@@ -1731,7 +1745,7 @@ CREATURE_VALIDATION = {
 
     # Xana - French fairy
     "XANA": {
-        "required_terms": ["asturian", "spanish", "northern spain", "cantabrian", "iberian", "cave", "grotto", "cavern", "spring", "fountain", "well", "beautiful", "lovely", "fair", "radiant", "glowing", "shimmering", "golden hair", "long hair", "flowing locks", "tresses", "fairy", "fae", "faerie", "sprite", "nymph", "spirit", "mischievous", "playful", "trickster", "prankster", "elusive", "gift-giver", "reward", "blessing", "fortune", "luck"],
+        "required_terms": ["asturian", "spanish", "breasts exposed", "saggy breasts", "perky breasts", "northern spain", "cantabrian", "iberian", "cave", "grotto", "cavern", "spring", "fountain", "well", "beautiful", "lovely", "fair", "radiant", "glowing", "shimmering", "golden hair", "long hair", "flowing locks", "tresses", "fairy", "fae", "faerie", "sprite", "nymph", "spirit", "mischievous", "playful", "trickster", "prankster", "elusive", "gift-giver", "reward", "blessing", "fortune", "luck"],
         "forbidden_terms": ["evil", "demonic", "ugly", "grotesque", "hideous", "wicked", "sinister", "malicious", "cruel", "violent", "aggressive", "harmful", "dangerous", "deadly", "lethal", "fatal"],
         "min_matches": MIN_MATCHES
     },
@@ -1773,7 +1787,7 @@ CREATURE_VALIDATION = {
 
     # Yokai - Japanese spirit
     "YOKAI": {
-        "required_terms": ["japanese", "nippon", "shinto", "buddhist", "folk belief", "supernatural", "paranormal", "mysterious", "inexplicable", "shape-shifter", "transformer", "illusionist", "trickster", "animal form", "human form", "object form", "natural phenomenon", "mischief", "playful", "prank", "joke", "tease", "bother", "dangerous", "harmful", "scary", "fearsome", "terrifying", "ancient", "old", "traditional", "classical", "folkloric", "kitsune", "tanuki", "kappa", "tengu", "oni", "yurei"],
+        "required_terms": ["japanese", "nippon", "breasts exposed", "saggy breasts", "perky breasts", "shinto", "buddhist", "folk belief", "supernatural", "paranormal", "mysterious", "inexplicable", "shape-shifter", "transformer", "illusionist", "trickster", "animal form", "human form", "object form", "natural phenomenon", "mischief", "playful", "prank", "joke", "tease", "bother", "dangerous", "harmful", "scary", "fearsome", "terrifying", "ancient", "old", "traditional", "classical", "folkloric", "kitsune", "tanuki", "kappa", "tengu", "oni", "yurei"],
         "forbidden_terms": ["european", "western", "christian", "biblical", "greek", "norse", "celtic", "slavic", "egyptian", "mesopotamian", "persian"],
         "min_matches": MIN_MATCHES
     },
@@ -1808,7 +1822,7 @@ CREATURE_VALIDATION = {
 
     # Zombie - Animated corpse
     "ZOMBIE": {
-        "required_terms": ["corpse", "dead body", "cadaver", "remains", "rotting", "decaying", "putrid", "decomposing", "foul", "shamble", "lurch", "stagger", "stumble", "drag feet", "hunger", "craving", "appetite", "desire", "need", "flesh", "brains", "tissue", "organs", "viscera", "moan", "groan", "gurgle", "rasp", "gasp", "bite", "scratch", "claw", "grab", "clutch", "voodoo", "houngan", "bokor", "zombification", "powder"],
+        "required_terms": ["corpse", "breasts exposed", "saggy breasts", "perky breasts", "dead body", "cadaver", "remains", "rotting", "decaying", "putrid", "decomposing", "foul", "shamble", "lurch", "stagger", "stumble", "drag feet", "hunger", "craving", "appetite", "desire", "need", "flesh", "brains", "tissue", "organs", "viscera", "moan", "groan", "gurgle", "rasp", "gasp", "bite", "scratch", "claw", "grab", "clutch", "voodoo", "houngan", "bokor", "zombification", "powder"],
         "forbidden_terms": ["living", "alive", "intelligent", "wise", "cunning", "clever", "speech", "language", "communication", "thought", "reason", "logic", "emotion", "feeling", "compassion", "empathy", "sympathy", "love"],
         "min_matches": MIN_MATCHES
     },
@@ -1858,7 +1872,7 @@ CREATURE_VALIDATION = {
 
     # Harpy - Winged wind spirit
     "HARPY": {
-        "required_terms": ["bird", "woman", "female", "winged", "claw", "talon", "greek", "wind", "screech", "harpyia", "snatcher", "storm spirit", "wind spirit", "bird-like", "avian", "feathered", "feathers", "wings", "beak", "talons", "claws", "sharp claws", "grasping claws", "snatching", "grabbing", "seizing", "ugly", "grotesque", "hideous", "foul", "filthy", "loathsome", "repulsive", "aello", "ocypete", "celaeno", "podarge", "hesiod", "virgil", "aeneid", "odyssey", "argonautica", "torment", "torture", "steal food", "defecate", "filth", "stench", "putrid smell", "fast", "swift", "aggressive", "violent", "cruel", "merciless"],
+        "required_terms": ["bird", "woman", "breasts exposed", "saggy breasts", "perky breasts", "female", "winged", "claw", "talon", "greek", "wind", "screech", "harpyia", "snatcher", "storm spirit", "wind spirit", "bird-like", "avian", "feathered", "feathers", "wings", "beak", "talons", "claws", "sharp claws", "grasping claws", "snatching", "grabbing", "seizing", "ugly", "grotesque", "hideous", "foul", "filthy", "loathsome", "repulsive", "aello", "ocypete", "celaeno", "podarge", "hesiod", "virgil", "aeneid", "odyssey", "argonautica", "torment", "torture", "steal food", "defecate", "filth", "stench", "putrid smell", "fast", "swift", "aggressive", "violent", "cruel", "merciless"],
         "forbidden_terms": ["reptile", "scales", "fish", "aquatic", "fins", "gills", "mammal", "fur", "hair", "wool", "hide", "pelt", "warm-blooded", "live birth", "nursing young", "kind", "gentle", "benevolent", "helpful", "selfless", "altruistic", "charitable", "giving", "pure", "innocent", "virtuous", "righteous", "good"],
         "min_matches": MIN_MATCHES
     },
@@ -1921,42 +1935,42 @@ CREATURE_VALIDATION = {
 
     # Bean-Nighe - Scottish washerwoman spirit
     "BEAN_NIGHE": {
-        "required_terms": ["scottish", "highlands", "washerwoman", "spirit", "fairy", "fae", "banshee", "bean nighe", "bean-nighe", "bean nighte", "little washerwoman", "washing", "laundry", "stream", "river", "ford", "bloody clothes", "shroud", "death omen", "harbinger", "foretell", "predict", "warn", "impending death", "dying person", "clothes", "garments", "battle", "war", "massacre", "pale", "green", "webbed feet", "web feet", "one nostril", "single nostril", "one eye", "single eye", "large teeth", "protruding teeth", "long breasts", "throw over shoulder", "wash", "scrub", "beat", "lament", "keen", "mourn", "prophecy", "ask three questions", "answer truthfully", "folklore", "celtic", "gaelic"],
+        "required_terms": ["scottish", "breasts exposed", "saggy breasts", "perky breasts", "highlands", "washerwoman", "spirit", "fairy", "fae", "banshee", "bean nighe", "bean-nighe", "bean nighte", "little washerwoman", "washing", "laundry", "stream", "river", "ford", "bloody clothes", "shroud", "death omen", "harbinger", "foretell", "predict", "warn", "impending death", "dying person", "clothes", "garments", "battle", "war", "massacre", "pale", "green", "webbed feet", "web feet", "one nostril", "single nostril", "one eye", "single eye", "large teeth", "protruding teeth", "long breasts", "throw over shoulder", "wash", "scrub", "beat", "lament", "keen", "mourn", "prophecy", "ask three questions", "answer truthfully", "folklore", "celtic", "gaelic"],
         "forbidden_terms": ["good", "benevolent", "kind", "gentle", "soft", "tender", "caring", "compassionate", "helpful", "joyful", "happy", "celebration", "birth", "rebirth", "resurrection", "life", "living", "alive"],
         "min_matches": MIN_MATCHES
     },
 
     # Baobhan Sith - Scottish vampire fairy
     "BAOBHAN_SITH": {
-        "required_terms": ["scottish", "highlands", "vampire", "fairy", "fae", "baobhan sith", "baobhan-sith", "banshee", "beautiful woman", "fair maiden", "lovely", "radiant", "glowing", "alluring", "enticing", "tempting", "seductive", "green dress", "white dress", "long hair", "golden hair", "red hair", "night", "nocturnal", "darkness", "moonlight", "hunters", "travelers", "men", "lure", "entice", "tempt", "attract", "dance", "invite to dance", "embrace", "kiss", "bite", "fangs", "drain blood", "blood drinker", "blood sucker", "hematophage", "victim", "corpse", "dead", "die", "dawn", "sunlight", "vulnerability", "iron", "cold iron", "ward off", "protect", "circle", "folklore", "celtic", "gaelic"],
+        "required_terms": ["scottish", "breasts exposed", "saggy breasts", "perky breasts", "highlands", "vampire", "fairy", "fae", "baobhan sith", "baobhan-sith", "banshee", "beautiful woman", "fair maiden", "lovely", "radiant", "glowing", "alluring", "enticing", "tempting", "seductive", "green dress", "white dress", "long hair", "golden hair", "red hair", "night", "nocturnal", "darkness", "moonlight", "hunters", "travelers", "men", "lure", "entice", "tempt", "attract", "dance", "invite to dance", "embrace", "kiss", "bite", "fangs", "drain blood", "blood drinker", "blood sucker", "hematophage", "victim", "corpse", "dead", "die", "dawn", "sunlight", "vulnerability", "iron", "cold iron", "ward off", "protect", "circle", "folklore", "celtic", "gaelic"],
         "forbidden_terms": ["ugly", "hideous", "grotesque", "repulsive", "fearsome appearance", "monstrous", "deformed", "malformed", "good", "benevolent", "kind", "gentle", "soft", "tender", "caring", "compassionate", "helpful", "selfless", "altruistic", "charitable", "giving", "pure", "innocent", "virtuous", "righteous", "holy", "divine", "sacred", "blessed"],
         "min_matches": MIN_MATCHES
     },
 
     # Nix/Nixe - Germanic water spirit
     "NIX": {
-        "required_terms": ["germanic", "german", "teutonic", "water", "spirit", "nix", "nixe", "nixie", "nixy", "nixie", "male", "female", "beautiful", "alluring", "enticing", "tempting", "seductive", "river", "stream", "lake", "pond", "pool", "waterfall", "deep water", "whirlpool", "drown", "drowning", "lure", "entice", "tempt", "attract", "victims", "children", "fishermen", "sailors", "musician", "fiddle", "harp", "music", "song", "enchanting melody", "beautiful voice", "human form", "green hair", "wet hair", "webbed fingers", "webbed toes", "fish tail", "merge", "shape-shift", "shapeshifter", "prophecy", "foretell", "predict", "warn", "folklore", "mythology", "legend"],
+        "required_terms": ["germanic", "breasts exposed", "saggy breasts", "perky breasts", "german", "teutonic", "water", "spirit", "nix", "nixe", "nixie", "nixy", "nixie", "male", "female", "beautiful", "alluring", "enticing", "tempting", "seductive", "river", "stream", "lake", "pond", "pool", "waterfall", "deep water", "whirlpool", "drown", "drowning", "lure", "entice", "tempt", "attract", "victims", "children", "fishermen", "sailors", "musician", "fiddle", "harp", "music", "song", "enchanting melody", "beautiful voice", "human form", "green hair", "wet hair", "webbed fingers", "webbed toes", "fish tail", "merge", "shape-shift", "shapeshifter", "prophecy", "foretell", "predict", "warn", "folklore", "mythology", "legend"],
         "forbidden_terms": ["evil", "malevolent", "wicked", "sinister", "malicious", "cruel", "violent", "aggressive", "harmful", "dangerous", "deadly", "lethal", "fatal", "poisonous", "venomous", "corrosive", "acidic", "burning", "demon", "demonic", "infernal", "hellish", "abyssal"],
         "min_matches": MIN_MATCHES
     },
 
     # Perchta - Alpine female spirit
     "PERCHTA": {
-        "required_terms": ["alpine", "austrian", "bavarian", "german", "swiss", "tyrolean", "female", "spirit", "goddess", "perchta", "berchta", "percht", "white lady", "bright", "radiant", "beautiful", "kind", "benevolent", "generous", "gift", "reward", "good children", "hard workers", "spinners", "weavers", "twelfth night", "epiphany", "christmas", "winter", "snow", "ice", "cold", "mountain", "forest", "wilderness", "dual nature", "two forms", "old hag", "ugly", "grotesque", "hideous", "wrinkled", "hooked nose", "warts", "tattered clothes", "punish", "vengeful", "cruel", "wicked", "evil", "bad children", "lazy", "slothful", "disobedient", "cut open belly", "stuff with straw", "rocks", "garbage", "folklore", "mythology"],
+        "required_terms": ["alpine", "breasts exposed", "saggy breasts", "perky breasts", "austrian", "bavarian", "german", "swiss", "tyrolean", "female", "spirit", "goddess", "perchta", "berchta", "percht", "white lady", "bright", "radiant", "beautiful", "kind", "benevolent", "generous", "gift", "reward", "good children", "hard workers", "spinners", "weavers", "twelfth night", "epiphany", "christmas", "winter", "snow", "ice", "cold", "mountain", "forest", "wilderness", "dual nature", "two forms", "old hag", "ugly", "grotesque", "hideous", "wrinkled", "hooked nose", "warts", "tattered clothes", "punish", "vengeful", "cruel", "wicked", "evil", "bad children", "lazy", "slothful", "disobedient", "cut open belly", "stuff with straw", "rocks", "garbage", "folklore", "mythology"],
         "forbidden_terms": ["single nature", "only good", "only evil", "consistent", "unchanging", "monochrome", "simple", "uncomplicated", "straightforward", "one-dimensional", "flat", "shallow"],
         "min_matches": MIN_MATCHES
     },
 
     # Krampus - Austrian Christmas demon
     "KRAMPUS": {
-        "required_terms": ["austrian", "bavarian", "alpine", "german", "swiss", "christmas", "st nicholas", "saint nicholas", "december 5", "krampusnacht", "night", "demon", "devil", "horned", "horns", "curved horns", "goat-like", "caprine", "shaggy", "black fur", "dark fur", "brown fur", "chains", "clanking chains", "bells", "ringing bells", "birch branches", "switch", "rod", "whip", "bundle of sticks", "punish", "beat", "switch bad children", "wicked", "naughty", "disobedient", "basket", "sack", "burlap sack", "carry off", "abduct", "kidnap", "take away", "devour", "eat", "consume", "children", "victims", "fearsome", "terrifying", "dreadful", "horrifying", "grotesque", "hideous", "ugly", "long tongue", "fangs", "sharp teeth", "cloven hooves", "folklore", "legend", "mythical"],
+        "required_terms": ["austrian", "breasts exposed", "saggy breasts", "perky breasts", "bavarian", "alpine", "german", "swiss", "christmas", "st nicholas", "saint nicholas", "december 5", "krampusnacht", "night", "demon", "devil", "horned", "horns", "curved horns", "goat-like", "caprine", "shaggy", "black fur", "dark fur", "brown fur", "chains", "clanking chains", "bells", "ringing bells", "birch branches", "switch", "rod", "whip", "bundle of sticks", "punish", "beat", "switch bad children", "wicked", "naughty", "disobedient", "basket", "sack", "burlap sack", "carry off", "abduct", "kidnap", "take away", "devour", "eat", "consume", "children", "victims", "fearsome", "terrifying", "dreadful", "horrifying", "grotesque", "hideous", "ugly", "long tongue", "fangs", "sharp teeth", "cloven hooves", "folklore", "legend", "mythical"],
         "forbidden_terms": ["good", "benevolent", "kind", "gentle", "soft", "tender", "caring", "compassionate", "empathetic", "sympathetic", "helpful", "selfless", "altruistic", "charitable", "giving", "rewards", "presents", "gifts", "treats", "candy", "sweets", "toys", "pure", "innocent", "virtuous", "righteous", "holy", "divine", "sacred", "blessed", "angel", "angelic"],
         "min_matches": MIN_MATCHES
     },
 
     # Frau Holle - Germanic goddess/witch
     "FRAU_HOLLE": {
-        "required_terms": ["german", "germanic", "teutonic", "goddess", "witch", "spirit", "female", "woman", "frau holle", "holda", "holle", "perchta", "winter", "snow", "ice", "cold", "make snow", "shake feather bed", "feathers", "snowflakes", "clouds", "sky", "heavens", "mountain", "well", "spring", "water", "protector", "guardian", "children", "spinners", "weavers", "hard workers", "reward", "gift", "gold", "treasure", "prosperity", "fortune", "luck", "punish", "lazy", "slothful", "disobedient", "unkind", "dark", "shadow", "hag", "crone", "old woman", "wrinkled", "bent", "hunched", "staff", "cauldron", "magic", "enchantment", "spell", "curse", "blessing", "folklore", "mythology", "grimms fairy tales", "brothers grimm"],
+        "required_terms": ["german", "breasts exposed", "saggy breasts", "perky breasts", "germanic", "teutonic", "goddess", "witch", "spirit", "female", "woman", "frau holle", "holda", "holle", "perchta", "winter", "snow", "ice", "cold", "make snow", "shake feather bed", "feathers", "snowflakes", "clouds", "sky", "heavens", "mountain", "well", "spring", "water", "protector", "guardian", "children", "spinners", "weavers", "hard workers", "reward", "gift", "gold", "treasure", "prosperity", "fortune", "luck", "punish", "lazy", "slothful", "disobedient", "unkind", "dark", "shadow", "hag", "crone", "old woman", "wrinkled", "bent", "hunched", "staff", "cauldron", "magic", "enchantment", "spell", "curse", "blessing", "folklore", "mythology", "grimms fairy tales", "brothers grimm"],
         "forbidden_terms": ["evil", "malevolent", "wicked", "sinister", "malicious", "cruel", "violent", "aggressive", "harmful", "dangerous", "deadly", "lethal", "fatal", "poisonous", "venomous", "corrosive", "acidic", "burning", "demon", "demonic", "infernal", "hellish", "abyssal"],
         "min_matches": MIN_MATCHES
     },
@@ -1970,35 +1984,35 @@ CREATURE_VALIDATION = {
 
     # Yuki-onna - Japanese snow woman
     "YUKI_ONNA": {
-        "required_terms": ["japanese", "snow", "winter", "cold", "ice", "frost", "blizzard", "storm", "night", "moonlight", "woman", "female", "spirit", "yōkai", "beautiful", "pale", "white", "pale skin", "white kimono", "long hair", "black hair", "blue lips", "ghostly", "ethereal", "translucent", "fading", "no feet", "floating", "hovering", "silent", "quiet", "noiseless", "lure", "entice", "tempt", "attract", "travelers", "hikers", "mountains", "pass", "path", "trail", "ask for help", "carry baby", "lullaby", "sing", "voice", "beautiful voice", "breathe on victim", "frost breath", "freeze", "kill", "drain life", "suck life force", "vampire", "blood", "soul", "spirit", "dangerous", "deadly", "lethal", "fatal", "folklore", "mythology", "legend"],
+        "required_terms": ["japanese", "breasts exposed", "saggy breasts", "perky breasts", "snow", "winter", "cold", "ice", "frost", "blizzard", "storm", "night", "moonlight", "woman", "female", "spirit", "yōkai", "beautiful", "pale", "white", "pale skin", "white kimono", "long hair", "black hair", "blue lips", "ghostly", "ethereal", "translucent", "fading", "no feet", "floating", "hovering", "silent", "quiet", "noiseless", "lure", "entice", "tempt", "attract", "travelers", "hikers", "mountains", "pass", "path", "trail", "ask for help", "carry baby", "lullaby", "sing", "voice", "beautiful voice", "breathe on victim", "frost breath", "freeze", "kill", "drain life", "suck life force", "vampire", "blood", "soul", "spirit", "dangerous", "deadly", "lethal", "fatal", "folklore", "mythology", "legend"],
         "forbidden_terms": ["warm", "hot", "summer", "spring", "autumn", "heat", "burning", "blazing", "scorching", "searing", "fire", "flame", "lava", "magma", "volcano", "tropical", "desert", "arid", "dry", "good", "benevolent", "kind", "gentle", "soft", "tender", "caring", "compassionate", "helpful", "selfless", "altruistic"],
         "min_matches": MIN_MATCHES
     },
 
     # Jorogumo - Japanese spider woman
     "JOROGUMO": {
-        "required_terms": ["japanese", "spider", "woman", "female", "shape-shifter", "shapeshifter", "transformation", "spider form", "giant spider", "enormous spider", "human form", "beautiful woman", "alluring", "enticing", "tempting", "seductive", "courtesan", "prostitute", "geisha", "lure", "entice", "tempt", "attract", "men", "samurai", "travelers", "house", "teahouse", "brothel", "inn", "lodging", "music", "string instrument", "biwa", "shamisen", "harp", "song", "voice", "enchanting", "mesmerizing", "hypnotic", "web", "spider web", "silk thread", "bind", "trap", "capture", "victim", "paralyze", "poison", "venom", "venomous bite", "eat", "consume", "devour", "folklore", "mythology", "yōkai"],
+        "required_terms": ["japanese", "breasts exposed", "saggy breasts", "perky breasts", "spider", "woman", "female", "shape-shifter", "shapeshifter", "transformation", "spider form", "giant spider", "enormous spider", "human form", "beautiful woman", "alluring", "enticing", "tempting", "seductive", "courtesan", "prostitute", "geisha", "lure", "entice", "tempt", "attract", "men", "samurai", "travelers", "house", "teahouse", "brothel", "inn", "lodging", "music", "string instrument", "biwa", "shamisen", "harp", "song", "voice", "enchanting", "mesmerizing", "hypnotic", "web", "spider web", "silk thread", "bind", "trap", "capture", "victim", "paralyze", "poison", "venom", "venomous bite", "eat", "consume", "devour", "folklore", "mythology", "yōkai"],
         "forbidden_terms": ["good", "benevolent", "kind", "gentle", "soft", "tender", "caring", "compassionate", "empathetic", "sympathetic", "helpful", "selfless", "altruistic", "charitable", "giving", "pure", "innocent", "virtuous", "righteous", "holy", "divine", "sacred", "blessed", "angel", "angelic"],
         "min_matches": MIN_MATCHES
     },
 
     # Nukekubi - Japanese detachable head vampire
     "NUKEKUBI": {
-        "required_terms": ["japanese", "vampire", "undead", "yōkai", "head", "detachable head", "separate head", "flying head", "floating head", "neck", "severed neck", "red line", "red ring", "red marks", "neck marks", "human body", "sleeping body", "body asleep", "head flies", "head detaches at night", "nocturnal", "night", "darkness", "moonlight", "hunt", "search", "prey", "victims", "blood", "suck blood", "blood drinker", "drain blood", "lifeforce", "energy", "evil", "malevolent", "wicked", "dangerous", "deadly", "lethal", "fatal", "attack", "kill", "destroy", "hidden", "disguised", "appear normal", "daytime", "detect", "exposed", "move body", "hide body", "folklore", "mythology", "legend"],
+        "required_terms": ["japanese", "breasts exposed", "saggy breasts", "perky breasts", "vampire", "undead", "yōkai", "head", "detachable head", "separate head", "flying head", "floating head", "neck", "severed neck", "red line", "red ring", "red marks", "neck marks", "human body", "sleeping body", "body asleep", "head flies", "head detaches at night", "nocturnal", "night", "darkness", "moonlight", "hunt", "search", "prey", "victims", "blood", "suck blood", "blood drinker", "drain blood", "lifeforce", "energy", "evil", "malevolent", "wicked", "dangerous", "deadly", "lethal", "fatal", "attack", "kill", "destroy", "hidden", "disguised", "appear normal", "daytime", "detect", "exposed", "move body", "hide body", "folklore", "mythology", "legend"],
         "forbidden_terms": ["good", "benevolent", "kind", "gentle", "soft", "tender", "caring", "compassionate", "empathetic", "sympathetic", "helpful", "selfless", "altruistic", "charitable", "giving", "pure", "innocent", "virtuous", "righteous", "holy", "divine", "sacred", "blessed", "angel", "angelic"],
         "min_matches": MIN_MATCHES
     },
 
     # Rokurokubi - Japanese stretching neck spirit
     "ROKUROKUBI": {
-        "required_terms": ["japanese", "yōkai", "spirit", "human", "humanoid", "appear normal", "normal by day", "daytime", "ordinary", "common", "unremarkable", "night", "nocturnal", "darkness", "midnight", "transform", "change", "neck", "stretch", "elongate", "extend", "long neck", "very long neck", "impossibly long", "flexible neck", "stretch neck", "reach", "look around", "spy", "eavesdrop", "peek", "watch", "observe", "listen", "hear", "secrets", "private moments", "mischief", "prank", "trick", "playful", "mischievous", "malevolent", "evil", "wicked", "scare", "frighten", "terrify", "horrify", "folklore", "mythology", "legend"],
+        "required_terms": ["japanese", "breasts exposed", "saggy breasts", "perky breasts", "yōkai", "spirit", "human", "humanoid", "appear normal", "normal by day", "daytime", "ordinary", "common", "unremarkable", "night", "nocturnal", "darkness", "midnight", "transform", "change", "neck", "stretch", "elongate", "extend", "long neck", "very long neck", "impossibly long", "flexible neck", "stretch neck", "reach", "look around", "spy", "eavesdrop", "peek", "watch", "observe", "listen", "hear", "secrets", "private moments", "mischief", "prank", "trick", "playful", "mischievous", "malevolent", "evil", "wicked", "scare", "frighten", "terrify", "horrify", "folklore", "mythology", "legend"],
         "forbidden_terms": ["good", "benevolent", "kind", "gentle", "soft", "tender", "caring", "compassionate", "empathetic", "sympathetic", "helpful", "selfless", "altruistic", "charitable", "giving", "pure", "innocent", "virtuous", "righteous", "holy", "divine", "sacred", "blessed", "angel", "angelic"],
         "min_matches": MIN_MATCHES
     },
 
     # Bakemono - General Japanese shapeshifter
     "BAKEMONO": {
-        "required_terms": ["japanese", "yōkai", "spirit", "demon", "shape-shifter", "shapeshifter", "transformer", "change form", "transformation", "animal form", "human form", "object form", "plant form", "supernatural", "paranormal", "mysterious", "inexplicable", "strange", "bizarre", "weird", "odd", "peculiar", "unnatural", "monstrous", "grotesque", "hideous", "fearsome", "terrifying", "dreadful", "horrifying", "horrific", "mischievous", "trickster", "prankster", "playful", "dangerous", "harmful", "malevolent", "wicked", "evil", "folklore", "mythology", "legend", "folktale", "tradition", "ancient", "old", "classical", "pre-modern", "traditional"],
+        "required_terms": ["japanese", "yōkai", "breasts exposed", "saggy breasts", "perky breasts", "spirit", "demon", "shape-shifter", "shapeshifter", "transformer", "change form", "transformation", "animal form", "human form", "object form", "plant form", "supernatural", "paranormal", "mysterious", "inexplicable", "strange", "bizarre", "weird", "odd", "peculiar", "unnatural", "monstrous", "grotesque", "hideous", "fearsome", "terrifying", "dreadful", "horrifying", "horrific", "mischievous", "trickster", "prankster", "playful", "dangerous", "harmful", "malevolent", "wicked", "evil", "folklore", "mythology", "legend", "folktale", "tradition", "ancient", "old", "classical", "pre-modern", "traditional"],
         "forbidden_terms": ["european", "western", "christian", "biblical", "greek", "norse", "celtic", "slavic", "egyptian", "mesopotamian", "persian", "normal", "ordinary", "common", "typical", "average", "usual", "standard", "regular", "everyday", "mundane"],
         "min_matches": MIN_MATCHES
     },
@@ -2012,14 +2026,14 @@ CREATURE_VALIDATION = {
 
     # Jiangshi - Chinese hopping vampire
     "JIANGSHI": {
-        "required_terms": ["chinese", "vampire", "undead", "hopping", "jumping", "rigid", "stiff", "corpse", "dead body", "reanimated", "risen dead", "zombie", "rotting", "decaying", "putrid", "foul", "green skin", "white skin", "pale", "glowing eyes", "green eyes", "red eyes", "long arms", "stiff arms", "outstretched arms", "fangs", "sharp teeth", "long nails", "claws", "talisman", "paper talisman", "yellow paper", "seal", "forehead", "priest", "taoist priest", "daoshi", "exorcism", "exorcist", "qi", "chi", "life force", "energy", "drain", "suck", "absorb", "vampire", "vampiric", "night", "nocturnal", "darkness", "moonlight", "avoid", "sunlight", "daylight", "mirror", "reflection", "rice", "salt", "vinegar", "folklore", "mythology", "legend", "chinese mythology"],
+        "required_terms": ["chinese", "vampire", "undead", "hopping", "breasts exposed", "saggy breasts", "perky breasts", "jumping", "rigid", "stiff", "corpse", "dead body", "reanimated", "risen dead", "zombie", "rotting", "decaying", "putrid", "foul", "green skin", "white skin", "pale", "glowing eyes", "green eyes", "red eyes", "long arms", "stiff arms", "outstretched arms", "fangs", "sharp teeth", "long nails", "claws", "talisman", "paper talisman", "yellow paper", "seal", "forehead", "priest", "taoist priest", "daoshi", "exorcism", "exorcist", "qi", "chi", "life force", "energy", "drain", "suck", "absorb", "vampire", "vampiric", "night", "nocturnal", "darkness", "moonlight", "avoid", "sunlight", "daylight", "mirror", "reflection", "rice", "salt", "vinegar", "folklore", "mythology", "legend", "chinese mythology"],
         "forbidden_terms": ["good", "benevolent", "kind", "gentle", "soft", "tender", "caring", "compassionate", "empathetic", "sympathetic", "helpful", "selfless", "altruistic", "charitable", "giving", "pure", "innocent", "virtuous", "righteous", "holy", "divine", "sacred", "blessed", "angel", "angelic"],
         "min_matches": MIN_MATCHES
     },
 
     # Aswang - Filipino shapeshifting monster
     "ASWANG": {
-        "required_terms": ["filipino", "philippines", "visayan", "tagalog", "mythology", "shape-shifter", "shapeshifter", "transformer", "vampire", "ghoul", "witch", "monster", "night", "nocturnal", "darkness", "moonlight", "shadow", "hide", "conceal", "lurk", "human form", "animal form", "dog", "cat", "pig", "bird", "crow", "bat", "lizard", "beautiful by day", "normal by day", "ordinary", "common", "unremarkable", "night form", "monstrous", "grotesque", "hideous", "fearsome", "terrifying", "dreadful", "horrifying", "horrific", "long tongue", "proboscis", "needle-like", "sharp", "piercing", "suck blood", "drain blood", "blood drinker", "hematophage", "eat flesh", "devour flesh", "consume organs", "liver", "heart", "entrails", "corpse", "dead", "funeral", "grave", "tomb", "pregnant women",
+        "required_terms": ["filipino", "philippines", "breasts exposed", "saggy breasts", "perky breasts", "visayan", "tagalog", "mythology", "shape-shifter", "shapeshifter", "transformer", "vampire", "ghoul", "witch", "monster", "night", "nocturnal", "darkness", "moonlight", "shadow", "hide", "conceal", "lurk", "human form", "animal form", "dog", "cat", "pig", "bird", "crow", "bat", "lizard", "beautiful by day", "normal by day", "ordinary", "common", "unremarkable", "night form", "monstrous", "grotesque", "hideous", "fearsome", "terrifying", "dreadful", "horrifying", "horrific", "long tongue", "proboscis", "needle-like", "sharp", "piercing", "suck blood", "drain blood", "blood drinker", "hematophage", "eat flesh", "devour flesh", "consume organs", "liver", "heart", "entrails", "corpse", "dead", "funeral", "grave", "tomb", "pregnant women",
                            "unborn child", "fetus", "baby", "infant", "victim", "prey", "folklore", "legend", "mythical"],
         "forbidden_terms": ["good", "benevolent", "kind", "gentle", "soft", "tender", "caring", "compassionate", "empathetic", "sympathetic", "helpful", "selfless", "altruistic", "charitable", "giving", "pure", "innocent", "virtuous", "righteous", "holy", "divine", "sacred", "blessed", "angel", "angelic"],
         "min_matches": MIN_MATCHES
@@ -2049,7 +2063,7 @@ CREATURE_VALIDATION = {
 
     # Skinwalker - Navajo witch
     "SKINWALKER": {
-        "required_terms": ["navajo", "diné", "native american", "southwest", "arizona", "new mexico", "utah", "colorado", "witch", "sorcerer", "shapeshifter", "transformer", "animal form", "coyote", "wolf", "bear", "fox", "owl", "crow", "raven", "bird", "predator", "evil", "malevolent", "wicked", "malicious", "cruel", "violent", "aggressive", "harmful", "dangerous", "deadly", "lethal", "fatal", "curse", "hex", "spell", "magic", "dark magic", "forbidden", "taboo", "taboo breaker", "wear animal skin", "animal pelt", "transform", "change shape", "run fast", "jump far", "climb walls", "ceilings", "enter home", "night", "nocturnal", "darkness", "shadows", "glowing eyes", "red eyes", "yellow eyes", "attack", "kill", "torture", "torment", "possess", "control", "nightmare", "terror", "fear",
+        "required_terms": ["navajo", "diné", "breasts exposed", "saggy breasts", "perky breasts", "native american", "southwest", "arizona", "new mexico", "utah", "colorado", "witch", "sorcerer", "shapeshifter", "transformer", "animal form", "coyote", "wolf", "bear", "fox", "owl", "crow", "raven", "bird", "predator", "evil", "malevolent", "wicked", "malicious", "cruel", "violent", "aggressive", "harmful", "dangerous", "deadly", "lethal", "fatal", "curse", "hex", "spell", "magic", "dark magic", "forbidden", "taboo", "taboo breaker", "wear animal skin", "animal pelt", "transform", "change shape", "run fast", "jump far", "climb walls", "ceilings", "enter home", "night", "nocturnal", "darkness", "shadows", "glowing eyes", "red eyes", "yellow eyes", "attack", "kill", "torture", "torment", "possess", "control", "nightmare", "terror", "fear",
                            "dread", "horror", "skinwalker ranch", "folklore", "legend", "mythical", "sacred", "secret", "private", "do not speak", "do not name"],
         "forbidden_terms": ["good", "benevolent", "kind", "gentle", "soft", "tender", "caring", "compassionate", "empathetic", "sympathetic", "helpful", "selfless", "altruistic", "charitable", "giving", "pure", "innocent", "virtuous", "righteous", "holy", "divine", "sacred", "blessed", "angel", "angelic", "day", "daylight", "sun", "sunlight"],
         "min_matches": MIN_MATCHES
@@ -2120,7 +2134,7 @@ CREATURE_VALIDATION = {
 
     # Mormolyce - Greek female demon
     "MORMOLYCE": {
-        "required_terms": ["greek", "mythology", "demon", "spirit", "female", "woman", "mormo", "mormolyke", "mormolykeion", "fearsome", "terrifying", "dreadful", "horrifying", "horrific", "frightening", "scary", "monstrous", "grotesque", "hideous", "ugly", "child-eater", "eats children", "devour children", "consume children", "threaten children", "scare children", "frighten children", "night", "nocturnal", "darkness", "shadows", "lurk", "hide", "conceal", "underworld", "hades", "tartarus", "hecate", "hecate's retinue", "hecate's attendant", "companion", "follower", "servant", "lesser demon", "minor demon", "spirit", "specter", "apparition", "phantom", "ghost", "wraith", "shade", "folklore", "legend", "mythical", "nursery tale", "children's story", "cautionary tale", "warning", "threat",
+        "required_terms": ["greek", "mythology", "breasts exposed", "saggy breasts", "perky breasts", "demon", "spirit", "female", "woman", "mormo", "mormolyke", "mormolykeion", "fearsome", "terrifying", "dreadful", "horrifying", "horrific", "frightening", "scary", "monstrous", "grotesque", "hideous", "ugly", "child-eater", "eats children", "devour children", "consume children", "threaten children", "scare children", "frighten children", "night", "nocturnal", "darkness", "shadows", "lurk", "hide", "conceal", "underworld", "hades", "tartarus", "hecate", "hecate's retinue", "hecate's attendant", "companion", "follower", "servant", "lesser demon", "minor demon", "spirit", "specter", "apparition", "phantom", "ghost", "wraith", "shade", "folklore", "legend", "mythical", "nursery tale", "children's story", "cautionary tale", "warning", "threat",
                            "danger", "harm", "injury", "death", "dying", "dead"],
         "forbidden_terms": ["good", "benevolent", "kind", "gentle", "soft", "tender", "caring", "compassionate", "empathetic", "sympathetic", "helpful", "selfless", "altruistic", "charitable", "giving", "pure", "innocent", "virtuous", "righteous", "holy", "divine", "sacred", "blessed", "angel", "angelic", "loving", "nurturing", "protective", "guardian", "savior", "rescuer", "redeemer"],
         "min_matches": MIN_MATCHES

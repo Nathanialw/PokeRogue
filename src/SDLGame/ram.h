@@ -5,9 +5,14 @@
 #pragma once
 #include <SDL3/SDL_render.h>
 
+#include "constants.h"
 #include "lib_types.h"
 
 #define MAX_OVERLAYS 256
+#define MAX_CACHED_TEXTURES 256
+#define MAX_CACHED_SPRITES 256
+#define MAX_CACHED_SOLID_COLORS 256
+
 
 typedef struct __attribute__((packed))
 {
@@ -31,6 +36,16 @@ typedef struct
     SDL_Texture* screen;
     SDL_Window* window;
     SDL_Renderer* renderer;
+
+    SDL_Texture* tilesCache[MAX_CACHED_TEXTURES];
+    SDL_Texture* spritesCache[MAX_CACHED_SPRITES];
+
+    Color solidColorCacheIndexes[MAX_CACHED_SOLID_COLORS];
+    SDL_Texture* solidColorCache[MAX_CACHED_SOLID_COLORS];
+
+    SDL_Surface* surfaceCache;
+    SDL_Texture* textureCache;
+    SDL_Color pixelArray[SCREEN_W * SCREEN_H];
 
     PartialFrameBuffer framebuffer;
     KeyState keys;

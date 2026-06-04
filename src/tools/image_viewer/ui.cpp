@@ -10,11 +10,11 @@ void UI::Init()
     active_area = UIArea::NONE;
 
     hover_rects[(uint8_t)UIArea::TOP] = {0.0f, 0.0f, BTN_W * NUM_ENTITY_TYPES, BTN_H};
-    hover_rects[(uint8_t)UIArea::LEFT] = {0.0f, BTN_H, BTN_W, 128 * DISPLAYED_IMAGE_COUNT};
+    hover_rects[(uint8_t)UIArea::LEFT] = {0.0f, BTN_H, BTN_W, MAX_IMAGE_SIZE * DISPLAYED_IMAGE_COUNT};
     hover_rects[(uint8_t)UIArea::SCROLL_BAR_LEFT] = {hover_rects[(uint8_t)UIArea::LEFT].x + hover_rects[(uint8_t)UIArea::LEFT].w - SCROLL_BAR_W, hover_rects[(uint8_t)UIArea::LEFT].y, SCROLL_BAR_W, hover_rects[(uint8_t)UIArea::LEFT].h};
-    hover_rects[(uint8_t)UIArea::MAIN] = {BTN_W, BTN_H, (BTN_W * 4), 128 * DISPLAYED_IMAGE_COUNT};
+    hover_rects[(uint8_t)UIArea::MAIN] = {BTN_W, BTN_H, (BTN_W * 6), MAX_IMAGE_SIZE * DISPLAYED_IMAGE_COUNT};
     hover_rects[(uint8_t)UIArea::SCROLL_BAR_MAIN] = {hover_rects[(uint8_t)UIArea::MAIN].x + hover_rects[(uint8_t)UIArea::MAIN].w - SCROLL_BAR_W, hover_rects[(uint8_t)UIArea::MAIN].y, SCROLL_BAR_W, hover_rects[(uint8_t)UIArea::MAIN].h};
-    hover_rects[(uint8_t)UIArea::RIGHT] = {BTN_W * 5, BTN_H, 128 * DISPLAYED_IMAGE_COUNT, 128 * DISPLAYED_IMAGE_COUNT};
+    hover_rects[(uint8_t)UIArea::RIGHT] = {BTN_W * 6, BTN_H, MAX_IMAGE_SIZE * DISPLAYED_IMAGE_COUNT, MAX_IMAGE_SIZE * DISPLAYED_IMAGE_COUNT};
 
     entity_type_select_rects[CREATURE] = {CREATURE * BTN_W, 0.0f, BTN_W, BTN_H};
     entity_type_select_rects[OBJECT] = {OBJECT * BTN_W, 0.0f, BTN_W, BTN_H};
@@ -28,8 +28,8 @@ void UI::Init()
     entity_rect_base = {0.0f, BTN_H, LIST_ITEM_W, LIST_ITEM_H};
     for (uint8_t i = 0; i < DISPLAYED_IMAGE_COUNT; i++)
     {
-        accept_rects[i] = {hover_rects[(uint8_t)UIArea::MAIN].x + (128.0f + 256.0f) - SCROLL_BAR_W, float(BTN_H + (128.0f * i) + (ICON_H * 0.5f)), ICON_W, ICON_H};
-        delete_rects[i] = {hover_rects[(uint8_t)UIArea::MAIN].x + (128.0f + 256.0f) - SCROLL_BAR_W + ICON_W, float(BTN_H + (128.0f * i) + (ICON_H * 0.5f)), ICON_W, ICON_H};
+        accept_rects[i] = {hover_rects[(uint8_t)UIArea::MAIN].x + (MAX_IMAGE_SIZE + 256.0f) - SCROLL_BAR_W, float(BTN_H + (MAX_IMAGE_SIZE * i) + (ICON_H * 0.5f)), ICON_W, ICON_H};
+        delete_rects[i] = {hover_rects[(uint8_t)UIArea::MAIN].x + (MAX_IMAGE_SIZE + 256.0f) - SCROLL_BAR_W + ICON_W, float(BTN_H + (MAX_IMAGE_SIZE * i) + (ICON_H * 0.5f)), ICON_W, ICON_H};
     }
 
     offset_entity_id = 0;

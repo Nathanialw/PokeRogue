@@ -56,9 +56,9 @@ uint8_t PrintLineStr(GraphicsInterface graphics, MemoryInterface memory, uint16_
     maxChars = char_idx;
     char_idx = 0;
 
-    Color color = {.color = 0xd6fa};
+    Color color = Flash_GetColor(memory, PAL_OFF_WHITE_GRAY);
     graphics.SetFrameBuffer(color); // gray
-    FrameBuffer frameBuffer = {x, y, maxChars * text_size, text_size, 0xd6fa};
+    FrameBuffer frameBuffer = {x, y, maxChars * text_size, text_size, color.color};
 
     while (textLine[char_idx] && char_idx < maxChars)
     {

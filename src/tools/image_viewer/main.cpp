@@ -21,8 +21,8 @@
 int main()
 {
     Renderer renderer;
-    const uint16_t h = (128 * DISPLAYED_IMAGE_COUNT) + BTN_H;
-    const uint16_t w = (BTN_W * 5) + (128 * DISPLAYED_IMAGE_COUNT);
+    const uint16_t h = (MAX_IMAGE_SIZE * DISPLAYED_IMAGE_COUNT) + BTN_H;
+    const uint16_t w = (BTN_W * 6) + (MAX_IMAGE_SIZE * DISPLAYED_IMAGE_COUNT);
     if (!renderer.Init("Image Viewer", w, h))
         return -1;
 

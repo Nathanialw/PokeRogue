@@ -63,6 +63,8 @@ uint16_t rgb8_to_rgb565(uint8_t r, uint8_t g, uint8_t b)
 SET_MEMORY(".map")
 Color ModifyColor(Color color, int8_t brightness)
 {
+    if (color.color == TRANSPARENCY) return color;
+
     uint8_t r, g, b;
     rgb565_to_rgb8(color.color, &r, &g, &b);
 
@@ -110,8 +112,7 @@ void DrawTile(GraphicsInterface graphics, MemoryInterface memory, uint8_t screen
     SpriteFrames layout = {0};
     Flash_GetMapTileMetadata(memory, &layout, tile_id);
     Flash_GetMapTile(memory, g_map.tileCache.spriteCache.bytes, &layout);
-    for (uint8_t i = 0; i < 16; i++)
-        layout.palette[i] = ModifyColor((Color)layout.palette[i], brightness).color;
+    for (uint8_t i = 0; i < 16; i++) layout.palette[i] = ModifyColor((Color)layout.palette[i], brightness).color;
     Expand4bppPackedToByte(memory, g_map.tileCache.spriteCache.bytes, layout.palette, g_map.tileCache.tilePixels.pixels, MAP_TILE_W);
     graphics.Draw16(px, py, MAP_TILE_W, MAP_TILE_H, g_map.tileCache.tilePixels.pixels);
 #else
@@ -122,37 +123,6 @@ void DrawTile(GraphicsInterface graphics, MemoryInterface memory, uint8_t screen
     Color bg = Flash_GetColor(memory, g_map.tileCache.tileCache.bg);
     bg = ModifyColor(bg, brightness);
     CharFromGlyph1bpp(memory, g_map.tileCache.spriteCache, g_map.tileCache.tilePixels.pixels, g_map.tileCache.tileCache.glyph_index, FONT16x16, fg, bg);
-    graphics.Draw(px, py, MAP_TILE_W, MAP_TILE_H, g_map.tileCache.tilePixels.bytes);
-#endif
-}
-
-/**********************************************************************************************************************/
-/**  Checks cache
- *  Updates cache
- *  Blit the given tile id to the given screen coords
-**********************************************************************************************************************/
-SET_MEMORY(".map")
-void DrawTileCached(GraphicsInterface graphics, MemoryInterface memory, uint8_t screen_tx, uint8_t screen_ty, uint8_t tile_id)
-{
-    uint16_t px = (uint16_t)(screen_tx * MAP_TILE_W);
-    uint16_t py = (uint16_t)(screen_ty * MAP_TILE_H);
-
-#if defined(SDL)
-    SpriteFrames layout = {0};
-    Flash_GetMapTileMetadata(memory, &layout, tile_id);
-    Flash_GetMapTile(memory, g_map.tileCache.spriteCache.bytes, &layout);
-    Expand4bppPackedToByte(memory, g_map.tileCache.spriteCache.bytes, layout.palette, g_map.tileCache.tilePixels.pixels, MAP_TILE_W);
-#else
-    if (g_map.tileCache.tile_id != tile_id)
-    {
-        g_map.tileCache.tile_id = tile_id;
-        Flash_GetBiomeTile(memory, &g_map.tileCache.tileCache, g_core.biome, tile_id);
-        CharFromGlyph1bpp(memory, g_map.tileCache.spriteCache, g_map.tileCache.tilePixels.pixels, g_map.tileCache.tileCache.glyph_index, FONT16x16, Flash_GetColor(memory, g_map.tileCache.tileCache.fg), Flash_GetColor(memory, g_map.tileCache.tileCache.bg));
-    }
-#endif
-#if defined(SDL)
-    graphics.Draw16(px, py, MAP_TILE_W, MAP_TILE_H, g_map.tileCache.tilePixels.pixels);
-#else
     graphics.Draw(px, py, MAP_TILE_W, MAP_TILE_H, g_map.tileCache.tilePixels.bytes);
 #endif
 }

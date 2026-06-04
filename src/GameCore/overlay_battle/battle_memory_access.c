@@ -16,37 +16,6 @@ const char text99[] = "0%2x ";
 const char new_line1[] = "\n";
 
 
-//TODO:
-SET_MEMORY(".battle")
-SpriteLayout Flash_GetBattlerLayout(MemoryInterface memory, uint8_t creatureType, bool front)
-{
-#ifdef STANDALONE
-    if (front)
-        return g_gameFlash.spriteData.battlers.frontLayout[creatureType];
-    else
-        return g_gameFlash.spriteData.battlers.backLayout[creatureType];
-#else
-    SpriteLayout l = {0};
-    return l;
-#endif
-}
-
-//TODO:
-SET_MEMORY(".battle")
-const uint8_t* Flash_GetBattlerArray(MemoryInterface memory, bool front)
-{
-#ifdef STANDALONE
-    if (front)
-        return g_gameFlash.spriteData.battlers.front;
-    else
-        return g_gameFlash.spriteData.battlers.back;
-#else
-    return NULL;
-#endif
-}
-
-
-
 /**********************************************************************************************************************/
 /*      ANIMATIONS
 **********************************************************************************************************************/

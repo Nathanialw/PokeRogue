@@ -49,7 +49,7 @@
 "The armor gleams with enchanted silver plates that shift like liquid moonlight, whispering secrets in the wind.\0",
 "RACK_WEAPON -- PLACEHOLDER TEXT - A mysterious object awaiting discovery.\0",
 "TREASURE_BARREL -- PLACEHOLDER TEXT - A mysterious object awaiting discovery.\0",
-"A gilded vessel woven from enchanted vines, humming with arcane energy, filled with shimmering jewels and glowing artifacts.\0",
+"TREASURE_BASKET -- PLACEHOLDER TEXT - A mysterious object awaiting discovery.\0",
 "A gilded wooden chest, bound in iron, etched with runes, and humming with forgotten magic, rests atop a moss-covered pedestal.\0",
 "A gilded chest engraved with arcane runes hums with dormant magic, its surface shimmering with shifting, iridescent patterns.\0",
 "TREASURE_CRATE -- PLACEHOLDER TEXT - A mysterious object awaiting discovery.\0",

@@ -161,10 +161,12 @@ void HandleBattle(GraphicsInterface graphics, HardwareInterface hardware, Memory
     Rect_16 dialogue = DIALOGUE_BOX_FRAME;
 
 
-    const SpriteLayout pLayout = Flash_GetBattlerLayout(memory, GetCreatureType(g_core.battleMode.enemyMonsterID), false);
+    SpriteLayout pLayout = {};
+    Flash_GetSpriteLayout(memory, &pLayout, GetCreatureType(g_core.battleMode.playerMonsterID), CREATURE, false);
     DrawBattler(graphics, memory, player.x + 24, player.y, &pLayout, CREATURE, false);
 
-    const SpriteLayout eLayout = Flash_GetBattlerLayout(memory, GetCreatureType(g_core.battleMode.enemyMonsterID), true);
+    SpriteLayout eLayout = {};
+    Flash_GetSpriteLayout(memory, &eLayout, GetCreatureType(g_core.battleMode.enemyMonsterID), CREATURE, true);
     DrawBattler(graphics, memory, enemy.x + 24, enemy.y, &eLayout, CREATURE, true);
 
     CreatureStats(graphics, hardware, memory, g_core.battleMode.playerMonsterID, playerHP, size, font_size);

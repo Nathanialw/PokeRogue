@@ -137,10 +137,13 @@ _Static_assert(DIALOGUE_H + RESOURCE_FRAME_H + BATTLER_AREA_H <= TFT_H, "cannot 
 // #define MAP_TILES_16
 // #define MAP_TILES_20
 // #define MAP_TILES_24
-#define MAP_TILES_32
-// #define MAP_TILES_64
+// #define MAP_TILES_32
+#define MAP_TILES_64
 
-
+#if defined(CARTRIDGE)
+#define MAP_TILE_W 16
+#define MAP_TILE_H 16
+#else
 #if defined(MAP_TILES_16)
 #define MAP_TILE_W 16
 #define MAP_TILE_H 16
@@ -157,6 +160,10 @@ _Static_assert(DIALOGUE_H + RESOURCE_FRAME_H + BATTLER_AREA_H <= TFT_H, "cannot 
 #define MAP_TILE_W 64
 #define MAP_TILE_H 64
 #else
+
+#define MAP_TILE_W (SCREEN_W / 20)
+#define MAP_TILE_H (SCREEN_H / 20)
+#endif
 #endif
 
 #define TILE_PIXELS (MAP_TILE_W * MAP_TILE_H)

@@ -9,8 +9,6 @@
 #include "lib_types.h"
 
 
-
-
 RamState g_ramState =
 {
     .keys = {0},
@@ -20,7 +18,7 @@ RamState g_ramState =
 
 void InitRamSDL()
 {
-    g_ramState.screen = SDL_CreateTexture(g_ramState.renderer, SDL_PIXELFORMAT_RGB565, SDL_TEXTUREACCESS_STREAMING, SCREEN_W, SCREEN_H);
+    g_ramState.screen = SDL_CreateTexture(g_ramState.renderer, SDL_PIXELFORMAT_RGBA32, SDL_TEXTUREACCESS_TARGET, SCREEN_W, SCREEN_H);
     if (!g_ramState.screen)
     {
         SDL_Log("CreateTexture failed: %s", SDL_GetError());

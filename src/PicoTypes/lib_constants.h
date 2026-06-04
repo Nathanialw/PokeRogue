@@ -41,14 +41,14 @@
 #define TFT_WIDTH  480
 #define TFT_HEIGHT 480
 #elif defined(SDL)
-#define TFT_W 640
-#define TFT_H 640
-#define SCREEN_W 640
-#define SCREEN_H 640
+#define TFT_W 1280
+#define TFT_H 1280
+#define SCREEN_W TFT_W
+#define SCREEN_H TFT_H
 #define TEXT_W 8
 #define TEXT_H 8
-#define TFT_WIDTH  640
-#define TFT_HEIGHT 640
+#define TFT_WIDTH  TFT_W
+#define TFT_HEIGHT TFT_H
 #else
 #error "Define RES_320x240 or RES_320x320 or RES_480x480 or SDL"
 #endif
@@ -68,8 +68,8 @@
 #define BUFFER_H (TILE_H)
 #define BUFFER_W (480)
 #elif defined(SDL)
-#define BUFFER_H (320)
-#define BUFFER_W (320)
+#define BUFFER_H (TFT_W)
+#define BUFFER_W (TFT_H)
 #else
 #error "Define RES_320x240 or RES_320x320 or RES_480x480 or SDL"
 #endif

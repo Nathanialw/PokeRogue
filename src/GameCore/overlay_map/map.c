@@ -124,13 +124,12 @@ void SetFog(uint16_t x, uint16_t y, bool fogged)
 /** Sets the fog value of the entire map to the given fog value
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-void SetMapFog(uint8_t set)
+void SetMapFog(const uint8_t set)
 {
     for (uint16_t y = 0; y < MAP_H; y++)
         for (uint16_t x = 0; x < MAP_W; x++)
         {
-            // SetFog(x, y, set);
-            // g_core.fog[MAP_H][MAP_W] = set;
+            g_core.fog[y][x] = set;
         }
 }
 

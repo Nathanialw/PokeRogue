@@ -89,6 +89,12 @@ void ProcessInput(Renderer& renderer, Text& text, ImageData& images, UI& ui)
             case SDL_EVENT_MOUSE_BUTTON_DOWN:
                 {
                     SDL_FPoint mouse = GetMousePoint();
+                    break;
+                }
+
+            case SDL_EVENT_MOUSE_BUTTON_UP:
+                {
+                    SDL_FPoint mouse = GetMousePoint();
                     auto area = ui.CheckMouseInUIArea(mouse);
                     if (!area.has_value()) return;
 
@@ -130,12 +136,6 @@ void ProcessInput(Renderer& renderer, Text& text, ImageData& images, UI& ui)
                     else if (area.value() == UIArea::SCROLL_BAR_MAIN)
                     {
                     }
-                    break;
-                }
-
-            case SDL_EVENT_MOUSE_BUTTON_UP:
-                {
-                    SDL_FPoint mouse = GetMousePoint();
                     break;
                 }
 

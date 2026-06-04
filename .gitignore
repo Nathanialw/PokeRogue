@@ -7,7 +7,7 @@ assets_raw/
 
 build*
 
-
+cmake*
 
 vendor/
 gameplay/

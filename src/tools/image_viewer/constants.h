@@ -7,10 +7,11 @@
 
 #define SCREEN_W 640
 #define SCREEN_H 640
-#define IMAGE_SIZE_COUNT 6
-#define DISPLAYED_IMAGE_COUNT 10
+#define IMAGE_SIZE_COUNT 7
+#define DISPLAYED_IMAGE_COUNT 5
 #define DISPLAYED_ENTITY_COUNT 80
 
+#define MAX_IMAGE_SIZE 256
 #define BTN_W 128
 #define BTN_H 40
 #define ICON_W 64

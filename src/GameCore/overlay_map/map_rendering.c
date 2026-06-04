@@ -3,6 +3,8 @@
 //
 #include "map_rendering.h"
 
+#include <stdlib.h>
+
 #include "lib_types.h"
 #include "lib_decl.h"
 #include "lib_memory.h"
@@ -16,6 +18,9 @@
 #include "map_camera.h"
 #include "map_graphics.h"
 #include "map_ram.h"
+
+
+void ReDrawTiles(GraphicsInterface graphics, MemoryInterface memory, Camera cam);
 
 
 SET_MEMORY(".map")
@@ -41,28 +46,126 @@ bool CheckFogCleared(uint8_t x, uint8_t y)
 }
 
 
+/*  filter the objects that are light emitting in the view area
+ *  take in each object and calculate the tiles they illuminate
+ */
 SET_MEMORY(".map")
-void UpdateVision(GraphicsInterface graphics, HardwareInterface hardware)
+bool LineOfSightClear(int x0, int y0, int x1, int y1)
 {
-    uint8_t vision_radius = g_core.player.vision_radius;
-    Camera c = GetCamera();
+    int dx = abs(x1 - x0), sx = x0 < x1 ? 1 : -1;
+    int dy = -abs(y1 - y0), sy = y0 < y1 ? 1 : -1;
+    int err = dx + dy, e2;
 
-    for (uint8_t i = 0; i < VIEW_TH; i++)
+    while (1)
     {
-        for (uint8_t j = 0; j < VIEW_TW; j++)
+        // Stop *before* the destination tile (the check is done on the caller side)
+        if (x0 == x1 && y0 == y1) break;
+
+        e2 = 2 * err;
+        if (e2 >= dy) { err += dy; x0 += sx; }
+        if (e2 <= dx) { err += dx; y0 += sy; }
+
+        uint8_t tile = GetMapTile(x0, y0);
+        if (tile == WALL_STONE)
+            return false;
+    }
+    return true;
+}
+
+// Traces a ray from (x0,y0) towards (x1,y1), marking all passed tiles as visible
+// Stops when a wall is encountered (the wall tile itself is also marked)
+SET_MEMORY(".map")
+void MarkVisibilityRay(uint8_t x0, uint8_t y0, uint8_t x1, uint8_t y1,
+                       Camera c)
+{
+    int dx = abs((int)x1 - (int)x0), sx = x0 < x1 ? 1 : -1;
+    int dy = -abs((int)y1 - (int)y0), sy = y0 < y1 ? 1 : -1;
+    int err = dx + dy, e2;
+
+    uint8_t cx = x0, cy = y0;   // current tile being walked
+
+    while (1)
+    {
+        // Mark the current tile as visible (screen coordinates)
+        int16_t sx_screen = (int16_t)cx - (int16_t)c.x;
+        int16_t sy_screen = (int16_t)cy - (int16_t)c.y;
+        if (sx_screen >= 0 && sx_screen < VIEW_TW &&
+            sy_screen >= 0 && sy_screen < VIEW_TH)
         {
-            if (j > CAM_OFFSET_X - vision_radius && i > CAM_OFFSET_Y - vision_radius && i < CAM_OFFSET_Y + vision_radius && j < CAM_OFFSET_X + vision_radius)
+            g_map.view.vision[sy_screen][sx_screen] = 1;
+        }
+        // Permanently reveal it
+        g_core.fog[cy][cx] = 1;
+
+        // Stop if we've reached the target tile
+        if (cx == x1 && cy == y1)
+            break;
+
+        // Walk one step
+        e2 = 2 * err;
+        if (e2 >= dy) { err += dy; cx += sx; }
+        if (e2 <= dx) { err += dx; cy += sy; }
+
+        // Check the *new* tile for a wall
+        uint8_t tile = GetMapTile(cx, cy);
+        if (tile == WALL_STONE)
+        {
+            // Mark this wall tile as visible, then stop
+            sx_screen = (int16_t)cx - (int16_t)c.x;
+            sy_screen = (int16_t)cy - (int16_t)c.y;
+            if (sx_screen >= 0 && sx_screen < VIEW_TW &&
+                sy_screen >= 0 && sy_screen < VIEW_TH)
             {
-                g_map.view.vision[i][j] = 1;
-                g_core.fog[c.y + i][c.x + j] = 1;
+                g_map.view.vision[sy_screen][sx_screen] = 1;
             }
-            else
-            {
-                graphics.FillRect(j * MAP_TILE_W, i * MAP_TILE_H, MAP_TILE_W, MAP_TILE_H, (Color){.color = 0x0000});
-            }
+            g_core.fog[cy][cx] = 1;
+            break;   // vision ends here
         }
     }
 }
+
+SET_MEMORY(".map")
+void UpdateVision(GraphicsInterface graphics)
+{
+    (void)graphics;
+
+    const uint8_t vision_radius = g_core.player.vision_radius;
+    const uint32_t R4 = (uint32_t)vision_radius * vision_radius * vision_radius * vision_radius;
+    Camera c = GetCamera();
+
+    // Clear the viewport vision array (y, x order)
+    for (uint8_t y = 0; y < VIEW_TH; y++)
+        for (uint8_t x = 0; x < VIEW_TW; x++)
+            g_map.view.vision[y][x] = 0;
+
+    uint8_t player_x = c.x + CAM_OFFSET_X;
+    uint8_t player_y = c.y + CAM_OFFSET_Y;
+
+    // Player's own tile
+    g_map.view.vision[CAM_OFFSET_Y][CAM_OFFSET_X] = 1;
+    g_core.fog[player_y][player_x] = 1;
+
+    // Try to see every tile inside the rounded square
+    for (int8_t dy = -vision_radius; dy <= vision_radius; dy++)
+    {
+        int32_t dy4 = (int32_t)dy * dy * dy * dy;
+        for (int8_t dx = -vision_radius; dx <= vision_radius; dx++)
+        {
+            int32_t dx4 = (int32_t)dx * dx * dx * dx;
+            if (dx4 + dy4 > R4) continue;
+
+            int16_t mx = (int16_t)player_x + dx;
+            int16_t my = (int16_t)player_y + dy;
+
+            if (mx < 0 || my < 0 || mx >= MAP_W || my >= MAP_H)
+                continue;
+
+            // This call will mark every tile along the ray, including any wall that blocks it
+            MarkVisibilityRay(player_x, player_y, (uint8_t)mx, (uint8_t)my, c);
+        }
+    }
+}
+
 
 /**********************************************************************************************************************/
 /**  sorts units into the order they are drawn into the partial frame buffer for the minimap
@@ -158,19 +261,19 @@ void DrawMiniMap(GraphicsInterface graphics, HardwareInterface hardware, MemoryI
     OrderUnitsByBufferLine(graphics, g_map.units, g_map.meta);
     Camera c = GetCamera();
 
-    uint16_t cursor = 0;
+    uint32_t cursor = 0;
     Color transparency = Flash_GetColor(memory, PAL_KEY);
-    for (uint16_t y = 0; y < MAP_H; y += BUFFER_H)
+    for (uint32_t y = 0; y < MAP_H; y += BUFFER_H)
     {
         graphics.SetFrameBuffer(Flash_GetColor(memory, PAL_OFF_WHITE_GRAY));
 
         cursor = (TFT_W - MAP_W) >> 1; //reset position
-        for (uint16_t row = 0; row < BUFFER_H; row++)
+        for (uint32_t row = 0; row < BUFFER_H; row++)
         {
             uint16_t cy = y + row;
             if (cy >= MAP_H) break;
             Color color;
-            for (uint16_t x = 0; x < MAP_W; x++)
+            for (uint32_t x = 0; x < MAP_W; x++)
             {
                 if (!CheckFogCleared(x, cy))
                     color.color = 0x0000;
@@ -195,7 +298,7 @@ void DrawMiniMap(GraphicsInterface graphics, HardwareInterface hardware, MemoryI
         DrawMinimapEntities(graphics, memory, g_core.objects.position, y, PAL_DARK_BROWN);
         DrawMinimapEntities(graphics, memory, g_core.trainers.position, y, PAL_DARK_BLUE_GRAY);
 
-        graphics.Draw(0, y, TFT_W, BUFFER_H, graphics.GetFrameBuffer1byte());
+        graphics.Draw16(0, y, TFT_W, BUFFER_H, graphics.GetFrameBuffer2bytes());
     }
     graphics.EndFrame();
 }
@@ -207,29 +310,9 @@ SET_MEMORY(".map")
 void FullRedraw(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory)
 {
     Camera cam = GetCamera();
-    UpdateVision(graphics, hardware);
+    UpdateVision(graphics);
 
-    for (uint16_t sy = 0; sy < VIEW_TH; sy++)
-    {
-        uint16_t my = cam.y + sy;
-        for (uint16_t sx = 0; sx < VIEW_TW; sx++)
-        {
-            uint16_t mx = cam.x + sx;
-            uint16_t id = GetMapTile(mx, my);
-            if (CheckVision(sx, sy))
-            {
-                //Draw normal
-                DrawTile(graphics, memory, sx, sy, id, 15);
-                g_map.view.viewTiles[sy][sx] = id;
-            }
-            else if (CheckFogCleared(cam.x + sx, cam.y + sy))
-            {
-                //draw darkened
-                DrawTile(graphics, memory, sx, sy, id, -50);
-                g_map.view.viewTiles[sy][sx] = id;
-            }
-        }
-    }
+    ReDrawTiles(graphics, memory, cam);
 
     for (uint16_t i = 0; i < g_core.items.total; i++)
     {
@@ -302,11 +385,11 @@ void FullRedraw(GraphicsInterface graphics, HardwareInterface hardware, MemoryIn
  * Clears the newSprites array to NO_CREATURE
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-void ResetRenders(ViewEntities* view, uint8_t count)
+void ResetRenders(ViewEntities* view, uint8_t no_entity)
 {
     for (uint16_t sy = 0; sy < VIEW_TH; sy++)
         for (uint16_t sx = 0; sx < VIEW_TW; sx++)
-            view->newSprites[sy][sx] = count;
+            view->newSprites[sy][sx] = no_entity;
 }
 
 /**********************************************************************************************************************/
@@ -392,8 +475,8 @@ void ReDrawTiles(GraphicsInterface graphics, MemoryInterface memory, Camera cam)
 
             if (CheckVision(sx, sy))
             {
-                if (!GetBit(g_map.view.dirtyTiles, (sy * VIEW_TH) + sx) || !g_map.view.vision[sy][sx])
-                    continue;
+                // if (!GetBit(g_map.view.dirtyTiles, (sy * VIEW_TH) + sx))
+                // continue;
                 //Draw normal
                 DrawTile(graphics, memory, sx, sy, id, 15);
                 g_map.view.viewTiles[sy][sx] = id;
@@ -403,6 +486,10 @@ void ReDrawTiles(GraphicsInterface graphics, MemoryInterface memory, Camera cam)
                 //draw darkened
                 DrawTile(graphics, memory, sx, sy, id, -50);
                 g_map.view.viewTiles[sy][sx] = id;
+            }
+            else
+            {
+                graphics.FillRect(sx * MAP_TILE_W, sy * MAP_TILE_H, MAP_TILE_W, MAP_TILE_H, Flash_GetColor(memory, PAL_BLACK));
             }
         }
     }
@@ -419,15 +506,15 @@ void ReDrawSprites(GraphicsInterface graphics, MemoryInterface memory)
     {
         for (uint16_t sx = 0; sx < VIEW_TW; sx++)
         {
-            if (!GetBit(g_map.view.dirtyTiles, (sy * VIEW_TH) + sx))
-                continue;
+            // if (!GetBit(g_map.view.dirtyTiles, (sy * VIEW_TH) + sx))
+            // continue;
 
             if (g_map.view.viewItems.viewEntities[sy][sx] != NO_ITEM)
             {
                 uint8_t item_type = g_map.view.viewItems.viewEntities[sy][sx];
                 DrawSpriteCached(graphics, memory, sx, sy, item_type, ITEM);
             }
-
+\
             if (g_map.view.viewObjects.viewEntities[sy][sx] != NO_OBJECT)
             {
                 uint8_t object_type = g_map.view.viewObjects.viewEntities[sy][sx];
@@ -457,7 +544,6 @@ void ReDrawSprites(GraphicsInterface graphics, MemoryInterface memory)
 SET_MEMORY(".map")
 void RenderObjects(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory)
 {
-    UpdateVision(graphics, hardware);
     // if (g_core.btns.gameSpeed < 5)
     // AnimationMovement(graphics, hardware, memory);
 
@@ -492,6 +578,7 @@ void RenderObjects(GraphicsInterface graphics, HardwareInterface hardware, Memor
             SetBit(g_map.view.dirtyTiles, i, true);
     }
 
+    UpdateVision(graphics);
     ReDrawTiles(graphics, memory, cam);
     ReDrawSprites(graphics, memory);
 }

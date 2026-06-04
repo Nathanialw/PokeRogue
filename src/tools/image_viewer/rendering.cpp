@@ -30,12 +30,14 @@ bool Renderer::Init(const char* title, int width, int height)
         return false;
     }
 
-    rects[0] = {128.0f, 40.0f, 128.0f, 128.0f};
-    rects[1] = {128.0f, 40.0f, 64.0f, 64.0f};
-    rects[2] = {128.0f, 40.0f, 32.0f, 32.0f};
-    rects[3] = {128.0f, 40.0f, 24.0f, 24.0f};
-    rects[4] = {128.0f, 40.0f, 20.0f, 20.0f};
-    rects[5] = {128.0f, 40.0f, 16.0f, 16.0f};
+
+    rects[0] = {128.0f, 40.0f, 256.0f, 256.0f};
+    rects[1] = {128.0f, 40.0f, 128.0f, 128.0f};
+    rects[2] = {128.0f, 40.0f, 64.0f, 64.0f};
+    rects[3] = {128.0f, 40.0f, 32.0f, 32.0f};
+    rects[4] = {128.0f, 40.0f, 24.0f, 24.0f};
+    rects[5] = {128.0f, 40.0f, 20.0f, 20.0f};
+    rects[6] = {128.0f, 40.0f, 16.0f, 16.0f};
 
     std::string acc = src_dir + "assets/accept.png";
     std::string del = src_dir + "assets/delete.png";

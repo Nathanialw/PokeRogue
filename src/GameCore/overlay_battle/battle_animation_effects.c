@@ -39,20 +39,19 @@ Rect_16 GetBattlerRect(bool onAttacker)
     return r;
 }
 
-SET_MEMORY(".battle")
-const uint8_t* GetBattlerSprite(MemoryInterface memory, bool onAttacker)
-{
-    if (onAttacker)
-        return Flash_GetBattlerArray(memory, false);
-    return Flash_GetBattlerArray(memory, true);
-}
 
 SET_MEMORY(".battle")
 SpriteLayout GetBattlerLayout(MemoryInterface memory, bool onAttacker)
 {
+    SpriteLayout spriteLayout = {};
     if (onAttacker)
-        return Flash_GetBattlerLayout(memory, GetCreatureType(g_core.battleMode.enemyMonsterID), false);
-    return Flash_GetBattlerLayout(memory, GetCreatureType(g_core.battleMode.enemyMonsterID), true);
+        Flash_GetSpriteLayout(memory, &spriteLayout, GetCreatureType(g_core.battleMode.enemyMonsterID), CREATURE, false);
+    else
+        Flash_GetSpriteLayout(memory, &spriteLayout, GetCreatureType(g_core.battleMode.enemyMonsterID), CREATURE, true);
+    return spriteLayout;
+
+    // return Flash_GetBattlerLayout(memory, GetCreatureType(g_core.battleMode.enemyMonsterID), false);
+    // return Flash_GetBattlerLayout(memory, GetCreatureType(g_core.battleMode.enemyMonsterID), true);
 }
 
 SET_MEMORY(".battle")

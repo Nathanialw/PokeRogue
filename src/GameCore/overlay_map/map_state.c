@@ -266,7 +266,7 @@ void HandleGameState(GameInterface* spi)
         HandleMenu(spi->graphics, spi->hardware, spi->memory);
         HandleGameMenu(spi->graphics, spi->hardware, spi->memory);
         DrawCursor(spi->graphics, spi->memory);
-        if (g_core.menu.displayedMenu != MINIMAP) spi->graphics.EndFrame();
+        spi->graphics.EndFrame();
     }
 
     if (g_core.state.inputState == INPUT_IDLE)
@@ -289,10 +289,9 @@ uint8_t GameLoopMain(GameInterface* spi)
         PopulateLevelObjects(spi->hardware, spi->memory);
         PopulateLevelItems(spi->hardware, spi->memory);
         PlacePlayerOnMap(spi->hardware);
-        SetMapFog(0xFF);
+        SetMapFog(0);
         InitCamera(0, 0, TILE_W * VIEW_TW, TILE_H * VIEW_TH);
         SetCameraPlayer();
-        UpdateVision(spi->graphics, spi->hardware);
     }
 
     FullRedraw(spi->graphics, spi->hardware, spi->memory);
