@@ -119,6 +119,20 @@ std::optional<UIArea> UI::CheckMouseInUIArea(const SDL_FPoint& mouse)
     return std::nullopt;
 }
 
+
+std::optional<uint16_t> UI::UpdateImage(const SDL_FPoint& mouse)
+{
+    for (uint8_t i = 0; i < DISPLAYED_IMAGE_COUNT; i++)
+    {
+        if (SDL_PointInRectFloat(&mouse, &accept_rects[i]))
+        {
+            return offset_image + i;
+        }
+    }
+    return std::nullopt;
+}
+
+
 std::optional<uint16_t> UI::DeleteImage(const SDL_FPoint& mouse)
 {
     for (uint8_t i = 0; i < DISPLAYED_IMAGE_COUNT; i++)

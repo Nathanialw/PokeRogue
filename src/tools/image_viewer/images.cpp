@@ -81,3 +81,11 @@ bool ImageData::UpdateEntity(uint16_t n)
     entity_id = n;
     return true;
 }
+
+bool ImageData::UpdateImage(uint16_t n)
+{
+    auto& image_path = images[n];
+    UpdateImagePath(image_path, entity_list[entity_id], entity_type);
+    printf("Updated image path: %s\n", image_path.c_str());
+    return true;
+}

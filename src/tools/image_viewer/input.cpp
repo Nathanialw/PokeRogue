@@ -125,10 +125,20 @@ void ProcessInput(Renderer& renderer, Text& text, ImageData& images, UI& ui)
                     }
                     else if (area.value() == UIArea::MAIN)
                     {
-                        auto n = ui.DeleteImage(mouse);
-                        if (!n.has_value()) break;
-                        renderer.DeleteTexture(images, n.value());
-                        return;
+                        auto a = ui.UpdateImage(mouse);
+                        if (a.has_value())
+                        {
+                            images.UpdateImage(a.value());
+                            return;
+                        }
+
+                        auto d = ui.DeleteImage(mouse);
+                        if (d.has_value())
+                        {
+                            renderer.DeleteTexture(images, d.value());
+                            return;
+                        }
+                        break;
                     }
                     else if (area.value() == UIArea::SCROLL_BAR_LEFT)
                     {

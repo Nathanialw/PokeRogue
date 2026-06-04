@@ -35,6 +35,7 @@ public:
     std::optional<uint16_t> UpdateHoverEntity(const SDL_FPoint& mouse);
     std::optional<UIArea> CheckMouseInUIArea(const SDL_FPoint& mouse);
     std::optional<uint16_t> DeleteImage(const SDL_FPoint& mouse);
+    std::optional<uint16_t> UpdateImage(const SDL_FPoint& mouse);
 
     uint16_t hover_rect;
     uint16_t hover_list_item;

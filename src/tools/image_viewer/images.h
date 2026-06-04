@@ -36,4 +36,5 @@ public:
     void DeleteImage(uint16_t n);
     bool UpdateType(EntityTypes type);
     bool UpdateEntity(uint16_t n);
+    bool UpdateImage(uint16_t n);
 };

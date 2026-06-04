@@ -25,8 +25,6 @@ def process_folder(input_folder: object, base_output_folder, remover, thresholds
     else:
         output_subfolder = os.path.join(base_output_folder, rel_path)
 
-    os.makedirs(output_subfolder, exist_ok=True)
-
     # Get all images in this folder
     image_extensions = {'.jpg', '.jpeg', '.png', '.bmp', '.tiff', '.webp'}
     image_files = []
@@ -40,6 +38,8 @@ def process_folder(input_folder: object, base_output_folder, remover, thresholds
 
     if not image_files:
         return 0  # No images in this folder
+
+    os.makedirs(output_subfolder, exist_ok=True)
 
     print(f"\nProcessing folder: {input_folder}")
     print(f"  Output folder: {output_subfolder}")

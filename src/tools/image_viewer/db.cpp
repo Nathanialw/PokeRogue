@@ -58,3 +58,68 @@ int GetImageFolders(std::vector<std::string>& image_folders, uint16_t& entity_co
     sqlite3_close(db);
     return 0;
 }
+
+int UpdateImagePath(const std::string& image_path, const std::string& entity_name, const EntityTypes& entity_type) {
+    // 1. Open the database
+    sqlite3* db = nullptr;
+    // Use SQLITE_OPEN_READWRITE to ensure we can modify the DB.
+    // sqlite3_open defaults to READWRITE|CREATE, which is usually fine if the file exists.
+    int rc = sqlite3_open(db_path.c_str(), &db);
+    if (rc != SQLITE_OK) {
+        std::cerr << "Cannot open database: " << sqlite3_errmsg(db) << '\n';
+        sqlite3_close(db);
+        return rc;
+    }
+
+    // 2. Construct the SQL query with placeholders (?)
+    // Correct Syntax: UPDATE table SET column = ? WHERE column = ?
+    std::string table = image_tables[entity_type];
+    std::string sql = "UPDATE " + table + " SET image = ? WHERE name = ?";
+
+    sqlite3_stmt* stmt = nullptr;
+    rc = sqlite3_prepare_v2(db, sql.c_str(), -1, &stmt, nullptr);
+    if (rc != SQLITE_OK) {
+        std::cerr << "Prepare failed: " << sqlite3_errmsg(db) << '\n';
+        sqlite3_close(db);
+        return rc;
+    }
+
+    // 3. Bind the parameters
+    // Bind index 1: The image path (TEXT)
+    rc = sqlite3_bind_text(stmt, 1, image_path.c_str(), -1, SQLITE_STATIC);
+    if (rc != SQLITE_OK) {
+        std::cerr << "Bind path failed: " << sqlite3_errmsg(db) << '\n';
+        sqlite3_finalize(stmt);
+        sqlite3_close(db);
+        return rc;
+    }
+
+    // Bind index 2: The entity name (TEXT)
+    rc = sqlite3_bind_text(stmt, 2, entity_name.c_str(), -1, SQLITE_STATIC);
+    if (rc != SQLITE_OK) {
+        std::cerr << "Bind name failed: " << sqlite3_errmsg(db) << '\n';
+        sqlite3_finalize(stmt);
+        sqlite3_close(db);
+        return rc;
+    }
+
+    // 4. Execute the statement
+    rc = sqlite3_step(stmt);
+    if (rc != SQLITE_DONE) {
+        // SQLITE_ROW means it returned data (unlikely for UPDATE), SQLITE_DONE means success
+        std::cerr << "Execution failed: " << sqlite3_errmsg(db) << '\n';
+        sqlite3_finalize(stmt);
+        sqlite3_close(db);
+        return rc;
+    }
+
+    // Optional: Check if any rows were actually updated
+    if (sqlite3_changes(db) == 0) {
+        std::cerr << "Warning: No rows updated. Entity name might not exist.\n";
+    }
+
+    // 5. Cleanup
+    sqlite3_finalize(stmt);
+    sqlite3_close(db);
+    return SQLITE_OK;
+}

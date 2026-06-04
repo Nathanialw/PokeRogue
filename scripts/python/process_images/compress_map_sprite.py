@@ -80,7 +80,12 @@ def compress_sprite_single(input_path, size, output_path):
     # --- after quantize, count colour usage and reorder ---
     quant_pixels = np.array(quantized, dtype=np.uint8)
     raw_pal = quantized.getpalette()  # 768 bytes
-    num_colors = max(quantized.getcolors())[0] + 1  # actual number of colours used
+    colors = quantized.getcolors()
+
+    if colors is None:
+        raise RuntimeError("Too many colors returned by getcolors()")
+
+    num_colors = len(colors)
 
     # Frequency of each original index
     freq = [0] * 256
