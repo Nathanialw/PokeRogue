@@ -134,6 +134,8 @@ _Static_assert(DIALOGUE_H + RESOURCE_FRAME_H + BATTLER_AREA_H <= TFT_H, "cannot 
 /**MAP constants
 **********************************************************************************************************************/
 
+#define MAX_ROOMS 128
+
 // #define MAP_TILES_16
 // #define MAP_TILES_20
 // #define MAP_TILES_24
@@ -167,9 +169,9 @@ _Static_assert(DIALOGUE_H + RESOURCE_FRAME_H + BATTLER_AREA_H <= TFT_H, "cannot 
 #endif
 
 #define TILE_PIXELS (MAP_TILE_W * MAP_TILE_H)
-#define MAP_W 160
-#define MAP_H 160
-#define MAP_TILE_BITS 4
+#define MAP_W 64
+#define MAP_H 64
+#define MAP_TILE_BITS 8
 #define MAP_SIZE_CELLS MAP_W * MAP_H
 #define MAP_SIZE_BITS (MAP_SIZE_CELLS * MAP_TILE_BITS)
 #define MAP_SIZE_BYTES (MAP_SIZE_BITS / 8)

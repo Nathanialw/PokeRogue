@@ -58,10 +58,14 @@ def main():
         ".strings_types",
 
         # sprites
-        ".sprite_battler_layout_back",
-        ".sprite_battler_layout_front",
-        ".sprite_battler_back",
-        ".sprite_battler_front",
+        ".sprite_battler_layout_back_16",
+        ".sprite_battler_layout_front_16",
+        ".sprite_battler_back_16",
+        ".sprite_battler_front_16",
+        ".sprite_battler_layout_back_64",
+        ".sprite_battler_layout_front_64",
+        ".sprite_battler_back_64",
+        ".sprite_battler_front_64",
         ".sprite_items_layout",
         ".sprite_creatures_layout",
         ".sprite_spells_layout",

@@ -42,7 +42,7 @@ typedef uint16_t BitFieldUint16[16];
 typedef uint32_t BitFieldUint32[8];
 
 /**********************************************************************************************************************
-*   entity view for rendfering
+*   entity view for rendering
 **********************************************************************************************************************/
 typedef struct
 {
@@ -557,3 +557,9 @@ typedef union
 
 
 _Static_assert(sizeof(SpriteFrames) == 40, "Sprite must be 4 bytes");
+
+
+typedef struct
+{
+    uint16_t x, y, w, h;
+} Room;

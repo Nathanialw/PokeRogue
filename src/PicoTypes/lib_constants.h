@@ -10,8 +10,6 @@
 // #define RES_480x480
 
 
-#define TILE_W 16
-#define TILE_H 16
 
 #if defined(RES_320x240)
 #define TFT_W 320
@@ -73,6 +71,10 @@
 #else
 #error "Define RES_320x240 or RES_320x320 or RES_480x480 or SDL"
 #endif
+
+#define TILE_W (16 * (SCREEN_W / 320))
+#define TILE_H (16 * (SCREEN_H / 320))
+
 
 #define BUFFER_SIZE_FRONT (BUFFER_W * BUFFER_H)
 #define BUFFER_SIZE_BACK (BUFFER_W * BUFFER_H)

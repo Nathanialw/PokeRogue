@@ -38,19 +38,17 @@ EntityId PlayerCaptureMonster(EntityId e_id)
 *   ON FAIL - TODO - add a fail state (item cannot be picked up)
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-EntityId PlayerPickItem(EntityId e_id)
+EntityId PlayerPickItem(EntityId trainer_id, EntityId item_id)
 {
-    EntityId p_ID = GetPlayerID();
-
-    if (e_id == NO_ENTITY) return e_id;
+    if (item_id == NO_ENTITY) return item_id;
     for (uint8_t i = 0; i < MAX_BAG_SIZE; ++i)
-        if (g_core.trainers.itemID[p_ID][i] == NO_ENTITY)
+        if (g_core.trainers.itemID[trainer_id][i] == NO_ENTITY)
         {
-            g_core.trainers.itemID[p_ID][i] = PickItem(e_id);
-            return e_id;
+            g_core.trainers.itemID[trainer_id][i] = PickItem(item_id);
+            return item_id;
         }
 
-    return e_id;
+    return item_id;
 }
 
 

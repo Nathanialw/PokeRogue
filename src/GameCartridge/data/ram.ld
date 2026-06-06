@@ -65,10 +65,15 @@ SECTIONS
     /* ========================================== */
     /*     GRAPHICS                               */
     /* ========================================== */
-    .sprite_battler_layout_back      0x1860000 : { KEEP(*(.sprite_battler_layout_back))  . = ALIGN(4); }
-    .sprite_battler_layout_front     0x1870000 : { KEEP(*(.sprite_battler_layout_front))  . = ALIGN(4); }
-    .sprite_battler_back             0x1880000 : { KEEP(*(.sprite_battler_back))  . = ALIGN(4); }
-    .sprite_battler_front            0x19500000 : { KEEP(*(.sprite_battler_front))  . = ALIGN(4); }
+    .sprite_battler_layout_back_16   0x1860000 : { KEEP(*(.sprite_battler_layout_back_16))  . = ALIGN(4); }
+    .sprite_battler_layout_front_16  0x1870000 : { KEEP(*(.sprite_battler_layout_front_16))  . = ALIGN(4); }
+    .sprite_battler_back_16          0x1880000 : { KEEP(*(.sprite_battler_back_16))  . = ALIGN(4); }
+    .sprite_battler_front_16         0x2950000 : { KEEP(*(.sprite_battler_front_16))  . = ALIGN(4); }
+    .sprite_battler_layout_back_64   0x3860000 : { KEEP(*(.sprite_battler_layout_back_64))  . = ALIGN(4); }
+    .sprite_battler_layout_front_64  0x4870000 : { KEEP(*(.sprite_battler_layout_front_64))  . = ALIGN(4); }
+    .sprite_battler_back_64          0x5880000 : { KEEP(*(.sprite_battler_back_64))  . = ALIGN(4); }
+    .sprite_battler_front_64         0x8950000 : { KEEP(*(.sprite_battler_front_64))  . = ALIGN(4); }
+
     .sprite_items_layout             0x40400000 : { KEEP(*(.sprite_items_layout))  . = ALIGN(4); }
     .sprite_creatures_layout         0x40500000 : { KEEP(*(.sprite_creatures_layout))  . = ALIGN(4); }
     .sprite_spells_layout            0x40600000 : { KEEP(*(.sprite_spells_layout))  . = ALIGN(4); }

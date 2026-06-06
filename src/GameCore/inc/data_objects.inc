@@ -1,5 +1,5 @@
 // Generated object data structs
-// Database contains 56 total objects
+// Database contains 47 total objects
 
 // Individual objects data
 { .power = 100, .type = 0, .consumable = 0 },
@@ -37,15 +37,6 @@
 { .power = 5, .type = 0, .consumable = 1 },
 { .power = 5, .type = 0, .consumable = 1 },
 { .power = 5, .type = 0, .consumable = 1 },
-{ .power = 5, .type = 0, .consumable = 0 },
-{ .power = 5, .type = 0, .consumable = 0 },
-{ .power = 5, .type = 0, .consumable = 0 },
-{ .power = 5, .type = 0, .consumable = 0 },
-{ .power = 5, .type = 0, .consumable = 0 },
-{ .power = 5, .type = 0, .consumable = 0 },
-{ .power = 5, .type = 0, .consumable = 0 },
-{ .power = 5, .type = 0, .consumable = 0 },
-{ .power = 5, .type = 0, .consumable = 0 },
 { .power = 5, .type = 0, .consumable = 1 },
 { .power = 5, .type = 0, .consumable = 1 },
 { .power = 100, .type = 0, .consumable = 1 },

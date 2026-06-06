@@ -52,7 +52,6 @@ typedef struct
 
     EntityData entityData;
     uint8_t spriteCache[256];
-    StatsRange statsCache;
 
 
     Glyph glyph;

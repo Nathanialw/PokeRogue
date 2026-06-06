@@ -1,5 +1,5 @@
 // Generated object data structs
-// Database contains 56 total used objects
+// Database contains 47 total used objects
 
 // Individual objects data
 ALTAR,
@@ -37,15 +37,6 @@ FOUNTAIN_ACID,
 FOUNTAIN_BLOOD,
 FOUNTAIN_WATER,
 HIDDEN_COMPARTMENT,
-PIT_ACID,
-PIT_LAVA,
-PIT_NARROW,
-PIT_SHALLOW,
-PIT_SNAKES,
-PIT_SPIKED,
-PIT_STANDARD,
-PIT_WATER,
-PIT_WIDE,
 RACK_ARMOR,
 RACK_WEAPON,
 TREASURE_BARREL,
@@ -59,4 +50,4 @@ TREASURE_VAULT,
 WARD,
 WELL,
 
-//ALL_NAMES_COUNT = 56;
+//ALL_NAMES_COUNT = 47;

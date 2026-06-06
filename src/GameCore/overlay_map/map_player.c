@@ -3,122 +3,20 @@
 //
 
 #include "map_player.h"
-
-#include "core_player.h"
 #include "lib_memory.h"
 
+#include "core_map.h"
+#include "core_player.h"
 #include "core_ram.h"
 
-#include "map.h"
 #include "map_actions.h"
 #include "map_entities.h"
-#include "map_utils.h"
 
 
 /*******************************************************************************************************************
 *
 **********************************************************************************************************************/
-
 EntityId PlayerCaptureMonster(EntityId id);
-EntityId PlayerPickItem(EntityId id);
-
-
-/*******************************************************************************************************************
-** Initializes player data
- *  Creates default creatures for party
- *  Creates default items for party
- *  Places default spells in spellbook
- *  Sets player to a random empty cell on the map
- *  sets sight rango around player
-**********************************************************************************************************************/
-SET_MEMORY(".map")
-void InitPlayer(HardwareInterface hardware, MemoryInterface memory)
-{
-    g_core.player.currentBagSize = DEFAULT_BAG_SIZE;
-    g_core.player.currentSpellbookSize = DEFAULT_SPELLBOOK_SIZE;
-    EntityId p_ID = GetPlayerID();
-
-    for (uint8_t i = 0; i < MAX_PARTY_SIZE; i++)
-        g_core.trainers.partyID[p_ID][i] = NO_ENTITY;
-
-    for (uint8_t i = 0; i < MAX_BAG_SIZE; i++)
-        g_core.trainers.itemID[p_ID][i] = NO_ENTITY;
-
-    for (uint8_t i = 0; i < MAX_SPELLBOOK_SIZE; i++)
-        g_core.trainers.spellID[p_ID][i] = NO_ENTITY;
-
-    g_core.trainers.spellID[p_ID][0] = HEAL;
-    g_core.trainers.spellID[p_ID][1] = DESCEND;
-    g_core.trainers.spellID[p_ID][2] = CREATE_COMMON_ITEM;
-
-    Position pos = FindOpenMapLocation(hardware, CREATURE);
-    uint8_t x = pos.x;
-    uint8_t y = pos.y;
-
-    g_core.player.id = SpawnEntity(hardware, memory, TRAINER, 0, x, y, 0);
-
-    g_core.trainers.speed[g_core.player.id].max = 99;
-    g_core.trainers.speed[g_core.player.id].current = 15;
-
-    EntityId e_id;
-    e_id = SpawnEntity(hardware, memory, CREATURE, LAMIA, x, y, 5);
-    PlayerCaptureMonster(e_id);
-
-    e_id = SpawnEntity(hardware, memory, ITEM, POTION_VISION, x, y, 0);
-    PlayerPickItem(e_id);
-}
-
-/*******************************************************************************************************************
-*
-**********************************************************************************************************************/
-SET_MEMORY(".map")
-EntityId CachePlayerCreatureData(HardwareInterface hardware)
-{
-    EntityId creature_idx = 0;
-    EntityId p_ID = GetPlayerID();
-
-    //set player to beginning of the array
-    if (GetPlayerID() != 0)
-    {
-    }
-    creature_idx++;
-
-    for (uint8_t i = 0; i < MAX_PARTY_SIZE; i++)
-    {
-        if (g_core.trainers.partyID[p_ID][i] != NO_ENTITY && g_core.trainers.partyID[p_ID][i] > creature_idx)
-        {
-            CopyCreature(hardware, g_core.trainers.partyID[p_ID][i], creature_idx);
-            g_core.trainers.partyID[p_ID][i] = creature_idx;
-            creature_idx++;
-        }
-    }
-
-    //set player creatures to beginning of the array
-    return creature_idx;
-}
-
-SET_MEMORY(".map")
-EntityId CachePlayerItemData()
-{
-    EntityId item_idx = 0;
-    EntityId sorted_indexes[MAX_BAG_SIZE];
-    EntityId p_ID = GetPlayerID();
-    SortEntityArray(sorted_indexes, g_core.trainers.itemID[p_ID], MAX_BAG_SIZE);
-
-    for (uint8_t i = 0; i < MAX_BAG_SIZE; i++)
-    {
-        if (sorted_indexes[i] != NO_ENTITY && sorted_indexes[i] != item_idx)
-        {
-            CopyItem(g_core.trainers.itemID[p_ID][i], item_idx);
-            g_core.trainers.itemID[p_ID][i] = item_idx;
-            item_idx++;
-        }
-    }
-
-    //set player items to beginning of the array
-    return item_idx;
-}
-
 
 /*******************************************************************************************************************
 ** Returns the player position as map cell index
@@ -159,16 +57,6 @@ Delta SetPlayerDelta(Delta newDelta)
 }
 
 
-/*******************************************************************************************************************
-*
-**********************************************************************************************************************/
-SET_MEMORY(".map")
-void PlacePlayerOnMap(HardwareInterface hardware)
-{
-    Position pos = FindOpenMapLocation(hardware, TRAINER);
-    g_core.trainers.position[g_core.player.id].x = pos.x;
-    g_core.trainers.position[g_core.player.id].y = pos.y;
-}
 
 /*******************************************************************************************************************
 *  interact with item in player's cell
@@ -179,7 +67,8 @@ void PlayerInteractItemInCell()
 {
     Position pos = GetPlayerPosition();
     EntityId item_id = CheckTileForEntity(ITEM, g_core.player.id, pos);
-    PlayerPickItem(item_id);
+    EntityId player_id = GetPlayerID();
+    PlayerPickItem(player_id, item_id);
 }
 
 SET_MEMORY(".map")

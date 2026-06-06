@@ -1,5 +1,5 @@
 // Generated object name strings
-// Database contains 56 total entries
+// Database contains 47 total entries
 
 // Individual items strings
 InteractAltar,
@@ -37,15 +37,6 @@ InteractAcidFountain,
 InteractBloodFountain,
 InteractWaterFountain,
 InteractHiddenCompartment,
-InteractAcidPit,
-InteractLavaPit,
-InteractNarowPit,
-InteractShallowPit,
-InteractSnakesPit,
-InteractSpikedPit,
-InteractPitStandard,
-InteractWaterPit,
-InteractWidePit,
 InteractArmorRack,
 InteractWeaponRack,
 InteractBarrel,

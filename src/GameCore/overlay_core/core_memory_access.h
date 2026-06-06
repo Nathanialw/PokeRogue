@@ -48,3 +48,7 @@ void Flash_GetTrainerName(MemoryInterface memory, char* text, uint8_t index);
 //FUNCTIONS
 bool Flash_GetSpellEffect(HardwareInterface hardware, MemoryInterface memory, uint8_t index, EntityId id, EntityId target_id, SpellData spellData);
 bool Flash_GetItemEffect(MemoryInterface memory, uint8_t index, EntityId item_id, EntityId id, ItemData itemData);
+
+Creature Flash_GetBiomeCreature(MemoryInterface memory, uint8_t biome, Creature index);
+Creature Flash_GetThemeCreature(MemoryInterface memory, uint8_t theme, Creature index);
+uint8_t Flash_GetStatGrowth(MemoryInterface memory, Creature type);

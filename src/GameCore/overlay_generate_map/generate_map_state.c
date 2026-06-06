@@ -10,9 +10,8 @@
 #include "core_ram.h"
 
 #include "generate_map.h"
-
-
-
+#include "generate_map_entities.h"
+#include "generate_map_river.h"
 
 
 SET_MEMORY(".map_gen")
@@ -45,6 +44,8 @@ void InitGame(HardwareInterface hardware, MemoryInterface memory)
 {
     GameRunInit();
     InitMap(hardware);
+    GenerateLake(hardware, 30, 30, 10, WATER);
+    SetMapBorder();
 }
 
 
@@ -52,8 +53,9 @@ SET_MEMORY(".map_gen_entry")
 uint8_t MapGenEntry(GameInterface* spi)
 {
     InitGame(spi->hardware, spi->memory);
+    GenerateEntities(spi);
+
 
     g_core.state.overlay = OVERLAY_MAP;
     return OVERLAY_MAP;;
 }
-

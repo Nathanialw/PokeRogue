@@ -53,9 +53,11 @@ def run():
     # creature type data
     export_creatures.export_types_to_c_array()
     # creature battlers front
-    bytes_count.append(export_battlers.export_image_data("creature", "front"))
-    # creature battlers back
-    bytes_count.append(export_battlers.export_image_data("creature", "back"))
+    bytes_count.append(export_battlers.export_image_data("creature", 16, 16, "front"))
+    bytes_count.append(export_battlers.export_image_data("creature", 16, 16, "back"))
+
+    bytes_count.append(export_battlers.export_image_data("creature", 64, 64, "front"))
+    bytes_count.append(export_battlers.export_image_data("creature", 64, 64, "back"))
 
     ################################################################################################################################################
     # ABILITIES
@@ -77,7 +79,8 @@ def run():
     export.desc_to_c_array("skill")
     # ability icons
     # TODO: export images
-    bytes_count.append(export_battlers.export_image_data("skill"))
+    bytes_count.append(export_battlers.export_image_data("skill", 16, 16))
+    bytes_count.append(export_battlers.export_image_data("skill", 64, 64))
 
     ################################################################################################################################################
     # SPELLS
@@ -99,7 +102,8 @@ def run():
     export.desc_to_c_array("spell")
     # spell icons
     # TODO: export images
-    bytes_count.append(export_battlers.export_image_data("spell"))
+    bytes_count.append(export_battlers.export_image_data("spell", 16, 16))
+    bytes_count.append(export_battlers.export_image_data("spell", 64, 64))
 
     ################################################################################################################################################
     # ITEMS
@@ -129,7 +133,8 @@ def run():
     export.desc_to_c_array("item")
     # item icons
     # TODO: export images
-    bytes_count.append(export_battlers.export_image_data("item"))
+    bytes_count.append(export_battlers.export_image_data("item", 16, 16))
+    bytes_count.append(export_battlers.export_image_data("item", 64, 64))
 
     ################################################################################################################################################
     # OBJECTS
@@ -152,7 +157,8 @@ def run():
     export.desc_to_c_array("object")
     # object icons
     # TODO: export images
-    bytes_count.append(export_battlers.export_image_data("object"))
+    bytes_count.append(export_battlers.export_image_data("object", 16, 16))
+    bytes_count.append(export_battlers.export_image_data("object", 64, 64))
 
     ################################################################################################################################################
     # TRAINERS
@@ -168,7 +174,8 @@ def run():
     # trainer description strings
     export.desc_to_c_array("trainer")
     # trainer map sprites
-    bytes_count.append(export_battlers.export_image_data("trainer"))
+    bytes_count.append(export_battlers.export_image_data("trainer", 16, 16))
+    bytes_count.append(export_battlers.export_image_data("trainer", 64, 64))
 
     ################################################################################################################################################
     # TILES

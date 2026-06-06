@@ -1,17 +1,25 @@
 // Generated tile data structs
-// Database contains 16 total used tiles
+// Database contains 24 total used tiles
 
 // Individual tiles data
 ACID,
 CRYSTAL,
 FLOOR_CASTLE,
+FLOOR_DIRT,
+FLOOR_MEADOW,
+FLOOR_SNOW,
+FLOOR_VOLCANIC,
 FLOOR_WOOD,
-GROUND,
 LAVA,
-MEADOW,
+PIT_ACID,
+PIT_LAVA,
+PIT_MINOR,
+PIT_SMALL,
+PIT_SNAKE,
+PIT_SPIKES,
+PIT_WATER,
+PIT_WIDE,
 RIVER_FROZEN,
-SNOW,
-VOLCANIC,
 WALL_BRICK,
 WALL_CASTLE,
 WALL_ICE,
@@ -19,4 +27,4 @@ WALL_STONE,
 WALL_WOOD,
 WATER,
 
-//ALL_NAMES_COUNT = 16;
+//ALL_NAMES_COUNT = 24;

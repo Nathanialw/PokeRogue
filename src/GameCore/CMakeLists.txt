@@ -49,7 +49,8 @@ add_library(GameCore STATIC
         overlay_map/map_effects.c
         overlay_map/map_utils.c
         overlay_map/map_effects_objects.c
-
+        overlay_map/tooltip.c
+        overlay_map/tooltip.h
 
         #   BATTLES
         overlay_battle/battle_animation_skills_attack.c
@@ -82,8 +83,10 @@ add_library(GameCore STATIC
         #   GENERATE_MAP
         overlay_generate_map/generate_map.c
         overlay_generate_map/generate_map_state.c
-        overlay_map/tooltip.c
-        overlay_map/tooltip.h
+        overlay_generate_map/generate_map_entities.c
+        overlay_generate_map/generate_map_river.c
+
+        #
 )
 
 

@@ -280,3 +280,40 @@ void* memset(void* dst, int value, size_t len)
 
     return dst;
 }
+
+
+/**********************************************************************************************************************/
+/*
+**********************************************************************************************************************/
+SET_MEMORY(".core")
+bool SortEntityArray(EntityId* sorted, EntityId* unsorted, uint8_t n)
+{
+    // Copy unsorted to sorted first
+    for (uint8_t i = 0; i < n; i++)
+    {
+        sorted[i] = unsorted[i];
+    }
+
+    // Selection sort
+    for (uint8_t i = 0; i < n - 1; i++)
+    {
+        uint8_t min_idx = i;
+        for (uint8_t j = i + 1; j < n; j++)
+        {
+            if (sorted[j] < sorted[min_idx])
+            {
+                min_idx = j;
+            }
+        }
+
+        // Swap if needed
+        if (min_idx != i)
+        {
+            EntityId temp = sorted[i];
+            sorted[i] = sorted[min_idx];
+            sorted[min_idx] = temp;
+        }
+    }
+
+    return true;
+}

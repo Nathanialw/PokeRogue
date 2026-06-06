@@ -152,7 +152,7 @@ CREATURE_VALIDATION = {
     },
 
     "Charlotte": {
-        "required_terms": ["French", "dark hair", "adventurer", "holding a staff", "woman", "breasts exposed", "saggy breasts", "perky breasts"],
+        "required_terms": ["French", "dark hair", "girl", "adventurer", "holding a staff", "woman", "breasts exposed", "saggy breasts", "perky breasts"],
         "forbidden_terms": ["ugly"],
         "min_matches": MIN_MATCHES
     },

@@ -199,7 +199,6 @@ void DrawToBuffer(const FrameBuffer* frameBuffer, const uint16_t* pixels, const 
             uint16_t screen_y = dest_y + y;
             uint16_t index = (screen_y * width) + screen_x;
 
-            // g_run.tileCache.frameBuffer.frameBuffer[index] = Pico_SwapBytes(color);
             g_ramState.framebuffer.frameBuffer[index] = SetColorByte(color);
         }
     }

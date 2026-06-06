@@ -43,3 +43,10 @@ bool ToggleBit(uint8_t* bitField, uint8_t idx);
 
 uint8_t GetNibble(uint8_t* bitField, uint8_t id);
 void GetAsChars_Max99(uint8_t n, CharStr_max99* out);
+
+
+
+/**********************************************************************************************************************/
+/** ENTITIES
+**********************************************************************************************************************/
+bool SortEntityArray(EntityId* sorted, EntityId* unsorted, uint8_t n);

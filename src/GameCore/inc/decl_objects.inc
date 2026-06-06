@@ -1,5 +1,5 @@
 // Generated object function headers
-// Database contains 56 total objects
+// Database contains 47 total objects
 
 // Individual objects strings
 bool InteractAltar(HardwareInterface hardware, EntityId object_id, EntityId e_id, ObjectData objectData);
@@ -37,15 +37,6 @@ bool InteractAcidFountain(HardwareInterface hardware, EntityId object_id, Entity
 bool InteractBloodFountain(HardwareInterface hardware, EntityId object_id, EntityId e_id, ObjectData objectData);
 bool InteractWaterFountain(HardwareInterface hardware, EntityId object_id, EntityId e_id, ObjectData objectData);
 bool InteractHiddenCompartment(HardwareInterface hardware, EntityId object_id, EntityId e_id, ObjectData objectData);
-bool InteractAcidPit(HardwareInterface hardware, EntityId object_id, EntityId e_id, ObjectData objectData);
-bool InteractLavaPit(HardwareInterface hardware, EntityId object_id, EntityId e_id, ObjectData objectData);
-bool InteractNarowPit(HardwareInterface hardware, EntityId object_id, EntityId e_id, ObjectData objectData);
-bool InteractShallowPit(HardwareInterface hardware, EntityId object_id, EntityId e_id, ObjectData objectData);
-bool InteractSnakesPit(HardwareInterface hardware, EntityId object_id, EntityId e_id, ObjectData objectData);
-bool InteractSpikedPit(HardwareInterface hardware, EntityId object_id, EntityId e_id, ObjectData objectData);
-bool InteractPitStandard(HardwareInterface hardware, EntityId object_id, EntityId e_id, ObjectData objectData);
-bool InteractWaterPit(HardwareInterface hardware, EntityId object_id, EntityId e_id, ObjectData objectData);
-bool InteractWidePit(HardwareInterface hardware, EntityId object_id, EntityId e_id, ObjectData objectData);
 bool InteractArmorRack(HardwareInterface hardware, EntityId object_id, EntityId e_id, ObjectData objectData);
 bool InteractWeaponRack(HardwareInterface hardware, EntityId object_id, EntityId e_id, ObjectData objectData);
 bool InteractBarrel(HardwareInterface hardware, EntityId object_id, EntityId e_id, ObjectData objectData);

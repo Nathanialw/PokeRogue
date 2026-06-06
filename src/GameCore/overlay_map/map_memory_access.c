@@ -13,64 +13,6 @@
 #include "memory_constants.inc"
 
 
-/**********************************************************************************************************************/
-/*      ENTITIES
-**********************************************************************************************************************/
-SET_MEMORY(".map")
-uint8_t Flash_GetStatGrowth(MemoryInterface memory, Creature type)
-{
-#ifdef STANDALONE
-    return g_gameFlash.gameData.creatureStats[type].growth;
-#else
-    const uint8_t length = 1;
-    uint8_t struct_bytes[length];
-    memory.GetRom(GAME_DATA_CREATURE_STATS_POSITION + type, struct_bytes, length);
-#if defined(MEMORY_PRINT)
-    for (uint8_t i = 0; i < length; i++)
-        memory.Print(str_spawn_creature_type, struct_bytes[i]);
-    memory.Print(new_line);
-#endif
-    return struct_bytes[0];
-#endif
-}
-
-SET_MEMORY(".map")
-Creature Flash_GetBiomeCreature(MemoryInterface memory, uint8_t biome, Creature index)
-{
-#ifdef STANDALONE
-    return g_gameFlash.tileset.monsterGroups[biome][index];
-#else
-    const uint8_t length = 1;
-    uint8_t struct_bytes[length];
-    memory.GetRom(CHAR_SPRITES_BIOMES_POSITION + index, struct_bytes, length);
-#if defined(MEMORY_PRINT)
-    for (uint8_t i = 0; i < length; i++)
-        memory.Print(str_spawn_creature_type, struct_bytes[i]);
-    memory.Print(new_line);
-#endif
-    return struct_bytes[0];
-#endif
-}
-
-SET_MEMORY(".map")
-Creature Flash_GetThemeCreature(MemoryInterface memory, uint8_t theme, Creature index)
-{
-#ifdef STANDALONE
-    return g_gameFlash.tileset.themeGroups[theme][creature_type];
-#else
-    const uint8_t length = 1;
-    uint8_t struct_bytes[length];
-    memory.GetRom(TILESET_THEME_POSITION + index, struct_bytes, length);
-
-#if defined(MEMORY_PRINT)
-    for (uint8_t i = 0; i < length; i++)
-        memory.Print(str_spawn_creature_type, struct_bytes[i]);
-    memory.Print(new_line);
-#endif
-    return struct_bytes[0];
-#endif
-}
-
 
 /**********************************************************************************************************************/
 /**     MAP

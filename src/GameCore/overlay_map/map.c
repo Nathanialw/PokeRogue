@@ -27,7 +27,7 @@ Position GetRandomMapTile(HardwareInterface hardware, ObjectsTypes type, bool em
 
         if (emptyOnly)
         {
-            if (GetMapTile(x, y) == GROUND && CheckTileForEntity(type, NO_ENTITY, pos) == NO_ENTITY)
+            if (GetMapTile(x, y) == FLOOR_CASTLE && CheckTileForEntity(type, NO_ENTITY, pos) == NO_ENTITY)
             {
                 return pos;
             }
@@ -37,7 +37,6 @@ Position GetRandomMapTile(HardwareInterface hardware, ObjectsTypes type, bool em
             return pos;
         }
     }
-
 }
 
 
@@ -64,7 +63,7 @@ Position GetSelectedTile(HardwareInterface hardware, bool emptyOnly)
 SET_MEMORY(".map")
 bool TileHasCorpse(Position pos)
 {
-    return GetMapTile(pos.x, pos.y) == GROUND;
+    return GetMapTile(pos.x, pos.y) == FLOOR_CASTLE;
 }
 
 
@@ -103,7 +102,7 @@ bool IsFogged(uint16_t x, uint16_t y)
 {
     uint16_t idx = (y * MAP_W) + x;
     // return (g_core.fog[idx >> 3] >> (idx & 7)) & 1;
-    return g_core.fog[MAP_H-1][MAP_W-1];
+    return g_core.fog[MAP_H - 1][MAP_W - 1];
 }
 
 /**********************************************************************************************************************/
@@ -115,9 +114,9 @@ void SetFog(uint16_t x, uint16_t y, bool fogged)
     uint16_t idx = y * MAP_W + x;
     uint8_t mask = 1 << (idx & 7);
     // if (fogged)
-        // g_core.fog[idx >> 3] |= mask;
+    // g_core.fog[idx >> 3] |= mask;
     // else
-        // g_core.fog[idx >> 3] &= ~mask;
+    // g_core.fog[idx >> 3] &= ~mask;
 }
 
 /**********************************************************************************************************************/
@@ -139,22 +138,3 @@ void SetMapFog(const uint8_t set)
  *
 **********************************************************************************************************************/
 
-
-/**********************************************************************************************************************/
-/** Searches map for a random empty tile
- *  returns tile position when it is found
-**********************************************************************************************************************/
-SET_MEMORY(".map")
-Position FindOpenMapLocation(HardwareInterface hardware, ObjectsTypes type)
-{
-    while (1)
-    {
-        Position pos;
-        pos.x = hardware.GetRandom_uint8_t(16, MAP_W - 32);
-        pos.y = hardware.GetRandom_uint8_t(16, MAP_H - 32);
-        if (GetMapTile(pos.x, pos.y) == GROUND && CheckTileForEntity(type, NO_ENTITY, pos) == NO_ENTITY)
-        {
-            return pos;
-        }
-    }
-}

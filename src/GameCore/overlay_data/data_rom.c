@@ -551,22 +551,41 @@ const char Text_types[TYPE_COUNT][SMALL_STRINGS] = {
 /**********************************************************************************************************************/
 /*  BATTLERS
 **********************************************************************************************************************/
-SET_MEMORY(".sprite_battler_layout_back")
+SET_MEMORY(".sprite_battler_layout_back_16")
 const SpriteLayout battler_back_layout[CREATURE_COUNT] = {
-#include "inc/sprite_creature_back_layout.inc"
+#include "inc/sprite_creature_back_layout_16x16.inc"
 };
-SET_MEMORY(".sprite_battler_layout_front")
+SET_MEMORY(".sprite_battler_layout_front_16")
 const SpriteLayout battler_front_layout[CREATURE_COUNT] = {
-#include "inc/sprite_creature_front_layout.inc"
+#include "inc/sprite_creature_front_layout_16x16.inc"
 };
-SET_MEMORY(".sprite_battler_back")
-const uint8_t battler_back[SPRITE_CREATURE_BACK_BYTES] = {
-#include "inc/sprite_creature_back.inc"
+SET_MEMORY(".sprite_battler_back_16")
+const uint8_t battler_back[SPRITE_CREATURE_BACK_BYTES_16] = {
+#include "inc/sprite_creature_back_16x16.inc"
 };
-SET_MEMORY(".sprite_battler_front")
-const uint8_t battler_front[SPRITE_CREATURE_FRONT_BYTES] = {
-#include "inc/sprite_creature_front.inc"
+SET_MEMORY(".sprite_battler_front_16")
+const uint8_t battler_front[SPRITE_CREATURE_FRONT_BYTES_16] = {
+#include "inc/sprite_creature_front_16x16.inc"
 };
+
+// #if defined(SDL)
+SET_MEMORY(".sprite_battler_layout_back_64")
+const SpriteLayout battler_back_layout_64[CREATURE_COUNT] = {
+#include "inc/sprite_creature_back_layout_64x64.inc"
+};
+SET_MEMORY(".sprite_battler_layout_front_64")
+const SpriteLayout battler_front_layout_64[CREATURE_COUNT] = {
+#include "inc/sprite_creature_front_layout_64x64.inc"
+};
+SET_MEMORY(".sprite_battler_back_64")
+const uint8_t battler_back_64[SPRITE_CREATURE_BACK_BYTES_64] = {
+#include "inc/sprite_creature_back_64x64.inc"
+};
+SET_MEMORY(".sprite_battler_front_64")
+const uint8_t battler_front_64[SPRITE_CREATURE_FRONT_BYTES_64] = {
+#include "inc/sprite_creature_front_64x64.inc"
+};
+//#endif
 
 
 SET_MEMORY(".sprite_items_layout")

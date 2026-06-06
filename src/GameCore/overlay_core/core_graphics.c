@@ -150,7 +150,6 @@ FrameBuffer DrawBattlerToBuffer(GraphicsInterface graphics, MemoryInterface memo
         uint16_t row = tile_counter / BATTLER_TILES_H;
         uint16_t col = tile_counter % BATTLER_TILES_W;
 
-
         uint8_t tile_idx = row * BATTLER_TILES_W + col;
         uint8_t mask_byte = tile_idx / 8;
         uint8_t mask_bit = tile_idx % 8;
@@ -161,26 +160,16 @@ FrameBuffer DrawBattlerToBuffer(GraphicsInterface graphics, MemoryInterface memo
             continue;
         }
 
-
         uint8_t draw_x = col * TILE_W;
         uint8_t draw_y = row * TILE_H;
 
-
         const uint32_t index = layout->idx + byte_offset;
-
         Flash_GetSprite(memory, g_core.spriteCache.bytes, index, 256, type, front);
 
         // Decompress and get how many compressed bytes were used
         byte_offset += Expand4bppPackedToByte(memory, g_core.spriteCache.bytes, layout->palette, g_core.tile.pixels, 16);
 
         Rect_16 r = {draw_x, draw_y, TILE_W, TILE_H};
-        if (graphics.DrawToBuffer)
-        {
-            for (uint8_t i = 0; i < 1; i++)
-                memory.PrintVar(g_core.tile.pixels[i]);
-        }
-
-
         graphics.DrawToBuffer(&f, g_core.tile.pixels, &r);
         tile_counter++;
     }

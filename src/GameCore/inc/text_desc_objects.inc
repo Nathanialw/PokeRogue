@@ -1,5 +1,5 @@
 // Generated creature descriptions
-// Database contains 56 total descriptions
+// Database contains 47 total descriptions
 
 // Individual description strings
 "ALTAR -- PLACEHOLDER TEXT - A mysterious object awaiting discovery.\0",
@@ -37,15 +37,6 @@
 "A crimson stream flows ceaselessly from its ornate marble basin, its waters shimmering with an eerie, metallic sheen.\0",
 "The water shimmers with an ethereal blue glow, rising from the basin in delicate spirals before dissolving into mist.\0",
 "HIDDEN_COMPARTMENT -- PLACEHOLDER TEXT - A mysterious object awaiting discovery.\0",
-"PIT_ACID -- PLACEHOLDER TEXT - A mysterious object awaiting discovery.\0",
-"PIT_LAVA -- PLACEHOLDER TEXT - A mysterious object awaiting discovery.\0",
-"PIT_NARROW -- PLACEHOLDER TEXT - A mysterious object awaiting discovery.\0",
-"PIT_SHALLOW -- PLACEHOLDER TEXT - A mysterious object awaiting discovery.\0",
-"PIT_SNAKES -- PLACEHOLDER TEXT - A mysterious object awaiting discovery.\0",
-"PIT_SPIKED -- PLACEHOLDER TEXT - A mysterious object awaiting discovery.\0",
-"PIT_STANDARD -- PLACEHOLDER TEXT - A mysterious object awaiting discovery.\0",
-"PIT_WATER -- PLACEHOLDER TEXT - A mysterious object awaiting discovery.\0",
-"PIT_WIDE -- PLACEHOLDER TEXT - A mysterious object awaiting discovery.\0",
 "The armor gleams with enchanted silver plates that shift like liquid moonlight, whispering secrets in the wind.\0",
 "RACK_WEAPON -- PLACEHOLDER TEXT - A mysterious object awaiting discovery.\0",
 "TREASURE_BARREL -- PLACEHOLDER TEXT - A mysterious object awaiting discovery.\0",
@@ -60,4 +51,4 @@
 "WELL -- PLACEHOLDER TEXT - A mysterious object awaiting discovery.\0",
 " ------ \0",
 
-//ALL_DESCRIPTIONS_COUNT = 56;
+//ALL_DESCRIPTIONS_COUNT = 47;

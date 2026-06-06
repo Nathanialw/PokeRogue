@@ -20,9 +20,11 @@ from python.data import db_manager
 
 # Starting index for monsters (can be changed)
 START_IDX = 0
+# TILE_W = 16
+# TILE_H = 16
 
 
-def format_hex_array(bytes_list, indent=1, items_per_line=16 * 7):
+def format_hex_array(bytes_list, items_per_line, indent=1):
     """Format list of ints (0-255) as C hex array with line breaks"""
     lines = []
     indent_str = "    " * indent
@@ -48,7 +50,7 @@ def get_relative_path(file_path, base_folder):
         return ""
 
 
-def process_json_file(json_path, monster_idx, comment, folder_path, layout_file, data_file, byte_offset):
+def process_json_file(json_path, monster_idx, comment, folder_path, layout_file, data_file, byte_offset, w, h):
     """Process a single JSON file and append to output files"""
     with open(json_path, "r") as f:
         data = json.load(f)
@@ -81,10 +83,11 @@ def process_json_file(json_path, monster_idx, comment, folder_path, layout_file,
 
     # Write data to data file
     data_file.write(f"// {comment}{folder_comment} - RLE compressed data (offset: {byte_offset}, size: {sprite_size})\n")
+
     if all_rle_bytes:
         # Write bytes in chunks
-        for i in range(0, len(all_rle_bytes), 16 * 7):
-            chunk = all_rle_bytes[i: i + 16 * 7]
+        for i in range(0, len(all_rle_bytes), w * 7):
+            chunk = all_rle_bytes[i: i + w * 7]
             hex_str = ", ".join(f"0x{b:02x}" for b in chunk)
             data_file.write(f"{hex_str},\n")
 
@@ -105,23 +108,23 @@ def check_used(file_name, creature_names):
     return False
 
 
-def export_image_data(entity, image_type=""):
+def export_image_data(entity, w, h, image_type=""):
     # Ensure input folder exists
     input_folder = f"../assets_processed/{entity}s/deployable"
 
-    layout_output = f"sprite_{entity}_layout"
+    layout_output = f"sprite_{entity}_layout_{w}x{h}"
     if image_type:
-        layout_output = f"sprite_{entity}_{image_type}_layout"
+        layout_output = f"sprite_{entity}_{image_type}_layout_{w}x{h}"
 
-    bytes_output = f"sprite_{entity}"
+    bytes_output = f"sprite_{entity}_{w}x{h}"
     if image_type:
-        bytes_output = f"sprite_{entity}_{image_type}"
+        bytes_output = f"sprite_{entity}_{image_type}_{w}x{h}"
 
     creature_names = db_manager.get_folders(entity)
 
     # Find all JSON files recursively
     input_path = Path(input_folder)
-    all_json_files = sorted(input_path.rglob("*_battler.json"))
+    all_json_files = sorted(input_path.rglob(f"*_battler_{w}x{h}.json"))
 
     # Filter to only include files whose parent folder is in creature_names
     json_files = []
@@ -194,7 +197,8 @@ def export_image_data(entity, image_type=""):
             try:
                 sprite_size = process_json_file(
                     json_path, monster_idx, full_comment, input_folder,
-                    layout_file, data_file, byte_offset
+                    layout_file, data_file, byte_offset,
+                    w, h
                 )
                 byte_offset += sprite_size
                 processed_count += 1

@@ -2,12 +2,12 @@
 // Created by nathanial on 2/22/26.
 //
 
+#include "generate_map.h"
 
-#include "core_map.h"
 #include "lib_memory.h"
 
+#include "core_map.h"
 #include "core_ram.h"
-#include "lib_debugging.h"
 
 /**********************************************************************************************************************/
 /** Runs All game init functions in order
@@ -53,8 +53,8 @@ const DungeonLayout GenerateMap[TOTAL_DUNGEON_GEN_ALGOS] =
     DungeonPredefined, // trad roguelike layout
 #endif
     DungeonBasic, // trad roguelike layout
-    // DungeonGraph, // almost the same as above
-    // DungeonCave, // natural looking cave
+    DungeonGraph, // almost the same as above
+    DungeonCave, // natural looking cave
 };
 
 
@@ -68,6 +68,32 @@ void GenerateDungeon(HardwareInterface hardware, uint8_t type)
     ResetMap();
     GenerateMap[type](hardware);
 }
+
+
+
+
+/**********************************************************************************************************************/
+/** Searches map for a random empty tile
+ *  returns tile position when it is found
+**********************************************************************************************************************/
+SET_MEMORY(".map_gen")
+Position FindOpenRoomLocation(HardwareInterface hardware, ObjectsTypes type, uint8_t n)
+{
+    while (1)
+    {
+        Room room = g_core.rooms[n];
+        Position pos;
+        pos.x = hardware.GetRandom_uint8_t(room.x + 1, room.x + room.w - 1);
+        pos.y = hardware.GetRandom_uint8_t(room.y + 1, room.y + room.h - 1);
+
+
+        if (GetMapTile(pos.x, pos.y) == FLOOR_CASTLE && CheckTileForEntity(type, NO_ENTITY, pos) == NO_ENTITY)
+        {
+            return pos;
+        }
+    }
+}
+
 
 /**********************************************************************************************************************/
 /*
@@ -88,7 +114,7 @@ void InitMap(HardwareInterface hardware)
     g_core.turn_count = 0;
     g_core.turn_final = 300;
     g_core.biome = DESERT;
-    g_core.layout_type = 0;
+    g_core.layout_type = hardware.GetRandom_uint8_t(0, TOTAL_DUNGEON_GEN_ALGOS - 1);
     GenerateDungeon(hardware, g_core.layout_type);
 }
 
@@ -101,6 +127,24 @@ void ResetMap(void)
     for (uint16_t y = 0; y < MAP_H; y++)
         for (uint16_t x = 0; x < MAP_W; x++)
             SetMapTile(x, y, WALL_STONE);
+}
+
+
+SET_MEMORY(".map_gen")
+void SetMapBorder(void)
+{
+    for (uint16_t y = 0; y < MAP_H; y++)
+    {
+        SetMapTile(16, y, WALL_STONE);
+        SetMapTile(MAP_W - 16, y, WALL_STONE);
+    }
+
+    for (uint16_t x = 0; x < MAP_W; x++)
+    {
+        SetMapTile(x, 16, WALL_STONE);
+        SetMapTile(x, MAP_H - 16, WALL_STONE);
+    }
+
 }
 
 
@@ -131,7 +175,7 @@ void DungeonPredefined(HardwareInterface hardware)
             if (x == 12 || x == MAP_W - 12 || y == 12 || y == MAP_H - 12)
                 SetMapTile(x, y, WALL_STONE);
             else if (x > 12 && x < MAP_W - 12 && y > 12 && y < MAP_H - 12)
-                SetMapTile(x, y, GROUND);
+                SetMapTile(x, y, FLOOR_CASTLE);
             else
                 SetMapTile(x, y, WATER);
         }
@@ -161,19 +205,6 @@ void DungeonPredefined(HardwareInterface hardware)
 *
 **********************************************************************************************************************/
 
-#define MAX_ROOMS 128
-
-typedef struct
-{
-    uint16_t x, y, w, h;
-} Room;
-
-
-SET_MEMORY(".map_gen.data")
-Room rooms[MAX_ROOMS];
-SET_MEMORY(".map_gen.data")
-uint8_t roomCount = 0;
-
 /**********************************************************************************************************************/
 /** Checks whether given room rect A intersects with room rect A
  *  ON SUCCESS - return true
@@ -189,18 +220,18 @@ int Intersects(Room a, Room b)
 }
 
 /**********************************************************************************************************************/
-/** Updates the tile map with ground tiles at the position and dimensions of the given room rect
+/** Updates the tile map with FLOOR_CASTLE tiles at the position and dimensions of the given room rect
 **********************************************************************************************************************/
 SET_MEMORY(".map_gen")
 void CarveRoom(Room r)
 {
     for (uint8_t y = r.y; y < r.y + r.h; y++)
         for (uint8_t x = r.x; x < r.x + r.w; x++)
-            SetMapTile(x, y, GROUND);
+            SetMapTile(x, y, FLOOR_CASTLE);
 }
 
 /**********************************************************************************************************************/
-/** Updates the tile map with ground tiles between given x1 and x2 position at the given y position
+/** Updates the tile map with FLOOR_CASTLE tiles between given x1 and x2 position at the given y position
 **********************************************************************************************************************/
 SET_MEMORY(".map_gen")
 void CarveHorizontal(uint8_t x1, uint8_t x2, uint8_t y)
@@ -213,11 +244,11 @@ void CarveHorizontal(uint8_t x1, uint8_t x2, uint8_t y)
     }
 
     for (uint8_t x = x1; x <= x2; x++)
-        SetMapTile(x, y, GROUND);
+        SetMapTile(x, y, FLOOR_CASTLE);
 }
 
 /**********************************************************************************************************************/
-/** Updates the tile map with ground tiles between given y1 and y2 position at the given x position
+/** Updates the tile map with FLOOR_CASTLE tiles between given y1 and y2 position at the given x position
 **********************************************************************************************************************/
 SET_MEMORY(".map_gen")
 void CarveVertical(uint8_t y1, uint8_t y2, uint8_t x)
@@ -230,11 +261,11 @@ void CarveVertical(uint8_t y1, uint8_t y2, uint8_t x)
     }
 
     for (uint8_t y = y1; y <= y2; y++)
-        SetMapTile(x, y, GROUND);
+        SetMapTile(x, y, FLOOR_CASTLE);
 }
 
 /**********************************************************************************************************************/
-/** Updates the tile map with ground tiles connecting the given room rect A and room rect B
+/** Updates the tile map with FLOOR_CASTLE tiles connecting the given room rect A and room rect B
 **********************************************************************************************************************/
 SET_MEMORY(".map_gen")
 void ConnectRooms(HardwareInterface hardware, Room a, Room b)
@@ -259,13 +290,13 @@ void ConnectRooms(HardwareInterface hardware, Room a, Room b)
 
 /**********************************************************************************************************************/
 /** Core basic Map Generation algrithm
- *  Creates random position and dimention rooms of ground tiles around the map
- *  Connects those rooms with corridors of ground tiles
+ *  Creates random position and dimention rooms of FLOOR_CASTLE tiles around the map
+ *  Connects those rooms with corridors of FLOOR_CASTLE tiles
 **********************************************************************************************************************/
 SET_MEMORY(".map_gen")
 void DungeonBasic(HardwareInterface hardware)
 {
-    roomCount = 0;
+    g_core.roomCount = 0;
 
     for (uint16_t y = 0; y < MAP_H; y++)
         for (uint16_t x = 0; x < MAP_W; x++)
@@ -284,9 +315,9 @@ void DungeonBasic(HardwareInterface hardware)
 
         uint8_t failed = 0;
 
-        for (uint8_t j = 0; j < roomCount; j++)
+        for (uint8_t j = 0; j < g_core.roomCount; j++)
         {
-            if (Intersects(r, rooms[j]))
+            if (Intersects(r, g_core.rooms[j]))
             {
                 failed = 1;
                 break;
@@ -297,10 +328,10 @@ void DungeonBasic(HardwareInterface hardware)
         {
             CarveRoom(r);
 
-            if (roomCount > 0)
-                ConnectRooms(hardware, rooms[roomCount - 1], r);
+            if (g_core.roomCount > 0)
+                ConnectRooms(hardware, g_core.rooms[g_core.roomCount - 1], r);
 
-            rooms[roomCount++] = r;
+            g_core.rooms[g_core.roomCount++] = r;
         }
     }
 }
@@ -358,10 +389,10 @@ void BuildEdges(void)
 {
     edgeCount = 0;
 
-    for (int i = 0; i < roomCount; i++)
+    for (int i = 0; i < g_core.roomCount; i++)
     {
         uint8_t ax, ay;
-        RoomCenter(rooms[i], &ax, &ay);
+        RoomCenter(g_core.rooms[i], &ax, &ay);
 
         uint8_t used[MAX_ROOMS] = {0};
 
@@ -370,13 +401,13 @@ void BuildEdges(void)
             int best = -1;
             uint16_t bestDist = 0xFFFF;
 
-            for (int j = 0; j < roomCount; j++)
+            for (int j = 0; j < g_core.roomCount; j++)
             {
                 if (i == j) continue;
                 if (used[j]) continue;
 
                 uint8_t bx, by;
-                RoomCenter(rooms[j], &bx, &by);
+                RoomCenter(g_core.rooms[j], &bx, &by);
 
                 uint16_t d = Dist2(ax, ay, bx, by);
 
@@ -409,7 +440,7 @@ void CarveCorridorZigZag(HardwareInterface hardware, uint8_t x1, uint8_t y1, uin
     int16_t x = x1;
     int16_t y = y1;
 
-    SetMapTile(x, y, GROUND);
+    SetMapTile(x, y, FLOOR_CASTLE);
 
     while (x != x2 || y != y2)
     {
@@ -424,7 +455,7 @@ void CarveCorridorZigZag(HardwareInterface hardware, uint8_t x1, uint8_t y1, uin
             else if (y > y2) y--;
         }
 
-        SetMapTile(x, y, GROUND);
+        SetMapTile(x, y, FLOOR_CASTLE);
     }
 }
 
@@ -438,13 +469,13 @@ void CarveCorridorLinear(HardwareInterface hardware, uint8_t x1, uint8_t y1, uin
     {
         while (x1 != x2)
         {
-            SetMapTile(x1, y1, GROUND);
+            SetMapTile(x1, y1, FLOOR_CASTLE);
             x1 += (x2 > x1) ? 1 : -1;
         }
 
         while (y1 != y2)
         {
-            SetMapTile(x1, y1, GROUND);
+            SetMapTile(x1, y1, FLOOR_CASTLE);
             y1 += (y2 > y1) ? 1 : -1;
         }
     }
@@ -452,18 +483,18 @@ void CarveCorridorLinear(HardwareInterface hardware, uint8_t x1, uint8_t y1, uin
     {
         while (y1 != y2)
         {
-            SetMapTile(x1, y1, GROUND);
+            SetMapTile(x1, y1, FLOOR_CASTLE);
             y1 += (y2 > y1) ? 1 : -1;
         }
 
         while (x1 != x2)
         {
-            SetMapTile(x1, y1, GROUND);
+            SetMapTile(x1, y1, FLOOR_CASTLE);
             x1 += (x2 > x1) ? 1 : -1;
         }
     }
 
-    SetMapTile(x2, y2, GROUND);
+    SetMapTile(x2, y2, FLOOR_CASTLE);
 }
 
 /**********************************************************************************************************************/
@@ -477,7 +508,7 @@ void BuildMST(HardwareInterface hardware)
     visited[0] = 1;
     uint8_t visitedCount = 1;
 
-    while (visitedCount < roomCount)
+    while (visitedCount < g_core.roomCount)
     {
         int16_t bestEdge = -1;
         uint16_t bestDist = 0xFFFF;
@@ -502,22 +533,22 @@ void BuildMST(HardwareInterface hardware)
         if (bestEdge == -1)
         {
             // force connect nearest unvisited room
-            for (int i = 0; i < roomCount; i++)
+            for (int i = 0; i < g_core.roomCount; i++)
             {
                 if (visited[i]) continue;
 
                 uint8_t ax, ay;
-                RoomCenter(rooms[i], &ax, &ay);
+                RoomCenter(g_core.rooms[i], &ax, &ay);
 
                 int best = -1;
                 uint16_t bestDist = 0xFFFF;
 
-                for (int j = 0; j < roomCount; j++)
+                for (int j = 0; j < g_core.roomCount; j++)
                 {
                     if (!visited[j]) continue;
 
                     uint8_t bx, by;
-                    RoomCenter(rooms[j], &bx, &by);
+                    RoomCenter(g_core.rooms[j], &bx, &by);
 
                     uint16_t d = Dist2(ax, ay, bx, by);
 
@@ -531,7 +562,7 @@ void BuildMST(HardwareInterface hardware)
                 if (best >= 0)
                 {
                     uint8_t bx, by;
-                    RoomCenter(rooms[best], &bx, &by);
+                    RoomCenter(g_core.rooms[best], &bx, &by);
 
                     CarveCorridorLinear(hardware, ax, ay, bx, by);
 
@@ -547,8 +578,8 @@ void BuildMST(HardwareInterface hardware)
         Edge e = edges[bestEdge];
 
         uint8_t ax, ay, bx, by;
-        RoomCenter(rooms[e.a], &ax, &ay);
-        RoomCenter(rooms[e.b], &bx, &by);
+        RoomCenter(g_core.rooms[e.a], &ax, &ay);
+        RoomCenter(g_core.rooms[e.b], &bx, &by);
 
         CarveCorridorLinear(hardware, ax, ay, bx, by);
 
@@ -577,8 +608,8 @@ void AddExtraConnections(HardwareInterface hardware)
         {
             uint8_t ax, ay, bx, by;
 
-            RoomCenter(rooms[edges[i].a], &ax, &ay);
-            RoomCenter(rooms[edges[i].b], &bx, &by);
+            RoomCenter(g_core.rooms[edges[i].a], &ax, &ay);
+            RoomCenter(g_core.rooms[edges[i].b], &bx, &by);
 
             CarveCorridorLinear(hardware, ax, ay, bx, by);
         }
@@ -603,7 +634,7 @@ void DebugPrintMap(void)
     //         {
     //         case WALL_STONE: c = '#';
     //             break;
-    //         case GROUND: c = '.';
+    //         case FLOOR_CASTLE: c = '.';
     //             break;
     //         default: c = '?';
     //             break;
@@ -621,7 +652,7 @@ void DebugPrintMap(void)
 SET_MEMORY(".map_gen")
 void DungeonGraph(HardwareInterface hardware)
 {
-    roomCount = 0;
+    g_core.roomCount = 0;
 
     for (uint16_t y = 0; y < MAP_H; y++)
         for (uint16_t x = 0; x < MAP_W; x++)
@@ -639,9 +670,9 @@ void DungeonGraph(HardwareInterface hardware)
 
         uint8_t failed = 0;
 
-        for (uint8_t j = 0; j < roomCount; j++)
+        for (uint8_t j = 0; j < g_core.roomCount; j++)
         {
-            if (Intersects(r, rooms[j]))
+            if (Intersects(r, g_core.rooms[j]))
             {
                 failed = 1;
                 break;
@@ -651,7 +682,7 @@ void DungeonGraph(HardwareInterface hardware)
         if (!failed)
         {
             CarveRoom(r);
-            rooms[roomCount++] = r;
+            g_core.rooms[g_core.roomCount++] = r;
         }
     }
 
@@ -686,7 +717,7 @@ void DungeonCave(HardwareInterface hardware)
     {
         if (GetMapTile(x, y) == WALL_STONE)
         {
-            SetMapTile(x, y, GROUND);
+            SetMapTile(x, y, FLOOR_CASTLE);
             carved++;
         }
 

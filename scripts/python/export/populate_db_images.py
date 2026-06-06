@@ -6,7 +6,7 @@ from pathlib import Path
 
 from python.data.db_manager import get_images
 
-image_types = ["item", "spell", "skill", "creature", "object", "trainer"]
+image_types = ["item", "spell", "skill", "creature", "object", "trainer", "tile"]
 
 
 def copy_first_images(entity_type):

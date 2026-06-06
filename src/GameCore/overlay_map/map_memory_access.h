@@ -7,9 +7,7 @@
 #include "types.h"
 
 
-uint8_t Flash_GetStatGrowth(MemoryInterface memory, Creature type);
-Creature Flash_GetBiomeCreature(MemoryInterface memory, uint8_t biome, Creature index);
-Creature Flash_GetThemeCreature(MemoryInterface memory, uint8_t theme, Creature index);
+
 
 void Flash_GetTextSpriteMetadata(MemoryInterface memory, Sprite* sprite, ObjectsTypes type, uint8_t index);
 

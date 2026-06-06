@@ -74,6 +74,11 @@ typedef struct
     Glyph buffer;
     Glyph spriteCache;
 
+    //TODO: make into a union with something else
+    Room rooms[MAX_ROOMS];
+    uint8_t roomCount;
+    StatsRange statsCache;
+
 
     /**********************************************************************************************************************
     *   player data

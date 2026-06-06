@@ -1,5 +1,5 @@
 // Generated object name strings
-// Database contains 56 total object
+// Database contains 47 total object
 
 // Individual object strings
 "Altar\0",
@@ -37,15 +37,6 @@
 "Fountain\0",
 "Fountain\0",
 "Hidden Compartm\0",
-"Acid Pit\0",
-"Lava Pit\0",
-"Narow Pit\0",
-"Shallow Pit\0",
-"Pit of Snakes\0",
-"Spiked Pit\0",
-"Pit\0",
-"Water Pit\0",
-"Wide Pit\0",
 "Armor Rack\0",
 "Weapon Rack\0",
 "Barrel\0",

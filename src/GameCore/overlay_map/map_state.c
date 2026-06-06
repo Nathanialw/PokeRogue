@@ -4,6 +4,8 @@
 
 #include "map_state.h"
 
+#include <stdio.h>
+
 #include "lib_memory.h"
 #include "lib_decl.h"
 #include "lib_enums.h"
@@ -280,19 +282,10 @@ void HandleGameState(GameInterface* spi)
 SET_MEMORY(".map_entry")
 uint8_t GameLoopMain(GameInterface* spi)
 {
-    if (g_core.turn_count == 0)
-    {
-        ResetEntities(spi->hardware, spi->memory, false);
-        InitPlayer(spi->hardware, spi->memory);
-        PopulateLevelTrainers(spi->hardware, spi->memory);
-        PopulateLevelCreatures(spi->hardware, spi->memory);
-        PopulateLevelObjects(spi->hardware, spi->memory);
-        PopulateLevelItems(spi->hardware, spi->memory);
-        PlacePlayerOnMap(spi->hardware);
-        SetMapFog(0);
-        InitCamera(0, 0, TILE_W * VIEW_TW, TILE_H * VIEW_TH);
-        SetCameraPlayer();
-    }
+
+    SetMapFog(0);
+    InitCamera(0, 0, TILE_W * VIEW_TW, TILE_H * VIEW_TH);
+    SetCameraPlayer();
 
     FullRedraw(spi->graphics, spi->hardware, spi->memory);
     spi->graphics.EndFrame();
