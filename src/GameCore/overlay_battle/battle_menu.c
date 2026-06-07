@@ -16,7 +16,6 @@
 #include "core_player.h"
 #include "core_ram.h"
 #include "core_state.h"
-#include "map_entities.h"
 
 
 /**********************************************************************************************************************/
@@ -46,8 +45,9 @@ bool EnterMenu(const uint8_t listSize)
     g_core.menu.visibleMenuOptions = listSize;
     g_core.menu.menuScrollOffset[g_core.menu.depth].y = 0;
     g_core.menu.sel[g_core.menu.depth].y = 0;
-    g_core.menu.x = 0;
-    g_core.menu.y = 9;
+    g_core.menu.x = BATTLE_LIST_X;
+    g_core.menu.y = BATTLE_LIST_Y;
+    g_core.menu.w = 0;
 
     return false;
 }
@@ -65,8 +65,9 @@ void ExitMenu(void)
         g_core.menu.sel[g_core.menu.depth].y = 0;
         g_core.menu.menuScrollOffset[g_core.menu.depth].y = 0;
         g_core.menu.visibleMenuOptions = BATTLE_MENU_SIZE;
-        g_core.menu.x = 10;
+        g_core.menu.x = BATTLE_MENU_X;
         g_core.menu.y = BATTLE_MENU_Y;
+        g_core.menu.w = BATTLE_MENU_COL_2;
         g_core.menu.depth--;
         g_core.menu.lineHeight = 0;
     }
@@ -213,7 +214,7 @@ SET_MEMORY(".battle")
 void InitBattleMenu(void)
 {
     SetInputState(INPUT_BATTLE);
-    g_core.menu.x = BATTLE_MENU_X;
+    g_core.menu.x = BATTLE_MENU_COL_1;
     g_core.menu.y = BATTLE_MENU_Y;
     g_core.menu.h = MAX_ABILITIES;
 
@@ -230,21 +231,28 @@ void InitBattleMenu(void)
 /** toggles menu cache cursor data between the use ability list and the battle menu list
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-void UpdateBattleMenu(InputInterface input)
+void UpdateBattleMenu(InputInterface input, GraphicsInterface graphics, MemoryInterface memory)
 {
     if (input.GetInputKeyState().dp.x == 0) return;
 
-    if (g_core.menu.x == BATTLE_MENU_X)
+    //clear old cursor before updating x
+    const uint16_t x = g_core.menu.x * TEXT_W;
+    const uint16_t list_y = g_core.menu.y * TEXT_H;
+    const uint16_t erase_x = x + (g_core.menu.eraseSel.x * g_core.menu.w * TEXT_W);
+    Color battler_menu_color = Flash_GetColor(memory, PAL_OFF_WHITE_GRAY);
+    graphics.FillRect(erase_x, list_y + (g_core.menu.eraseSel.y * (TEXT_W + g_core.menu.lineHeight)), TEXT_W, TEXT_W, battler_menu_color);
+
+    if (g_core.menu.w == BATTLE_MENU_COL_1)
     {
         battleMenu = BATTLE_MENU;
-        g_core.menu.x = 10;
+        g_core.menu.w = BATTLE_MENU_COL_2;
         g_core.menu.sel[g_core.menu.depth].y = 0;
         g_core.menu.visibleMenuOptions = BATTLE_MENU_SIZE;
     }
     else
     {
         battleMenu = ABILITY_MENU;
-        g_core.menu.x = BATTLE_MENU_X;
+        g_core.menu.w = BATTLE_MENU_COL_1;
         g_core.menu.sel[g_core.menu.depth].y = 0;
         g_core.menu.visibleMenuOptions = AbilityCount();
     }

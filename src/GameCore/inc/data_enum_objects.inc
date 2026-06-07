@@ -1,11 +1,10 @@
 // Generated object data structs
-// Database contains 47 total used objects
+// Database contains 46 total used objects
 
 // Individual objects data
 ALTAR,
 BOAT_RAFT,
 BOAT_ROWBOAT,
-BRIDGE_ROPE,
 BRIDGE_STONE,
 BRIDGE_WOODEN,
 CASE_BOOK,
@@ -50,4 +49,4 @@ TREASURE_VAULT,
 WARD,
 WELL,
 
-//ALL_NAMES_COUNT = 47;
+//ALL_NAMES_COUNT = 46;

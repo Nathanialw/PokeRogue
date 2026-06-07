@@ -55,46 +55,47 @@ def process_json_file(json_path, monster_idx, comment, folder_path, layout_file,
     with open(json_path, "r") as f:
         data = json.load(f)
 
-    empty_mask = data["empty_mask"]  # ["0x78", "0x70", ...]
-    rle_tiles = data["rle_tiles"]  # only non-empty ones
+    empty_mask = data["empty_mask"]          # e.g. ["0x78", "0x70", ...]
+    rle_tiles = data["rle_tiles"]           # list of tile byte-lists (only non-empty ones)
 
-    # Flatten only the non-empty RLE data
-    all_rle_bytes = []
-    for tile_rle in rle_tiles:
-        all_rle_bytes.extend(tile_rle)
-
-    # Calculate size of this sprite's data
-    sprite_size = len(all_rle_bytes)
+    # Calculate total size for the sprite (still sum of all tile bytes)
+    sprite_size = sum(len(tile_rle) for tile_rle in rle_tiles)
 
     # Format palette
     palette_str = data["palette_rgb565"]
-    # palette_str = ", ".join(f"0x{p:04x}" for p in img_palette)
 
-    # Get folder structure for better organization
+    # Folder information for the comment
     folder_info = get_relative_path(json_path, folder_path)
-    if folder_info:
-        folder_comment = f" [Folder: {folder_info}]"
-    else:
-        folder_comment = ""
+    folder_comment = f" [Folder: {folder_info}]" if folder_info else ""
 
-    # Write layout to layout file with byte offset as the idx
-    layout_file.write(f"// {comment}{folder_comment} (sprite index: {monster_idx}, byte offset: {byte_offset}, size: {sprite_size})\n")
-    layout_file.write("{ " + f".idx = {byte_offset}, " + f".palette = {{ {', '.join(palette_str)} }}, " + f".emptyIndexes = {{ {', '.join(empty_mask)} }}" + " },\n")
+    # Write layout entry
+    layout_file.write(
+        f"// {comment}{folder_comment} (sprite index: {monster_idx}, byte offset: {byte_offset}, size: {sprite_size})\n"
+    )
+    layout_file.write(
+        "{ " + f".idx = {byte_offset}, "
+        f".palette = {{ {', '.join(palette_str)} }}, "
+        f".emptyIndexes = {{ {', '.join(empty_mask)} }}" + " },\n"
+    )
 
-    # Write data to data file
-    data_file.write(f"// {comment}{folder_comment} - RLE compressed data (offset: {byte_offset}, size: {sprite_size})\n")
+    # Write RLE data – each tile gets its own line
+    data_file.write(
+        f"// {comment}{folder_comment} - RLE compressed data "
+        f"(offset: {byte_offset}, size: {sprite_size})\n"
+    )
 
-    if all_rle_bytes:
-        # Write bytes in chunks
-        for i in range(0, len(all_rle_bytes), w * 7):
-            chunk = all_rle_bytes[i: i + w * 7]
-            hex_str = ", ".join(f"0x{b:02x}" for b in chunk)
+    if rle_tiles:
+        for tile_rle in rle_tiles:
+            hex_str = ", ".join(f"0x{b:02x}" for b in tile_rle)
             data_file.write(f"{hex_str},\n")
 
-        total_compressed = len(all_rle_bytes)
-        data_file.write(f"// Compressed size: {total_compressed} bytes "
-                        f"(non-empty tiles: {data['num_nonempty']}, "
-                        f"original pixels: 12544 uint16_t → ~25088 bytes uncompressed)\n\n")
+        # Compression summary
+        total_compressed = sprite_size   # same as len of all bytes
+        data_file.write(
+            f"// Compressed size: {total_compressed} bytes "
+            f"(non-empty tiles: {data['num_nonempty']}, "
+            f"original pixels: 12544 uint16_t → ~25088 bytes uncompressed)\n\n"
+        )
     else:
         data_file.write("{ /** fully empty sprite */ },\n\n")
 
@@ -200,6 +201,7 @@ def export_image_data(entity, w, h, image_type=""):
                     layout_file, data_file, byte_offset,
                     w, h
                 )
+                print(f"  -> Sprite {monster_idx} size: {sprite_size} bytes")  # <-- add this
                 byte_offset += sprite_size
                 processed_count += 1
             except Exception as e:

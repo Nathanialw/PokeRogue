@@ -65,6 +65,7 @@ SECTIONS
     /* ========================================== */
     /*     GRAPHICS                               */
     /* ========================================== */
+    /*     BATTLER SPRITES                               */
     .sprite_battler_layout_back_16   0x1860000 : { KEEP(*(.sprite_battler_layout_back_16))  . = ALIGN(4); }
     .sprite_battler_layout_front_16  0x1870000 : { KEEP(*(.sprite_battler_layout_front_16))  . = ALIGN(4); }
     .sprite_battler_back_16          0x1880000 : { KEEP(*(.sprite_battler_back_16))  . = ALIGN(4); }
@@ -72,7 +73,20 @@ SECTIONS
     .sprite_battler_layout_back_64   0x3860000 : { KEEP(*(.sprite_battler_layout_back_64))  . = ALIGN(4); }
     .sprite_battler_layout_front_64  0x4870000 : { KEEP(*(.sprite_battler_layout_front_64))  . = ALIGN(4); }
     .sprite_battler_back_64          0x5880000 : { KEEP(*(.sprite_battler_back_64))  . = ALIGN(4); }
-    .sprite_battler_front_64         0x8950000 : { KEEP(*(.sprite_battler_front_64))  . = ALIGN(4); }
+    .sprite_battler_front_64         0x6950000 : { KEEP(*(.sprite_battler_front_64))  . = ALIGN(4); }
+
+    .sprite_items_layout_64          0x8040000 : { KEEP(*(.sprite_items_layout_64))  . = ALIGN(4); }
+    .sprite_creatures_layout_64      0x9050000 : { KEEP(*(.sprite_creatures_layout_64))  . = ALIGN(4); }
+    .sprite_spells_layout_64         0x10060000 : { KEEP(*(.sprite_spells_layout_64))  . = ALIGN(4); }
+    .sprite_skills_layout_64         0x11070000 : { KEEP(*(.sprite_skills_layout_64))  . = ALIGN(4); }
+    .sprite_objects_layout_64        0x12080000 : { KEEP(*(.sprite_objects_layout_64))  . = ALIGN(4); }
+    .sprite_trainers_layout_64       0x13090000 : { KEEP(*(.sprite_trainers_layout_64))  . = ALIGN(4); }
+    .sprite_items_64                 0x14000000 : { KEEP(*(.sprite_items_64))  . = ALIGN(4); }
+    .sprite_creatures_64             0x15100000 : { KEEP(*(.sprite_creatures_64))  . = ALIGN(4); }
+    .sprite_spells_64                0x16200000 : { KEEP(*(.sprite_spells_64))  . = ALIGN(4); }
+    .sprite_skills_64                0x17300000 : { KEEP(*(.sprite_skills_64))  . = ALIGN(4); }
+    .sprite_objects_64               0x18400000 : { KEEP(*(.sprite_objects_64))  . = ALIGN(4); }
+    .sprite_trainers_64              0x19500000 : { KEEP(*(.sprite_trainers_64))  . = ALIGN(4); }
 
     .sprite_items_layout             0x40400000 : { KEEP(*(.sprite_items_layout))  . = ALIGN(4); }
     .sprite_creatures_layout         0x40500000 : { KEEP(*(.sprite_creatures_layout))  . = ALIGN(4); }

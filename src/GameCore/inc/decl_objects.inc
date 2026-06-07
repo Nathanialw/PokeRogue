@@ -1,11 +1,10 @@
 // Generated object function headers
-// Database contains 47 total objects
+// Database contains 46 total objects
 
 // Individual objects strings
 bool InteractAltar(HardwareInterface hardware, EntityId object_id, EntityId e_id, ObjectData objectData);
 bool InteractRaft(HardwareInterface hardware, EntityId object_id, EntityId e_id, ObjectData objectData);
 bool InteractRowBoat(HardwareInterface hardware, EntityId object_id, EntityId e_id, ObjectData objectData);
-bool InteractRopeBridge(HardwareInterface hardware, EntityId object_id, EntityId e_id, ObjectData objectData);
 bool InteractStoneBridge(HardwareInterface hardware, EntityId object_id, EntityId e_id, ObjectData objectData);
 bool InteractWoodenBridge(HardwareInterface hardware, EntityId object_id, EntityId e_id, ObjectData objectData);
 bool InteractBookCase(HardwareInterface hardware, EntityId object_id, EntityId e_id, ObjectData objectData);

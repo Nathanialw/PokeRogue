@@ -252,22 +252,22 @@ typedef struct
     {
         const SpriteLayout frontLayout[CREATURE_COUNT];
         const SpriteLayout backLayout[CREATURE_COUNT];
-        const uint8_t front[SPRITE_CREATURE_FRONT_BYTES];
-        const uint8_t back[SPRITE_CREATURE_BACK_BYTES];
+        const uint8_t front[SPRITE_CREATURE_FRONT_BYTES_16];
+        const uint8_t back[SPRITE_CREATURE_BACK_BYTES_16];
     } battlers;
 
 
     const SpriteLayout itemLayout[ITEM_COUNT];
-    const uint8_t items[SPRITE_ITEM_BYTES];
+    const uint8_t items[SPRITE_ITEM_BYTES_16];
 
     const SpriteLayout skillLayout[ABILITY_COUNT];
-    const uint8_t skills[SPRITE_SKILL_BYTES];
+    const uint8_t skills[SPRITE_SKILL_BYTES_16];
 
     const SpriteLayout spellLayout[SPELL_COUNT];
-    const uint8_t spells[SPRITE_SPELL_BYTES];
+    const uint8_t spells[SPRITE_SPELL_BYTES_16];
 
     const SpriteLayout objectLayout[OBJECT_COUNT];
-    const uint8_t objects[SPRITE_OBJECT_BYTES];
+    const uint8_t objects[SPRITE_OBJECT_BYTES_16];
 
     const SpriteLayout trainerLayout[TRAINER_COUNT];
     const uint8_t trainers[TRAINER_COUNT];
@@ -346,8 +346,8 @@ typedef struct
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-ASSERT_ALIGNED16(SPRITE_CREATURE_FRONT_BYTES);
-ASSERT_ALIGNED16(SPRITE_CREATURE_BACK_BYTES);
+ASSERT_ALIGNED16(SPRITE_CREATURE_FRONT_BYTES_16);
+ASSERT_ALIGNED16(SPRITE_CREATURE_BACK_BYTES_16);
 ASSERT_ALIGNED16(SMALL_STRINGS);
 ASSERT_ALIGNED16(LARGE_STRINGS);
 _Static_assert(ITEM_COUNT <= 256, "MAX_ITEMS must Be less than or equal to 256");

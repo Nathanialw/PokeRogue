@@ -646,6 +646,7 @@ void InitMainMenu(void)
     g_core.menu.x = MAIN_MENU_X;
     g_core.menu.y = (MAIN_MENU_Y + 1);
     g_core.menu.h = MAIN_MENU_H;
+    g_core.menu.w = 0;
     g_core.menu.subMenus = submenus;
 
     g_core.menu.visibleMenuOptions = MAIN_MENUS_SIZE;

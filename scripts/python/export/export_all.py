@@ -1,4 +1,5 @@
 from python.config import constants
+from python.data.db_manager import init_database
 from . import export_creatures
 from . import export_core_data
 from . import export_battlers
@@ -10,6 +11,8 @@ from . import export_img_prompts
 
 
 def run():
+    init_database()
+
     # CORE DATA
     bytes_count = []
     bytes_count_map_sprites = []

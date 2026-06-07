@@ -20,6 +20,8 @@ void Flash_GetItemData(MemoryInterface memory, ItemData* itemData, uint8_t index
 //GRAPHICS
 void Flash_GetSpriteLayout(MemoryInterface memory, SpriteLayout* spriteLayout, uint8_t index, ObjectsTypes type, bool front);
 void Flash_GetSprite(MemoryInterface memory, uint8_t* sprite, uint32_t index, uint16_t length, ObjectsTypes type, bool front);
+void Flash_GetSpriteLayout_64(MemoryInterface memory, SpriteLayout* spriteLayout, uint8_t index, ObjectsTypes type, bool front);
+void Flash_GetSprite_64(MemoryInterface memory, uint8_t* sprite, uint32_t index, uint16_t length, ObjectsTypes type, bool front);
 
 
 ///FONTS

@@ -4,6 +4,7 @@
 
 #include "generate_map_state.h"
 
+#include "core_map.h"
 #include "lib_memory.h"
 #include "lib_decl.h"
 
@@ -18,7 +19,7 @@ SET_MEMORY(".map_gen")
 void GameRunInit()
 {
     g_core.floor = 0;
-    g_core.settings.fontSize = FONT8x8;
+    g_core.settings.fontSize = FONT16x16;
 
     g_core.btns.gameSpeed = 10; //200
     g_core.btns.defaultGameLoopRate = 12;
@@ -54,6 +55,7 @@ uint8_t MapGenEntry(GameInterface* spi)
 {
     InitGame(spi->hardware, spi->memory);
     GenerateEntities(spi);
+    SetMapFog(0);
 
 
     g_core.state.overlay = OVERLAY_MAP;

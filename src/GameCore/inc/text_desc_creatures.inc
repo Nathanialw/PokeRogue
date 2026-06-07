@@ -1,5 +1,5 @@
 // Generated creature descriptions
-// Database contains 255 total descriptions
+// Database contains 253 total descriptions
 
 // Individual description strings
 "A slime-covered, abyssal horror with bulbous eyes and tentacles, it drains memories and enslaves victims with its alien mind.\0",
@@ -153,7 +153,6 @@
 "The tiny, mischievous creature with a pointed red hat lurks in homes, delighting in pranks that vanish when approached.\0",
 "A sinister Scottish fairy luring victims into the depths of a misty ford with hypnotic whispers and shadowy, elongated limbs.\0",
 "A monstrous beast with a human face, three rows of razor-sharp teeth, and bat wings, its tail bristling with venomous spines.\0",
-"A bioluminescent, armored predator with lightning-fast strikes and multicolored eyes that shatter prey with brutal force.\0",
 "A massive, brown-furred beast with a belly mouth that tears through palm trees, roaming the Amazon rainforest.\0",
 "A spectral entity that preys on human sleep, whispering nightmares into the mind until the victim awakens in terror.\0",
 "A great djinn of the Arabian legends, powerful and capricious, capable of shape-shifting to fulfill desires.\0",
@@ -217,7 +216,6 @@
 "A wispy, translucent spirit with hollow eyes and a mournful wail, drifting through walls to silently haunt the living.\0",
 "A stone guardian with a lion's body and human head sits in eternal vigil, testing those who seek to enter with ancient riddles.\0",
 "A towering monstrous hunter lurks in the shadows of the ancient forest, its many glowing eyes fixed on prey.\0",
-"A small, gnarled fairy that grows to monstrous size, guarding treasures and kidnapping children with cunning mischief.\0",
 "A gaunt, bat-winged undead vampire with glowing red eyes and elongated, skeletal fingers lurks in the shadows.\0",
 "A seductive female demon materializes in dreams, draining lifeforce through whispered promises of desire and forbidden lust.\0",
 "A massive, lion-bear hybrid with a turtle's shell and six clawed feet, breathing fire and wielding a deadly poisonous tail.\0",
@@ -259,4 +257,4 @@
 "A rotting corpse lurches forward, eyes milky white, flesh sagging, driven by an unseen force, its arms outstretched hungrily.\0",
 " ------ \0",
 
-//ALL_DESCRIPTIONS_COUNT = 255;
+//ALL_DESCRIPTIONS_COUNT = 253;

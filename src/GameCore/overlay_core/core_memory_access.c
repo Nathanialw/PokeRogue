@@ -181,9 +181,9 @@ void Flash_GetSpriteLayout(MemoryInterface memory, SpriteLayout* spriteLayout, u
     else if (type == CREATURE)
     {
         if (front)
-            memory.GetRom(SPRITE_BATTLER_LAYOUT_FRONT_POSITION + position, spriteLayout->bytes, sizeof(SpriteLayout));
+            memory.GetRom(SPRITE_BATTLER_LAYOUT_FRONT_16_POSITION + position, spriteLayout->bytes, sizeof(SpriteLayout));
         else
-            memory.GetRom(SPRITE_BATTLER_LAYOUT_BACK_POSITION + position, spriteLayout->bytes, sizeof(SpriteLayout));
+            memory.GetRom(SPRITE_BATTLER_LAYOUT_BACK_16_POSITION + position, spriteLayout->bytes, sizeof(SpriteLayout));
     }
 
 #if defined(MEMORY_PRINT)
@@ -224,9 +224,93 @@ void Flash_GetSprite(MemoryInterface memory, uint8_t* sprite, uint32_t index, ui
     else if (type == CREATURE)
     {
         if (front)
-            memory.GetRom(SPRITE_BATTLER_FRONT_POSITION + index, sprite, length);
+            memory.GetRom(SPRITE_BATTLER_FRONT_16_POSITION + index, sprite, length);
         else
-            memory.GetRom(SPRITE_BATTLER_BACK_POSITION + index, sprite, length);
+            memory.GetRom(SPRITE_BATTLER_BACK_16_POSITION + index, sprite, length);
+    }
+#if defined(MEMORY_PRINT)
+    else
+    memory.Print(aascyyy, type);
+
+    for (uint8_t i = 0; i < length; i++)
+        memory.Print(str_spawn_creature_type, sprite[i]);
+    memory.Print(new_line);
+#endif
+#endif
+}
+
+SET_MEMORY(".core")
+void Flash_GetSpriteLayout_64(MemoryInterface memory, SpriteLayout* spriteLayout, uint8_t index, ObjectsTypes type, bool front)
+{
+#ifdef STANDALONE
+    if (type == ITEM)
+        return &g_gameFlash.spriteData.itemLayout[index];
+    else if (type == OBJECT)
+        return &g_gameFlash.spriteData.objectLayout[index];
+    else if (type == SPELL)
+        return &g_gameFlash.spriteData.spellLayout[index];
+    else if (type == SKILL)
+        return &g_gameFlash.spriteData.skillLayout[index];
+#else
+    const uint32_t position = index * sizeof(SpriteLayout);
+
+    if (type == ITEM)
+        memory.GetRom(SPRITE_ITEMS_LAYOUT_64_POSITION + position, spriteLayout->bytes, sizeof(SpriteLayout));
+    else if (type == OBJECT)
+        memory.GetRom(SPRITE_OBJECTS_LAYOUT_64_POSITION + position, spriteLayout->bytes, sizeof(SpriteLayout));
+    else if (type == SPELL)
+        memory.GetRom(SPRITE_SPELLS_LAYOUT_64_POSITION + position, spriteLayout->bytes, sizeof(SpriteLayout));
+    else if (type == SKILL)
+        memory.GetRom(SPRITE_SKILLS_LAYOUT_64_POSITION + position, spriteLayout->bytes, sizeof(SpriteLayout));
+    else if (type == CREATURE)
+    {
+        if (front)
+            memory.GetRom(SPRITE_BATTLER_LAYOUT_FRONT_64_POSITION + position, spriteLayout->bytes, sizeof(SpriteLayout));
+        else
+            memory.GetRom(SPRITE_BATTLER_LAYOUT_BACK_64_POSITION + position, spriteLayout->bytes, sizeof(SpriteLayout));
+    }
+
+#if defined(MEMORY_PRINT)
+    for (uint8_t i = 0; i < sizeof(SpriteLayout); i++)
+        memory.Print(str_spawn_creature_type, spriteLayout->bytes[i]);
+    memory.Print(new_line);
+#endif
+#endif
+}
+
+#if defined(MEMORY_PRINT)
+SET_MEMORY(".core.data")
+static const char aascyyy[] = "Flash_GetSprite INVALID type! index: %d\n";
+#endif
+
+
+SET_MEMORY(".core")
+void Flash_GetSprite_64(MemoryInterface memory, uint8_t* sprite, uint32_t index, uint16_t length, ObjectsTypes type, bool front)
+{
+#ifdef STANDALONE
+    if (type == ITEM)
+        return g_gameFlash.spriteData.itemSprites;
+    else if (type == OBJECT)
+        return g_gameFlash.spriteData.objectSprites;
+    else if (type == SPELL)
+        return g_gameFlash.spriteData.spells;
+    else if (type == SKILL)
+        return g_gameFlash.spriteData.skills;
+#else
+    if (type == ITEM)
+        memory.GetRom(SPRITE_ITEMS_64_POSITION + index, sprite, length);
+    else if (type == OBJECT)
+        memory.GetRom(SPRITE_OBJECTS_64_POSITION + index, sprite, length);
+    else if (type == SPELL)
+        memory.GetRom(SPRITE_SPELLS_64_POSITION + index, sprite, length);
+    else if (type == SKILL)
+        memory.GetRom(SPRITE_SKILLS_64_POSITION + index, sprite, length);
+    else if (type == CREATURE)
+    {
+        if (front)
+            memory.GetRom(SPRITE_BATTLER_FRONT_64_POSITION + index, sprite, length);
+        else
+            memory.GetRom(SPRITE_BATTLER_BACK_64_POSITION + index, sprite, length);
     }
 #if defined(MEMORY_PRINT)
     else

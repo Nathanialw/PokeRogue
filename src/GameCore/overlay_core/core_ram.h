@@ -248,6 +248,7 @@ typedef struct
         uint16_t x; // in tiles
         uint16_t y;
         uint16_t h;
+        uint16_t w;
         SubMenu* subMenus;
         uint16_t menuSleepTime;
 

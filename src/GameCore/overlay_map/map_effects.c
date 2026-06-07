@@ -4,6 +4,7 @@
 
 #include "map_effects.h"
 
+#include "core_map.h"
 #include "types.h"
 
 #include "lib_decl.h"

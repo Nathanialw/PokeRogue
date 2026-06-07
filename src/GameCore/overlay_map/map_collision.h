@@ -2,9 +2,10 @@
 // Created by nathanial on 2/21/26.
 //
 #pragma once
-#include "../common/types.h"
+#include "types.h"
 
 
-bool CheckInteraction(uint8_t tile, EntityId id, uint8_t x, uint8_t y);
+bool CheckInteractionStepOn(uint8_t tile, EntityId id, uint8_t x, uint8_t y);
+bool CheckInteractionStepOff(uint8_t tile, EntityId id, uint8_t x, uint8_t y);
 void StartBattle(EntityId id);
 

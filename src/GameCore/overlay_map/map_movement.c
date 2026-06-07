@@ -6,11 +6,9 @@
 
 #include "lib_memory.h"
 #include "lib_constants.h"
-#include "lib_enums.h"
 
 #include "core_utils.h"
 #include "core_map.h"
-#include "core_memory_access.h"
 #include "core_player.h"
 #include "core_ram.h"
 
@@ -145,31 +143,18 @@ void UpdateObjectCollision(MemoryInterface memory, HardwareInterface hardware)
 {
     g_map.objectCollision = NO_OBJECT;
     g_map.itemCollision = NO_ITEM;
-    for (uint16_t e_id = 0; e_id < g_core.creatures.total; e_id++)
-    {
-        for (uint16_t o_id = 0; o_id < g_core.objects.total; ++o_id)
-        {
-            if (!GetBit(g_core.creatures.onMap, e_id) || !GetBit(g_core.creatures.active, e_id) || !GetBit(g_core.objects.active, o_id)) continue;
-            Position cp = g_core.creatures.newPosition[e_id];
-            Position op = g_core.objects.position[o_id];
-            if (cp.x == op.x && cp.y == op.y)
-                InteractObject(memory, hardware, e_id, o_id);
-        }
-    }
 
-    for (uint16_t e_id = 0; e_id < g_core.trainers.total; e_id++)
+    EntityId e_id = GetPlayerID();
+    for (uint16_t o_id = 0; o_id < g_core.objects.total; o_id++)
     {
-        for (uint16_t o_id = 0; o_id < g_core.objects.total; o_id++)
+        if (!GetBit(g_core.trainers.onMap, e_id) || !GetBit(g_core.trainers.active, e_id) || !GetBit(g_core.objects.active, o_id)) continue;
+        Position cp = g_core.trainers.newPosition[e_id];
+        Position op = g_core.objects.position[o_id];
+        if (cp.x == op.x && cp.y == op.y)
         {
-            if (!GetBit(g_core.trainers.onMap, e_id) || !GetBit(g_core.trainers.active, e_id) || !GetBit(g_core.objects.active, o_id)) continue;
-            Position cp = g_core.trainers.newPosition[e_id];
-            Position op = g_core.objects.position[o_id];
-            if (cp.x == op.x && cp.y == op.y)
-            {
-                InteractObject(memory, hardware, o_id, e_id);
-                if (e_id == GetPlayerID())
-                    g_map.objectCollision = g_core.objects.types[o_id];
-            }
+            // InteractObject(memory, hardware, o_id, e_id);
+            if (e_id == GetPlayerID())
+                g_map.objectCollision = g_core.objects.types[o_id];
         }
     }
 
@@ -213,11 +198,11 @@ void SetPositions(void)
 
         //check current tile
         uint8_t tileID = GetMapTile(x, y);
-        CheckInteraction(tileID, id, x, y);
+        CheckInteractionStepOn(tileID, id, x, y);
 
         //check next tile
         tileID = GetMapTile(nx, ny);
-        if (CheckInteraction(tileID, id, nx, ny))
+        if (CheckInteractionStepOn(tileID, id, nx, ny))
             SetEntityPosition(TRAINER, id, x, y, nx, ny);
     }
 
@@ -241,11 +226,11 @@ void SetPositions(void)
 
         //check current tile
         uint8_t tileID = GetMapTile(x, y);
-        CheckInteraction(tileID, id, x, y);
+        CheckInteractionStepOn(tileID, id, x, y);
 
         //check next tile
         tileID = GetMapTile(nx, ny);
-        if (CheckInteraction(tileID, id, nx, ny))
+        if (CheckInteractionStepOn(tileID, id, nx, ny))
             SetEntityPosition(CREATURE, id, x, y, nx, ny);
     }
 

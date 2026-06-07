@@ -19,20 +19,6 @@ Camera GetCamera(void)
 }
 
 /**********************************************************************************************************************/
-/** sets the camera to the given position and dimensions
-**********************************************************************************************************************/
-SET_MEMORY(".map")
-Camera InitCamera(uint8_t x, uint8_t y, uint16_t w, uint16_t h)
-{
-    g_core.camera.x = x;
-    g_core.camera.y = y;
-    g_core.camera.w = w;
-    g_core.camera.h = h;
-
-    return g_core.camera;
-}
-
-/**********************************************************************************************************************/
 /** sets the camera to the given position
  *  with default dimensions
  *  returns the camera rect

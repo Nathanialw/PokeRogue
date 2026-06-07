@@ -42,7 +42,6 @@ uint8_t GetRandom_uint8_t(uint8_t min, uint8_t max)
     return rand() % (max - min + 1) + min;
 }
 
-
 HardwareInterface HardwareInterfaceInit()
 {
     HardwareInterface mardwareInterface = {

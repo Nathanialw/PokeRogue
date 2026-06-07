@@ -19,11 +19,11 @@
 SET_MEMORY(".core")
 EntityId PlayerCaptureMonster(EntityId e_id)
 {
-    EntityId p_ID = GetPlayerID();
+    EntityId player_id = GetPlayerID();
     for (uint8_t i = 0; i < MAX_PARTY_SIZE; ++i)
-        if (g_core.trainers.partyID[p_ID][i] == NO_ENTITY)
+        if (g_core.trainers.partyID[player_id][i] == NO_ENTITY)
         {
-            g_core.trainers.partyID[p_ID][i] = CaptureMonster(e_id);
+            g_core.trainers.partyID[player_id][i] = CaptureMonster(e_id);
             g_core.player.cur_xp[i] = 0;
             g_core.player.tar_xp[i] = 100; //TODO: calculate needed xp to level
             return e_id;

@@ -1,11 +1,10 @@
 // Generated creature descriptions
-// Database contains 47 total descriptions
+// Database contains 46 total descriptions
 
 // Individual description strings
 "ALTAR -- PLACEHOLDER TEXT - A mysterious object awaiting discovery.\0",
 "A weathered wooden raft with carved runes drifts silently, its hull wrapped in seaweed and glowing faintly under moonlight.\0",
 "The small wooden boat creaks as it glides through misty waters, its oars leaving shimmering trails of starlight behind.\0",
-"A frayed length of enchanted hemp, glowing faintly with runes, hums with latent magic when pulled taut.\0",
 "A smooth, obsidian-like tablet hums with latent magic, its surface shifting with faint, glowing runes when touched.\0",
 "A weathered wooden bridge spans a misty ravine, its planks groaning under unseen burdens, creaking with each step.\0",
 "CASE_BOOK -- PLACEHOLDER TEXT - A mysterious object awaiting discovery.\0",
@@ -51,4 +50,4 @@
 "WELL -- PLACEHOLDER TEXT - A mysterious object awaiting discovery.\0",
 " ------ \0",
 
-//ALL_DESCRIPTIONS_COUNT = 47;
+//ALL_DESCRIPTIONS_COUNT = 46;

@@ -568,26 +568,6 @@ const uint8_t battler_front[SPRITE_CREATURE_FRONT_BYTES_16] = {
 #include "inc/sprite_creature_front_16x16.inc"
 };
 
-// #if defined(SDL)
-SET_MEMORY(".sprite_battler_layout_back_64")
-const SpriteLayout battler_back_layout_64[CREATURE_COUNT] = {
-#include "inc/sprite_creature_back_layout_64x64.inc"
-};
-SET_MEMORY(".sprite_battler_layout_front_64")
-const SpriteLayout battler_front_layout_64[CREATURE_COUNT] = {
-#include "inc/sprite_creature_front_layout_64x64.inc"
-};
-SET_MEMORY(".sprite_battler_back_64")
-const uint8_t battler_back_64[SPRITE_CREATURE_BACK_BYTES_64] = {
-#include "inc/sprite_creature_back_64x64.inc"
-};
-SET_MEMORY(".sprite_battler_front_64")
-const uint8_t battler_front_64[SPRITE_CREATURE_FRONT_BYTES_64] = {
-#include "inc/sprite_creature_front_64x64.inc"
-};
-//#endif
-
-
 SET_MEMORY(".sprite_items_layout")
 const SpriteLayout itemLayout[ITEM_COUNT] = {
 #include "inc/sprite_item_layout.inc"
@@ -611,25 +591,90 @@ const SpriteLayout trainerLayout[TRAINER_COUNT] = {
 
 
 SET_MEMORY(".sprite_items")
-const uint8_t sprites_items[SPRITE_ITEM_BYTES] = {
-#include "inc/sprite_item.inc"
+const uint8_t sprites_items[SPRITE_ITEM_BYTES_16] = {
+#include "inc/sprite_item_16x16.inc"
 };
 SET_MEMORY(".sprite_skills")
-const uint8_t sprites_skills[SPRITE_SKILL_BYTES] = {
-#include "inc/sprite_skill.inc"
+const uint8_t sprites_skills[SPRITE_SKILL_BYTES_16] = {
+#include "inc/sprite_skill_16x16.inc"
 };
 SET_MEMORY(".sprite_spells")
-const uint8_t sprites_spells[SPRITE_SPELL_BYTES] = {
-#include "inc/sprite_spell.inc"
+const uint8_t sprites_spells[SPRITE_SPELL_BYTES_16] = {
+#include "inc/sprite_spell_16x16.inc"
 };
 SET_MEMORY(".sprite_objects")
-const uint8_t sprites_objects[SPRITE_OBJECT_BYTES] = {
-#include "inc/sprite_object.inc"
+const uint8_t sprites_objects[SPRITE_OBJECT_BYTES_16] = {
+#include "inc/sprite_object_16x16.inc"
 };
 SET_MEMORY(".sprite_trainers")
-const uint8_t sprites_trainers[SPRITE_TRAINER_BYTES] = {
-#include "inc/sprite_trainer.inc"
+const uint8_t sprites_trainers[SPRITE_TRAINER_BYTES_16] = {
+#include "inc/sprite_trainer_16x16.inc"
 };
+
+
+// 64x64 7x7 battlers
+
+SET_MEMORY(".sprite_battler_layout_back_64")
+const SpriteLayout battler_back_layout_64[CREATURE_COUNT] = {
+#include "inc/sprite_creature_back_layout_64x64.inc"
+};
+SET_MEMORY(".sprite_battler_layout_front_64")
+const SpriteLayout battler_front_layout_64[CREATURE_COUNT] = {
+#include "inc/sprite_creature_front_layout_64x64.inc"
+};
+SET_MEMORY(".sprite_battler_back_64")
+const uint8_t battler_back_64[SPRITE_CREATURE_BACK_BYTES_64] = {
+#include "inc/sprite_creature_back_64x64.inc"
+};
+SET_MEMORY(".sprite_battler_front_64")
+const uint8_t battler_front_64[SPRITE_CREATURE_FRONT_BYTES_64] = {
+#include "inc/sprite_creature_front_64x64.inc"
+};
+
+
+SET_MEMORY(".sprite_items_layout_64")
+const SpriteLayout itemLayout_64[ITEM_COUNT] = {
+#include "inc/sprite_item_layout_64x64.inc"
+};
+SET_MEMORY(".sprite_skills_layout_64")
+const SpriteLayout skillLayout_64[ABILITY_COUNT] = {
+#include "inc/sprite_skill_layout_64x64.inc"
+};
+SET_MEMORY(".sprite_spells_layout_64")
+const SpriteLayout spellLayout_64[SPELL_COUNT] = {
+#include "inc/sprite_spell_layout_64x64.inc"
+};
+SET_MEMORY(".sprite_objects_layout_64")
+const SpriteLayout objectLayout_64[OBJECT_COUNT] = {
+#include "inc/sprite_object_layout_64x64.inc"
+};
+SET_MEMORY(".sprite_trainer_layout_64")
+const SpriteLayout trainerLayout_64[TRAINER_COUNT] = {
+#include "inc/sprite_trainer_layout_64x64.inc"
+};
+
+
+SET_MEMORY(".sprite_items_64")
+const uint8_t sprites_items_64[SPRITE_ITEM_BYTES_64] = {
+#include "inc/sprite_item_64x64.inc"
+};
+SET_MEMORY(".sprite_skills_64")
+const uint8_t sprites_skills_64[SPRITE_SKILL_BYTES_64] = {
+#include "inc/sprite_skill_64x64.inc"
+};
+SET_MEMORY(".sprite_spells_64")
+const uint8_t sprites_spells_64[SPRITE_SPELL_BYTES_64] = {
+#include "inc/sprite_spell_64x64.inc"
+};
+SET_MEMORY(".sprite_objects_64")
+const uint8_t sprites_objects_64[SPRITE_OBJECT_BYTES_64] = {
+#include "inc/sprite_object_64x64.inc"
+};
+SET_MEMORY(".sprite_trainers_64")
+const uint8_t sprites_trainers_64[SPRITE_TRAINER_BYTES_64] = {
+#include "inc/sprite_trainer_64x64.inc"
+};
+
 
 /**********************************************************************************************************************/
 /*

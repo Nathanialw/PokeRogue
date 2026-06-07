@@ -188,27 +188,27 @@ void DrawSpriteCached(GraphicsInterface graphics, MemoryInterface memory, uint8_
 SET_MEMORY(".map")
 void DrawParty(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory)
 {
-    const uint16_t x = MAIN_MENU_X * TILE_W;
-    uint8_t y = MAIN_MENU_Y * TILE_H;
-    const uint16_t w = MAIN_MENU_W * TILE_W;
-    const uint16_t h = MAIN_MENU_H * TILE_H;
+    const uint16_t x = MAIN_MENU_X * TEXT_W;
+    uint16_t y = MAIN_MENU_Y * TEXT_H;
+    const uint16_t w = MAIN_MENU_W * TEXT_W;
+    const uint16_t h = MAIN_MENU_H * TEXT_H;
     graphics.FillRect(x, y, w, h, Flash_GetColor(memory, PAL_LIGHT_GRAY));
 
-    const uint8_t indent = 1;
+    const uint16_t indent = 1;
     const FontSize font_size = g_core.settings.fontSize;
-    const uint8_t size = (font_size == FONT8x8) ? TEXT_W : TILE_W;
+    const uint16_t size = TEXT_W;
     const uint8_t max_lines = (MAIN_MENU_H * font_size);
     const uint8_t max_chars = (((MAIN_MENU_W) * font_size) - indent) + 1;
 
     char border[max_chars + 1];
-    for (uint8_t i = 0; i < max_chars; i++) border[i] = '-';
+    for (uint16_t i = 0; i < max_chars; i++) border[i] = '-';
     border[max_chars] = '\0';
 
     y += PrintLineStr(graphics, memory, x, y, font_size, max_chars, border, false);
-    const uint8_t list_y = y;
+    const uint16_t list_y = y;
 
-    uint8_t lineHeight = 0;
-    uint8_t i = 0;
+    uint16_t lineHeight = 0;
+    uint16_t i = 0;
     while (i < MAX_PARTY_SIZE)
     {
         lineHeight = 0;
@@ -218,15 +218,16 @@ void DrawParty(GraphicsInterface graphics, HardwareInterface hardware, MemoryInt
         if (line_empty || i > (max_lines)) break;
 
 
-        EntityId p_ID = GetPlayerID();
+        EntityId player_id = GetPlayerID();
+        EntityId creature_id = g_core.trainers.partyID[player_id][i];
         // level
-        if (GetCreatureType(g_core.trainers.partyID[p_ID][i]) == NO_CREATURE)
+        if (creature_id == NO_ENTITY)
         {
             PrintLineStr(graphics, memory, x, y, font_size, 3, "---", indent);
         }
         else
         {
-            Int99 level = g_core.creatures.level[g_core.trainers.partyID[p_ID][i]];
+            Int99 level = g_core.creatures.level[creature_id];
             CharStr_99 levelStr;
             GetAsChars_99(level, &levelStr, false);
             PrintLineStr(graphics, memory, x, y, font_size, 3, levelStr, indent);
@@ -234,7 +235,7 @@ void DrawParty(GraphicsInterface graphics, HardwareInterface hardware, MemoryInt
 
         y += PrintLineStr(graphics, memory, x + (3 * size), y + lineHeight, font_size, max_chars, line, indent);
 
-        if (GetCreatureType(g_core.trainers.partyID[p_ID][i]) == NO_CREATURE)
+        if (creature_id == NO_ENTITY)
         {
             lineHeight += (size * 3);
             lineHeight += (size >> 1);
@@ -249,7 +250,7 @@ void DrawParty(GraphicsInterface graphics, HardwareInterface hardware, MemoryInt
         uint16_t max = 0;
         float line_w = 0.0f;
 
-        IntMax999 hp = g_core.creatures.hp[g_core.trainers.partyID[p_ID][i]];
+        IntMax999 hp = g_core.creatures.hp[creature_id];
         cur = Int999GetCurrent(&hp);
         max = Int999GetMax(&hp);
         if (max > 0)
@@ -262,7 +263,7 @@ void DrawParty(GraphicsInterface graphics, HardwareInterface hardware, MemoryInt
         }
         lineHeight += size;
 
-        IntMax999 mp = g_core.creatures.mp[g_core.trainers.partyID[p_ID][i]];
+        IntMax999 mp = g_core.creatures.mp[creature_id];
         cur = Int999GetCurrent(&mp);
         max = Int999GetMax(&mp);
         if (max > 0)
@@ -275,7 +276,7 @@ void DrawParty(GraphicsInterface graphics, HardwareInterface hardware, MemoryInt
             lineHeight += size;
         }
 
-        IntMax999 xp = g_core.creatures.xp[g_core.trainers.partyID[p_ID][i]];
+        IntMax999 xp = g_core.creatures.xp[creature_id];
         cur = Int999GetCurrent(&xp);
         max = Int999GetMax(&xp);
         if (max > 0)
@@ -307,16 +308,16 @@ void DrawParty(GraphicsInterface graphics, HardwareInterface hardware, MemoryInt
 SET_MEMORY(".map")
 void DrawList(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory)
 {
-    const uint16_t x = MAIN_MENU_X * TILE_W;
-    uint8_t y = MAIN_MENU_Y * TILE_H;
-    const uint16_t w = MAIN_MENU_W * TILE_W;
-    const uint16_t h = MAIN_MENU_H * TILE_H;
+    const uint16_t x = MAIN_MENU_X * TEXT_W;
+    uint8_t y = MAIN_MENU_Y * TEXT_H;
+    const uint16_t w = MAIN_MENU_W * TEXT_W;
+    const uint16_t h = MAIN_MENU_H * TEXT_H;
     graphics.FillRect(x, y, w, h, Flash_GetColor(memory, PAL_OFF_WHITE_GRAY));
 
 
     const uint8_t indent = 1;
     const FontSize font_size = g_core.settings.fontSize;
-    const uint8_t size = (font_size == FONT8x8) ? TEXT_W : TILE_W;
+    const uint8_t size = TEXT_W;
     const uint8_t max_lines = (MAIN_MENU_H * font_size);
     const uint8_t max_chars = (((MAIN_MENU_W) * font_size) - indent) + 1;
 
@@ -397,7 +398,7 @@ void HandleGameMenuBorders(GraphicsInterface graphics, HardwareInterface hardwar
     const uint16_t x = 0;
     uint8_t y = 0;
     const FontSize font_size = g_core.settings.fontSize;
-    const uint8_t size = (font_size == FONT8x8) ? TEXT_W : TILE_W;
+    const uint8_t size = TEXT_W;
     const uint8_t max_lines = (VIEW_TH * font_size);
     const uint8_t max_chars = (((VIEW_TW) * font_size)) + 1;
 
@@ -421,7 +422,7 @@ void HandleGameMenuTypes(GraphicsInterface graphics, MemoryInterface memory, con
     const uint16_t x = 0;
     uint8_t y = 0;
     const FontSize font_size = g_core.settings.fontSize;
-    const uint8_t size = (font_size == FONT8x8) ? TEXT_W : TILE_W;
+    const uint8_t size = TEXT_W;
     const uint8_t indent = 1;
 
     PrintLineStr(graphics, memory, x + (size * 10), y + (size * 18), font_size, 10, typeA, indent);
@@ -436,7 +437,7 @@ SET_MEMORY(".map")
 void HandleGameMenuDescription(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, uint16_t y, const char* desc)
 {
     const FontSize font_size = g_core.settings.fontSize;
-    const uint8_t size = (font_size == FONT8x8) ? TEXT_W : TILE_W;
+    const uint8_t size = TEXT_W;
     const uint8_t max_chars = (VIEW_TW * font_size) + 1;
     const uint8_t indent = 1;
     const uint8_t MAX_LINES = 8;
@@ -570,7 +571,7 @@ void FillObjectData(MemoryInterface memory, EntityData* entityData)
     {
         Flash_GetCreatureName(memory, entityData->name, g_core.menu.gameMenu.displayId);
         Flash_GetCreatureDescription(memory, entityData->desc, g_core.menu.gameMenu.displayId);
-        Flash_GetSpriteLayout(memory, &entityData->layout, g_core.menu.gameMenu.displayId, CREATURE, true);
+        Flash_GetSpriteLayout_64(memory, &entityData->layout, g_core.menu.gameMenu.displayId, CREATURE, true);
         MonsterType m_type;
         Flash_GetType(memory, &m_type, g_core.menu.gameMenu.displayId);
         Flash_GetTypeName(memory, entityData->typeA, m_type.typeA);
@@ -580,7 +581,7 @@ void FillObjectData(MemoryInterface memory, EntityData* entityData)
     {
         Flash_GetObjectName(memory, entityData->name, g_core.menu.gameMenu.displayId);
         Flash_GetObjectDescription(memory, entityData->desc, g_core.menu.gameMenu.displayId);
-        Flash_GetSpriteLayout(memory, &entityData->layout, g_core.menu.gameMenu.displayId, OBJECT, true);
+        Flash_GetSpriteLayout_64(memory, &entityData->layout, g_core.menu.gameMenu.displayId, OBJECT, true);
         entityData->typeA[0] = '\0';
         entityData->typeB[0] = '\0';
     }
@@ -588,7 +589,7 @@ void FillObjectData(MemoryInterface memory, EntityData* entityData)
     {
         Flash_GetItemName(memory, entityData->name, g_core.menu.gameMenu.displayId);
         Flash_GetItemDescription(memory, entityData->desc, g_core.menu.gameMenu.displayId);
-        Flash_GetSpriteLayout(memory, &entityData->layout, g_core.menu.gameMenu.displayId, ITEM, true);
+        Flash_GetSpriteLayout_64(memory, &entityData->layout, g_core.menu.gameMenu.displayId, ITEM, true);
         entityData->typeA[0] = '\0';
         entityData->typeB[0] = '\0';
     }
@@ -596,7 +597,7 @@ void FillObjectData(MemoryInterface memory, EntityData* entityData)
     {
         Flash_GetSpellName(memory, entityData->name, g_core.menu.gameMenu.displayId);
         Flash_GetSpellDescription(memory, entityData->desc, g_core.menu.gameMenu.displayId);
-        Flash_GetSpriteLayout(memory, &entityData->layout, g_core.menu.gameMenu.displayId, SPELL, true);
+        Flash_GetSpriteLayout_64(memory, &entityData->layout, g_core.menu.gameMenu.displayId, SPELL, true);
         entityData->typeA[0] = '\0';
         entityData->typeB[0] = '\0';
     }
@@ -604,7 +605,7 @@ void FillObjectData(MemoryInterface memory, EntityData* entityData)
     {
         Flash_GetSkillName(memory, entityData->name, g_core.menu.gameMenu.displayId);
         Flash_GetSkillDescription(memory, entityData->desc, g_core.menu.gameMenu.displayId);
-        Flash_GetSpriteLayout(memory, &entityData->layout, g_core.menu.gameMenu.displayId, SKILL, true);
+        Flash_GetSpriteLayout_64(memory, &entityData->layout, g_core.menu.gameMenu.displayId, SKILL, true);
         entityData->typeA[0] = '\0';
         entityData->typeB[0] = '\0';
     }
@@ -623,15 +624,15 @@ void HandleGameMenu(GraphicsInterface graphics, HardwareInterface hardware, Memo
     const uint16_t x = 0;
     uint8_t y = 0;
     const FontSize font_size = g_core.settings.fontSize;
-    const uint8_t size = (font_size == FONT8x8) ? TEXT_W : TILE_W;
+    const uint8_t size = TEXT_W;
     FillObjectData(memory, &g_map.entityData);
 
     HandleGameMenuLeftBG(graphics, memory, x, y);
     HandleGameMenuBorders(graphics, hardware, memory);
+    DrawBattler(graphics, memory, x, y + (size), &g_map.entityData.layout, g_core.menu.sel[0].y - 1, true);
     HandleGameMenuLeftName(graphics, memory, x, y + (size * 16), g_map.entityData.name);
     HandleGameMenuTypes(graphics, memory, g_map.entityData.typeA, g_map.entityData.typeB);
     HandleGameMenuDescription(graphics, hardware, memory, (size * 21), g_map.entityData.desc);
-    DrawBattler(graphics, memory, x, y + (size), &g_map.entityData.layout, g_core.menu.sel[0].y - 1, true);
     HandleGameMenuLeftStat(graphics, memory, x, x + (size * 6), y + (size * 18), size, g_map.power);
     HandleGameMenuLeftStat(graphics, memory, x, x + (size * 6), y + (size * 20) - 4, size, g_map.rarity);
 }

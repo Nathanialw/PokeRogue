@@ -110,18 +110,18 @@ _Static_assert(OBJECT_COUNT <= 256, "max must be 256 - one byte");
 /**********************************************************************************************************************/
 /**BATTLE FRAMES constants
 **********************************************************************************************************************/
-#define BATTLER_AREA_H 112
-#define BATTLER_AREA_W 160
 #define BATTLER_TILES_W 7
 #define BATTLER_TILES_H 7
-#define BATTLER_OFFSET 24
+#define BATTLER_AREA_W ((BATTLER_TILES_W +2) * TILE_W)
+#define BATTLER_AREA_H (BATTLER_TILES_H * TILE_H)
+#define BATTLER_OFFSET ((BATTLER_AREA_W - BATTLER_AREA_H) / 2)
 
-#define RESOURCE_FRAME_W 160
-#define RESOURCE_FRAME_H  64
-#define RESOURCE_WIDTH (RESOURCE_FRAME_W-16)
+#define RESOURCE_FRAME_W (TILE_W * 10)
+#define RESOURCE_FRAME_H (TILE_W * 4)
+#define RESOURCE_WIDTH (RESOURCE_FRAME_W-TILE_W)
 #define RESOURCE_HEIGHT TEXT_W
 
-#define DIALOGUE_H  64
+#define DIALOGUE_H  (TILE_H * 4)
 _Static_assert(DIALOGUE_H + RESOURCE_FRAME_H + BATTLER_AREA_H <= TFT_H, "cannot exceed screen height of 240");
 
 #define PLAYER_BATTLER_FRAME    ((Rect_16){0, SCREEN_H-BATTLER_AREA_H-DIALOGUE_H, BATTLER_AREA_W, BATTLER_AREA_H})
@@ -129,6 +129,17 @@ _Static_assert(DIALOGUE_H + RESOURCE_FRAME_H + BATTLER_AREA_H <= TFT_H, "cannot 
 #define ENEMY_RESOURCE_FRAME    ((Rect_16){0, 0, RESOURCE_FRAME_W, RESOURCE_FRAME_H})
 #define PLAYER_RESOURCE_FRAME   ((Rect_16){SCREEN_W-RESOURCE_FRAME_W, SCREEN_H-RESOURCE_FRAME_H-DIALOGUE_H, RESOURCE_FRAME_W, RESOURCE_FRAME_H})
 #define DIALOGUE_BOX_FRAME      ((Rect_16){0, SCREEN_H-DIALOGUE_H, SCREEN_W, DIALOGUE_H})
+
+#define BATTLE_MENU_X 0
+#define BATTLE_MENU_Y ((SCREEN_H-DIALOGUE_H) / TEXT_H)
+#define BATTLE_MENU_W 15
+#define BATTLE_MENU_H 8
+
+#define BATTLE_MENU_COL_1 0
+#define BATTLE_MENU_COL_2 20
+
+#define BATTLE_LIST_X 0
+#define BATTLE_LIST_Y 9
 
 /**********************************************************************************************************************/
 /**MAP constants
@@ -169,8 +180,8 @@ _Static_assert(DIALOGUE_H + RESOURCE_FRAME_H + BATTLER_AREA_H <= TFT_H, "cannot 
 #endif
 
 #define TILE_PIXELS (MAP_TILE_W * MAP_TILE_H)
-#define MAP_W 64
-#define MAP_H 64
+#define MAP_W 160
+#define MAP_H 160
 #define MAP_TILE_BITS 8
 #define MAP_SIZE_CELLS MAP_W * MAP_H
 #define MAP_SIZE_BITS (MAP_SIZE_CELLS * MAP_TILE_BITS)
@@ -186,7 +197,7 @@ _Static_assert(DIALOGUE_H + RESOURCE_FRAME_H + BATTLER_AREA_H <= TFT_H, "cannot 
 #define THEME_MONSTER_TYPES 7
 #define MONSTER_TYPES (BIOME_MONSTER_TYPES + THEME_MONSTER_TYPES + 1)// + one for player sprite
 #define MAX_MAP_ITEM_TYPES 16
-#define NUM_TILES 16
+#define NUM_TILES 256
 
 /**********************************************************************************************************************/
 /**MENUS constants
@@ -199,15 +210,10 @@ _Static_assert(DIALOGUE_H + RESOURCE_FRAME_H + BATTLER_AREA_H <= TFT_H, "cannot 
 
 #define FONT_OFFSET 32
 
-#define MAIN_MENU_X 11
+#define MAIN_MENU_X ((SCREEN_W / TEXT_W) - SMALL_STRINGS)
 #define MAIN_MENU_Y 0
-#define MAIN_MENU_W (VIEW_TW-MAIN_MENU_X)
-#define MAIN_MENU_H (VIEW_TH)
-
-#define BATTLE_MENU_X 0
-#define BATTLE_MENU_Y ((VIEW_TH * 2) - 8)
-#define BATTLE_MENU_W 15
-#define BATTLE_MENU_H 8
+#define MAIN_MENU_W (SMALL_STRINGS * TEXT_W)
+#define MAIN_MENU_H (SCREEN_H / TEXT_H)
 
 #define GLYPH_ROWS_8x8   8
 #define MAX_MENU_SIZE (MAIN_MENU_H * 2)

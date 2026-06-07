@@ -45,9 +45,9 @@ SpriteLayout GetBattlerLayout(MemoryInterface memory, bool onAttacker)
 {
     SpriteLayout spriteLayout = {};
     if (onAttacker)
-        Flash_GetSpriteLayout(memory, &spriteLayout, GetCreatureType(g_core.battleMode.enemyMonsterID), CREATURE, false);
+        Flash_GetSpriteLayout_64(memory, &spriteLayout, GetCreatureType(g_core.battleMode.enemyMonsterID), CREATURE, false);
     else
-        Flash_GetSpriteLayout(memory, &spriteLayout, GetCreatureType(g_core.battleMode.enemyMonsterID), CREATURE, true);
+        Flash_GetSpriteLayout_64(memory, &spriteLayout, GetCreatureType(g_core.battleMode.enemyMonsterID), CREATURE, true);
     return spriteLayout;
 
     // return Flash_GetBattlerLayout(memory, GetCreatureType(g_core.battleMode.enemyMonsterID), false);

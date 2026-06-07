@@ -282,9 +282,6 @@ void HandleGameState(GameInterface* spi)
 SET_MEMORY(".map_entry")
 uint8_t GameLoopMain(GameInterface* spi)
 {
-
-    SetMapFog(0);
-    InitCamera(0, 0, TILE_W * VIEW_TW, TILE_H * VIEW_TH);
     SetCameraPlayer();
 
     FullRedraw(spi->graphics, spi->hardware, spi->memory);

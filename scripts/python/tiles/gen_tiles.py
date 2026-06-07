@@ -25,13 +25,14 @@ prompts = {
     # "WALL_STONE": "smlstxtr, A pattern of a Stone Wall in Gray and Brown, seamless texture",
     # "WALL_WOOD": "smlstxtr, A pattern of wooden wall with long planks and wood grain in brown and black, seamless texture",
     # "WATER": "smlstxtr, A pattern of river water in water blue, seamless texture",
-    "PIT_SMALL": "smlstxtr, A top-down pattern of a large square pit in the center brown and black, seamless texture",
-    "PIT_MINOR": "smlstxtr,  A top-down pattern of a large square pit in the center brown and black, seamless texture",
-    "PIT_WIDE": "smlstxtr,  A top-down pattern of a large square pit in the center brown and black, seamless texture",
-    "PIT_SNAKE": "smlstxtr,  A top-down pattern of a large square large pit in the center with snakes writhing in it in green brown and black, seamless texture",
-    "PIT_ACID": "smlstxtr,  A top-down pattern of a large square pit in the center with a pool of acid in the center in green brown and black, seamless texture",
-    "PIT_LAVA": "smlstxtr,  A top-down pattern of a large square pit in the center with a pool of acid in the center in orange brown and black, seamless texture",
-    "PIT_WATER": "smlstxtr,  A top-down pattern of a large square pit in the center with a pool of acid in the center in blue brown and black, seamless texture",
+    # "PIT_SMALL": "smlstxtr, A top-down pattern of a large square pit in the center brown and black, seamless texture",
+    # "PIT_MINOR": "smlstxtr,  A top-down pattern of a large square pit in the center brown and black, seamless texture",
+    # "PIT_WIDE": "smlstxtr,  A top-down pattern of a large square pit in the center brown and black, seamless texture",
+    # "PIT_SNAKE": "smlstxtr,  A top-down pattern of a large square large pit in the center with snakes writhing at the bottom in green brown and black, seamless texture",
+    # "PIT_ACID": "smlstxtr,  A top-down pattern of a large square pit in the center with a pool of acid in at the bottom in green brown and black, seamless texture",
+    # "PIT_LAVA": "smlstxtr,  A top-down pattern of a large square pit in the center with a pool of acid at the bottom in orange brown and black, seamless texture",
+    # "PIT_WATER": "smlstxtr,  A top-down pattern of a large square pit in the center with a pool of acid at the bottom in blue brown and black, seamless texture",
+    "PIT_SPIKES": "smlstxtr,  A top-down pattern of a large square pit in the center with spikes at the bottom in blue brown and black, seamless texture",
 }
 
 

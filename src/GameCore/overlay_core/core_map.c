@@ -15,11 +15,13 @@ SET_MEMORY(".core")
 uint8_t GetMapTile(uint8_t x, uint8_t y)
 {
     uint16_t index = (y * MAP_W) + x;
-    uint8_t byte = g_core.map[index / 2];
-    if (index & 1)
-        return byte >> 4; // High nibble for odd indices
-
-    return byte & 0x0F; // Low nibble for even indices
+    return g_core.map[index];
+    //
+    // uint8_t byte = g_core.map[index / 2];
+    // if (index & 1)
+    //     return byte >> 4; // High nibble for odd indices
+    //
+    // return byte & 0x0F; // Low nibble for even indices
 }
 
 /**********************************************************************************************************************/
@@ -28,16 +30,19 @@ uint8_t GetMapTile(uint8_t x, uint8_t y)
 SET_MEMORY(".core")
 void SetMapTile(uint8_t x, uint8_t y, TileType tile)
 {
+
     uint16_t index = (y * MAP_W) + x;
-    uint8_t* byte = &g_core.map[index / 2];
-    if (index & 1)
-    {
-        *byte = (*byte & 0x0F) | (tile << 4); // Set high nibble
-    }
-    else
-    {
-        *byte = (*byte & 0xF0) | (tile & 0x0F); // Set low nibble
-    }
+    g_core.map[index] = tile;
+
+    // uint8_t* byte = &g_core.map[index / 2];
+    // if (index & 1)
+    // {
+    //     *byte = (*byte & 0x0F) | (tile << 4); // Set high nibble
+    // }
+    // else
+    // {
+    //     *byte = (*byte & 0xF0) | (tile & 0x0F); // Set low nibble
+    // }
 }
 
 /**********************************************************************************************************************/
@@ -124,9 +129,24 @@ Position FindOpenMapLocation(HardwareInterface hardware, ObjectsTypes type)
         Position pos;
         pos.x = hardware.GetRandom_uint8_t(16, MAP_W - 32);
         pos.y = hardware.GetRandom_uint8_t(16, MAP_H - 32);
-        if (GetMapTile(pos.x, pos.y) == FLOOR_CASTLE && CheckTileForEntity(type, NO_ENTITY, pos) == NO_ENTITY)
+        if (GetMapTile(pos.x, pos.y) == FLOOR_DIRT && CheckTileForEntity(type, NO_ENTITY, pos) == NO_ENTITY)
         {
             return pos;
         }
     }
+}
+
+
+
+/**********************************************************************************************************************/
+/** Sets the fog value of the entire map to the given fog value
+**********************************************************************************************************************/
+SET_MEMORY(".core")
+void SetMapFog(const uint8_t set)
+{
+    for (uint16_t y = 0; y < MAP_H; y++)
+        for (uint16_t x = 0; x < MAP_W; x++)
+        {
+            g_core.fog[y][x] = set;
+        }
 }

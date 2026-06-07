@@ -197,7 +197,7 @@ void DrawToBuffer(const FrameBuffer* frameBuffer, const uint16_t* pixels, const 
 
             uint16_t screen_x = dest_x + x;
             uint16_t screen_y = dest_y + y;
-            uint16_t index = (screen_y * width) + screen_x;
+            uint32_t index = (screen_y * width) + screen_x;
 
             g_ramState.framebuffer.frameBuffer[index] = SetColorByte(color);
         }

@@ -210,12 +210,19 @@ EntityId SpawnMonster(HardwareInterface hardware, MemoryInterface memory, uint8_
 {
     EntityId id = NO_ENTITY;
     for (uint16_t i = 0; i < MAX_ENTITY_CREATURE_COUNT; i++)
+    {
         if (!GetBit(g_core.creatures.active, i))
         {
             id = i;
             SetBit(g_core.creatures.active, id, true);
             break;
         }
+        if (i >= MAX_ENTITY_CREATURE_COUNT - 1)
+        {
+            hardware.Print("max creatures spawned\n");
+            return NO_ENTITY;
+        }
+    }
 
     Creature monType = (Creature)type;
     Position pos = {.x = x, .y = y};
@@ -255,12 +262,19 @@ EntityId SpawnItem(HardwareInterface hardware, MemoryInterface memory, uint8_t t
 {
     EntityId id = NO_ENTITY;
     for (uint16_t i = 0; i < MAX_ENTITY_ITEM_COUNT; i++)
+    {
         if (!GetBit(g_core.items.active, i))
         {
             id = i;
             SetBit(g_core.items.active, id, true);
             break;
         }
+        if (id >= MAX_ENTITY_ITEM_COUNT - 1)
+        {
+            hardware.Print("max items spawned\n");
+            return NO_ENTITY;
+        }
+    }
 
     Position pos = {.x = x, .y = y};
     g_core.items.position[id] = pos;
@@ -280,12 +294,19 @@ EntityId SpawnObject(HardwareInterface hardware, MemoryInterface memory, uint8_t
 {
     EntityId id = NO_ENTITY;
     for (uint16_t i = 0; i < MAX_ENTITY_OBJECT_COUNT; i++)
+    {
         if (!GetBit(g_core.objects.active, i))
         {
             id = i;
             SetBit(g_core.objects.active, id, true);
             break;
         }
+        if (id >= MAX_ENTITY_OBJECT_COUNT - 1)
+        {
+            hardware.Print("max objects spawned\n");
+            return NO_ENTITY;
+        }
+    }
 
     SetBit(g_core.objects.onMap, id, true);
     Position pos = {.x = x, .y = y};
@@ -305,12 +326,20 @@ EntityId SpawnTrainer(HardwareInterface hardware, MemoryInterface memory, uint8_
 {
     EntityId id = NO_ENTITY;
     for (uint16_t i = 0; i < MAX_ENTITY_TRAINER_COUNT; i++)
+    {
         if (!GetBit(g_core.trainers.active, i))
         {
             id = i;
+
             SetBit(g_core.trainers.active, id, true);
             break;
         }
+        if (id >= MAX_ENTITY_TRAINER_COUNT - 1)
+        {
+            hardware.Print("max trainers spawned\n");
+            return NO_ENTITY;
+        }
+    }
 
     SetBit(g_core.trainers.onMap, id, true);
     Position pos = {.x = x, .y = y};
@@ -331,7 +360,7 @@ EntityId SpawnTrainer(HardwareInterface hardware, MemoryInterface memory, uint8_
     g_core.trainers.spellID[id][2] = CREATE_COMMON_ITEM;
 
     //  TODO: set party from trainer data in the database flash
-    EntityId e_id = SpawnEntity(hardware, memory, CREATURE, SUCCUBUS, x, y, 5);
+    EntityId e_id = SpawnEntity(hardware, memory, CREATURE, BANSHEE, x, y, 5);
     g_core.trainers.partyID[id][0] = CaptureMonster(e_id);
 
     g_core.trainers.position[id] = pos;
@@ -351,8 +380,6 @@ EntityId SpawnTrainer(HardwareInterface hardware, MemoryInterface memory, uint8_
     g_core.trainers.total++;
     return id;
 }
-
-
 
 
 /**********************************************************************************************************************

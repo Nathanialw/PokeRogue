@@ -13,3 +13,4 @@ Position FindOpenRoomLocation(HardwareInterface hardware, ObjectsTypes type, uin
 
 Position FindOpenMapLocation(HardwareInterface hardware, ObjectsTypes type);
 EntityId CheckTileForEntity(ObjectsTypes type, EntityId e_id, Position pos);
+void SetMapFog(const uint8_t set);

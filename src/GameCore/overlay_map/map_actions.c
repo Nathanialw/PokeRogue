@@ -9,7 +9,6 @@
 #include "types.h"
 
 #include "core_memory_access.h"
-#include "core_ram.h"
 #include "core_entities.h"
 
 #include "map_memory_access.h"

@@ -1,5 +1,5 @@
 // Generated creature name strings
-// Database contains 255 total creature
+// Database contains 253 total creature
 
 // Individual creature strings
 "Aboleth\0",
@@ -153,7 +153,6 @@
 "Lutin\0",
 "Ly Erg\0",
 "Manticore\0",
-"Mantis Shrimp\0",
 "Mapinguari\0",
 "Mara\0",
 "Marid\0",
@@ -217,7 +216,6 @@
 "Specter\0",
 "Sphynx\0",
 "Giant Spider\0",
-"Spriggan\0",
 "Striga\0",
 "Succubus\0",
 "Tarasque\0",

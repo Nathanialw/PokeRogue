@@ -223,7 +223,7 @@ void PopulateLevelTrainers(HardwareInterface hardware, MemoryInterface memory)
             g_core.trainers.newPosition[i] = g_core.trainers.position[i];
 #else
     uint8_t trainer_level = 1;
-    for (uint8_t i = 0; i < NUM_MAP_TRAINERS; i++)
+    for (uint8_t i = g_core.trainers.total; i < NUM_MAP_TRAINERS; i++)
     {
         const ItemTypes trainer_type = hardware.GetRandom_uint8_t(0, TRAINER_COUNT);
         const Position pos = FindOpenMapLocation(hardware, TRAINER);
@@ -256,7 +256,7 @@ void PopulateLevelCreatures(HardwareInterface hardware, MemoryInterface memory)
             g_core.creatures.newPosition[i] = g_core.creatures.position[i];
 #else
     uint8_t creature_level = g_core.floor;
-    uint8_t n = 0;
+    uint8_t n = g_core.creatures.total;
     for (uint8_t i = n; i < g_core.roomCount >> 2; i++)
     {
         uint8_t index = hardware.GetRandom_uint8_t(0, BIOME_MONSTER_TYPES);
@@ -272,6 +272,9 @@ void PopulateLevelCreatures(HardwareInterface hardware, MemoryInterface memory)
         const Position pos = FindOpenRoomLocation(hardware, CREATURE, i);
         SpawnEntity(hardware, memory, CREATURE, creature, pos.x, pos.y, creature_level);
     }
+    for (uint8_t i = 0; i < MAX_PARTY_SIZE; i++)
+        hardware.Print("%d \n", g_core.trainers.partyID[GetPlayerID()][i]);
+    hardware.Print("\n");
 
     for (uint8_t i = 0; i < g_core.creatures.total; i++)
         if (GetBit(g_core.creatures.onMap, i) && GetBit(g_core.creatures.alive, i))
@@ -297,7 +300,7 @@ void PopulateLevelItems(HardwareInterface hardware, MemoryInterface memory)
 
 #else
     uint8_t item_level = 1;
-    for (uint8_t i = 0; i < g_core.roomCount; i++)
+    for (uint8_t i = g_core.items.total; i < g_core.roomCount; i++)
     {
         const ItemTypes item_type = hardware.GetRandom_uint8_t(0, ITEM_COUNT);
         const Position pos = FindOpenRoomLocation(hardware, ITEM, i);
@@ -323,7 +326,7 @@ void PopulateLevelObjects(HardwareInterface hardware, MemoryInterface memory)
     }
 #else
     uint8_t object_level = 1;
-    for (uint8_t i = 0; i < g_core.roomCount; i++)
+    for (uint8_t i = g_core.objects.total; i < g_core.roomCount; i++)
     {
         const Object object_type = hardware.GetRandom_uint8_t(0, OBJECT_COUNT);
         const Position pos = FindOpenRoomLocation(hardware, OBJECT, i);

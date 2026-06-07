@@ -22,7 +22,7 @@ bool ItemStruckAbilityBook(bool onAttacker)
 }
 
 SET_MEMORY(".battle")
-bool ItemStruckAcidResistance(bool onAttacker)
+bool ItemStruckCloakAcidResistance(bool onAttacker)
 {
     return false;
 }

@@ -22,7 +22,7 @@ bool ItemAttackAbilityBook(bool onAttacker)
     return false;
 }
 
-bool ItemAttackAcidResistance(bool onAttacker)
+bool ItemAttackCloakAcidResistance(bool onAttacker)
 {
     return false;
 }

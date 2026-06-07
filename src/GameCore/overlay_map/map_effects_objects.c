@@ -4,6 +4,7 @@
 
 #include "core_effects.h"
 #include "core_entities.h"
+#include "core_player.h"
 #include "core_ram.h"
 
 #include "lib_debugging.h"
@@ -30,7 +31,7 @@ bool SetUsed(EntityId e_id)
 *  TODO run the effect stored as the index in the metadata field
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool InteractAltar(HardwareInterface hardware, EntityId item_id, EntityId e_id, ObjectData itemData)
+bool InteractAltar(HardwareInterface hardware, EntityId item_id, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractAltar");
     return false;
@@ -288,7 +289,8 @@ SET_MEMORY(".map")
 bool InteractLadder(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractLadder");
-    MapAscend(hardware, memory, g_core.player.id);
+    if (GetPlayerID() == e_id)
+        MapAscend(hardware, memory, g_core.player.id);
     return false;
 }
 
@@ -299,7 +301,8 @@ SET_MEMORY(".map")
 bool InteractStairs(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractStairs");
-    MapDescend(hardware, memory, g_core.player.id);
+    if (GetPlayerID() == e_id)
+        MapDescend(hardware, memory, g_core.player.id);
     return true;
 }
 
@@ -310,7 +313,8 @@ SET_MEMORY(".map")
 bool InteractCave(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractCave");
-    MapLateral(hardware, memory, g_core.player.id);
+    if (GetPlayerID() == e_id)
+        MapLateral(hardware, memory, g_core.player.id);
     return true;
 }
 
@@ -382,7 +386,8 @@ SET_MEMORY(".map")
 bool InteractCrumblingFloor(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractCrumblingFloor");
-    MapDescend(hardware, memory, g_core.player.id);
+    if (GetPlayerID() == e_id)
+        MapDescend(hardware, memory, g_core.player.id);
     return false;
 }
 

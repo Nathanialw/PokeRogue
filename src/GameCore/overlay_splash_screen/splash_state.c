@@ -13,6 +13,20 @@
 
 #define TITLE_RATE_DELAY 500
 
+/**********************************************************************************************************************/
+/** sets the camera to the given position and dimensions
+**********************************************************************************************************************/
+SET_MEMORY(".splash")
+Camera InitCamera(uint8_t x, uint8_t y, uint16_t w, uint16_t h)
+{
+    g_core.camera.x = x;
+    g_core.camera.y = y;
+    g_core.camera.w = w;
+    g_core.camera.h = h;
+
+    return g_core.camera;
+}
+
 
 /**********************************************************************************************************************/
 /*
@@ -93,5 +107,6 @@ uint8_t GameLoopTitleScreen(GameInterface* spi)
         spi->graphics.EndFrame();
     }
 
+    InitCamera(0, 0, TILE_W * VIEW_TW, TILE_H * VIEW_TH);
     return g_core.state.overlay;
 }

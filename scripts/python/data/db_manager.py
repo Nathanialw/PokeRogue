@@ -251,6 +251,31 @@ def init_database():
     ''')
 
     cursor.execute('''
+        CREATE TABLE IF NOT EXISTS creatures_stats (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            name TEXT NOT NULL,
+            
+            strength_min INTEGER NOT NULL DEFAULT 10,
+            defence_min INTEGER NOT NULL DEFAULT 10,
+            magic_min INTEGER NOT NULL DEFAULT 10,
+            speed_min INTEGER NOT NULL DEFAULT 10,
+            
+            strength_max INTEGER NOT NULL DEFAULT 59,
+            defence_max INTEGER NOT NULL DEFAULT 20,
+            magic_max INTEGER NOT NULL DEFAULT 20,
+            speed_max INTEGER NOT NULL DEFAULT 20,
+            
+            strength_growth INTEGER NOT NULL DEFAULT 6,
+            defence_growth INTEGER NOT NULL DEFAULT 0,
+            magic_growth INTEGER NOT NULL DEFAULT 1,
+            speed_growth INTEGER NOT NULL DEFAULT 7,
+            
+            notes TEXT
+        )
+    ''')
+
+
+    cursor.execute('''
         CREATE TABLE IF NOT EXISTS trainers (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             name TEXT NOT NULL,

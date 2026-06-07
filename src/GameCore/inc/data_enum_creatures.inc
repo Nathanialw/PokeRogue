@@ -1,5 +1,5 @@
 // Generated creature data structs
-// Database contains 255 total used creatures
+// Database contains 253 total used creatures
 
 // Individual creatures data
 ABOLETH,
@@ -153,7 +153,6 @@ LOUP_GAROU,
 LUTIN,
 LY_ERG,
 MANTICORE,
-MANTIS_SHRIMP,
 MAPINGUARI,
 MARA,
 MARID,
@@ -217,7 +216,6 @@ SKELETON,
 SPECTER,
 SPHYNX,
 SPIDER_GIANT,
-SPRIGGAN,
 STRIGA,
 SUCCUBUS,
 TARASQUE,
@@ -258,4 +256,4 @@ ZIZ,
 ZMEY,
 ZOMBIE,
 
-//ALL_NAMES_COUNT = 255;
+//ALL_NAMES_COUNT = 253;

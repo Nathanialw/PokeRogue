@@ -1,6 +1,7 @@
 //
 // Created by nathanial on 3/31/26.
 //
+#include "lib_memory.h"
 
 #include "core_entities.h"
 #include "core_ram.h"
@@ -11,6 +12,7 @@
 /**********************************************************************************************************************/
 /** Populates a given array of chars with with the given integer value formatted with the given prefix and suffix char arrays
 **********************************************************************************************************************/
+SET_MEMORY(".battle")
 void CombatLogLine(HardwareInterface hardware, char* dest, const char* prefix, const char* suffix, uint16_t value)
 {
     memset(dest, ' ', 40);
@@ -57,6 +59,7 @@ void CombatLogLine(HardwareInterface hardware, char* dest, const char* prefix, c
  *  Takes in the entity id and the damage value
  *  prepares the text buffers and copies them into the combat log cache
 **********************************************************************************************************************/
+SET_MEMORY(".battle")
 void PrintCombatLog(HardwareInterface hardware, MemoryInterface memory, EntityId creatureID, uint16_t damage)
 {
     const char suffix[] = " Frst Dmg";

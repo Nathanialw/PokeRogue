@@ -1,9 +1,8 @@
 // Generated object data structs
-// Database contains 47 total objects
+// Database contains 46 total objects
 
 // Individual objects data
 { .power = 100, .type = 0, .consumable = 0 },
-{ .power = 5, .type = 0, .consumable = 0 },
 { .power = 5, .type = 0, .consumable = 0 },
 { .power = 5, .type = 0, .consumable = 0 },
 { .power = 5, .type = 0, .consumable = 0 },

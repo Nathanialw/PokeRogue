@@ -84,13 +84,13 @@ void UpdateBattleRunningState(GraphicsInterface graphics, HardwareInterface hard
         if (input.GetJSPressed())
         {
             if (!SetMenuDelta(hardware, input, memory, input.GetInputKeyState().js))
-                UpdateBattleMenu(input);
+                UpdateBattleMenu(input, graphics, memory);
         }
 
         if (input.GetDPPressed())
         {
             if (!SetMenuDelta(hardware, input, memory, input.GetInputKeyState().dp))
-                UpdateBattleMenu(input);
+                UpdateBattleMenu(input, graphics, memory);
         }
     }
 }
@@ -103,9 +103,9 @@ SET_MEMORY(".battle")
 void HandleBattleStateInit(GameInterface* spi)
 {
     spi->graphics.FillScreen(Flash_GetColor(spi->memory, PAL_OFF_WHITE_GRAY));
-    AnimationScreenClearRandom(spi->graphics, spi->hardware); //ANIMATION - move both creatures into place
-    AnimationBattlerStart(spi->graphics, spi->hardware, spi->memory, true);
-    AnimationBattlerStart(spi->graphics, spi->hardware, spi->memory, false);
+    // AnimationScreenClearRandom(spi->graphics, spi->hardware); //ANIMATION - move both creatures into place
+    // AnimationBattlerStart(spi->graphics, spi->hardware, spi->memory, true);
+    // AnimationBattlerStart(spi->graphics, spi->hardware, spi->memory, false);
     HandleBattle(spi->graphics, spi->hardware, spi->memory);
     HandleBattleMenu(spi->graphics, spi->hardware, spi->memory);
     SetBattleState(BATTLE_MENUS);

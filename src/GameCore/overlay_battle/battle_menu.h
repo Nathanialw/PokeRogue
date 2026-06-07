@@ -6,6 +6,6 @@
 
 
 void InitBattleMenu(void);
-void UpdateBattleMenu(InputInterface input);
+void UpdateBattleMenu(InputInterface input, GraphicsInterface graphics, MemoryInterface memory);
 bool BattleMenuCommand(HardwareInterface hardware, InputInterface input, MemoryInterface memory);
 void ExitMenu(void);

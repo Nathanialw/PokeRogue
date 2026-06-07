@@ -1,11 +1,10 @@
 // Generated object name strings
-// Database contains 47 total object
+// Database contains 46 total object
 
 // Individual object strings
 "Altar\0",
 "Raft\0",
 "Row Boat\0",
-"Rope Bridge\0",
 "Stone Bridge\0",
 "Wooden Bridge\0",
 "Book Case\0",

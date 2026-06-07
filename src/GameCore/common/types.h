@@ -179,7 +179,8 @@ typedef union
         uint8_t type : 4;
         uint8_t level : 4;
         uint8_t consumable : 1;
-        uint8_t _pad : 7;
+        uint8_t on_step : 1;
+        uint8_t _pad : 6;
     };
 
     uint8_t bytes[3];
@@ -466,8 +467,8 @@ typedef union
     struct
     {
         Stats min;
-        Stats max;
         uint16_t growth;
+        Stats max;
     };
 
     uint8_t bytes[10];

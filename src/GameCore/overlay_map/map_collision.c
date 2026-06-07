@@ -22,30 +22,68 @@ typedef bool (*Interaction)(EntityId, uint8_t x, uint8_t y);
 
 bool NoInteraction(EntityId id, uint8_t x, uint8_t y);
 bool Wall(EntityId id, uint8_t x, uint8_t y);
+bool Pit(EntityId id, uint8_t x, uint8_t y);
 bool Foliage(EntityId id, uint8_t x, uint8_t y);
 bool Water(EntityId id, uint8_t x, uint8_t y);
 bool Lava(EntityId id, uint8_t x, uint8_t y);
 bool Acid(EntityId id, uint8_t x, uint8_t y);
 
 SET_MEMORY(".map.rodata")
-const Interaction TileCollision[NUM_TILES] =
+const Interaction TileCollisionStepOn[TILE_COUNT] =
 {
-    Acid,
-    NoInteraction,
-    NoInteraction,
-    NoInteraction,
-    NoInteraction,
-    Lava,
-    NoInteraction,
-    NoInteraction,
-    NoInteraction,
-    NoInteraction,
-    Wall,
-    Wall,
-    Wall,
-    Wall,
-    Wall,
-    Water,
+    Acid,               //ACID
+    NoInteraction,      //CRYSTAL
+    NoInteraction,      //FLOOR_CASTLE
+    NoInteraction,      //FLOOR_DIRT
+    NoInteraction,      //FLOOR_MEADOW
+    NoInteraction,      //FLOOR_SNOW
+    NoInteraction,      //FLOOR_VOLCANIC
+    NoInteraction,      //FLOOR_WOOD
+    Lava,               //LAVA
+    Pit,                //PIT_ACID
+    Pit,                //PIT_LAVA
+    Pit,                //PIT_MINOR
+    Pit,                //PIT_SMALL
+    Pit,                //PIT_SNAKE
+    Pit,                //PIT_SPIKES
+    Pit,                //PIT_WATER
+    Pit,                //PIT_WIDE
+    Wall,               //RIVER_FROZEN
+    Wall,               //WALL_BRICK
+    Wall,               //WALL_CASTLE
+    Wall,               //WALL_ICE
+    Wall,               //WALL_STONE
+    Wall,               //WALL_WOOD
+    Water,              //WATER
+};
+
+SET_MEMORY(".map.rodata")
+const Interaction TileCollisionStepOff[TILE_COUNT] =
+{
+    Acid,               //ACID
+    NoInteraction,      //CRYSTAL
+    NoInteraction,      //FLOOR_CASTLE
+    NoInteraction,      //FLOOR_DIRT
+    NoInteraction,      //FLOOR_MEADOW
+    NoInteraction,      //FLOOR_SNOW
+    NoInteraction,      //FLOOR_VOLCANIC
+    NoInteraction,      //FLOOR_WOOD
+    Lava,               //LAVA
+    Pit,                //PIT_ACID
+    Pit,                //PIT_LAVA
+    Pit,                //PIT_MINOR
+    Pit,                //PIT_SMALL
+    Pit,                //PIT_SNAKE
+    Pit,                //PIT_SPIKES
+    Pit,                //PIT_WATER
+    Pit,                //PIT_WIDE
+    Wall,               //RIVER_FROZEN
+    Wall,               //WALL_BRICK
+    Wall,               //WALL_CASTLE
+    Wall,               //WALL_ICE
+    Wall,               //WALL_STONE
+    Wall,               //WALL_WOOD
+    Water,              //WATER
 };
 
 /**********************************************************************************************************************/
@@ -62,6 +100,24 @@ bool NoInteraction(EntityId id, uint8_t x, uint8_t y)
 **********************************************************************************************************************/
 SET_MEMORY(".map")
 bool Wall(EntityId id, uint8_t x, uint8_t y)
+{
+    // check current tile, cancel movement
+
+    if (id == g_core.player.id)
+    {
+        g_core.player.scroll.x = 0;
+        g_core.player.scroll.y = 0;
+    }
+
+
+    return false;
+}
+
+/**********************************************************************************************************************/
+/** Space is blocked, no movement
+**********************************************************************************************************************/
+SET_MEMORY(".map")
+bool Pit(EntityId id, uint8_t x, uint8_t y)
 {
     // check current tile, cancel movement
 
@@ -126,9 +182,19 @@ bool Acid(EntityId id, uint8_t x, uint8_t y)
 /** Main tile interaction entry point
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool CheckInteraction(uint8_t tile, EntityId id, uint8_t x, uint8_t y)
+bool CheckInteractionStepOn(uint8_t tile, EntityId id, uint8_t x, uint8_t y)
 {
-    return TileCollision[tile](id, x, y);
+    return TileCollisionStepOn[tile](id, x, y);
+}
+
+
+/**********************************************************************************************************************/
+/** Main tile interaction entry point
+**********************************************************************************************************************/
+SET_MEMORY(".map")
+bool CheckInteractionStepOff(uint8_t tile, EntityId id, uint8_t x, uint8_t y)
+{
+    return TileCollisionStepOn[tile](id, x, y);
 }
 
 /**********************************************************************************************************************/

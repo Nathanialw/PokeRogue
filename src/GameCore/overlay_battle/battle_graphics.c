@@ -50,7 +50,7 @@ void HandleBattleLists(GraphicsInterface graphics, MemoryInterface memory)
             list_y += PrintLineStr(graphics, memory, x, list_y, font_size, max_chars, line, indent);
 
             //health //mana
-            uint8_t rect_w = w / 2;
+            uint16_t rect_w = w / 2;
             //TODO: replace with actual values
             graphics.FillRect(x, list_y, rect_w, size, Flash_GetColor(memory, PAL_EMERALD_GREEN));
             graphics.FillRect(x + rect_w, list_y, rect_w, size, Flash_GetColor(memory, PAL_ICE_BLUE));
@@ -74,7 +74,6 @@ SET_MEMORY(".battle")
 void HandleBattleMenu(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory)
 {
     if (g_core.menu.depth == 0) return;
-
 
     // use screen area of player battler and down to the bottom of the skill list
     const uint16_t x = PLAYER_BATTLER_FRAME.x;
@@ -148,9 +147,7 @@ SET_MEMORY(".battle")
 void HandleBattle(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory)
 {
     FontSize font_size = g_core.settings.fontSize;
-    uint8_t size = TILE_W;
-    if (font_size == FONT8x8)
-        size = TEXT_W;
+    uint8_t size = TEXT_W;
     uint8_t indent = 1;
     uint8_t max_chars = (TFT_W / 2 / size) - indent;
 
@@ -160,18 +157,20 @@ void HandleBattle(GraphicsInterface graphics, HardwareInterface hardware, Memory
     Rect_16 enemyHP = ENEMY_RESOURCE_FRAME;
     Rect_16 dialogue = DIALOGUE_BOX_FRAME;
 
+    graphics.FillRect(enemy.x, enemy.y, enemy.w, enemy.h, Flash_GetColor(memory, PAL_BRIGHT_CYAN));
+    graphics.FillRect(player.x, player.y, player.w, player.h, Flash_GetColor(memory, PAL_BRIGHT_RED));
 
     SpriteLayout pLayout = {};
-    Flash_GetSpriteLayout(memory, &pLayout, GetCreatureType(g_core.battleMode.playerMonsterID), CREATURE, false);
-    DrawBattler(graphics, memory, player.x + 24, player.y, &pLayout, CREATURE, false);
+    Flash_GetSpriteLayout_64(memory, &pLayout, GetCreatureType(g_core.battleMode.playerMonsterID), CREATURE, false);
+    DrawBattler(graphics, memory, player.x + BATTLER_OFFSET, player.y, &pLayout, CREATURE, false);
 
     SpriteLayout eLayout = {};
-    Flash_GetSpriteLayout(memory, &eLayout, GetCreatureType(g_core.battleMode.enemyMonsterID), CREATURE, true);
-    DrawBattler(graphics, memory, enemy.x + 24, enemy.y, &eLayout, CREATURE, true);
+    Flash_GetSpriteLayout_64(memory, &eLayout, GetCreatureType(g_core.battleMode.enemyMonsterID), CREATURE, true);
+    DrawBattler(graphics, memory, enemy.x + BATTLER_OFFSET, enemy.y, &eLayout, CREATURE, true);
 
     CreatureStats(graphics, hardware, memory, g_core.battleMode.playerMonsterID, playerHP, size, font_size);
     CreatureStats(graphics, hardware, memory, g_core.battleMode.enemyMonsterID, enemyHP, size, font_size);
-
+    //player creature xp
 
     uint16_t x = dialogue.x;
     uint16_t y = dialogue.y;
@@ -186,7 +185,7 @@ void HandleBattle(GraphicsInterface graphics, HardwareInterface hardware, Memory
         i++;
     }
 
-    x = dialogue.x + (20 * size);
+    x = dialogue.x + (BATTLE_MENU_COL_2 * size);
     y = dialogue.y;
     i = 0;
     while (i < BATTLE_MENU_SIZE)

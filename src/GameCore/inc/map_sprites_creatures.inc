@@ -1,5 +1,5 @@
 // Generated creature sprites and color indexes
-// Database contains 255 total creature sprites
+// Database contains 253 total creature sprites
 
 // Individual sprites
 { .glyph_index = CH_a, .fg = PAL_PURPLE_BLUE },
@@ -170,7 +170,6 @@
 { .glyph_index = CH_m, .fg = PAL_PURPLE_BLUE },
 { .glyph_index = CH_m, .fg = PAL_PURPLE_BLUE },
 { .glyph_index = CH_m, .fg = PAL_PURPLE_BLUE },
-{ .glyph_index = CH_m, .fg = PAL_PURPLE_BLUE },
 { .glyph_index = CH_n, .fg = PAL_PURPLE_BLUE },
 { .glyph_index = CH_n, .fg = PAL_PURPLE_BLUE },
 { .glyph_index = CH_n, .fg = PAL_PURPLE_BLUE },
@@ -206,7 +205,6 @@
 { .glyph_index = CH_r, .fg = PAL_PURPLE_BLUE },
 { .glyph_index = CH_r, .fg = PAL_PURPLE_BLUE },
 { .glyph_index = CH_r, .fg = PAL_PURPLE_BLUE },
-{ .glyph_index = CH_s, .fg = PAL_PURPLE_BLUE },
 { .glyph_index = CH_s, .fg = PAL_PURPLE_BLUE },
 { .glyph_index = CH_s, .fg = PAL_PURPLE_BLUE },
 { .glyph_index = CH_s, .fg = PAL_PURPLE_BLUE },
@@ -258,4 +256,4 @@
 { .glyph_index = CH_z, .fg = PAL_PURPLE_BLUE },
 { .glyph_index = CH_z, .fg = PAL_PURPLE_BLUE },
 
-//Sprites count = 255;
+//Sprites count = 253;

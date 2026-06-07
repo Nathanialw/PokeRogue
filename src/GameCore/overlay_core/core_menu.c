@@ -138,7 +138,6 @@ bool HandleMenuOverflow(HardwareInterface hardware, InputInterface input, Memory
 SET_MEMORY(".core")
 bool SetMenuDelta(HardwareInterface hardware, InputInterface input, MemoryInterface memory, Delta delta)
 {
-    if (delta.y == 0) return false;
     if (HandleMenuOverflow(hardware, input, memory, delta)) return false;
     if (g_core.menu.displayedMenu == MINIMAP) return false;
 
@@ -154,7 +153,19 @@ bool SetMenuDelta(HardwareInterface hardware, InputInterface input, MemoryInterf
     if (g_core.menu.sel[g_core.menu.depth].y < 0)
         g_core.menu.sel[g_core.menu.depth].y = g_core.menu.visibleMenuOptions - 1;
 
-    g_core.menu.sel[g_core.menu.depth].x = delta.x;
+    g_core.menu.eraseSel.x = g_core.menu.sel[g_core.menu.depth].x;
+    g_core.menu.sel[g_core.menu.depth].x += delta.x;
+
+
+    //brute force handle battle menu overflow
+    if (g_core.menu.sel[g_core.menu.depth].x > 1)
+        g_core.menu.sel[g_core.menu.depth].x = 0;
+
+    if (g_core.menu.sel[g_core.menu.depth].x < 0)
+        g_core.menu.sel[g_core.menu.depth].x = 1;
+
+    if (delta.x != 0)
+        return false;
 
     return true;
 }

@@ -14,10 +14,10 @@
 #include "ram.h"
 
 
-Delta InputDeltaDPad();
+Delta InputDeltaDPad(KeyState s_currentKeys);
 
 
-uint16_t ProcessInput(void)
+KeyState ProcessInput(void)
 {
     KeyState s_currentKeys = {0};
     SDL_Event event;
@@ -27,10 +27,11 @@ uint16_t ProcessInput(void)
         {
         case SDL_EVENT_KEY_DOWN:
             {
+                break;
             }
         case SDL_EVENT_KEY_UP:
             {
-                int pressed = (event.type == SDL_EVENT_KEY_DOWN);
+                int pressed = 1;
                 switch (event.key.key)
                 {
                 case SDLK_UP: s_currentKeys.up = pressed;
@@ -80,10 +81,7 @@ uint16_t ProcessInput(void)
         }
     }
 
-    return
-        s_currentKeys
-        .
-        buttons;
+    return s_currentKeys;
 }
 
 
@@ -92,19 +90,20 @@ void HandleInput(void)
 {
     while (1)
     {
+        g_ramState.keys.buttons = 0;
         g_ramState.keys.dp.x = 0;
         g_ramState.keys.dp.y = 0;
         g_ramState.keys.js.x = 0;
         g_ramState.keys.js.y = 0;
-        const uint16_t key_state = ProcessInput();
-        Delta d1 = InputDeltaDPad();
-        if (key_state == g_ramState.keys.buttons && d1.x == 0 && d1.y == 0)
+        const KeyState key_state = ProcessInput();
+        Delta d1 = InputDeltaDPad(key_state);
+        if (key_state.buttons == g_ramState.keys.buttons && d1.x == 0 && d1.y == 0)
         {
             SDL_Delay(20);
             continue;
         }
 
-        g_ramState.keys.buttons = key_state;
+        g_ramState.keys.buttons = key_state.buttons;
         g_ramState.keys.dp = d1;
         break;
     }
@@ -226,16 +225,16 @@ InputInterface InputInterfaceInit()
 }
 
 
-Delta InputDeltaDPad()
+Delta InputDeltaDPad(KeyState s_currentKeys)
 {
     Delta d = {0, 0};
     int8_t dx = 0;
     int8_t dy = 0;
 
-    if (GetButtonUp()) dy = -1;
-    else if (GetButtonDown()) dy = 1;
-    else if (GetButtonLeft()) dx = -1;
-    else if (GetButtonRight()) dx = 1;
+    if (s_currentKeys.up) dy = -1;
+    else if (s_currentKeys.down) dy = 1;
+    else if (s_currentKeys.left) dx = -1;
+    else if (s_currentKeys.right) dx = 1;
     d.x = dx;
     d.y = dy;
 

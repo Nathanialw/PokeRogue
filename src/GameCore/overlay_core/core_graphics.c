@@ -3,6 +3,8 @@
 //
 #include "core_graphics.h"
 
+#include <stdio.h>
+
 #include "types.h"
 #include "enums.h"
 
@@ -41,11 +43,7 @@ uint8_t PrintLineStr(GraphicsInterface graphics, MemoryInterface memory, uint16_
     uint8_t text_size;
     uint8_t char_idx = 0;
     uint8_t c = CH_NONE;
-
-    if (fontSize == FONT8x8)
-        text_size = TEXT_W;
-    else
-        text_size = TILE_W;
+    text_size = TEXT_W;
 
     if (indent)
         x += text_size;
@@ -101,27 +99,28 @@ void DrawCursor(GraphicsInterface graphics, MemoryInterface memory)
 {
     if (HideCursor()) return;
 
-    const uint16_t x = g_core.menu.x * TILE_W;
-    const FontSize font_size = g_core.settings.fontSize;
-    const uint8_t size = (font_size == FONT8x8) ? TEXT_W : TILE_W;
-    const uint16_t list_y = g_core.menu.y * size;
+    const uint16_t x = g_core.menu.x * TEXT_W;
+    const uint16_t list_y = g_core.menu.y * TEXT_H;
+    const uint16_t erase_x = x + (g_core.menu.eraseSel.x * g_core.menu.w * TEXT_W);
+    Color battler_menu_color = Flash_GetColor(memory, PAL_OFF_WHITE_GRAY);
+    graphics.FillRect(erase_x, list_y + (g_core.menu.eraseSel.y * (TEXT_W + g_core.menu.lineHeight)), TEXT_W, TEXT_W, battler_menu_color);
 
-    uint8_t sel_y = GetSelectorY();
+
     Glyph buffer = {0};
-
-    graphics.FillRect(x, list_y + (g_core.menu.eraseSel.y * (size + g_core.menu.lineHeight)), size, size, g_core.menu.colorCache);
-
+    uint8_t sel_y = GetSelectorY();
+    uint8_t sel_x = GetSelectorX();
+    const FontSize font_size = g_core.settings.fontSize;
     if (font_size == FONT8x8)
     {
         Glyph8x8 character;
         CharFromGlyph1bpp(memory, buffer, character.pixels, '>' - FONT_OFFSET, font_size, Flash_GetColor(memory, PAL_DARK_BLUE_GRAY), Flash_GetColor(memory, PAL_KEY));
-        graphics.DrawTileKeyed(x, list_y + (sel_y * (size + g_core.menu.lineHeight)), size, size, character.pixels);
+        graphics.DrawTileKeyed(x + (sel_x * g_core.menu.w * TEXT_W), list_y + (sel_y * (TEXT_W + g_core.menu.lineHeight)), TEXT_W, TEXT_W, character.pixels);
     }
     else
     {
         Glyph character;
         CharFromGlyph1bpp(memory, buffer, character.pixels, '>' - FONT_OFFSET, font_size, Flash_GetColor(memory, PAL_DARK_BLUE_GRAY), Flash_GetColor(memory, PAL_KEY));
-        graphics.DrawTileKeyed(x, list_y + (sel_y * (size + g_core.menu.lineHeight)), size, size, character.pixels);
+        graphics.DrawTileKeyed(x + (sel_x * g_core.menu.w * TEXT_W), list_y + (sel_y * (TEXT_W + g_core.menu.lineHeight)), TEXT_W, TEXT_W, character.pixels);
     }
 }
 
@@ -153,21 +152,22 @@ FrameBuffer DrawBattlerToBuffer(GraphicsInterface graphics, MemoryInterface memo
         uint8_t tile_idx = row * BATTLER_TILES_W + col;
         uint8_t mask_byte = tile_idx / 8;
         uint8_t mask_bit = tile_idx % 8;
-        // Check if this tile position is suppposed to be drawn
         if ((layout->emptyIndexes[mask_byte] & (1u << mask_bit)) == 0)
+        // Check if this tile position is suppposed to be drawn
         {
             tile_counter++;
             continue;
         }
 
-        uint8_t draw_x = col * TILE_W;
-        uint8_t draw_y = row * TILE_H;
+        int16_t draw_x = col * TILE_W;
+        int16_t draw_y = row * TILE_H;
 
         const uint32_t index = layout->idx + byte_offset;
-        Flash_GetSprite(memory, g_core.spriteCache.bytes, index, 256, type, front);
+        // Flash_GetSprite(memory, g_core.spriteCache.bytes, index, TILE_W * TILE_H, type, front);
+        Flash_GetSprite_64(memory, g_core.spriteCache.bytes, index, TILE_W * TILE_H, type, front);
 
         // Decompress and get how many compressed bytes were used
-        byte_offset += Expand4bppPackedToByte(memory, g_core.spriteCache.bytes, layout->palette, g_core.tile.pixels, 16);
+        byte_offset += Expand4bppPackedToByte(memory, g_core.spriteCache.bytes, layout->palette, g_core.tile.pixels, TILE_W);
 
         Rect_16 r = {draw_x, draw_y, TILE_W, TILE_H};
         graphics.DrawToBuffer(&f, g_core.tile.pixels, &r);

@@ -647,7 +647,7 @@ bool UseCurePotion(HardwareInterface hardware, MemoryInterface memory, EntityId 
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool UseAcidResistance(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseCloakAcidResistance(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
 {
     return RaiseAcidResistance(e_id);
 }

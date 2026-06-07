@@ -43,8 +43,8 @@
 #define TFT_H 1280
 #define SCREEN_W TFT_W
 #define SCREEN_H TFT_H
-#define TEXT_W 8
-#define TEXT_H 8
+#define TEXT_W 16
+#define TEXT_H 16
 #define TFT_WIDTH  TFT_W
 #define TFT_HEIGHT TFT_H
 #else
