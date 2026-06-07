@@ -100,6 +100,9 @@ typedef struct
         BitFieldUint8 knownAbilities;
         BitFieldUint8 knownObjects;
 
+        EntityId cachedItems[MAX_BAG_SIZE];
+        EntityId cachedParty[MAX_PARTY_SIZE];
+
         uint8_t vision_radius;
         EntityId id;
         uint8_t currentBagSize;

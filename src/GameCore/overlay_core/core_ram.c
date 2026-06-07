@@ -26,4 +26,5 @@ CoreRunState g_core = {
     .btns.gameLoopRate = 10,
     .player.vision_radius = 7,
     .state.running = 1,
+    .player.id = NO_ENTITY,
 };

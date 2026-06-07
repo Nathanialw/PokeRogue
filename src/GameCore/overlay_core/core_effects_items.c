@@ -694,7 +694,7 @@ bool UseMagicResistance(HardwareInterface hardware, MemoryInterface memory, Enti
 SET_MEMORY(".core")
 bool UseEscapeRope(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
 {
-    return true;
+    return GoNextLevel(MAP_LEVEL_UP);
 }
 
 /**********************************************************************************************************************/

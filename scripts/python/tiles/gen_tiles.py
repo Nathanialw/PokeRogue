@@ -1,11 +1,18 @@
+import json
 import torch
 import os
 from ffcount import ffcount
 from diffusers import DiffusionPipeline
 from huggingface_hub import login
 from numpy import random
+from huggingface_hub import login
 
-login(token="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")
+# Load token from config
+with open('config.json', 'r') as f:
+    config = json.load(f)
+
+# Use the token
+login(token=config["hf_token"])
 
 tiles_folder = "../assets_raw/sprites/tile"
 prompts = {
@@ -28,11 +35,11 @@ prompts = {
     # "PIT_SMALL": "smlstxtr, A top-down pattern of a large square pit in the center brown and black, seamless texture",
     # "PIT_MINOR": "smlstxtr,  A top-down pattern of a large square pit in the center brown and black, seamless texture",
     # "PIT_WIDE": "smlstxtr,  A top-down pattern of a large square pit in the center brown and black, seamless texture",
-    # "PIT_SNAKE": "smlstxtr,  A top-down pattern of a large square large pit in the center with snakes writhing at the bottom in green brown and black, seamless texture",
-    # "PIT_ACID": "smlstxtr,  A top-down pattern of a large square pit in the center with a pool of acid in at the bottom in green brown and black, seamless texture",
-    # "PIT_LAVA": "smlstxtr,  A top-down pattern of a large square pit in the center with a pool of acid at the bottom in orange brown and black, seamless texture",
-    # "PIT_WATER": "smlstxtr,  A top-down pattern of a large square pit in the center with a pool of acid at the bottom in blue brown and black, seamless texture",
-    "PIT_SPIKES": "smlstxtr,  A top-down pattern of a large square pit in the center with spikes at the bottom in blue brown and black, seamless texture",
+    "PIT_SNAKE": "smlstxtr,  A top-down pattern of a large square large pit in the center with snakes writhing at the bottom in green brown and black, seamless texture",
+    "PIT_ACID": "smlstxtr,  A top-down pattern of a large square pit in the center with a pool of acid in at the bottom in green brown and black, seamless texture",
+    "PIT_LAVA": "smlstxtr,  A top-down pattern of a large square pit in the center with a pool of acid at the bottom in orange brown and black, seamless texture",
+    "PIT_WATER": "smlstxtr,  A top-down pattern of a large square pit in the center with a pool of acid at the bottom in blue brown and black, seamless texture",
+    "PIT_SPIKES": "smlstxtr,  A top-down pattern of a large square pit in the center with large spikes at the bottom in blue brown and black, seamless texture",
 }
 
 

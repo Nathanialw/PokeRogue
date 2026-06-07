@@ -56,7 +56,6 @@ Delta SetPlayerDelta(Delta newDelta)
 }
 
 
-
 /*******************************************************************************************************************
 *  interact with item in player's cell
 *  interact with object in player's cell
@@ -77,4 +76,19 @@ void PlayerInteractObjectInCell(MemoryInterface memory, HardwareInterface hardwa
     EntityId object_id = CheckTileForEntity(OBJECT, g_core.player.id, pos);
     EntityId p_ID = GetPlayerID();
     InteractObject(memory, hardware, object_id, g_core.trainers.partyID[p_ID][0]);
+}
+
+
+SET_MEMORY(".map")
+bool CheckGameLost()
+{
+    EntityId player_id = GetPlayerID();
+    if (g_core.trainers.partyID[player_id][1] == NO_ENTITY) return true;
+
+    for (uint8_t i = 0; i < MAX_PARTY_SIZE - 1; i++)
+    {
+        EntityId creature_id = g_core.trainers.partyID[player_id][i - 1];
+        g_core.trainers.partyID[player_id][i] = creature_id;
+    }
+    return false;
 }

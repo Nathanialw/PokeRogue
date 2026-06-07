@@ -132,8 +132,7 @@ bool CastRaiseDead(HardwareInterface hardware, MemoryInterface memory, EntityId 
 SET_MEMORY(".core")
 bool CastDescend(HardwareInterface hardware, MemoryInterface memory, EntityId partyID, EntityId enemyID, SpellData spellData)
 {
-    // MapDescend(hardware, memory, partyID);
-    return true;
+    return GoNextLevel(MAP_LEVEL_DOWN);
 }
 
 
@@ -607,12 +606,12 @@ bool CastGrowMuscle(HardwareInterface hardware, MemoryInterface memory, EntityId
 
 
 /**********************************************************************************************************************/
-/*
+/* removes the dark black fog of the map
 **********************************************************************************************************************/
 SET_MEMORY(".core")
 bool CastClairvoyance(HardwareInterface hardware, MemoryInterface memory, EntityId partyID, EntityId enemyID, SpellData spellData)
 {
-    // RevealMap();
+    RemoveMapFog();
     return true;
 }
 

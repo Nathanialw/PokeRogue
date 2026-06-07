@@ -4,6 +4,7 @@
 
 #include "map_effects.h"
 
+#include "core_effects.h"
 #include "core_map.h"
 #include "types.h"
 
@@ -19,7 +20,7 @@
 SET_MEMORY(".map")
 bool MapDescend(HardwareInterface hardware, MemoryInterface memory, EntityId e_id)
 {
-    GoNextLevel(hardware, memory, MAP_LEVEL_DOWN);
+    GoNextLevel(MAP_LEVEL_DOWN);
     return true;
 }
 
@@ -29,7 +30,7 @@ bool MapDescend(HardwareInterface hardware, MemoryInterface memory, EntityId e_i
 SET_MEMORY(".map")
 bool MapAscend(HardwareInterface hardware, MemoryInterface memory, EntityId e_id)
 {
-    GoNextLevel(hardware, memory, MAP_LEVEL_UP);
+    GoNextLevel(MAP_LEVEL_UP);
     return true;
 }
 
@@ -39,7 +40,7 @@ bool MapAscend(HardwareInterface hardware, MemoryInterface memory, EntityId e_id
 SET_MEMORY(".map")
 bool MapLateral(HardwareInterface hardware, MemoryInterface memory, EntityId e_id)
 {
-    GoNextLevel(hardware, memory, MAP_LEVEL_LATERAL);
+    GoNextLevel(MAP_LEVEL_LATERAL);
     return true;
 }
 

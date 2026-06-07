@@ -47,7 +47,7 @@ EntityId PickItem(EntityId id)
 /**Reset all values of the given entity ID
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-void DestroyCreature(HardwareInterface hardware, EntityId id)
+void DestroyCreature(EntityId id)
 {
     Position empty_pos = {.x = 0, .y = 0};
     g_core.creatures.position[id] = empty_pos;
@@ -269,7 +269,7 @@ EntityId SpawnItem(HardwareInterface hardware, MemoryInterface memory, uint8_t t
             SetBit(g_core.items.active, id, true);
             break;
         }
-        if (id >= MAX_ENTITY_ITEM_COUNT - 1)
+        if (i >= MAX_ENTITY_ITEM_COUNT - 1)
         {
             hardware.Print("max items spawned\n");
             return NO_ENTITY;
@@ -301,7 +301,7 @@ EntityId SpawnObject(HardwareInterface hardware, MemoryInterface memory, uint8_t
             SetBit(g_core.objects.active, id, true);
             break;
         }
-        if (id >= MAX_ENTITY_OBJECT_COUNT - 1)
+        if (i >= MAX_ENTITY_OBJECT_COUNT - 1)
         {
             hardware.Print("max objects spawned\n");
             return NO_ENTITY;
@@ -334,7 +334,7 @@ EntityId SpawnTrainer(HardwareInterface hardware, MemoryInterface memory, uint8_
             SetBit(g_core.trainers.active, id, true);
             break;
         }
-        if (id >= MAX_ENTITY_TRAINER_COUNT - 1)
+        if (i >= MAX_ENTITY_TRAINER_COUNT - 1)
         {
             hardware.Print("max trainers spawned\n");
             return NO_ENTITY;
@@ -351,13 +351,13 @@ EntityId SpawnTrainer(HardwareInterface hardware, MemoryInterface memory, uint8_
         g_core.trainers.itemID[id][i] = NO_ENTITY;
 
     for (uint8_t i = 0; i < MAX_SPELLBOOK_SIZE; i++)
-        g_core.trainers.spellID[id][i] = NO_ENTITY;
+        g_core.trainers.spellID[id][i] = NO_SPELL; //spells are no entities
 
 
     //  TODO: load trainer spell data from the database flash
     g_core.trainers.spellID[id][0] = HEAL;
     g_core.trainers.spellID[id][1] = DESCEND;
-    g_core.trainers.spellID[id][2] = CREATE_COMMON_ITEM;
+    g_core.trainers.spellID[id][2] = CLAIRVOYANCE;
 
     //  TODO: set party from trainer data in the database flash
     EntityId e_id = SpawnEntity(hardware, memory, CREATURE, BANSHEE, x, y, 5);

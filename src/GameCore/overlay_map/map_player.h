@@ -16,3 +16,4 @@ Delta SetPlayerDelta(Delta newDelta);
 void PlacePlayerOnMap(HardwareInterface hardware);
 void PlayerInteractItemInCell();
 void PlayerInteractObjectInCell(MemoryInterface memory, HardwareInterface hardware);
+bool CheckGameLost();

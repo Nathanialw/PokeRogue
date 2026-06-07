@@ -3,6 +3,9 @@
 //
 
 #include "core_effects.h"
+
+#include <stdio.h>
+
 #include "lib_memory.h"
 
 #include "constants.h"
@@ -10,8 +13,11 @@
 
 #include "core_utils.h"
 #include "core_entities.h"
+#include "core_map.h"
 #include "core_ram.h"
 #include "core_memory_access.h"
+#include "core_player.h"
+#include "map.h"
 
 
 /**********************************************************************************************************************
@@ -54,10 +60,11 @@ uint16_t CalcHeal(EntityId creatureID, uint16_t abilityPower)
 *
 ********************************************************************************************************************************************************************************************************************************************/
 SET_MEMORY(".core")
-void DoDamage(HardwareInterface hardware, MemoryInterface memory, EntityId creatureID, uint16_t damage)
+void DoDamage(EntityId creatureID, uint16_t damage)
 {
     uint16_t hp = Int999GetCurrent(&g_core.creatures.hp[creatureID]);
     hp = (hp > damage) ? hp - damage : 0;
+    printf("hp %d", hp);
     Int999SetCurrent(&g_core.creatures.hp[creatureID], hp);
 }
 
@@ -148,7 +155,7 @@ void Attack(HardwareInterface hardware, MemoryInterface memory, EntityId attacke
 {
     uint16_t damage = CalcDamage(attackerID, abilityData.power);
     damage = CalcModifier(memory, attackerID, defenderID, abilityData.type, damage);
-    DoDamage(hardware, memory, defenderID, damage);
+    DoDamage(defenderID, damage);
 }
 
 /**********************************************************************************************************************
@@ -159,7 +166,7 @@ void InstantKill(HardwareInterface hardware, MemoryInterface memory, EntityId at
 {
     uint16_t damage = CalcDamage(attackerID, 999);
     damage = CalcModifier(memory, attackerID, defenderID, abilityData.type, damage);
-    DoDamage(hardware, memory, defenderID, damage);
+    DoDamage(defenderID, damage);
 }
 
 /**********************************************************************************************************************
@@ -281,7 +288,7 @@ bool WaterBreathing(EntityId e_id, uint8_t duration)
 SET_MEMORY(".core")
 bool XRayVision(EntityId e_id, uint8_t duration)
 {
-    g_core.creatures.status.lineOfSight[e_id] = duration;
+    g_core.creatures.status.lineOfSight[GetPlayerID()] = duration;
     return true;
 }
 
@@ -291,7 +298,7 @@ bool XRayVision(EntityId e_id, uint8_t duration)
 SET_MEMORY(".core")
 bool WaterWalking(EntityId e_id, uint8_t duration)
 {
-    g_core.creatures.status.waterWalk[e_id] = duration;
+    g_core.creatures.status.waterWalk[GetPlayerID()] = duration;
     return true;
 }
 
@@ -1095,6 +1102,15 @@ bool DrainXP(EntityId e_id)
 
 ********************************************************************************************************************************************************************************************************************************************/
 
+/**********************************************************************************************************************
+*
+**********************************************************************************************************************/
+SET_MEMORY(".core")
+bool RemoveMapFog()
+{
+    SetMapFog(1);
+    return true;
+}
 
 /**********************************************************************************************************************
 *
@@ -1150,4 +1166,24 @@ SET_MEMORY(".core")
 bool MapModifyTile(Position pos, TileType tileType)
 {
     return true;
+}
+
+SET_MEMORY(".core")
+bool GoNextLevel(MapLevelChange dir)
+{
+    if (dir == MAP_LEVEL_UP && g_core.floor > 1)
+    {
+        g_core.floor--;
+        g_core.state.overlay = OVERLAY_GEN_MAP;
+        return true;
+    }
+    else if (dir == MAP_LEVEL_DOWN && g_core.floor < MAX_LEVELS)
+    {
+        g_core.floor++;
+        g_core.state.overlay = OVERLAY_GEN_MAP;
+        return true;
+    }
+    return false;
+
+    // UpdateLevel(g_core.floor, DESERT);
 }

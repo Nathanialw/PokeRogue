@@ -10,6 +10,7 @@
 
 #include "battle_state.h"
 #include "core_ram.h"
+#include "game_loss_state.h"
 #include "generate_map_state.h"
 #include "graphics.h"
 #include "hardware.h"
@@ -35,13 +36,14 @@ typedef uint8_t (*OverlayEntry)(GameInterface* spi);
 // GAME_MAP_GEN,
 // GAME_BATTLE,
 
-OverlayEntry overlays[12] =
+OverlayEntry overlays[OVERLAY_GAME_STATE_SIZE] =
 {
     NULL,
     GameLoopTitleScreen,
     GameLoopMain,
     MapGenEntry,
     BattleLoopMain,
+    GameLoopGameLoss,
 };
 
 GameInterface api;

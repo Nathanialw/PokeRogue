@@ -73,17 +73,6 @@ bool TileHasCorpse(Position pos)
  *  populates new map
  *  place player onto the map in an empty cell
 **********************************************************************************************************************/
-SET_MEMORY(".map")
-void GoNextLevel(HardwareInterface hardware, MemoryInterface memory, MapLevelChange dir)
-{
-    if (dir == MAP_LEVEL_UP && g_core.floor > 1)
-        g_core.floor--;
-    else if (dir == MAP_LEVEL_DOWN && g_core.floor < MAX_LEVELS)
-        g_core.floor++;
-
-    // UpdateLevel(g_core.floor, DESERT);
-    g_core.state.overlay = OVERLAY_GEN_MAP;
-}
 
 
 /**********************************************************************************************************************/

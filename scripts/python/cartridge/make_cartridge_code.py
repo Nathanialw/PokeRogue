@@ -33,6 +33,7 @@ def main():
         ".map",
         ".map_gen",
         ".battle",
+        ".game_loss",
 
     ]
     print("Building cartridge...")

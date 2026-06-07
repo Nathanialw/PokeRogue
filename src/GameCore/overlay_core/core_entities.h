@@ -13,7 +13,7 @@ ItemTypes GetItemType(EntityId id);
 Object GetObjectType(EntityId id);
 Creature GetCreatureType(EntityId id);
 
-void DestroyCreature(HardwareInterface hardware, EntityId i);
+void DestroyCreature(EntityId i);
 void DestroyItem(EntityId id);
 void DestroyObject(EntityId id);
 void DestroyTrainer(EntityId id);

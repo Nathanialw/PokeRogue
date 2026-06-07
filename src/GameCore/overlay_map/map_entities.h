@@ -29,3 +29,5 @@ Position SetEntityPosition(ObjectsTypes type, EntityId id, uint8_t x, uint8_t y,
 Position QueueObjectMovePosition(EntityId id, uint8_t x, uint8_t y);
 void ResetEntities(HardwareInterface hardware, MemoryInterface memory, bool copyPlayer);
 bool InDetectionRange(EntityId id, EntityId targetID);
+
+bool CheckCreatureDead(EntityId creature_id);

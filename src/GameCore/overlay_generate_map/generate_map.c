@@ -74,7 +74,8 @@ void GenerateDungeon(HardwareInterface hardware, uint8_t type)
 SET_MEMORY(".map_gen")
 Position FindOpenRoomLocation(HardwareInterface hardware, ObjectsTypes type, uint8_t n)
 {
-    while (1)
+    uint8_t i = 0;
+    while (i < 250)
     {
         Room room = g_core.rooms[n];
         Position pos;
@@ -86,7 +87,33 @@ Position FindOpenRoomLocation(HardwareInterface hardware, ObjectsTypes type, uin
         {
             return pos;
         }
+        i++;
     }
+    return (Position){0, 0};
+}
+
+SET_MEMORY(".map_gen")
+Position FindHallDeadEnd(ObjectsTypes type, uint8_t start_x, uint8_t start_y)
+{
+    for (uint8_t y = start_y; y < MAP_H; y++)
+        for (uint8_t x = start_x; x < MAP_W; x++)
+        {
+            uint8_t tile = GetMapTile(x, y);
+            if (tile == FLOOR_DIRT && CheckTileForEntity(type, NO_ENTITY, (Position){x, y}) == NO_ENTITY)
+            {
+                //check at least 3 adjecent tiles has a wall
+                uint8_t adj_count = 0;
+                if (x > 0 && GetMapTile(x - 1, y) != FLOOR_DIRT) adj_count++;
+                if (x < MAP_W - 1 && GetMapTile(x + 1, y) != FLOOR_DIRT) adj_count++;
+                if (y > 0 && GetMapTile(x, y - 1) != FLOOR_DIRT) adj_count++;
+                if (y < MAP_H - 1 && GetMapTile(x, y + 1) != FLOOR_DIRT) adj_count++;
+                if (adj_count == 3)
+                {
+                    return (Position){x, y};
+                }
+            }
+        }
+    return (Position){0, 0};
 }
 
 
@@ -133,19 +160,20 @@ void ResetMap(void)
 }
 
 
+
 SET_MEMORY(".map_gen")
 void SetMapBorder(void)
 {
     for (uint16_t y = 0; y < MAP_H; y++)
     {
-        SetMapTile(16, y, WALL_STONE);
-        SetMapTile(MAP_W - 16, y, WALL_STONE);
+        SetMapTile(MAP_EDGE, y, WALL_STONE);
+        SetMapTile(MAP_W - MAP_EDGE, y, WALL_STONE);
     }
 
     for (uint16_t x = 0; x < MAP_W; x++)
     {
-        SetMapTile(x, 16, WALL_STONE);
-        SetMapTile(x, MAP_H - 16, WALL_STONE);
+        SetMapTile(x, MAP_EDGE, WALL_STONE);
+        SetMapTile(x, MAP_H - MAP_EDGE, WALL_STONE);
     }
 }
 
@@ -174,9 +202,9 @@ void DungeonPredefined(HardwareInterface hardware)
         for (uint16_t x = 0; x < MAP_W; x++)
         {
             //border wall at 12
-            if (x == 12 || x == MAP_W - 12 || y == 12 || y == MAP_H - 12)
+            if (x == MAP_EDGE || x == MAP_W - MAP_EDGE || y == MAP_EDGE || y == MAP_H - MAP_EDGE)
                 SetMapTile(x, y, WALL_STONE);
-            else if (x > 12 && x < MAP_W - 12 && y > 12 && y < MAP_H - 12)
+            else if (x > MAP_EDGE && x < MAP_W - MAP_EDGE && y > MAP_EDGE && y < MAP_H - MAP_EDGE)
                 SetMapTile(x, y, FLOOR_DIRT);
             else
                 SetMapTile(x, y, WATER);
@@ -184,17 +212,17 @@ void DungeonPredefined(HardwareInterface hardware)
 
 
     uint8_t index = 0;
-    for (uint16_t j = 0; j < 4; j++)
-    {
-        for (uint16_t i = 0; i < 8; i++)
-        {
-            const uint8_t source_y = 14 + (j * 10);
-            const uint8_t source_size = 6;
-            const uint8_t y_size = source_y + 6;
+    uint8_t w = 6;
 
-            for (uint16_t y = source_y; y < y_size; y++)
-                for (uint16_t x = (i * 10 + 4); x < (i * 10 + 4) + source_size; x++)
-                    SetMapTile(x + 14, y, index);
+    const uint8_t max_y = MAP_H - MAP_EDGE - w;
+    for (uint16_t j = MAP_EDGE + 2; j < max_y; j += (w + 1))
+    {
+        const uint8_t max_x = MAP_W - MAP_EDGE - w;
+        for (uint16_t i = MAP_EDGE + 2; i < max_x; i += (w + 1))
+        {
+            for (uint16_t y = j; y < j + w; y++)
+                for (uint16_t x = i; x < i + w; x++)
+                    SetMapTile(x, y, index);
             index++;
             if (index == TILE_COUNT) return;
         }

@@ -72,7 +72,7 @@ void DestroyPlayerCreature(HardwareInterface hardware)
     EntityId player_creature_id = g_core.battleMode.playerMonsterID;
     EntityId ai_creature_id = g_core.battleMode.enemyMonsterID;
     GainXP(player_creature_id, ai_creature_id);
-    DestroyCreature(hardware, ai_creature_id);
+    DestroyCreature(ai_creature_id);
 }
 
 /**********************************************************************************************************************/
@@ -84,7 +84,7 @@ void DestroyEnemyCreature(HardwareInterface hardware)
     EntityId player_creature_id = g_core.battleMode.playerMonsterID;
     EntityId ai_creature_id = g_core.battleMode.enemyMonsterID;
     GainXP(player_creature_id, ai_creature_id);
-    DestroyCreature(hardware, ai_creature_id);
+    DestroyCreature(ai_creature_id);
 }
 
 

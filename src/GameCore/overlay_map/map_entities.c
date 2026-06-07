@@ -177,3 +177,18 @@ bool InDetectionRange(EntityId id, EntityId targetID)
 
     return false;
 }
+
+
+/**********************************************************************************************************************/
+/*
+**********************************************************************************************************************/
+SET_MEMORY(".map")
+bool CheckCreatureDead(EntityId creature_id)
+{
+    uint8_t hp = Int999GetCurrent(&g_core.creatures.hp[creature_id]);
+    if (hp == 0)
+    {
+        return true;
+    }
+    return false;
+}

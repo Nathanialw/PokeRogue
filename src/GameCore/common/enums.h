@@ -14,11 +14,12 @@ typedef enum
     OVERLAY_MAP = 2,
     OVERLAY_GEN_MAP = 3,
     OVERLAY_BATTLE = 4,
-    OVERLAY_SHUTDOWN = 5,
+    OVERLAY_GAME_LOSS = 5,
+    OVERLAY_SHUTDOWN = 6,
     OVERLAY_GAME_STATE_SIZE,
 } GameState;
 
-_Static_assert((OVERLAY_GAME_STATE_SIZE == 6), "update State struct to reflect new size");
+_Static_assert((OVERLAY_GAME_STATE_SIZE == 7), "update State struct to reflect new size");
 
 /**********************************************************************************************************************/
 /** Sets the logic path for the game in the main loop

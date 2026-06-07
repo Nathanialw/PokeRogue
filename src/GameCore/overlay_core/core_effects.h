@@ -32,7 +32,7 @@ bool QuickAttack(HardwareInterface hardware, MemoryInterface memory, EntityId at
 bool Parry(EntityId attackerID, EntityId defenderID, SkillData abilityData);
 bool Summon(CreatureID creature);
 void SacrificeHeal(HardwareInterface hardware, MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData);
-
+void DoDamage(EntityId creatureID, uint16_t damage);
 
 /**********************************************************************************************************************/
 /** RESOURCE EFFECTS
@@ -152,3 +152,5 @@ bool CreateItemFood();
 bool CreateItemCommon();
 bool CreateItemMagic();
 bool MapModifyTile(Position, TileType tileType);
+bool RemoveMapFog();
+bool GoNextLevel(MapLevelChange dir);

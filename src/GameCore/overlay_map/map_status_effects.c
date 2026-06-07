@@ -10,7 +10,6 @@
 #include "core_ram.h"
 
 
-
 typedef uint8_t (*TurnEffect)(HardwareInterface hardware, uint8_t power, EntityId id);
 
 /**********************************************************************************************************************
@@ -20,8 +19,9 @@ SET_MEMORY(".map")
 uint8_t UpdateStatus(HardwareInterface hardware, uint8_t n)
 {
     if (n == 0) return 0;
-    uint8_t chance = hardware.GetRandom_uint8_t(10, 100);
+    uint8_t chance = hardware.GetRandom_uint8_t(0, 20);
     if (chance <= n) n--;
+    hardware.Print("UpdateStatus: %d\n", n);
     return n;
 }
 

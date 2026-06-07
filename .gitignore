@@ -4,9 +4,10 @@ assets_unused/
 assets_raw/
 
 .proxyai/
+scripts/config.json
+*.json
 
 build*
-
 cmake*
 
 vendor/

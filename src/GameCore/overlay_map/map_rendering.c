@@ -16,6 +16,7 @@
 #include "core_utils.h"
 
 #include "map_camera.h"
+#include "map_entities.h"
 #include "map_graphics.h"
 #include "map_ram.h"
 
@@ -62,8 +63,16 @@ bool LineOfSightClear(int x0, int y0, int x1, int y1)
         if (x0 == x1 && y0 == y1) break;
 
         e2 = 2 * err;
-        if (e2 >= dy) { err += dy; x0 += sx; }
-        if (e2 <= dx) { err += dx; y0 += sy; }
+        if (e2 >= dy)
+        {
+            err += dy;
+            x0 += sx;
+        }
+        if (e2 <= dx)
+        {
+            err += dx;
+            y0 += sy;
+        }
 
         uint8_t tile = GetMapTile(x0, y0);
         if (tile == WALL_STONE)
@@ -75,14 +84,13 @@ bool LineOfSightClear(int x0, int y0, int x1, int y1)
 // Traces a ray from (x0,y0) towards (x1,y1), marking all passed tiles as visible
 // Stops when a wall is encountered (the wall tile itself is also marked)
 SET_MEMORY(".map")
-void MarkVisibilityRay(uint8_t x0, uint8_t y0, uint8_t x1, uint8_t y1,
-                       Camera c)
+void MarkVisibilityRay(uint8_t x0, uint8_t y0, uint8_t x1, uint8_t y1, Camera c)
 {
     int dx = abs((int)x1 - (int)x0), sx = x0 < x1 ? 1 : -1;
     int dy = -abs((int)y1 - (int)y0), sy = y0 < y1 ? 1 : -1;
     int err = dx + dy, e2;
 
-    uint8_t cx = x0, cy = y0;   // current tile being walked
+    uint8_t cx = x0, cy = y0; // current tile being walked
 
     while (1)
     {
@@ -103,8 +111,17 @@ void MarkVisibilityRay(uint8_t x0, uint8_t y0, uint8_t x1, uint8_t y1,
 
         // Walk one step
         e2 = 2 * err;
-        if (e2 >= dy) { err += dy; cx += sx; }
-        if (e2 <= dx) { err += dx; cy += sy; }
+        if (e2 >= dy)
+        {
+            err += dy;
+            cx += sx;
+        }
+        if (e2 <= dx)
+        {
+            err += dx;
+            cy += sy;
+        }
+
 
         // Check the *new* tile for a wall
         uint8_t tile = GetMapTile(cx, cy);
@@ -119,7 +136,8 @@ void MarkVisibilityRay(uint8_t x0, uint8_t y0, uint8_t x1, uint8_t y1,
                 g_map.view.vision[sy_screen][sx_screen] = 1;
             }
             g_core.fog[cy][cx] = 1;
-            break;   // vision ends here
+            if (!g_core.creatures.status.lineOfSight[GetPlayerID()])
+                break; // vision ends here
         }
     }
 }
@@ -144,6 +162,7 @@ void UpdateVision(GraphicsInterface graphics)
     // Player's own tile
     g_map.view.vision[CAM_OFFSET_Y][CAM_OFFSET_X] = 1;
     g_core.fog[player_y][player_x] = 1;
+
 
     // Try to see every tile inside the rounded square
     for (int8_t dy = -vision_radius; dy <= vision_radius; dy++)
@@ -229,26 +248,40 @@ static const uint8_t colors[16] =
     PAL_BRIGHT_LIGHT_GRN,
 };
 
+#define MM_SCALE (SCREEN_W / MAP_W)
+
 SET_MEMORY(".map")
-void DrawMinimapEntities(GraphicsInterface graphics, MemoryInterface memory, Position* positions, uint16_t y, uint8_t palette_color)
+void DrawMinimapEntities(GraphicsInterface graphics, MemoryInterface memory, ObjectsTypes type, uint16_t y, uint8_t palette_color)
 {
     // DRAW CREATURES
-    uint16_t start_pos = (TFT_W - MAP_W) >> 1;
-    uint16_t margins = TFT_W - MAP_W;
-    uint16_t cursor = 0;
+    uint16_t start_pos = (SCREEN_W * MM_SCALE);
     Color enemy_color = Flash_GetColor(memory, palette_color);
 
-    for (uint16_t id = 0; id < MAX_ENTITY_CREATURE_COUNT; id++)
+    uint8_t* onMap = GetEntitiesOnMap(type);
+    Position* positions = GetEntityPositions(type);
+
+    for (uint16_t entity_id = 0; entity_id < MAX_ENTITY_CREATURE_COUNT; entity_id++)
     {
-        Position pos = positions[id];
+        if (!GetBit(onMap, entity_id))
+            continue;
+
+        Position pos = positions[entity_id];
         if (!CheckVisionMap(pos.x, pos.y))
             continue;
 
-        uint8_t row = pos.y - y;
         Color color = enemy_color;
+        uint32_t screen_y = pos.y * MM_SCALE * SCREEN_W;
+        uint32_t screen_x = pos.x * MM_SCALE;
+        uint32_t margin = (SCREEN_W - (MAP_W * MM_SCALE)) >> 1;
 
-        cursor = start_pos + (row * margins) + (row * MAP_W) + pos.x;
-        graphics.GetFrameBuffer2bytes()[cursor] = color.color;
+        uint32_t cursor = start_pos + screen_y + screen_x + margin;
+
+        for (uint8_t i = 0; i < MM_SCALE; i++)
+        {
+            for (uint8_t j = 0; j < MM_SCALE; j++)
+                graphics.GetFrameBuffer2bytes()[cursor++] = color.color;
+            cursor += (SCREEN_W - MM_SCALE);
+        }
     }
 }
 
@@ -261,46 +294,51 @@ void DrawMiniMap(GraphicsInterface graphics, HardwareInterface hardware, MemoryI
     OrderUnitsByBufferLine(graphics, g_map.units, g_map.meta);
     Camera c = GetCamera();
 
-    uint32_t cursor = 0;
+    uint32_t cursor = (SCREEN_W * MM_SCALE);
     Color transparency = Flash_GetColor(memory, PAL_KEY);
+
     for (uint32_t y = 0; y < MAP_H; y += BUFFER_H)
     {
-        graphics.SetFrameBuffer(Flash_GetColor(memory, PAL_OFF_WHITE_GRAY));
+        graphics.SetFrameBuffer(Flash_GetColor(memory, PAL_BROWNISH_RED));
 
-        cursor = (TFT_W - MAP_W) >> 1; //reset position
+        cursor += (SCREEN_W - (MAP_W * MM_SCALE)) >> 1; //reset position
         for (uint32_t row = 0; row < BUFFER_H; row++)
         {
-            uint16_t cy = y + row;
-            if (cy >= MAP_H) break;
-            Color color;
-            for (uint32_t x = 0; x < MAP_W; x++)
+            for (uint16_t j = 0; j < MM_SCALE; j++)
             {
-                if (!CheckFogCleared(x, cy))
-                    color.color = 0x0000;
-                else
+                uint16_t cy = y + row;
+                if (cy >= MAP_H) break;
+                Color color;
+                for (uint32_t x = 0; x < MAP_W; x++)
                 {
-                    color = Flash_GetColor(memory, colors[GetMapTile(x, cy)]);
-                    if (cy < c.y || cy >= c.y + VIEW_TH || x < c.x || x >= c.x + VIEW_TW)
+                    if (!CheckFogCleared(x, cy))
+                        color.color = 0x0000;
+                    else
                     {
-                        color.r = (color.r >> 1);
-                        color.g = (color.g >> 1);
-                        color.b = (color.b >> 1);
+                        color = Flash_GetColor(memory, colors[GetMapTile(x, cy)]);
+                        if (cy < c.y || cy >= c.y + VIEW_TH || x < c.x || x >= c.x + VIEW_TW)
+                        {
+                            color.r = (color.r >> 1);
+                            color.g = (color.g >> 1);
+                            color.b = (color.b >> 1);
+                        }
                     }
+                    if (color.color == transparency.color) continue;
+
+                    for (uint8_t i = 0; i < MM_SCALE; i++)
+                        graphics.GetFrameBuffer2bytes()[cursor++] = color.color;
                 }
-                if (color.color == transparency.color) continue;
-                graphics.GetFrameBuffer2bytes()[cursor++] = color.color;
+                cursor += (SCREEN_W - (MAP_W * MM_SCALE));
             }
-            cursor += (TFT_W - MAP_W);
         }
 
-        DrawMinimapEntities(graphics, memory, g_core.creatures.position, y, PAL_BRIGHT_RED);
-        DrawMinimapEntities(graphics, memory, g_core.items.position, y, PAL_BRIGHT_VINE_GRN);
-        DrawMinimapEntities(graphics, memory, g_core.objects.position, y, PAL_DARK_BROWN);
-        DrawMinimapEntities(graphics, memory, g_core.trainers.position, y, PAL_DARK_BLUE_GRAY);
+        DrawMinimapEntities(graphics, memory, CREATURE, y, PAL_BRIGHT_RED);
+        DrawMinimapEntities(graphics, memory, ITEM, y, PAL_BRIGHT_VINE_GRN);
+        DrawMinimapEntities(graphics, memory, OBJECT, y, PAL_DARK_BROWN);
+        DrawMinimapEntities(graphics, memory, TRAINER, y, PAL_DARK_BLU_PURP);
 
-        graphics.Draw16(0, y, TFT_W, BUFFER_H, graphics.GetFrameBuffer2bytes());
+        graphics.Draw16(0, y, SCREEN_W, BUFFER_H, graphics.GetFrameBuffer2bytes());
     }
-    graphics.EndFrame();
 }
 
 /**********************************************************************************************************************/

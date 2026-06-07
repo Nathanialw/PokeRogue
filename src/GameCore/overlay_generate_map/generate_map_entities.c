@@ -10,6 +10,7 @@
 #include "core_memory_access.h"
 #include "core_player.h"
 #include "core_ram.h"
+#include "generate_map.h"
 
 
 /*******************************************************************************************************************
@@ -23,6 +24,9 @@
 SET_MEMORY(".map_gen")
 void InitPlayer(HardwareInterface hardware, MemoryInterface memory)
 {
+    if (g_core.player.id != NO_ENTITY)
+        return;
+
     g_core.player.currentBagSize = DEFAULT_BAG_SIZE;
     g_core.player.currentSpellbookSize = DEFAULT_SPELLBOOK_SIZE;
 
@@ -121,11 +125,6 @@ EntityId CachePlayerCreatureData(HardwareInterface hardware)
 {
     EntityId creature_idx = 0;
     EntityId p_ID = GetPlayerID();
-
-    //set player to beginning of the array
-    if (GetPlayerID() != 0)
-    {
-    }
     creature_idx++;
 
     for (uint8_t i = 0; i < MAX_PARTY_SIZE; i++)
@@ -144,7 +143,7 @@ EntityId CachePlayerCreatureData(HardwareInterface hardware)
 
 
 SET_MEMORY(".map_gen")
-EntityId CachePlayerItemData()
+EntityId CachePlayerItemData(void)
 {
     EntityId item_idx = 0;
     EntityId sorted_indexes[MAX_BAG_SIZE];
@@ -166,6 +165,33 @@ EntityId CachePlayerItemData()
 }
 
 
+SET_MEMORY(".map_gen")
+EntityId CheckIfPlayerItem(EntityId item_id)
+{
+    EntityId p_ID = GetPlayerID();
+    for (uint8_t i = 0; i < MAX_BAG_SIZE; i++)
+    {
+        if (g_core.trainers.itemID[p_ID][i] == item_id)
+            return true;
+    }
+
+    return false;
+}
+
+
+SET_MEMORY(".map_gen")
+EntityId CheckIfInPlayerParty(EntityId creature_id)
+{
+    EntityId p_ID = GetPlayerID();
+    for (uint8_t i = 0; i < MAX_PARTY_SIZE; i++)
+    {
+        if (g_core.trainers.partyID[p_ID][i] == creature_id)
+            return true;
+    }
+
+    return false;
+}
+
 /**********************************************************************************************************************/
 /** Reset all values of all entities on the map
  *  TODO: may add trainers later
@@ -182,16 +208,25 @@ void ResetEntities(HardwareInterface hardware, MemoryInterface memory, bool copy
     }
 
     for (uint16_t i = creature_start_idx; i < MAX_ENTITY_CREATURE_COUNT; i++)
-        DestroyCreature(hardware, i);
+    {
+        if (i != GetPlayerID())
+            DestroyCreature(i);
+    }
 
     for (uint16_t i = item_start_idx; i < MAX_ENTITY_ITEM_COUNT; i++)
-        DestroyItem(i);
+    {
+        if (!CheckIfPlayerItem(i))
+            DestroyItem(i);
+    }
 
     for (uint16_t i = 0; i < MAX_ENTITY_OBJECT_COUNT; i++)
         DestroyObject(i);
 
     for (uint16_t i = 0; i < MAX_ENTITY_TRAINER_COUNT; i++)
-        DestroyTrainer(i);
+    {
+        if (i != GetPlayerID())
+            DestroyTrainer(i);
+    }
 
     g_core.creatures.total = 0;
     g_core.items.total = 0;
@@ -202,18 +237,23 @@ void ResetEntities(HardwareInterface hardware, MemoryInterface memory, bool copy
 /**********************************************************************************************************************/
 /** Creates all the creatures on the map from the BIOME and THEME data
 **********************************************************************************************************************/
+#define INITIAL (MAP_EDGE + 28)
+#define SPACING 8
+
 SET_MEMORY(".map_gen")
 void PopulateLevelTrainers(HardwareInterface hardware, MemoryInterface memory)
 {
-    Position pos = {.x = 14, .y = 55};
 #if defined(TEST_MAP)
+    Position pos = {.x = MAP_EDGE, .y = INITIAL};
+    const uint8_t max_x = MAP_W - (((MAP_EDGE + 1) * 2) + 1);
+
     for (uint8_t i = 0; i < TRAINER_COUNT; i++)
     {
         pos.x++;
-        if (i % 75 == 0)
+        if (i % max_x == 0)
         {
             pos.x = 14;
-            pos.y++;
+            pos.y += 2;
         }
         SpawnEntity(hardware, memory, TRAINER, i, pos.x, pos.y, 1);
     }
@@ -223,10 +263,11 @@ void PopulateLevelTrainers(HardwareInterface hardware, MemoryInterface memory)
             g_core.trainers.newPosition[i] = g_core.trainers.position[i];
 #else
     uint8_t trainer_level = 1;
-    for (uint8_t i = g_core.trainers.total; i < NUM_MAP_TRAINERS; i++)
+    for (uint8_t i = 0; i < NUM_MAP_TRAINERS; i++)
     {
         const ItemTypes trainer_type = hardware.GetRandom_uint8_t(0, TRAINER_COUNT);
         const Position pos = FindOpenMapLocation(hardware, TRAINER);
+        if (pos.x == 0 && pos.y == 0) continue;
         SpawnEntity(hardware, memory, TRAINER, trainer_type, pos.x, pos.y, trainer_level);
     }
 #endif
@@ -238,12 +279,13 @@ void PopulateLevelCreatures(HardwareInterface hardware, MemoryInterface memory)
 {
 #if defined(TEST_MAP)
     uint8_t creature_level = g_core.floor;
-    Position pos = {.x = 14, .y = 30};
+    Position pos = {.x = MAP_EDGE, .y = INITIAL + (SPACING)};
     uint8_t max_creatures = CREATURE_COUNT - g_core.creatures.total;
+    const uint8_t max_x = MAP_W - (((MAP_EDGE + 1) * 2) + 1);
     for (uint8_t i = 0; i < max_creatures; i++)
     {
         pos.x++;
-        if (i % 75 == 0)
+        if (i % max_x == 0)
         {
             pos.x = 14;
             pos.y += 2;
@@ -256,16 +298,16 @@ void PopulateLevelCreatures(HardwareInterface hardware, MemoryInterface memory)
             g_core.creatures.newPosition[i] = g_core.creatures.position[i];
 #else
     uint8_t creature_level = g_core.floor;
-    uint8_t n = g_core.creatures.total;
-    for (uint8_t i = n; i < g_core.roomCount >> 2; i++)
+    for (uint8_t i = 0; i < g_core.roomCount >> 2; i++)
     {
         uint8_t index = hardware.GetRandom_uint8_t(0, BIOME_MONSTER_TYPES);
         const Creature creature = Flash_GetBiomeCreature(memory, g_core.biome, index);
         const Position pos = FindOpenRoomLocation(hardware, CREATURE, i);
+        if (pos.x == 0 && pos.y == 0) continue;
         SpawnEntity(hardware, memory, CREATURE, creature, pos.x, pos.y, creature_level);
     }
 
-    for (uint8_t i = n; i < g_core.roomCount >> 1; i++)
+    for (uint8_t i = 0; i < g_core.roomCount >> 1; i++)
     {
         uint8_t index = hardware.GetRandom_uint8_t(0, THEME_MONSTER_TYPES);
         const Creature creature = Flash_GetThemeCreature(memory, g_core.theme, index);
@@ -285,51 +327,73 @@ void PopulateLevelCreatures(HardwareInterface hardware, MemoryInterface memory)
 SET_MEMORY(".map_gen")
 void PopulateLevelItems(HardwareInterface hardware, MemoryInterface memory)
 {
-    Position pos = {.x = 14, .y = 45};
+    const uint8_t max_x = MAP_W - (((MAP_EDGE + 1) * 2) + 1);
 #if defined(TEST_MAP)
+    Position pos = {.x = MAP_EDGE + 2, .y = INITIAL + (SPACING * 2)};
     for (uint8_t i = 0; i < ITEM_COUNT; i++)
     {
         pos.x++;
-        if (i % 75 == 0)
+        if (i % max_x == 0)
         {
             pos.x = 14;
-            pos.y++;
+            pos.y += 2;
         }
         SpawnEntity(hardware, memory, ITEM, i, pos.x, pos.y, 1);
     }
 
 #else
     uint8_t item_level = 1;
-    for (uint8_t i = g_core.items.total; i < g_core.roomCount; i++)
+    uint8_t n = 0;
+    for (uint8_t i = 0; i < g_core.roomCount; i++)
     {
-        const ItemTypes item_type = hardware.GetRandom_uint8_t(0, ITEM_COUNT);
-        const Position pos = FindOpenRoomLocation(hardware, ITEM, i);
-        SpawnEntity(hardware, memory, ITEM, item_type, pos.x, pos.y, item_level);
+        uint8_t n = hardware.GetRandom_uint8_t(1, 3);
+        for (uint8_t j = 0; j < n; j++)
+        {
+            const ItemTypes item_type = hardware.GetRandom_uint8_t(0, ITEM_COUNT);
+            const Position pos = FindOpenRoomLocation(hardware, ITEM, i);
+            if (pos.x == 0 && pos.y == 0) continue;
+            SpawnEntity(hardware, memory, ITEM, item_type, pos.x, pos.y, item_level);
+            n++;
+        }
     }
+    Position tile_position = {0, 0};
+    while (n < NUM_MAP_ITEMS)
+    {
+        tile_position = FindHallDeadEnd(ITEM, tile_position.x, tile_position.y);
+        if (tile_position.x == 0 && tile_position.y == 0) break;
+        const ItemTypes item_type = hardware.GetRandom_uint8_t(0, ITEM_COUNT);
+        const Position pos = tile_position;
+        EntityId entity_id = SpawnEntity(hardware, memory, ITEM, item_type, pos.x, pos.y, item_level);
+        n++;
+        if (entity_id == NO_ENTITY) break;
+    }
+
 #endif
 }
 
 SET_MEMORY(".map_gen")
 void PopulateLevelObjects(HardwareInterface hardware, MemoryInterface memory)
 {
-    Position pos = {.x = 14, .y = 50};
 #if defined(TEST_MAP)
+    const uint8_t max_x = MAP_W - (((MAP_EDGE + 1) * 2) + 1);
+    Position pos = {.x = MAP_EDGE, .y = INITIAL + (SPACING * 3)};
     for (uint8_t i = 0; i < OBJECT_COUNT; i++)
     {
         pos.x++;
-        if (i % 75 == 0)
+        if (i % max_x == 0)
         {
             pos.x = 14;
-            pos.y++;
+            pos.y += 2;
         }
         SpawnEntity(hardware, memory, OBJECT, i, pos.x, pos.y, 1);
     }
 #else
     uint8_t object_level = 1;
-    for (uint8_t i = g_core.objects.total; i < g_core.roomCount; i++)
+    for (uint8_t i = 0; i < g_core.roomCount; i++)
     {
         const Object object_type = hardware.GetRandom_uint8_t(0, OBJECT_COUNT);
         const Position pos = FindOpenRoomLocation(hardware, OBJECT, i);
+        if (pos.x == 0 && pos.y == 0) continue;
         SpawnEntity(hardware, memory, OBJECT, object_type, pos.x, pos.y, object_level);
     }
 #endif
@@ -339,7 +403,7 @@ void PopulateLevelObjects(HardwareInterface hardware, MemoryInterface memory)
 /*******************************************************************************************************************
 *
 **********************************************************************************************************************/
-SET_MEMORY(".map")
+SET_MEMORY(".map_gen")
 void PlacePlayerOnMap(HardwareInterface hardware)
 {
     Position pos = FindOpenMapLocation(hardware, TRAINER);

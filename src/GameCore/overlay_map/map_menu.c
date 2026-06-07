@@ -406,7 +406,6 @@ bool Bag(HardwareInterface hardware, InputInterface input, MemoryInterface memor
             if (UseItem(memory, &itemData, item_id, NO_ENTITY))
                 ConsumeItem(idx, item_id);
             else
-
                 return true;
         }
 
@@ -684,5 +683,6 @@ void HandleMenu(GraphicsInterface graphics, HardwareInterface hardware, MemoryIn
         return;
     }
 
+    FullRedraw(graphics, hardware, memory);
     DrawList(graphics, hardware, memory);
 }

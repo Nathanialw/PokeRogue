@@ -65,7 +65,6 @@ SECTIONS
         . = ALIGN(4);
     }
 
-    /* Battle / Map Overlays */
     .battle 0x20010000 : AT(0x050000)
     {
         KEEP(*(.battle_entry))
@@ -74,6 +73,17 @@ SECTIONS
         KEEP(*(.battle.data))    /* initialised data (if any) */
         KEEP(*(.battle.bss))     /* zero‑initialised data (if any) */
         KEEP(*(.battle))
+        . = ALIGN(4);
+    }
+
+    .battle 0x20010000 : AT(0x060000)
+    {
+        KEEP(*(.game_loss_entry))
+        KEEP(*(.game_loss.text))    /* code */
+        KEEP(*(.game_loss.rodata))  /* read‑only data (strings, const) */
+        KEEP(*(.game_loss.data))    /* initialised data (if any) */
+        KEEP(*(.game_loss.bss))     /* zero‑initialised data (if any) */
+        KEEP(*(.game_loss))
         . = ALIGN(4);
     }
 

@@ -86,6 +86,10 @@ add_library(GameCore STATIC
         overlay_generate_map/generate_map_entities.c
         overlay_generate_map/generate_map_river.c
 
+
+        #   GAME_LOSS
+        overlay_game_loss/game_loss_state.c
+
         #
 )
 
@@ -104,6 +108,7 @@ target_include_directories(GameCore PUBLIC
         ${CMAKE_CURRENT_SOURCE_DIR}/overlay_generate_map
         ${CMAKE_CURRENT_SOURCE_DIR}/overlay_populate_map
         ${CMAKE_CURRENT_SOURCE_DIR}/overlay_splash_screen
+        ${CMAKE_CURRENT_SOURCE_DIR}/overlay_game_loss
 )
 
 

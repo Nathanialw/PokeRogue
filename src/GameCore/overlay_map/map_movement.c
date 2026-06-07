@@ -198,11 +198,11 @@ void SetPositions(void)
 
         //check current tile
         uint8_t tileID = GetMapTile(x, y);
-        CheckInteractionStepOn(tileID, id, x, y);
+        CheckInteractionStepOff(tileID, id, TRAINER, x, y);
 
         //check next tile
         tileID = GetMapTile(nx, ny);
-        if (CheckInteractionStepOn(tileID, id, nx, ny))
+        if (CheckInteractionStepOn(tileID, id, TRAINER, nx, ny))
             SetEntityPosition(TRAINER, id, x, y, nx, ny);
     }
 
@@ -226,11 +226,11 @@ void SetPositions(void)
 
         //check current tile
         uint8_t tileID = GetMapTile(x, y);
-        CheckInteractionStepOn(tileID, id, x, y);
+        CheckInteractionStepOff(tileID, id, CREATURE, x, y);
 
         //check next tile
         tileID = GetMapTile(nx, ny);
-        if (CheckInteractionStepOn(tileID, id, nx, ny))
+        if (CheckInteractionStepOn(tileID, id, CREATURE, nx, ny))
             SetEntityPosition(CREATURE, id, x, y, nx, ny);
     }
 
