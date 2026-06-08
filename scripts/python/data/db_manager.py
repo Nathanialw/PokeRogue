@@ -274,7 +274,6 @@ def init_database():
         )
     ''')
 
-
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS trainers (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -335,17 +334,25 @@ def init_database():
 
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS objects (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            name TEXT NOT NULL,
-            formatted TEXT,
-            function_name TEXT,
-            used INTEGER NOT NULL DEFAULT 0,
-            power INTEGER NOT NULL DEFAULT 5,
-            object_type TEXT,
-            notes TEXT,
-            sprite_idx TEXT,
-            sprite_color_idx TEXT
-        )
+            id               INTEGER PRIMARY KEY AUTOINCREMENT,
+            used             INTEGER NOT NULL DEFAULT 0,
+            name             TEXT    NOT NULL,
+            formatted        TEXT,
+            function_name    TEXT,
+            power            INTEGER NOT NULL DEFAULT 5,
+            object_type      TEXT,
+            notes            TEXT,
+            sprite_idx       TEXT,
+            sprite_color_idx TEXT,
+            consumable       INTEGER DEFAULT (0) NOT NULL,
+            interactable     INTEGER DEFAULT (0) NOT NULL,
+            interact_on_step INTEGER DEFAULT (0),
+            hallway          INTEGER DEFAULT (0),
+            nook             NUMERIC DEFAULT (0),
+            water            INTEGER DEFAULT (0),
+            image            TEXT    UNIQUE
+        );
+
     ''')
 
     cursor.execute('''
@@ -978,7 +985,7 @@ def get_images(table):
     cursor = conn.cursor()
 
     # Use a placeholder for the value; table name must be validated separately
-    cursor.execute(f"SELECT image, name FROM {table}s WHERE used = ?", (1, ))
+    cursor.execute(f"SELECT image, name FROM {table}s WHERE used = ?", (1,))
 
     # Inside the loop:
     for row in cursor.fetchall():
@@ -988,8 +995,6 @@ def get_images(table):
     if len(image_names_paths) > 0:
         return image_names_paths
     return None
-
-
 
 
 def set_image(table, entity_name, image):

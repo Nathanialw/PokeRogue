@@ -67,7 +67,7 @@ def run():
     # ability struct data
     export_structs.abilities("skill")
     # ability functions headers
-    export.func_c_headers("skill", "Skill", "bool", "EntityId attackerID, EntityId defenderID, SkillData skillData")
+    export.func_c_headers("skill", "Skill", "bool", "HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData")
     # ability functions
     export.funcs_to_c_array("skill", "Skill")
     # ability animation functions

@@ -234,7 +234,6 @@ EntityId SpawnMonster(HardwareInterface hardware, MemoryInterface memory, uint8_
         }
         if (i >= MAX_ENTITY_CREATURE_COUNT - 1)
         {
-            hardware.Print("max creatures spawned\n");
             return NO_ENTITY;
         }
     }
@@ -287,7 +286,6 @@ EntityId SpawnItem(HardwareInterface hardware, MemoryInterface memory, uint8_t t
         }
         if (i >= MAX_ENTITY_ITEM_COUNT - 1)
         {
-            hardware.Print("max items spawned\n");
             return NO_ENTITY;
         }
     }
@@ -319,7 +317,6 @@ EntityId SpawnObject(HardwareInterface hardware, MemoryInterface memory, uint8_t
         }
         if (i >= MAX_ENTITY_OBJECT_COUNT - 1)
         {
-            hardware.Print("max objects spawned\n");
             return NO_ENTITY;
         }
     }
@@ -352,7 +349,6 @@ EntityId SpawnTrainer(HardwareInterface hardware, MemoryInterface memory, uint8_
         }
         if (i >= MAX_ENTITY_TRAINER_COUNT - 1)
         {
-            hardware.Print("max trainers spawned\n");
             return NO_ENTITY;
         }
     }

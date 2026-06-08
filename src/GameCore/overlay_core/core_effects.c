@@ -4,8 +4,6 @@
 
 #include "core_effects.h"
 
-#include <stdio.h>
-
 #include "lib_memory.h"
 
 #include "constants.h"
@@ -64,7 +62,6 @@ void DoDamage(EntityId creatureID, uint16_t damage)
     uint16_t hp = Int999GetCurrent(&g_core.creatures.hp[creatureID]);
     hp = (hp > damage) ? hp - damage : 0;
     Int999SetCurrent(&g_core.creatures.hp[creatureID], hp);
-    printf("creatureID damage: %d %d\n", creatureID, damage);
 }
 
 /**********************************************************************************************************************
@@ -373,7 +370,7 @@ bool Capture(HardwareInterface hardware, EntityId target_id, uint8_t successChan
     if (target_id == g_core.trainers.partyID[GetPlayerID()][0])
         return false;
 
-    uint8_t n = 1; //hardware.GetRandom_uint8_t(1, successChance);
+    uint8_t n = hardware.GetRandom_uint8_t(1, successChance);
     if (n < 10)
     {
         if (AddCreatureToParty(target_id))

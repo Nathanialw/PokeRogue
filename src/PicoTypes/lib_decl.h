@@ -86,8 +86,8 @@ typedef struct __attribute__((packed))
     uint32_t (*Abs)(int max);
     char* (*StrChr)(const char* n, int c);
 
-    void (*Print)(const char* fmt, ...);
-    void (*PrintVar)(uint32_t d);
+    // void (*Print)(const char* fmt, ...);
+    // void (*PrintVar)(uint32_t d);
 } HardwareInterface;
 
 typedef struct __attribute__((packed))

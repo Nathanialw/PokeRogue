@@ -161,7 +161,6 @@ void DrawSpriteCached(GraphicsInterface graphics, MemoryInterface memory, uint8_
     uint16_t px = (uint16_t)(screen_tx * MAP_TILE_W);
     uint16_t py = (uint16_t)(screen_ty * MAP_TILE_H);
 
-
 #if defined(SDL)
     SpriteFrames layout = {0};
     Flash_GetMapSpriteMetadata(memory, &layout, type, sprite_id);

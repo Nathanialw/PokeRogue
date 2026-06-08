@@ -30,7 +30,7 @@ bool UseSkill(HardwareInterface hardware, MemoryInterface memory, bool player)
         ability = g_core.creatures.attacks[player_creature_id][g_core.menu.sel->y];
         SkillData ability_data;
         Flash_GetSkillData(memory, &ability_data, ability);
-        g_battle.end_battle = Flash_GetSkillEffect(memory, ability, player_creature_id, ai_creature_id, ability_data);
+        g_battle.end_battle = Flash_GetSkillEffect(hardware, memory, ability, player_creature_id, ai_creature_id, ability_data);
     }
     else
     {
@@ -55,7 +55,7 @@ bool UseSkill(HardwareInterface hardware, MemoryInterface memory, bool player)
 
         SkillData ability_data;
         Flash_GetSkillData(memory, &ability_data, ability);
-        Flash_GetSkillEffect(memory, ability, ai_creature_id, player_creature_id, ability_data);
+        Flash_GetSkillEffect(hardware, memory, ability, ai_creature_id, player_creature_id, ability_data);
     }
 
     //  set move animation cache

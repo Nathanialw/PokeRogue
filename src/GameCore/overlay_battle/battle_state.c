@@ -177,7 +177,6 @@ void HandleBattleState(GameInterface* spi)
 
     if (CheckBattleState(BATTLE_DEAD_FRIEND))
     {
-        spi->hardware.Print("you lose");
         g_core.state.overlay = OVERLAY_GAME_LOSS;
 
         //ANIMATION - player's creature drops off screen

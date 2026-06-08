@@ -10,8 +10,6 @@
 
 #include "lib_decl.h"
 
-#include "debug.h"
-
 
 //TODO
 void HardwareReset(void)
@@ -33,7 +31,8 @@ uint32_t Abs(int max)
 //TODO
 uint8_t GetRandomUniform(uint8_t min, uint8_t max)
 {
-    return 0;
+    if (min > max) return min;
+    return rand() % (max - min + 1) + min;
 }
 
 uint8_t GetRandom_uint8_t(uint8_t min, uint8_t max)
@@ -52,8 +51,6 @@ HardwareInterface HardwareInterfaceInit()
         .GetRandomUniform = GetRandomUniform,
         .GetRandom_uint8_t = GetRandom_uint8_t,
         .StrChr = strchr,
-        .Print = Print,
-        .PrintVar = PrintVar,
     };
     return mardwareInterface;
 }

@@ -62,7 +62,7 @@ BattleRunState g_battle = {};
 /**     FUNCTIONS
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool Flash_GetSkillEffect(MemoryInterface memory, uint8_t skillType, EntityId id, EntityId target_id, SkillData skillData)
+bool Flash_GetSkillEffect(HardwareInterface hardware, MemoryInterface memory, uint8_t skillType, EntityId id, EntityId target_id, SkillData skillData)
 {
-    return abilityFunctions[skillType](id, target_id, skillData);
+    return abilityFunctions[skillType](hardware, memory, id, target_id, skillData);
 }

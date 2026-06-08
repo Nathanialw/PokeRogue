@@ -187,7 +187,7 @@ typedef union
 _Static_assert(sizeof(ObjectData) == 3, "ObjectData must be 2 bytes");
 
 
-typedef bool (*SkillEffect)(EntityId attackerID, EntityId defenderID, SkillData skillData);
+typedef bool (*SkillEffect)(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData);
 typedef bool (*ItemEffect)(EntityId item_id, EntityId e_id, ItemData itemData);
 typedef bool (*SpellEffect)(HardwareInterface hardware, MemoryInterface memory, EntityId partyID, EntityId enemyID, SpellData spellData);
 typedef bool (*ObjectEffect)(HardwareInterface hardware, EntityId partyID, EntityId enemyID, ObjectData spellData);

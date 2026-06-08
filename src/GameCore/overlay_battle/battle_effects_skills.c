@@ -496,8 +496,7 @@ bool SkillDrowningGrasp(HardwareInterface hardware,  MemoryInterface memory, Ent
 {
     ApplySlow(defenderID, abilityData.power);
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    Capture(hardware, defenderID, abilityData.power);
-    return false;
+    return Capture(hardware, defenderID, abilityData.power);
 }
 
 /*********************************************************************************************************************
@@ -2111,8 +2110,7 @@ bool SkillEternalGrasp(HardwareInterface hardware,  MemoryInterface memory, Enti
 {
     ApplyParalyze(defenderID, abilityData.power);
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    Capture(hardware, defenderID, abilityData.power);
-    return false;
+    return Capture(hardware, defenderID, abilityData.power);
 }
 
 /*********************************************************************************************************************
@@ -2279,8 +2277,7 @@ bool SkillPhantomGrasp(HardwareInterface hardware,  MemoryInterface memory, Enti
 {
     ApplyParalyze(defenderID, abilityData.power);
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    Capture(hardware, defenderID, abilityData.power);
-    return false;
+    return Capture(hardware, defenderID, abilityData.power);
 }
 
 /*********************************************************************************************************************

@@ -22,7 +22,6 @@ uint8_t UpdateStatus(HardwareInterface hardware, uint8_t n)
     if (n == 0) return 0;
     uint8_t chance = hardware.GetRandom_uint8_t(0, 20);
     if (chance <= n) n--;
-    hardware.Print("UpdateStatus: %d\n", n);
     return n;
 }
 

@@ -316,9 +316,6 @@ void PopulateLevelCreatures(HardwareInterface hardware, MemoryInterface memory)
         const Position pos = FindOpenRoomLocation(hardware, CREATURE, i);
         SpawnEntity(hardware, memory, CREATURE, creature, pos.x, pos.y, creature_level);
     }
-    for (uint8_t i = 0; i < MAX_PARTY_SIZE; i++)
-        hardware.Print("%d \n", g_core.trainers.partyID[GetPlayerID()][i]);
-    hardware.Print("\n");
 
     for (uint8_t i = 0; i < g_core.creatures.total; i++)
         if (GetBit(g_core.creatures.onMap, i) && GetBit(g_core.creatures.alive, i))

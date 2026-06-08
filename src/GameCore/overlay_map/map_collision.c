@@ -98,6 +98,31 @@ const Interaction TileCollisionStepOff[TILE_COUNT] =
     Water, //WATER
 };
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /**********************************************************************************************************************/
 /** Space is empty, free to move into
 **********************************************************************************************************************/
@@ -280,7 +305,7 @@ bool CheckInteractionStepOn(uint8_t tile, EntityId id, ObjectsTypes type, uint8_
 SET_MEMORY(".map")
 bool CheckInteractionStepOff(uint8_t tile, EntityId id, ObjectsTypes type, uint8_t x, uint8_t y)
 {
-    return TileCollisionStepOn[tile](id, type, x, y);
+    return TileCollisionStepOff[tile](id, type, x, y);
 }
 
 /**********************************************************************************************************************/

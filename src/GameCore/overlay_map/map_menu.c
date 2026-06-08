@@ -338,11 +338,11 @@ void OpenUseOnParty(HardwareInterface hardware, MemoryInterface memory, UseFrame
 SET_MEMORY(".map")
 void BackUseOnParty(MemoryInterface memory)
 {
-    EntityId p_ID = GetPlayerID();
+    EntityId player_id = GetPlayerID();
     if (g_core.menu.useOnPartyMember == BACK_ITEM)
-        FillListByEntityID(memory, g_core.player.currentBagSize, ITEM, g_core.trainers.spellID[p_ID]);
+        FillListByEntityID(memory, g_core.player.currentBagSize, ITEM, g_core.trainers.itemID[player_id]);
     if (g_core.menu.useOnPartyMember == BACK_SPELL)
-        FillListByTypeID(memory, g_core.player.currentSpellbookSize, g_core.trainers.spellID[p_ID]);
+        FillListByTypeID(memory, g_core.player.currentSpellbookSize, g_core.trainers.spellID[player_id]);
 
     g_core.menu.sel[g_core.menu.depth].x = 0;
     g_core.menu.sel[g_core.menu.depth].y = 0;
@@ -417,15 +417,17 @@ bool Bag(GraphicsInterface graphics, HardwareInterface hardware, InputInterface 
 
         uint8_t idx = g_core.menu.sel[g_core.menu.depth - 1].y + g_core.menu.menuScrollOffset[g_core.menu.depth - 1].y;
         EntityId item_id = g_core.trainers.itemID[player_id][idx];
+        uint8_t item_type = GetItemType(item_id);
         EntityId entity_id = g_core.trainers.partyID[player_id][g_core.menu.sel[g_core.menu.depth].y + g_core.menu.menuScrollOffset[g_core.menu.depth].y];
 
         ItemData itemData;
-        Flash_GetItemData(memory, &itemData, item_id);
+        Flash_GetItemData(memory, &itemData, item_type);
         if (!itemData.consumable_party) return false;
         if (UseItem(memory, &itemData, item_id, entity_id))
         {
             ConsumeItem(idx, item_id);
             BackUseOnParty(memory);
+            DrawList(graphics, hardware, memory);
         }
         else
         {
