@@ -13,6 +13,7 @@
 #include "core_player.h"
 #include "core_ram.h"
 #include "core_stats.h"
+#include "core_utils.h"
 
 
 /**********************************************************************************************************************/
@@ -224,6 +225,7 @@ EntityId SpawnMonster(HardwareInterface hardware, MemoryInterface memory, uint8_
         }
     }
 
+    if (l <= 0) l = 1;
     Creature monType = (Creature)type;
     Position pos = {.x = x, .y = y};
     g_core.creatures.position[id] = pos;
@@ -358,6 +360,7 @@ EntityId SpawnTrainer(HardwareInterface hardware, MemoryInterface memory, uint8_
     g_core.trainers.spellID[id][0] = HEAL;
     g_core.trainers.spellID[id][1] = DESCEND;
     g_core.trainers.spellID[id][2] = CLAIRVOYANCE;
+    g_core.trainers.spellID[id][3] = DISPLACEMENT;
 
     //  TODO: set party from trainer data in the database flash
     EntityId e_id = SpawnEntity(hardware, memory, CREATURE, BANSHEE, x, y, 5);

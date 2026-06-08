@@ -13,13 +13,13 @@ uint8_t GetSelectorY(void);
 uint8_t GetSelectorX(void);
 uint16_t ListSize(uint16_t n);
 
-bool SetMenuDelta(HardwareInterface hardware, InputInterface input, MemoryInterface memory, Delta delta);
-bool HandleMenuOverflow(HardwareInterface hardware, InputInterface input, MemoryInterface memory, Delta delta);
+bool SetMenuDelta(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, Delta delta);
+bool HandleMenuOverflow(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, Delta delta);
 
 bool ToggleMenu(SubMainMenuWindow menuWin, uint8_t numMenuOptions);
 bool Back(SubMainMenuWindow menuWin);
 void ClearMenu(void);
 
-bool ListJump(HardwareInterface hardware, InputInterface input, MemoryInterface memory);
+bool ListJump(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory);
 void FillListByEntityID(MemoryInterface memory, uint8_t n, uint8_t type, const uint8_t* e_ids);
 void FillListByTypeID(MemoryInterface memory, uint8_t n, uint8_t* ids);

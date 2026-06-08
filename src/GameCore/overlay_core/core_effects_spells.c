@@ -7,6 +7,11 @@
 #include "lib_memory.h"
 
 #include "core_effects.h"
+#include "core_player.h"
+#include "core_ram.h"
+#include "map.h"
+#include "map_camera.h"
+#include "map_player.h"
 
 
 /**********************************************************************************************************************/
@@ -63,8 +68,9 @@ bool CastLevitate(HardwareInterface hardware, MemoryInterface memory, EntityId p
 SET_MEMORY(".core")
 bool CastDisplacement(HardwareInterface hardware, MemoryInterface memory, EntityId partyID, EntityId enemyID, SpellData spellData)
 {
-    // Position random_tile_pos = GetRandomMapTile(hardware, CREATURE, true);
-    // Reposition(partyID, random_tile_pos);
+    Position random_tile_pos = GetRandomMapTile(hardware, TRAINER, true);
+    g_core.trainers.position[GetPlayerID()] = random_tile_pos;
+    SetCameraPlayer();
     return true;
 }
 

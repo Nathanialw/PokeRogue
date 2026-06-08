@@ -55,7 +55,7 @@ void UpdateBattleRunningState(GraphicsInterface graphics, HardwareInterface hard
     {
         if (input.GetButtonA())
         {
-            bool b = BattleMenuCommand(hardware, input, memory);
+            bool b = BattleMenuCommand(graphics, hardware, input, memory);
             if (!b) return; //No state change for menu input
             SetBattleState(BATTLE_ATTACK);
         }
@@ -83,13 +83,13 @@ void UpdateBattleRunningState(GraphicsInterface graphics, HardwareInterface hard
 
         if (input.GetJSPressed())
         {
-            if (!SetMenuDelta(hardware, input, memory, input.GetInputKeyState().js))
+            if (!SetMenuDelta(graphics, hardware, input, memory, input.GetInputKeyState().js))
                 UpdateBattleMenu(input, graphics, memory);
         }
 
         if (input.GetDPPressed())
         {
-            if (!SetMenuDelta(hardware, input, memory, input.GetInputKeyState().dp))
+            if (!SetMenuDelta(graphics, hardware, input, memory, input.GetInputKeyState().dp))
                 UpdateBattleMenu(input, graphics, memory);
         }
     }
@@ -134,7 +134,7 @@ void HandleBattleState(GameInterface* spi)
             BattlerAnimationStruck(spi->graphics, spi->memory, true); //hit animation
             AnimationUpdateHealth(spi->graphics, spi->hardware, false);
 
-            if (CheckEnemyAttackOutcome())
+            if (!CheckEnemyAttackOutcome())
             {
                 SetBattleState(BATTLE_DEAD_FRIEND);
             }
@@ -159,8 +159,11 @@ void HandleBattleState(GameInterface* spi)
         g_core.state.overlay = OVERLAY_MAP;
         return;
     }
-    else if (CheckBattleState(BATTLE_DEAD_FRIEND))
+    if (CheckBattleState(BATTLE_DEAD_FRIEND))
     {
+        spi->hardware.Print("you lose");
+        g_core.state.overlay = OVERLAY_GAME_LOSS;
+
         //ANIMATION - player's creature drops off screen
         if (false) // if no more creatures left
         {

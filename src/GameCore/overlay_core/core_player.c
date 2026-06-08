@@ -8,6 +8,7 @@
 #include "core_entities.h"
 #include "core_ram.h"
 #include "core_stats.h"
+#include "core_utils.h"
 
 
 /**********************************************************************************************************************/
@@ -96,8 +97,15 @@ SET_MEMORY(".core")
 void ConsumeItem(uint8_t idx, EntityId e_id)
 {
     DestroyItem(e_id);
-    EntityId p_ID = GetPlayerID();
-    g_core.trainers.itemID[p_ID][idx] = NO_ENTITY;
+    EntityId player_id = GetPlayerID();
+    g_core.trainers.itemID[player_id][idx] = NO_ENTITY;
+    for (uint8_t i = 0; i < MAX_BAG_SIZE; ++i)
+    {
+        if (g_core.trainers.itemID[player_id][i + 1] == NO_ENTITY)
+            return;
+        g_core.trainers.itemID[player_id][i] = g_core.trainers.itemID[player_id][i + 1];
+        g_core.trainers.itemID[player_id][i + 1] = NO_ENTITY;
+    }
 }
 
 

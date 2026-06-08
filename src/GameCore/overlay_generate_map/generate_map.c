@@ -4,6 +4,8 @@
 
 #include "generate_map.h"
 
+#include <stdio.h>
+
 #include "lib_memory.h"
 
 #include "core_map.h"
@@ -93,10 +95,16 @@ Position FindOpenRoomLocation(HardwareInterface hardware, ObjectsTypes type, uin
 }
 
 SET_MEMORY(".map_gen")
-Position FindHallDeadEnd(ObjectsTypes type, uint8_t start_x, uint8_t start_y)
+Position FindHallDeadEnd(ObjectsTypes type, Position position)
 {
-    for (uint8_t y = start_y; y < MAP_H; y++)
-        for (uint8_t x = start_x; x < MAP_W; x++)
+    bool begin = true;
+    for (uint16_t y = position.y; y < MAP_H; y++)
+    {
+        uint16_t n = 0;
+        if (begin)
+            n = position.x;
+        begin = false;
+        for (uint16_t x = n; x < MAP_W; x++)
         {
             uint8_t tile = GetMapTile(x, y);
             if (tile == FLOOR_DIRT && CheckTileForEntity(type, NO_ENTITY, (Position){x, y}) == NO_ENTITY)
@@ -107,12 +115,50 @@ Position FindHallDeadEnd(ObjectsTypes type, uint8_t start_x, uint8_t start_y)
                 if (x < MAP_W - 1 && GetMapTile(x + 1, y) != FLOOR_DIRT) adj_count++;
                 if (y > 0 && GetMapTile(x, y - 1) != FLOOR_DIRT) adj_count++;
                 if (y < MAP_H - 1 && GetMapTile(x, y + 1) != FLOOR_DIRT) adj_count++;
-                if (adj_count == 3)
-                {
-                    return (Position){x, y};
-                }
+                if (adj_count == 3)return (Position){x, y};
             }
         }
+    }
+    return (Position){0, 0};
+}
+
+SET_MEMORY(".map_gen")
+Position FindHall(ObjectsTypes type, Position position)
+{
+    bool begin = true;
+    for (uint16_t y = position.y; y < MAP_H; y++)
+    {
+        uint16_t n = 0;
+        if (begin)
+            n = position.x;
+        begin = false;
+
+        for (uint16_t x = n; x < MAP_W; x++)
+        {
+            uint8_t tile = GetMapTile(x, y);
+            if (tile == FLOOR_DIRT && CheckTileForEntity(type, NO_ENTITY, (Position){x, y}) == NO_ENTITY)
+            {
+
+                //check horizontal
+                uint8_t adj_count = 0;
+                if (x > 0 && GetMapTile(x - 1, y) == FLOOR_DIRT) adj_count++;
+                if (x < MAP_W - 1 && GetMapTile(x + 1, y) == FLOOR_DIRT) adj_count++;
+                if (y > 0 && GetMapTile(x, y - 1) == WALL_STONE) adj_count++;
+                if (y < MAP_H - 1 && GetMapTile(x, y + 1) == WALL_STONE) adj_count++;
+                if (adj_count == 4)
+                    return (Position){x, y};
+
+                //check vertical
+                adj_count = 0;
+                if (x > 0 && GetMapTile(x - 1, y) == WALL_STONE) adj_count++;
+                if (x < MAP_W - 1 && GetMapTile(x + 1, y) == WALL_STONE) adj_count++;
+                if (y > 0 && GetMapTile(x, y - 1) == FLOOR_DIRT) adj_count++;
+                if (y < MAP_H - 1 && GetMapTile(x, y + 1) == FLOOR_DIRT) adj_count++;
+                if (adj_count == 4)
+                    return (Position){x, y};
+            }
+        }
+    }
     return (Position){0, 0};
 }
 
@@ -158,7 +204,6 @@ void ResetMap(void)
         for (uint16_t x = 0; x < MAP_W; x++)
             SetMapTile(x, y, WALL_STONE);
 }
-
 
 
 SET_MEMORY(".map_gen")

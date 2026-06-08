@@ -26,14 +26,14 @@ uint16_t ListSize(uint16_t n)
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool ListJump(HardwareInterface hardware, InputInterface input, MemoryInterface memory)
+bool ListJump(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory)
 {
     if (input.GetInputKeyState().dp.x != 0)
     {
         Delta d = {};
         d.y = input.GetInputKeyState().dp.x * LIST_JUMP_AMOUNT;
-        if (HandleMenuOverflow(hardware, input, memory, d)) return true;
-        SetMenuDelta(hardware, input, memory, d);
+        if (HandleMenuOverflow(graphics, hardware, input, memory, d)) return true;
+        SetMenuDelta(graphics, hardware, input, memory, d);
     }
     return false;
 }
@@ -80,7 +80,7 @@ void FillListByTypeID(MemoryInterface memory, uint8_t n, uint8_t* ids)
  *  maintains the cursor's position in the center of the list when the list length exceeds the screen height
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool HandleMenuOverflow(HardwareInterface hardware, InputInterface input, MemoryInterface memory, Delta delta)
+bool HandleMenuOverflow(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, Delta delta)
 {
     bool options_exceed_menu = g_core.menu.h < g_core.menu.visibleMenuOptions;
     uint8_t sel_pos_y = g_core.menu.sel[g_core.menu.depth].y;
@@ -102,7 +102,7 @@ bool HandleMenuOverflow(HardwareInterface hardware, InputInterface input, Memory
                 if (!minOffset && !maxOffset)
                 {
                     g_core.menu.menuScrollOffset[g_core.menu.depth].y += delta.y;
-                    g_core.menu.subMenus[g_core.menu.sel[0].y](hardware, input, memory, true); // 0 call the function of the menu it is within
+                    g_core.menu.subMenus[g_core.menu.sel[0].y](graphics, hardware, input, memory, true); // 0 call the function of the menu it is within
                     return true;
                 }
             }
@@ -114,7 +114,7 @@ bool HandleMenuOverflow(HardwareInterface hardware, InputInterface input, Memory
             {
                 uint8_t topBotPage = g_core.menu.totalMenuOptions - g_core.menu.visibleMenuOptions;
                 g_core.menu.menuScrollOffset[g_core.menu.depth].y = topBotPage;
-                g_core.menu.subMenus[g_core.menu.sel[0].y](hardware, input, memory, true); // 0 call the function of the menu it is within
+                g_core.menu.subMenus[g_core.menu.sel[0].y](graphics, hardware, input, memory, true); // 0 call the function of the menu it is within
             }
         }
         else if (options_within_bot)
@@ -122,7 +122,7 @@ bool HandleMenuOverflow(HardwareInterface hardware, InputInterface input, Memory
             if (sel_pos_y + delta.y >= g_core.menu.visibleMenuOptions)
             {
                 g_core.menu.menuScrollOffset[g_core.menu.depth].y = 0;
-                g_core.menu.subMenus[g_core.menu.sel[0].y](hardware, input, memory, true); // 0 call the function of the menu it is within
+                g_core.menu.subMenus[g_core.menu.sel[0].y](graphics, hardware, input, memory, true); // 0 call the function of the menu it is within
                 g_core.menu.forceRedraw = true;
             }
         }
@@ -136,9 +136,9 @@ bool HandleMenuOverflow(HardwareInterface hardware, InputInterface input, Memory
  *  ON fail - returns false
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool SetMenuDelta(HardwareInterface hardware, InputInterface input, MemoryInterface memory, Delta delta)
+bool SetMenuDelta(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, Delta delta)
 {
-    if (HandleMenuOverflow(hardware, input, memory, delta)) return false;
+    if (HandleMenuOverflow(graphics, hardware, input, memory, delta)) return false;
     if (g_core.menu.displayedMenu == MINIMAP) return false;
 
 

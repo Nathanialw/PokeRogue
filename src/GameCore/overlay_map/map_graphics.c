@@ -1,14 +1,13 @@
 //
 // Created by nathanial on 5/19/26.
 //
-
 #include "map_graphics.h"
 
 #include "lib_constants.h"
 #include "lib_memory.h"
 #include "types.h"
 
-#include "core_entities.h"
+#include "core_utils.h"
 #include "core_graphics.h"
 #include "core_memory_access.h"
 #include "core_menu.h"

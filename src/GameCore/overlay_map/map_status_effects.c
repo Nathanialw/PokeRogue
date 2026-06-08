@@ -8,6 +8,7 @@
 #include "lib_memory.h"
 
 #include "core_ram.h"
+#include "core_utils.h"
 
 
 typedef uint8_t (*TurnEffect)(HardwareInterface hardware, uint8_t power, EntityId id);

@@ -4,8 +4,6 @@
 
 #include "core_effects.h"
 
-#include <stdio.h>
-
 #include "lib_memory.h"
 
 #include "constants.h"
@@ -17,7 +15,6 @@
 #include "core_ram.h"
 #include "core_memory_access.h"
 #include "core_player.h"
-#include "map.h"
 
 
 /**********************************************************************************************************************
@@ -64,7 +61,6 @@ void DoDamage(EntityId creatureID, uint16_t damage)
 {
     uint16_t hp = Int999GetCurrent(&g_core.creatures.hp[creatureID]);
     hp = (hp > damage) ? hp - damage : 0;
-    printf("hp %d", hp);
     Int999SetCurrent(&g_core.creatures.hp[creatureID], hp);
 }
 
@@ -221,6 +217,7 @@ bool MakeInvulnerable(EntityId e_id)
 SET_MEMORY(".core")
 bool Reposition(EntityId e_id, Position pos)
 {
+
     return false;
 }
 

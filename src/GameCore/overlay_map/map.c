@@ -27,7 +27,7 @@ Position GetRandomMapTile(HardwareInterface hardware, ObjectsTypes type, bool em
 
         if (emptyOnly)
         {
-            if (GetMapTile(x, y) == FLOOR_CASTLE && CheckTileForEntity(type, NO_ENTITY, pos) == NO_ENTITY)
+            if (GetMapTile(x, y) == FLOOR_DIRT && CheckTileForEntity(type, NO_ENTITY, pos) == NO_ENTITY)
             {
                 return pos;
             }
@@ -63,7 +63,7 @@ Position GetSelectedTile(HardwareInterface hardware, bool emptyOnly)
 SET_MEMORY(".map")
 bool TileHasCorpse(Position pos)
 {
-    return GetMapTile(pos.x, pos.y) == FLOOR_CASTLE;
+    return GetMapTile(pos.x, pos.y) == FLOOR_DIRT;
 }
 
 

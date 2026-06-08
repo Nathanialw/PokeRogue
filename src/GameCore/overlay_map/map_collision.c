@@ -289,8 +289,7 @@ bool CheckInteractionStepOff(uint8_t tile, EntityId id, ObjectsTypes type, uint8
 SET_MEMORY(".map")
 void StartBattle(EntityId id)
 {
-    EntityId p_ID = GetPlayerID();
-    g_core.battleMode.playerMonsterID = g_core.trainers.partyID[p_ID][0];
+    g_core.battleMode.playerMonsterID = g_core.trainers.partyID[GetPlayerID()][0];
     g_core.battleMode.enemyMonsterID = id;
 
     g_core.state.overlay = OVERLAY_BATTLE;

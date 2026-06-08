@@ -78,7 +78,7 @@ void ExitMenu(void)
  *  Subsequent invocation sets the creature at the cursor position as the active battle creature
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool BattleSwap(HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update)
+bool BattleSwap(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update)
 {
     EntityId p_ID = GetPlayerID();
     if (EnterMenu(MAX_PARTY_SIZE))
@@ -99,7 +99,7 @@ bool BattleSwap(HardwareInterface hardware, InputInterface input, MemoryInterfac
  *  Subsequent invocation runs the spell action for the spell id at the cursor index of the spellbook
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool BattleSpell(HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update)
+bool BattleSpell(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update)
 {
     EntityId p_ID = GetPlayerID();
     if (EnterMenu(g_core.player.currentSpellbookSize))
@@ -121,7 +121,7 @@ bool BattleSpell(HardwareInterface hardware, InputInterface input, MemoryInterfa
  *  Subsequent invocation runs the item action for the item id at the cursor index of the backpack
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool BattleItems(HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update)
+bool BattleItems(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update)
 {
     EntityId p_ID = GetPlayerID();
     if (EnterMenu(g_core.player.currentBagSize))
@@ -149,7 +149,7 @@ bool BattleItems(HardwareInterface hardware, InputInterface input, MemoryInterfa
  *  TODO: NOT YET IMPLEMENTED
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool BattleFlee(HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update)
+bool BattleFlee(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update)
 {
     if (EnterMenu(4))
     {
@@ -164,7 +164,7 @@ bool BattleFlee(HardwareInterface hardware, InputInterface input, MemoryInterfac
  *  TODO: NOT YET IMPLEMENTED
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool BattleCombatLog(HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update)
+bool BattleCombatLog(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update)
 {
 
     // fire on initial entry
@@ -266,14 +266,14 @@ void UpdateBattleMenu(InputInterface input, GraphicsInterface graphics, MemoryIn
  *  Returns false if menu
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool BattleMenuCommand(HardwareInterface hardware, InputInterface input, MemoryInterface memory)
+bool BattleMenuCommand(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory)
 {
     bool b = false;
 
     if (battleMenu == ABILITY_MENU)
         b = UseSkill(hardware, memory, true);
     if (battleMenu == BATTLE_MENU)
-        battleSubmenus[g_core.menu.sel[0].y](hardware, input, memory, true); //0 to enter the menu base entry point
+        battleSubmenus[g_core.menu.sel[0].y](graphics, hardware, input, memory, true); //0 to enter the menu base entry point
 
     return b;
 }

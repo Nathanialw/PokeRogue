@@ -64,7 +64,7 @@ void UpdateGameRunningState(GraphicsInterface graphics, HardwareInterface hardwa
     {
         if (input.GetButtonA())
         {
-            if (!OpenSubMenu(hardware, input, memory))
+            if (!OpenSubMenu(graphics, hardware, input, memory))
             {
                 SetInputState(INPUT_IDLE);
             }
@@ -121,16 +121,16 @@ void UpdateGameRunningState(GraphicsInterface graphics, HardwareInterface hardwa
 
         if (input.GetJSPressed())
         {
-            if (!SetMenuDelta(hardware, input, memory, input.GetInputKeyState().js))
-                OpenSubMenu(hardware, input, memory);
+            if (!SetMenuDelta(graphics, hardware, input, memory, input.GetInputKeyState().js))
+                OpenSubMenu(graphics, hardware, input, memory);
             return;
         }
 
 
         if (input.GetDPPressed())
         {
-            if (!SetMenuDelta(hardware, input, memory, input.GetInputKeyState().dp))
-                OpenSubMenu(hardware, input, memory);
+            if (!SetMenuDelta(graphics, hardware, input, memory, input.GetInputKeyState().dp))
+                OpenSubMenu(graphics, hardware, input, memory);
             return;
         }
     }

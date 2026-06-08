@@ -9,6 +9,7 @@
 #include "lib_decl.h"
 #include "enums.h"
 #include "lib_debugging.h"
+#include "lib_enums.h"
 
 
 #define TITLE_RATE_DELAY 500
@@ -106,7 +107,7 @@ uint8_t GameLoopTitleScreen(GameInterface* spi)
         TitleRateDelay(spi->hardware);
         spi->graphics.EndFrame();
     }
-
+    g_core.state.inputState = INPUT_IDLE;
     InitCamera(0, 0, TILE_W * VIEW_TW, TILE_H * VIEW_TH);
     return g_core.state.overlay;
 }

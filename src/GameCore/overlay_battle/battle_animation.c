@@ -7,6 +7,7 @@
 #include "constants.h"
 
 #include "core_ram.h"
+#include "core_utils.h"
 
 #include "battle_animation_effects.h"
 #include "battle_memory_access.h"

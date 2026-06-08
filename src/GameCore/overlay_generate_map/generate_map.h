@@ -8,4 +8,5 @@
 
 void InitMap(HardwareInterface hardware);
 void SetMapBorder(void);
-Position FindHallDeadEnd(ObjectsTypes type, uint8_t start_x, uint8_t start_y);
+Position FindHallDeadEnd(ObjectsTypes type, Position position);
+Position FindHall(ObjectsTypes type, Position position);

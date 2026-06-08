@@ -67,7 +67,7 @@ uint8_t GameLoopGameLoss(GameInterface* spi)
 {
     spi->graphics.FillScreen((Color){.color = 0x54ff});
     spi->graphics.EndFrame();
-
+    g_core.player.id = NO_ENTITY;
 
     while (g_core.state.overlay == OVERLAY_GAME_LOSS)
     {

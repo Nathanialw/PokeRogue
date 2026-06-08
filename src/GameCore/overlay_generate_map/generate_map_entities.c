@@ -10,6 +10,8 @@
 #include "core_memory_access.h"
 #include "core_player.h"
 #include "core_ram.h"
+#include "core_utils.h"
+
 #include "generate_map.h"
 
 
@@ -327,8 +329,8 @@ void PopulateLevelCreatures(HardwareInterface hardware, MemoryInterface memory)
 SET_MEMORY(".map_gen")
 void PopulateLevelItems(HardwareInterface hardware, MemoryInterface memory)
 {
-    const uint8_t max_x = MAP_W - (((MAP_EDGE + 1) * 2) + 1);
 #if defined(TEST_MAP)
+    const uint8_t max_x = MAP_W - (((MAP_EDGE + 1) * 2) + 1);
     Position pos = {.x = MAP_EDGE + 2, .y = INITIAL + (SPACING * 2)};
     for (uint8_t i = 0; i < ITEM_COUNT; i++)
     {
@@ -342,29 +344,26 @@ void PopulateLevelItems(HardwareInterface hardware, MemoryInterface memory)
     }
 
 #else
-    uint8_t item_level = 1;
-    uint8_t n = 0;
+    const uint8_t item_level = 1;
     for (uint8_t i = 0; i < g_core.roomCount; i++)
     {
-        uint8_t n = hardware.GetRandom_uint8_t(1, 3);
+        const uint8_t n = hardware.GetRandom_uint8_t(1, 3);
         for (uint8_t j = 0; j < n; j++)
         {
             const ItemTypes item_type = hardware.GetRandom_uint8_t(0, ITEM_COUNT);
             const Position pos = FindOpenRoomLocation(hardware, ITEM, i);
             if (pos.x == 0 && pos.y == 0) continue;
             SpawnEntity(hardware, memory, ITEM, item_type, pos.x, pos.y, item_level);
-            n++;
         }
     }
     Position tile_position = {0, 0};
-    while (n < NUM_MAP_ITEMS)
+    while (g_core.items.total < MAX_ENTITY_ITEM_COUNT)
     {
-        tile_position = FindHallDeadEnd(ITEM, tile_position.x, tile_position.y);
+        tile_position = FindHallDeadEnd(ITEM, tile_position);
         if (tile_position.x == 0 && tile_position.y == 0) break;
         const ItemTypes item_type = hardware.GetRandom_uint8_t(0, ITEM_COUNT);
         const Position pos = tile_position;
         EntityId entity_id = SpawnEntity(hardware, memory, ITEM, item_type, pos.x, pos.y, item_level);
-        n++;
         if (entity_id == NO_ENTITY) break;
     }
 
@@ -396,6 +395,26 @@ void PopulateLevelObjects(HardwareInterface hardware, MemoryInterface memory)
         if (pos.x == 0 && pos.y == 0) continue;
         SpawnEntity(hardware, memory, OBJECT, object_type, pos.x, pos.y, object_level);
     }
+
+    // Position tile_position = {0};
+    // while (g_core.objects.total < MAX_ENTITY_OBJECT_COUNT)
+    // {
+    //     tile_position = FindHall(OBJECT, tile_position);
+    //     if (tile_position.x == 0 && tile_position.y == 0) break;
+    //     const Object object_type = hardware.GetRandom_uint8_t(0, OBJECT_COUNT);
+    //     const Position pos = tile_position;
+    //     EntityId entity_id = SpawnEntity(hardware, memory, OBJECT, object_type, pos.x, pos.y, object_level);
+    //     if (tile_position.x < MAP_W)
+    //     {
+    //         tile_position.x++;
+    //     }
+    //     else
+    //     {
+    //         tile_position.x = 0;
+    //         tile_position.y++;
+    //     }
+    //     if (entity_id == NO_ENTITY) break;
+    // }
 #endif
 }
 

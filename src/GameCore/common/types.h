@@ -30,7 +30,6 @@ typedef char SmallStringArray[SMALL_STRINGS];
 typedef uint16_t MapSprite[TILE_W * TILE_H];
 
 
-
 /**********************************************************************************************************************/
 /**Bitfield types
 **********************************************************************************************************************/
@@ -71,7 +70,7 @@ _Static_assert(sizeof(CreatureSkillLearnLevels) == 32, "SkillLearnLevel must be 
 /**********************************************************************************************************************
 *   MENUS
 **********************************************************************************************************************/
-typedef bool (*SubMenu)(HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update);
+typedef bool (*SubMenu)(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update);
 typedef uint16_t MainMenuPtr[MAIN_MENU_W];
 
 
@@ -101,7 +100,6 @@ typedef union
     // uint16_t glyph[16];
     // uint8_t bytes[FONT_32_BYTES_PER_CHAR];
 } Glyph;
-
 
 
 // _Static_assert(sizeof(Glyph16x16) == 512, "Glyph16x16 must be 512 bytes");
@@ -198,10 +196,14 @@ typedef bool (*ObjectEffect)(HardwareInterface hardware, EntityId partyID, Entit
 /**********************************************************************************************************************/
 /**Store 2 integers each max 255
 **********************************************************************************************************************/
-typedef struct
+typedef union
 {
-    uint8_t x;
-    uint8_t y;
+    struct
+    {
+        uint8_t x;
+        uint8_t y;
+    };
+    uint16_t index;
 } Position;
 
 _Static_assert(sizeof(Position) == 2, "ObjectType must be 2 bytes");
@@ -413,13 +415,13 @@ _Static_assert(sizeof(Node) == 2, "Node must be 2 bytes");
 **********************************************************************************************************************/
 typedef struct Camera
 {
-    uint8_t x;
-    uint8_t y;
+    int16_t x;
+    int16_t y;
     uint16_t w;
     uint16_t h;
 } Camera;
 
-_Static_assert(sizeof(Camera) == 6, "Camera must be 6 bytes");
+_Static_assert(sizeof(Camera) == 8, "Camera must be 8 bytes");
 
 
 /**********************************************************************************************************************/

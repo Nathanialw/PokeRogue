@@ -26,19 +26,19 @@
 ** Forward declared functions for the main menu
 **********************************************************************************************************************/
 
-bool MiniMap(HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update);
-bool MonsterData(HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update);
-bool Objectpedia(HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update);
-bool Itempedia(HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update);
-bool Spellpedia(HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update);
-bool Abilitypedia(HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update);
-bool Trainerpedia(HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update);
-bool Party(HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update);
-bool Bag(HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update);
-bool Spells(HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update);
-bool Religion(HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update);
-bool Options(HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update);
-bool Exit(HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update);
+bool MiniMap(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update);
+bool MonsterData(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update);
+bool Objectpedia(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update);
+bool Itempedia(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update);
+bool Spellpedia(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update);
+bool Abilitypedia(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update);
+bool Trainerpedia(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update);
+bool Party(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update);
+bool Bag(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update);
+bool Spells(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update);
+bool Religion(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update);
+bool Options(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update);
+bool Exit(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update);
 
 
 /**********************************************************************************************************************
@@ -122,7 +122,7 @@ bool ToggleMenu(SubMainMenuWindow menuWin, uint8_t numMenuOptions)
  *  the display code handles fetching the object data to draw the pixels to the screen
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool MiniMap(HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update)
+bool MiniMap(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update)
 {
     if (ToggleMenu(MAP_SUBMENU, 0))
         return true;
@@ -135,11 +135,11 @@ bool MiniMap(HardwareInterface hardware, InputInterface input, MemoryInterface m
 ** LIST
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool MonsterData(HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update)
+bool MonsterData(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update)
 {
     if (ToggleMenu(MONSTER_DATA_LIST_SUBMENU, CREATURE_COUNT) && input.GetInputKeyState().dp.y == 0)
     {
-        if (ListJump(hardware, input, memory)) return true;
+        if (ListJump(graphics, hardware, input, memory)) return true;
 
         EntityId creature_id = g_core.menu.sel[g_core.menu.depth].y + g_core.menu.menuScrollOffset[g_core.menu.depth].y;
         g_core.menu.gameMenu.id = creature_id;
@@ -168,11 +168,11 @@ bool MonsterData(HardwareInterface hardware, InputInterface input, MemoryInterfa
 ** LIST
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool Objectpedia(HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update)
+bool Objectpedia(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update)
 {
     if (ToggleMenu(OBJECT_DATA_LIST_SUBMENU, OBJECT_COUNT) && input.GetInputKeyState().dp.y == 0)
     {
-        if (ListJump(hardware, input, memory)) return true;
+        if (ListJump(graphics, hardware, input, memory)) return true;
 
         EntityId object_id = g_core.menu.sel[g_core.menu.depth].y + g_core.menu.menuScrollOffset[g_core.menu.depth].y;
         g_core.menu.gameMenu.id = object_id;
@@ -199,11 +199,11 @@ bool Objectpedia(HardwareInterface hardware, InputInterface input, MemoryInterfa
 ** LIST
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool Itempedia(HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update)
+bool Itempedia(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update)
 {
     if (ToggleMenu(ITEM_DATA_LIST_SUBMENU, ITEM_COUNT) && input.GetInputKeyState().dp.y == 0)
     {
-        if (ListJump(hardware, input, memory)) return true;
+        if (ListJump(graphics, hardware, input, memory)) return true;
         EntityId item_id = g_core.menu.sel[g_core.menu.depth].y + g_core.menu.menuScrollOffset[g_core.menu.depth].y;
         //open creature info panel
         g_core.menu.gameMenu.id = item_id;
@@ -229,11 +229,11 @@ bool Itempedia(HardwareInterface hardware, InputInterface input, MemoryInterface
 ** LIST
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool Spellpedia(HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update)
+bool Spellpedia(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update)
 {
     if (ToggleMenu(SPELL_DATA_LIST_SUBMENU, SPELL_COUNT) && input.GetInputKeyState().dp.y == 0)
     {
-        if (ListJump(hardware, input, memory)) return true;
+        if (ListJump(graphics, hardware, input, memory)) return true;
         EntityId spell_id = g_core.menu.sel[g_core.menu.depth].y + g_core.menu.menuScrollOffset[g_core.menu.depth].y;
         //open creature info panel
         g_core.menu.gameMenu.id = spell_id;
@@ -259,11 +259,11 @@ bool Spellpedia(HardwareInterface hardware, InputInterface input, MemoryInterfac
 ** LIST
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool Abilitypedia(HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update)
+bool Abilitypedia(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update)
 {
     if (ToggleMenu(ABILITY_DATA_LIST_SUBMENU, ABILITY_COUNT) && input.GetInputKeyState().dp.y == 0)
     {
-        if (ListJump(hardware, input, memory)) return true;
+        if (ListJump(graphics, hardware, input, memory)) return true;
         EntityId ability_id = g_core.menu.sel[g_core.menu.depth].y + g_core.menu.menuScrollOffset[g_core.menu.depth].y;
         //open creature info panel
         g_core.menu.gameMenu.id = ability_id;
@@ -289,11 +289,11 @@ bool Abilitypedia(HardwareInterface hardware, InputInterface input, MemoryInterf
 ** LIST /TODO: add the
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool Trainerpedia(HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update)
+bool Trainerpedia(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update)
 {
     if (ToggleMenu(TRAINER_DATA_LIST_SUBMENU, ABILITY_COUNT) && input.GetInputKeyState().dp.y == 0)
     {
-        if (ListJump(hardware, input, memory)) return true;
+        if (ListJump(graphics, hardware, input, memory)) return true;
         EntityId ability_id = g_core.menu.sel[g_core.menu.depth].y + g_core.menu.menuScrollOffset[g_core.menu.depth].y;
         g_core.menu.gameMenu.id = ability_id;
         return true;
@@ -359,7 +359,7 @@ void BackUseOnParty(MemoryInterface memory)
 ** LIST
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool Party(HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update)
+bool Party(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update)
 {
     if (ToggleMenu(MONSTERS_SUBMENU, MAX_PARTY_SIZE))
     {
@@ -373,9 +373,9 @@ bool Party(HardwareInterface hardware, InputInterface input, MemoryInterface mem
 ** LIST
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool Bag(HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update)
+bool Bag(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update)
 {
-    EntityId p_ID = GetPlayerID();
+    EntityId player_id = GetPlayerID();
     if (ToggleMenu(BAG_SUBMENU, g_core.player.currentBagSize))
     {
         //open use/toss menu
@@ -386,7 +386,7 @@ bool Bag(HardwareInterface hardware, InputInterface input, MemoryInterface memor
         if (g_core.menu.depth == 1)
         {
             uint8_t idx = g_core.menu.sel[g_core.menu.depth].y + g_core.menu.menuScrollOffset[g_core.menu.depth].y;
-            EntityId item_id = g_core.trainers.itemID[p_ID][idx];
+            EntityId item_id = g_core.trainers.itemID[player_id][idx];
 
             if (item_id == NO_ITEM)
             {
@@ -404,14 +404,20 @@ bool Bag(HardwareInterface hardware, InputInterface input, MemoryInterface memor
                 return true;
 
             if (UseItem(memory, &itemData, item_id, NO_ENTITY))
+            {
                 ConsumeItem(idx, item_id);
+                FullRedraw(graphics, hardware, memory);
+                FillListByEntityID(memory, g_core.player.currentBagSize, ITEM, g_core.trainers.itemID[player_id]);
+                DrawList(graphics, hardware, memory);
+                return true;
+            }
             else
                 return true;
         }
 
         uint8_t idx = g_core.menu.sel[g_core.menu.depth - 1].y + g_core.menu.menuScrollOffset[g_core.menu.depth - 1].y;
-        EntityId item_id = g_core.trainers.itemID[p_ID][idx];
-        EntityId entity_id = g_core.trainers.partyID[p_ID][g_core.menu.sel[g_core.menu.depth].y + g_core.menu.menuScrollOffset[g_core.menu.depth].y];
+        EntityId item_id = g_core.trainers.itemID[player_id][idx];
+        EntityId entity_id = g_core.trainers.partyID[player_id][g_core.menu.sel[g_core.menu.depth].y + g_core.menu.menuScrollOffset[g_core.menu.depth].y];
 
         ItemData itemData;
         Flash_GetItemData(memory, &itemData, item_id);
@@ -434,7 +440,7 @@ bool Bag(HardwareInterface hardware, InputInterface input, MemoryInterface memor
         return true;
     }
 
-    FillListByEntityID(memory, g_core.player.currentBagSize, ITEM, g_core.trainers.itemID[p_ID]);
+    FillListByEntityID(memory, g_core.player.currentBagSize, ITEM, g_core.trainers.itemID[player_id]);
     return true;
 };
 
@@ -442,7 +448,7 @@ bool Bag(HardwareInterface hardware, InputInterface input, MemoryInterface memor
 ** LIST
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool Spells(HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update)
+bool Spells(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update)
 {
     EntityId p_ID = GetPlayerID();
     if (ToggleMenu(SPELLS_SUBMENU, g_core.player.currentSpellbookSize))
@@ -461,6 +467,8 @@ bool Spells(HardwareInterface hardware, InputInterface input, MemoryInterface me
             if (!CastSpell(hardware, memory, spell_id, NO_ENTITY, NO_ENTITY))
                 OpenUseOnParty(hardware, memory, BACK_SPELL);
 
+            FullRedraw(graphics, hardware, memory);
+            DrawList(graphics, hardware, memory);
             return true;
         }
 
@@ -482,7 +490,7 @@ bool Spells(HardwareInterface hardware, InputInterface input, MemoryInterface me
 ** LIST
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool Religion(HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update)
+bool Religion(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update)
 {
     return true;
 }
@@ -491,7 +499,7 @@ bool Religion(HardwareInterface hardware, InputInterface input, MemoryInterface 
 ** LIST
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool Options(HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update)
+bool Options(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update)
 {
     if (ToggleMenu(OPTIONS_SUBMENU, OPTIONS_MENU_SIZE))
     {
@@ -587,7 +595,7 @@ bool Options(HardwareInterface hardware, InputInterface input, MemoryInterface m
 ** Closes the main menu
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool Exit(HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update)
+bool Exit(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update)
 {
     g_core.menu.displayedMenu = MENU_NONE;
     Back(MAIN_MENU);
@@ -598,9 +606,9 @@ bool Exit(HardwareInterface hardware, InputInterface input, MemoryInterface memo
 ** Opens the submenu at the index of the cursor y position
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool OpenSubMenu(HardwareInterface hardware, InputInterface input, MemoryInterface memory)
+bool OpenSubMenu(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory)
 {
-    bool r = submenus[g_core.menu.sel[0].y](hardware, input, memory, true); //always use the base index of zero to access the the menu branch
+    bool r = submenus[g_core.menu.sel[0].y](graphics, hardware, input, memory, true); //always use the base index of zero to access the the menu branch
     return r;
 }
 
@@ -657,8 +665,6 @@ void InitMainMenu(void)
     g_core.menu.selectedMenu = MAIN_MENU;
     g_core.menu.displayedMenu = MENU_NONE;
 }
-
-
 
 
 /**********************************************************************************************************************/

@@ -8,6 +8,7 @@
 #include "lib_memory.h"
 
 #include "core_ram.h"
+#include "core_utils.h"
 
 
 /**********************************************************************************************************************/
@@ -117,8 +118,8 @@ SET_MEMORY(".core")
 IntMax999 GetHP(Creature type, uint8_t level)
 {
     IntMax999 k = {0};
-    Int999SetCurrent(&k, level * 20);
-    Int999SetMax(&k, level * 20);
+    Int999SetCurrent(&k, ((level + 1) * 20));
+    Int999SetMax(&k, ((level + 1) * 20));
     return k;
 }
 
@@ -130,8 +131,8 @@ SET_MEMORY(".core")
 IntMax999 GetMP(Creature type, uint8_t level)
 {
     IntMax999 k = {0};
-    Int999SetCurrent(&k, level * 10);
-    Int999SetMax(&k, level * 10);
+    Int999SetCurrent(&k, (level + 1) * 10);
+    Int999SetMax(&k, (level + 1) * 10);
     return k;
 }
 
