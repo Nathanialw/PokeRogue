@@ -30,11 +30,12 @@ typedef enum
     BATTLE_MENUS,
     BATTLE_DEAD_ENEMY,
     BATTLE_DEAD_FRIEND,
+    BATTLE_CAPTURE_ENEMY,
     BATTLE_NONE,
     BATTLE_INPUT_STATE_SIZE,
 } BattleState;
 
-_Static_assert((BATTLE_INPUT_STATE_SIZE == 5), "update State struct to reflect new size");
+_Static_assert((BATTLE_INPUT_STATE_SIZE == 6), "update State struct to reflect new size");
 
 /**********************************************************************************************************************/
 /** Options menu list in the main menu

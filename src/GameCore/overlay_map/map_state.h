@@ -6,4 +6,4 @@
 #include "lib_decl.h"
 
 
-uint8_t GameLoopMain(GameInterface* spi);
+uint8_t OverlayMapEntry(GameInterface* spi);

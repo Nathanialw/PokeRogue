@@ -5,9 +5,6 @@ Objects = [
     "ALTAR",
     "BOAT_RAFT",
     "BOAT_ROWBOAT",
-    "BRIDGE_ROPE",
-    "BRIDGE_STONE",
-    "BRIDGE_WOODEN",
     "CASE_BOOK",
     "CASE_JEWELLERY",
     "CASE_SCROLL",
@@ -27,6 +24,7 @@ Objects = [
     "EGRESS_CAVE",
     "EGRESS_LADDER",
     "EGRESS_STAIRS",
+    "FIRE_BLAZING",
     "FIRE_BONFIRE",
     "FIRE_BRAZIER",
     "FIRE_CAMPFIRE",
@@ -38,15 +36,6 @@ Objects = [
     "FOUNTAIN_BLOOD",
     "FOUNTAIN_WATER",
     "HIDDEN_COMPARTMENT",
-    "PIT_ACIDs",
-    "PIT_LAVAs",
-    "PIT_NARROWs",
-    "PIT_SHALLOWs",
-    "PIT_SNAKESs",
-    "PIT_SPIKEDs",
-    "PIT_STANDARDs",
-    "PIT_WATERs",
-    "PIT_WIDEs",
     "PORTAL_",
     "RACK_ARMOR",
     "RACK_WEAPON",
@@ -67,9 +56,6 @@ ObjectsDict = [
    { "name": 'ALTAR', 'prompt': "A stone altar hums with ancient runes, its surface slick with the remnants of forgotten sacrifices."},
    { "name": 'BOAT_RAFT', 'prompt': "A weathered wooden raft with carved runes drifts silently, its hull wrapped in seaweed and glowing faintly under moonlight."},
    { "name": 'BOAT_ROWBOAT', 'prompt': "The small wooden boat creaks as it glides through misty waters, its oars leaving shimmering trails of starlight behind."},
-   { "name": 'BRIDGE_ROPE', 'prompt': "A frayed length of enchanted hemp, glowing faintly with runes, hums with latent magic when pulled taut."},
-   { "name": 'BRIDGE_STONE', 'prompt': "A smooth, obsidian-like tablet hums with latent magic, its surface shifting with faint, glowing runes when touched."},
-   { "name": 'BRIDGE_WOODEN', 'prompt': "A weathered wooden bridge spans a misty ravine, its planks groaning under unseen burdens, creaking with each step."},
    { "name": 'CASE_BOOK', 'prompt': "The book's leather cover shimmers with enchanted runes, and its pages shift like living shadows when touched."},
    { "name": 'CASE_JEWELLERY', 'prompt': "A delicate silver circlet adorned with glowing sapphires, humming with ancient enchantments when worn by moonlight."},
    { "name": 'CASE_SCROLL', 'prompt': "A shimmering, ancient scroll hums with arcane energy, its edges singed with golden runes and glowing faintly in the dim light."},
@@ -89,6 +75,7 @@ ObjectsDict = [
    { "name": 'EGRESS_CAVE', 'prompt': "A jagged obsidian door hums with ancient energy, its surface etched with glowing runes that shift when touched."},
    { "name": 'EGRESS_LADDER', 'prompt': "A rusted, iron ladder spirals upward from the depths of a shadowy dungeon, its rungs slick with moss."},
    { "name": 'EGRESS_STAIRS', 'prompt': "The staircase spirals upward into swirling mist, its iron rungs cold and slick with an otherworldly, luminescent glow."},
+   { "name": 'FIRE_BLAZING', 'prompt': "FIRE_BLAZING"},
    { "name": 'FIRE_BONFIRE', 'prompt': "A towering pyre of crackling flames and glowing embers, its smoke swirling with ancient whispers and dancing shadows."},
    { "name": 'FIRE_BRAZIER', 'prompt': "A sleek, iron brazier crackles with enchanted blue flames, casting dancing shadows and an eerie glow over its surroundings."},
    { "name": 'FIRE_CAMPFIRE', 'prompt': "The crackling embers cast eerie shadows on the damp forest floor, whispering secrets as flames dance between enchanted logs."},
@@ -100,15 +87,6 @@ ObjectsDict = [
    { "name": 'FOUNTAIN_BLOOD', 'prompt': "A crimson stream flows ceaselessly from its ornate marble basin, its waters shimmering with an eerie, metallic sheen."},
    { "name": 'FOUNTAIN_WATER', 'prompt': "The water shimmers with an ethereal blue glow, rising from the basin in delicate spirals before dissolving into mist."},
    { "name": 'HIDDEN_COMPARTMENT', 'prompt': "A small, intricately carved wooden chest with a false bottom that only reveals its contents when whispered to by moonlight."},
-   { "name": 'PIT_ACIDs', 'prompt': "PIT_ACIDs"},
-   { "name": 'PIT_LAVAs', 'prompt': "PIT_LAVAs"},
-   { "name": 'PIT_NARROWs', 'prompt': "PIT_NARROWs"},
-   { "name": 'PIT_SHALLOWs', 'prompt': "PIT_SHALLOWs"},
-   { "name": 'PIT_SNAKESs', 'prompt': "PIT_SNAKESs"},
-   { "name": 'PIT_SPIKEDs', 'prompt': "PIT_SPIKEDs"},
-   { "name": 'PIT_STANDARDs', 'prompt': "PIT_STANDARDs"},
-   { "name": 'PIT_WATERs', 'prompt': "PIT_WATERs"},
-   { "name": 'PIT_WIDEs', 'prompt': "PIT_WIDEs"},
    { "name": 'PORTAL_', 'prompt': "A shimmering archway of ancient stone and glowing runes hums with unseen energy, warping the air around it."},
    { "name": 'RACK_ARMOR', 'prompt': "The armor gleams with enchanted silver plates that shift like liquid moonlight, whispering secrets in the wind."},
    { "name": 'RACK_WEAPON', 'prompt': "The blade hums with an eerie glow, its edge never dull, and its hilt carved with runes that whisper forgotten secrets."},
@@ -128,18 +106,20 @@ ObjectsDict = [
 OBJECTS_BASE_PROMPT = (
     # f"photo-realistic hi fidelity detailed, "
     "fantasy object, full body visible, centered composition, isolated creature, "
-    "single subject, no cropping, highly detailed dark fantasy illustration, sharp focus, "
+    "single subject, no cropping, highly detailed dark fantasy, sharp focus, "
 )
 
 LIGHTING_STYLES = [
     # "dramatic rim lighting",
     # "moody low-key lighting, subtle fog",
+    "good lighting with high visibilty",
+    "clear lighting with realistic colours",
     # "ancient parchment illustration style, inked linework",
-    "torchlit dungeon lighting",
+    # "torchlit dungeon lighting",
     # "volumetric light shafts",
-    "soft studio lighting",
+    # "soft studio lighting",
 
-    "high contrast lighting, crisp silhouette",
+    "high contrast lighting, crisp image",
     # "grimdark concept art, gritty texture",
     # "moonlit night lighting",
     # "overcast diffuse lighting",
@@ -148,7 +128,7 @@ LIGHTING_STYLES = [
 # View angles - expanded with back-side angles
 VIEW_ANGLES = [
     # "",  # front/full face (implied)
-    "back view",
+    # "back view",
     "strict side profile view, 90 degree lateral pose, full side silhouette",
     "three-quarter side view, strong 45 degree angle over-the-shoulder",
     # "rear three-quarter view, mostly back but slight side visible",

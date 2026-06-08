@@ -106,10 +106,15 @@ void DrawRect(uint16_t x, uint16_t y, uint16_t w, uint16_t h, Color rgb565)
 {
     if ((w * h) < (SCREEN_H * SCREEN_W * 2))
     {
+        uint16_t c = rgb565.color;
 
-        uint8_t red = (rgb565.r << 3) | (rgb565.r >> 2);
-        uint8_t green = (rgb565.g << 2) | (rgb565.g >> 4);
-        uint8_t blue = (rgb565.b << 3) | (rgb565.b >> 2);
+        uint8_t r5 = (c >> 11) & 0x1F;
+        uint8_t g6 = (c >> 5)  & 0x3F;
+        uint8_t b5 =  c        & 0x1F;
+
+        uint8_t red   = (r5 << 3) | (r5 >> 2);
+        uint8_t green = (g6 << 2) | (g6 >> 4);
+        uint8_t blue  = (b5 << 3) | (b5 >> 2);
 
         SDL_SetRenderDrawColor(g_ramState.renderer, red, green, blue, 255);
         SDL_FRect r = {x, y, w, h};

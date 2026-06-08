@@ -197,7 +197,7 @@ void DrawParty(GraphicsInterface graphics, HardwareInterface hardware, MemoryInt
     const FontSize font_size = g_core.settings.fontSize;
     const uint16_t size = TEXT_W;
     const uint8_t max_lines = (MAIN_MENU_H * font_size);
-    const uint8_t max_chars = (((MAIN_MENU_W) * font_size) - indent) + 1;
+    const uint8_t max_chars = (((MAIN_MENU_W) / TEXT_W) - indent) + 1;
 
     char border[max_chars + 1];
     for (uint16_t i = 0; i < max_chars; i++) border[i] = '-';
@@ -244,6 +244,11 @@ void DrawParty(GraphicsInterface graphics, HardwareInterface hardware, MemoryInt
         }
 
         //hunger?
+        Color color_hp = Flash_GetColor(memory, PAL_BRIGHT_LIGHT_GRN);
+        Color color_mp = Flash_GetColor(memory, PAL_DEEP_BLUE);
+        Color color_xp = Flash_GetColor(memory, PAL_PALE_BLU_PURP);
+        Color color_bg = Flash_GetColor(memory, PAL_OFF_WHITE_GRAY);
+        Color color_border = Flash_GetColor(memory, PAL_DARK_GRN_BLACK);
 
         uint16_t cur = 0;
         uint16_t max = 0;
@@ -256,9 +261,9 @@ void DrawParty(GraphicsInterface graphics, HardwareInterface hardware, MemoryInt
         {
             line_w = (((float)cur / (float)max) * ((float)(max_chars - 2) * (float)size));
             if (line_w > 2) line_w -= 2;
-            graphics.FillRect(x + size, y + lineHeight, (max_chars - 2) * size, size, Flash_GetColor(memory, PAL_DARK_GRN_BLACK));
-            graphics.FillRect(x + 1 + size, y + lineHeight + 1, ((max_chars - 2) * size) - 2, size - 2, Flash_GetColor(memory, PAL_OFF_WHITE_GRAY));
-            graphics.FillRect(x + 1 + size, y + lineHeight + 1, (uint16_t)line_w, size - 2, Flash_GetColor(memory, PAL_EMERALD_GREEN));
+            graphics.FillRect(x + size, y + lineHeight, (max_chars - 2) * size, size, color_border);
+            graphics.FillRect(x + 1 + size, y + lineHeight + 1, ((max_chars - 2) * size) - 2, size - 2, color_bg);
+            graphics.FillRect(x + 1 + size, y + lineHeight + 1, (uint16_t)line_w, size - 2, color_hp);
         }
         lineHeight += size;
 
@@ -269,9 +274,9 @@ void DrawParty(GraphicsInterface graphics, HardwareInterface hardware, MemoryInt
         {
             line_w = (((float)cur / (float)max) * ((float)(max_chars - 2) * (float)size));
             if (line_w > 2) line_w -= 2;
-            graphics.FillRect(x + size, y + lineHeight, (max_chars - 2) * size, size, Flash_GetColor(memory, PAL_DARK_GRN_BLACK));
-            graphics.FillRect(x + 1 + size, y + lineHeight + 1, ((max_chars - 2) * size) - 2, size - 2, Flash_GetColor(memory, PAL_OFF_WHITE_GRAY));
-            graphics.FillRect(x + 1 + size, y + lineHeight + 1, (uint16_t)line_w, size - 2, Flash_GetColor(memory, PAL_ICE_BLUE));
+            graphics.FillRect(x + size, y + lineHeight, (max_chars - 2) * size, size, color_border);
+            graphics.FillRect(x + 1 + size, y + lineHeight + 1, ((max_chars - 2) * size) - 2, size - 2, color_bg);
+            graphics.FillRect(x + 1 + size, y + lineHeight + 1, (uint16_t)line_w, size - 2, color_mp);
             lineHeight += size;
         }
 
@@ -282,9 +287,9 @@ void DrawParty(GraphicsInterface graphics, HardwareInterface hardware, MemoryInt
         {
             line_w = (((float)cur / (float)max) * ((float)(max_chars - 2) * (float)size));
             if (line_w > 2) line_w -= 2;
-            graphics.FillRect(x + size, y + lineHeight, (max_chars - 2) * size, size, Flash_GetColor(memory, PAL_DARK_GRN_BLACK));
-            graphics.FillRect(x + 1 + size, y + lineHeight + 1, ((max_chars - 2) * size) - 2, size - 2, Flash_GetColor(memory, PAL_OFF_WHITE_GRAY));
-            graphics.FillRect(x + 1 + size, y + lineHeight + 1, (uint16_t)line_w, size - 2, Flash_GetColor(memory, PAL_MEDIUM_PURPLE));
+            graphics.FillRect(x + size, y + lineHeight, (max_chars - 2) * size, size, color_border);
+            graphics.FillRect(x + 1 + size, y + lineHeight + 1, ((max_chars - 2) * size) - 2, size - 2, color_bg);
+            graphics.FillRect(x + 1 + size, y + lineHeight + 1, (uint16_t)line_w, size - 2, color_xp);
 
             lineHeight += size;
             lineHeight += (size >> 1);

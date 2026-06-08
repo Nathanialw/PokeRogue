@@ -1,12 +1,10 @@
 // Generated object name strings
-// Database contains 46 total object
+// Database contains 43 total object
 
 // Individual object strings
 "Altar\0",
 "Raft\0",
 "Row Boat\0",
-"Stone Bridge\0",
-"Wooden Bridge\0",
 "Book Case\0",
 "Jewellery Case\0",
 "Scroll Case\0",
@@ -31,7 +29,6 @@
 "Campfire\0",
 "Standing Torch\0",
 "Wall Torch\0",
-"Floor\0",
 "Fountain\0",
 "Fountain\0",
 "Fountain\0",

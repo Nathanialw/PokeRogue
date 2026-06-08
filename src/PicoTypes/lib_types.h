@@ -54,17 +54,17 @@ _Static_assert(BUFFER_SIZE_1BYTE >= 25088, "SpriteLayout must be 20480 bytes");
 **********************************************************************************************************************/
 typedef struct State
 {
-    uint8_t gameState : 2;
-    uint8_t battleState : 2;
-    uint8_t inputState : 3;
-    uint8_t running : 1;
+    uint8_t gameState;
+    uint8_t battleState;
+    uint8_t inputState;
+    uint8_t running;
     uint8_t overlay;
 } State;
 
 
 typedef union Color
 {
-    struct
+    struct __attribute__((packed))
     {
         uint16_t r : 5;
         uint16_t g : 6;

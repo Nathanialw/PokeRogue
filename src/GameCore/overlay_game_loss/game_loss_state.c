@@ -63,7 +63,7 @@ bool UpdateGameLossState(InputInterface input)
 /**  main game state update loop
 **********************************************************************************************************************/
 SET_MEMORY(".game_loss_entry")
-uint8_t GameLoopGameLoss(GameInterface* spi)
+uint8_t OverlayGameLossEntry(GameInterface* spi)
 {
     spi->graphics.FillScreen((Color){.color = 0x54ff});
     spi->graphics.EndFrame();

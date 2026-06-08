@@ -5,4 +5,4 @@
 #pragma once
 #include "lib_decl.h"
 
-uint8_t GameLoopGameLoss(GameInterface* spi);
+uint8_t OverlayGameLossEntry(GameInterface* spi);

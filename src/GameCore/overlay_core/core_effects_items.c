@@ -7,6 +7,7 @@
 
 #include "core_actions.h"
 #include "core_effects.h"
+#include "core_entities.h"
 #include "core_ram.h"
 #include "core_utils.h"
 
@@ -408,7 +409,7 @@ bool UseSoulEssence(HardwareInterface hardware, MemoryInterface memory, EntityId
 SET_MEMORY(".core")
 bool UseLasso(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
 {
-    Capture(e_id, itemData.chance);
+    Capture(hardware, e_id, itemData.chance);
     return true;
 }
 
@@ -418,7 +419,7 @@ bool UseLasso(HardwareInterface hardware, MemoryInterface memory, EntityId item_
 SET_MEMORY(".core")
 bool UseShackles(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
 {
-    Capture(e_id, itemData.chance);
+    Capture(hardware, e_id, itemData.chance);
     return true;
 }
 
@@ -428,7 +429,7 @@ bool UseShackles(HardwareInterface hardware, MemoryInterface memory, EntityId it
 SET_MEMORY(".core")
 bool UseChain(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
 {
-    Capture(e_id, itemData.chance);
+    Capture(hardware, e_id, itemData.chance);
     return true;
 }
 
@@ -438,7 +439,7 @@ bool UseChain(HardwareInterface hardware, MemoryInterface memory, EntityId item_
 SET_MEMORY(".core")
 bool UseBearTrap(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
 {
-    Capture(e_id, itemData.chance);
+    Capture(hardware, e_id, itemData.chance);
     return true;
 }
 
@@ -448,7 +449,7 @@ bool UseBearTrap(HardwareInterface hardware, MemoryInterface memory, EntityId it
 SET_MEMORY(".core")
 bool UseNet(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
 {
-    Capture(e_id, itemData.chance);
+    Capture(hardware, e_id, itemData.chance);
     return true;
 }
 
@@ -458,7 +459,7 @@ bool UseNet(HardwareInterface hardware, MemoryInterface memory, EntityId item_id
 SET_MEMORY(".core")
 bool UseElementalBolas(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
 {
-    Capture(e_id, itemData.chance);
+    Capture(hardware, e_id, itemData.chance);
     return true;
 }
 

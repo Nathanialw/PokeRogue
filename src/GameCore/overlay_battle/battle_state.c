@@ -20,6 +20,7 @@
 #include "battle_graphics.h"
 #include "battle_menu.h"
 #include "battle_player.h"
+#include "battle_ram.h"
 #include "core_memory_access.h"
 
 
@@ -111,6 +112,8 @@ void HandleBattleStateInit(GameInterface* spi)
     SetBattleState(BATTLE_MENUS);
     DrawCursor(spi->graphics, spi->memory);
     spi->graphics.EndFrame();
+
+    g_battle.end_battle = false;
 }
 
 
@@ -127,6 +130,10 @@ void HandleBattleState(GameInterface* spi)
         {
             SetBattleState(BATTLE_DEAD_ENEMY);
         }
+        else if (g_battle.end_battle)
+        {
+            SetBattleState(BATTLE_CAPTURE_ENEMY);
+        }
         else
         {
             UseSkill(spi->hardware, spi->memory, false);
@@ -134,7 +141,7 @@ void HandleBattleState(GameInterface* spi)
             BattlerAnimationStruck(spi->graphics, spi->memory, true); //hit animation
             AnimationUpdateHealth(spi->graphics, spi->hardware, false);
 
-            if (!CheckEnemyAttackOutcome())
+            if (CheckEnemyAttackOutcome())
             {
                 SetBattleState(BATTLE_DEAD_FRIEND);
             }
@@ -159,6 +166,15 @@ void HandleBattleState(GameInterface* spi)
         g_core.state.overlay = OVERLAY_MAP;
         return;
     }
+
+    if (CheckBattleState(BATTLE_CAPTURE_ENEMY))
+    {
+        AnimationBattlerDie(spi->graphics, spi->hardware, spi->memory, false);
+        SetInputState(INPUT_ACTING);
+        g_core.state.overlay = OVERLAY_MAP;
+        return;
+    }
+
     if (CheckBattleState(BATTLE_DEAD_FRIEND))
     {
         spi->hardware.Print("you lose");
@@ -181,7 +197,7 @@ bool MainBattleLoop(GameInterface* spi)
 
 
 SET_MEMORY(".battle_entry")
-uint8_t BattleLoopMain(GameInterface* spi)
+uint8_t OverlayBattleEntry(GameInterface* spi)
 {
     InitBattleMenu();
     HandleBattleStateInit(spi);

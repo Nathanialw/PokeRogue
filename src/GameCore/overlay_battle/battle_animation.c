@@ -195,7 +195,7 @@ void AnimationBattlerDie(GraphicsInterface graphics, HardwareInterface hardware,
     Rect_16 r = GetBattlerRect(onAttacker);
     RefreshBattler(graphics, memory, onAttacker, r);
 
-    MoveCenterToDown(graphics, hardware, r, r.h, 8);
+    MoveCenterToDown(graphics, hardware, r, r.h, 1);
 }
 
 

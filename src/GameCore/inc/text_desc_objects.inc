@@ -1,12 +1,10 @@
 // Generated creature descriptions
-// Database contains 46 total descriptions
+// Database contains 43 total descriptions
 
 // Individual description strings
 "ALTAR -- PLACEHOLDER TEXT - A mysterious object awaiting discovery.\0",
 "A weathered wooden raft with carved runes drifts silently, its hull wrapped in seaweed and glowing faintly under moonlight.\0",
 "The small wooden boat creaks as it glides through misty waters, its oars leaving shimmering trails of starlight behind.\0",
-"A smooth, obsidian-like tablet hums with latent magic, its surface shifting with faint, glowing runes when touched.\0",
-"A weathered wooden bridge spans a misty ravine, its planks groaning under unseen burdens, creaking with each step.\0",
 "CASE_BOOK -- PLACEHOLDER TEXT - A mysterious object awaiting discovery.\0",
 "A delicate silver circlet adorned with glowing sapphires, humming with ancient enchantments when worn by moonlight.\0",
 "CASE_SCROLL -- PLACEHOLDER TEXT - A mysterious object awaiting discovery.\0",
@@ -31,7 +29,6 @@
 "FIRE_CAMPFIRE -- PLACEHOLDER TEXT - A mysterious object awaiting discovery.\0",
 "A towering brass torch with flames that flicker unnaturally blue, casting eerie shadows and humming with unseen energy.\0",
 "A flickering, spectral flame dances upon a blackened iron torch, casting eerie shadows that writhe like living serpents.\0",
-"The crumbling marble tiles shift underfoot, revealing glowing fissures that sink into an endless abyss below.\0",
 "The fountain bubbles with a swirling emerald-green liquid, emitting a corrosive mist that dissolves flesh on contact.\0",
 "A crimson stream flows ceaselessly from its ornate marble basin, its waters shimmering with an eerie, metallic sheen.\0",
 "The water shimmers with an ethereal blue glow, rising from the basin in delicate spirals before dissolving into mist.\0",
@@ -50,4 +47,4 @@
 "WELL -- PLACEHOLDER TEXT - A mysterious object awaiting discovery.\0",
 " ------ \0",
 
-//ALL_DESCRIPTIONS_COUNT = 46;
+//ALL_DESCRIPTIONS_COUNT = 43;

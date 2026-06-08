@@ -524,18 +524,20 @@ SkillsDict = [
 SKILLS_BASE_PROMPT = (
     # f"photo-realistic hi fidelity detailed, "
     "fantasy skill, full body visible, centered composition, isolated creature, "
-    "single subject, no cropping, highly detailed dark fantasy illustration, sharp focus, "
+    "single subject, no cropping, highly detailed dark fantasy, sharp focus, "
 )
 
 LIGHTING_STYLES = [
     # "dramatic rim lighting",
     # "moody low-key lighting, subtle fog",
+    "good lighting with high visibilty",
+    "clear lighting with realistic colours",
     # "ancient parchment illustration style, inked linework",
-    "torchlit dungeon lighting",
+    # "torchlit dungeon lighting",
     # "volumetric light shafts",
-    "soft studio lighting",
+    # "soft studio lighting",
 
-    "high contrast lighting, crisp silhouette",
+    "high contrast lighting, crisp image",
     # "grimdark concept art, gritty texture",
     # "moonlit night lighting",
     # "overcast diffuse lighting",
@@ -544,7 +546,7 @@ LIGHTING_STYLES = [
 # View angles - expanded with back-side angles
 VIEW_ANGLES = [
     # "",  # front/full face (implied)
-    "back view",
+    # "back view",
     "strict side profile view, 90 degree lateral pose, full side silhouette",
     "three-quarter side view, strong 45 degree angle over-the-shoulder",
     # "rear three-quarter view, mostly back but slight side visible",

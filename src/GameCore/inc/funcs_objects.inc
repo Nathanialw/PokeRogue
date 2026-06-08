@@ -1,12 +1,10 @@
 // Generated object name strings
-// Database contains 46 total entries
+// Database contains 43 total entries
 
 // Individual items strings
 InteractAltar,
 InteractRaft,
 InteractRowBoat,
-InteractStoneBridge,
-InteractWoodenBridge,
 InteractBookCase,
 InteractJewelleryCase,
 InteractScrollCase,
@@ -31,7 +29,6 @@ InteractBrazier,
 InteractCampfire,
 InteractStandingTorch,
 InteractWallTorch,
-InteractCrumblingFloor,
 InteractAcidFountain,
 InteractBloodFountain,
 InteractWaterFountain,

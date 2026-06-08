@@ -197,7 +197,7 @@ bool CastRepel(HardwareInterface hardware, MemoryInterface memory, EntityId part
 SET_MEMORY(".core")
 bool CastCapture(HardwareInterface hardware, MemoryInterface memory, EntityId partyID, EntityId enemyID, SpellData spellData)
 {
-    Capture(enemyID, spellData.power);
+    Capture(hardware, enemyID, spellData.power);
     return true;
 }
 

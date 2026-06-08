@@ -4,20 +4,22 @@
 
 #include "SDL3/SDL.h"
 
-#include "audio.h"
 #include "lib_debugging.h"
 #include "lib_decl.h"
 
-#include "battle_state.h"
 #include "core_ram.h"
-#include "game_loss_state.h"
-#include "generate_map_state.h"
+
+#include "audio.h"
 #include "graphics.h"
 #include "hardware.h"
 #include "input.h"
-#include "map_state.h"
 #include "memory.h"
 #include "ram.h"
+
+#include "battle_state.h"
+#include "map_state.h"
+#include "game_loss_state.h"
+#include "generate_map_state.h"
 #include "splash_state.h"
 
 /**************************************************************************************************************************************************
@@ -39,11 +41,11 @@ typedef uint8_t (*OverlayEntry)(GameInterface* spi);
 OverlayEntry overlays[OVERLAY_GAME_STATE_SIZE] =
 {
     NULL,
-    GameLoopTitleScreen,
-    GameLoopMain,
-    MapGenEntry,
-    BattleLoopMain,
-    GameLoopGameLoss,
+    OverlaySplashEntry,
+    OverlayMapEntry,
+    OverlayMapGenEntry,
+    OverlayBattleEntry,
+    OverlayGameLossEntry,
 };
 
 GameInterface api;

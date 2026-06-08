@@ -126,7 +126,7 @@ bool DiscoverSpell(Spell spell_id);
 bool DiscoverSkill(Ability ability_id);
 bool LearnSpell(EntityId e_id);
 bool LearnSkill(EntityId e_id);
-bool Capture(EntityId target_id, uint8_t successChance);
+bool Capture(HardwareInterface hardware, EntityId target_id, uint8_t successChance);
 bool AbandonTeam(EntityId e_id);
 bool Flee();
 void DestroyPlayerItem(EntityId item_id);

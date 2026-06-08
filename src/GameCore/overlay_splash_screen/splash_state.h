@@ -6,4 +6,4 @@
 #include "lib_decl.h"
 
 
-uint8_t GameLoopTitleScreen(GameInterface* spi);
+uint8_t OverlaySplashEntry(GameInterface* spi);

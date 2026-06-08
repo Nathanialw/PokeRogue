@@ -93,7 +93,7 @@ bool UpdateGameTitleState(InputInterface input)
 /**  main game state update loop
 **********************************************************************************************************************/
 SET_MEMORY(".splash_entry")
-uint8_t GameLoopTitleScreen(GameInterface* spi)
+uint8_t OverlaySplashEntry(GameInterface* spi)
 {
     g_core.state.overlay = OVERLAY_TITLE_SCREEN;
     spi->graphics.FillScreen((Color){.color = 0x546a});

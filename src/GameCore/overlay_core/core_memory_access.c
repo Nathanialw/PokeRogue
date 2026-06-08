@@ -424,6 +424,7 @@ Color Flash_GetColor(MemoryInterface memory, uint8_t color)
     uint8_t color_value[2];
     memory.GetRom(COLORS_16_POSITION + (2 * color), color_value, 2);
     Color color_return = {.color = ((uint16_t)color_value[0] << 8) | color_value[1]};
+    // Color color_return = {.color = ((uint16_t)color_value[1] << 8) | color_value[0]}; //a byte swap
     return color_return;
 #if defined(MEMORY_PRINT)
     for (uint8_t i = 0; i < 2; i++)

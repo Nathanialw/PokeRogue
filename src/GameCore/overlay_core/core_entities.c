@@ -44,6 +44,20 @@ EntityId PickItem(EntityId id)
     return id;
 }
 
+SET_MEMORY(".core")
+bool AddCreatureToParty(EntityId creature_id)
+{
+    for (uint8_t i = 0; i < MAX_PARTY_SIZE; i++)
+    {
+        if (g_core.trainers.partyID[GetPlayerID()][i] == NO_ENTITY)
+        {
+            g_core.trainers.partyID[GetPlayerID()][i] = creature_id;
+            return true;
+        }
+    }
+    return false;
+}
+
 /**********************************************************************************************************************/
 /**Reset all values of the given entity ID
 **********************************************************************************************************************/

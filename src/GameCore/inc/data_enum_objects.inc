@@ -1,12 +1,10 @@
 // Generated object data structs
-// Database contains 46 total used objects
+// Database contains 43 total used objects
 
 // Individual objects data
 ALTAR,
 BOAT_RAFT,
 BOAT_ROWBOAT,
-BRIDGE_STONE,
-BRIDGE_WOODEN,
 CASE_BOOK,
 CASE_JEWELLERY,
 CASE_SCROLL,
@@ -31,7 +29,6 @@ FIRE_BRAZIER,
 FIRE_CAMPFIRE,
 FIRE_STANDING_TORCH,
 FIRE_WALL_TORCH,
-FLOOR_CRUMBLING,
 FOUNTAIN_ACID,
 FOUNTAIN_BLOOD,
 FOUNTAIN_WATER,
@@ -49,4 +46,4 @@ TREASURE_VAULT,
 WARD,
 WELL,
 
-//ALL_NAMES_COUNT = 46;
+//ALL_NAMES_COUNT = 43;

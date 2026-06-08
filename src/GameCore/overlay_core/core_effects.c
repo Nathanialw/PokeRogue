@@ -4,6 +4,8 @@
 
 #include "core_effects.h"
 
+#include <stdio.h>
+
 #include "lib_memory.h"
 
 #include "constants.h"
@@ -62,6 +64,7 @@ void DoDamage(EntityId creatureID, uint16_t damage)
     uint16_t hp = Int999GetCurrent(&g_core.creatures.hp[creatureID]);
     hp = (hp > damage) ? hp - damage : 0;
     Int999SetCurrent(&g_core.creatures.hp[creatureID], hp);
+    printf("creatureID damage: %d %d\n", creatureID, damage);
 }
 
 /**********************************************************************************************************************
@@ -120,8 +123,12 @@ uint16_t CalcModifier(MemoryInterface memory, EntityId attackerID, EntityId defe
 
     if (mult1 != 0)
     {
-        float f_damage = (float)damage + ((float)damage * mult1) - (float)base - (float)mod;
-        damage = (uint16_t)f_damage;
+        uint16_t raw_damage = (float)damage + ((float)damage * mult1);
+        uint16_t reduction = (float)base - (float)mod;
+        if (reduction > raw_damage)
+            damage = 1;
+        else
+            damage = raw_damage - reduction;
     }
 
     if (damage == 0) damage = 1;
@@ -217,7 +224,6 @@ bool MakeInvulnerable(EntityId e_id)
 SET_MEMORY(".core")
 bool Reposition(EntityId e_id, Position pos)
 {
-
     return false;
 }
 
@@ -362,9 +368,21 @@ void DestroyRandomPlayerItem()
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool Capture(EntityId target_id, uint8_t successChance)
+bool Capture(HardwareInterface hardware, EntityId target_id, uint8_t successChance)
 {
-    return true;
+    if (target_id == g_core.trainers.partyID[GetPlayerID()][0])
+        return false;
+
+    uint8_t n = 1; //hardware.GetRandom_uint8_t(1, successChance);
+    if (n < 10)
+    {
+        if (AddCreatureToParty(target_id))
+        {
+            CaptureMonster(target_id);
+            return true;
+        }
+    }
+    return false;
 }
 
 /**********************************************************************************************************************

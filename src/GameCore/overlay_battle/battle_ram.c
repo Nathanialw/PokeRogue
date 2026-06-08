@@ -55,7 +55,7 @@ const SkillEffect abilityFunctions[ABILITY_COUNT] = {
 
 
 SET_MEMORY(".battle.data")
-BattleRunState g_battle = {0};
+BattleRunState g_battle = {};
 
 
 /**********************************************************************************************************************/

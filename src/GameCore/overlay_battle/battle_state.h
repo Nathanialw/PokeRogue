@@ -6,4 +6,4 @@
 #include "lib_decl.h"
 
 State SetBattleState(BattleState state);
-uint8_t BattleLoopMain(GameInterface* spi);
+uint8_t OverlayBattleEntry(GameInterface* spi);

@@ -25,6 +25,7 @@ extern const SkillEffect abilityFunctions[ABILITY_COUNT];
 typedef struct
 {
     State state;
+    bool end_battle;
 } BattleRunState;
 
 extern BattleRunState g_battle; // Declaration only

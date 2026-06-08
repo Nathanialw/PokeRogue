@@ -280,7 +280,7 @@ void HandleGameState(GameInterface* spi)
 
 
 SET_MEMORY(".map_entry")
-uint8_t GameLoopMain(GameInterface* spi)
+uint8_t OverlayMapEntry(GameInterface* spi)
 {
     SetCameraPlayer();
 

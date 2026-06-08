@@ -9,91 +9,85 @@
 {  .index = 183, .size = 129, .palette = { 0xf81f, 0x0023, 0x1929, 0x10a5, 0x0865, 0x20a7, 0x50a8, 0x0843, 0x6bf2, 0x594a, 0x4a0d, 0x10a7, 0x4046, 0x1044, 0x2003, 0x1845 }, },
 // BOAT ROWBOAT / Boat Rowboat Auraflow V0.3 008 S2344040683 Th0.100 20 [Folder: BOAT_ROWBOAT] (sprite index: 2, byte offset: 312, size: 106)
 {  .index = 312, .size = 106, .palette = { 0xf81f, 0x1082, 0x1061, 0x2944, 0x10a2, 0x0841, 0x1903, 0x18c2, 0x5b0a, 0x31c6, 0x2903, 0x9d32, 0x4a26, 0x18e3, 0x0861, 0x0861 }, },
-// BRIDGE STONE / Bridge Stone Auraflow V0.3 011 S1964917610 Th0.100 20 [Folder: BRIDGE_STONE] (sprite index: 3, byte offset: 418, size: 291)
-{  .index = 418, .size = 291, .palette = { 0xf81f, 0x10a3, 0x0882, 0x18e4, 0x2166, 0x10c4, 0x1905, 0x4aec, 0x3a29, 0x2187, 0x1082, 0x0862, 0x31a7, 0x2104, 0x0021, 0x94d3 }, },
-// BRIDGE WOODEN / Bridge Wooden Auraflow V0.3 010 S4200078510 Th0.100 20 [Folder: BRIDGE_WOODEN] (sprite index: 4, byte offset: 709, size: 40)
-{  .index = 709, .size = 40, .palette = { 0xf81f, 0xf81f, 0xf81f, 0xf81f, 0xf81f, 0xf81f, 0xf81f, 0xf81f, 0xf81f, 0xf81f, 0xf81f, 0xf81f, 0xf81f, 0xf81f, 0xf81f, 0xf81f }, },
-// CASE BOOK / Case Book Auraflow V0.3 019 S285669924 Th0.100 20 [Folder: CASE_BOOK] (sprite index: 5, byte offset: 749, size: 164)
-{  .index = 749, .size = 164, .palette = { 0xf81f, 0x28c6, 0x2844, 0x1023, 0x2885, 0x2085, 0x1843, 0x7a4f, 0x1044, 0x4847, 0x1022, 0x1863, 0x58ca, 0x608a, 0x4909, 0x1803 }, },
-// CASE JEWELLERY / Case Jewellery Auraflow V0.3 011 S137877120 Th0.100 20 [Folder: CASE_JEWELLERY] (sprite index: 6, byte offset: 913, size: 163)
-{  .index = 913, .size = 163, .palette = { 0xf81f, 0x10a3, 0x2b59, 0xbe9b, 0x2147, 0x5b92, 0x3a8f, 0x1a15, 0x31eb, 0x194e, 0x1906, 0x10a6, 0x551b, 0x0933, 0x08b0, 0x08b0 }, },
-// CASE SCROLL / Case Scroll Auraflow V0.3 009 S3957226374 Th0.100 20 [Folder: CASE_SCROLL] (sprite index: 7, byte offset: 1076, size: 136)
-{  .index = 1076, .size = 136, .palette = { 0xf81f, 0xf68b, 0x4101, 0x9ba7, 0xb3c4, 0x7264, 0x4982, 0xbc67, 0x8a83, 0xff6f, 0xe5c9, 0xcd08, 0x9305, 0x69c2, 0x2060, 0x1000 }, },
-// CAULDRON / Cauldron Auraflow V0.3 009 S3965564352 Th0.100 20 [Folder: CAULDRON] (sprite index: 8, byte offset: 1212, size: 179)
-{  .index = 1212, .size = 179, .palette = { 0xf81f, 0x0882, 0x18e4, 0x0021, 0x2125, 0x0020, 0x2966, 0x10a3, 0x0862, 0x31e8, 0x0041, 0x52cc, 0x0000, 0x9515, 0x0841, 0x0000 }, },
-// CLOUD ACID / Cloud Acid Auraflow V0.3 010 S2445857936 Th0.100 20 [Folder: CLOUD_ACID] (sprite index: 9, byte offset: 1391, size: 263)
-{  .index = 1391, .size = 263, .palette = { 0xf81f, 0x31c9, 0x1083, 0x424c, 0xc67b, 0x2147, 0x10c4, 0x0842, 0x18e5, 0xe73d, 0xadb8, 0x1906, 0x2988, 0x73d1, 0x8cd5, 0x5b0e }, },
-// CLOUD POISON GAS / Cloud Poison Gas Auraflow V0.3 008 S101500624 Th0.100 20 [Folder: CLOUD_POISON_GAS] (sprite index: 10, byte offset: 1654, size: 224)
-{  .index = 1654, .size = 224, .palette = { 0xf81f, 0x08c2, 0x3b6a, 0x2267, 0x3b09, 0x11c5, 0x1164, 0x7d92, 0x0903, 0x0902, 0x0081, 0x21e6, 0x4b8b, 0x32a8, 0x544d, 0x0943 }, },
-// CLOUD SMOKE / Cloud Smoke Auraflow V0.3 009 S988519445 Th0.100 20 [Folder: CLOUD_SMOKE] (sprite index: 11, byte offset: 1878, size: 213)
-{  .index = 1878, .size = 213, .palette = { 0xf81f, 0x52ab, 0x6b6e, 0x39e8, 0x5b2d, 0xe73d, 0x8cb3, 0xce7a, 0x94f4, 0x73d0, 0xadb7, 0x8451, 0xd6db, 0xf79e, 0xbe39, 0xa556 }, },
-// COFFIN COFFIN / Coffin Coffin Auraflow V0.3 007 S2390044676 Th0.100 20 [Folder: COFFIN_COFFIN] (sprite index: 12, byte offset: 2091, size: 126)
-{  .index = 2091, .size = 126, .palette = { 0xf81f, 0x3046, 0x0822, 0x3888, 0x1025, 0x2089, 0x30e9, 0x1847, 0x78ea, 0x6848, 0x1844, 0xa310, 0x714c, 0x7888, 0x2085, 0x2804 }, },
-// COFFIN SARCOPHAGUS / Coffin Sarcophagus Auraflow V0.3 011 S135831328 Th0.100 20 [Folder: COFFIN_SARCOPHAGUS] (sprite index: 13, byte offset: 2217, size: 180)
-{  .index = 2217, .size = 180, .palette = { 0xf81f, 0x0841, 0x4aab, 0x0020, 0x2125, 0x0862, 0x39e8, 0x10e4, 0xad97, 0x73f0, 0x1904, 0x10a3, 0x10a3, 0x0041, 0x0000, 0x2986 }, },
-// CORPSE HANGING / Corpse Hanging Auraflow V0.3 011 S3952162761 Th0.100 20 [Folder: CORPSE_HANGING] (sprite index: 14, byte offset: 2397, size: 81)
-{  .index = 2397, .size = 81, .palette = { 0xf81f, 0x1061, 0x736d, 0x1020, 0x0020, 0x0000, 0xa554, 0x6268, 0x2103, 0x2082, 0x1861, 0x0000, 0x4185, 0x3923, 0x0840, 0x0840 }, },
-// CORPSE LAID / Corpse Laid Auraflow V0.3 008 S2434905895 Th0.100 20 [Folder: CORPSE_LAID] (sprite index: 15, byte offset: 2478, size: 116)
-{  .index = 2478, .size = 116, .palette = { 0xf81f, 0xbd96, 0x0841, 0x3145, 0x1062, 0x0000, 0x6a08, 0x2125, 0x6125, 0x39e7, 0x0820, 0x4882, 0x20e3, 0x730c, 0x2062, 0x1000 }, },
-// DOOR BARRED / Door Barred Auraflow V0.3 009 S3157591552 Th0.100 20 [Folder: DOOR_BARRED] (sprite index: 16, byte offset: 2594, size: 217)
-{  .index = 2594, .size = 217, .palette = { 0xf81f, 0x0841, 0x1082, 0x636e, 0x39e7, 0x52aa, 0x18e3, 0x4249, 0x18a2, 0xa596, 0x31a6, 0x3186, 0x2945, 0x2104, 0x2965, 0x0000 }, },
-// DOOR IRON / Door Iron Auraflow V0.3 007 S744920716 Th0.100 20 [Folder: DOOR_IRON] (sprite index: 17, byte offset: 2811, size: 188)
-{  .index = 2811, .size = 188, .palette = { 0xf81f, 0xa555, 0x0882, 0x0861, 0x0041, 0x0021, 0x10a3, 0x0882, 0x4269, 0x2125, 0x10c3, 0x2166, 0x18c3, 0x1904, 0x31a7, 0x0000 }, },
-// DOOR STONE / Door Stone Auraflow V0.3 015 S3175729098 Th0.100 20 [Folder: DOOR_STONE] (sprite index: 18, byte offset: 2999, size: 209)
-{  .index = 2999, .size = 209, .palette = { 0xf81f, 0x10c5, 0x31e8, 0x3185, 0x324a, 0x1947, 0x7bac, 0x4a69, 0x18e4, 0x5b6d, 0xbdf6, 0x2166, 0x0843, 0x8c91, 0x5aa8, 0x0002 }, },
-// DOOR WICKER / Door Wicker Auraflow V0.3 001 S3370829343 Th0.100 20 [Folder: DOOR_WICKER] (sprite index: 19, byte offset: 3208, size: 204)
-{  .index = 3208, .size = 204, .palette = { 0xf81f, 0x1040, 0x1020, 0x4101, 0x0800, 0x2081, 0xa306, 0x30e1, 0x1860, 0x1040, 0x5962, 0x0820, 0x1880, 0x1840, 0x28a0, 0x0800 }, },
-// DOOR WOOD / Door Wood Auraflow V0.3 000 S69201145 Th0.100 20 [Folder: DOOR_WOOD] (sprite index: 20, byte offset: 3412, size: 174)
-{  .index = 3412, .size = 174, .palette = { 0xf81f, 0x18a3, 0x0000, 0x1062, 0x20c3, 0x0841, 0x0020, 0x6184, 0x2061, 0x0041, 0x38e3, 0x0000, 0x18c4, 0x7266, 0x3165, 0xb448 }, },
-// EGRESS CAVE / Egress Cave Auraflow V0.3 010 S4200168056 Th0.100 20 [Folder: EGRESS_CAVE] (sprite index: 21, byte offset: 3586, size: 211)
-{  .index = 3586, .size = 211, .palette = { 0xf81f, 0x0021, 0x0023, 0x1152, 0x0867, 0x0022, 0x088d, 0x188a, 0x3cfb, 0x1829, 0x0825, 0x0826, 0x6950, 0x0803, 0x48ad, 0x4a56 }, },
-// EGRESS LADDER / Egress Ladder Auraflow V0.3 006 S2143628987 Th0.100 20 [Folder: EGRESS_LADDER] (sprite index: 22, byte offset: 3797, size: 110)
-{  .index = 3797, .size = 110, .palette = { 0xf81f, 0x1081, 0x0020, 0x6bcc, 0x52a7, 0x1923, 0x10c2, 0x0000, 0xb5f3, 0x0861, 0x0020, 0x2964, 0x0840, 0x0000, 0x3206, 0x3206 }, },
-// EGRESS STAIRS / Egress Stairs Auraflow V0.3 003 S3217004262 Th0.100 20 [Folder: EGRESS_STAIRS] (sprite index: 23, byte offset: 3907, size: 178)
-{  .index = 3907, .size = 178, .palette = { 0xf81f, 0x2888, 0x1867, 0x1046, 0x7ab0, 0x4129, 0xc412, 0xe5f4, 0xb2ce, 0x498c, 0x60a8, 0x1887, 0x618a, 0x38a8, 0x91ab, 0x2806 }, },
-// FIRE BONFIRE / Fire Bonfire Auraflow V0.3 011 S675149538 Th0.100 20 [Folder: FIRE_BONFIRE] (sprite index: 24, byte offset: 4085, size: 118)
-{  .index = 4085, .size = 118, .palette = { 0xf81f, 0x28e2, 0xba22, 0x7162, 0xebe4, 0x5902, 0xfe4c, 0x5963, 0x4143, 0xf4e7, 0x9161, 0xcb65, 0xcaa3, 0x9a03, 0x2924, 0x2924 }, },
-// FIRE BRAZIER / Fire Brazier Auraflow V0.3 011 S88367478 Th0.100 20 [Folder: FIRE_BRAZIER] (sprite index: 25, byte offset: 4203, size: 133)
-{  .index = 4203, .size = 133, .palette = { 0xf81f, 0x0021, 0x049d, 0x222b, 0x03ba, 0x122e, 0x0882, 0x13b7, 0x1105, 0x973f, 0x3e1e, 0x12b2, 0x08a4, 0x24fc, 0x19a9, 0x19a9 }, },
-// FIRE CAMPFIRE / Fire Campfire Auraflow V0.3 020 S3342577628 Th0.100 20 [Folder: FIRE_CAMPFIRE] (sprite index: 26, byte offset: 4336, size: 131)
-{  .index = 4336, .size = 131, .palette = { 0xf81f, 0x0028, 0x7088, 0x4889, 0x2049, 0xe983, 0xc045, 0xff41, 0xc8a5, 0xf442, 0x6048, 0x3049, 0x9128, 0x2889, 0x1048, 0x2806 }, },
-// FIRE STANDING TORCH / Fire Standing Torch Auraflow V0.3 015 S4173884969 Th0.100 20 [Folder: FIRE_STANDING_TORCH] (sprite index: 27, byte offset: 4467, size: 78)
-{  .index = 4467, .size = 78, .palette = { 0xf81f, 0x20e6, 0x78a4, 0x30a5, 0x2085, 0x10a5, 0x1044, 0xcc27, 0xda83, 0x2968, 0xff89, 0xf604, 0x742f, 0x3a4a, 0x3a4a, 0x3a4a }, },
-// FIRE WALL TORCH / Fire Wall Torch Auraflow V0.3 012 S1453311834 Th0.100 20 [Folder: FIRE_WALL_TORCH] (sprite index: 28, byte offset: 4545, size: 72)
-{  .index = 4545, .size = 72, .palette = { 0xf81f, 0x20c4, 0xf483, 0x6205, 0xd2e3, 0xff8b, 0xf646, 0x58c2, 0x3904, 0x3882, 0x1883, 0xc1e3, 0x2000, 0x2000, 0x2000, 0x2000 }, },
-// FLOOR CRUMBLING / Floor Crumbling Auraflow V0.3 006 S3349435535 Th0.100 20 [Folder: FLOOR_CRUMBLING] (sprite index: 29, byte offset: 4617, size: 201)
-{  .index = 4617, .size = 201, .palette = { 0xf81f, 0x31a7, 0x2104, 0x18c3, 0x0000, 0x52aa, 0x2965, 0x8c71, 0x0861, 0x0000, 0x0000, 0x0000, 0xd69a, 0x0000, 0x0000, 0x0000 }, },
-// FOUNTAIN ACID / Fountain Acid Auraflow V0.3 006 S3605077888 Th0.100 20 [Folder: FOUNTAIN_ACID] (sprite index: 30, byte offset: 4818, size: 174)
-{  .index = 4818, .size = 174, .palette = { 0xf81f, 0x0922, 0x00a1, 0x9634, 0x5d2f, 0x7df2, 0x0a65, 0x00e2, 0x1c8a, 0x4c4c, 0x0183, 0x2287, 0x11a4, 0x1388, 0xaed7, 0x55d0 }, },
-// FOUNTAIN BLOOD / Fountain Blood Auraflow V0.3 008 S3589167110 Th0.100 20 [Folder: FOUNTAIN_BLOOD] (sprite index: 31, byte offset: 4992, size: 169)
-{  .index = 4992, .size = 169, .palette = { 0xf81f, 0x0000, 0x0841, 0x5041, 0x2146, 0xa473, 0x52ac, 0x0882, 0x8841, 0xce5b, 0x18e4, 0x932d, 0x2041, 0x39a7, 0x9165, 0x4000 }, },
-// FOUNTAIN WATER / Fountain Water Auraflow V0.3 001 S2229914148 Th0.100 20 [Folder: FOUNTAIN_WATER] (sprite index: 32, byte offset: 5161, size: 165)
-{  .index = 5161, .size = 165, .palette = { 0xf81f, 0x0825, 0x1a35, 0x2171, 0x49f5, 0x18ab, 0x1bda, 0x48cf, 0x0846, 0x1808, 0x25be, 0x088b, 0x7bbb, 0x28ad, 0x99f6, 0x763e }, },
-// HIDDEN COMPARTMENT / Hidden Compartment Auraflow V0.3 009 S43810410 Th0.100 20 [Folder: HIDDEN_COMPARTMENT] (sprite index: 33, byte offset: 5326, size: 218)
-{  .index = 5326, .size = 218, .palette = { 0xf81f, 0xb44d, 0x40c1, 0x0800, 0x30a1, 0x6183, 0x0820, 0x7225, 0x4964, 0x0841, 0x1881, 0x9b49, 0xde15, 0x7ac8, 0x1820, 0x0800 }, },
-// RACK ARMOR / Rack Armor Auraflow V0.3 007 S2279696474 Th0.100 20 [Folder: RACK_ARMOR] (sprite index: 34, byte offset: 5544, size: 199)
-{  .index = 5544, .size = 199, .palette = { 0xf81f, 0x0882, 0x18e3, 0x2145, 0x29c7, 0xd73c, 0x638e, 0x10c3, 0x8d55, 0x42cb, 0x1925, 0x0020, 0x0041, 0x3208, 0x0841, 0x0000 }, },
-// RACK WEAPON / Rack Weapon Auraflow V0.3 000 S3355059764 Th0.100 20 [Folder: RACK_WEAPON] (sprite index: 35, byte offset: 5743, size: 242)
-{  .index = 5743, .size = 242, .palette = { 0xf81f, 0x30eb, 0x40ec, 0x0823, 0x1065, 0x610f, 0x416d, 0xac57, 0x7a52, 0x1867, 0x0844, 0x408b, 0x28e8, 0x7192, 0x2888, 0x1004 }, },
-// TREASURE BARREL / Treasure Barrel Auraflow V0.3 008 S1297798871 Th0.100 20 [Folder: TREASURE_BARREL] (sprite index: 36, byte offset: 5985, size: 225)
-{  .index = 5985, .size = 225, .palette = { 0xf81f, 0x0820, 0x5122, 0x0821, 0x3902, 0x1861, 0x1061, 0xa387, 0x0800, 0x1061, 0xddee, 0x8243, 0x2861, 0x20a2, 0x51e6, 0x2903 }, },
-// TREASURE BASKET / Treasure Beasket Auraflow V0.3 018 S3621454872 Th0.100 20 [Folder: TREASURE_BASKET] (sprite index: 37, byte offset: 6210, size: 163)
-{  .index = 6210, .size = 163, .palette = { 0xf81f, 0x20a3, 0x5acc, 0x6d14, 0x1844, 0x0821, 0x38e3, 0x1022, 0x59a8, 0x318a, 0x1842, 0x20c8, 0x38e9, 0x1043, 0x2866, 0x1001 }, },
-// TREASURE CHEST / Treasure Chest Auraflow V0.3 010 S2407308076 Th0.100 20 [Folder: TREASURE_CHEST] (sprite index: 38, byte offset: 6373, size: 222)
-{  .index = 6373, .size = 222, .palette = { 0xf81f, 0x49e4, 0x0820, 0x2081, 0x5a44, 0x1061, 0x28e2, 0x18e2, 0x3163, 0xad4f, 0x1881, 0x1081, 0xded5, 0x6b26, 0x8c0a, 0x0800 }, },
-// TREASURE COFFER / Treasure Coffer Auraflow V0.3 006 S2809354351 Th0.100 20 [Folder: TREASURE_COFFER] (sprite index: 39, byte offset: 6595, size: 222)
-{  .index = 6595, .size = 222, .palette = { 0xf81f, 0x2080, 0x5141, 0x59e2, 0x9ae2, 0x3122, 0x28c1, 0x7a21, 0x1020, 0xeead, 0xd58a, 0xffd7, 0xff8f, 0xc445, 0x82a3, 0xa3a5 }, },
-// TREASURE CRATE / Treasure Crate Auraflow V0.3 011 S2207118285 Th0.100 20 [Folder: TREASURE_CRATE] (sprite index: 40, byte offset: 6817, size: 206)
-{  .index = 6817, .size = 206, .palette = { 0xf81f, 0x0000, 0x0820, 0x1882, 0xd5b1, 0x0000, 0x1020, 0x0020, 0x0000, 0x0861, 0x3145, 0x0000, 0x9329, 0x30a1, 0x69c4, 0x0000 }, },
-// TREASURE TRUNK / Treasure Trunk Auraflow V0.3 001 S1667860986 Th0.100 20 [Folder: TREASURE_TRUNK] (sprite index: 41, byte offset: 7023, size: 237)
-{  .index = 7023, .size = 237, .palette = { 0xf81f, 0x1040, 0x3144, 0x5a68, 0x4963, 0x61a3, 0x0000, 0x93ab, 0x18a2, 0x1082, 0x82a6, 0x28c1, 0x0861, 0xcd50, 0x0820, 0x0821 }, },
-// TREASURE URN / Treasure Urn Auraflow V0.3 004 S3658837498 Th0.100 20 [Folder: TREASURE_URN] (sprite index: 42, byte offset: 7260, size: 141)
-{  .index = 7260, .size = 141, .palette = { 0xf81f, 0x0882, 0x2125, 0x1904, 0x18e3, 0x10c3, 0xdf3d, 0x8cb3, 0x5b2d, 0x0861, 0x0021, 0x0862, 0x426a, 0x31c7, 0x2986, 0x2986 }, },
-// TREASURE VAULT / Treasure Vault Auraflow V0.3 019 S1048269513 Th0.100 20 [Folder: TREASURE_VAULT] (sprite index: 43, byte offset: 7401, size: 182)
-{  .index = 7401, .size = 182, .palette = { 0xf81f, 0x0021, 0x1147, 0x0042, 0x42ad, 0x18c5, 0x0884, 0x5c33, 0x0022, 0x2168, 0x2a4c, 0x08c5, 0x0863, 0x0863, 0x0001, 0x9e5a }, },
-// WARD / Ward Auraflow V0.3 011 S1100805332 Th0.100 20 [Folder: WARD] (sprite index: 44, byte offset: 7583, size: 208)
-{  .index = 7583, .size = 208, .palette = { 0xf81f, 0x5aab, 0x29a8, 0x8bef, 0x10c4, 0xa536, 0x2104, 0x0883, 0x0841, 0x0022, 0xd6fb, 0x0842, 0x18e4, 0x6371, 0x4a08, 0x0001 }, },
-// WELL / Well Auraflow V0.3 018 S737254812 Th0.100 20 [Folder: WELL] (sprite index: 45, byte offset: 7791, size: 88)
-{  .index = 7791, .size = 88, .palette = { 0xf81f, 0x1824, 0x1024, 0x2026, 0x810b, 0x2847, 0x1826, 0x488a, 0x486a, 0x402a, 0x3048, 0x2868, 0x2006, 0x484a, 0x2826, 0x1846 }, },
+// CASE BOOK / Case Book Auraflow V0.3 019 S285669924 Th0.100 20 [Folder: CASE_BOOK] (sprite index: 3, byte offset: 418, size: 164)
+{  .index = 418, .size = 164, .palette = { 0xf81f, 0x28c6, 0x2844, 0x1023, 0x2885, 0x2085, 0x1843, 0x7a4f, 0x1044, 0x4847, 0x1022, 0x1863, 0x58ca, 0x608a, 0x4909, 0x1803 }, },
+// CASE JEWELLERY / Case Jewellery Auraflow V0.3 011 S137877120 Th0.100 20 [Folder: CASE_JEWELLERY] (sprite index: 4, byte offset: 582, size: 163)
+{  .index = 582, .size = 163, .palette = { 0xf81f, 0x10a3, 0x2b59, 0xbe9b, 0x2147, 0x5b92, 0x3a8f, 0x1a15, 0x31eb, 0x194e, 0x1906, 0x10a6, 0x551b, 0x0933, 0x08b0, 0x08b0 }, },
+// CASE SCROLL / Case Scroll Auraflow V0.3 009 S3957226374 Th0.100 20 [Folder: CASE_SCROLL] (sprite index: 5, byte offset: 745, size: 136)
+{  .index = 745, .size = 136, .palette = { 0xf81f, 0xf68b, 0x4101, 0x9ba7, 0xb3c4, 0x7264, 0x4982, 0xbc67, 0x8a83, 0xff6f, 0xe5c9, 0xcd08, 0x9305, 0x69c2, 0x2060, 0x1000 }, },
+// CAULDRON / Cauldron Auraflow V0.3 009 S3965564352 Th0.100 20 [Folder: CAULDRON] (sprite index: 6, byte offset: 881, size: 179)
+{  .index = 881, .size = 179, .palette = { 0xf81f, 0x0882, 0x18e4, 0x0021, 0x2125, 0x0020, 0x2966, 0x10a3, 0x0862, 0x31e8, 0x0041, 0x52cc, 0x0000, 0x9515, 0x0841, 0x0000 }, },
+// CLOUD ACID / Cloud Acid Auraflow V0.3 010 S2445857936 Th0.100 20 [Folder: CLOUD_ACID] (sprite index: 7, byte offset: 1060, size: 263)
+{  .index = 1060, .size = 263, .palette = { 0xf81f, 0x31c9, 0x1083, 0x424c, 0xc67b, 0x2147, 0x10c4, 0x0842, 0x18e5, 0xe73d, 0xadb8, 0x1906, 0x2988, 0x73d1, 0x8cd5, 0x5b0e }, },
+// CLOUD POISON GAS / Cloud Poison Gas Auraflow V0.3 008 S101500624 Th0.100 20 [Folder: CLOUD_POISON_GAS] (sprite index: 8, byte offset: 1323, size: 224)
+{  .index = 1323, .size = 224, .palette = { 0xf81f, 0x08c2, 0x3b6a, 0x2267, 0x3b09, 0x11c5, 0x1164, 0x7d92, 0x0903, 0x0902, 0x0081, 0x21e6, 0x4b8b, 0x32a8, 0x544d, 0x0943 }, },
+// CLOUD SMOKE / Cloud Smoke Auraflow V0.3 009 S988519445 Th0.100 20 [Folder: CLOUD_SMOKE] (sprite index: 9, byte offset: 1547, size: 213)
+{  .index = 1547, .size = 213, .palette = { 0xf81f, 0x52ab, 0x6b6e, 0x39e8, 0x5b2d, 0xe73d, 0x8cb3, 0xce7a, 0x94f4, 0x73d0, 0xadb7, 0x8451, 0xd6db, 0xf79e, 0xbe39, 0xa556 }, },
+// COFFIN COFFIN / Coffin Coffin Auraflow V0.3 007 S2390044676 Th0.100 20 [Folder: COFFIN_COFFIN] (sprite index: 10, byte offset: 1760, size: 126)
+{  .index = 1760, .size = 126, .palette = { 0xf81f, 0x3046, 0x0822, 0x3888, 0x1025, 0x2089, 0x30e9, 0x1847, 0x78ea, 0x6848, 0x1844, 0xa310, 0x714c, 0x7888, 0x2085, 0x2804 }, },
+// COFFIN SARCOPHAGUS / Coffin Sarcophagus Auraflow V0.3 011 S135831328 Th0.100 20 [Folder: COFFIN_SARCOPHAGUS] (sprite index: 11, byte offset: 1886, size: 180)
+{  .index = 1886, .size = 180, .palette = { 0xf81f, 0x0841, 0x4aab, 0x0020, 0x2125, 0x0862, 0x39e8, 0x10e4, 0xad97, 0x73f0, 0x1904, 0x10a3, 0x10a3, 0x0041, 0x0000, 0x2986 }, },
+// CORPSE HANGING / Corpse Hanging Auraflow V0.3 011 S3952162761 Th0.100 20 [Folder: CORPSE_HANGING] (sprite index: 12, byte offset: 2066, size: 81)
+{  .index = 2066, .size = 81, .palette = { 0xf81f, 0x1061, 0x736d, 0x1020, 0x0020, 0x0000, 0xa554, 0x6268, 0x2103, 0x2082, 0x1861, 0x0000, 0x4185, 0x3923, 0x0840, 0x0840 }, },
+// CORPSE LAID / Corpse Laid Auraflow V0.3 008 S2434905895 Th0.100 20 [Folder: CORPSE_LAID] (sprite index: 13, byte offset: 2147, size: 116)
+{  .index = 2147, .size = 116, .palette = { 0xf81f, 0xbd96, 0x0841, 0x3145, 0x1062, 0x0000, 0x6a08, 0x2125, 0x6125, 0x39e7, 0x0820, 0x4882, 0x20e3, 0x730c, 0x2062, 0x1000 }, },
+// DOOR BARRED / Door Barred Auraflow V0.3 009 S3157591552 Th0.100 20 [Folder: DOOR_BARRED] (sprite index: 14, byte offset: 2263, size: 217)
+{  .index = 2263, .size = 217, .palette = { 0xf81f, 0x0841, 0x1082, 0x636e, 0x39e7, 0x52aa, 0x18e3, 0x4249, 0x18a2, 0xa596, 0x31a6, 0x3186, 0x2945, 0x2104, 0x2965, 0x0000 }, },
+// DOOR IRON / Door Iron Auraflow V0.3 007 S744920716 Th0.100 20 [Folder: DOOR_IRON] (sprite index: 15, byte offset: 2480, size: 188)
+{  .index = 2480, .size = 188, .palette = { 0xf81f, 0xa555, 0x0882, 0x0861, 0x0041, 0x0021, 0x10a3, 0x0882, 0x4269, 0x2125, 0x10c3, 0x2166, 0x18c3, 0x1904, 0x31a7, 0x0000 }, },
+// DOOR STONE / Door Stone Auraflow V0.3 015 S3175729098 Th0.100 20 [Folder: DOOR_STONE] (sprite index: 16, byte offset: 2668, size: 209)
+{  .index = 2668, .size = 209, .palette = { 0xf81f, 0x10c5, 0x31e8, 0x3185, 0x324a, 0x1947, 0x7bac, 0x4a69, 0x18e4, 0x5b6d, 0xbdf6, 0x2166, 0x0843, 0x8c91, 0x5aa8, 0x0002 }, },
+// DOOR WICKER / Door Wicker Auraflow V0.3 001 S3370829343 Th0.100 20 [Folder: DOOR_WICKER] (sprite index: 17, byte offset: 2877, size: 204)
+{  .index = 2877, .size = 204, .palette = { 0xf81f, 0x1040, 0x1020, 0x4101, 0x0800, 0x2081, 0xa306, 0x30e1, 0x1860, 0x1040, 0x5962, 0x0820, 0x1880, 0x1840, 0x28a0, 0x0800 }, },
+// DOOR WOOD / Door Wood Auraflow V0.3 000 S69201145 Th0.100 20 [Folder: DOOR_WOOD] (sprite index: 18, byte offset: 3081, size: 174)
+{  .index = 3081, .size = 174, .palette = { 0xf81f, 0x18a3, 0x0000, 0x1062, 0x20c3, 0x0841, 0x0020, 0x6184, 0x2061, 0x0041, 0x38e3, 0x0000, 0x18c4, 0x7266, 0x3165, 0xb448 }, },
+// EGRESS CAVE / Egress Cave Auraflow V0.3 010 S4200168056 Th0.100 20 [Folder: EGRESS_CAVE] (sprite index: 19, byte offset: 3255, size: 211)
+{  .index = 3255, .size = 211, .palette = { 0xf81f, 0x0021, 0x0023, 0x1152, 0x0867, 0x0022, 0x088d, 0x188a, 0x3cfb, 0x1829, 0x0825, 0x0826, 0x6950, 0x0803, 0x48ad, 0x4a56 }, },
+// EGRESS LADDER / Egress Ladder Auraflow V0.3 006 S2143628987 Th0.100 20 [Folder: EGRESS_LADDER] (sprite index: 20, byte offset: 3466, size: 110)
+{  .index = 3466, .size = 110, .palette = { 0xf81f, 0x1081, 0x0020, 0x6bcc, 0x52a7, 0x1923, 0x10c2, 0x0000, 0xb5f3, 0x0861, 0x0020, 0x2964, 0x0840, 0x0000, 0x3206, 0x3206 }, },
+// EGRESS STAIRS / Egress Stairs Auraflow V0.3 003 S3217004262 Th0.100 20 [Folder: EGRESS_STAIRS] (sprite index: 21, byte offset: 3576, size: 178)
+{  .index = 3576, .size = 178, .palette = { 0xf81f, 0x2888, 0x1867, 0x1046, 0x7ab0, 0x4129, 0xc412, 0xe5f4, 0xb2ce, 0x498c, 0x60a8, 0x1887, 0x618a, 0x38a8, 0x91ab, 0x2806 }, },
+// FIRE BONFIRE / Fire Bonfire Auraflow V0.3 011 S675149538 Th0.100 20 [Folder: FIRE_BONFIRE] (sprite index: 22, byte offset: 3754, size: 118)
+{  .index = 3754, .size = 118, .palette = { 0xf81f, 0x28e2, 0xba22, 0x7162, 0xebe4, 0x5902, 0xfe4c, 0x5963, 0x4143, 0xf4e7, 0x9161, 0xcb65, 0xcaa3, 0x9a03, 0x2924, 0x2924 }, },
+// FIRE BRAZIER / Fire Brazier Auraflow V0.3 011 S88367478 Th0.100 20 [Folder: FIRE_BRAZIER] (sprite index: 23, byte offset: 3872, size: 133)
+{  .index = 3872, .size = 133, .palette = { 0xf81f, 0x0021, 0x049d, 0x222b, 0x03ba, 0x122e, 0x0882, 0x13b7, 0x1105, 0x973f, 0x3e1e, 0x12b2, 0x08a4, 0x24fc, 0x19a9, 0x19a9 }, },
+// FIRE CAMPFIRE / Fire Campfire Auraflow V0.3 020 S3342577628 Th0.100 20 [Folder: FIRE_CAMPFIRE] (sprite index: 24, byte offset: 4005, size: 131)
+{  .index = 4005, .size = 131, .palette = { 0xf81f, 0x0028, 0x7088, 0x4889, 0x2049, 0xe983, 0xc045, 0xff41, 0xc8a5, 0xf442, 0x6048, 0x3049, 0x9128, 0x2889, 0x1048, 0x2806 }, },
+// FIRE STANDING TORCH / Fire Standing Torch Auraflow V0.3 015 S4173884969 Th0.100 20 [Folder: FIRE_STANDING_TORCH] (sprite index: 25, byte offset: 4136, size: 78)
+{  .index = 4136, .size = 78, .palette = { 0xf81f, 0x20e6, 0x78a4, 0x30a5, 0x2085, 0x10a5, 0x1044, 0xcc27, 0xda83, 0x2968, 0xff89, 0xf604, 0x742f, 0x3a4a, 0x3a4a, 0x3a4a }, },
+// FIRE WALL TORCH / Fire Wall Torch Auraflow V0.3 012 S1453311834 Th0.100 20 [Folder: FIRE_WALL_TORCH] (sprite index: 26, byte offset: 4214, size: 72)
+{  .index = 4214, .size = 72, .palette = { 0xf81f, 0x20c4, 0xf483, 0x6205, 0xd2e3, 0xff8b, 0xf646, 0x58c2, 0x3904, 0x3882, 0x1883, 0xc1e3, 0x2000, 0x2000, 0x2000, 0x2000 }, },
+// FOUNTAIN ACID / Fountain Acid Auraflow V0.3 006 S3605077888 Th0.100 20 [Folder: FOUNTAIN_ACID] (sprite index: 27, byte offset: 4286, size: 174)
+{  .index = 4286, .size = 174, .palette = { 0xf81f, 0x0922, 0x00a1, 0x9634, 0x5d2f, 0x7df2, 0x0a65, 0x00e2, 0x1c8a, 0x4c4c, 0x0183, 0x2287, 0x11a4, 0x1388, 0xaed7, 0x55d0 }, },
+// FOUNTAIN BLOOD / Fountain Blood Auraflow V0.3 008 S3589167110 Th0.100 20 [Folder: FOUNTAIN_BLOOD] (sprite index: 28, byte offset: 4460, size: 169)
+{  .index = 4460, .size = 169, .palette = { 0xf81f, 0x0000, 0x0841, 0x5041, 0x2146, 0xa473, 0x52ac, 0x0882, 0x8841, 0xce5b, 0x18e4, 0x932d, 0x2041, 0x39a7, 0x9165, 0x4000 }, },
+// FOUNTAIN WATER / Fountain Water Auraflow V0.3 001 S2229914148 Th0.100 20 [Folder: FOUNTAIN_WATER] (sprite index: 29, byte offset: 4629, size: 165)
+{  .index = 4629, .size = 165, .palette = { 0xf81f, 0x0825, 0x1a35, 0x2171, 0x49f5, 0x18ab, 0x1bda, 0x48cf, 0x0846, 0x1808, 0x25be, 0x088b, 0x7bbb, 0x28ad, 0x99f6, 0x763e }, },
+// HIDDEN COMPARTMENT / Hidden Compartment Auraflow V0.3 009 S43810410 Th0.100 20 [Folder: HIDDEN_COMPARTMENT] (sprite index: 30, byte offset: 4794, size: 218)
+{  .index = 4794, .size = 218, .palette = { 0xf81f, 0xb44d, 0x40c1, 0x0800, 0x30a1, 0x6183, 0x0820, 0x7225, 0x4964, 0x0841, 0x1881, 0x9b49, 0xde15, 0x7ac8, 0x1820, 0x0800 }, },
+// RACK ARMOR / Rack Armor Auraflow V0.3 007 S2279696474 Th0.100 20 [Folder: RACK_ARMOR] (sprite index: 31, byte offset: 5012, size: 199)
+{  .index = 5012, .size = 199, .palette = { 0xf81f, 0x0882, 0x18e3, 0x2145, 0x29c7, 0xd73c, 0x638e, 0x10c3, 0x8d55, 0x42cb, 0x1925, 0x0020, 0x0041, 0x3208, 0x0841, 0x0000 }, },
+// RACK WEAPON / Rack Weapon Auraflow V0.3 000 S3355059764 Th0.100 20 [Folder: RACK_WEAPON] (sprite index: 32, byte offset: 5211, size: 242)
+{  .index = 5211, .size = 242, .palette = { 0xf81f, 0x30eb, 0x40ec, 0x0823, 0x1065, 0x610f, 0x416d, 0xac57, 0x7a52, 0x1867, 0x0844, 0x408b, 0x28e8, 0x7192, 0x2888, 0x1004 }, },
+// TREASURE BARREL / Treasure Barrel Auraflow V0.3 008 S1297798871 Th0.100 20 [Folder: TREASURE_BARREL] (sprite index: 33, byte offset: 5453, size: 225)
+{  .index = 5453, .size = 225, .palette = { 0xf81f, 0x0820, 0x5122, 0x0821, 0x3902, 0x1861, 0x1061, 0xa387, 0x0800, 0x1061, 0xddee, 0x8243, 0x2861, 0x20a2, 0x51e6, 0x2903 }, },
+// TREASURE BASKET / Treasure Beasket Auraflow V0.3 018 S3621454872 Th0.100 20 [Folder: TREASURE_BASKET] (sprite index: 34, byte offset: 5678, size: 163)
+{  .index = 5678, .size = 163, .palette = { 0xf81f, 0x20a3, 0x5acc, 0x6d14, 0x1844, 0x0821, 0x38e3, 0x1022, 0x59a8, 0x318a, 0x1842, 0x20c8, 0x38e9, 0x1043, 0x2866, 0x1001 }, },
+// TREASURE CHEST / Treasure Chest Auraflow V0.3 010 S2407308076 Th0.100 20 [Folder: TREASURE_CHEST] (sprite index: 35, byte offset: 5841, size: 222)
+{  .index = 5841, .size = 222, .palette = { 0xf81f, 0x49e4, 0x0820, 0x2081, 0x5a44, 0x1061, 0x28e2, 0x18e2, 0x3163, 0xad4f, 0x1881, 0x1081, 0xded5, 0x6b26, 0x8c0a, 0x0800 }, },
+// TREASURE COFFER / Treasure Coffer Auraflow V0.3 006 S2809354351 Th0.100 20 [Folder: TREASURE_COFFER] (sprite index: 36, byte offset: 6063, size: 222)
+{  .index = 6063, .size = 222, .palette = { 0xf81f, 0x2080, 0x5141, 0x59e2, 0x9ae2, 0x3122, 0x28c1, 0x7a21, 0x1020, 0xeead, 0xd58a, 0xffd7, 0xff8f, 0xc445, 0x82a3, 0xa3a5 }, },
+// TREASURE CRATE / Treasure Crate Auraflow V0.3 011 S2207118285 Th0.100 20 [Folder: TREASURE_CRATE] (sprite index: 37, byte offset: 6285, size: 206)
+{  .index = 6285, .size = 206, .palette = { 0xf81f, 0x0000, 0x0820, 0x1882, 0xd5b1, 0x0000, 0x1020, 0x0020, 0x0000, 0x0861, 0x3145, 0x0000, 0x9329, 0x30a1, 0x69c4, 0x0000 }, },
+// TREASURE TRUNK / Treasure Trunk Auraflow V0.3 001 S1667860986 Th0.100 20 [Folder: TREASURE_TRUNK] (sprite index: 38, byte offset: 6491, size: 237)
+{  .index = 6491, .size = 237, .palette = { 0xf81f, 0x1040, 0x3144, 0x5a68, 0x4963, 0x61a3, 0x0000, 0x93ab, 0x18a2, 0x1082, 0x82a6, 0x28c1, 0x0861, 0xcd50, 0x0820, 0x0821 }, },
+// TREASURE URN / Treasure Urn Auraflow V0.3 004 S3658837498 Th0.100 20 [Folder: TREASURE_URN] (sprite index: 39, byte offset: 6728, size: 141)
+{  .index = 6728, .size = 141, .palette = { 0xf81f, 0x0882, 0x2125, 0x1904, 0x18e3, 0x10c3, 0xdf3d, 0x8cb3, 0x5b2d, 0x0861, 0x0021, 0x0862, 0x426a, 0x31c7, 0x2986, 0x2986 }, },
+// TREASURE VAULT / Treasure Vault Auraflow V0.3 019 S1048269513 Th0.100 20 [Folder: TREASURE_VAULT] (sprite index: 40, byte offset: 6869, size: 182)
+{  .index = 6869, .size = 182, .palette = { 0xf81f, 0x0021, 0x1147, 0x0042, 0x42ad, 0x18c5, 0x0884, 0x5c33, 0x0022, 0x2168, 0x2a4c, 0x08c5, 0x0863, 0x0863, 0x0001, 0x9e5a }, },
+// WARD / Ward Auraflow V0.3 011 S1100805332 Th0.100 20 [Folder: WARD] (sprite index: 41, byte offset: 7051, size: 208)
+{  .index = 7051, .size = 208, .palette = { 0xf81f, 0x5aab, 0x29a8, 0x8bef, 0x10c4, 0xa536, 0x2104, 0x0883, 0x0841, 0x0022, 0xd6fb, 0x0842, 0x18e4, 0x6371, 0x4a08, 0x0001 }, },
+// WELL / Well Auraflow V0.3 018 S737254812 Th0.100 20 [Folder: WELL] (sprite index: 42, byte offset: 7259, size: 88)
+{  .index = 7259, .size = 88, .palette = { 0xf81f, 0x1824, 0x1024, 0x2026, 0x810b, 0x2847, 0x1826, 0x488a, 0x486a, 0x402a, 0x3048, 0x2868, 0x2006, 0x484a, 0x2826, 0x1846 }, },
 
-// Total sprites processed: 46, total data size: 7888 bytes
+// Total sprites processed: 43, total data size: 7360 bytes

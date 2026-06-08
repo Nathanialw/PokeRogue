@@ -51,7 +51,7 @@ void InitGame(HardwareInterface hardware, MemoryInterface memory)
 
 
 SET_MEMORY(".map_gen_entry")
-uint8_t MapGenEntry(GameInterface* spi)
+uint8_t OverlayMapGenEntry(GameInterface* spi)
 {
     InitGame(spi->hardware, spi->memory);
     GenerateEntities(spi);

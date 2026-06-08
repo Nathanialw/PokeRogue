@@ -1,12 +1,10 @@
 // Generated object function headers
-// Database contains 46 total objects
+// Database contains 43 total objects
 
 // Individual objects strings
 bool InteractAltar(HardwareInterface hardware, EntityId object_id, EntityId e_id, ObjectData objectData);
 bool InteractRaft(HardwareInterface hardware, EntityId object_id, EntityId e_id, ObjectData objectData);
 bool InteractRowBoat(HardwareInterface hardware, EntityId object_id, EntityId e_id, ObjectData objectData);
-bool InteractStoneBridge(HardwareInterface hardware, EntityId object_id, EntityId e_id, ObjectData objectData);
-bool InteractWoodenBridge(HardwareInterface hardware, EntityId object_id, EntityId e_id, ObjectData objectData);
 bool InteractBookCase(HardwareInterface hardware, EntityId object_id, EntityId e_id, ObjectData objectData);
 bool InteractJewelleryCase(HardwareInterface hardware, EntityId object_id, EntityId e_id, ObjectData objectData);
 bool InteractScrollCase(HardwareInterface hardware, EntityId object_id, EntityId e_id, ObjectData objectData);
@@ -31,7 +29,6 @@ bool InteractBrazier(HardwareInterface hardware, EntityId object_id, EntityId e_
 bool InteractCampfire(HardwareInterface hardware, EntityId object_id, EntityId e_id, ObjectData objectData);
 bool InteractStandingTorch(HardwareInterface hardware, EntityId object_id, EntityId e_id, ObjectData objectData);
 bool InteractWallTorch(HardwareInterface hardware, EntityId object_id, EntityId e_id, ObjectData objectData);
-bool InteractCrumblingFloor(HardwareInterface hardware, EntityId object_id, EntityId e_id, ObjectData objectData);
 bool InteractAcidFountain(HardwareInterface hardware, EntityId object_id, EntityId e_id, ObjectData objectData);
 bool InteractBloodFountain(HardwareInterface hardware, EntityId object_id, EntityId e_id, ObjectData objectData);
 bool InteractWaterFountain(HardwareInterface hardware, EntityId object_id, EntityId e_id, ObjectData objectData);
