@@ -21,6 +21,7 @@
 #include "battle_menu.h"
 #include "battle_player.h"
 #include "battle_ram.h"
+#include "battle_ui.h"
 #include "core_memory_access.h"
 
 
@@ -56,14 +57,15 @@ void UpdateBattleRunningState(GraphicsInterface graphics, HardwareInterface hard
     {
         if (input.GetButtonA())
         {
-            bool b = BattleMenuCommand(graphics, hardware, input, memory);
-            if (!b) return; //No state change for menu input
+            bool use_skill_success = BattleMenuCommand(graphics, hardware, input, memory);
+            if (!use_skill_success) return; //No state change for menu input
             SetBattleState(BATTLE_ATTACK);
         }
 
         if (input.GetButtonB())
         {
             ExitMenu();
+            HandleBattle(graphics, hardware, memory);
         }
 
         if (input.GetButtonX())
@@ -105,8 +107,7 @@ void HandleBattleStateInit(GameInterface* spi)
 {
     spi->graphics.FillScreen(Flash_GetColor(spi->memory, PAL_OFF_WHITE_GRAY));
     // AnimationScreenClearRandom(spi->graphics, spi->hardware); //ANIMATION - move both creatures into place
-    // AnimationBattlerStart(spi->graphics, spi->hardware, spi->memory, true);
-    // AnimationBattlerStart(spi->graphics, spi->hardware, spi->memory, false);
+    AnimationBattlerStart(spi->graphics, spi->hardware, spi->memory);
     HandleBattle(spi->graphics, spi->hardware, spi->memory);
     HandleBattleMenu(spi->graphics, spi->hardware, spi->memory);
     SetBattleState(BATTLE_MENUS);
@@ -122,9 +123,19 @@ void HandleBattleState(GameInterface* spi)
 {
     if (CheckBattleState(BATTLE_ATTACK))
     {
-        BattlerAnimationAttack(spi->graphics, spi->memory, true); //attacking animation
-        BattlerAnimationStruck(spi->graphics, spi->memory, false); //hit animation
-        AnimationUpdateHealth(spi->graphics, spi->hardware, true);
+        PrintCombatLogFull(spi->graphics, spi->memory);
+        if (!g_battle.pass_turn)
+        {
+            AnimationUpdateMana(spi->graphics, spi->hardware, spi->memory, false);
+            BattlerAnimationAttack(spi->graphics, spi->hardware, spi->memory, true); //attacking animation
+            BattlerAnimationStruck(spi->graphics, spi->hardware, spi->memory, false); //hit animation
+            AnimationUpdateHealth(spi->graphics, spi->hardware, spi->memory, true);
+        }
+        else
+        {
+            //spells or item used
+        }
+        g_battle.pass_turn = false;
 
         if (!CheckPlayerAttackOutcome())
         {
@@ -136,10 +147,15 @@ void HandleBattleState(GameInterface* spi)
         }
         else
         {
-            UseSkill(spi->hardware, spi->memory, false);
-            BattlerAnimationAttack(spi->graphics, spi->memory, false); //attacking animation
-            BattlerAnimationStruck(spi->graphics, spi->memory, true); //hit animation
-            AnimationUpdateHealth(spi->graphics, spi->hardware, false);
+
+            if (UseSkill(spi->hardware, spi->memory, false))
+            {
+                PrintCombatLogFull(spi->graphics, spi->memory);
+                AnimationUpdateMana(spi->graphics, spi->hardware, spi->memory, true);
+                BattlerAnimationAttack(spi->graphics, spi->hardware, spi->memory, false); //attacking animation
+                BattlerAnimationStruck(spi->graphics, spi->hardware, spi->memory, true); //hit animation
+                AnimationUpdateHealth(spi->graphics, spi->hardware, spi->memory, false);
+            }
 
             if (CheckEnemyAttackOutcome())
             {
@@ -154,6 +170,7 @@ void HandleBattleState(GameInterface* spi)
     else if (CheckBattleState(BATTLE_MENUS))
     {
         HandleBattleMenu(spi->graphics, spi->hardware, spi->memory);
+        EffectAnimation(spi->graphics, spi->hardware, spi->memory);
         DrawCursor(spi->graphics, spi->memory);
     }
 
@@ -162,6 +179,7 @@ void HandleBattleState(GameInterface* spi)
     {
         AnimationBattlerDie(spi->graphics, spi->hardware, spi->memory, false);
         DestroyEnemyCreature(spi->hardware);
+        AnimationUpdateXP(spi->graphics, spi->hardware, spi->memory);
         SetInputState(INPUT_ACTING);
         g_core.state.overlay = OVERLAY_MAP;
         return;

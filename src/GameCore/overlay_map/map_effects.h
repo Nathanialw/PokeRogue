@@ -11,3 +11,4 @@ bool MapDescend(HardwareInterface hardware, MemoryInterface memory, EntityId e_i
 bool MapAscend(HardwareInterface hardware, MemoryInterface memory, EntityId e_id);
 bool MapLateral(HardwareInterface hardware, MemoryInterface memory, EntityId e_id);
 bool RevealMap();
+bool Reposition(HardwareInterface hardware, EntityId e_id);

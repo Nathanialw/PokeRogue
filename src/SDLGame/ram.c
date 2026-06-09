@@ -23,4 +23,10 @@ void InitRamSDL()
     {
         SDL_Log("CreateTexture failed: %s", SDL_GetError());
     }
+
+    g_ramState.pixel_buffer = SDL_CreateTexture(g_ramState.renderer, SDL_PIXELFORMAT_RGBA32, SDL_TEXTUREACCESS_TARGET, SCREEN_W, SCREEN_H);
+    if (!g_ramState.pixel_buffer)
+    {
+        SDL_Log("CreateTexture failed: %s", SDL_GetError());
+    }
 }

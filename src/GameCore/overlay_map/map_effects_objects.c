@@ -6,6 +6,7 @@
 #include "core_entities.h"
 #include "core_player.h"
 #include "core_ram.h"
+#include "core_utils.h"
 
 #include "lib_debugging.h"
 #include "lib_memory.h"
@@ -21,9 +22,17 @@
 SET_MEMORY(".map")
 bool SetUsed(EntityId e_id)
 {
-    if (!g_core.objects.interactable[e_id])
+    if (!GetBit(g_core.objects.interactable, e_id))
         return false;
-    g_core.objects.interactable[e_id] = false;
+    SetBit(g_core.objects.interactable, e_id, false);
+    return true;
+}
+
+SET_MEMORY(".map")
+bool CheckUsed(EntityId e_id)
+{
+    if (!GetBit(g_core.objects.interactable, e_id))
+        return false;
     return true;
 }
 
@@ -394,31 +403,76 @@ bool InteractCrumblingFloor(HardwareInterface hardware, MemoryInterface memory, 
 /**********************************************************************************************************************
 *  TODO deals damage
 *  TODO melts items
+*  TODO HAVE THE FOUNTAIN OPEN THE PART PAGE AND SELECT THE CREATURE, EFFECT BASED ON CREATURE TYPE
 **********************************************************************************************************************/
 SET_MEMORY(".map")
 bool InteractAcidFountain(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
-    DEBUG("InteractAcidFountain");
+    DEBUG("TODO HAVE THE FOUNTAIN OPEN THE PART PAGE AND SELECT THE CREATURE, EFFECT BASED ON CREATURE TYPE");
+    if (!CheckUsed(object_id))
+    {
+        DEBUG("Fountain already drained");
+        return false;
+    }
+
+    EntityId creature_id = g_core.trainers.partyID[e_id][0];
+    if (RestoreMana(creature_id, 20))
+    {
+        SetUsed(object_id);
+        DEBUG("Drank from Acid Fountain restoring 20 Mana to party member 0");
+        return true;
+    }
+
+    DEBUG("party member 0 already at max mana");
     return false;
 }
 
 /**********************************************************************************************************************
 *  TODO heals demons
+*  TODO HAVE THE FOUNTAIN OPEN THE PART PAGE AND SELECT THE CREATURE, EFFECT BASED ON CREATURE TYPE
 **********************************************************************************************************************/
 SET_MEMORY(".map")
 bool InteractBloodFountain(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
-    DEBUG("InteractBloodFountain");
+    DEBUG("TODO HAVE THE FOUNTAIN OPEN THE PART PAGE AND SELECT THE CREATURE, EFFECT BASED ON CREATURE TYPE");
+    if (!CheckUsed(object_id))
+    {
+        DEBUG("Fountain already drained");
+        return false;
+    }
+    EntityId creature_id = g_core.trainers.partyID[e_id][0];
+    if (RestoreMana(creature_id, 20))
+    {
+        SetUsed(object_id);
+        DEBUG("Drank from Blood Fountain restoring 20 Mana to party member 0");
+        return true;
+    }
+    DEBUG("party member 0 already at max mana");
     return false;
 }
 
 /**********************************************************************************************************************
-*  TODO heals
+*  TODO HAVE THE FOUNTAIN OPEN THE PART PAGE AND SELECT THE CREATURE, EFFECT BASED ON CREATURE TYPE
 **********************************************************************************************************************/
 SET_MEMORY(".map")
 bool InteractWaterFountain(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
-    DEBUG("InteractWaterFountain");
+    DEBUG("TODO HAVE THE FOUNTAIN OPEN THE PART PAGE AND SELECT THE CREATURE, EFFECT BASED ON CREATURE TYPE");
+    if (!CheckUsed(object_id))
+    {
+        DEBUG("Fountain already drained");
+        return false;
+    }
+
+    EntityId creature_id = g_core.trainers.partyID[e_id][0];
+    if (RestoreMana(creature_id, 20))
+    {
+        SetUsed(object_id);
+        DEBUG("Drank from Water Fountain restoring 20 Mana to party member 0");
+        return true;
+    }
+
+    DEBUG("party member 0 already at max mana");
     return false;
 }
 

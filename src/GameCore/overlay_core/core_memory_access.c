@@ -7,7 +7,7 @@
 #include "lib_decl.h"
 #include "lib_memory.h"
 
-#include "memory_constants.inc"
+#include "data_constants_memory.inc"
 #include "enums.h"
 #include "types.h"
 
@@ -32,20 +32,19 @@ static const char new_line[] = "\n";
 /*      ENTITIES
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-SkillLearnLevel Flash_GetSkill(MemoryInterface memory, CreatureSkillLearnLevels c, Type creatureType, uint8_t index)
+void Flash_GetSkill(MemoryInterface memory, CreatureSkillLearnLevels* c, Type creatureType, uint8_t index)
 {
 #ifdef STANDALONE
     return g_gameFlash.gameData.levelUpSkills[creatureType][index];
 #else
-    const uint8_t length = sizeof(SkillLearnLevel);
-    memory.GetRom(GAME_DATA_LEVEL_UP_SKILLS_POSITION + (length * index), c.bytes, length);
+    const uint8_t length = sizeof(CreatureSkillLearnLevels);
+    memory.GetRom(GAME_DATA_LEVEL_UP_SKILLS_POSITION + (length * creatureType), c->bytes, length);
 
 #if defined(MEMORY_PRINT)
     for (uint8_t i = 0; i < length; i++)
         memory.Print(str_spawn_creature_type, c.bytes[i]);
     memory.Print(new_line);
 #endif
-    return c.c[index];
 #endif
 }
 
@@ -151,6 +150,24 @@ void Flash_GetItemData(MemoryInterface memory, ItemData* itemData, uint8_t index
 #endif
 }
 
+SET_MEMORY(".core")
+void Flash_GetObjectData(MemoryInterface memory, ObjectData* object_data, uint8_t index)
+{
+#ifdef STANDALONE
+    return g_gameFlash.gameData.objectData[index];
+#else
+    memory.GetRom(GAME_DATA_OBJECT_POSITION + index, object_data->bytes, sizeof(ObjectData));
+    memory.GetRom(GAME_DATA_OBJECT_POSITION + (index * sizeof(ObjectData)), object_data->bytes, sizeof(ObjectData));
+#if defined(MEMORY_PRINT)
+    for (uint8_t i = 0; i < sizeof(Tile); i++)
+        memory.Print(str_spawn_creature_type);
+    memory.Print(new_line);
+    return object_data;
+#endif
+#endif
+}
+
+
 
 /**********************************************************************************************************************/
 /*      SPRITES
@@ -171,13 +188,13 @@ void Flash_GetSpriteLayout(MemoryInterface memory, SpriteLayout* spriteLayout, u
     const uint32_t position = index * sizeof(SpriteLayout);
 
     if (type == ITEM)
-        memory.GetRom(SPRITE_ITEMS_LAYOUT_POSITION + position, spriteLayout->bytes, sizeof(SpriteLayout));
+        memory.GetRom(SPRITE_ITEMS_LAYOUT_16_POSITION + position, spriteLayout->bytes, sizeof(SpriteLayout));
     else if (type == OBJECT)
-        memory.GetRom(SPRITE_OBJECTS_LAYOUT_POSITION + position, spriteLayout->bytes, sizeof(SpriteLayout));
+        memory.GetRom(SPRITE_OBJECTS_LAYOUT_16_POSITION + position, spriteLayout->bytes, sizeof(SpriteLayout));
     else if (type == SPELL)
-        memory.GetRom(SPRITE_SPELLS_LAYOUT_POSITION + position, spriteLayout->bytes, sizeof(SpriteLayout));
+        memory.GetRom(SPRITE_SPELLS_LAYOUT_16_POSITION + position, spriteLayout->bytes, sizeof(SpriteLayout));
     else if (type == SKILL)
-        memory.GetRom(SPRITE_SKILLS_LAYOUT_POSITION + position, spriteLayout->bytes, sizeof(SpriteLayout));
+        memory.GetRom(SPRITE_SKILLS_LAYOUT_16_POSITION + position, spriteLayout->bytes, sizeof(SpriteLayout));
     else if (type == CREATURE)
     {
         if (front)
@@ -214,13 +231,13 @@ void Flash_GetSprite(MemoryInterface memory, uint8_t* sprite, uint32_t index, ui
         return g_gameFlash.spriteData.skills;
 #else
     if (type == ITEM)
-        memory.GetRom(SPRITE_ITEMS_POSITION + index, sprite, length);
+        memory.GetRom(SPRITE_ITEMS_16_POSITION + index, sprite, length);
     else if (type == OBJECT)
-        memory.GetRom(SPRITE_OBJECTS_POSITION + index, sprite, length);
+        memory.GetRom(SPRITE_OBJECTS_16_POSITION + index, sprite, length);
     else if (type == SPELL)
-        memory.GetRom(SPRITE_SPELLS_POSITION + index, sprite, length);
+        memory.GetRom(SPRITE_SPELLS_16_POSITION + index, sprite, length);
     else if (type == SKILL)
-        memory.GetRom(SPRITE_SKILLS_POSITION + index, sprite, length);
+        memory.GetRom(SPRITE_SKILLS_16_POSITION + index, sprite, length);
     else if (type == CREATURE)
     {
         if (front)
@@ -554,25 +571,7 @@ void Flash_GetObjectName(MemoryInterface memory, char* text, uint8_t index)
 }
 
 
-SET_MEMORY(".core")
-bool Flash_GetSpellEffect(HardwareInterface hardware, MemoryInterface memory, uint8_t spellType, EntityId id, EntityId target_id, SpellData spellData)
-{
-#ifdef STANDALONE
-    return g_gameFlash.funcs.spellFunctions[spellType](id, target_id, spellData);
-#else
-    return spellFunctions[spellType](hardware, memory, id, target_id, spellData);
-#endif
-}
 
-SET_MEMORY(".core")
-bool Flash_GetItemEffect(MemoryInterface memory, uint8_t itemType, EntityId item_id, EntityId id, ItemData itemData)
-{
-#ifdef STANDALONE
-    return g_gameFlash.funcs.itemFunctions[itemType](item_id, id, itemData);
-#else
-    return itemFunctions[itemType](item_id, id, itemData);
-#endif
-}
 
 
 SET_MEMORY(".core")

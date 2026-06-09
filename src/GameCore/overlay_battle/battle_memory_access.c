@@ -7,7 +7,8 @@
 
 #include "lib_decl.h"
 #include "types.h"
-#include "memory_constants.inc"
+#include "data_constants_memory.inc"
+
 
 #include "battle_ram.h"
 
@@ -21,7 +22,7 @@ const char new_line1[] = "\n";
 **********************************************************************************************************************/
 // TODO:
 SET_MEMORY(".battle")
-void Flash_BattlerAttackAnimation(MemoryInterface memory, EntityId id, ObjectsTypes type, bool player)
+void Flash_BattlerAttackAnimation(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, EntityId id, ObjectsTypes type, bool player)
 {
 #ifdef STANDALONE
     if (type == ITEM)
@@ -32,23 +33,18 @@ void Flash_BattlerAttackAnimation(MemoryInterface memory, EntityId id, ObjectsTy
         g_gameFlash.animation.spellsAttack[id](player);
 #else
     if (type == ITEM)
-        itemsAttack[id](player);
+        itemsAttack[id](graphics, hardware, memory, player);
     else if (type == SKILL)
-        skillsAttack[id](player);
+        skillsAttack[id](graphics, hardware, memory, player);
     else if (type == SPELL)
-        spellsAttack[id](player);
+        spellsAttack[id](graphics, hardware, memory, player);
 
-#if defined(MEMORY_PRINT)
-    for (uint8_t i = 0; i < sizeof(ObjectsTypes); i++)
-        memory.Print(text99);
-    memory.Print(new_line1);
-#endif
 #endif
 }
 
 // TODO:
 SET_MEMORY(".battle")
-void Flash_BattlerStruckAnimation(MemoryInterface memory, EntityId id, ObjectsTypes type, bool player)
+void Flash_BattlerStruckAnimation(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, EntityId id, ObjectsTypes type, bool player)
 {
 #ifdef STANDALONE
     if (type == ITEM)
@@ -59,17 +55,12 @@ void Flash_BattlerStruckAnimation(MemoryInterface memory, EntityId id, ObjectsTy
         g_gameFlash.animation.spellsStruck[id](player);
 #else
     if (type == ITEM)
-        itemsStruck[id](player);
+        itemsStruck[id](graphics, hardware, memory, player);
     else if (type == SKILL)
-        skillsStruck[id](player);
+        skillsStruck[id](graphics, hardware, memory, player);
     else if (type == SPELL)
-        spellsStruck[id](player);
+        spellsStruck[id](graphics, hardware, memory, player);
 
-#if defined(MEMORY_PRINT)
-    for (uint8_t i = 0; i < sizeof(ObjectsTypes); i++)
-        memory.Print(text99);
-    memory.Print(new_line1);
-#endif
 #endif
 }
 
@@ -87,11 +78,6 @@ void Flash_GetBattleMenuList(MemoryInterface memory, uint8_t* text, uint8_t idx)
     memory.GetRom(STRINGS_MENU_BATTLE_POSITION + (SMALL_STRINGS * idx), text, SMALL_STRINGS);
 
 
-#if defined(MEMORY_PRINT)
-    for (uint8_t i = 0; i < SMALL_STRINGS; i++)
-        memory.Print(text99, text[i]);
-    memory.Print(new_line1);
-#endif
 #endif
 }
 

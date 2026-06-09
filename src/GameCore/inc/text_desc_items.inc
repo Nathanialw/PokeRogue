@@ -1,5 +1,5 @@
 // Generated creature descriptions
-// Database contains 68 total descriptions
+// Database contains 63 total descriptions
 
 // Individual description strings
 "A dusty tome crackles with arcane energy, its leather cover etched in glowing runes, pages whispering forgotten secrets.\0",
@@ -9,15 +9,11 @@
 "BAG_BACKPACK -- PLACEHOLDER TEXT - A mysterious item awaiting discovery.\0",
 "BAG_POUCH -- PLACEHOLDER TEXT - A mysterious item awaiting discovery.\0",
 "BAG_SACK -- PLACEHOLDER TEXT - A mysterious item awaiting discovery.\0",
-"BOOTS_ACID_WALKING -- PLACEHOLDER TEXT - A mysterious item awaiting discovery.\0",
-"A pair of boots crafted from obsidian and enchanted ember, allowing the wearer to stride across molten rock unharmed.\0",
-"Boots that allow the wearer to stride effortlessly across rivers, lakes, and seas, leaving barely a ripple in their wake.\0",
 "CAPTURE_BEAR_TRAP -- PLACEHOLDER TEXT - A mysterious item awaiting discovery.\0",
 "CAPTURE_CHAIN -- PLACEHOLDER TEXT - A mysterious item awaiting discovery.\0",
 "CAPTURE_LASSO -- PLACEHOLDER TEXT - A mysterious item awaiting discovery.\0",
 "CAPTURE_NET -- PLACEHOLDER TEXT - A mysterious item awaiting discovery.\0",
 "CAPTURE_SHACKLES -- PLACEHOLDER TEXT - A mysterious item awaiting discovery.\0",
-"CLOAK_ACID_RESISTANCE -- PLACEHOLDER TEXT - A mysterious item awaiting discovery.\0",
 "EARMUFFS -- PLACEHOLDER TEXT - A mysterious item awaiting discovery.\0",
 "ELEMENTAL_BOLAS -- PLACEHOLDER TEXT - A mysterious item awaiting discovery.\0",
 "ESCAPE_ROPE -- PLACEHOLDER TEXT - A mysterious item awaiting discovery.\0",
@@ -32,7 +28,6 @@
 "FOOD_SOUL_ESSENCE -- PLACEHOLDER TEXT - A mysterious item awaiting discovery.\0",
 "FOOD_WILD_MUSHROOM -- PLACEHOLDER TEXT - A mysterious item awaiting discovery.\0",
 "A crimson wine swirls with whispers of forgotten spells, its effervescence shimmering like enchanted moonlight on dark waters.\0",
-"GLOVES_ACID_RESISTANCE -- PLACEHOLDER TEXT - A mysterious item awaiting discovery.\0",
 "GROWTH_HORMONES -- PLACEHOLDER TEXT - A mysterious item awaiting discovery.\0",
 "HEART_SCALE -- PLACEHOLDER TEXT - A mysterious item awaiting discovery.\0",
 "HOLY_WATER -- PLACEHOLDER TEXT - A mysterious item awaiting discovery.\0",
@@ -72,4 +67,4 @@
 "A circlet of silver and sapphire adorned with ancient runes that whisper forgotten knowledge when worn.\0",
 " ------ \0",
 
-//ALL_DESCRIPTIONS_COUNT = 68;
+//ALL_DESCRIPTIONS_COUNT = 63;

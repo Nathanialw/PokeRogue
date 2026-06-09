@@ -1,5 +1,5 @@
 // Generated item data structs
-// Database contains 68 total items
+// Database contains 63 total items
 
 // Individual items data
 { .power = 100, .level = 0, .type = MAGICAL, .consumable = 1, .consumable_party = 0 },
@@ -15,10 +15,6 @@
 { .power = 100, .level = 0, .type = COMMON, .consumable = 0, .consumable_party = 0 },
 { .power = 100, .level = 0, .type = COMMON, .consumable = 0, .consumable_party = 0 },
 { .power = 100, .level = 0, .type = COMMON, .consumable = 0, .consumable_party = 0 },
-{ .power = 100, .level = 0, .type = COMMON, .consumable = 0, .consumable_party = 0 },
-{ .power = 100, .level = 0, .type = COMMON, .consumable = 0, .consumable_party = 0 },
-{ .power = 100, .level = 0, .type = COMMON, .consumable = 0, .consumable_party = 0 },
-{ .power = 100, .level = 0, .type = COMMON, .consumable = 0, .consumable_party = 0 },
 { .power = 100, .level = 0, .type = MAGICAL, .consumable = 0, .consumable_party = 0 },
 { .power = 100, .level = 0, .type = MAGICAL, .consumable = 1, .consumable_party = 0 },
 { .power = 100, .level = 0, .type = COMMON, .consumable = 0, .consumable_party = 0 },
@@ -32,7 +28,6 @@
 { .power = 100, .level = 0, .type = FOOD, .consumable = 1, .consumable_party = 1 },
 { .power = 100, .level = 0, .type = FOOD, .consumable = 1, .consumable_party = 1 },
 { .power = 100, .level = 0, .type = FOOD, .consumable = 1, .consumable_party = 1 },
-{ .power = 100, .level = 0, .type = COMMON, .consumable = 0, .consumable_party = 0 },
 { .power = 100, .level = 0, .type = COMMON, .consumable = 1, .consumable_party = 1 },
 { .power = 100, .level = 0, .type = COMMON, .consumable = 0, .consumable_party = 0 },
 { .power = 100, .level = 0, .type = MAGICAL, .consumable = 0, .consumable_party = 0 },
@@ -71,4 +66,4 @@
 { .power = 100, .level = 0, .type = COMMON, .consumable = 0, .consumable_party = 0 },
 { .power = 100, .level = 0, .type = MAGICAL, .consumable = 0, .consumable_party = 0 },
 
-//ALL_NAMES_COUNT = 0;
+//ALL_NAMES_COUNT = 63;

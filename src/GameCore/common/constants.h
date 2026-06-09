@@ -116,8 +116,8 @@ _Static_assert(OBJECT_COUNT <= 256, "max must be 256 - one byte");
 #define BATTLER_AREA_H (BATTLER_TILES_H * TILE_H)
 #define BATTLER_OFFSET ((BATTLER_AREA_W - BATTLER_AREA_H) / 2)
 
-#define RESOURCE_FRAME_W (TILE_W * 10)
-#define RESOURCE_FRAME_H (TILE_W * 4)
+#define RESOURCE_FRAME_W (TILE_W * 6)
+#define RESOURCE_FRAME_H (TILE_W * 2)
 #define RESOURCE_WIDTH (RESOURCE_FRAME_W-TILE_W)
 #define RESOURCE_HEIGHT TEXT_W
 
@@ -220,6 +220,9 @@ _Static_assert(DIALOGUE_H + RESOURCE_FRAME_H + BATTLER_AREA_H <= TFT_H, "cannot 
 #define MAX_MENU_SIZE (MAIN_MENU_H * 2)
 #define MAX_MENU_DEPTH 3
 #define BATTLE_MENU_SIZE 5
+
+#define COMBAT_LOG_SIZE 255
+#define COMBAT_LOG_LINES 8
 
 /**********************************************************************************************************************/
 /**STAT MODIFIERS cosntants

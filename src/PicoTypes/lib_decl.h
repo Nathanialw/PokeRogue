@@ -48,13 +48,15 @@ typedef struct __attribute__((packed))
     uint16_t (*GetBufferWidth)(void);
     uint16_t (*GetBufferHeight)(void);
     void (*ClearBuffer)(void);
-    void (*DrawBuffer)(const FrameBuffer f);
+    void (*DrawBuffer)(const FrameBuffer f, Rect_16* clip_rect);
+    void (*DrawBufferImage)(const FrameBuffer f, Rect_16* clip_rect);
 
     void (*DrawSprite)(FrameBuffer f, const uint8_t* sprite);
     void (*DrawToBuffer)(const FrameBuffer* frameBuffer, const uint16_t* pixels, const Rect_16* rect);
+    void (*DrawToBufferImage)(const FrameBuffer* frameBuffer, const uint16_t* pixels, const Rect_16* rect);
     void (*DrawTileKeyed)(uint16_t x, uint16_t y, uint16_t w, uint16_t h, const uint16_t* data);
     void (*Draw)(uint16_t x, uint16_t y, uint16_t w, uint16_t h, const uint8_t* data);
-    void (*Draw16)(uint16_t x, uint16_t y, uint16_t w, uint16_t h, const uint16_t* data);
+    void (*Draw16)(Rect_16* clip_rect, Rect_16* render_rect, const uint16_t* data);
 
     void (*SetBuffer)(uint16_t length, uint16_t* p, Color rgb565);
     void (*SetBufferColor)(uint16_t length, uint16_t* p, Color rgb565);

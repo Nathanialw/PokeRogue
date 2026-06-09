@@ -68,30 +68,28 @@ def main():
         ".sprite_battler_front_64",
 
         ".sprite_items_layout_64",
-        ".sprite_creatures_layout_64",
         ".sprite_spells_layout_64",
         ".sprite_skills_layout_64",
         ".sprite_objects_layout_64",
         ".sprite_trainers_layout_64",
         ".sprite_items_64",
-        ".sprite_creatures_64",
         ".sprite_spells_64",
         ".sprite_skills_64",
         ".sprite_objects_64",
         ".sprite_trainers_64",
 
-        ".sprite_items_layout",
-        ".sprite_creatures_layout",
-        ".sprite_spells_layout",
-        ".sprite_skills_layout",
-        ".sprite_objects_layout",
-        ".sprite_trainers_layout",
-        ".sprite_items",
-        ".sprite_creatures",
-        ".sprite_spells",
-        ".sprite_skills",
-        ".sprite_objects",
-        ".sprite_trainers",
+        ".sprite_items_layout_16",
+        ".sprite_creatures_layout_16",
+        ".sprite_spells_layout_16",
+        ".sprite_skills_layout_16",
+        ".sprite_objects_layout_16",
+        ".sprite_trainers_layout_16",
+        ".sprite_items_16",
+        ".sprite_creatures_16",
+        ".sprite_spells_16",
+        ".sprite_skills_16",
+        ".sprite_objects_16",
+        ".sprite_trainers_16",
 
         # map sprites
         ".sprite_16x16_creature",
@@ -235,7 +233,7 @@ def main():
     print(f"\nSuccess! Created {output_bin.name} {len(rom)} ({rom_size // 1024 // 1024} MB) ({rom_size // 1024} KB) ({rom_size} B)")
 
     # write defines
-    filename = f"{constants.INC_FOLDER}/memory_constants.inc"
+    filename = f"{constants.INC_FOLDER}/data_constants_memory.inc"
 
     with open(filename, 'w', encoding='utf-8') as f:
         f.write(f"#pragma once\n\n")

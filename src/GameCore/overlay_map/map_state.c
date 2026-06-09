@@ -17,9 +17,7 @@
 #include "core_ram.h"
 #include "core_state.h"
 
-#include "map.h"
 #include "map_camera.h"
-#include "map_entities.h"
 #include "map_graphics.h"
 #include "map_menu.h"
 #include "map_movement.h"

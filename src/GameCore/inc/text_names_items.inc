@@ -1,5 +1,5 @@
 // Generated item name strings
-// Database contains 68 total item
+// Database contains 63 total item
 
 // Individual item strings
 "Ability Book\0",
@@ -9,15 +9,11 @@
 "Backpack\0",
 "Pouch\0",
 "Sack\0",
-"Boots Acid Walk\0",
-"Boots Lava Walk\0",
-"Boots Water Wal\0",
 "Bear Trap\0",
 "Chain\0",
 "Lasso\0",
 "Net\0",
 "Shackles\0",
-"Acid Resistance\0",
 "Earmuffs\0",
 "Elemental Bolas\0",
 "Escape Rope\0",
@@ -32,7 +28,6 @@
 "Soul Essence\0",
 "Wild Mushroom\0",
 "Wine\0",
-"Gloves Acid Res\0",
 "Growth Hormones\0",
 "Heart Scale\0",
 "Holy Water\0",

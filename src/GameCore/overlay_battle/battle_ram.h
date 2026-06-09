@@ -25,7 +25,15 @@ extern const SkillEffect abilityFunctions[ABILITY_COUNT];
 typedef struct
 {
     State state;
+    uint8_t effect_animation_index;
+    ObjectsTypes effect_type;
     bool end_battle;
+    bool show_party;
+    bool pass_turn;
 } BattleRunState;
 
 extern BattleRunState g_battle; // Declaration only
+
+
+bool CastBattleSpell(HardwareInterface hardware, MemoryInterface memory, uint8_t spellType, EntityId id, EntityId target_id, SpellData spellData);
+bool UseBattleItem(HardwareInterface hardware, MemoryInterface memory, uint8_t itemType, EntityId item_id, EntityId id, ItemData itemData);

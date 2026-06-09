@@ -19,8 +19,8 @@
 void Draw(uint16_t x, uint16_t y, uint16_t w, uint16_t h, const uint8_t* data);
 void FillRectColor(uint16_t x, uint16_t y, uint16_t w, uint16_t h, Color rgb565);
 void SetFrameBufferColor(Color rgb565);
-void Draw16(uint16_t x, uint16_t y, uint16_t w, uint16_t h, const uint16_t* data);
-
+void Draw16(Rect_16* clip_rect, Rect_16* render_rect, const uint16_t* data);
+void DrawToBufferImage(const FrameBuffer* frameBuffer, const uint16_t* pixels, const Rect_16* rect);
 
 uint16_t* GetFrameBufferFront(void)
 {
@@ -71,7 +71,7 @@ void ConvertRGB565ToRGBA8888(uint16_t w, uint16_t h, const uint16_t* data)
     {
         if (data[i] == TRANSPARENCY)
         {
-            g_ramState.pixelArray[i] = (SDL_Color){0, 0, 0, 0};
+            g_ramState.pixels.array[i] = (SDL_Color){0, 0, 0, 0};
         }
         else
         {
@@ -86,7 +86,7 @@ void ConvertRGB565ToRGBA8888(uint16_t w, uint16_t h, const uint16_t* data)
             blue = (blue << 3) | (blue >> 2);
 
             SDL_Color c = {.r = red, .g = green, .b = blue, .a = 255};
-            g_ramState.pixelArray[i] = c;
+            g_ramState.pixels.array[i] = c;
         }
     }
 }
@@ -109,12 +109,12 @@ void DrawRect(uint16_t x, uint16_t y, uint16_t w, uint16_t h, Color rgb565)
         uint16_t c = rgb565.color;
 
         uint8_t r5 = (c >> 11) & 0x1F;
-        uint8_t g6 = (c >> 5)  & 0x3F;
-        uint8_t b5 =  c        & 0x1F;
+        uint8_t g6 = (c >> 5) & 0x3F;
+        uint8_t b5 = c & 0x1F;
 
-        uint8_t red   = (r5 << 3) | (r5 >> 2);
+        uint8_t red = (r5 << 3) | (r5 >> 2);
         uint8_t green = (g6 << 2) | (g6 >> 4);
-        uint8_t blue  = (b5 << 3) | (b5 >> 2);
+        uint8_t blue = (b5 << 3) | (b5 >> 2);
 
         SDL_SetRenderDrawColor(g_ramState.renderer, red, green, blue, 255);
         SDL_FRect r = {x, y, w, h};
@@ -137,22 +137,56 @@ void Draw(uint16_t x, uint16_t y, uint16_t w, uint16_t h, const uint8_t* data)
     ConvertRGB565ToRGBA8888(w / 2, h, (uint16_t*)data);
 
     SDL_Rect rect = {x, y, w, h};
-    SDL_UpdateTexture(g_ramState.screen, &rect, g_ramState.pixelArray, w * sizeof(SDL_Color));
+    SDL_UpdateTexture(g_ramState.screen, &rect, g_ramState.pixels.array, w * sizeof(SDL_Color));
 }
 
-void Draw16(uint16_t x, uint16_t y, uint16_t w, uint16_t h, const uint16_t* data)
+void Draw16(Rect_16* clip_rect, Rect_16* render_rect, const uint16_t* data)
 {
-    if ((w == 0 || h == 0) || (x >= TFT_W || y >= TFT_H))
+    if ((render_rect->w == 0 || render_rect->h == 0) || (render_rect->x >= TFT_W || render_rect->y >= TFT_H))
         return;
-    if (x + w > TFT_W) w = TFT_W - x;
-    if (y + h > TFT_H) h = TFT_H - y;
+    if (render_rect->x + render_rect->w > TFT_W) render_rect->w = TFT_W - render_rect->x;
+    if (render_rect->y + render_rect->h > TFT_H) render_rect->h = TFT_H - render_rect->y;
 
-    ConvertRGB565ToRGBA8888(w, h, data);
+    ConvertRGB565ToRGBA8888(render_rect->w, render_rect->h, data);
+    SDL_Rect rect = {render_rect->x, render_rect->y, render_rect->w, render_rect->h};
 
-    SDL_Rect rect = {x, y, w, h};
+    if (clip_rect)
+    {
+        SDL_Color c = {.r = 0, .g = 0, .b = 155, .a = 125};
+        SDL_Color c1 = {.r = 123, .g = 0, .b = 0, .a = 125};
+        for (uint32_t i = 0; i < clip_rect->h * clip_rect->w; i++)
+            g_ramState.pixels2.array[i] = c1;
 
-    if (!SDL_UpdateTexture(g_ramState.screen, &rect, g_ramState.pixelArray, w * sizeof(SDL_Color)))
-        SDL_Log("Failed to update texture: %s", SDL_GetError());
+        SDL_Color* dst = g_ramState.pixels2.array; // .colors is SDL_Color[]
+        SDL_Color* src = g_ramState.pixels.array;
+
+        uint32_t pixel_count = 0;
+        uint32_t src_index = 0; // start at the beginning
+        for (uint32_t i = 0; i < clip_rect->h * clip_rect->w; i++)
+        {
+            dst[i] = src[src_index];
+            src_index++;
+            pixel_count++;
+
+            // If we just finished a row (i.e., the next i would be the start of a new row)
+            if ((i % clip_rect->w) == clip_rect->w - 1)
+            {
+                uint32_t jump_value = (clip_rect->h - clip_rect->w); // skip the unused part of the source row
+                src_index += jump_value;
+            }
+        }
+
+        int pitch = render_rect->w * sizeof(SDL_Color);
+
+        DEBUG("pixel_count %d", pixel_count);
+        if (!SDL_UpdateTexture(g_ramState.screen, &rect, g_ramState.pixels2.array, pitch))
+            SDL_Log("Failed to update texture: %s", SDL_GetError());
+    }
+    else
+    {
+        if (!SDL_UpdateTexture(g_ramState.screen, &rect, g_ramState.pixels.array, render_rect->w * sizeof(SDL_Color)))
+            SDL_Log("Failed to update texture: %s", SDL_GetError());
+    }
 }
 
 void ClearBuffer(void)
@@ -161,9 +195,34 @@ void ClearBuffer(void)
     SetRectColor(BUFFER_SIZE_2BYTES, g_ramState.framebuffer.frameBuffer, c);
 }
 
-void DrawBuffer(const FrameBuffer f)
+void DrawBuffer(const FrameBuffer f, Rect_16* clip_rect)
 {
-    Draw16(f.x, f.y, f.w, f.h, g_ramState.framebuffer.frameBuffer);
+    Rect_16 render_rect = {.x = f.x, .y = f.y, .w = f.w, .h = f.h};
+    Draw16(clip_rect, &render_rect, g_ramState.framebuffer.frameBuffer);
+}
+
+void DrawBufferImage(const FrameBuffer f, Rect_16* clip_rect)
+{
+    SDL_FRect render_rect = {.x = f.x, .y = f.y, .w = f.w, .h = f.h};
+    const SDL_FRect sdl_clip_rect = {.x = clip_rect->x, .y = clip_rect->y, .w = clip_rect->w, .h = clip_rect->h};
+    SDL_RenderTexture(g_ramState.renderer, g_ramState.pixel_buffer, &sdl_clip_rect, &render_rect);
+}
+
+void DrawToBufferImage(const FrameBuffer* frameBuffer, const uint16_t* pixels, const Rect_16* rect)
+{
+    SDL_SetRenderTarget(g_ramState.renderer, g_ramState.pixel_buffer);
+
+    SDL_Rect sdl_rect = {frameBuffer->x, frameBuffer->y, frameBuffer->w, frameBuffer->h};
+
+    if (!pixels)
+        pixels = g_ramState.framebuffer.frameBuffer;
+
+    ConvertRGB565ToRGBA8888(sdl_rect.w, sdl_rect.h, pixels);
+
+    if (!SDL_UpdateTexture(g_ramState.pixel_buffer, &sdl_rect, g_ramState.pixels.array, sdl_rect.w * sizeof(SDL_Color)))
+        SDL_Log("Failed to update texture: %s", SDL_GetError());
+
+    SDL_SetRenderTarget(g_ramState.renderer, g_ramState.screen);
 }
 
 void DrawSpriteTile(const FrameBuffer f, const uint8_t* sprite)
@@ -221,7 +280,7 @@ void DrawTileKeyed(uint16_t x, uint16_t y, uint16_t w, uint16_t h, const uint16_
     // SDL_RenderFillRect(g_ramState.renderer, &testArea);
 
     SDL_Texture* spriteTex = SDL_CreateTexture(g_ramState.renderer, SDL_PIXELFORMAT_RGBA32, SDL_TEXTUREACCESS_STREAMING, w, h);
-    SDL_UpdateTexture(spriteTex, NULL, g_ramState.pixelArray, w * sizeof(SDL_Color));
+    SDL_UpdateTexture(spriteTex, NULL, g_ramState.pixels.array, w * sizeof(SDL_Color));
     SDL_SetTextureBlendMode(spriteTex, SDL_BLENDMODE_BLEND);
 
     // Draw onto the main canvas
@@ -309,7 +368,7 @@ void TestAnimation(FrameBuffer* f, Rect_16* r, Color* color1)
 
     DrawToBuffer(f, p, r);
     SetRectColor(size, p, *color1); //blu
-    DrawBuffer(*f);
+    // DrawBuffer(*f);
 
 
     SDL_RenderPresent(g_ramState.renderer);
@@ -338,8 +397,10 @@ GraphicsInterface GraphicsInterfaceInit()
         .GetBufferHeight = GetBufferHeight,
         .ClearBuffer = ClearBuffer,
         .DrawBuffer = DrawBuffer,
+        .DrawBufferImage = DrawBufferImage,
         .DrawSprite = DrawSpriteTile,
         .DrawToBuffer = DrawToBuffer,
+        .DrawToBufferImage = DrawToBufferImage,
         .DrawTileKeyed = DrawTileKeyed,
         .Draw = Draw,
         .Draw16 = Draw16,

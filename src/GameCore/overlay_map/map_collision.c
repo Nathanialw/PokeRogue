@@ -99,30 +99,6 @@ const Interaction TileCollisionStepOff[TILE_COUNT] =
 };
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /**********************************************************************************************************************/
 /** Space is empty, free to move into
 **********************************************************************************************************************/
@@ -197,20 +173,21 @@ bool Water(EntityId id, ObjectsTypes type, uint8_t x, uint8_t y)
         bool dead = CheckCreatureDead(creature_id);
         if (dead)
         {
-            DestroyCreature(creature_id);
-            if (CheckGameLost())
-                g_core.state.overlay = OVERLAY_TITLE_SCREEN;
+            DestroyPartyCreature(creature_id);
+            if (id == GetPlayerID())
+            {
+                if (CheckGameLost())
+                    g_core.state.overlay = OVERLAY_TITLE_SCREEN;
+            }
         }
     }
     if (type == CREATURE)
     {
-
     }
 
     // check for damage and position drift
     return true;
 }
-
 
 
 SET_MEMORY(".map")
@@ -260,8 +237,6 @@ bool PitWide(EntityId id, ObjectsTypes type, uint8_t x, uint8_t y)
 {
     return true;
 }
-
-
 
 
 /**********************************************************************************************************************/

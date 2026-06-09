@@ -10,6 +10,7 @@ scripts/config.json
 build*
 cmake*
 
+deploy/
 vendor/
 gameplay/
 scripts/python/libs/

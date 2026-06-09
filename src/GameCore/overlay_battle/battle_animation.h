@@ -5,11 +5,12 @@
 #include "lib_decl.h"
 
 
-void AnimationUpdateHealth(GraphicsInterface graphics, HardwareInterface hardware, bool attackersTurn);
-void BattlerAnimationAttack(GraphicsInterface graphics, MemoryInterface memory, bool player);
-void BattlerAnimationStruck(GraphicsInterface graphics, MemoryInterface memory, bool player);
-void AnimationBattlerStart(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface, bool onAttacker);
+void AnimationUpdateHealth(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool attackersTurn);
+void BattlerAnimationAttack(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool player);
+void BattlerAnimationStruck(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool player);
+void AnimationBattlerStart(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface);
 void AnimationBattlerDie(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface, bool onAttacker);
 void AnimationScreenClearRandom(GraphicsInterface graphics, HardwareInterface hardware);
-void AnimationUpdateXP(GraphicsInterface graphics, HardwareInterface hardware);
-void AnimationUpdateMana(GraphicsInterface graphics, HardwareInterface hardware);
+void AnimationUpdateXP(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory);
+void AnimationUpdateMana(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool attackersTurn);
+void EffectAnimation(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory);

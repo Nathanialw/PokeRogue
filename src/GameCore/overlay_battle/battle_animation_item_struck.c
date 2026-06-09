@@ -2,6 +2,7 @@
 // Created by nathanial on 4/13/26.
 //
 
+#include "lib_decl.h"
 #include "stdbool.h"
 #include "lib_memory.h"
 /************************************************************************************************************
@@ -16,415 +17,415 @@
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool ItemStruckAbilityBook(bool onAttacker)
+bool ItemStruckAbilityBook(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
 SET_MEMORY(".battle")
-bool ItemStruckCloakAcidResistance(bool onAttacker)
+bool ItemStruckCloakAcidResistance(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
 SET_MEMORY(".battle")
-bool ItemStruckAcidVial(bool onAttacker)
+bool ItemStruckAcidVial(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
 SET_MEMORY(".battle")
-bool ItemStruckAltarStone(bool onAttacker)
+bool ItemStruckAltarStone(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
 SET_MEMORY(".battle")
-bool ItemStruckAmphetamines(bool onAttacker)
+bool ItemStruckAmphetamines(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
 SET_MEMORY(".battle")
-bool ItemStruckAntidotePotion(bool onAttacker)
+bool ItemStruckAntidotePotion(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
 SET_MEMORY(".battle")
-bool ItemStruckBackpack(bool onAttacker)
+bool ItemStruckBackpack(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
 SET_MEMORY(".battle")
-bool ItemStruckBearTrap(bool onAttacker)
+bool ItemStruckBearTrap(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
 SET_MEMORY(".battle")
-bool ItemStruckBerries(bool onAttacker)
+bool ItemStruckBerries(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
 SET_MEMORY(".battle")
-bool ItemStruckBlinkPotion(bool onAttacker)
+bool ItemStruckBlinkPotion(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
 SET_MEMORY(".battle")
-bool ItemStruckBootsAcidWalking(bool onAttacker)
+bool ItemStruckBootsAcidWalking(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
 SET_MEMORY(".battle")
-bool ItemStruckBootsLavaWalking(bool onAttacker)
+bool ItemStruckBootsLavaWalking(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
 SET_MEMORY(".battle")
-bool ItemStruckBootsWaterWalking(bool onAttacker)
+bool ItemStruckBootsWaterWalking(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
 SET_MEMORY(".battle")
-bool ItemStruckCake(bool onAttacker)
+bool ItemStruckCake(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
 SET_MEMORY(".battle")
-bool ItemStruckChain(bool onAttacker)
+bool ItemStruckChain(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
 SET_MEMORY(".battle")
-bool ItemStruckCurePotion(bool onAttacker)
+bool ItemStruckCurePotion(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
 SET_MEMORY(".battle")
-bool ItemStruckDecursePotion(bool onAttacker)
+bool ItemStruckDecursePotion(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
 SET_MEMORY(".battle")
-bool ItemStruckEarmuffs(bool onAttacker)
+bool ItemStruckEarmuffs(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
 SET_MEMORY(".battle")
-bool ItemStruckElementalBolas(bool onAttacker)
+bool ItemStruckElementalBolas(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
 SET_MEMORY(".battle")
-bool ItemStruckEscapeRope(bool onAttacker)
+bool ItemStruckEscapeRope(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
 SET_MEMORY(".battle")
-bool ItemStruckExplosiveFlask(bool onAttacker)
+bool ItemStruckExplosiveFlask(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
 SET_MEMORY(".battle")
-bool ItemStruckFish(bool onAttacker)
+bool ItemStruckFish(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
 SET_MEMORY(".battle")
-bool ItemStruckGlovesAcidResistance(bool onAttacker)
+bool ItemStruckGlovesAcidResistance(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
 SET_MEMORY(".battle")
-bool ItemStruckGrowthHormones(bool onAttacker)
+bool ItemStruckGrowthHormones(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
 SET_MEMORY(".battle")
-bool ItemStruckHastePotion(bool onAttacker)
+bool ItemStruckHastePotion(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
 SET_MEMORY(".battle")
-bool ItemStruckHealthPotion(bool onAttacker)
+bool ItemStruckHealthPotion(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
 SET_MEMORY(".battle")
-bool ItemStruckVisionPotion(bool onAttacker)
+bool ItemStruckVisionPotion(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
 SET_MEMORY(".battle")
-bool ItemStruckHeartScale(bool onAttacker)
+bool ItemStruckHeartScale(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
 SET_MEMORY(".battle")
-bool ItemStruckHolyWater(bool onAttacker)
+bool ItemStruckHolyWater(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
 SET_MEMORY(".battle")
-bool ItemStruckInvisibilityPotion(bool onAttacker)
+bool ItemStruckInvisibilityPotion(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
 SET_MEMORY(".battle")
-bool ItemStruckInvulnerabilityPotion(bool onAttacker)
+bool ItemStruckInvulnerabilityPotion(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
 SET_MEMORY(".battle")
-bool ItemStruckIronSkinElixir(bool onAttacker)
+bool ItemStruckIronSkinElixir(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
 SET_MEMORY(".battle")
-bool ItemStruckLantern(bool onAttacker)
+bool ItemStruckLantern(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
 SET_MEMORY(".battle")
-bool ItemStruckLasso(bool onAttacker)
+bool ItemStruckLasso(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
 SET_MEMORY(".battle")
-bool ItemStruckLavaResistance(bool onAttacker)
+bool ItemStruckLavaResistance(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
 SET_MEMORY(".battle")
-bool ItemStruckLevitatePotion(bool onAttacker)
+bool ItemStruckLevitatePotion(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
 SET_MEMORY(".battle")
-bool ItemStruckLockpick(bool onAttacker)
+bool ItemStruckLockpick(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
 SET_MEMORY(".battle")
-bool ItemStruckManaPotion(bool onAttacker)
+bool ItemStruckManaPotion(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
 SET_MEMORY(".battle")
-bool ItemStruckManFlesh(bool onAttacker)
+bool ItemStruckManFlesh(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
 SET_MEMORY(".battle")
-bool ItemStruckMirror(bool onAttacker)
+bool ItemStruckMirror(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
 SET_MEMORY(".battle")
-bool ItemStruckMutton(bool onAttacker)
+bool ItemStruckMutton(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
 SET_MEMORY(".battle")
-bool ItemStruckNet(bool onAttacker)
+bool ItemStruckNet(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
 SET_MEMORY(".battle")
-bool ItemStruckParalyzeDart(bool onAttacker)
+bool ItemStruckParalyzeDart(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
 SET_MEMORY(".battle")
-bool ItemStruckPoisonDart(bool onAttacker)
+bool ItemStruckPoisonDart(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
 SET_MEMORY(".battle")
-bool ItemStruckPouch(bool onAttacker)
+bool ItemStruckPouch(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
 SET_MEMORY(".battle")
-bool ItemStruckPick(bool onAttacker)
+bool ItemStruckPick(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
 SET_MEMORY(".battle")
-bool ItemStruckRainWater(bool onAttacker)
+bool ItemStruckRainWater(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
 SET_MEMORY(".battle")
-bool ItemStruckRareCandy(bool onAttacker)
+bool ItemStruckRareCandy(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
 SET_MEMORY(".battle")
-bool ItemStruckRawMeat(bool onAttacker)
+bool ItemStruckRawMeat(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
 SET_MEMORY(".battle")
-bool ItemStruckRepelPotion(bool onAttacker)
+bool ItemStruckRepelPotion(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
 SET_MEMORY(".battle")
-bool ItemStruckRestorePpPotion(bool onAttacker)
+bool ItemStruckRestorePpPotion(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
 SET_MEMORY(".battle")
-bool ItemStruckRevivePotion(bool onAttacker)
+bool ItemStruckRevivePotion(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
 SET_MEMORY(".battle")
-bool ItemStruckSack(bool onAttacker)
+bool ItemStruckSack(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
 SET_MEMORY(".battle")
-bool ItemStruckScroll(bool onAttacker)
+bool ItemStruckScroll(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
 SET_MEMORY(".battle")
-bool ItemStruckShackles(bool onAttacker)
+bool ItemStruckShackles(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
 SET_MEMORY(".battle")
-bool ItemStruckShovel(bool onAttacker)
+bool ItemStruckShovel(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
 SET_MEMORY(".battle")
-bool ItemStruckSleepDart(bool onAttacker)
+bool ItemStruckSleepDart(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
 SET_MEMORY(".battle")
-bool ItemStruckSmokeBall(bool onAttacker)
+bool ItemStruckSmokeBall(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
 SET_MEMORY(".battle")
-bool ItemStruckSoulEssence(bool onAttacker)
+bool ItemStruckSoulEssence(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
 SET_MEMORY(".battle")
-bool ItemStruckSpellBook(bool onAttacker)
+bool ItemStruckSpellBook(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
 SET_MEMORY(".battle")
-bool ItemStruckSwiftnessSerum(bool onAttacker)
+bool ItemStruckSwiftnessSerum(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
 SET_MEMORY(".battle")
-bool ItemStruckTeleportPotion(bool onAttacker)
+bool ItemStruckTeleportPotion(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
 SET_MEMORY(".battle")
-bool ItemStruckTorch(bool onAttacker)
+bool ItemStruckTorch(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
 SET_MEMORY(".battle")
-bool ItemStruckWaterResistance(bool onAttacker)
+bool ItemStruckWaterResistance(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
 SET_MEMORY(".battle")
-bool ItemStruckWhip(bool onAttacker)
+bool ItemStruckWhip(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
 SET_MEMORY(".battle")
-bool ItemStruckWildMushroom(bool onAttacker)
+bool ItemStruckWildMushroom(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
 SET_MEMORY(".battle")
-bool ItemStruckWine(bool onAttacker)
+bool ItemStruckWine(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
 SET_MEMORY(".battle")
-bool ItemStruckWisdomCrown(bool onAttacker)
+bool ItemStruckWisdomCrown(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
 SET_MEMORY(".battle")
-bool ItemStruckXPPotion(bool onAttacker)
+bool ItemStruckXPPotion(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }

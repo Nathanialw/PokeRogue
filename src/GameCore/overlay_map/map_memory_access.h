@@ -31,7 +31,6 @@ void Flash_GetSkillDescription(MemoryInterface memory, char* text, uint8_t index
 void Flash_GetTypeName(MemoryInterface memory, char* text, uint8_t typeIndex);
 
 
-void Flash_GetObjectData(MemoryInterface memory, ObjectData* object_data, uint8_t index);
 
 
 bool Flash_GetObjectEffect(MemoryInterface memory, HardwareInterface hardware, uint8_t index, EntityId object_id, EntityId target_id, ObjectData objectData);

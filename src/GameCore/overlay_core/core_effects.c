@@ -22,6 +22,23 @@
  *  util functions
  *
 **********************************************************************************************************************/
+/**********************************************************************************************************************
+*
+**********************************************************************************************************************/
+bool RestoreResource(IntMax999* resource, EntityId creature_id, uint16_t value, uint16_t* cache)
+{
+    if (creature_id == NO_CREATURE) return false;
+    IntMax999 res = resource[creature_id];
+    uint16_t cur = Int999GetCurrent(&res);
+    uint16_t max = Int999GetMax(&res);
+    if (cur == max) return false;
+    *cache = cur;
+    cur = (cur + value > max) ? max : cur + value;
+    Int999SetCurrent(&res, cur);
+    resource[creature_id] = res;
+    return true;
+}
+
 
 /**********************************************************************************************************************
 *
@@ -60,6 +77,7 @@ SET_MEMORY(".core")
 void DoDamage(EntityId creatureID, uint16_t damage)
 {
     uint16_t hp = Int999GetCurrent(&g_core.creatures.hp[creatureID]);
+    g_core.battleMode.battle_hp_cache = hp;
     hp = (hp > damage) ? hp - damage : 0;
     Int999SetCurrent(&g_core.creatures.hp[creatureID], hp);
 }
@@ -71,17 +89,7 @@ SET_MEMORY(".core")
 bool HealTarget(EntityId e_id, uint16_t value)
 {
     uint16_t heal = CalcHeal(e_id, value);
-
-    if (e_id == NO_CREATURE) return false;
-    IntMax999 hp = g_core.creatures.hp[e_id];
-    uint16_t cur = Int999GetCurrent(&hp);
-    uint16_t max = Int999GetMax(&hp);
-    if (cur == max) return false;
-    cur = (cur + heal > max) ? max : cur + heal;
-    Int999SetCurrent(&hp, cur);
-    g_core.creatures.hp[e_id] = hp;
-
-    return true;
+    return RestoreResource(g_core.creatures.hp, e_id, heal, &g_core.battleMode.battle_hp_cache);
 }
 
 /**********************************************************************************************************************
@@ -219,18 +227,9 @@ bool MakeInvulnerable(EntityId e_id)
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool Reposition(EntityId e_id, Position pos)
-{
-    return false;
-}
-
-/**********************************************************************************************************************
-*
-**********************************************************************************************************************/
-SET_MEMORY(".core")
 bool RestoreMana(EntityId e_id, uint8_t value)
 {
-    return true;
+    return RestoreResource(g_core.creatures.mp, e_id, value, &g_core.battleMode.battle_mp_cache);
 }
 
 /**********************************************************************************************************************
@@ -266,7 +265,7 @@ bool Repel(EntityId e_id, uint8_t duration)
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool Levitate(EntityId e_id, uint8_t duration)
+bool Hover(EntityId e_id, uint8_t duration)
 {
     g_core.creatures.status.hovering[e_id] = duration;
     return true;
@@ -449,8 +448,24 @@ bool LearnSkill(EntityId e_id)
  *  ON FAIL - return fail
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool LearnSpell(EntityId e_id)
+bool LearnSpell(MemoryInterface memory, EntityId e_id, Spell spell_id)
 {
+    if (spell_id == NO_SPELL) return false;
+    if (e_id == NO_ENTITY) return false;
+
+    int8_t spell_book_index = -1;
+    for (uint8_t i = 0; i < MAX_SPELLBOOK_SIZE; i++)
+    {
+        if (g_core.trainers.spellID[e_id][i] == NO_SPELL)
+        {
+            spell_book_index = i;
+            break;
+        }
+    }
+
+    if (spell_book_index == -1) return false;
+
+    AddSpellPage(memory, e_id, spell_id, spell_book_index);
     return true;
 }
 
@@ -1189,12 +1204,20 @@ bool GoNextLevel(MapLevelChange dir)
         g_core.state.overlay = OVERLAY_GEN_MAP;
         return true;
     }
-    else if (dir == MAP_LEVEL_DOWN && g_core.floor < MAX_LEVELS)
+
+    if (dir == MAP_LEVEL_DOWN && g_core.floor < MAX_LEVELS)
     {
         g_core.floor++;
         g_core.state.overlay = OVERLAY_GEN_MAP;
         return true;
     }
+
+    if (dir == MAP_LEVEL_LATERAL)
+    {
+        g_core.state.overlay = OVERLAY_GEN_MAP;
+        return true;
+    }
+
     return false;
 
     // UpdateLevel(g_core.floor, DESERT);

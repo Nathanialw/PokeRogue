@@ -4,13 +4,25 @@
 #include "map_ram.h"
 #include "lib_memory.h"
 
-#include "inc/decl_objects.inc"
-
+#include "inc/decl_objects_Interact.inc"
+#include "inc/decl_items_UseMap.inc"
+#include "inc/decl_spells_CastMap.inc"
 
 
 SET_MEMORY(".map.rodata")
 const ObjectEffect objectFunctions[OBJECT_COUNT] = {
-#include "inc/funcs_objects.inc"
+#include "inc/funcs_objects_Interact.inc"
+};
+
+
+SET_MEMORY(".map.rodata")
+const SpellEffect spellFunctionsMap[SPELL_COUNT] = {
+#include "inc/funcs_spells_CastMap.inc"
+};
+
+SET_MEMORY(".map.rodata")
+const ItemEffect itemFunctionsMap[ITEM_COUNT] = {
+#include "inc/funcs_items_UseMap.inc"
 };
 
 
@@ -23,3 +35,17 @@ MapRunState g_map = {
     .itemCollision = NO_ITEM,
     .clearTooltip = false,
 };
+
+
+SET_MEMORY(".map")
+bool CastMapSpell(HardwareInterface hardware, MemoryInterface memory, uint8_t spellType, EntityId id, EntityId target_id, SpellData spellData)
+{
+    return spellFunctionsMap[spellType](hardware, memory, id, target_id, spellData);
+}
+
+
+SET_MEMORY(".map")
+bool UseMapItem(HardwareInterface hardware, MemoryInterface memory, uint8_t itemType, EntityId item_id, EntityId id, ItemData itemData)
+{
+    return itemFunctionsMap[itemType](hardware, memory, item_id, id, itemData);
+}

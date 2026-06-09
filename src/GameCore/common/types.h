@@ -29,6 +29,7 @@ typedef Ability Attacks[8];
 typedef char SmallStringArray[SMALL_STRINGS];
 typedef uint16_t MapSprite[TILE_W * TILE_H];
 
+typedef bool (*Battle_Animation)(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker);
 
 /**********************************************************************************************************************/
 /**Bitfield types
@@ -53,6 +54,8 @@ typedef struct
 /**********************************************************************************************************************
 *   Creature skills
 **********************************************************************************************************************/
+#define MAX_LEARNABLE_SKILLS 16
+
 typedef struct
 {
     uint8_t skillID;
@@ -61,7 +64,7 @@ typedef struct
 
 typedef union
 {
-    SkillLearnLevel c[16];
+    SkillLearnLevel c[MAX_LEARNABLE_SKILLS];
     uint8_t bytes[32];
 } CreatureSkillLearnLevels;
 
@@ -113,16 +116,43 @@ typedef union
     struct
     {
         uint8_t power;
-        uint8_t pp;
-        uint8_t type : 4;
-        //TODO: bits unused
-        uint8_t _pad : 4;
+        uint8_t level;
+
+        union
+        {
+            struct
+            {
+                uint8_t pp : 4;
+                uint8_t type : 4;
+            };
+
+            uint8_t data;
+        };
+
+        union
+        {
+            struct
+            {
+                uint8_t use_on_party_member : 1;
+
+                uint8_t _pad6 : 1;
+                uint8_t _pad5 : 1;
+                uint8_t _pad4 : 1;
+                uint8_t _pad3 : 1;
+                uint8_t _pad2 : 1;
+                uint8_t _pad1 : 1;
+                uint8_t _pad0 : 1;
+            };
+
+            uint8_t flags : 8;
+        };
     };
 
-    uint8_t bytes[3];
+
+    uint8_t bytes[4];
 } SpellData;
 
-_Static_assert(sizeof(SpellData) == 3, "SpellData must be 3 bytes");
+_Static_assert(sizeof(SpellData) == 4, "SpellData must be 4 bytes");
 
 typedef union
 {
@@ -174,22 +204,52 @@ typedef union
             uint8_t power;
         };
 
-        uint8_t type : 4;
-        uint8_t level : 4;
-        uint8_t consumable : 1;
-        uint8_t on_step : 1;
-        uint8_t _pad : 6;
+        union
+        {
+            struct
+            {
+                uint8_t type : 4;
+                uint8_t level : 4;
+            };
+
+            uint8_t data;
+        };
+
+        union
+        {
+            struct
+            {
+                uint8_t consumable : 1;
+                uint8_t interactable : 1;
+                uint8_t on_step : 1;
+                uint8_t hallway : 1;
+                uint8_t nook : 1;
+                uint8_t water : 1;
+
+                uint8_t _pad0 : 1;
+                uint8_t _pad1 : 1;
+            };
+
+            uint8_t flags : 8;
+        };
     };
 
     uint8_t bytes[3];
 } ObjectData;
 
-_Static_assert(sizeof(ObjectData) == 3, "ObjectData must be 2 bytes");
+_Static_assert(sizeof(ObjectData) == 3, "ObjectData must be 3 bytes");
 
 
-typedef bool (*SkillEffect)(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData);
-typedef bool (*ItemEffect)(EntityId item_id, EntityId e_id, ItemData itemData);
-typedef bool (*SpellEffect)(HardwareInterface hardware, MemoryInterface memory, EntityId partyID, EntityId enemyID, SpellData spellData);
+typedef struct
+{
+    SpellData spellData;
+    uint8_t pp;
+} SpellPage;
+
+
+typedef bool (*SkillEffect)(HardwareInterface hardware, MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData);
+typedef bool (*ItemEffect)(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData);
+typedef bool (*SpellEffect)(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData);
 typedef bool (*ObjectEffect)(HardwareInterface hardware, EntityId partyID, EntityId enemyID, ObjectData spellData);
 
 
@@ -203,6 +263,7 @@ typedef union
         uint8_t x;
         uint8_t y;
     };
+
     uint16_t index;
 } Position;
 
@@ -540,8 +601,6 @@ typedef union
 
 _Static_assert(sizeof(Tile) == 3, "Sprite must be 3 bytes");
 
-
-typedef bool (*Battle_Animation)(bool onAttacker);
 
 /**********************************************************************************************************************/
 /*

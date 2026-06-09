@@ -1,9 +1,11 @@
 //
 // Created by nathanial on 3/31/26.
 //
+#include "battle_ui.h"
 #include "lib_memory.h"
 
 #include "core_entities.h"
+#include "core_graphics.h"
 #include "core_ram.h"
 #include "core_memory_access.h"
 #include "core_utils.h"
@@ -110,3 +112,17 @@ void PrintCombatLog(HardwareInterface hardware, MemoryInterface memory, EntityId
     else
         CombatLogLine(hardware, g_core.battleMode.combatLog[1], prefix, suffix, damage);
 }
+
+
+void PrintCombatLogText(HardwareInterface hardware, MemoryInterface memory, const char* text)
+{
+    uint8_t i = 0;
+    while (text[i])
+    {
+        g_core.battleMode.combatLog[g_core.battleMode.current_line][i] = text[i];
+        i++;
+    }
+    g_core.battleMode.combatLog[g_core.battleMode.current_line][i] = '\0';
+    g_core.battleMode.current_line++;
+}
+

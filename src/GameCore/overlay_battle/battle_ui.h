@@ -3,8 +3,8 @@
 //
 #pragma once
 
-#include "common/types.h"
+#include "types.h"
 
 
-void PrintCombatLog(HardwareInterface hardware, MemoryInterface memory, EntityId creatureID, uint16_t damage);
-void CombatLogLine(HardwareInterface hardware, char* dest, const char* prefix, const char* suffix, uint16_t value);
+void PrintCombatLogText(HardwareInterface hardware, MemoryInterface memory, const char* text);
+void PrintCombatLogFull(GraphicsInterface graphics, MemoryInterface memory);

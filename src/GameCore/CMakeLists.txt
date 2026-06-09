@@ -51,6 +51,8 @@ add_library(GameCore STATIC
         overlay_map/map_effects_objects.c
         overlay_map/tooltip.c
         overlay_map/tooltip.h
+        overlay_map/map_effects_spells.c
+        overlay_map/map_effects_items.c
 
         #   BATTLES
         overlay_battle/battle_animation_skills_attack.c
@@ -72,6 +74,8 @@ add_library(GameCore STATIC
         overlay_battle/battle_animation_effects.c
         overlay_battle/battle_ui.c
         overlay_battle/battle_effects_skills.c
+        overlay_battle/battle_effects_spells.c
+        overlay_battle/battle_effects_items.c
 
 
         #   SPLASH

@@ -1,5 +1,5 @@
 // Generated item name strings
-// Database contains 68 total entries
+// Database contains 63 total entries
 
 // Individual items strings
 ItemStruckAbilityBook,
@@ -9,15 +9,11 @@ ItemStruckAmphetamines,
 ItemStruckBackpack,
 ItemStruckPouch,
 ItemStruckSack,
-ItemStruckBootsAcidWalking,
-ItemStruckBootsLavaWalking,
-ItemStruckBootsWaterWalking,
 ItemStruckBearTrap,
 ItemStruckChain,
 ItemStruckLasso,
 ItemStruckNet,
 ItemStruckShackles,
-ItemStruckCloakAcidResistance,
 ItemStruckEarmuffs,
 ItemStruckElementalBolas,
 ItemStruckEscapeRope,
@@ -32,7 +28,6 @@ ItemStruckRawMeat,
 ItemStruckSoulEssence,
 ItemStruckWildMushroom,
 ItemStruckWine,
-ItemStruckGlovesAcidResistance,
 ItemStruckGrowthHormones,
 ItemStruckHeartScale,
 ItemStruckHolyWater,

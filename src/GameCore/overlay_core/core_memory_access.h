@@ -8,13 +8,14 @@
 #include "types.h"
 
 // ENTITIES
-SkillLearnLevel Flash_GetSkill(MemoryInterface memory, CreatureSkillLearnLevels c, Type creatureType, uint8_t index);
+void Flash_GetSkill(MemoryInterface memory, CreatureSkillLearnLevels* c, Type creatureType, uint8_t index);
 void Flash_GetCreatureStatsRange(MemoryInterface memory, StatsRange* stats, Creature creature_type);
 void Flash_GetType(MemoryInterface memory, MonsterType* monsterType, uint8_t index);
 void Flash_GetTypeEffects(MemoryInterface memory, uint8_t* type, uint8_t index);
 void Flash_GetSkillData(MemoryInterface memory, SkillData* skillData, uint8_t index);
 void Flash_GetSpellData(MemoryInterface memory, SpellData* spellData, uint8_t index);
 void Flash_GetItemData(MemoryInterface memory, ItemData* itemData, uint8_t index);
+void Flash_GetObjectData(MemoryInterface memory, ObjectData* object_data, uint8_t index);
 
 
 //GRAPHICS
@@ -49,7 +50,7 @@ void Flash_GetTrainerName(MemoryInterface memory, char* text, uint8_t index);
 
 //FUNCTIONS
 bool Flash_GetSpellEffect(HardwareInterface hardware, MemoryInterface memory, uint8_t index, EntityId id, EntityId target_id, SpellData spellData);
-bool Flash_GetItemEffect(MemoryInterface memory, uint8_t index, EntityId item_id, EntityId id, ItemData itemData);
+bool Flash_GetItemEffect(HardwareInterface hardware, MemoryInterface memory, uint8_t itemType, EntityId item_id, EntityId id, ItemData itemData);
 
 Creature Flash_GetBiomeCreature(MemoryInterface memory, uint8_t biome, Creature index);
 Creature Flash_GetThemeCreature(MemoryInterface memory, uint8_t theme, Creature index);

@@ -258,4 +258,4 @@
 { .power = 35, .manaCost = 5, .type = ANCIENT },
 { .power = 80, .manaCost = 5, .type = DRAGONS },
 
-//ALL_NAMES_COUNT = 0;
+//ALL_NAMES_COUNT = 255;

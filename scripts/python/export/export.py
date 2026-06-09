@@ -74,7 +74,7 @@ def name_to_c_array(entity):
 
 def funcs_to_c_array(entity, prepend):
     """Export the database contents to a C array file"""
-    filename = f"{constants.INC_FOLDER}/funcs_{entity}s.inc"
+    filename = f"{constants.INC_FOLDER}/funcs_{entity}s_{prepend}.inc"
 
     names = db_manager.get_funcs(entity)
 
@@ -99,7 +99,7 @@ def funcs_to_c_array(entity, prepend):
 def func_c_headers(entity, prepend, return_type, params):
     """Export the database contents to a C array file"""
 
-    filename = f"{constants.INC_FOLDER}/decl_{entity}s.inc"
+    filename = f"{constants.INC_FOLDER}/decl_{entity}s_{prepend}.inc"
     names = db_manager.get_funcs(entity)
 
     with open(filename, 'w', encoding='utf-8') as f:
@@ -158,11 +158,9 @@ def func_c_animation_headers(entity, p, return_type, params):
         f.write(f"// Individual {entity}s strings\n")
         desc_vars = []
         for i, (function_name) in enumerate(names):
-            # Clean the types for C string
             f.write(f"{return_type} {capitalize(entity)}{capitalize(p)}{function_name}({params});\n")
 
         f.write("\n")
-
         f.write(f"//ALL_NAMES_COUNT = {len(desc_vars)};\n")
 
     print(f"📄 Exported {len(names)} spell headers to {filename}")

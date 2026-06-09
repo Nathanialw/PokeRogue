@@ -41,8 +41,10 @@ void GainXP(EntityId id, EntityId dead_id)
     uint16_t total_stats = stats.magic + stats.attack + stats.defence + stats.speed + (50 * level);
     uint16_t xp_value = total_stats / 20;
 
+
     IntMax999 xp = g_core.creatures.xp[id];
     uint16_t cur = Int999GetCurrent(&xp);
+    g_core.battleMode.battle_xp_cache = cur;
     uint16_t max = Int999GetMax(&xp);
     uint16_t new_xp = (cur + xp_value);
     if (new_xp < max)
@@ -55,6 +57,7 @@ void GainXP(EntityId id, EntityId dead_id)
         new_xp = new_xp - max;
         SetXPToLevel(id, &xp);
         Int999SetCurrent(&xp, new_xp);
+        g_core.battleMode.battle_xp_max_cache = Int999GetMax(&xp);
     }
 
     g_core.creatures.xp[id] = xp;
@@ -119,7 +122,7 @@ IntMax999 GetHP(Creature type, uint8_t level)
 {
     IntMax999 k = {0};
     Int999SetCurrent(&k, ((level + 1) * 20));
-    Int999SetMax(&k, ((level + 1) * 20));
+    Int999SetMax(&k, ((level + 1) * 20));\
     return k;
 }
 
@@ -151,8 +154,13 @@ void GetSkills(MemoryInterface memory, EntityId id, Type type)
     }
 
     CreatureSkillLearnLevels skills = {0};
-    Flash_GetSkill(memory, skills, type, idx);
+    Flash_GetSkill(memory, &skills, type, idx);
 
     for (uint8_t i = 0; i < MAX_ABILITIES; i++)
-        g_core.creatures.attacks[id][i] = skills.c[i].skillID;
+    {
+        if (skills.c[i].level > 0)
+        {
+            g_core.creatures.attacks[id][i] = skills.c[i].skillID;
+        }
+    }
 }

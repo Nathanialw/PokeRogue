@@ -7,10 +7,14 @@
 #include "lib_decl.h"
 
 #include "battle_actions.h"
+#include "battle_graphics.h"
+#include "battle_ram.h"
 #include "battle_state.h"
+#include "battle_ui.h"
 
 #include "core_actions.h"
 #include "core_entities.h"
+#include "core_graphics.h"
 #include "core_memory_access.h"
 #include "core_menu.h"
 #include "core_player.h"
@@ -37,7 +41,7 @@ BattleMenu battleMenu = ABILITY_MENU;
 SET_MEMORY(".battle")
 bool EnterMenu(const uint8_t listSize)
 {
-    if (g_core.menu.depth == 1)
+    if (g_core.menu.depth > 0)
     {
         return true;
     }
@@ -45,11 +49,68 @@ bool EnterMenu(const uint8_t listSize)
     g_core.menu.visibleMenuOptions = listSize;
     g_core.menu.menuScrollOffset[g_core.menu.depth].y = 0;
     g_core.menu.sel[g_core.menu.depth].y = 0;
-    g_core.menu.x = BATTLE_LIST_X;
-    g_core.menu.y = BATTLE_LIST_Y;
+    g_core.menu.x = PLAYER_BATTLER_FRAME.x / TEXT_W;
+    g_core.menu.y = (PLAYER_BATTLER_FRAME.y / TEXT_W) + 1;
     g_core.menu.w = 0;
 
     return false;
+}
+
+/**********************************************************************************************************************
+**
+**********************************************************************************************************************/
+SET_MEMORY(".map")
+void OpenUseOnPartyBattle(HardwareInterface hardware, MemoryInterface memory, UseFrameBack f)
+{
+    FillListByEntityID(memory, MAX_PARTY_SIZE, CREATURE, GetPlayerMonsterIDs());
+    g_core.menu.useOnPartyMember = f;
+    g_core.menu.visibleMenuOptions = MAX_PARTY_SIZE;
+
+    g_core.menu.depth++;
+
+    g_core.menu.menuScrollOffset[g_core.menu.depth].y = 0;
+    g_core.menu.x = PLAYER_BATTLER_FRAME.x / TEXT_W;
+    g_core.menu.y = (PLAYER_BATTLER_FRAME.y / TEXT_W) + 1;
+    g_core.menu.w = 0;
+
+    g_core.menu.sel[g_core.menu.depth].x = 0;
+    g_core.menu.sel[g_core.menu.depth].y = 0;
+    g_core.menu.totalMenuOptions = MAX_PARTY_SIZE;
+    g_battle.show_party = true;
+}
+
+/**********************************************************************************************************************
+**
+**********************************************************************************************************************/
+SET_MEMORY(".map")
+void CloseUseOnPartyBattle(HardwareInterface hardware, MemoryInterface memory, UseFrameBack f)
+{
+    g_core.menu.useOnPartyMember = BACK_NONE;
+    g_core.menu.menuScrollOffset[g_core.menu.depth].y = 0;
+    g_core.menu.x = PLAYER_BATTLER_FRAME.x / TEXT_W;
+    g_core.menu.y = (PLAYER_BATTLER_FRAME.y / TEXT_W) + 1;
+    g_core.menu.w = 0;
+
+    g_core.menu.sel[g_core.menu.depth].x = 0;
+    g_core.menu.sel[g_core.menu.depth].y = 0;
+
+    EntityId player_id = GetPlayerID();
+    if (f == BACK_ITEM)
+    {
+        g_core.menu.visibleMenuOptions = g_core.player.currentBagSize;
+        g_core.menu.totalMenuOptions = g_core.player.currentBagSize;
+        FillListByEntityID(memory, g_core.player.currentBagSize, ITEM, g_core.trainers.itemID[player_id]);
+    }
+    else
+    {
+        g_core.menu.visibleMenuOptions = MAX_SPELLBOOK_SIZE;
+        FillListByTypeID(memory, g_core.player.currentSpellbookSize, g_core.trainers.spellID[player_id]);
+        g_core.menu.totalMenuOptions = MAX_SPELLBOOK_SIZE;
+    }
+
+    g_core.menu.lineHeight = 0;
+    g_battle.show_party = false;
+    g_core.menu.depth--;
 }
 
 /**********************************************************************************************************************/
@@ -59,8 +120,9 @@ bool EnterMenu(const uint8_t listSize)
 SET_MEMORY(".battle")
 void ExitMenu(void)
 {
-    if (g_core.menu.depth == 1)
+    if (g_core.menu.depth > 0)
     {
+        g_battle.show_party = false;
         ClearMenu();
         g_core.menu.sel[g_core.menu.depth].y = 0;
         g_core.menu.menuScrollOffset[g_core.menu.depth].y = 0;
@@ -86,10 +148,13 @@ bool BattleSwap(GraphicsInterface graphics, HardwareInterface hardware, InputInt
         uint8_t sel = g_core.menu.sel[g_core.menu.depth].y;
         if (GetCreatureType(g_core.trainers.partyID[p_ID][sel]) == NO_CREATURE) return true;
         g_core.battleMode.playerMonsterID = g_core.trainers.partyID[p_ID][sel];
+        g_battle.show_party = false;
+        g_battle.pass_turn = true;
         return true;
     }
 
 
+    g_battle.show_party = true;
     FillListByEntityID(memory, MAX_PARTY_SIZE, CREATURE, GetPlayerMonsterIDs());
     return true;
 }
@@ -106,7 +171,12 @@ bool BattleSpell(GraphicsInterface graphics, HardwareInterface hardware, InputIn
     {
         uint8_t sel = g_core.menu.sel[g_core.menu.depth].y;
         SpellId spell_id = g_core.trainers.spellID[p_ID][sel];
-        CastSpell(hardware, memory, spell_id, g_core.battleMode.playerMonsterID, g_core.battleMode.enemyMonsterID);
+        CastSpellBattle(hardware, memory, spell_id, g_core.battleMode.playerMonsterID, g_core.battleMode.enemyMonsterID);
+        g_battle.effect_animation_index = spell_id;
+        g_battle.effect_type = SPELL;
+        SetBattleState(BATTLE_ATTACK);
+        //TODO: close menu
+        g_battle.pass_turn = true;
         return true;
     }
 
@@ -126,17 +196,70 @@ bool BattleItems(GraphicsInterface graphics, HardwareInterface hardware, InputIn
     EntityId p_ID = GetPlayerID();
     if (EnterMenu(g_core.player.currentBagSize))
     {
-        uint8_t idx = g_core.menu.sel[g_core.menu.depth].y + g_core.menu.menuScrollOffset[g_core.menu.depth].y;
-        EntityId item_id = g_core.trainers.itemID[p_ID][idx];
-        EntityId entity_id = g_core.battleMode.playerMonsterID;
-        ItemData itemData;
-        Flash_GetItemData(memory, &itemData, item_id);
-        if (!itemData.consumable_party) return true;
-        if (UseItem(memory, &itemData, item_id, entity_id))
+        EntityId target_id = g_core.battleMode.playerMonsterID;
+
+        uint8_t bag_idx = 0;
+        EntityId item_id = 0;
+        uint8_t item_type = 0;
+        ItemData itemData = {0};
+
+        if (!g_battle.show_party)
         {
-            ConsumeItem(idx, item_id);
-            FillListByEntityID(memory, g_core.player.currentBagSize, ITEM, g_core.trainers.itemID[p_ID]);
+            bag_idx = g_core.menu.sel[g_core.menu.depth].y + g_core.menu.menuScrollOffset[g_core.menu.depth].y;
+            item_id = g_core.trainers.itemID[p_ID][bag_idx];
+            item_type = GetItemType(item_id);
+            Flash_GetItemData(memory, &itemData, item_type);
+
+
+            if (itemData.consumable_party)
+            {
+                OpenUseOnPartyBattle(hardware, memory, BACK_ITEM);
+                return true;
+            }
+
+            target_id = g_core.battleMode.enemyMonsterID;
         }
+        else
+        {
+            bag_idx = g_core.menu.sel[g_core.menu.depth - 1].y + g_core.menu.menuScrollOffset[g_core.menu.depth - 1].y;
+            target_id = g_core.menu.sel[g_core.menu.depth].y + g_core.menu.menuScrollOffset[g_core.menu.depth].y;
+            item_id = g_core.trainers.itemID[p_ID][bag_idx];
+            item_type = GetItemType(item_id);
+            Flash_GetItemData(memory, &itemData, item_type);
+            CloseUseOnPartyBattle(hardware, memory, BACK_ITEM);
+            PrintCombatLogText(hardware, memory, "Use Item on Party");
+        }
+
+        if (itemData.consumable)
+        {
+            if (UseItemBattle(hardware, memory, &itemData, item_id, target_id))
+            {
+                ConsumeItem(bag_idx, item_id);
+                g_battle.effect_animation_index = item_type;
+                g_battle.effect_type = ITEM;
+                PrintCombatLogText(hardware, memory, "Use Item Success, consumed");
+            }
+            else
+            {
+                PrintCombatLogText(hardware, memory, "Use Item Failed, not consumed");
+            }
+        }
+        else if (UseItemBattle(hardware, memory, &itemData, item_id, target_id))
+        {
+            g_battle.effect_animation_index = item_type;
+            g_battle.effect_type = ITEM;
+            PrintCombatLogText(hardware, memory, "Use Item Success");
+        }
+        else
+        {
+            PrintCombatLogText(hardware, memory, "Use Item Failed");
+        }
+
+        g_battle.pass_turn = true;
+        ExitMenu();
+        HandleBattle(graphics, hardware, memory);
+        graphics.EndFrame();
+        SetBattleState(BATTLE_ATTACK);
         return true;
     }
 
@@ -166,7 +289,6 @@ bool BattleFlee(GraphicsInterface graphics, HardwareInterface hardware, InputInt
 SET_MEMORY(".battle")
 bool BattleCombatLog(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update)
 {
-
     // fire on initial entry
     if (EnterMenu(4))
     {
@@ -234,6 +356,7 @@ SET_MEMORY(".battle")
 void UpdateBattleMenu(InputInterface input, GraphicsInterface graphics, MemoryInterface memory)
 {
     if (input.GetInputKeyState().dp.x == 0) return;
+    if (g_core.menu.depth > 0) return;
 
     //clear old cursor before updating x
     const uint16_t x = g_core.menu.x * TEXT_W;
@@ -268,12 +391,13 @@ void UpdateBattleMenu(InputInterface input, GraphicsInterface graphics, MemoryIn
 SET_MEMORY(".battle")
 bool BattleMenuCommand(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory)
 {
-    bool b = false;
+    bool use_skill_success = false;
 
     if (battleMenu == ABILITY_MENU)
-        b = UseSkill(hardware, memory, true);
+        use_skill_success = UseSkill(hardware, memory, true);
     if (battleMenu == BATTLE_MENU)
         battleSubmenus[g_core.menu.sel[0].y](graphics, hardware, input, memory, true); //0 to enter the menu base entry point
 
-    return b;
+    PrintCombatLogFull(graphics, memory);
+    return use_skill_success;
 }

@@ -3,13 +3,13 @@
 //
 
 #include "splash_state.h"
-
-#include "core_ram.h"
 #include "lib_memory.h"
 #include "lib_decl.h"
-#include "enums.h"
-#include "lib_debugging.h"
 #include "lib_enums.h"
+
+#include "enums.h"
+
+#include "core_ram.h"
 
 
 #define TITLE_RATE_DELAY 500

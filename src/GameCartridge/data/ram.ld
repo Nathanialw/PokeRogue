@@ -76,30 +76,29 @@ SECTIONS
     .sprite_battler_front_64         0x6950000 : { KEEP(*(.sprite_battler_front_64))  . = ALIGN(4); }
 
     .sprite_items_layout_64          0x8040000 : { KEEP(*(.sprite_items_layout_64))  . = ALIGN(4); }
-    .sprite_creatures_layout_64      0x9050000 : { KEEP(*(.sprite_creatures_layout_64))  . = ALIGN(4); }
     .sprite_spells_layout_64         0x10060000 : { KEEP(*(.sprite_spells_layout_64))  . = ALIGN(4); }
     .sprite_skills_layout_64         0x11070000 : { KEEP(*(.sprite_skills_layout_64))  . = ALIGN(4); }
     .sprite_objects_layout_64        0x12080000 : { KEEP(*(.sprite_objects_layout_64))  . = ALIGN(4); }
     .sprite_trainers_layout_64       0x13090000 : { KEEP(*(.sprite_trainers_layout_64))  . = ALIGN(4); }
     .sprite_items_64                 0x14000000 : { KEEP(*(.sprite_items_64))  . = ALIGN(4); }
-    .sprite_creatures_64             0x15100000 : { KEEP(*(.sprite_creatures_64))  . = ALIGN(4); }
     .sprite_spells_64                0x16200000 : { KEEP(*(.sprite_spells_64))  . = ALIGN(4); }
     .sprite_skills_64                0x17300000 : { KEEP(*(.sprite_skills_64))  . = ALIGN(4); }
     .sprite_objects_64               0x18400000 : { KEEP(*(.sprite_objects_64))  . = ALIGN(4); }
     .sprite_trainers_64              0x19500000 : { KEEP(*(.sprite_trainers_64))  . = ALIGN(4); }
 
-    .sprite_items_layout             0x40400000 : { KEEP(*(.sprite_items_layout))  . = ALIGN(4); }
-    .sprite_creatures_layout         0x40500000 : { KEEP(*(.sprite_creatures_layout))  . = ALIGN(4); }
-    .sprite_spells_layout            0x40600000 : { KEEP(*(.sprite_spells_layout))  . = ALIGN(4); }
-    .sprite_skills_layout            0x40700000 : { KEEP(*(.sprite_skills_layout))  . = ALIGN(4); }
-    .sprite_objects_layout           0x40800000 : { KEEP(*(.sprite_objects_layout))  . = ALIGN(4); }
-    .sprite_trainers_layout          0x40900000 : { KEEP(*(.sprite_trainers_layout))  . = ALIGN(4); }
-    .sprite_items                    0x40000000 : { KEEP(*(.sprite_items))  . = ALIGN(4); }
-    .sprite_creatures                0x41000000 : { KEEP(*(.sprite_creatures))  . = ALIGN(4); }
-    .sprite_spells                   0x42000000 : { KEEP(*(.sprite_spells))  . = ALIGN(4); }
-    .sprite_skills                   0x43000000 : { KEEP(*(.sprite_skills))  . = ALIGN(4); }
-    .sprite_objects                  0x44000000 : { KEEP(*(.sprite_objects))  . = ALIGN(4); }
-    .sprite_trainers                 0x45000000 : { KEEP(*(.sprite_trainers))  . = ALIGN(4); }
+    .sprite_items_layout_16          0x40400000 : { KEEP(*(.sprite_items_layout))  . = ALIGN(4); }
+    .sprite_creatures_layout_16      0x40500000 : { KEEP(*(.sprite_creatures_layout))  . = ALIGN(4); }
+    .sprite_spells_layout_16         0x40600000 : { KEEP(*(.sprite_spells_layout))  . = ALIGN(4); }
+    .sprite_skills_layout_16         0x40700000 : { KEEP(*(.sprite_skills_layout))  . = ALIGN(4); }
+    .sprite_objects_layout_16        0x40800000 : { KEEP(*(.sprite_objects_layout))  . = ALIGN(4); }
+    .sprite_trainers_layout_16       0x40900000 : { KEEP(*(.sprite_trainers_layout))  . = ALIGN(4); }
+    .sprite_items_16                 0x40000000 : { KEEP(*(.sprite_items))  . = ALIGN(4); }
+    .sprite_creatures_16             0x41000000 : { KEEP(*(.sprite_creatures))  . = ALIGN(4); }
+    .sprite_spells_16                0x42000000 : { KEEP(*(.sprite_spells))  . = ALIGN(4); }
+    .sprite_skills_16                0x43000000 : { KEEP(*(.sprite_skills))  . = ALIGN(4); }
+    .sprite_objects_16               0x44000000 : { KEEP(*(.sprite_objects))  . = ALIGN(4); }
+    .sprite_trainers_16              0x45000000 : { KEEP(*(.sprite_trainers))  . = ALIGN(4); }
+
     /*     MAP SPRITES                               */
     .sprite_16x16_creature           0x50000000 : { KEEP(*(.sprite_16x16_creature))  . = ALIGN(4); }
     .sprite_16x16_item               0x51000000 : { KEEP(*(.sprite_16x16_item))  . = ALIGN(4); }
@@ -111,6 +110,7 @@ SECTIONS
     .sprite_16x16_object_metaData    0x57000000 : { KEEP(*(.sprite_16x16_object_metaData))  . = ALIGN(4); }
     .sprite_16x16_trainer_metaData   0x58000000 : { KEEP(*(.sprite_16x16_trainer_metaData))  . = ALIGN(4); }
     .sprite_16x16_tile_metaData      0x59000000 : { KEEP(*(.sprite_16x16_tile_metaData))  . = ALIGN(4); }
+
     .sprite_20x20_creature           0x60000000 : { KEEP(*(.sprite_20x20_creature))  . = ALIGN(4); }
     .sprite_20x20_item               0x61000000 : { KEEP(*(.sprite_20x20_item))  . = ALIGN(4); }
     .sprite_20x20_object             0x62000000 : { KEEP(*(.sprite_20x20_object))  . = ALIGN(4); }
@@ -121,6 +121,7 @@ SECTIONS
     .sprite_20x20_object_metaData    0x67000000 : { KEEP(*(.sprite_20x20_object_metaData))  . = ALIGN(4); }
     .sprite_20x20_trainer_metaData   0x68000000 : { KEEP(*(.sprite_20x20_trainer_metaData))  . = ALIGN(4); }
     .sprite_20x20_tile_metaData      0x69000000 : { KEEP(*(.sprite_20x20_tile_metaData))  . = ALIGN(4); }
+
     .sprite_24x24_creature           0x70000000 : { KEEP(*(.sprite_24x24_creature))  . = ALIGN(4); }
     .sprite_24x24_item               0x71000000 : { KEEP(*(.sprite_24x24_item))  . = ALIGN(4); }
     .sprite_24x24_object             0x72000000 : { KEEP(*(.sprite_24x24_object))  . = ALIGN(4); }
@@ -131,6 +132,7 @@ SECTIONS
     .sprite_24x24_object_metaData    0x77000000 : { KEEP(*(.sprite_24x24_object_metaData))  . = ALIGN(4); }
     .sprite_24x24_trainer_metaData   0x78000000 : { KEEP(*(.sprite_24x24_trainer_metaData))  . = ALIGN(4); }
     .sprite_24x24_tile_metaData      0x79000000 : { KEEP(*(.sprite_24x24_tile_metaData))  . = ALIGN(4); }
+
     .sprite_32x32_creature           0x80000000 : { KEEP(*(.sprite_32x32_creature))  . = ALIGN(4); }
     .sprite_32x32_item               0x81000000 : { KEEP(*(.sprite_32x32_item))  . = ALIGN(4); }
     .sprite_32x32_object             0x82000000 : { KEEP(*(.sprite_32x32_object))  . = ALIGN(4); }
@@ -141,6 +143,7 @@ SECTIONS
     .sprite_32x32_object_metaData    0x87000000 : { KEEP(*(.sprite_32x32_object_metaData))  . = ALIGN(4); }
     .sprite_32x32_trainer_metaData   0x88000000 : { KEEP(*(.sprite_32x32_trainer_metaData))  . = ALIGN(4); }
     .sprite_32x32_tile_metaData      0x89000000 : { KEEP(*(.sprite_32x32_tile_metaData))  . = ALIGN(4); }
+
     .sprite_64x64_creature           0x90000000 : { KEEP(*(.sprite_64x64_creature))  . = ALIGN(4); }
     .sprite_64x64_item               0x91000000 : { KEEP(*(.sprite_64x64_item))  . = ALIGN(4); }
     .sprite_64x64_object             0x92000000 : { KEEP(*(.sprite_64x64_object))  . = ALIGN(4); }

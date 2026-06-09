@@ -14,7 +14,9 @@
 #include "core_utils.h"
 
 #include "battle_memory_access.h"
+#include "battle_ram.h"
 #include "battle_stats.h"
+#include "core_player.h"
 
 /**********************************************************************************************************************/
 /**  Draws battle mode menu list - ie bag items, party, spells
@@ -29,13 +31,19 @@ void HandleBattleLists(GraphicsInterface graphics, MemoryInterface memory)
 
     const uint8_t indent = 1;
     const FontSize font_size = g_core.settings.fontSize;
-    const uint8_t size = (font_size == FONT8x8) ? TEXT_W : TILE_W;
-    const uint8_t max_chars = w / 8;
-    const uint8_t max_lines = (MAIN_MENU_H * font_size);
+    const uint8_t size = TEXT_W;
+    const uint8_t max_chars = w / TEXT_W;
+    const uint8_t max_lines = (MAIN_MENU_H / TEXT_W);
 
     //display menu text
-    uint8_t list_y = y + size;
+    uint16_t list_y = y + size;
     uint8_t i = 0;
+
+    Color color_border = Flash_GetColor(memory, PAL_BLACK);
+    Color color_bg = Flash_GetColor(memory, PAL_OFF_WHITE_GRAY);
+    Color color_hp = Flash_GetColor(memory, PAL_BRIGHT_LIGHT_GRN);
+    Color color_mp = Flash_GetColor(memory, PAL_ICE_BLUE);
+    Color color_xp = Flash_GetColor(memory, PAL_PALE_BLU_PURP);
 
     while (1)
     {
@@ -44,19 +52,51 @@ void HandleBattleLists(GraphicsInterface graphics, MemoryInterface memory)
         bool line_empty = (line[0] == '\0');
         if (line_empty || i > (max_lines)) break;
 
+        uint8_t idx = 0;
         // if selected into SwapMenu
-        if (g_core.menu.sel[0].y == 0) // drawing party
+        if (g_battle.show_party) // drawing party
         {
             //level //name
             list_y += PrintLineStr(graphics, memory, x, list_y, font_size, max_chars, line, indent);
+            if (line[0] != ' ')
+            {
+                //health //mana / xp
+                uint16_t rect_w = w / 2;
 
-            //health //mana
-            uint16_t rect_w = w / 2;
-            //TODO: replace with actual values
-            graphics.FillRect(x, list_y, rect_w, size, Flash_GetColor(memory, PAL_EMERALD_GREEN));
-            graphics.FillRect(x + rect_w, list_y, rect_w, size, Flash_GetColor(memory, PAL_ICE_BLUE));
+                EntityId player_id = GetPlayerID();
+                EntityId creature_id = g_core.trainers.partyID[player_id][idx];
 
-            g_core.menu.lineHeight = size + (size / 2);
+                IntMax999 hp = GetCreaturehp(creature_id);
+                uint16_t cur_hp = Int999GetCurrent(&hp);
+                uint16_t max_hp = Int999GetMax(&hp);
+                IntMax999 mp = GetCreaturemp(creature_id);
+                uint16_t cur_mp = Int999GetCurrent(&mp);
+                uint16_t max_mp = Int999GetMax(&mp);
+                IntMax999 xp = GetCreaturexp(creature_id);
+                uint16_t cur_xp = Int999GetCurrent(&xp);
+                uint16_t max_xp = Int999GetMax(&xp);
+
+                const uint8_t pad = 1;
+                const uint8_t pad2 = pad << 1;
+
+                float bar_w = ((float)rect_w - (float)pad2) * ((float)cur_hp / (float)max_hp);
+                graphics.FillRect(x + size, list_y, rect_w, size, color_border);
+                graphics.FillRect(x + size + pad, list_y + pad, rect_w - pad2, size - pad2, color_bg);
+                graphics.FillRect(x + size + pad, list_y + pad, (uint16_t)bar_w, size - pad2, color_hp);
+
+                bar_w = ((float)rect_w - (float)pad2) * ((float)cur_mp / (float)max_mp);
+                graphics.FillRect(x + size, list_y + size, rect_w, size, color_border);
+                graphics.FillRect(x + size + pad, list_y + size + pad, rect_w - pad2, size - pad2, color_bg);
+                graphics.FillRect(x + size + pad, list_y + size + pad, (uint16_t)bar_w, size - pad2, color_mp);
+
+                bar_w = ((float)rect_w - (float)pad2) * ((float)cur_xp / (float)max_xp);
+                graphics.FillRect(x + size, list_y + (size * 2), rect_w, size >> 1, color_border);
+                graphics.FillRect(x + size + pad, list_y + (size * 2) + pad, rect_w - pad2, (size >> 1) - pad2, color_bg);
+                graphics.FillRect(x + size + pad, list_y + (size * 2) + pad, (uint16_t)bar_w, (size >> 1) - pad2, color_xp);
+            }
+
+            idx++;
+            g_core.menu.lineHeight = size * 3;
             list_y += g_core.menu.lineHeight;
         }
         else // drawing general list
@@ -80,13 +120,14 @@ void HandleBattleMenu(GraphicsInterface graphics, HardwareInterface hardware, Me
     const uint16_t x = PLAYER_BATTLER_FRAME.x;
     const uint16_t y = PLAYER_BATTLER_FRAME.y;
     const uint16_t w = PLAYER_BATTLER_FRAME.w;
-    const uint16_t h = PLAYER_BATTLER_FRAME.h + (8 * 6);
-    graphics.FillRect(x, y, w, h, Flash_GetColor(memory, PAL_OFF_WHITE_GRAY));
+    const uint16_t h = PLAYER_BATTLER_FRAME.h;
+    Color color_bg = Flash_GetColor(memory, PAL_OFF_WHITE_GRAY);
+    graphics.FillRect(x, y, w, h, color_bg);
 
     const uint8_t indent = 1;
     const FontSize font_size = g_core.settings.fontSize;
-    const uint8_t size = (font_size == FONT8x8) ? TEXT_W : TILE_W;
-    const uint8_t max_chars = w / 8;
+    const uint8_t size = TEXT_W;
+    const uint8_t max_chars = w / TEXT_W;
     const uint8_t max_lines = (MAIN_MENU_H * font_size);
 
     char border[max_chars + 1];
@@ -107,35 +148,94 @@ void HandleBattleMenu(GraphicsInterface graphics, HardwareInterface hardware, Me
 /*  Draws the formatted Creature stats in battle - hp, mama
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-void CreatureStats(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, EntityId id, Rect_16 rect, uint8_t size, FontSize font_size)
+void CreatureStats(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, EntityId creature_id, Rect_16 rect, uint8_t size, FontSize font_size)
 {
     uint8_t max_chars = 12;
 
     graphics.FillRect(rect.x, rect.y, rect.w, rect.h, Flash_GetColor(memory, PAL_LIGHT_GRAY));
 
+    rect.w -= size << 1;
+
     char text[SMALL_STRINGS];
-    Flash_GetCreatureName(memory, text, GetCreatureType(id));
+    Flash_GetCreatureName(memory, text, GetCreatureType(creature_id));
     PrintLineStr(graphics, memory, rect.x + TEXT_W, rect.y + TEXT_W, font_size, max_chars, text, false);
+    //Level text
 
     char status_line[max_chars];
 
-    const uint16_t cur_hp = Int999GetCurrent(&g_core.creatures.hp[id]);
-    const uint16_t max_hp = Int999GetMax(&g_core.creatures.hp[id]);
+    Color color_border = Flash_GetColor(memory, PAL_BLACK);
+    Color color_bg = Flash_GetColor(memory, PAL_OFF_WHITE_GRAY);
+    Color color_hp = Flash_GetColor(memory, PAL_BRIGHT_LIGHT_GRN);
+    Color color_mp = Flash_GetColor(memory, PAL_ICE_BLUE);
+    Color color_xp = Flash_GetColor(memory, PAL_PALE_BLU_PURP);
+
+
+    IntMax999 hp = GetCreaturehp(creature_id);
+    uint16_t cur_hp = Int999GetCurrent(&hp);
+    uint16_t max_hp = Int999GetMax(&hp);
+    IntMax999 mp = GetCreaturemp(creature_id);
+    uint16_t cur_mp = Int999GetCurrent(&mp);
+    uint16_t max_mp = Int999GetMax(&mp);
+    IntMax999 xp = GetCreaturexp(creature_id);
+    uint16_t cur_xp = Int999GetCurrent(&xp);
+    uint16_t max_xp = Int999GetMax(&xp);
+
     GetStatLine(hardware, cur_hp, max_hp, max_chars, status_line, "HP:");
-    PrintLineStr(graphics, memory, rect.x + TEXT_W, rect.y + size + TEXT_W, font_size, max_chars, status_line, false);
-
-    const uint16_t hp_w = ((float)cur_hp / (float)max_hp) * (float)(rect.w - 16);
-    graphics.FillRect(rect.x + TEXT_W, rect.y + (size * 2) + TEXT_W, hp_w, TEXT_W, Flash_GetColor(memory, PAL_BRIGHT_LIGHT_GRN));
-
-    const uint16_t cur_mp = Int999GetCurrent(&g_core.creatures.mp[id]);
-    const uint16_t max_mp = Int999GetMax(&g_core.creatures.mp[id]);
-
     GetStatLine(hardware, cur_mp, max_mp, max_chars, status_line, "MP:");
-    PrintLineStr(graphics, memory, rect.x + TEXT_W, rect.y + (size * 3) + TEXT_W, font_size, max_chars, status_line, false);
 
-    const uint16_t mp_w = ((float)cur_mp / (float)max_mp) * (float)(rect.w - 16);
-    graphics.FillRect(rect.x + TEXT_W, rect.y + (size * 4) + TEXT_W, mp_w, TEXT_W, Flash_GetColor(memory, PAL_GRAY_BLUE));
+    const uint8_t pad = 1;
+    const uint8_t pad2 = pad << 1;
+
+
+    float bar_w = ((float)rect.w - (float)pad2) * ((float)cur_hp / (float)max_hp);
+    graphics.FillRect(rect.x + TEXT_W, rect.y + size + TEXT_W, rect.w, size, color_border);
+    graphics.FillRect(rect.x + TEXT_W + pad, rect.y + size + TEXT_W + pad, rect.w - pad2, size - pad2, color_bg);
+    graphics.FillRect(rect.x + TEXT_W + pad, rect.y + size + TEXT_W + pad, (uint16_t)bar_w, size - pad2, color_hp);
+
+    bar_w = ((float)rect.w - (float)pad2) * ((float)cur_mp / (float)max_mp);
+    graphics.FillRect(rect.x + TEXT_W, rect.y + (size * 2) + TEXT_W, rect.w, size, color_border);
+    graphics.FillRect(rect.x + TEXT_W + pad, rect.y + (size * 2) + TEXT_W + pad, rect.w - pad2, size - pad2, color_bg);
+    graphics.FillRect(rect.x + TEXT_W + pad, rect.y + (size * 2) + TEXT_W + pad, (uint16_t)bar_w, size - pad2, color_mp);
+
+    if (g_core.battleMode.playerMonsterID == creature_id)
+    {
+        // hp text
+        // mana text
+
+        bar_w = ((float)rect.w - (float)pad2) * ((float)cur_xp / (float)max_xp);
+        graphics.FillRect(rect.x + TEXT_W, rect.y + (size * 3) + TEXT_W, rect.w, size >> 1, color_border);
+        graphics.FillRect(rect.x + TEXT_W + pad, rect.y + (size * 3) + TEXT_W + pad, rect.w - pad2, (size >> 1) - pad2, color_bg);
+        graphics.FillRect(rect.x + TEXT_W + pad, rect.y + (size * 3) + TEXT_W + pad, (uint16_t)bar_w, (size >> 1) - pad2, color_xp);
+    }
+
+
+    //buff frame
+
+    //debuff frame
 }
+
+
+void PrintCombatLogFull(GraphicsInterface graphics, MemoryInterface memory)
+{
+    graphics.FillRect(DIALOGUE_BOX_FRAME.x, DIALOGUE_BOX_FRAME.y + (6 * TEXT_H), DIALOGUE_BOX_FRAME.w, DIALOGUE_BOX_FRAME.h, Flash_GetColor(memory, PAL_OFF_WHITE_GRAY));
+
+    //clear area
+    uint8_t index = 0;
+    uint8_t num_lines = g_core.battleMode.current_line;
+    if (g_core.battleMode.current_line > COMBAT_LOG_LINES)
+    {
+        num_lines = g_core.battleMode.current_line - COMBAT_LOG_LINES;
+        index = num_lines;
+    }
+
+    uint8_t i = 0;
+    while (i < num_lines)
+    {
+        PrintLineStr(graphics, memory, DIALOGUE_BOX_FRAME.x, DIALOGUE_BOX_FRAME.y + (6 * TEXT_H) + (TEXT_H * i), g_core.settings.fontSize, 40, g_core.battleMode.combatLog[index + i], false);
+        i++;
+    }
+}
+
 
 /**********************************************************************************************************************/
 /*   Draws the main Battle screen
@@ -158,8 +258,8 @@ void HandleBattle(GraphicsInterface graphics, HardwareInterface hardware, Memory
     Rect_16 enemyHP = ENEMY_RESOURCE_FRAME;
     Rect_16 dialogue = DIALOGUE_BOX_FRAME;
 
-    graphics.FillRect(enemy.x, enemy.y, enemy.w, enemy.h, Flash_GetColor(memory, PAL_BRIGHT_CYAN));
-    graphics.FillRect(player.x, player.y, player.w, player.h, Flash_GetColor(memory, PAL_BRIGHT_RED));
+    graphics.FillRect(enemy.x, enemy.y, enemy.w, enemy.h, Flash_GetColor(memory, PAL_OFF_WHITE_GRAY));
+    graphics.FillRect(player.x, player.y, player.w, player.h, Flash_GetColor(memory, PAL_OFF_WHITE_GRAY));
 
     SpriteLayout pLayout = {};
     Flash_GetSpriteLayout_64(memory, &pLayout, GetCreatureType(g_core.battleMode.playerMonsterID), CREATURE, false);
@@ -198,9 +298,7 @@ void HandleBattle(GraphicsInterface graphics, HardwareInterface hardware, Memory
 
 
     //combat log
-    graphics.FillRect(dialogue.x, dialogue.y + (6 * size), dialogue.w, dialogue.h, Flash_GetColor(memory, PAL_BRIGHT_LIGHT_GRN));
-    PrintLineStr(graphics, memory, dialogue.x, dialogue.y + (6 * size), font_size, 40, g_core.battleMode.combatLog[0], false);
-    PrintLineStr(graphics, memory, dialogue.x, dialogue.y + (7 * size), font_size, 40, g_core.battleMode.combatLog[1], false);
+    PrintCombatLogFull(graphics, memory);
 
-    g_core.menu.colorCache = Flash_GetColor(memory, PAL_BRIGHT_CYAN);
+    g_core.menu.colorCache = Flash_GetColor(memory, PAL_OFF_WHITE_GRAY);
 }

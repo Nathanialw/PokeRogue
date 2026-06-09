@@ -827,10 +827,10 @@ def cleanup_descriptions(type, dry_run=True, purge_all=False):
 
 CreatureType = namedtuple('CreatureType', ['formatted', 'type_0', 'type_1'])
 CreatureData = namedtuple('CreatureData', ['type_0', 'type_1'])
-SpellData = namedtuple('SpellData', ['power', 'mana_cost', 'type_0', 'power_points'])
+SpellData = namedtuple('SpellData', ['name', 'power', 'level', 'mana_cost', 'type_0', 'type_enum', 'power_points', 'use_on_party_member'])
 SkillData = namedtuple('AbilityData', ['power', 'mana_cost', 'type_0'])
 ItemData = namedtuple('ItemData', ['power', 'item_level', 'item_type', 'consumable', 'consumable_party'])
-ObjectData = namedtuple('ObjectData', ['power', 'object_type', 'consumable'])
+ObjectData = namedtuple('ObjectData', ['name', 'power', 'object_type', 'level', 'consumable', 'interactable', 'on_step', 'hallway', 'nook', 'water'])
 MapSpriteData = namedtuple('MapSpriteData', ['sprite_idx', 'sprite_color_idx'])
 
 
@@ -909,7 +909,7 @@ def get_creatures_level_up_skills():
     formatted_results = []
     for name in used_creatures:
         creature_name = "'" + name + "'"
-        cursor.execute(f'SELECT skill_name, level FROM creature_level_up_skills WHERE creature_name = {creature_name} ORDER BY level ASC')
+        cursor.execute(f'SELECT creature_name, skill_name, level FROM creature_level_up_skills WHERE creature_name = {creature_name} ORDER BY level ASC')
         s = cursor.fetchall()
         formatted_results.append(s)
 
@@ -1052,11 +1052,11 @@ def get_spells_data():
     # Swap: make type_string the key, enum the value
     type_to_enum = {type_str: enum for enum, type_str in cursor.fetchall()}
 
-    cursor.execute('SELECT power, mana_cost, type, power_points FROM spells WHERE used = 1 ORDER BY name ASC')
+    cursor.execute('SELECT name, power, level, mana_cost, type, power_points, use_on_party_member FROM spells WHERE used = 1 ORDER BY name ASC')
 
     formatted_results = [
-        SpellData(power, mana_cost, type_0, power_points)
-        for power, mana_cost, type_0, power_points in cursor.fetchall()
+        SpellData(name, power, level, mana_cost, type_0, type_to_enum[type_0], power_points, use_on_party_member)
+        for name, power, level, mana_cost, type_0, power_points, use_on_party_member in cursor.fetchall()
     ]
 
     conn.close()
@@ -1109,11 +1109,11 @@ def get_objects_data():
     # Swap: make type_string the key, enum the value
     type_to_enum = {type_str: enum for enum, type_str in cursor.fetchall()}
 
-    cursor.execute('SELECT power, object_type, consumable FROM objects WHERE used = 1 ORDER BY name ASC')
+    cursor.execute('SELECT name,  power, object_type, level, consumable, interactable, interact_on_step, hallway, nook, water FROM objects WHERE used = 1 ORDER BY name ASC')
 
     formatted_results = [
-        ObjectData(power, object_type, consumable)
-        for power, object_type, consumable in cursor.fetchall()
+        ObjectData(name, power, object_type, level, consumable, interactable, on_step, hallway, nook, water)
+        for name, power, object_type, level, consumable, interactable, on_step, hallway, nook, water in cursor.fetchall()
     ]
 
     conn.close()

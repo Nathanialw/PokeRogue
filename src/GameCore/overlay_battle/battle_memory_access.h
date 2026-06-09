@@ -8,8 +8,8 @@
 
 
 //ANIMATION
-void Flash_BattlerAttackAnimation(MemoryInterface memory, EntityId id, ObjectsTypes type, bool player);
-void Flash_BattlerStruckAnimation(MemoryInterface memory, EntityId id, ObjectsTypes type, bool player);
+void Flash_BattlerAttackAnimation(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, EntityId id, ObjectsTypes type, bool player);
+void Flash_BattlerStruckAnimation(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, EntityId id, ObjectsTypes type, bool player);
 
 void Flash_GetBattleMenuList(MemoryInterface memory, uint8_t* text, uint8_t idx);
 

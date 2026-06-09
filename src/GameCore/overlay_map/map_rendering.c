@@ -337,7 +337,8 @@ void DrawMiniMap(GraphicsInterface graphics, HardwareInterface hardware, MemoryI
         DrawMinimapEntities(graphics, memory, OBJECT, y, PAL_DARK_BROWN);
         DrawMinimapEntities(graphics, memory, TRAINER, y, PAL_DARK_BLU_PURP);
 
-        graphics.Draw16(0, y, SCREEN_W, BUFFER_H, graphics.GetFrameBuffer2bytes());
+        Rect_16 render_rect = {0, y, SCREEN_W, BUFFER_H};
+        graphics.Draw16(NULL, &render_rect, graphics.GetFrameBuffer2bytes());
     }
 }
 

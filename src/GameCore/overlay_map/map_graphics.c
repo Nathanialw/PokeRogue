@@ -113,7 +113,8 @@ void DrawTile(GraphicsInterface graphics, MemoryInterface memory, uint8_t screen
     Flash_GetMapTile(memory, g_map.tileCache.spriteCache.bytes, &layout);
     for (uint8_t i = 0; i < 16; i++) layout.palette[i] = ModifyColor((Color)layout.palette[i], brightness).color;
     Expand4bppPackedToByte(memory, g_map.tileCache.spriteCache.bytes, layout.palette, g_map.tileCache.tilePixels.pixels, MAP_TILE_W);
-    graphics.Draw16(px, py, MAP_TILE_W, MAP_TILE_H, g_map.tileCache.tilePixels.pixels);
+    Rect_16 render_rect = {px, py, MAP_TILE_W, MAP_TILE_H};
+    graphics.Draw16(NULL, &render_rect, g_map.tileCache.tilePixels.pixels);
 #else
     g_map.tileCache.tile_id = tile_id;
     Flash_GetBiomeTile(memory, &g_map.tileCache.tileCache, g_core.biome, tile_id);

@@ -1,5 +1,5 @@
 // Generated item name strings
-// Database contains 68 total entries
+// Database contains 63 total entries
 
 // Individual items strings
 ItemAttackAbilityBook,
@@ -9,15 +9,11 @@ ItemAttackAmphetamines,
 ItemAttackBackpack,
 ItemAttackPouch,
 ItemAttackSack,
-ItemAttackBootsAcidWalking,
-ItemAttackBootsLavaWalking,
-ItemAttackBootsWaterWalking,
 ItemAttackBearTrap,
 ItemAttackChain,
 ItemAttackLasso,
 ItemAttackNet,
 ItemAttackShackles,
-ItemAttackCloakAcidResistance,
 ItemAttackEarmuffs,
 ItemAttackElementalBolas,
 ItemAttackEscapeRope,
@@ -32,7 +28,6 @@ ItemAttackRawMeat,
 ItemAttackSoulEssence,
 ItemAttackWildMushroom,
 ItemAttackWine,
-ItemAttackGlovesAcidResistance,
 ItemAttackGrowthHormones,
 ItemAttackHeartScale,
 ItemAttackHolyWater,

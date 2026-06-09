@@ -21,7 +21,7 @@ void MoveCenterToRight(GraphicsInterface graphics, HardwareInterface hardware, R
 void MoveLeftToCenter(GraphicsInterface graphics, HardwareInterface hardware, Rect_16 r, uint16_t d, uint8_t frameLength);
 void MoveCenterToLeft(GraphicsInterface graphics, HardwareInterface hardware, Rect_16 r, uint16_t d, uint8_t frameLength);
 void MoveCenterToDown(GraphicsInterface graphics, HardwareInterface hardware, Rect_16 r, uint16_t d, uint8_t frameLength);
-
+void BattleStart(GraphicsInterface graphics, MemoryInterface memory, HardwareInterface hardware, uint8_t frameLength);
 /******************************************************************************************************
  *  BATTLER EFFECTS
 ******************************************************************************************************/

@@ -74,7 +74,7 @@ uint8_t PrintLineStr(GraphicsInterface graphics, MemoryInterface memory, uint16_
         char_idx++;
     }
 
-    graphics.DrawBuffer(frameBuffer);
+    graphics.DrawBuffer(frameBuffer, NULL);
     return text_size;
 }
 
@@ -187,5 +187,5 @@ SET_MEMORY(".core")
 void DrawBattler(GraphicsInterface graphics, MemoryInterface memory, uint16_t screen_x, uint16_t screen_y, const SpriteLayout* layout, ObjectsTypes type, bool front)
 {
     FrameBuffer f = DrawBattlerToBuffer(graphics, memory, screen_x, screen_y, layout, type, front);
-    graphics.DrawBuffer(f);
+    graphics.DrawBuffer(f, NULL);
 }

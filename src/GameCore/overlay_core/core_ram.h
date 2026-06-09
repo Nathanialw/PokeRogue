@@ -13,6 +13,7 @@ typedef struct
     **********************************************************************************************************************/
     State state;
     uint16_t seed; // for reproducible RNG if desired
+    bool initialized;
     uint16_t turn_count;
     uint16_t turn_final;
     uint8_t floor;
@@ -57,8 +58,13 @@ typedef struct
         ObjectType moveID;
         EntityId playerMonsterID;
         EntityId enemyMonsterID;
-        char combatLog[2][40]; // TODO: expand o <= 30 lines for a full screen combat log, dont bother with scrolling, use a wraparound ptr
+        uint8_t current_line;
+        char combatLog[COMBAT_LOG_SIZE][40]; // TODO: expand o <= 30 lines for a full screen combat log, dont bother with scrolling, use a wraparound ptr
         char hpStr[10];
+        uint16_t battle_hp_cache;
+        uint16_t battle_mp_cache;
+        uint16_t battle_xp_cache;
+        uint16_t battle_xp_max_cache;
     } battleMode;
 
 
@@ -189,7 +195,8 @@ typedef struct
         uint16_t total;
         EntityId itemID[MAX_ENTITY_TRAINER_COUNT][MAX_BAG_SIZE];
         EntityId partyID[MAX_ENTITY_TRAINER_COUNT][MAX_PARTY_SIZE];
-        SpellId spellID[MAX_ENTITY_TRAINER_COUNT][MAX_SPELLBOOK_SIZE];
+        uint8_t spellID[MAX_ENTITY_TRAINER_COUNT][MAX_SPELLBOOK_SIZE];
+        SpellPage spellPage[MAX_ENTITY_TRAINER_COUNT][MAX_SPELLBOOK_SIZE];
 
         Position position[MAX_ENTITY_TRAINER_COUNT];
         Position newPosition[MAX_ENTITY_TRAINER_COUNT]; // can be changed to hold delta, a uint8_t can hold up to 2

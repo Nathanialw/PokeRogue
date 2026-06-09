@@ -455,7 +455,7 @@ const Sprite char_sprites_trainers[TRAINER_COUNT] = {
 };
 SET_MEMORY(".char_sprites_biomes")
 const Tile char_sprites_biomes[BIOME_COUNT][NUM_TILES] = {
-#include "inc/map_sprite_biome_tiles.inc"
+#include "lib/map_sprite_biome_tiles.inc"
 };
 
 
@@ -464,11 +464,11 @@ const Tile char_sprites_biomes[BIOME_COUNT][NUM_TILES] = {
 **********************************************************************************************************************/
 SET_MEMORY(".tileset_theme")
 const Creature monsterGroups[BIOME_COUNT][BIOME_MONSTER_TYPES] = {
-#include "inc/data_tileset_monsterGroups.inc"
+#include "lib/data_tileset_monsterGroups.inc"
 };
 SET_MEMORY(".tileset_creatures")
 const Creature themeGroups[BIOME_COUNT][THEME_MONSTER_TYPES] = {
-#include "inc/data_tileset_themeGroups.inc"
+#include "lib/data_tileset_themeGroups.inc"
 };
 
 
@@ -478,15 +478,15 @@ const Creature themeGroups[BIOME_COUNT][THEME_MONSTER_TYPES] = {
 //      menus
 SET_MEMORY(".strings_menu_main")
 const char Text_Menu_main[MAIN_MENUS_SIZE][SMALL_STRINGS] = {
-#include "inc/text_menu_main.inc"
+#include "lib/text_menu_main.inc"
 };
 SET_MEMORY(".strings_menu_battle")
 const char Text_Menu_battleMenu[BATTLE_MENU_SIZE][SMALL_STRINGS] = {
-#include "inc/text_menu_battle.inc"
+#include "lib/text_menu_battle.inc"
 };
 SET_MEMORY(".strings_menu_options")
 const char Text_Menu_options[OPTIONS_MENU_SIZE][SMALL_STRINGS] = {
-#include "inc/text_menu_options.inc"
+#include "lib/text_menu_options.inc"
 };
 
 
@@ -568,45 +568,45 @@ const uint8_t battler_front[SPRITE_CREATURE_FRONT_BYTES_16] = {
 #include "inc/sprite_creature_front_16x16.inc"
 };
 
-SET_MEMORY(".sprite_items_layout")
+SET_MEMORY(".sprite_items_layout_16")
 const SpriteLayout itemLayout[ITEM_COUNT] = {
-#include "inc/sprite_item_layout.inc"
+#include "inc/sprite_item_layout_16x16.inc"
 };
-SET_MEMORY(".sprite_skills_layout")
+SET_MEMORY(".sprite_skills_layout_16")
 const SpriteLayout skillLayout[ABILITY_COUNT] = {
-#include "inc/sprite_skill_layout.inc"
+#include "inc/sprite_skill_layout_16x16.inc"
 };
-SET_MEMORY(".sprite_spells_layout")
+SET_MEMORY(".sprite_spells_layout_16")
 const SpriteLayout spellLayout[SPELL_COUNT] = {
-#include "inc/sprite_spell_layout.inc"
+#include "inc/sprite_spell_layout_16x16.inc"
 };
-SET_MEMORY(".sprite_objects_layout")
+SET_MEMORY(".sprite_objects_layout_16")
 const SpriteLayout objectLayout[OBJECT_COUNT] = {
-#include "inc/sprite_object_layout.inc"
+#include "inc/sprite_object_layout_16x16.inc"
 };
-SET_MEMORY(".sprite_trainer_layout")
+SET_MEMORY(".sprite_trainer_layout_16")
 const SpriteLayout trainerLayout[TRAINER_COUNT] = {
-#include "inc/sprite_trainer_layout.inc"
+#include "inc/sprite_trainer_layout_16x16.inc"
 };
 
 
-SET_MEMORY(".sprite_items")
+SET_MEMORY(".sprite_items_16")
 const uint8_t sprites_items[SPRITE_ITEM_BYTES_16] = {
 #include "inc/sprite_item_16x16.inc"
 };
-SET_MEMORY(".sprite_skills")
+SET_MEMORY(".sprite_skills_16")
 const uint8_t sprites_skills[SPRITE_SKILL_BYTES_16] = {
 #include "inc/sprite_skill_16x16.inc"
 };
-SET_MEMORY(".sprite_spells")
+SET_MEMORY(".sprite_spells_16")
 const uint8_t sprites_spells[SPRITE_SPELL_BYTES_16] = {
 #include "inc/sprite_spell_16x16.inc"
 };
-SET_MEMORY(".sprite_objects")
+SET_MEMORY(".sprite_objects_16")
 const uint8_t sprites_objects[SPRITE_OBJECT_BYTES_16] = {
 #include "inc/sprite_object_16x16.inc"
 };
-SET_MEMORY(".sprite_trainers")
+SET_MEMORY(".sprite_trainers_16")
 const uint8_t sprites_trainers[SPRITE_TRAINER_BYTES_16] = {
 #include "inc/sprite_trainer_16x16.inc"
 };
@@ -915,23 +915,23 @@ const SpriteFrames tileSpritesMetaData64x64[TILE_COUNT] = {
 **********************************************************************************************************************/
 SET_MEMORY(".font_8x8")
 const uint8_t font8x8[CHARACTER_COUNT * FONT_8_BYTES_PER_CHAR] = {
-#include "inc/data_font8x8.inc"
+#include "lib/data_font8x8.inc"
 };
 SET_MEMORY(".font_16x16")
 const uint8_t font16x16[CHARACTER_COUNT * FONT_16_BYTES_PER_CHAR] = {
-#include "inc/data_font16x16.inc"
+#include "lib/data_font16x16.inc"
 };
 SET_MEMORY(".font_20x20")
 const uint8_t font20x20[CHARACTER_COUNT * FONT_20_BYTES_PER_CHAR] = {
-#include "inc/data_font20x20.inc"
+#include "lib/data_font20x20.inc"
 };
 SET_MEMORY(".font_24x24")
 const uint8_t font24x24[CHARACTER_COUNT * FONT_24_BYTES_PER_CHAR] = {
-#include "inc/data_font24x24.inc"
+#include "lib/data_font24x24.inc"
 };
 SET_MEMORY(".font_32x32")
 const uint8_t font32x32[CHARACTER_COUNT * FONT_32_BYTES_PER_CHAR] = {
-#include "inc/data_font32x32.inc"
+#include "lib/data_font32x32.inc"
 };
 
 /**********************************************************************************************************************/
@@ -940,33 +940,34 @@ const uint8_t font32x32[CHARACTER_COUNT * FONT_32_BYTES_PER_CHAR] = {
 SET_MEMORY(".sounds_music_data")
 const MusicData musicData[MUSIC_COUNT] = {
     // maybe one piece for each biome, when we how much space we are looking at
-#include "inc/sounds_music_data.inc"
+#include "lib/sounds_music_data.inc"
 };
 SET_MEMORY(".sounds_music_notes")
 const Note songs[TOTAL_MUSIC_NOTES] = {
-#include "inc/sounds_music.inc"
+#include "lib/sounds_music.inc"
 };
 
 SET_MEMORY(".sounds_creatures")
 const Note creatures[CREATURE_COUNT] = {
     //probably not Notes, we will see though
-#include "inc/sounds_creatures.inc"
+#include "lib/sounds_creatures.inc"
 };
 SET_MEMORY(".sounds_spells")
 const Note spells[SPELL_COUNT] = {
     //probably not Notes, we will see though
-#include "inc/sounds_spells.inc"
+#include "lib/sounds_spells.inc"
 };
 SET_MEMORY(".sounds_skills")
 const Note attacks[ABILITY_COUNT] = {
     //probably not Notes, we will see though
-#include "inc/sounds_skills.inc"
+#include "lib/sounds_skills.inc"
 };
 SET_MEMORY(".sounds_menus")
 const Note menus[10] = {
-#include "inc/sounds_menu.inc"
+#include "lib/sounds_menu.inc"
 };
-SET_MEMORY(".sounds_notes")
+
+SET_MEMORY(".core.rodata")
 const int32_t noteFreqFixed[128] =
 {
     /** 0 */ 818, 866, 918, 972, 1030, 1091, 1156, 1225, 1298, 1375, 1457, 1543,
@@ -987,7 +988,7 @@ const int32_t noteFreqFixed[128] =
 **********************************************************************************************************************/
 SET_MEMORY(".game_data_type_effects")
 const int8_t typeEffects[TYPE_COUNT * TYPE_COUNT] = {
-#include "inc/data_type_effects.inc"
+#include "lib/data_type_effects.inc"
 };
 SET_MEMORY(".game_data_creature_types")
 const MonsterType creatureTypes[CREATURE_COUNT] = {
@@ -995,7 +996,7 @@ const MonsterType creatureTypes[CREATURE_COUNT] = {
 };
 SET_MEMORY(".game_data_creature_stats")
 const StatsRange creatureStats[CREATURE_COUNT] = {
-#include "inc/data_creature_stats.inc"
+#include "lib/data_creature_stats.inc"
 };
 SET_MEMORY(".game_data_learnable_skills")
 const BitFieldUint8 learnableSkills[CREATURE_COUNT] = {
@@ -1028,11 +1029,11 @@ const ObjectData objectData[OBJECT_COUNT] = {
 **********************************************************************************************************************/
 SET_MEMORY(".colors_16")
 const uint8_t GetColor[PALETTE_COUNT * 2] = {
-#include "inc/data_colors16.inc"
+#include "lib/data_colors16.inc"
 };
 SET_MEMORY(".colors_256")
 const uint8_t GetColor256[256 * 2] = {
-#include "inc/data_colors256.inc"
+#include "lib/data_colors256.inc"
 };
 
 #endif

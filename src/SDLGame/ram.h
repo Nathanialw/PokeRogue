@@ -27,6 +27,13 @@ typedef union
 } OverlayData;
 
 
+typedef union
+{
+    SDL_Color matrix[SCREEN_W][SCREEN_H];
+    SDL_Color array[SCREEN_W * SCREEN_H];
+} ImageBuffer;
+
+
 typedef struct
 {
     OverlayData overlays;
@@ -34,6 +41,7 @@ typedef struct
 
     SDL_Surface* surface;
     SDL_Texture* screen;
+    SDL_Texture* pixel_buffer;
     SDL_Window* window;
     SDL_Renderer* renderer;
 
@@ -43,9 +51,10 @@ typedef struct
     Color solidColorCacheIndexes[MAX_CACHED_SOLID_COLORS];
     SDL_Texture* solidColorCache[MAX_CACHED_SOLID_COLORS];
 
-    SDL_Surface* surfaceCache;
-    SDL_Texture* textureCache;
-    SDL_Color pixelArray[SCREEN_W * SCREEN_H];
+    // SDL_Surface* surfaceCache;
+    // SDL_Texture* textureCache;
+    ImageBuffer pixels;
+    ImageBuffer pixels2;
 
     PartialFrameBuffer framebuffer;
     KeyState keys;

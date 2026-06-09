@@ -117,6 +117,26 @@ void DestroyTrainer(EntityId id)
 {
 }
 
+SET_MEMORY(".core")
+void DestroyPartyCreature(EntityId id)
+{
+    DestroyCreature(id);
+
+    //if trainer has no more creatures, destroy the trainer
+    EntityId creature_id = NO_ENTITY;
+    for (uint8_t i = 0; i < MAX_PARTY_SIZE; i++)
+        creature_id = g_core.trainers.partyID[id][i];
+    if (creature_id == NO_ENTITY)
+    {
+        DestroyTrainer(id);
+        return;
+    }
+
+    //move all creatures up a party slot
+    for (uint8_t i = 0; i < MAX_PARTY_SIZE - 1; i++)
+        g_core.trainers.partyID[id][i] = g_core.trainers.partyID[id][i + 1];
+}
+
 
 /**********************************************************************************************************************/
 /** Returns the type ID of the given entity ID
@@ -148,6 +168,25 @@ Creature GetCreatureType(EntityId id)
         return NO_CREATURE;
 
     return g_core.creatures.types[id];
+}
+
+
+SET_MEMORY(".core")
+IntMax999 GetCreaturehp(EntityId id)
+{
+    return g_core.creatures.hp[id];
+}
+
+SET_MEMORY(".core")
+IntMax999 GetCreaturemp(EntityId id)
+{
+    return g_core.creatures.mp[id];
+}
+
+SET_MEMORY(".core")
+IntMax999 GetCreaturexp(EntityId id)
+{
+    return g_core.creatures.xp[id];
 }
 
 
@@ -320,8 +359,11 @@ EntityId SpawnObject(HardwareInterface hardware, MemoryInterface memory, uint8_t
             return NO_ENTITY;
         }
     }
+    ObjectData objectData = {0};
+    Flash_GetObjectData(memory, &objectData, type);
 
     SetBit(g_core.objects.onMap, id, true);
+    SetBit(g_core.objects.interactable, id, objectData.interactable);
     Position pos = {.x = x, .y = y};
     g_core.objects.position[id] = pos;
     g_core.objects.types[id] = type;
@@ -334,6 +376,14 @@ EntityId SpawnObject(HardwareInterface hardware, MemoryInterface memory, uint8_t
 /** Sets initial data values of a given entity ID of type object
  *  TODO - cahnge to a generic object spawner, we wll have 255 object types, shirne will be one
 **********************************************************************************************************************/
+SET_MEMORY(".core")
+void AddSpellPage(MemoryInterface memory, EntityId id, Spell spell, uint8_t spellbook_idx)
+{
+    Flash_GetSpellData(memory, &g_core.trainers.spellPage[id][spellbook_idx].spellData, spell);
+    g_core.trainers.spellPage[id][spellbook_idx].pp = g_core.trainers.spellPage[id][spellbook_idx].spellData.pp;
+    g_core.trainers.spellID[id][spellbook_idx] = spell;
+}
+
 SET_MEMORY(".core")
 EntityId SpawnTrainer(HardwareInterface hardware, MemoryInterface memory, uint8_t type, uint8_t x, uint8_t y, uint8_t l)
 {
@@ -363,14 +413,16 @@ EntityId SpawnTrainer(HardwareInterface hardware, MemoryInterface memory, uint8_
         g_core.trainers.itemID[id][i] = NO_ENTITY;
 
     for (uint8_t i = 0; i < MAX_SPELLBOOK_SIZE; i++)
-        g_core.trainers.spellID[id][i] = NO_SPELL; //spells are no entities
+    {
+        g_core.trainers.spellID[id][i] = NO_SPELL;
+    }
 
 
     //  TODO: load trainer spell data from the database flash
-    g_core.trainers.spellID[id][0] = HEAL;
-    g_core.trainers.spellID[id][1] = DESCEND;
-    g_core.trainers.spellID[id][2] = CLAIRVOYANCE;
-    g_core.trainers.spellID[id][3] = DISPLACEMENT;
+    AddSpellPage(memory, id, HEAL, 0);
+    AddSpellPage(memory, id, DESCEND, 1);
+    AddSpellPage(memory, id, CLAIRVOYANCE, 2);
+    AddSpellPage(memory, id, DISPLACEMENT, 3);
 
     //  TODO: set party from trainer data in the database flash
     EntityId e_id = SpawnEntity(hardware, memory, CREATURE, BANSHEE, x, y, 5);
@@ -387,8 +439,12 @@ EntityId SpawnTrainer(HardwareInterface hardware, MemoryInterface memory, uint8_
 
 
     //  TODO: set from trainer data in the database flash
-    EntityId item_id = SpawnEntity(hardware, memory, ITEM, POTION_VISION, x, y, 0);
+    EntityId item_id = SpawnEntity(hardware, memory, ITEM, ESCAPE_ROPE, x, y, 0);
     PlayerPickItem(id, item_id);
+    EntityId item_id2 = SpawnEntity(hardware, memory, ITEM, CAPTURE_LASSO, x, y, 0);
+    PlayerPickItem(id, item_id2);
+    EntityId item_id3 = SpawnEntity(hardware, memory, ITEM, POTION_HEALTH, x, y, 0);
+    PlayerPickItem(id, item_id3);
 
     g_core.trainers.total++;
     return id;

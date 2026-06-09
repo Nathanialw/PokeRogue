@@ -5,10 +5,10 @@
 #include "animation_tests.h"
 
 #include "lib_debugging.h"
+#include "lib_decl.h"
 
 
-
-void CheckAnimationImplemented()
+void CheckAnimationImplemented(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     DEBUG("=== CheckAnimationImplemented() ===");
     uint8_t n = 0;

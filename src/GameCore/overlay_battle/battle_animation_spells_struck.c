@@ -2,6 +2,7 @@
 // Created by nathanial on 4/13/26.
 //
 
+#include "lib_decl.h"
 #include "stdbool.h"
 
 /************************************************************************************************************
@@ -15,312 +16,312 @@
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
-bool SpellStruckAwaken(bool onAttacker)
+bool SpellStruckAwaken(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
-bool SpellStruckBlindingLight(bool onAttacker)
+bool SpellStruckBlindingLight(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
-bool SpellStruckBrewPotion(bool onAttacker)
+bool SpellStruckBrewPotion(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
-bool SpellStruckBrillianceAura(bool onAttacker)
+bool SpellStruckBrillianceAura(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
-bool SpellStruckBurnHeal(bool onAttacker)
+bool SpellStruckBurnHeal(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
-bool SpellStruckCapture(bool onAttacker)
+bool SpellStruckCapture(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
-bool SpellStruckClairvoyance(bool onAttacker)
+bool SpellStruckClairvoyance(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
-bool SpellStruckCreateCommon(bool onAttacker)
+bool SpellStruckCreateCommon(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
-bool SpellStruckCreateMagicItem(bool onAttacker)
+bool SpellStruckCreateMagicItem(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
-bool SpellStruckCrusade(bool onAttacker)
+bool SpellStruckCrusade(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
-bool SpellStruckCureCurse(bool onAttacker)
+bool SpellStruckCureCurse(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
-bool SpellStruckCureDisease(bool onAttacker)
+bool SpellStruckCureDisease(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
-bool SpellStruckCurePoison(bool onAttacker)
+bool SpellStruckCurePoison(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
-bool SpellStruckCreatePit(bool onAttacker)
+bool SpellStruckCreatePit(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
-bool SpellStruckDefend(bool onAttacker)
+bool SpellStruckDefend(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
-bool SpellStruckDescend(bool onAttacker)
+bool SpellStruckDescend(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
-bool SpellStruckDisplacement(bool onAttacker)
+bool SpellStruckDisplacement(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
-bool SpellStruckDrought(bool onAttacker)
+bool SpellStruckDrought(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
-bool SpellStruckEmpower(bool onAttacker)
+bool SpellStruckEmpower(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
-bool SpellStruckFear(bool onAttacker)
+bool SpellStruckFear(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
-bool SpellStruckFireball(bool onAttacker)
+bool SpellStruckFireball(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
-bool SpellStruckFlameEater(bool onAttacker)
+bool SpellStruckFlameEater(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
-bool SpellStruckFocus(bool onAttacker)
+bool SpellStruckFocus(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
-bool SpellStruckFortify(bool onAttacker)
+bool SpellStruckFortify(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
-bool SpellStruckGlowingEmbers(bool onAttacker)
+bool SpellStruckGlowingEmbers(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
-bool SpellStruckGrowMuscle(bool onAttacker)
+bool SpellStruckGrowMuscle(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
-bool SpellStruckHaste(bool onAttacker)
+bool SpellStruckHaste(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
-bool SpellStruckHasten(bool onAttacker)
+bool SpellStruckHasten(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
-bool SpellStruckHeal(bool onAttacker)
+bool SpellStruckHeal(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
-bool SpellStruckHeatWave(bool onAttacker)
+bool SpellStruckHeatWave(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
-bool SpellStruckHunt(bool onAttacker)
+bool SpellStruckHunt(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
-bool SpellStruckHypothermia(bool onAttacker)
+bool SpellStruckHypothermia(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
-bool SpellStruckIceBolt(bool onAttacker)
+bool SpellStruckIceBolt(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
-bool SpellStruckIncreaseBag(bool onAttacker)
+bool SpellStruckIncreaseBag(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
-bool SpellStruckLevitate(bool onAttacker)
+bool SpellStruckLevitate(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
-bool SpellStruckMudSling(bool onAttacker)
+bool SpellStruckMudSling(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
-bool SpellStruckNerveRepair(bool onAttacker)
+bool SpellStruckNerveRepair(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
-bool SpellStruckOpenChest(bool onAttacker)
+bool SpellStruckOpenChest(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
-bool SpellStruckPortal(bool onAttacker)
+bool SpellStruckPortal(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
-bool SpellStruckPowerOverwhelming(bool onAttacker)
+bool SpellStruckPowerOverwhelming(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
-bool SpellStruckPurification(bool onAttacker)
+bool SpellStruckPurification(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
-bool SpellStruckRage(bool onAttacker)
+bool SpellStruckRage(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
-bool SpellStruckRainStorm(bool onAttacker)
+bool SpellStruckRainStorm(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
-bool SpellStruckRaiseDead(bool onAttacker)
+bool SpellStruckRaiseDead(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
-bool SpellStruckRaiseSkeleton(bool onAttacker)
+bool SpellStruckRaiseSkeleton(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
-bool SpellStruckRazorGrass(bool onAttacker)
+bool SpellStruckRazorGrass(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
-bool SpellStruckReflect(bool onAttacker)
+bool SpellStruckReflect(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
-bool SpellStruckRepel(bool onAttacker)
+bool SpellStruckRepel(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
-bool SpellStruckResurrect(bool onAttacker)
+bool SpellStruckResurrect(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
-bool SpellStruckShadows(bool onAttacker)
+bool SpellStruckShadows(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
-bool SpellStruckSilence(bool onAttacker)
+bool SpellStruckSilence(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
-bool SpellStruckSlow(bool onAttacker)
+bool SpellStruckSlow(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
-bool SpellStruckSoothe(bool onAttacker)
+bool SpellStruckSoothe(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
-bool SpellStruckStrengthen(bool onAttacker)
+bool SpellStruckStrengthen(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
-bool SpellStruckCreateFood(bool onAttacker)
+bool SpellStruckCreateFood(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
-bool SpellStruckTeleport(bool onAttacker)
+bool SpellStruckTeleport(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
-bool SpellStruckWallWalking(bool onAttacker)
+bool SpellStruckWallWalking(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
-bool SpellStruckWaterBreathing(bool onAttacker)
+bool SpellStruckWaterBreathing(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
-bool SpellStruckWaterWalking(bool onAttacker)
+bool SpellStruckWaterWalking(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
-bool SpellStruckWizen(bool onAttacker)
+bool SpellStruckWizen(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
-bool SpellStruckWizen2(bool onAttacker)
+bool SpellStruckWizen2(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }
 
-bool SpellStruckXRayVision(bool onAttacker)
+bool SpellStruckXRayVision(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }

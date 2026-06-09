@@ -124,7 +124,7 @@ bool DiscoverCreature(EntityId e_id);
 bool DiscoverObject(EntityId e_id);
 bool DiscoverSpell(Spell spell_id);
 bool DiscoverSkill(Ability ability_id);
-bool LearnSpell(EntityId e_id);
+bool LearnSpell(MemoryInterface memory, EntityId e_id, Spell spell_id);
 bool LearnSkill(EntityId e_id);
 bool Capture(HardwareInterface hardware, EntityId target_id, uint8_t successChance);
 bool AbandonTeam(EntityId e_id);
@@ -136,9 +136,8 @@ void DestroyRandomPlayerItem();
 /** MAP EFFECTS
 **********************************************************************************************************************/
 bool Repel(EntityId e_id, uint8_t duration);
-bool Levitate(EntityId e_id, uint8_t duration);
+bool Hover(EntityId e_id, uint8_t duration);
 bool Invisibility(EntityId e_id, uint8_t duration);
-bool Reposition(EntityId e_id, Position pos);
 
 bool StatusGreaterLight(EntityId e_id, uint8_t duration);
 bool StatusLesserLight(EntityId e_id, uint8_t duration);

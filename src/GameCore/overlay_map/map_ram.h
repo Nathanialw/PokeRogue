@@ -72,3 +72,8 @@ extern MapRunState g_map; // Declaration only
 
 
 extern const ObjectEffect objectFunctions[OBJECT_COUNT];
+
+
+
+bool UseMapItem(HardwareInterface hardware, MemoryInterface memory, uint8_t itemType, EntityId item_id, EntityId id, ItemData itemData);
+bool CastMapSpell(HardwareInterface hardware, MemoryInterface memory, uint8_t spellType, EntityId id, EntityId target_id, SpellData spellData);

@@ -45,7 +45,7 @@ SpriteLayout GetBattlerLayout(MemoryInterface memory, bool onAttacker)
 {
     SpriteLayout spriteLayout = {};
     if (onAttacker)
-        Flash_GetSpriteLayout_64(memory, &spriteLayout, GetCreatureType(g_core.battleMode.enemyMonsterID), CREATURE, false);
+        Flash_GetSpriteLayout_64(memory, &spriteLayout, GetCreatureType(g_core.battleMode.playerMonsterID), CREATURE, false);
     else
         Flash_GetSpriteLayout_64(memory, &spriteLayout, GetCreatureType(g_core.battleMode.enemyMonsterID), CREATURE, true);
     return spriteLayout;
@@ -90,7 +90,7 @@ void MoveCenterToLeft(GraphicsInterface graphics, HardwareInterface hardware, Re
     {
         f.x -= 1;
 
-        graphics.DrawBuffer(f);
+        graphics.DrawBuffer(f, NULL);
         graphics.EndFrame();
         hardware.SleepMS(frameLength);
     }
@@ -101,15 +101,69 @@ void MoveCenterToLeft(GraphicsInterface graphics, HardwareInterface hardware, Re
  *  Updates every frameLength ms
  ************************************************************************************************************/
 SET_MEMORY(".battle")
-void MoveLeftToCenter(GraphicsInterface graphics, HardwareInterface hardware, Rect_16 r, uint16_t d, uint8_t frameLength)
+void BattleStart(GraphicsInterface graphics, MemoryInterface memory, HardwareInterface hardware, uint8_t frameLength)
 {
-    FrameBuffer f = {r.x - d, r.y, r.w, r.h};
-    uint16_t end_pos = r.x;
+    Rect_16 r = GetBattlerRect(true);
+    Rect_16 r2 = GetBattlerRect(false);
 
-    while (f.x < end_pos)
+
+    FrameBuffer f = {r.x, r.y, r.w, r.h};
+    FrameBuffer render = {0, 0, r.w, r.h};
+    Rect_16 clip_rect = {0, 0, r.w, r.h};
+    if (f.x < r.h) f.x = 0;
+    uint16_t end_pos = r.w + BATTLER_OFFSET;
+    RefreshBattler(graphics, memory, true, r);
+    graphics.DrawToBufferImage(&render, NULL, &clip_rect);
+    clip_rect.x = r.h;
+    clip_rect.w = 0;
+    uint16_t index = 0;
+    f.w = 0;
+
+
+    FrameBuffer f2 = {r2.x + r2.h, r2.y, r2.w, r2.h};
+    Rect_16 clip_rect2 = {r.w, 0, r.w, r.h};
+
+    FrameBuffer f3 = {r.w, 0, r.w, r.h};
+    RefreshBattler(graphics, memory, false, r2);
+    graphics.DrawToBufferImage(&f3, NULL, &clip_rect2);
+    uint16_t end_pos2 = r2.x;
+
+    bool done1 = false;
+    bool done2 = false;
+
+    while (done1 == false || done2 == false)
     {
-        f.x += 1;
-        graphics.DrawBuffer(f);
+        if (index < end_pos)
+        {
+            graphics.DrawBufferImage(f, &clip_rect);
+            index++;
+
+            if (index < r.w)
+            {
+                clip_rect.x--;
+                clip_rect.w++;
+                f.w++;
+            }
+            else
+            {
+                f.x++;
+            }
+        }
+        else if (done1 == false)
+        {
+            done1 = true;
+        }
+
+        if (f2.x > end_pos2)
+        {
+            graphics.DrawBufferImage(f2, &clip_rect2);
+            f2.x--;
+        }
+        else if (done2 == false)
+        {
+            done2 = true;
+        }
+
         graphics.EndFrame();
         hardware.SleepMS(frameLength);
     }
@@ -128,7 +182,38 @@ void MoveCenterToRight(GraphicsInterface graphics, HardwareInterface hardware, R
     while (f.x < end_pos)
     {
         f.x += 1;
-        graphics.DrawBuffer(f);
+        graphics.DrawBuffer(f, NULL);
+        graphics.EndFrame();
+        hardware.SleepMS(frameLength);
+    }
+}
+
+
+/************************************************************************************************************
+ *  Redraws the framebuffer contents right from the center - d pixels to the center
+ *  Updates every frameLength ms
+ ************************************************************************************************************/
+SET_MEMORY(".battle")
+void MoveLeftToCenter(GraphicsInterface graphics, HardwareInterface hardware, Rect_16 r, uint16_t d, uint8_t frameLength)
+{
+    FrameBuffer f = {r.x, r.y, r.w, r.h};
+    Rect_16 clip_rect = {0, 0, r.w, r.h};
+
+    if (f.x < d) f.x = 0;
+    uint16_t end_pos = r.w + BATTLER_OFFSET;
+    graphics.DrawToBufferImage(&f, NULL, &clip_rect);
+    clip_rect.x = d;
+
+    uint16_t index = 0;
+    while (index < end_pos)
+    {
+        index++;
+
+        if (index < r.w)
+            clip_rect.x--;
+        else
+            f.x++;
+        graphics.DrawBufferImage(f, &clip_rect);
         graphics.EndFrame();
         hardware.SleepMS(frameLength);
     }
@@ -142,14 +227,16 @@ SET_MEMORY(".battle")
 void MoveRightToCenter(GraphicsInterface graphics, HardwareInterface hardware, Rect_16 r, uint16_t d, uint8_t frameLength)
 {
     FrameBuffer f = {r.x + d, r.y, r.w, r.h};
-    uint16_t end_pos = r.x;
+    Rect_16 clip_rect = {0, 0, r.w, r.h};
+    graphics.DrawToBufferImage(&f, NULL, &clip_rect);
 
+    uint16_t end_pos = r.x;
     while (f.x > end_pos)
     {
-        f.x -= 1;
-        graphics.DrawBuffer(f);
+        graphics.DrawBufferImage(f, &clip_rect);
         graphics.EndFrame();
         hardware.SleepMS(frameLength);
+        f.x--;
     }
 }
 
@@ -167,7 +254,7 @@ void MoveCenterToDown(GraphicsInterface graphics, HardwareInterface hardware, Re
     {
         f.y += 1;
         f.h -= 1; // ensures the sprite does not draw beyond the bounds of the battler area
-        graphics.DrawBuffer(f);
+        graphics.DrawBuffer(f, NULL);
         graphics.EndFrame();
         hardware.SleepMS(frameLength);
     }
@@ -346,7 +433,7 @@ void AnimationBeam(GraphicsInterface graphics, HardwareInterface hardware, Memor
 {
     ;
     graphics.SetFrameBuffer(Flash_GetColor(memory, palletIndex));
-    
+
     const uint8_t* sprite = graphics.GetFrameBuffer1byte();
 
     uint16_t end_pos = r.x + r.w;

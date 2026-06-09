@@ -18,7 +18,7 @@
 SET_MEMORY(".map_gen")
 void GameRunInit()
 {
-    g_core.floor = 0;
+    g_core.floor = 1;
     g_core.settings.fontSize = FONT16x16;
 
     g_core.btns.gameSpeed = 10; //200
@@ -37,13 +37,14 @@ void GameRunInit()
     g_core.menu.menuSleepTime = 200; //200
 
     g_core.music.master_volume = 32768;
+
+    g_core.initialized = true;
 }
 
 
 SET_MEMORY(".map_gen")
 void InitGame(HardwareInterface hardware, MemoryInterface memory)
 {
-    GameRunInit();
     InitMap(hardware);
     GenerateLake(hardware, 30, 30, 10, WATER);
     SetMapBorder();
@@ -53,6 +54,7 @@ void InitGame(HardwareInterface hardware, MemoryInterface memory)
 SET_MEMORY(".map_gen_entry")
 uint8_t OverlayMapGenEntry(GameInterface* spi)
 {
+    if (!g_core.initialized) GameRunInit();
     InitGame(spi->hardware, spi->memory);
     GenerateEntities(spi);
     SetMapFog(0);

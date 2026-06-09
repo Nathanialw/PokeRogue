@@ -1,5 +1,8 @@
+import os
+
 from python.config import constants
 from python.data.db_manager import init_database
+from python.cartridge import make_dummy_constants
 from . import export_creatures
 from . import export_core_data
 from . import export_battlers
@@ -12,6 +15,9 @@ from . import export_img_prompts
 
 def run():
     init_database()
+    if not os.path.exists(constants.INC_FOLDER):
+        os.mkdir(constants.INC_FOLDER)
+    make_dummy_constants.main()
 
     # CORE DATA
     bytes_count = []
@@ -74,14 +80,13 @@ def run():
     export.funcs_to_c_animations_array("skill", "attack")
     export.funcs_to_c_animations_array("skill", "struck")
     # ability animation functions header
-    export.func_c_animation_headers("skill", "attack", "bool", "bool onAttacker")
-    export.func_c_animation_headers("skill", "struck", "bool", "bool onAttacker")
+    export.func_c_animation_headers("skill", "attack", "bool", "GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker")
+    export.func_c_animation_headers("skill", "struck", "bool", "GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker")
     # ability name strings
     counts.append(export.name_to_c_array("skill"))
     # ability description strings
     export.desc_to_c_array("skill")
     # ability icons
-    # TODO: export images
     bytes_count.append(export_battlers.export_image_data("skill", 16, 16))
     bytes_count.append(export_battlers.export_image_data("skill", 64, 64))
 
@@ -90,21 +95,22 @@ def run():
     # spell struct data
     export_structs.spells("spell")
     # spell functions headers
-    export.func_c_headers("spell", "Cast", "bool", "HardwareInterface hardware, MemoryInterface memory, EntityId partyID, EntityId enemyID, SpellData spellData")
+    export.func_c_headers("spell", "CastBattle", "bool", "HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData")
+    export.func_c_headers("spell", "CastMap", "bool", "HardwareInterface hardware, MemoryInterface memory, EntityId partyID, EntityId enemyID, SpellData spellData")
     # spell functions
-    export.funcs_to_c_array("spell", "Cast")
+    export.funcs_to_c_array("spell", "CastBattle")
+    export.funcs_to_c_array("spell", "CastMap")
     # spell animation functions
     export.funcs_to_c_animations_array("spell", "attack")
     export.funcs_to_c_animations_array("spell", "struck")
     # spell animation functions header
-    export.func_c_animation_headers("spell", "attack", "bool", "bool onAttacker")
-    export.func_c_animation_headers("spell", "struck", "bool", "bool onAttacker")
+    export.func_c_animation_headers("spell", "attack", "bool", "GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker")
+    export.func_c_animation_headers("spell", "struck", "bool", "GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker")
     # spell name strings
     counts.append(export.name_to_c_array("spell"))
     # spell description strings
     export.desc_to_c_array("spell")
     # spell icons
-    # TODO: export images
     bytes_count.append(export_battlers.export_image_data("spell", 16, 16))
     bytes_count.append(export_battlers.export_image_data("spell", 64, 64))
 
@@ -121,21 +127,22 @@ def run():
     bytes_count_map_sprites.append(export_map_sprites.export_image_data("item", 64))
 
     # item functions header
-    export.func_c_headers("item", "Use", "bool", "EntityId item_id, EntityId e_id, ItemData itemData")
+    export.func_c_headers("item", "UseBattle", "bool", "HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData")
+    export.func_c_headers("item", "UseMap", "bool", "HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData")
     # item functions
-    export.funcs_to_c_array("item", "Use")
+    export.funcs_to_c_array("item", "UseBattle")
+    export.funcs_to_c_array("item", "UseMap")
     # item animation functions
     export.funcs_to_c_animations_array("item", "attack")
     export.funcs_to_c_animations_array("item", "struck")
     # item animation functions header
-    export.func_c_animation_headers("item", "attack", "bool", "bool onAttacker")
-    export.func_c_animation_headers("item", "struck", "bool", "bool onAttacker")
+    export.func_c_animation_headers("item", "attack", "bool", "GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker")
+    export.func_c_animation_headers("item", "struck", "bool", "GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker")
     # item name strings
     counts.append(export.name_to_c_array("item"))
     # item description strings
     export.desc_to_c_array("item")
     # item icons
-    # TODO: export images
     bytes_count.append(export_battlers.export_image_data("item", 16, 16))
     bytes_count.append(export_battlers.export_image_data("item", 64, 64))
 
@@ -159,7 +166,6 @@ def run():
     # object description strings
     export.desc_to_c_array("object")
     # object icons
-    # TODO: export images
     bytes_count.append(export_battlers.export_image_data("object", 16, 16))
     bytes_count.append(export_battlers.export_image_data("object", 64, 64))
 

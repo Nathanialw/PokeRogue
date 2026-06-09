@@ -10,7 +10,8 @@
 #include "core_ram.h"
 
 #include "map_ram.h"
-#include "memory_constants.inc"
+#include "data_constants_memory.inc"
+
 
 
 
@@ -354,25 +355,6 @@ void Flash_GetTypeName(MemoryInterface memory, char* text, uint8_t typeIndex)
     for (uint8_t i = 0; i < SMALL_STRINGS; i++)
         memory.Print(str_spawn_creature_type, text[i]);
     memory.Print(new_line);
-#endif
-#endif
-}
-
-
-SET_MEMORY(".map")
-void Flash_GetObjectData(MemoryInterface memory, ObjectData* object_data, uint8_t index)
-{
-#ifdef STANDALONE
-    return g_gameFlash.gameData.objectData[index];
-#else
-
-    memory.GetRom(GAME_DATA_OBJECT_POSITION + index, object_data->bytes, sizeof(ObjectData));
-
-#if defined(MEMORY_PRINT)
-    for (uint8_t i = 0; i < sizeof(Tile); i++)
-        memory.Print(str_spawn_creature_type);
-    memory.Print(new_line);
-    return object_data;
 #endif
 #endif
 }
