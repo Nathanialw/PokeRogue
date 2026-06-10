@@ -38,7 +38,21 @@ SET_MEMORY(".map")
 bool CastSpellMap(HardwareInterface hardware, MemoryInterface memory, SpellId spellID, uint8_t spellbook_index, EntityId caster_id, EntityId target_id)
 {
     // DEBUG("spell data %s id: %d  partyid: %d enemyid: %d", g_gameFlash.text.names.spells[spellID], spellID, partyID, enemyID);
-    if (g_core.trainers.spellPage[caster_id][spellbook_index].pp > 0)
+
+    if (spellbook_index == SPELL_INDEX_NULL)
+    {
+        SpellData spellData;
+        Flash_GetSpellData(memory, &spellData, spellID);;
+        if (CastMapSpell(hardware, memory, spellID, caster_id, target_id, spellData))
+        {
+            DEBUG("Scroll success spellID: %d", spellID);
+            return true;
+        }
+
+        DEBUG("Scroll failed spellID: %d", spellID);
+        return false;
+    }
+    else if (g_core.trainers.spellPage[caster_id][spellbook_index].pp > 0)
     {
         SpellData spellData;
         Flash_GetSpellData(memory, &spellData, spellID);;
@@ -59,9 +73,9 @@ bool CastSpellMap(HardwareInterface hardware, MemoryInterface memory, SpellId sp
 *  is a valid e_id is passed, it will attempt to use the item on that entity
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool UseItemMap(HardwareInterface hardware, MemoryInterface memory, ItemData* itemData, EntityId item_id, EntityId e_id)
+bool UseItemMap(HardwareInterface hardware, MemoryInterface memory, ItemData* itemData, EntityId item_id, EntityId user_id, EntityId target_id, uint8_t index)
 {
     if (item_id == NO_ENTITY) return false;
     ItemTypes itemType = GetItemType(item_id);
-    return UseMapItem(hardware, memory, itemType, item_id, e_id, *itemData);
+    return UseMapItem(hardware, memory, itemType, item_id, user_id, target_id, *itemData, index);
 }

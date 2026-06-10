@@ -420,6 +420,16 @@ void FullRedraw(GraphicsInterface graphics, HardwareInterface hardware, MemoryIn
 
 
 /**********************************************************************************************************************/
+/** TODO: full redraw is fine for noe, but eventually chage to only the player cell
+**********************************************************************************************************************/
+SET_MEMORY(".map")
+void RedrawPlayerCell(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory)
+{
+    FullRedraw(graphics, hardware, memory);
+}
+
+
+/**********************************************************************************************************************/
 /** Clears the dirtyTiles array to false
  * Clears the newSprites array to NO_CREATURE
 **********************************************************************************************************************/

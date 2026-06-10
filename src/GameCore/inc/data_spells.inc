@@ -33,16 +33,16 @@
 { .power = 0x0a, .level = 0x01, .data = 0xa5, .flags = 0b00000000  },
 // 8 - CREATE_MAGIC_ITEM -> .power = 10 .level = 1 .type = HUMANOID .pp = 5 .flags = { . use_on_party_member = 0 }
 { .power = 0x0a, .level = 0x01, .data = 0xa5, .flags = 0b00000000  },
-// 9 - CRUSADE -> .power = 10 .level = 1 .type = DEMIGOD .pp = 5 .flags = { . use_on_party_member = 0 }
-{ .power = 0x0a, .level = 0x01, .data = 0x95, .flags = 0b00000000  },
-// 10 - CURE_CURSE -> .power = 10 .level = 1 .type = DEMIGOD .pp = 5 .flags = { . use_on_party_member = 0 }
-{ .power = 0x0a, .level = 0x01, .data = 0x95, .flags = 0b00000000  },
-// 11 - CURE_DISEASE -> .power = 10 .level = 1 .type = HUMANOID .pp = 5 .flags = { . use_on_party_member = 0 }
-{ .power = 0x0a, .level = 0x01, .data = 0xa5, .flags = 0b00000000  },
-// 12 - CURE_POISON -> .power = 10 .level = 1 .type = HUMANOID .pp = 5 .flags = { . use_on_party_member = 0 }
-{ .power = 0x0a, .level = 0x01, .data = 0xa5, .flags = 0b00000000  },
-// 13 - Create_Pit -> .power = 10 .level = 1 .type = EARTHEN .pp = 5 .flags = { . use_on_party_member = 0 }
+// 9 - CREATE_PIT -> .power = 10 .level = 1 .type = EARTHEN .pp = 5 .flags = { . use_on_party_member = 0 }
 { .power = 0x0a, .level = 0x01, .data = 0xf5, .flags = 0b00000000  },
+// 10 - CRUSADE -> .power = 10 .level = 1 .type = DEMIGOD .pp = 5 .flags = { . use_on_party_member = 0 }
+{ .power = 0x0a, .level = 0x01, .data = 0x95, .flags = 0b00000000  },
+// 11 - CURE_CURSE -> .power = 10 .level = 1 .type = DEMIGOD .pp = 5 .flags = { . use_on_party_member = 0 }
+{ .power = 0x0a, .level = 0x01, .data = 0x95, .flags = 0b00000000  },
+// 12 - CURE_DISEASE -> .power = 10 .level = 1 .type = HUMANOID .pp = 5 .flags = { . use_on_party_member = 0 }
+{ .power = 0x0a, .level = 0x01, .data = 0xa5, .flags = 0b00000000  },
+// 13 - CURE_POISON -> .power = 10 .level = 1 .type = HUMANOID .pp = 5 .flags = { . use_on_party_member = 0 }
+{ .power = 0x0a, .level = 0x01, .data = 0xa5, .flags = 0b00000000  },
 // 14 - DEFEND -> .power = 10 .level = 1 .type = EARTHEN .pp = 5 .flags = { . use_on_party_member = 0 }
 { .power = 0x0a, .level = 0x01, .data = 0xf5, .flags = 0b00000000  },
 // 15 - DESCEND -> .power = 10 .level = 1 .type = EARTHEN .pp = 5 .flags = { . use_on_party_member = 0 }
@@ -140,4 +140,4 @@
 // 61 - XRAY_VISION -> .power = 10 .level = 1 .type = EARTHEN .pp = 5 .flags = { . use_on_party_member = 0 }
 { .power = 0x0a, .level = 0x01, .data = 0xf5, .flags = 0b00000000  },
 
-//ALL_NAMES_COUNT = 62;
+//COUNT = 62;

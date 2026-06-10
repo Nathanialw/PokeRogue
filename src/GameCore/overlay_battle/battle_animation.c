@@ -242,7 +242,7 @@ void BattlerAnimationAttack(GraphicsInterface graphics, HardwareInterface hardwa
     else if (SKILL)
         Flash_BattlerAttackAnimation(graphics, hardware, memory, move_id.AbilityId, SKILL, player);
     else if (SPELL)
-        Flash_BattlerAttackAnimation(graphics, hardware, memory, move_id.SpellId, SPELL, player);
+        Flash_BattlerAttackAnimation(graphics, hardware, memory, move_id.value, SPELL, player);
 }
 
 
@@ -258,7 +258,7 @@ void BattlerAnimationStruck(GraphicsInterface graphics, HardwareInterface hardwa
     else if (SKILL)
         Flash_BattlerStruckAnimation(graphics, hardware, memory, move_id.AbilityId, SKILL, player);
     else if (SPELL)
-        Flash_BattlerStruckAnimation(graphics, hardware, memory, move_id.SpellId, SPELL, player);
+        Flash_BattlerStruckAnimation(graphics, hardware, memory, move_id.value, SPELL, player);
 }
 
 

@@ -6,6 +6,7 @@
 
 
 void FullRedraw(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory);
-void RenderObjects(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory);
+void RedrawPlayerCell(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory);
 
+void RenderObjects(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory);
 void DrawMiniMap(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory);

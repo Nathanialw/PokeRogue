@@ -45,13 +45,13 @@ EntityId PickItem(EntityId id)
 }
 
 SET_MEMORY(".core")
-bool AddCreatureToParty(EntityId creature_id)
+bool AddCreatureToParty(EntityId trainer_id, EntityId creature_id)
 {
     for (uint8_t i = 0; i < MAX_PARTY_SIZE; i++)
     {
-        if (g_core.trainers.partyID[GetPlayerID()][i] == NO_ENTITY)
+        if (g_core.trainers.partyID[trainer_id][i] == NO_ENTITY)
         {
-            g_core.trainers.partyID[GetPlayerID()][i] = creature_id;
+            g_core.trainers.partyID[trainer_id][i] = creature_id;
             return true;
         }
     }
@@ -306,6 +306,20 @@ EntityId SpawnMonster(HardwareInterface hardware, MemoryInterface memory, uint8_
     return id;
 }
 
+void GetItemMetadata(HardwareInterface hardware, ObjectType* metadata, uint8_t type)
+{
+    if (type == SPELL_BOOK || type == SCROLL)
+    {
+        uint8_t spell_id = hardware.GetRandom_uint8_t(0, SPELL_COUNT);
+        metadata->spell_id = spell_id;
+    }
+    else if (type == ABILITY_BOOK)
+    {
+        uint8_t ability_id = hardware.GetRandom_uint8_t(0, ABILITY_COUNT);
+        metadata->AbilityId = ability_id;
+    }
+}
+
 /**********************************************************************************************************************/
 /** Sets initial data values of a given entity ID of type item
  *  //TODO: certain items will use metaData to store type of item, for example the spell ID of a spellbook
@@ -329,11 +343,12 @@ EntityId SpawnItem(HardwareInterface hardware, MemoryInterface memory, uint8_t t
         }
     }
 
+    GetItemMetadata(hardware, &g_core.items.metaData[id], type);
+
     Position pos = {.x = x, .y = y};
     g_core.items.position[id] = pos;
     g_core.items.types[id] = type;
     SetBit(g_core.items.onMap, id, true);
-    g_core.items.metaData[id].value = (l + 10) + (l * 5);
     g_core.items.total++;
     return id;
 }
@@ -439,7 +454,7 @@ EntityId SpawnTrainer(HardwareInterface hardware, MemoryInterface memory, uint8_
 
 
     //  TODO: set from trainer data in the database flash
-    EntityId item_id = SpawnEntity(hardware, memory, ITEM, ESCAPE_ROPE, x, y, 0);
+    EntityId item_id = SpawnEntity(hardware, memory, ITEM, RARE_CANDY, x, y, 0);
     PlayerPickItem(id, item_id);
     EntityId item_id2 = SpawnEntity(hardware, memory, ITEM, CAPTURE_LASSO, x, y, 0);
     PlayerPickItem(id, item_id2);

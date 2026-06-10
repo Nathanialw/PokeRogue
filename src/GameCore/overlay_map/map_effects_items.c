@@ -10,6 +10,7 @@
 #include "core_effects.h"
 #include "core_ram.h"
 #include "core_utils.h"
+#include "map_actions.h"
 #include "map_effects.h"
 
 
@@ -19,9 +20,28 @@
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool UseMapLavaResistance(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseMapLavaResistance(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
-    RaiseFireResistance(e_id);
+    RaiseFireResistance(target_id);
+    return true;
+}
+
+/**********************************************************************************************************************/
+/* input EntityId item_id as the spell_book index to increase the pp of
+**********************************************************************************************************************/
+SET_MEMORY(".core")
+bool UseMapRestorePpPotion(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
+{
+    return RestorePP(user_id, index, itemData.power);
+}
+
+/**********************************************************************************************************************/
+/*
+**********************************************************************************************************************/
+SET_MEMORY(".core")
+bool UseMapInvisibilityPotion(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
+{
+    Invisibility(user_id, itemData.power);
     return true;
 }
 
@@ -29,9 +49,9 @@ bool UseMapLavaResistance(HardwareInterface hardware, MemoryInterface memory, En
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool UseMapRestorePpPotion(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseMapInvulnerabilityPotion(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
-    RestorePP(e_id, itemData.power);
+    MakeInvulnerable(user_id);
     return true;
 }
 
@@ -39,9 +59,9 @@ bool UseMapRestorePpPotion(HardwareInterface hardware, MemoryInterface memory, E
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool UseMapInvisibilityPotion(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseMapHastePotion(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
-    Invisibility(e_id, itemData.power);
+    ApplyHaste(user_id, itemData.power);
     return true;
 }
 
@@ -49,9 +69,9 @@ bool UseMapInvisibilityPotion(HardwareInterface hardware, MemoryInterface memory
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool UseMapInvulnerabilityPotion(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseMapLevitatePotion(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
-    MakeInvulnerable(e_id);
+    Hover(target_id, itemData.power);
     return true;
 }
 
@@ -59,30 +79,10 @@ bool UseMapInvulnerabilityPotion(HardwareInterface hardware, MemoryInterface mem
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool UseMapHastePotion(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
-{
-    ApplyHaste(e_id, itemData.power);
-    return true;
-}
-
-/**********************************************************************************************************************/
-/*
-**********************************************************************************************************************/
-SET_MEMORY(".core")
-bool UseMapLevitatePotion(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
-{
-    Hover(e_id, itemData.power);
-    return true;
-}
-
-/**********************************************************************************************************************/
-/*
-**********************************************************************************************************************/
-SET_MEMORY(".core")
-bool UseMapTeleportPotion(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseMapTeleportPotion(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
     // Position random_tile_pos = GetSelectedTile(hardware, true);
-    // Reposition(e_id, random_tile_pos);
+    // Reposition(user_id, random_tile_pos);
     return true;
 }
 
@@ -90,9 +90,9 @@ bool UseMapTeleportPotion(HardwareInterface hardware, MemoryInterface memory, En
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool UseMapBlinkPotion(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseMapBlinkPotion(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
-    Reposition(hardware, e_id);
+    Reposition(hardware, user_id);
     return true;
 }
 
@@ -100,9 +100,9 @@ bool UseMapBlinkPotion(HardwareInterface hardware, MemoryInterface memory, Entit
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool UseMapRepelPotion(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseMapRepelPotion(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
-    Repel(e_id, itemData.power);
+    Repel(user_id, itemData.power);
     return true;
 }
 
@@ -110,10 +110,10 @@ bool UseMapRepelPotion(HardwareInterface hardware, MemoryInterface memory, Entit
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool UseMapRevivePotion(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseMapRevivePotion(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
-    if (e_id == NO_ENTITY) return false;
-    Revive(e_id);
+    if (target_id == NO_ENTITY) return false;
+    Revive(target_id);
     return true;
 }
 
@@ -121,9 +121,9 @@ bool UseMapRevivePotion(HardwareInterface hardware, MemoryInterface memory, Enti
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool UseMapSleepDart(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseMapSleepDart(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
-    ApplySleep(e_id, itemData.power);
+    ApplySleep(target_id, itemData.power);
     return true;
 }
 
@@ -131,9 +131,9 @@ bool UseMapSleepDart(HardwareInterface hardware, MemoryInterface memory, EntityI
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool UseMapParalyzeDart(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseMapParalyzeDart(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
-    ApplyParalyze(e_id, itemData.power);
+    ApplyParalyze(target_id, itemData.power);
     return true;
 }
 
@@ -141,9 +141,9 @@ bool UseMapParalyzeDart(HardwareInterface hardware, MemoryInterface memory, Enti
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool UseMapPoisonDart(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseMapPoisonDart(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
-    ApplyPoison(e_id, itemData.power);
+    ApplyPoison(target_id, itemData.power);
     return true;
 }
 
@@ -151,7 +151,7 @@ bool UseMapPoisonDart(HardwareInterface hardware, MemoryInterface memory, Entity
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool UseMapAcidVial(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseMapAcidVial(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
     DestroyRandomPlayerItem();
     return true;
@@ -161,7 +161,7 @@ bool UseMapAcidVial(HardwareInterface hardware, MemoryInterface memory, EntityId
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool UseMapHolyWater(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseMapHolyWater(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
     return true;
 }
@@ -170,7 +170,7 @@ bool UseMapHolyWater(HardwareInterface hardware, MemoryInterface memory, EntityI
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool UseMapExplosiveFlask(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseMapExplosiveFlask(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
     return true;
 }
@@ -179,9 +179,9 @@ bool UseMapExplosiveFlask(HardwareInterface hardware, MemoryInterface memory, En
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool UseMapTorch(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseMapTorch(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
-    StatusLesserLight(e_id, itemData.power);
+    StatusLesserLight(target_id, itemData.power);
     return true;
 }
 
@@ -189,9 +189,9 @@ bool UseMapTorch(HardwareInterface hardware, MemoryInterface memory, EntityId it
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool UseMapLantern(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseMapLantern(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
-    StatusGreaterLight(e_id, itemData.power);
+    StatusGreaterLight(target_id, itemData.power);
     return true;
 }
 
@@ -199,16 +199,7 @@ bool UseMapLantern(HardwareInterface hardware, MemoryInterface memory, EntityId 
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool UseMapMirror(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
-{
-    return true;
-}
-
-/**********************************************************************************************************************/
-/*
-**********************************************************************************************************************/
-SET_MEMORY(".core")
-bool UseMapEarmuffs(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseMapMirror(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
     return true;
 }
@@ -217,7 +208,7 @@ bool UseMapEarmuffs(HardwareInterface hardware, MemoryInterface memory, EntityId
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool UseMapLockpick(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseMapEarmuffs(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
     return true;
 }
@@ -226,7 +217,16 @@ bool UseMapLockpick(HardwareInterface hardware, MemoryInterface memory, EntityId
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool UseMapPouch(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseMapLockpick(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
+{
+    return true;
+}
+
+/**********************************************************************************************************************/
+/*
+**********************************************************************************************************************/
+SET_MEMORY(".core")
+bool UseMapPouch(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
     NoEffect();
     return true;
@@ -236,7 +236,7 @@ bool UseMapPouch(HardwareInterface hardware, MemoryInterface memory, EntityId it
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool UseMapSack(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseMapSack(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
     NoEffect();
     return true;
@@ -246,7 +246,7 @@ bool UseMapSack(HardwareInterface hardware, MemoryInterface memory, EntityId ite
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool UseMapBackpack(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseMapBackpack(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
     NoEffect();
     return true;
@@ -256,7 +256,7 @@ bool UseMapBackpack(HardwareInterface hardware, MemoryInterface memory, EntityId
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool UseMapAltarStone(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseMapAltarStone(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
     return true;
 }
@@ -265,7 +265,7 @@ bool UseMapAltarStone(HardwareInterface hardware, MemoryInterface memory, Entity
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool UseMapBootsAcidWalking(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseMapBootsAcidWalking(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
     NoEffect();
     return true;
@@ -275,7 +275,7 @@ bool UseMapBootsAcidWalking(HardwareInterface hardware, MemoryInterface memory, 
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool UseMapBootsLavaWalking(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseMapBootsLavaWalking(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
     NoEffect();
     return true;
@@ -285,7 +285,7 @@ bool UseMapBootsLavaWalking(HardwareInterface hardware, MemoryInterface memory, 
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool UseMapBootsWaterWalking(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseMapBootsWaterWalking(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
     NoEffect();
     return true;
@@ -295,7 +295,7 @@ bool UseMapBootsWaterWalking(HardwareInterface hardware, MemoryInterface memory,
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool UseMapGlovesAcidResistance(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseMapGlovesAcidResistance(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
     NoEffect();
     return true;
@@ -305,7 +305,7 @@ bool UseMapGlovesAcidResistance(HardwareInterface hardware, MemoryInterface memo
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool UseMapWisdomCrown(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseMapWisdomCrown(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
     NoEffect();
     return true;
@@ -315,9 +315,9 @@ bool UseMapWisdomCrown(HardwareInterface hardware, MemoryInterface memory, Entit
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool UseMapRainWater(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseMapRainWater(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
-    if (e_id == NO_ENTITY) return false;
+    if (target_id == NO_ENTITY) return false;
     return true;
 }
 
@@ -325,9 +325,9 @@ bool UseMapRainWater(HardwareInterface hardware, MemoryInterface memory, EntityI
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool UseMapMutton(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseMapMutton(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
-    if (e_id == NO_ENTITY) return false;
+    if (target_id == NO_ENTITY) return false;
     return true;
 }
 
@@ -335,9 +335,9 @@ bool UseMapMutton(HardwareInterface hardware, MemoryInterface memory, EntityId i
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool UseMapCake(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseMapCake(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
-    if (e_id == NO_ENTITY) return false;
+    if (target_id == NO_ENTITY) return false;
     return true;
 }
 
@@ -345,9 +345,9 @@ bool UseMapCake(HardwareInterface hardware, MemoryInterface memory, EntityId ite
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool UseMapRawMeat(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseMapRawMeat(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
-    if (e_id == NO_ENTITY) return false;
+    if (target_id == NO_ENTITY) return false;
     return true;
 }
 
@@ -355,9 +355,9 @@ bool UseMapRawMeat(HardwareInterface hardware, MemoryInterface memory, EntityId 
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool UseMapFish(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseMapFish(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
-    if (e_id == NO_ENTITY) return false;
+    if (target_id == NO_ENTITY) return false;
     return true;
 }
 
@@ -365,9 +365,9 @@ bool UseMapFish(HardwareInterface hardware, MemoryInterface memory, EntityId ite
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool UseMapManFlesh(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseMapManFlesh(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
-    if (e_id == NO_ENTITY) return false;
+    if (target_id == NO_ENTITY) return false;
     return true;
 }
 
@@ -375,9 +375,9 @@ bool UseMapManFlesh(HardwareInterface hardware, MemoryInterface memory, EntityId
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool UseMapBerries(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseMapBerries(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
-    if (e_id == NO_ENTITY) return false;
+    if (target_id == NO_ENTITY) return false;
     return true;
 }
 
@@ -385,9 +385,9 @@ bool UseMapBerries(HardwareInterface hardware, MemoryInterface memory, EntityId 
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool UseMapWine(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseMapWine(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
-    if (e_id == NO_ENTITY) return false;
+    if (target_id == NO_ENTITY) return false;
     return true;
 }
 
@@ -395,9 +395,9 @@ bool UseMapWine(HardwareInterface hardware, MemoryInterface memory, EntityId ite
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool UseMapSoulEssence(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseMapSoulEssence(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
-    if (e_id == NO_ENTITY) return false;
+    if (target_id == NO_ENTITY) return false;
     return true;
 }
 
@@ -405,18 +405,18 @@ bool UseMapSoulEssence(HardwareInterface hardware, MemoryInterface memory, Entit
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool UseMapLasso(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseMapLasso(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
-    return Capture(hardware, e_id, itemData.chance);
+    return Capture(hardware, user_id, target_id, itemData.chance);
 }
 
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool UseMapShackles(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseMapShackles(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
-    return Capture(hardware, e_id, itemData.chance);
+    return Capture(hardware, user_id, target_id, itemData.chance);
 
 }
 
@@ -424,46 +424,46 @@ bool UseMapShackles(HardwareInterface hardware, MemoryInterface memory, EntityId
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool UseMapChain(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseMapChain(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
-    return Capture(hardware, e_id, itemData.chance);
+    return Capture(hardware, user_id, target_id, itemData.chance);
 }
 
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool UseMapBearTrap(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseMapBearTrap(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
-    return Capture(hardware, e_id, itemData.chance);
+    return Capture(hardware, user_id, target_id, itemData.chance);
 }
 
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool UseMapNet(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseMapNet(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
-    return Capture(hardware, e_id, itemData.chance);
+    return Capture(hardware, user_id, target_id, itemData.chance);
 }
 
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool UseMapElementalBolas(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseMapElementalBolas(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
-    return Capture(hardware, e_id, itemData.chance);
+    return Capture(hardware, user_id, target_id, itemData.chance);
 }
 
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool UseMapWhip(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseMapWhip(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
-    if (e_id == NO_ENTITY) return false;
-    RaiseStrength(e_id);
+    if (user_id == NO_ENTITY) return false;
+    RaiseStrength(target_id);
     return true;
 }
 
@@ -471,10 +471,10 @@ bool UseMapWhip(HardwareInterface hardware, MemoryInterface memory, EntityId ite
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool UseMapAmphetamines(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseMapAmphetamines(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
-    if (e_id == NO_ENTITY) return false;
-    RaiseSpeed(e_id);
+    if (user_id == NO_ENTITY) return false;
+    RaiseSpeed(target_id);
     return true;
 }
 
@@ -482,10 +482,10 @@ bool UseMapAmphetamines(HardwareInterface hardware, MemoryInterface memory, Enti
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool UseMapGrowthHormones(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseMapGrowthHormones(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
-    if (e_id == NO_ENTITY) return false;
-    RaiseStrength(e_id);
+    if (user_id == NO_ENTITY) return false;
+    RaiseStrength(target_id);
     return true;
 }
 
@@ -493,10 +493,10 @@ bool UseMapGrowthHormones(HardwareInterface hardware, MemoryInterface memory, En
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool UseMapIronSkinElixir(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseMapIronSkinElixir(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
-    if (e_id == NO_ENTITY) return false;
-    RaiseDefence(e_id);
+    if (user_id == NO_ENTITY) return false;
+    RaiseDefence(target_id);
     return true;
 }
 
@@ -504,10 +504,10 @@ bool UseMapIronSkinElixir(HardwareInterface hardware, MemoryInterface memory, En
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool UseMapSwiftnessSerum(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseMapSwiftnessSerum(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
-    if (e_id == NO_ENTITY) return false;
-    ApplyHaste(e_id, itemData.power);
+    if (user_id == NO_ENTITY) return false;
+    ApplyHaste(target_id, itemData.power);
     return true;
 }
 
@@ -515,9 +515,9 @@ bool UseMapSwiftnessSerum(HardwareInterface hardware, MemoryInterface memory, En
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool UseMapWildMushroom(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseMapWildMushroom(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
-    if (e_id == NO_ENTITY) return false;
+    if (user_id == NO_ENTITY) return false;
     return true;
 }
 
@@ -525,9 +525,9 @@ bool UseMapWildMushroom(HardwareInterface hardware, MemoryInterface memory, Enti
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool UseMapHeartScale(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseMapHeartScale(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
-    if (e_id == NO_ENTITY) return false;
+    if (user_id == NO_ENTITY) return false;
     return true;
 }
 
@@ -535,7 +535,7 @@ bool UseMapHeartScale(HardwareInterface hardware, MemoryInterface memory, Entity
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool UseMapSmokeBall(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseMapSmokeBall(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
     Flee();
     return true;
@@ -545,10 +545,10 @@ bool UseMapSmokeBall(HardwareInterface hardware, MemoryInterface memory, EntityI
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool UseMapAbilityBook(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseMapAbilityBook(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
-    if (e_id == NO_ENTITY) return false;
-    LearnSkill(e_id);
+    if (user_id == NO_ENTITY) return false;
+    LearnSkill(user_id);
     return true;
 }
 
@@ -556,11 +556,11 @@ bool UseMapAbilityBook(HardwareInterface hardware, MemoryInterface memory, Entit
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool UseMapHealthPotion(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseMapHealthPotion(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
-    if (e_id == NO_ENTITY) return false;
-    uint8_t value = g_core.creatures.metaData[item_id].value;
-    return HealTarget(e_id, value);
+    if (target_id == NO_ENTITY) return false;
+    uint8_t value = g_core.items.metaData[item_id].value;
+    return HealTarget(target_id, value);
 }
 
 
@@ -568,7 +568,7 @@ bool UseMapHealthPotion(HardwareInterface hardware, MemoryInterface memory, Enti
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool UseMapVisionPotion(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseMapVisionPotion(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
     SetBit(g_core.player.effects, P_EFFECTS_MAP_VISION_CREATURES, true);
     return true;
@@ -578,21 +578,21 @@ bool UseMapVisionPotion(HardwareInterface hardware, MemoryInterface memory, Enti
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool UseMapManaPotion(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseMapManaPotion(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
-    if (e_id == NO_ENTITY) return false;
-    uint8_t value = g_core.creatures.metaData[item_id].value;
-    return RestoreMana(e_id, value);
+    if (target_id == NO_ENTITY) return false;
+    uint8_t value = g_core.items.metaData[item_id].value;
+    return RestoreMana(target_id, value);
 }
 
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool UseMapSpellBook(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseMapSpellBook(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
-    uint8_t spell_id = g_core.creatures.metaData[item_id].SpellId;
-    return LearnSpell(memory, e_id, spell_id);
+    uint8_t spell_id = g_core.items.metaData[item_id].spell_id;
+    return LearnSpell(memory, user_id, spell_id);
 }
 
 /**********************************************************************************************************************/
@@ -602,92 +602,92 @@ bool UseMapSpellBook(HardwareInterface hardware, MemoryInterface memory, EntityI
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool UseMapScroll(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseMapScroll(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
-    uint8_t spell_id = g_core.creatures.metaData[item_id].SpellId;
-    return CastSpellBattle(hardware, memory, spell_id, e_id, e_id);
+    uint8_t spell_id = g_core.items.metaData[item_id].spell_id;
+    return CastSpellMap(hardware, memory, spell_id, SPELL_INDEX_NULL, user_id, target_id);
 }
 
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool UseMapAntidotePotion(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseMapAntidotePotion(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
-    if (e_id == NO_ENTITY) return false;
-    return RemovePoison(e_id);
+    if (target_id == NO_ENTITY) return false;
+    return RemovePoison(target_id);
 }
 
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool UseMapDecursePotion(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseMapDecursePotion(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
-    if (e_id == NO_ENTITY) return false;
-    return RemoveCurse(e_id);
+    if (target_id == NO_ENTITY) return false;
+    return RemoveCurse(target_id);
 }
 
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool UseMapCurePotion(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseMapCurePotion(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
-    if (e_id == NO_ENTITY) return false;
-    return RemoveDisease(e_id);
+    if (target_id == NO_ENTITY) return false;
+    return RemoveDisease(target_id);
 }
 
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool UseMapCloakAcidResistance(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseMapCloakAcidResistance(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
-    return RaiseAcidResistance(e_id);
+    return RaiseAcidResistance(target_id);
 }
 
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool UseMapFireResistance(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseMapFireResistance(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
-    return RaiseFireResistance(e_id);
+    return RaiseFireResistance(target_id);
 }
 
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool UseMapWaterResistance(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseMapWaterResistance(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
-    return RaiseWaterResistance(e_id);
+    return RaiseWaterResistance(target_id);
 }
 
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool UseMapIceResistance(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseMapIceResistance(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
-    return RaiseIceResistance(e_id);
+    return RaiseIceResistance(target_id);
 }
 
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool UseMapMagicResistance(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseMapMagicResistance(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
-    return RaiseMagicResistance(e_id);
+    return RaiseMagicResistance(target_id);
 }
 
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool UseMapEscapeRope(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseMapEscapeRope(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
     return GoNextLevel(MAP_LEVEL_UP);
 }
@@ -696,7 +696,7 @@ bool UseMapEscapeRope(HardwareInterface hardware, MemoryInterface memory, Entity
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool UseMapPick(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseMapPick(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
     return true;
 }
@@ -705,9 +705,17 @@ bool UseMapPick(HardwareInterface hardware, MemoryInterface memory, EntityId ite
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool UseMapRareCandy(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseMapRareCandy(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
-    if (e_id == NO_ENTITY) return false;
+    return LevelUpRetainProgress(target_id);
+}
+
+/**********************************************************************************************************************/
+/*
+**********************************************************************************************************************/
+SET_MEMORY(".core")
+bool UseMapShovel(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
+{
     return true;
 }
 
@@ -715,17 +723,9 @@ bool UseMapRareCandy(HardwareInterface hardware, MemoryInterface memory, EntityI
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool UseMapShovel(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseMapXPPotion(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
+    if (target_id == NO_ENTITY) return false;
     return true;
 }
 
-/**********************************************************************************************************************/
-/*
-**********************************************************************************************************************/
-SET_MEMORY(".core")
-bool UseMapXPPotion(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
-{
-    if (e_id == NO_ENTITY) return false;
-    return true;
-}

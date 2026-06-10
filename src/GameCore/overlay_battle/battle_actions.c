@@ -16,6 +16,7 @@
 #include "battle_ram.h"
 #include "battle_ui.h"
 #include "core_graphics.h"
+#include "core_player.h"
 
 bool AdjustMana(EntityId creature_id, int16_t mana)
 {
@@ -65,7 +66,7 @@ bool UseSkill(HardwareInterface hardware, MemoryInterface memory, bool player)
         }
 
         PrintCombatLogText(hardware, memory, "Player Casting");
-        g_battle.end_battle = Flash_GetSkillEffect(hardware, memory, ability, player_creature_id, ai_creature_id, ability_data);
+        Flash_GetSkillEffect(hardware, memory, ability, GetPlayerID(), player_creature_id, ai_creature_id, ability_data);
     }
     else
     {
@@ -92,7 +93,7 @@ bool UseSkill(HardwareInterface hardware, MemoryInterface memory, bool player)
             return false;
 
         PrintCombatLogText(hardware, memory, "Enemy Casting");
-        Flash_GetSkillEffect(hardware, memory, ability, ai_creature_id, player_creature_id, ability_data);
+        Flash_GetSkillEffect(hardware, memory, ability, g_core.battleMode.enemy_trainer_id, ai_creature_id, player_creature_id, ability_data);
     }
 
     //  set move animation cache
@@ -106,12 +107,36 @@ bool UseSkill(HardwareInterface hardware, MemoryInterface memory, bool player)
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool CastSpellBattle(HardwareInterface hardware, MemoryInterface memory, SpellId spellID, EntityId partyID, EntityId enemyID)
+bool CastSpellBattle(HardwareInterface hardware, MemoryInterface memory, SpellId spellID, uint8_t spellbook_index, EntityId caster_id, EntityId target_id)
 {
-    // DEBUG("spell data %s id: %d  partyid: %d enemyid: %d", g_gameFlash.text.names.spells[spellID], spellID, partyID, enemyID);
-    SpellData spellData;
-    Flash_GetSpellData(memory, &spellData, spellID);;
-    return CastBattleSpell(hardware, memory, spellID, partyID, enemyID, spellData);
+
+    if (spellbook_index == SPELL_INDEX_NULL)
+    {
+        SpellData spellData;
+        Flash_GetSpellData(memory, &spellData, spellID);;
+        if (CastBattleSpell(hardware, memory, spellID, caster_id, g_core.battleMode.playerMonsterID, target_id, spellData))
+        {
+            DEBUG("Scroll success spellID: %d", spellID);
+            return true;
+        }
+
+        DEBUG("Scroll failed spellID: %d", spellID);
+        return false;
+    }
+    else if (g_core.trainers.spellPage[caster_id][spellbook_index].pp > 0)
+    {
+        SpellData spellData;
+        Flash_GetSpellData(memory, &spellData, spellID);;
+        if (CastBattleSpell(hardware, memory, spellID, caster_id, g_core.battleMode.playerMonsterID, target_id, spellData))
+        {
+            if (spellbook_index != SPELL_INDEX_NULL)
+                g_core.trainers.spellPage[caster_id][spellbook_index].pp--;
+        }
+        return true;
+    }
+
+    DEBUG("Not enough pp points");
+    return false;
 }
 
 /**********************************************************************************************************************
@@ -120,9 +145,9 @@ bool CastSpellBattle(HardwareInterface hardware, MemoryInterface memory, SpellId
 *  is a valid e_id is passed, it will attempt to use the item on that entity
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool UseItemBattle(HardwareInterface hardware, MemoryInterface memory, ItemData* itemData, EntityId item_id, EntityId e_id)
+bool UseItemBattle(HardwareInterface hardware, MemoryInterface memory, ItemData* itemData, EntityId item_id, EntityId user_id, EntityId target_id, uint8_t index)
 {
     if (item_id == NO_ENTITY) return false;
     ItemTypes itemType = GetItemType(item_id);
-    return UseBattleItem(hardware, memory, itemType, item_id, e_id, *itemData);
+    return UseBattleItem(hardware, memory, itemType, item_id, user_id, target_id, *itemData, index);
 }

@@ -8,6 +8,7 @@
 EntityId PlayerCaptureMonster(EntityId e_id);
 
 EntityId PlayerPickItem(EntityId trainer_id, EntityId item_id);
+EntityId DropItem(EntityId trainer_id, EntityId item_id);
 EntityId* GetPlayerMonsterIDs(void);
 void DestroyPlayerCreature(HardwareInterface hardware);
 void DestroyEnemyCreature(HardwareInterface hardware);

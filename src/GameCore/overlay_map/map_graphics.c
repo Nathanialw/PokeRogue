@@ -214,7 +214,7 @@ void DrawParty(GraphicsInterface graphics, HardwareInterface hardware, MemoryInt
         char line[SMALL_STRINGS];
         GetMenuLine(memory, line, i);
         bool line_empty = (line[0] == '\0');
-        if (line_empty || i > (max_lines)) break;
+        if (i > (max_lines)) break;
 
 
         EntityId player_id = GetPlayerID();

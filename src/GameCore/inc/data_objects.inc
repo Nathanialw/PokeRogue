@@ -13,11 +13,11 @@
 { .power = 0x05, .data = 0x01, .flags = 0b00100100 },
 //    2 - BOAT_ROWBOAT
 { .power = 0x05, .data = 0x01, .flags = 0b00100100 },
-//    3 - CASE_BOOK
+//    3 - CABINET_BOOK
 { .power = 0x05, .data = 0x01, .flags = 0b00000011 },
-//    4 - CASE_JEWELLERY
+//    4 - CABINET_JEWELLERY
 { .power = 0x05, .data = 0x01, .flags = 0b00000011 },
-//    5 - CASE_SCROLL
+//    5 - CABINET_SCROLL
 { .power = 0x05, .data = 0x01, .flags = 0b00000011 },
 //    6 - CAULDRON
 { .power = 0x05, .data = 0x01, .flags = 0b00000011 },
@@ -94,4 +94,4 @@
 //    42 - WELL
 { .power = 0x05, .data = 0x01, .flags = 0b00000011 },
 
-//ALL_NAMES_COUNT = 43;
+//COUNT = 43;

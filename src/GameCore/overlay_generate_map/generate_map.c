@@ -252,7 +252,7 @@ void DungeonPredefined(HardwareInterface hardware)
             else if (x > MAP_EDGE && x < MAP_W - MAP_EDGE && y > MAP_EDGE && y < MAP_H - MAP_EDGE)
                 SetMapTile(x, y, FLOOR_DIRT);
             else
-                SetMapTile(x, y, WATER);
+                SetMapTile(x, y, FLUID_WATER);
         }
 
 

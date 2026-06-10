@@ -4,8 +4,6 @@
 
 #include "map_state.h"
 
-#include <stdio.h>
-
 #include "lib_memory.h"
 #include "lib_decl.h"
 #include "lib_enums.h"
@@ -139,11 +137,13 @@ void UpdateGameRunningState(GraphicsInterface graphics, HardwareInterface hardwa
         if (input.GetButtonA())
         {
             PlayerInteractItemInCell();
+            FullRedraw(graphics, hardware, memory);
         }
 
         if (input.GetButtonB())
         {
             PlayerInteractObjectInCell(memory, hardware);
+            FullRedraw(graphics, hardware, memory);
         }
 
         if (input.GetButtonX())
@@ -193,11 +193,13 @@ void UpdateGameRunningState(GraphicsInterface graphics, HardwareInterface hardwa
         if (input.GetButtonA())
         {
             PlayerInteractItemInCell();
+            FullRedraw(graphics, hardware, memory);
         }
 
         if (input.GetButtonB())
         {
             PlayerInteractObjectInCell(memory, hardware);
+            FullRedraw(graphics, hardware, memory);
         }
 
         if (input.GetButtonX())
@@ -271,6 +273,7 @@ void HandleGameState(GameInterface* spi)
 
     if (g_core.state.inputState == INPUT_IDLE)
     {
+        spi->graphics.EndFrame();
     }
 
     // spi.audio.PlaySoundEffect();

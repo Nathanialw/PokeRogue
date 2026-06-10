@@ -9,7 +9,6 @@
 #include "lib_memory.h"
 #include "lib_types.h"
 
-#include "core_actions.h"
 #include "core_entities.h"
 #include "core_menu.h"
 #include "core_ram.h"
@@ -315,6 +314,27 @@ bool Trainerpedia(GraphicsInterface graphics, HardwareInterface hardware, InputI
     return true;
 }
 
+
+/**********************************************************************************************************************
+**
+**********************************************************************************************************************/
+SET_MEMORY(".map")
+void OpenUseOnSpellPage(HardwareInterface hardware, MemoryInterface memory, UseFrameBack f)
+{
+    EntityId player_id = GetPlayerID();
+    FillListByTypeID(memory, g_core.player.currentSpellbookSize, g_core.trainers.spellID[player_id]);
+
+    g_core.menu.forceRedraw = true;
+    g_core.menu.visibleMenuOptions = g_core.player.currentSpellbookSize;
+
+    g_core.menu.depth++;
+    g_core.menu.sel[g_core.menu.depth].x = 0;
+    g_core.menu.sel[g_core.menu.depth].y = 0;
+    g_core.menu.visibleMenuOptions = ListSize(g_core.player.currentSpellbookSize);
+    g_core.menu.totalMenuOptions = g_core.player.currentSpellbookSize;
+}
+
+
 /**********************************************************************************************************************
 **
 **********************************************************************************************************************/
@@ -363,11 +383,18 @@ void BackUseOnParty(MemoryInterface memory)
 SET_MEMORY(".map")
 bool Party(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update)
 {
-    if (ToggleMenu(MONSTERS_SUBMENU, MAX_PARTY_SIZE))
+    if (ToggleMenu(MONSTERS_SUBMENU, g_core.player.currentPartySize))
     {
+        uint8_t target_index = g_core.menu.sel[g_core.menu.depth].y + g_core.menu.menuScrollOffset[g_core.menu.depth].y;
+        EntityId party_id1 = g_core.trainers.partyID[GetPlayerID()][0];
+        EntityId party_id2 = g_core.trainers.partyID[GetPlayerID()][target_index];
+        g_core.trainers.partyID[GetPlayerID()][0] = party_id2;
+        g_core.trainers.partyID[GetPlayerID()][target_index] = party_id1;
+        FillListByEntityID(memory, g_core.player.currentPartySize, CREATURE, GetPlayerMonsterIDs());
+        DrawParty(graphics, hardware, memory);
     }
 
-    FillListByEntityID(memory, MAX_PARTY_SIZE, CREATURE, GetPlayerMonsterIDs());
+    FillListByEntityID(memory, g_core.player.currentPartySize, CREATURE, GetPlayerMonsterIDs());
     return true;
 };
 
@@ -405,10 +432,16 @@ bool Bag(GraphicsInterface graphics, HardwareInterface hardware, InputInterface 
                 return true;
             }
 
+            if (itemData.consumable_spellbook)
+            {
+                OpenUseOnSpellPage(hardware, memory, BACK_ITEM);
+                return true;
+            }
+
             if (!itemData.consumable)
                 return true;
 
-            if (UseItemMap(hardware, memory, &itemData, item_id, player_id))
+            if (UseItemMap(hardware, memory, &itemData, item_id, player_id, NO_ENTITY, 0))
             {
                 ConsumeItem(idx, item_id);
                 FullRedraw(graphics, hardware, memory);
@@ -420,23 +453,40 @@ bool Bag(GraphicsInterface graphics, HardwareInterface hardware, InputInterface 
                 return true;
         }
 
-        uint8_t idx = g_core.menu.sel[g_core.menu.depth - 1].y + g_core.menu.menuScrollOffset[g_core.menu.depth - 1].y;
-        EntityId item_id = g_core.trainers.itemID[player_id][idx];
+
+        uint8_t item_idx = g_core.menu.sel[g_core.menu.depth - 1].y + g_core.menu.menuScrollOffset[g_core.menu.depth - 1].y;
+        EntityId item_id = g_core.trainers.itemID[player_id][item_idx];
         uint8_t item_type = GetItemType(item_id);
-        EntityId entity_id = g_core.trainers.partyID[player_id][g_core.menu.sel[g_core.menu.depth].y + g_core.menu.menuScrollOffset[g_core.menu.depth].y];
+        uint8_t target_index = g_core.menu.sel[g_core.menu.depth].y + g_core.menu.menuScrollOffset[g_core.menu.depth].y;
+        EntityId target_id = g_core.trainers.partyID[player_id][target_index];
 
         ItemData itemData;
         Flash_GetItemData(memory, &itemData, item_type);
-        if (!itemData.consumable_party) return false;
-        if (UseItemMap(hardware, memory, &itemData, item_id, entity_id))
+
+        if (itemData.consumable_spellbook)
         {
-            ConsumeItem(idx, item_id);
-            BackUseOnParty(memory);
-            DrawList(graphics, hardware, memory);
+            if (UseItemMap(hardware, memory, &itemData, item_id, player_id, target_id, target_index))
+            {
+                ConsumeItem(item_idx, item_id);
+                BackUseOnParty(memory);
+                DrawList(graphics, hardware, memory);
+            }
+
+            return true;
         }
-        else
+
+        if (itemData.consumable_party)
         {
-            //display error message why the item could not be used
+            if (UseItemMap(hardware, memory, &itemData, item_id, player_id, target_id, target_index))
+            {
+                ConsumeItem(item_idx, item_id);
+                BackUseOnParty(memory);
+                DrawList(graphics, hardware, memory);
+            }
+            else
+            {
+                //display error message why the item could not be used
+            }
         }
 
         //if toss

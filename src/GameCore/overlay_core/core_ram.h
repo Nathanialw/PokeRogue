@@ -58,6 +58,7 @@ typedef struct
         ObjectType moveID;
         EntityId playerMonsterID;
         EntityId enemyMonsterID;
+        EntityId enemy_trainer_id;
         uint8_t current_line;
         char combatLog[COMBAT_LOG_SIZE][40]; // TODO: expand o <= 30 lines for a full screen combat log, dont bother with scrolling, use a wraparound ptr
         char hpStr[10];
@@ -112,6 +113,7 @@ typedef struct
         EntityId id;
         uint8_t currentBagSize;
         uint8_t currentSpellbookSize;
+        uint8_t currentPartySize;
         Delta d;
         Delta scroll;
         BitFieldUint8 effects;

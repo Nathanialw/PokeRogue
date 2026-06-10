@@ -7,6 +7,7 @@
 #include "types.h"
 
 #include "core_effects.h"
+#include "lib_debugging.h"
 
 #include "map_player.h"
 #include "map_ram.h"
@@ -194,8 +195,12 @@ bool CastMapRepel(HardwareInterface hardware, MemoryInterface memory, EntityId c
 SET_MEMORY(".map")
 bool CastMapCapture(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
 {
-    Capture(hardware, target_id, spellData.power);
-    return true;
+
+    if (Capture(hardware, caster_id, target_id, spellData.power))
+    {
+        return true;
+    }
+    return false;
 }
 
 
@@ -441,7 +446,8 @@ bool CastMapRage(HardwareInterface hardware, MemoryInterface memory, EntityId ca
 SET_MEMORY(".map")
 bool CastMapOpenChest(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
 {
-    return true;
+    DEBUG("CastMapOpenChest Faileod to open chest");
+    return false;
 }
 
 
@@ -452,7 +458,7 @@ SET_MEMORY(".map")
 bool CastMapIncreaseBag(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
 {
     // TODO: temorary increase bag slots, add field for onlt the player
-    return true;
+    return false;
 }
 
 
@@ -463,7 +469,7 @@ SET_MEMORY(".map")
 bool CastMapGlowingEmbers(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
 {
     StatusLesserLight(caster_id, spellData.power);
-    return true;
+    return false;
 }
 
 
@@ -474,7 +480,7 @@ SET_MEMORY(".map")
 bool CastMapBrillianceAura(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
 {
     StatusGreaterLight(caster_id, spellData.power);
-    return true;
+    return false;
 }
 
 
@@ -484,7 +490,7 @@ bool CastMapBrillianceAura(HardwareInterface hardware, MemoryInterface memory, E
 SET_MEMORY(".map")
 bool CastMapReflect(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
 {
-    return true;
+    return false;
 }
 
 
@@ -494,7 +500,7 @@ bool CastMapReflect(HardwareInterface hardware, MemoryInterface memory, EntityId
 SET_MEMORY(".map")
 bool CastMapSilence(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
 {
-    return true;
+    return false;
 }
 
 

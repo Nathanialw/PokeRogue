@@ -62,7 +62,7 @@ def creatures_level_up_skills(entity):
             f.write(f"\n}}}},\n")
 
         f.write("\n")
-        f.write(f"//ALL_NAMES_COUNT = {len(names)};\n")
+        f.write(f"//COUNT = {len(names)};\n")
 
 
 def spells(entity):
@@ -103,7 +103,7 @@ def spells(entity):
             f.write(f"{{ .power = {power_str}, .level = {level_str}, .data = {data_str}, .flags = {flags_str}  }},\n")
 
         f.write("\n")
-        f.write(f"//ALL_NAMES_COUNT = {len(spell_data)};\n")
+        f.write(f"//COUNT = {len(spell_data)};\n")
 
 
 def items(entity):
@@ -114,15 +114,30 @@ def items(entity):
         f.write(f"// Generated {entity} data structs\n")
         f.write(f"// Database contains {len(item_data)} total {entity}s\n\n")
 
+        f.write(f"// power      8 bitsr\n")
+        f.write(f"// item_level 4 bits\n")
+        f.write(f"// item_type  4 bits\n")
+        f.write(f"// flags\n")
+        f.write(f"//    x5 padding bits\n")
+        f.write(f"//    consumable\n")
+        f.write(f"//    consumable_party\n")
+        f.write(f"//    consumable_spellbook\n\n")
+
         # Write individual constants
         f.write(f"// Individual {entity}s data\n")
 
-        for i, (power, item_level, item_type, consumable, consumable_party) in enumerate(item_data):
-            # Clean the types for C string
-            f.write("{" + f" .power = {power}, .level = {item_level}, .type = {item_type}, .consumable = {consumable}, .consumable_party = {consumable_party} " + "},\n")
+        for i, (name, power, item_level, item_type, type_enum, consumable, consumable_party, consumable_spellbook) in enumerate(item_data):
+            data_value = (int(type_enum) << 4) | int(item_level)
+            data_str = f"0x{data_value:02x}"
+
+            flags = make_flags(consumable, consumable_party, consumable_spellbook)
+            flags_str = f"0b{flags:08b}"
+
+            f.write(f"// {i} - name - .power = {power}, .item_level = {item_level}, .item_type = {item_type},  flags = {{ .consumable = {consumable}, .consumable_party = {consumable_party}, .consumable_spellbook = {consumable_spellbook} }} \n")
+            f.write(f"{{ .power = {power}, .data = {data_str}, .flags = {flags_str} }},\n")
 
         f.write("\n")
-        f.write(f"//ALL_NAMES_COUNT = {len(item_data)};\n")
+        f.write(f"//COUNT = {len(item_data)};\n")
 
 
 def abilities(entity):
@@ -140,7 +155,7 @@ def abilities(entity):
             f.write("{" + f" .power = {power}, .manaCost = {mana_cost}, .type = {type_0} " + "},\n")
 
         f.write("\n")
-        f.write(f"//ALL_NAMES_COUNT = {len(skill_data)};\n")
+        f.write(f"//COUNT = {len(skill_data)};\n")
 
 
 def objects(entity):
@@ -176,4 +191,4 @@ def objects(entity):
             f.write(f"{{ .power = {power_str}, .data = {data_str}, .flags = {flags_str} }},\n")
 
         f.write("\n")
-        f.write(f"//ALL_NAMES_COUNT = {len(object_data)};\n")
+        f.write(f"//COUNT = {len(object_data)};\n")

@@ -35,5 +35,5 @@ typedef struct
 extern BattleRunState g_battle; // Declaration only
 
 
-bool CastBattleSpell(HardwareInterface hardware, MemoryInterface memory, uint8_t spellType, EntityId id, EntityId target_id, SpellData spellData);
-bool UseBattleItem(HardwareInterface hardware, MemoryInterface memory, uint8_t itemType, EntityId item_id, EntityId id, ItemData itemData);
+bool CastBattleSpell(HardwareInterface hardware, MemoryInterface memory, SpellId spell_id, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData);
+bool UseBattleItem(HardwareInterface hardware, MemoryInterface memory, uint8_t itemType, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index);

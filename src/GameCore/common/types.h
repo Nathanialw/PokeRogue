@@ -182,11 +182,29 @@ typedef union
             uint8_t power;
         };
 
-        uint8_t type : 4;
-        uint8_t level : 4;
-        uint8_t consumable : 1;
-        uint8_t consumable_party : 1;
-        uint8_t _pad : 6;
+        union
+        {
+            struct
+            {
+                uint8_t type : 4;
+                uint8_t level : 4;
+            };
+
+            uint8_t data;
+        };
+
+        union
+        {
+            struct
+            {
+                uint8_t consumable : 1;
+                uint8_t consumable_party : 1;
+                uint8_t consumable_spellbook : 1;
+                uint8_t _pad : 5;
+            };
+
+            uint8_t flags;
+        };
     };
 
     uint8_t bytes[3];
@@ -247,9 +265,10 @@ typedef struct
 } SpellPage;
 
 
-typedef bool (*SkillEffect)(HardwareInterface hardware, MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData);
-typedef bool (*ItemEffect)(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData);
-typedef bool (*SpellEffect)(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData);
+typedef bool (*SkillEffect)(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData);
+typedef bool (*ItemEffect)(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index);
+typedef bool (*SpellEffect)(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData);
+typedef bool (*SpellEffectMap)(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId enemy_id, SpellData spellData);
 typedef bool (*ObjectEffect)(HardwareInterface hardware, EntityId partyID, EntityId enemyID, ObjectData spellData);
 
 
@@ -279,7 +298,7 @@ typedef union
 
     //items
     uint8_t CreatureID;
-    uint8_t SpellId;
+    uint8_t spell_id;
     uint8_t AbilityId;
     uint8_t ItemId;
 

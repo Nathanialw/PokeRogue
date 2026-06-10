@@ -62,9 +62,9 @@ bool EnterMenu(const uint8_t listSize)
 SET_MEMORY(".map")
 void OpenUseOnPartyBattle(HardwareInterface hardware, MemoryInterface memory, UseFrameBack f)
 {
-    FillListByEntityID(memory, MAX_PARTY_SIZE, CREATURE, GetPlayerMonsterIDs());
+    FillListByEntityID(memory, g_core.player.currentPartySize, CREATURE, GetPlayerMonsterIDs());
     g_core.menu.useOnPartyMember = f;
-    g_core.menu.visibleMenuOptions = MAX_PARTY_SIZE;
+    g_core.menu.visibleMenuOptions = g_core.player.currentPartySize;
 
     g_core.menu.depth++;
 
@@ -75,7 +75,7 @@ void OpenUseOnPartyBattle(HardwareInterface hardware, MemoryInterface memory, Us
 
     g_core.menu.sel[g_core.menu.depth].x = 0;
     g_core.menu.sel[g_core.menu.depth].y = 0;
-    g_core.menu.totalMenuOptions = MAX_PARTY_SIZE;
+    g_core.menu.totalMenuOptions = g_core.player.currentPartySize;
     g_battle.show_party = true;
 }
 
@@ -143,7 +143,7 @@ SET_MEMORY(".battle")
 bool BattleSwap(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update)
 {
     EntityId p_ID = GetPlayerID();
-    if (EnterMenu(MAX_PARTY_SIZE))
+    if (EnterMenu(g_core.player.currentPartySize))
     {
         uint8_t sel = g_core.menu.sel[g_core.menu.depth].y;
         if (GetCreatureType(g_core.trainers.partyID[p_ID][sel]) == NO_CREATURE) return true;
@@ -155,7 +155,7 @@ bool BattleSwap(GraphicsInterface graphics, HardwareInterface hardware, InputInt
 
 
     g_battle.show_party = true;
-    FillListByEntityID(memory, MAX_PARTY_SIZE, CREATURE, GetPlayerMonsterIDs());
+    FillListByEntityID(memory, g_core.player.currentPartySize, CREATURE, GetPlayerMonsterIDs());
     return true;
 }
 
@@ -169,9 +169,9 @@ bool BattleSpell(GraphicsInterface graphics, HardwareInterface hardware, InputIn
     EntityId p_ID = GetPlayerID();
     if (EnterMenu(g_core.player.currentSpellbookSize))
     {
-        uint8_t sel = g_core.menu.sel[g_core.menu.depth].y;
-        SpellId spell_id = g_core.trainers.spellID[p_ID][sel];
-        CastSpellBattle(hardware, memory, spell_id, g_core.battleMode.playerMonsterID, g_core.battleMode.enemyMonsterID);
+        uint8_t spellbook_index = g_core.menu.sel[g_core.menu.depth].y;
+        SpellId spell_id = g_core.trainers.spellID[p_ID][spellbook_index];
+        CastSpellBattle(hardware, memory, spell_id, spellbook_index, g_core.battleMode.playerMonsterID, g_core.battleMode.enemyMonsterID);
         g_battle.effect_animation_index = spell_id;
         g_battle.effect_type = SPELL;
         SetBattleState(BATTLE_ATTACK);
@@ -193,7 +193,7 @@ bool BattleSpell(GraphicsInterface graphics, HardwareInterface hardware, InputIn
 SET_MEMORY(".battle")
 bool BattleItems(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update)
 {
-    EntityId p_ID = GetPlayerID();
+    EntityId player_id = GetPlayerID();
     if (EnterMenu(g_core.player.currentBagSize))
     {
         EntityId target_id = g_core.battleMode.playerMonsterID;
@@ -206,7 +206,7 @@ bool BattleItems(GraphicsInterface graphics, HardwareInterface hardware, InputIn
         if (!g_battle.show_party)
         {
             bag_idx = g_core.menu.sel[g_core.menu.depth].y + g_core.menu.menuScrollOffset[g_core.menu.depth].y;
-            item_id = g_core.trainers.itemID[p_ID][bag_idx];
+            item_id = g_core.trainers.itemID[player_id][bag_idx];
             item_type = GetItemType(item_id);
             Flash_GetItemData(memory, &itemData, item_type);
 
@@ -223,7 +223,7 @@ bool BattleItems(GraphicsInterface graphics, HardwareInterface hardware, InputIn
         {
             bag_idx = g_core.menu.sel[g_core.menu.depth - 1].y + g_core.menu.menuScrollOffset[g_core.menu.depth - 1].y;
             target_id = g_core.menu.sel[g_core.menu.depth].y + g_core.menu.menuScrollOffset[g_core.menu.depth].y;
-            item_id = g_core.trainers.itemID[p_ID][bag_idx];
+            item_id = g_core.trainers.itemID[player_id][bag_idx];
             item_type = GetItemType(item_id);
             Flash_GetItemData(memory, &itemData, item_type);
             CloseUseOnPartyBattle(hardware, memory, BACK_ITEM);
@@ -232,7 +232,7 @@ bool BattleItems(GraphicsInterface graphics, HardwareInterface hardware, InputIn
 
         if (itemData.consumable)
         {
-            if (UseItemBattle(hardware, memory, &itemData, item_id, target_id))
+            if (UseItemBattle(hardware, memory, &itemData, item_id, player_id, target_id, 0))
             {
                 ConsumeItem(bag_idx, item_id);
                 g_battle.effect_animation_index = item_type;
@@ -244,7 +244,7 @@ bool BattleItems(GraphicsInterface graphics, HardwareInterface hardware, InputIn
                 PrintCombatLogText(hardware, memory, "Use Item Failed, not consumed");
             }
         }
-        else if (UseItemBattle(hardware, memory, &itemData, item_id, target_id))
+        else if (UseItemBattle(hardware, memory, &itemData, item_id, player_id, target_id, 0))
         {
             g_battle.effect_animation_index = item_type;
             g_battle.effect_type = ITEM;
@@ -263,7 +263,7 @@ bool BattleItems(GraphicsInterface graphics, HardwareInterface hardware, InputIn
         return true;
     }
 
-    FillListByEntityID(memory, g_core.player.currentBagSize, ITEM, g_core.trainers.itemID[p_ID]);
+    FillListByEntityID(memory, g_core.player.currentBagSize, ITEM, g_core.trainers.itemID[player_id]);
     return true;
 }
 

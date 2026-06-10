@@ -8,5 +8,5 @@
 
 
 
-void GenerateRiver(uint8_t x, uint8_t y, TileType type);
-void GenerateLake(HardwareInterface hardware, uint8_t x, uint8_t y, const uint8_t size, TileType type);
+void GenerateRiver(uint8_t x, uint8_t y, MapTile type);
+void GenerateLake(HardwareInterface hardware, uint8_t x, uint8_t y, const uint8_t size, MapTile type);

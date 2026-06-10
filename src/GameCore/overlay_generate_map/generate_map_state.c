@@ -35,6 +35,7 @@ void GameRunInit()
     g_core.menu.gameMenu.displayId = NO_CREATURE;
     g_core.menu.gameMenu.id = NO_CREATURE;
     g_core.menu.menuSleepTime = 200; //200
+    g_core.player.currentPartySize = 1; //1
 
     g_core.music.master_volume = 32768;
 
@@ -46,7 +47,7 @@ SET_MEMORY(".map_gen")
 void InitGame(HardwareInterface hardware, MemoryInterface memory)
 {
     InitMap(hardware);
-    GenerateLake(hardware, 30, 30, 10, WATER);
+    GenerateLake(hardware, 30, 30, 10, FLUID_WATER);
     SetMapBorder();
 }
 

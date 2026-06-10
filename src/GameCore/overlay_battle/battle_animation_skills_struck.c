@@ -47,7 +47,7 @@ void SparkleStruckAnimation(GraphicsInterface graphics, HardwareInterface hardwa
 {
     Rect_16 r = GetBattlerRect(onAttacker);
     RefreshBattler(graphics, memory, onAttacker, r);
-    AnimationRandomParticles(graphics, hardware, memory, r, BATTLER_OFFSET, 64, palletIndex, 32);
+    AnimationRandomParticles(graphics, hardware, memory, r, BATTLER_OFFSET, 64, palletIndex, 3);
     RefreshBattler(graphics, memory, onAttacker, r);
 }
 

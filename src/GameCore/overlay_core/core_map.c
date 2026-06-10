@@ -29,7 +29,7 @@ uint8_t GetMapTile(uint8_t x, uint8_t y)
 /** Sets the map tile at the given position to the given tile index
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-void SetMapTile(uint8_t x, uint8_t y, TileType tile)
+void SetMapTile(uint8_t x, uint8_t y, MapTile tile)
 {
 
     uint16_t index = (y * MAP_W) + x;

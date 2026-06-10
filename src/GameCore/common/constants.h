@@ -30,6 +30,7 @@
 **********************************************************************************************************************/
 #define TYPE_COUNT 16
 #define THEME_COUNT 16
+#define BIOME_COUNT 16
 #define MAX_LEVELS 35
 
 
@@ -70,6 +71,7 @@ _Static_assert(OBJECT_COUNT <= 256, "max must be 256 - one byte");
 **********************************************************************************************************************/
 #define MAX_PARTY_SIZE 6
 #define MAX_SPELLBOOK_SIZE 8
+#define SPELL_INDEX_NULL 255
 #define DEFAULT_SPELLBOOK_SIZE 8
 #define DEFAULT_BAG_SIZE 10
 #define MAX_ITEM_SIZE 25
@@ -106,6 +108,8 @@ _Static_assert(OBJECT_COUNT <= 256, "max must be 256 - one byte");
 #define NO_ENTITY 255
 #define MAX_ABILITIES 6
 #define TOTAL_SPAWNABLE_OBJECT_TYPES 4
+
+#define MAX_CREATURE_LEVEL 99
 
 /**********************************************************************************************************************/
 /**BATTLE FRAMES constants

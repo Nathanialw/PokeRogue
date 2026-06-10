@@ -21,7 +21,7 @@ void DestroyPartyCreature(EntityId id);
 
 
 EntityId SpawnEntity(HardwareInterface hardware, MemoryInterface memory, ObjectsTypes type, uint8_t t, uint8_t x, uint8_t y, uint8_t l);
-bool AddCreatureToParty(EntityId creatureid);
+bool AddCreatureToParty(EntityId trainer_id, EntityId creatureid);
 
 IntMax999 GetCreaturehp(EntityId id);
 IntMax999 GetCreaturemp(EntityId id);

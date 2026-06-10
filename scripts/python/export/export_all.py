@@ -25,12 +25,12 @@ def run():
     counts = []
 
     # update enums
-    export_enums.enum("creature")
-    export_enums.enum("skill")
-    export_enums.enum("spell")
-    export_enums.enum("item")
-    export_enums.enum("object")
-    export_enums.enum("trainer")
+    export_enums.get_entity_enums("creature")
+    export_enums.get_entity_enums("skill")
+    export_enums.get_entity_enums("spell")
+    export_enums.get_entity_enums("item")
+    export_enums.get_entity_enums("object")
+    export_enums.get_entity_enums("trainer")
 
     # image generation strings
     export_img_prompts.generate_data_from_db('creature')
@@ -73,7 +73,7 @@ def run():
     # ability struct data
     export_structs.abilities("skill")
     # ability functions headers
-    export.func_c_headers("skill", "Skill", "bool", "HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData")
+    export.func_c_headers("skill", "Skill", "bool", "HardwareInterface hardware,  MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData")
     # ability functions
     export.funcs_to_c_array("skill", "Skill")
     # ability animation functions
@@ -95,8 +95,8 @@ def run():
     # spell struct data
     export_structs.spells("spell")
     # spell functions headers
-    export.func_c_headers("spell", "CastBattle", "bool", "HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData")
-    export.func_c_headers("spell", "CastMap", "bool", "HardwareInterface hardware, MemoryInterface memory, EntityId partyID, EntityId enemyID, SpellData spellData")
+    export.func_c_headers("spell", "CastBattle", "bool", "HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData")
+    export.func_c_headers("spell", "CastMap", "bool", "HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId enemy_id, SpellData spellData")
     # spell functions
     export.funcs_to_c_array("spell", "CastBattle")
     export.funcs_to_c_array("spell", "CastMap")
@@ -127,8 +127,8 @@ def run():
     bytes_count_map_sprites.append(export_map_sprites.export_image_data("item", 64))
 
     # item functions header
-    export.func_c_headers("item", "UseBattle", "bool", "HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData")
-    export.func_c_headers("item", "UseMap", "bool", "HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData")
+    export.func_c_headers("item", "UseBattle", "bool", "HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index")
+    export.func_c_headers("item", "UseMap", "bool", "HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index")
     # item functions
     export.funcs_to_c_array("item", "UseBattle")
     export.funcs_to_c_array("item", "UseMap")
@@ -200,7 +200,18 @@ def run():
     # export.desc_to_c_array("tile")
     # tile map sprites
     # bytes_count.append(export_battlers.export_image_data("tile"))
-    counts.append(export_enums.enum("tile"))
+    counts.append(export_enums.get_entity_enums("tile"))
+
+
+    # enums
+    export_enums.get_data_enums("item_types")
+    export_enums.get_data_enums("biomes")
+    export_enums.get_data_enums("themes")
+    export_enums.get_data_enums("types")
+    export_enums.get_data_enums("races")
+    export_enums.get_data_enums("pathing_types")
+    export_enums.get_data_enums("tile_types")
+
 
     export.export_constants(bytes_count, counts, bytes_count_map_sprites)
 

@@ -42,7 +42,7 @@ bool MakeInvulnerable(EntityId e_id);
 bool HealTarget(EntityId e_id, uint16_t value);
 bool RestoreMana(EntityId e_id, uint8_t value);
 bool DrainMana(EntityId e_id, uint8_t value);
-bool RestorePP(EntityId e_id, uint8_t value);
+bool RestorePP(EntityId trainer_id, uint8_t spell_index, uint8_t value);
 
 /**********************************************************************************************************************/
 /** STATUS EFFECTS
@@ -115,6 +115,7 @@ bool LowerBaseMagic(EntityId e_id);
 bool LowerBaseStrength(EntityId e_id);
 bool DrainXP(EntityId e_id);
 bool ResetTemporaryStatsMods(EntityId e_id);
+bool LevelUpRetainProgress(EntityId target_id);
 
 /**********************************************************************************************************************/
 /** PLAYER
@@ -126,7 +127,7 @@ bool DiscoverSpell(Spell spell_id);
 bool DiscoverSkill(Ability ability_id);
 bool LearnSpell(MemoryInterface memory, EntityId e_id, Spell spell_id);
 bool LearnSkill(EntityId e_id);
-bool Capture(HardwareInterface hardware, EntityId target_id, uint8_t successChance);
+bool Capture(HardwareInterface hardware, EntityId trainer_id, EntityId target_id, uint8_t successChance);
 bool AbandonTeam(EntityId e_id);
 bool Flee();
 void DestroyPlayerItem(EntityId item_id);
@@ -150,6 +151,6 @@ bool CreateItem(ItemTypes item);
 bool CreateItemFood();
 bool CreateItemCommon();
 bool CreateItemMagic();
-bool MapModifyTile(Position, TileType tileType);
+bool MapModifyTile(Position, MapTile tileType);
 bool RemoveMapFog();
 bool GoNextLevel(MapLevelChange dir);

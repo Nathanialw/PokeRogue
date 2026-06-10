@@ -35,7 +35,7 @@ EntityId PlayerCaptureMonster(EntityId e_id)
 
 /**********************************************************************************************************************/
 /** Searches the bag to find an open slot to pick up an item
- *  ON SUCCESS - adds item id to the party array
+ *  ON SUCCESS - adds item id to the bag array
 *   ON FAIL - TODO - add a fail state (item cannot be picked up)
 **********************************************************************************************************************/
 SET_MEMORY(".core")
@@ -48,6 +48,41 @@ EntityId PlayerPickItem(EntityId trainer_id, EntityId item_id)
             g_core.trainers.itemID[trainer_id][i] = PickItem(item_id);
             return item_id;
         }
+
+    //  apply passive item effect
+    uint8_t item = GetItemType(item_id);
+    switch (item)
+    {
+    case BAG:
+        {
+            break;
+        }
+    case MAGICAL:
+        {
+            break;
+        }
+    default:
+        {
+            break;
+        }
+    }
+
+
+    return item_id;
+}
+
+
+/**********************************************************************************************************************/
+/** Drops item and frees bag slot
+ *  removes any passive effect the item had
+ *  ON SUCCESS - removes item id to the bag array
+*   ON FAIL - TODO - add a fail state (item cannot be dropped)
+**********************************************************************************************************************/
+SET_MEMORY(".core")
+EntityId DropItem(EntityId trainer_id, EntityId item_id)
+{
+    //  drop item
+    //  remove passive item effect
 
     return item_id;
 }
@@ -99,7 +134,7 @@ void ConsumeItem(uint8_t idx, EntityId e_id)
     DestroyItem(e_id);
     EntityId player_id = GetPlayerID();
     g_core.trainers.itemID[player_id][idx] = NO_ENTITY;
-    for (uint8_t i = idx; i < MAX_BAG_SIZE-1; ++i)
+    for (uint8_t i = idx; i < MAX_BAG_SIZE - 1; ++i)
     {
         g_core.trainers.itemID[player_id][i] = g_core.trainers.itemID[player_id][i + 1];
         g_core.trainers.itemID[player_id][i + 1] = NO_ENTITY;

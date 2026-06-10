@@ -200,7 +200,7 @@ void MoveLeftToCenter(GraphicsInterface graphics, HardwareInterface hardware, Re
     Rect_16 clip_rect = {0, 0, r.w, r.h};
 
     if (f.x < d) f.x = 0;
-    uint16_t end_pos = r.w + BATTLER_OFFSET;
+    uint16_t end_pos = BATTLER_OFFSET;
     graphics.DrawToBufferImage(&f, NULL, &clip_rect);
     clip_rect.x = d;
 
@@ -519,3 +519,6 @@ SET_MEMORY(".battle")
 void AnimationRainbowEffects(Rect_16 r, uint16_t d, uint8_t frameLength, uint8_t palletIndex)
 {
 }
+
+
+

@@ -11,6 +11,7 @@
 #include "core_ram.h"
 
 #include "battle_player.h"
+#include "battle_ram.h"
 #include "core_player.h"
 
 
@@ -20,7 +21,6 @@
  *  Effect Functions make it easy to mix and match any effects to build unique skills
  *
 **********************************************************************************************************************/
-
 
 
 /****************************************************************************************************
@@ -35,7 +35,7 @@
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillNoSkill(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillNoSkill(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     NoEffect();
     return false;
@@ -49,7 +49,7 @@ bool SkillNoSkill(HardwareInterface hardware,  MemoryInterface memory, EntityId 
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillFlameBlast(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillFlameBlast(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyBurn(defenderID, abilityData.power);
     Attack(hardware, memory, attackerID, defenderID, abilityData);
@@ -60,7 +60,7 @@ bool SkillFlameBlast(HardwareInterface hardware,  MemoryInterface memory, Entity
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillFireball(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillFireball(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyBurn(defenderID, abilityData.power);
     Attack(hardware, memory, attackerID, defenderID, abilityData);
@@ -71,7 +71,7 @@ bool SkillFireball(HardwareInterface hardware,  MemoryInterface memory, EntityId
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillEmber(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillEmber(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyBurn(defenderID, abilityData.power);
     Attack(hardware, memory, attackerID, defenderID, abilityData);
@@ -82,7 +82,7 @@ bool SkillEmber(HardwareInterface hardware,  MemoryInterface memory, EntityId at
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillIncinerate(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillIncinerate(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyBurn(defenderID, abilityData.power);
     Attack(hardware, memory, attackerID, defenderID, abilityData);
@@ -93,7 +93,7 @@ bool SkillIncinerate(HardwareInterface hardware,  MemoryInterface memory, Entity
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillCombustion(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillCombustion(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyBurn(defenderID, abilityData.power);
     Attack(hardware, memory, attackerID, defenderID, abilityData);
@@ -104,7 +104,7 @@ bool SkillCombustion(HardwareInterface hardware,  MemoryInterface memory, Entity
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillFlare(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillFlare(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     LowerAccuracy(defenderID);
     return false;
@@ -115,7 +115,7 @@ bool SkillFlare(HardwareInterface hardware,  MemoryInterface memory, EntityId at
 **********************************************************************************************************************/
 //UNUSED
 SET_MEMORY(".battle")
-bool SkillHeatWave(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillHeatWave(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     NoEffect();
     return false;
@@ -125,7 +125,7 @@ bool SkillHeatWave(HardwareInterface hardware,  MemoryInterface memory, EntityId
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillFlamePunch(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillFlamePunch(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -136,7 +136,7 @@ bool SkillFlamePunch(HardwareInterface hardware,  MemoryInterface memory, Entity
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillPyre(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillPyre(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     DEBUG("Pyre");
     if (IsInParty(attackerID))
@@ -160,7 +160,7 @@ bool SkillPyre(HardwareInterface hardware,  MemoryInterface memory, EntityId att
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillScorch(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillScorch(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyBurn(defenderID, abilityData.power);
     Attack(hardware, memory, attackerID, defenderID, abilityData);
@@ -171,7 +171,7 @@ bool SkillScorch(HardwareInterface hardware,  MemoryInterface memory, EntityId a
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillCinderStorm(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillCinderStorm(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     LowerSpeed(defenderID);
     return false;
@@ -181,7 +181,7 @@ bool SkillCinderStorm(HardwareInterface hardware,  MemoryInterface memory, Entit
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillMagmaBurst(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillMagmaBurst(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyBurn(defenderID, abilityData.power);
     Attack(hardware, memory, attackerID, defenderID, abilityData);
@@ -192,7 +192,7 @@ bool SkillMagmaBurst(HardwareInterface hardware,  MemoryInterface memory, Entity
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillSunfury(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillSunfury(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     RaiseStrength(attackerID);
     return false;
@@ -202,7 +202,7 @@ bool SkillSunfury(HardwareInterface hardware,  MemoryInterface memory, EntityId 
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillBlazingCharge(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillBlazingCharge(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     // ensure this attack happens before anything
     NoEffect();
@@ -213,7 +213,7 @@ bool SkillBlazingCharge(HardwareInterface hardware,  MemoryInterface memory, Ent
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillAshCloud(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillAshCloud(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     LowerAccuracy(defenderID);
     Attack(hardware, memory, attackerID, defenderID, abilityData);
@@ -224,7 +224,7 @@ bool SkillAshCloud(HardwareInterface hardware,  MemoryInterface memory, EntityId
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillInferno(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillInferno(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyBurn(defenderID, abilityData.power);
     Attack(hardware, memory, attackerID, defenderID, abilityData);
@@ -235,7 +235,7 @@ bool SkillInferno(HardwareInterface hardware,  MemoryInterface memory, EntityId 
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillWildfire(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillWildfire(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyBurn(defenderID, abilityData.power);
     Attack(hardware, memory, attackerID, defenderID, abilityData);
@@ -249,7 +249,7 @@ bool SkillWildfire(HardwareInterface hardware,  MemoryInterface memory, EntityId
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillBlizzard(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillBlizzard(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyFrozen(defenderID, abilityData.power);
     Attack(hardware, memory, attackerID, defenderID, abilityData);
@@ -260,7 +260,7 @@ bool SkillBlizzard(HardwareInterface hardware,  MemoryInterface memory, EntityId
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillIceShard(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillIceShard(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -270,18 +270,7 @@ bool SkillIceShard(HardwareInterface hardware,  MemoryInterface memory, EntityId
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillFrostBite(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
-{
-    ApplyFrozen(defenderID, abilityData.power);
-    Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
-}
-
-/*********************************************************************************************************************
-*
-**********************************************************************************************************************/
-SET_MEMORY(".battle")
-bool SkillFreeze(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillFrostBite(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyFrozen(defenderID, abilityData.power);
     Attack(hardware, memory, attackerID, defenderID, abilityData);
@@ -292,7 +281,18 @@ bool SkillFreeze(HardwareInterface hardware,  MemoryInterface memory, EntityId a
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillHailstorm(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillFreeze(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+{
+    ApplyFrozen(defenderID, abilityData.power);
+    Attack(hardware, memory, attackerID, defenderID, abilityData);
+    return false;
+}
+
+/*********************************************************************************************************************
+*
+**********************************************************************************************************************/
+SET_MEMORY(".battle")
+bool SkillHailstorm(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -302,7 +302,7 @@ bool SkillHailstorm(HardwareInterface hardware,  MemoryInterface memory, EntityI
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillGlacialSpike(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillGlacialSpike(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -312,7 +312,7 @@ bool SkillGlacialSpike(HardwareInterface hardware,  MemoryInterface memory, Enti
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillColdSnap(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillColdSnap(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     NextAttackFreezes();
     return false;
@@ -322,7 +322,7 @@ bool SkillColdSnap(HardwareInterface hardware,  MemoryInterface memory, EntityId
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillIceArmor(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillIceArmor(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     RaiseDefence(attackerID);
     FreezeAttackers(attackerID, abilityData.power);
@@ -333,7 +333,7 @@ bool SkillIceArmor(HardwareInterface hardware,  MemoryInterface memory, EntityId
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillFrostNova(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillFrostNova(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     if (IsInParty(defenderID))
     {
@@ -356,7 +356,7 @@ bool SkillFrostNova(HardwareInterface hardware,  MemoryInterface memory, EntityI
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillPermafrost(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillPermafrost(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -366,7 +366,7 @@ bool SkillPermafrost(HardwareInterface hardware,  MemoryInterface memory, Entity
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillSnowBlind(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillSnowBlind(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     LowerAccuracy(defenderID);
     return false;
@@ -376,7 +376,7 @@ bool SkillSnowBlind(HardwareInterface hardware,  MemoryInterface memory, EntityI
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillIceLance(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillIceLance(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -386,7 +386,7 @@ bool SkillIceLance(HardwareInterface hardware,  MemoryInterface memory, EntityId
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillCryoBlast(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillCryoBlast(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     ApplyFrozen(defenderID, abilityData.power);
@@ -397,7 +397,7 @@ bool SkillCryoBlast(HardwareInterface hardware,  MemoryInterface memory, EntityI
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillArcticWinds(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillArcticWinds(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyFrozen(defenderID, abilityData.power);
     return false;
@@ -407,7 +407,7 @@ bool SkillArcticWinds(HardwareInterface hardware,  MemoryInterface memory, Entit
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillFrozenOrb(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillFrozenOrb(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -417,7 +417,7 @@ bool SkillFrozenOrb(HardwareInterface hardware,  MemoryInterface memory, EntityI
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillPolarVortex(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillPolarVortex(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     if (IsInParty(defenderID))
     {
@@ -441,7 +441,7 @@ bool SkillPolarVortex(HardwareInterface hardware,  MemoryInterface memory, Entit
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillCavitation(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillCavitation(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -451,7 +451,7 @@ bool SkillCavitation(HardwareInterface hardware,  MemoryInterface memory, Entity
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillHypervision(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillHypervision(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     RaiseAccuracy(attackerID);
     return false;
@@ -461,7 +461,7 @@ bool SkillHypervision(HardwareInterface hardware,  MemoryInterface memory, Entit
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillShellbreaker(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillShellbreaker(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     LowerDefence(defenderID);
     Attack(hardware, memory, attackerID, defenderID, abilityData);
@@ -472,7 +472,7 @@ bool SkillShellbreaker(HardwareInterface hardware,  MemoryInterface memory, Enti
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillTorrent(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillTorrent(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -482,7 +482,7 @@ bool SkillTorrent(HardwareInterface hardware,  MemoryInterface memory, EntityId 
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillWhirlpool(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillWhirlpool(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -492,18 +492,23 @@ bool SkillWhirlpool(HardwareInterface hardware,  MemoryInterface memory, EntityI
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillDrowningGrasp(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillDrowningGrasp(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplySlow(defenderID, abilityData.power);
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return Capture(hardware, defenderID, abilityData.power);
+
+    if (Capture(hardware, trainer_id, defenderID, abilityData.power))
+    {
+        g_battle.end_battle = true;
+    }
+    return false;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillTidalWave(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillTidalWave(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -513,7 +518,7 @@ bool SkillTidalWave(HardwareInterface hardware,  MemoryInterface memory, EntityI
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillWaterWhip(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillWaterWhip(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -523,7 +528,7 @@ bool SkillWaterWhip(HardwareInterface hardware,  MemoryInterface memory, EntityI
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillAquaJet(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillAquaJet(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -533,7 +538,7 @@ bool SkillAquaJet(HardwareInterface hardware,  MemoryInterface memory, EntityId 
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillRiptide(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillRiptide(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -543,7 +548,7 @@ bool SkillRiptide(HardwareInterface hardware,  MemoryInterface memory, EntityId 
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillHydroBlast(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillHydroBlast(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -553,7 +558,7 @@ bool SkillHydroBlast(HardwareInterface hardware,  MemoryInterface memory, Entity
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillDeepCurrent(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillDeepCurrent(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -563,7 +568,7 @@ bool SkillDeepCurrent(HardwareInterface hardware,  MemoryInterface memory, Entit
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillMaelstrom(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillMaelstrom(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -573,7 +578,7 @@ bool SkillMaelstrom(HardwareInterface hardware,  MemoryInterface memory, EntityI
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillBrineSpray(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillBrineSpray(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -583,7 +588,7 @@ bool SkillBrineSpray(HardwareInterface hardware,  MemoryInterface memory, Entity
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillSurge(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillSurge(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -593,7 +598,7 @@ bool SkillSurge(HardwareInterface hardware,  MemoryInterface memory, EntityId at
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillPressureCrush(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillPressureCrush(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyParalyze(defenderID, abilityData.power);
     Attack(hardware, memory, attackerID, defenderID, abilityData);
@@ -607,7 +612,7 @@ bool SkillPressureCrush(HardwareInterface hardware,  MemoryInterface memory, Ent
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillVineWhip(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillVineWhip(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyParalyze(defenderID, abilityData.power);
     Attack(hardware, memory, attackerID, defenderID, abilityData);
@@ -618,7 +623,7 @@ bool SkillVineWhip(HardwareInterface hardware,  MemoryInterface memory, EntityId
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillPollenCloud(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillPollenCloud(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyPoison(defenderID, abilityData.power);
     Attack(hardware, memory, attackerID, defenderID, abilityData);
@@ -629,7 +634,7 @@ bool SkillPollenCloud(HardwareInterface hardware,  MemoryInterface memory, Entit
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillThornBarrage(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillThornBarrage(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -639,7 +644,7 @@ bool SkillThornBarrage(HardwareInterface hardware,  MemoryInterface memory, Enti
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillBloom(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillBloom(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     HealTarget(attackerID, abilityData.power);
     return false;
@@ -649,7 +654,7 @@ bool SkillBloom(HardwareInterface hardware,  MemoryInterface memory, EntityId at
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillRootAnchor(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillRootAnchor(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplySlow(defenderID, abilityData.power);
     Attack(hardware, memory, attackerID, defenderID, abilityData);
@@ -660,7 +665,7 @@ bool SkillRootAnchor(HardwareInterface hardware,  MemoryInterface memory, Entity
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillForestWard(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillForestWard(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     RaiseDefence(attackerID);
     return false;
@@ -670,7 +675,7 @@ bool SkillForestWard(HardwareInterface hardware,  MemoryInterface memory, Entity
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillGravityRoot(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillGravityRoot(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyParalyze(defenderID, abilityData.power);
     Attack(hardware, memory, attackerID, defenderID, abilityData);
@@ -681,7 +686,7 @@ bool SkillGravityRoot(HardwareInterface hardware,  MemoryInterface memory, Entit
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillSporeExplosion(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillSporeExplosion(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -691,7 +696,7 @@ bool SkillSporeExplosion(HardwareInterface hardware,  MemoryInterface memory, En
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillLeafStorm(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillLeafStorm(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -701,7 +706,7 @@ bool SkillLeafStorm(HardwareInterface hardware,  MemoryInterface memory, EntityI
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillBrambleTrap(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillBrambleTrap(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -711,7 +716,7 @@ bool SkillBrambleTrap(HardwareInterface hardware,  MemoryInterface memory, Entit
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillSeedVolley(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillSeedVolley(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -721,7 +726,7 @@ bool SkillSeedVolley(HardwareInterface hardware,  MemoryInterface memory, Entity
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillVerdantGrowth(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillVerdantGrowth(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     RaiseMagic(attackerID);
     return false;
@@ -731,7 +736,7 @@ bool SkillVerdantGrowth(HardwareInterface hardware,  MemoryInterface memory, Ent
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillToxicIvy(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillToxicIvy(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -741,7 +746,7 @@ bool SkillToxicIvy(HardwareInterface hardware,  MemoryInterface memory, EntityId
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillCanopyShade(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillCanopyShade(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -751,7 +756,7 @@ bool SkillCanopyShade(HardwareInterface hardware,  MemoryInterface memory, Entit
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillPetalBlitz(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillPetalBlitz(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     // ensure this attack hits before anything
     Attack(hardware, memory, attackerID, defenderID, abilityData);
@@ -762,7 +767,7 @@ bool SkillPetalBlitz(HardwareInterface hardware,  MemoryInterface memory, Entity
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillOvergrowth(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillOvergrowth(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     RaiseMagic(attackerID);
     return false;
@@ -774,7 +779,7 @@ bool SkillOvergrowth(HardwareInterface hardware,  MemoryInterface memory, Entity
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillConsume(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillConsume(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     HealTarget(attackerID, abilityData.power);
@@ -785,7 +790,7 @@ bool SkillConsume(HardwareInterface hardware,  MemoryInterface memory, EntityId 
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillPsychicShock(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillPsychicShock(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -795,7 +800,7 @@ bool SkillPsychicShock(HardwareInterface hardware,  MemoryInterface memory, Enti
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillRealitySlip(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillRealitySlip(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -805,7 +810,7 @@ bool SkillRealitySlip(HardwareInterface hardware,  MemoryInterface memory, Entit
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillMaddeningGaze(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillMaddeningGaze(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     AbandonTeam(defenderID);
     return false;
@@ -815,7 +820,7 @@ bool SkillMaddeningGaze(HardwareInterface hardware,  MemoryInterface memory, Ent
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillVoidRift(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillVoidRift(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -825,7 +830,7 @@ bool SkillVoidRift(HardwareInterface hardware,  MemoryInterface memory, EntityId
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillAnomaly(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillAnomaly(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -835,7 +840,7 @@ bool SkillAnomaly(HardwareInterface hardware,  MemoryInterface memory, EntityId 
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillDissonance(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillDissonance(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -845,7 +850,7 @@ bool SkillDissonance(HardwareInterface hardware,  MemoryInterface memory, Entity
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillCorrupt(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillCorrupt(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -855,7 +860,7 @@ bool SkillCorrupt(HardwareInterface hardware,  MemoryInterface memory, EntityId 
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillMindSpike(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillMindSpike(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -865,7 +870,7 @@ bool SkillMindSpike(HardwareInterface hardware,  MemoryInterface memory, EntityI
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillEldritchBlast(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillEldritchBlast(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -875,7 +880,7 @@ bool SkillEldritchBlast(HardwareInterface hardware,  MemoryInterface memory, Ent
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillWarpPulse(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillWarpPulse(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -885,7 +890,7 @@ bool SkillWarpPulse(HardwareInterface hardware,  MemoryInterface memory, EntityI
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillThoughtLeech(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillThoughtLeech(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     HealTarget(attackerID, abilityData.power);
@@ -896,7 +901,7 @@ bool SkillThoughtLeech(HardwareInterface hardware,  MemoryInterface memory, Enti
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillSanityBreak(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillSanityBreak(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -906,7 +911,7 @@ bool SkillSanityBreak(HardwareInterface hardware,  MemoryInterface memory, Entit
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillAstralChains(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillAstralChains(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplySlow(defenderID, abilityData.power);
     Attack(hardware, memory, attackerID, defenderID, abilityData);
@@ -915,7 +920,7 @@ bool SkillAstralChains(HardwareInterface hardware,  MemoryInterface memory, Enti
 
 // UNUSED
 SET_MEMORY(".battle")
-bool SkillChaosNova(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillChaosNova(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     NoEffect();
     return false;
@@ -923,7 +928,7 @@ bool SkillChaosNova(HardwareInterface hardware,  MemoryInterface memory, EntityI
 
 // UNUSED
 SET_MEMORY(".battle")
-bool SkillDimensionalTear(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillDimensionalTear(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     NoEffect();
     return false;
@@ -933,7 +938,7 @@ bool SkillDimensionalTear(HardwareInterface hardware,  MemoryInterface memory, E
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillPetrifyingGaze(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillPetrifyingGaze(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     InstantKill(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -943,7 +948,7 @@ bool SkillPetrifyingGaze(HardwareInterface hardware,  MemoryInterface memory, En
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillPetrifyingTouch(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillPetrifyingTouch(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     InstantKill(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -956,7 +961,7 @@ bool SkillPetrifyingTouch(HardwareInterface hardware,  MemoryInterface memory, E
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillTailWhip(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillTailWhip(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -966,7 +971,7 @@ bool SkillTailWhip(HardwareInterface hardware,  MemoryInterface memory, EntityId
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillWingBuffet(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillWingBuffet(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -976,7 +981,7 @@ bool SkillWingBuffet(HardwareInterface hardware,  MemoryInterface memory, Entity
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillDragonBreath(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillDragonBreath(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -986,7 +991,7 @@ bool SkillDragonBreath(HardwareInterface hardware,  MemoryInterface memory, Enti
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillFearRoar(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillFearRoar(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyFear(defenderID, abilityData.power);
     return false;
@@ -996,7 +1001,7 @@ bool SkillFearRoar(HardwareInterface hardware,  MemoryInterface memory, EntityId
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillFlyby(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillFlyby(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -1006,7 +1011,7 @@ bool SkillFlyby(HardwareInterface hardware,  MemoryInterface memory, EntityId at
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillScalesHarden(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillScalesHarden(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     RaiseDefence(attackerID);
     return false;
@@ -1016,7 +1021,7 @@ bool SkillScalesHarden(HardwareInterface hardware,  MemoryInterface memory, Enti
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillAncientWrath(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillAncientWrath(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -1026,7 +1031,7 @@ bool SkillAncientWrath(HardwareInterface hardware,  MemoryInterface memory, Enti
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillTreasureHunt(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillTreasureHunt(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -1036,7 +1041,7 @@ bool SkillTreasureHunt(HardwareInterface hardware,  MemoryInterface memory, Enti
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillSkyDive(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillSkyDive(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -1046,7 +1051,7 @@ bool SkillSkyDive(HardwareInterface hardware,  MemoryInterface memory, EntityId 
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillDraconicFury(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillDraconicFury(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -1056,7 +1061,7 @@ bool SkillDraconicFury(HardwareInterface hardware,  MemoryInterface memory, Enti
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillTailSweep(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillTailSweep(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -1066,7 +1071,7 @@ bool SkillTailSweep(HardwareInterface hardware,  MemoryInterface memory, EntityI
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillEmberRoar(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillEmberRoar(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -1076,7 +1081,7 @@ bool SkillEmberRoar(HardwareInterface hardware,  MemoryInterface memory, EntityI
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillScaleStorm(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillScaleStorm(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -1086,7 +1091,7 @@ bool SkillScaleStorm(HardwareInterface hardware,  MemoryInterface memory, Entity
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillWyrmCharge(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillWyrmCharge(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -1096,7 +1101,7 @@ bool SkillWyrmCharge(HardwareInterface hardware,  MemoryInterface memory, Entity
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillAncientGuard(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillAncientGuard(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     RaiseDefence(attackerID);
     return false;
@@ -1106,7 +1111,7 @@ bool SkillAncientGuard(HardwareInterface hardware,  MemoryInterface memory, Enti
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillGoldenInstinct(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillGoldenInstinct(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -1118,7 +1123,7 @@ bool SkillGoldenInstinct(HardwareInterface hardware,  MemoryInterface memory, En
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillBodySlam(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillBodySlam(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -1128,7 +1133,7 @@ bool SkillBodySlam(HardwareInterface hardware,  MemoryInterface memory, EntityId
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillStomp(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillStomp(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -1138,7 +1143,7 @@ bool SkillStomp(HardwareInterface hardware,  MemoryInterface memory, EntityId at
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillEarthquake(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillEarthquake(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -1148,7 +1153,7 @@ bool SkillEarthquake(HardwareInterface hardware,  MemoryInterface memory, Entity
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillMightyThrow(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillMightyThrow(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -1158,7 +1163,7 @@ bool SkillMightyThrow(HardwareInterface hardware,  MemoryInterface memory, Entit
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillGroundPound(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillGroundPound(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -1168,7 +1173,7 @@ bool SkillGroundPound(HardwareInterface hardware,  MemoryInterface memory, Entit
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillCrush(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillCrush(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -1178,7 +1183,7 @@ bool SkillCrush(HardwareInterface hardware,  MemoryInterface memory, EntityId at
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillTitanSwing(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillTitanSwing(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -1188,7 +1193,7 @@ bool SkillTitanSwing(HardwareInterface hardware,  MemoryInterface memory, Entity
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillMountainBreaker(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillMountainBreaker(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -1198,7 +1203,7 @@ bool SkillMountainBreaker(HardwareInterface hardware,  MemoryInterface memory, E
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillBoulderToss(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillBoulderToss(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -1208,7 +1213,7 @@ bool SkillBoulderToss(HardwareInterface hardware,  MemoryInterface memory, Entit
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillSeismicSlam(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillSeismicSlam(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -1218,7 +1223,7 @@ bool SkillSeismicSlam(HardwareInterface hardware,  MemoryInterface memory, Entit
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillIronGrip(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillIronGrip(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -1228,7 +1233,7 @@ bool SkillIronGrip(HardwareInterface hardware,  MemoryInterface memory, EntityId
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillTremorStep(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillTremorStep(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -1238,7 +1243,7 @@ bool SkillTremorStep(HardwareInterface hardware,  MemoryInterface memory, Entity
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillColossalCharge(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillColossalCharge(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -1248,7 +1253,7 @@ bool SkillColossalCharge(HardwareInterface hardware,  MemoryInterface memory, En
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillLandslide(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillLandslide(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -1258,7 +1263,7 @@ bool SkillLandslide(HardwareInterface hardware,  MemoryInterface memory, EntityI
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillBedrockShield(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillBedrockShield(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -1268,7 +1273,7 @@ bool SkillBedrockShield(HardwareInterface hardware,  MemoryInterface memory, Ent
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillTitanicRoar(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillTitanicRoar(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     RaiseStrength(attackerID);
     return false;
@@ -1280,7 +1285,7 @@ bool SkillTitanicRoar(HardwareInterface hardware,  MemoryInterface memory, Entit
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillScratch(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillScratch(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -1290,7 +1295,7 @@ bool SkillScratch(HardwareInterface hardware,  MemoryInterface memory, EntityId 
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillPounce(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillPounce(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -1300,7 +1305,7 @@ bool SkillPounce(HardwareInterface hardware,  MemoryInterface memory, EntityId a
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillFeralRage(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillFeralRage(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     RaiseStrength(attackerID);
     Attack(hardware, memory, attackerID, defenderID, abilityData);
@@ -1311,7 +1316,7 @@ bool SkillFeralRage(HardwareInterface hardware,  MemoryInterface memory, EntityI
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillHuntingInstinct(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillHuntingInstinct(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -1321,7 +1326,7 @@ bool SkillHuntingInstinct(HardwareInterface hardware,  MemoryInterface memory, E
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillPackCall(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillPackCall(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -1331,7 +1336,7 @@ bool SkillPackCall(HardwareInterface hardware,  MemoryInterface memory, EntityId
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillTerrifyingRoar(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillTerrifyingRoar(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyFear(defenderID, abilityData.power);
     return false;
@@ -1341,7 +1346,7 @@ bool SkillTerrifyingRoar(HardwareInterface hardware,  MemoryInterface memory, En
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillBloodScent(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillBloodScent(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     RaiseStrength(attackerID);
     return false;
@@ -1351,7 +1356,7 @@ bool SkillBloodScent(HardwareInterface hardware,  MemoryInterface memory, Entity
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillViciousBite(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillViciousBite(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -1361,7 +1366,7 @@ bool SkillViciousBite(HardwareInterface hardware,  MemoryInterface memory, Entit
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillRipAndTear(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillRipAndTear(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -1371,7 +1376,7 @@ bool SkillRipAndTear(HardwareInterface hardware,  MemoryInterface memory, Entity
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillAmbushStrike(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillAmbushStrike(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     // only quick attack if the enemy has not attacked otherwise just a normal attack
     if (!QuickAttack(hardware, memory, attackerID, defenderID, abilityData))
@@ -1383,7 +1388,7 @@ bool SkillAmbushStrike(HardwareInterface hardware,  MemoryInterface memory, Enti
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillLunge(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillLunge(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -1393,7 +1398,7 @@ bool SkillLunge(HardwareInterface hardware,  MemoryInterface memory, EntityId at
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillHowlOfThePack(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillHowlOfThePack(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     if (IsInParty(attackerID))
     {
@@ -1415,7 +1420,7 @@ bool SkillHowlOfThePack(HardwareInterface hardware,  MemoryInterface memory, Ent
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillSavageMaul(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillSavageMaul(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -1425,7 +1430,7 @@ bool SkillSavageMaul(HardwareInterface hardware,  MemoryInterface memory, Entity
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillPredatorFocus(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillPredatorFocus(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -1435,7 +1440,7 @@ bool SkillPredatorFocus(HardwareInterface hardware,  MemoryInterface memory, Ent
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillThroatClamp(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillThroatClamp(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -1445,7 +1450,7 @@ bool SkillThroatClamp(HardwareInterface hardware,  MemoryInterface memory, Entit
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillStalk(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillStalk(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -1457,7 +1462,7 @@ bool SkillStalk(HardwareInterface hardware,  MemoryInterface memory, EntityId at
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillPixieDust(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillPixieDust(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplySleep(defenderID, abilityData.power);
     Attack(hardware, memory, attackerID, defenderID, abilityData);
@@ -1468,7 +1473,7 @@ bool SkillPixieDust(HardwareInterface hardware,  MemoryInterface memory, EntityI
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillGlamour(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillGlamour(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -1478,7 +1483,7 @@ bool SkillGlamour(HardwareInterface hardware,  MemoryInterface memory, EntityId 
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillTricksterTreat(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillTricksterTreat(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -1488,7 +1493,7 @@ bool SkillTricksterTreat(HardwareInterface hardware,  MemoryInterface memory, En
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillEnchantingMelody(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillEnchantingMelody(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyParalyze(defenderID, abilityData.power);
     Attack(hardware, memory, attackerID, defenderID, abilityData);
@@ -1499,7 +1504,7 @@ bool SkillEnchantingMelody(HardwareInterface hardware,  MemoryInterface memory, 
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillFaerieFire(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillFaerieFire(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -1509,7 +1514,7 @@ bool SkillFaerieFire(HardwareInterface hardware,  MemoryInterface memory, Entity
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillDreamDust(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillDreamDust(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplySleep(defenderID, abilityData.power);
     Attack(hardware, memory, attackerID, defenderID, abilityData);
@@ -1520,7 +1525,7 @@ bool SkillDreamDust(HardwareInterface hardware,  MemoryInterface memory, EntityI
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillWildMagic(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillWildMagic(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -1530,7 +1535,7 @@ bool SkillWildMagic(HardwareInterface hardware,  MemoryInterface memory, EntityI
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillGladeTeleport(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillGladeTeleport(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -1540,7 +1545,7 @@ bool SkillGladeTeleport(HardwareInterface hardware,  MemoryInterface memory, Ent
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillMoonbeam(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillMoonbeam(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -1550,7 +1555,7 @@ bool SkillMoonbeam(HardwareInterface hardware,  MemoryInterface memory, EntityId
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillMirrorGlamour(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillMirrorGlamour(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -1560,7 +1565,7 @@ bool SkillMirrorGlamour(HardwareInterface hardware,  MemoryInterface memory, Ent
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillFaeWhisper(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillFaeWhisper(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -1570,7 +1575,7 @@ bool SkillFaeWhisper(HardwareInterface hardware,  MemoryInterface memory, Entity
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillPetalDance(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillPetalDance(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -1580,7 +1585,7 @@ bool SkillPetalDance(HardwareInterface hardware,  MemoryInterface memory, Entity
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillStarSprinkle(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillStarSprinkle(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -1590,7 +1595,7 @@ bool SkillStarSprinkle(HardwareInterface hardware,  MemoryInterface memory, Enti
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillMysticTangle(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillMysticTangle(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -1600,7 +1605,7 @@ bool SkillMysticTangle(HardwareInterface hardware,  MemoryInterface memory, Enti
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillLuminaBlessing(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillLuminaBlessing(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -1610,7 +1615,7 @@ bool SkillLuminaBlessing(HardwareInterface hardware,  MemoryInterface memory, En
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillTwilightShimmer(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillTwilightShimmer(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -1622,7 +1627,7 @@ bool SkillTwilightShimmer(HardwareInterface hardware,  MemoryInterface memory, E
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillPrayer(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillPrayer(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     if (IsInParty(attackerID))
     {
@@ -1644,7 +1649,7 @@ bool SkillPrayer(HardwareInterface hardware,  MemoryInterface memory, EntityId a
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillDivineSmite(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillDivineSmite(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -1654,7 +1659,7 @@ bool SkillDivineSmite(HardwareInterface hardware,  MemoryInterface memory, Entit
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillBlessing(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillBlessing(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -1664,7 +1669,7 @@ bool SkillBlessing(HardwareInterface hardware,  MemoryInterface memory, EntityId
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillMiracle(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillMiracle(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -1674,7 +1679,7 @@ bool SkillMiracle(HardwareInterface hardware,  MemoryInterface memory, EntityId 
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillJudgement(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillJudgement(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -1684,7 +1689,7 @@ bool SkillJudgement(HardwareInterface hardware,  MemoryInterface memory, EntityI
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillAuraOfReverence(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillAuraOfReverence(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -1694,7 +1699,7 @@ bool SkillAuraOfReverence(HardwareInterface hardware,  MemoryInterface memory, E
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillChannelDivinity(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillChannelDivinity(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -1704,7 +1709,7 @@ bool SkillChannelDivinity(HardwareInterface hardware,  MemoryInterface memory, E
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillApotheosis(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillApotheosis(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -1714,7 +1719,7 @@ bool SkillApotheosis(HardwareInterface hardware,  MemoryInterface memory, Entity
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillHolyLight(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillHolyLight(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -1724,7 +1729,7 @@ bool SkillHolyLight(HardwareInterface hardware,  MemoryInterface memory, EntityI
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillSacredShield(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillSacredShield(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -1734,7 +1739,7 @@ bool SkillSacredShield(HardwareInterface hardware,  MemoryInterface memory, Enti
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillCelestialCall(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillCelestialCall(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -1744,7 +1749,7 @@ bool SkillCelestialCall(HardwareInterface hardware,  MemoryInterface memory, Ent
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillPurify(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillPurify(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     RemoveDisease(attackerID);
     RemoveCurse(attackerID);
@@ -1756,7 +1761,7 @@ bool SkillPurify(HardwareInterface hardware,  MemoryInterface memory, EntityId a
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillDivineIntervention(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillDivineIntervention(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     return false;
 }
@@ -1765,7 +1770,7 @@ bool SkillDivineIntervention(HardwareInterface hardware,  MemoryInterface memory
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillHaloOfGrace(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillHaloOfGrace(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     RaiseMagic(attackerID);
     return false;
@@ -1775,7 +1780,7 @@ bool SkillHaloOfGrace(HardwareInterface hardware,  MemoryInterface memory, Entit
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillRighteousFury(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillRighteousFury(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     RaiseStrength(attackerID);
     return false;
@@ -1785,7 +1790,7 @@ bool SkillRighteousFury(HardwareInterface hardware,  MemoryInterface memory, Ent
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillSeraphicWard(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillSeraphicWard(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     RaiseDefence(attackerID);
     return false;
@@ -1797,7 +1802,7 @@ bool SkillSeraphicWard(HardwareInterface hardware,  MemoryInterface memory, Enti
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillTackle(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillTackle(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -1807,7 +1812,7 @@ bool SkillTackle(HardwareInterface hardware,  MemoryInterface memory, EntityId a
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillSlash(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillSlash(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -1817,7 +1822,7 @@ bool SkillSlash(HardwareInterface hardware,  MemoryInterface memory, EntityId at
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillBash(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillBash(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyParalyze(defenderID, abilityData.power);
     Attack(hardware, memory, attackerID, defenderID, abilityData);
@@ -1828,7 +1833,7 @@ bool SkillBash(HardwareInterface hardware,  MemoryInterface memory, EntityId att
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillPreciseStrike(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillPreciseStrike(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     RaiseAccuracy(attackerID);
     Attack(hardware, memory, attackerID, defenderID, abilityData);
@@ -1839,7 +1844,7 @@ bool SkillPreciseStrike(HardwareInterface hardware,  MemoryInterface memory, Ent
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillExorcism(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillExorcism(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -1849,7 +1854,7 @@ bool SkillExorcism(HardwareInterface hardware,  MemoryInterface memory, EntityId
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillTaunt(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillTaunt(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     return false;
 }
@@ -1858,7 +1863,7 @@ bool SkillTaunt(HardwareInterface hardware,  MemoryInterface memory, EntityId at
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillRally(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillRally(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     if (IsInParty(attackerID))
     {
@@ -1880,7 +1885,7 @@ bool SkillRally(HardwareInterface hardware,  MemoryInterface memory, EntityId at
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillDisarm(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillDisarm(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     LowerStrength(defenderID);
     return false;
@@ -1890,7 +1895,7 @@ bool SkillDisarm(HardwareInterface hardware,  MemoryInterface memory, EntityId a
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillCharge(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillCharge(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     QuickAttack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -1900,7 +1905,7 @@ bool SkillCharge(HardwareInterface hardware,  MemoryInterface memory, EntityId a
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillParry(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillParry(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Parry(attackerID, defenderID, abilityData);
     return false;
@@ -1910,7 +1915,7 @@ bool SkillParry(HardwareInterface hardware,  MemoryInterface memory, EntityId at
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillCripplingBlow(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillCripplingBlow(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplySlow(defenderID, abilityData.power);
     Attack(hardware, memory, attackerID, defenderID, abilityData);
@@ -1921,7 +1926,7 @@ bool SkillCripplingBlow(HardwareInterface hardware,  MemoryInterface memory, Ent
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillGuardBreak(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillGuardBreak(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     LowerDefence(defenderID);
     Attack(hardware, memory, attackerID, defenderID, abilityData);
@@ -1932,7 +1937,7 @@ bool SkillGuardBreak(HardwareInterface hardware,  MemoryInterface memory, Entity
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillSecondWind(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillSecondWind(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     RestoreMana(attackerID, abilityData.power);
     return false;
@@ -1942,7 +1947,7 @@ bool SkillSecondWind(HardwareInterface hardware,  MemoryInterface memory, Entity
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillIronWill(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillIronWill(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     RaiseMagic(attackerID);
     return false;
@@ -1952,7 +1957,7 @@ bool SkillIronWill(HardwareInterface hardware,  MemoryInterface memory, EntityId
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillShieldBash(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillShieldBash(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -1962,7 +1967,7 @@ bool SkillShieldBash(HardwareInterface hardware,  MemoryInterface memory, Entity
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillTacticalRetreat(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillTacticalRetreat(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Flee();
     return false;
@@ -1974,7 +1979,7 @@ bool SkillTacticalRetreat(HardwareInterface hardware,  MemoryInterface memory, E
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillPrimordialForce(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillPrimordialForce(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -1984,7 +1989,7 @@ bool SkillPrimordialForce(HardwareInterface hardware,  MemoryInterface memory, E
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillTimeWarp(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillTimeWarp(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyHaste(attackerID, abilityData.power);
     ApplySlow(defenderID, abilityData.power);
@@ -1995,7 +2000,7 @@ bool SkillTimeWarp(HardwareInterface hardware,  MemoryInterface memory, EntityId
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillFossilize(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillFossilize(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -2005,7 +2010,7 @@ bool SkillFossilize(HardwareInterface hardware,  MemoryInterface memory, EntityI
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillCallOfTheVoid(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillCallOfTheVoid(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     LowerMagic(defenderID);
     return false;
@@ -2015,7 +2020,7 @@ bool SkillCallOfTheVoid(HardwareInterface hardware,  MemoryInterface memory, Ent
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillWorldTear(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillWorldTear(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -2025,7 +2030,7 @@ bool SkillWorldTear(HardwareInterface hardware,  MemoryInterface memory, EntityI
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillSleepOfAges(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillSleepOfAges(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -2035,7 +2040,7 @@ bool SkillSleepOfAges(HardwareInterface hardware,  MemoryInterface memory, Entit
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillAncientWisdom(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillAncientWisdom(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     RaiseMagic(attackerID);
     return false;
@@ -2045,7 +2050,7 @@ bool SkillAncientWisdom(HardwareInterface hardware,  MemoryInterface memory, Ent
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillCatastrophe(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillCatastrophe(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -2055,7 +2060,7 @@ bool SkillCatastrophe(HardwareInterface hardware,  MemoryInterface memory, Entit
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillArcaneEruption(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillArcaneEruption(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -2065,7 +2070,7 @@ bool SkillArcaneEruption(HardwareInterface hardware,  MemoryInterface memory, En
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillStoneTide(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillStoneTide(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -2075,7 +2080,7 @@ bool SkillStoneTide(HardwareInterface hardware,  MemoryInterface memory, EntityI
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillTemporalShift(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillTemporalShift(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyHaste(attackerID, abilityData.power);
     ApplySlow(defenderID, abilityData.power);
@@ -2086,7 +2091,7 @@ bool SkillTemporalShift(HardwareInterface hardware,  MemoryInterface memory, Ent
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillPrimalScream(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillPrimalScream(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyFear(defenderID, abilityData.power);
     return false;
@@ -2096,7 +2101,7 @@ bool SkillPrimalScream(HardwareInterface hardware,  MemoryInterface memory, Enti
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillCosmicRay(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillCosmicRay(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -2106,18 +2111,22 @@ bool SkillCosmicRay(HardwareInterface hardware,  MemoryInterface memory, EntityI
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillEternalGrasp(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillEternalGrasp(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyParalyze(defenderID, abilityData.power);
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return Capture(hardware, defenderID, abilityData.power);
+    if (Capture(hardware, trainer_id, defenderID, abilityData.power))
+    {
+        g_battle.end_battle = true;
+    }
+    return false;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillVolcanicOutburst(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillVolcanicOutburst(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -2127,7 +2136,7 @@ bool SkillVolcanicOutburst(HardwareInterface hardware,  MemoryInterface memory, 
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillRunicAegis(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillRunicAegis(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -2139,7 +2148,7 @@ bool SkillRunicAegis(HardwareInterface hardware,  MemoryInterface memory, Entity
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillPlague(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillPlague(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyDisease(defenderID, abilityData.power);
     Attack(hardware, memory, attackerID, defenderID, abilityData);
@@ -2150,7 +2159,7 @@ bool SkillPlague(HardwareInterface hardware,  MemoryInterface memory, EntityId a
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillLifeDrain(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillLifeDrain(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     HealTarget(attackerID, abilityData.power);
@@ -2161,7 +2170,7 @@ bool SkillLifeDrain(HardwareInterface hardware,  MemoryInterface memory, EntityI
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillGraveTouch(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillGraveTouch(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyCurse(defenderID, abilityData.power);
     Attack(hardware, memory, attackerID, defenderID, abilityData);
@@ -2172,7 +2181,7 @@ bool SkillGraveTouch(HardwareInterface hardware,  MemoryInterface memory, Entity
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillHaunt(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillHaunt(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyFear(defenderID, abilityData.power);
     Attack(hardware, memory, attackerID, defenderID, abilityData);
@@ -2183,7 +2192,7 @@ bool SkillHaunt(HardwareInterface hardware,  MemoryInterface memory, EntityId at
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillNecroticBurst(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillNecroticBurst(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -2193,7 +2202,7 @@ bool SkillNecroticBurst(HardwareInterface hardware,  MemoryInterface memory, Ent
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillRaiseMinion(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillRaiseMinion(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Summon(SKELETON);
     return false;
@@ -2203,7 +2212,7 @@ bool SkillRaiseMinion(HardwareInterface hardware,  MemoryInterface memory, Entit
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillWither(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillWither(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     LowerStrength(defenderID);
     return false;
@@ -2213,7 +2222,7 @@ bool SkillWither(HardwareInterface hardware,  MemoryInterface memory, EntityId a
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillDeathsDoor(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillDeathsDoor(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -2223,7 +2232,7 @@ bool SkillDeathsDoor(HardwareInterface hardware,  MemoryInterface memory, Entity
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillWail(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillWail(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     InstantKill(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -2231,7 +2240,7 @@ bool SkillWail(HardwareInterface hardware,  MemoryInterface memory, EntityId att
 
 // UNUSED
 SET_MEMORY(".battle")
-bool SkillSoulSip(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillSoulSip(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -2241,7 +2250,7 @@ bool SkillSoulSip(HardwareInterface hardware,  MemoryInterface memory, EntityId 
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillBoneSpike(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillBoneSpike(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -2251,7 +2260,7 @@ bool SkillBoneSpike(HardwareInterface hardware,  MemoryInterface memory, EntityI
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillCursedGround(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillCursedGround(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyCurse(defenderID, abilityData.power);
     Attack(hardware, memory, attackerID, defenderID, abilityData);
@@ -2262,7 +2271,7 @@ bool SkillCursedGround(HardwareInterface hardware,  MemoryInterface memory, Enti
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillVampiricWave(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillVampiricWave(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     HealTarget(attackerID, abilityData.power);
@@ -2273,18 +2282,22 @@ bool SkillVampiricWave(HardwareInterface hardware,  MemoryInterface memory, Enti
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillPhantomGrasp(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillPhantomGrasp(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyParalyze(defenderID, abilityData.power);
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return Capture(hardware, defenderID, abilityData.power);
+    if (Capture(hardware, trainer_id, defenderID, abilityData.power))
+    {
+        g_battle.end_battle = true;
+    }
+    return false;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillTombShield(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillTombShield(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     RaiseDefence(defenderID);
     return false;
@@ -2294,7 +2307,7 @@ bool SkillTombShield(HardwareInterface hardware,  MemoryInterface memory, Entity
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillDarkRitual(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillDarkRitual(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     SacrificeHeal(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -2304,7 +2317,7 @@ bool SkillDarkRitual(HardwareInterface hardware,  MemoryInterface memory, Entity
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillEpitaph(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillEpitaph(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -2316,7 +2329,7 @@ bool SkillEpitaph(HardwareInterface hardware,  MemoryInterface memory, EntityId 
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillSultryLook(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillSultryLook(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyParalyze(defenderID, abilityData.power);
     return false;
@@ -2326,7 +2339,7 @@ bool SkillSultryLook(HardwareInterface hardware,  MemoryInterface memory, Entity
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillKiss(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillKiss(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyParalyze(defenderID, abilityData.power);
     return false;
@@ -2336,7 +2349,7 @@ bool SkillKiss(HardwareInterface hardware,  MemoryInterface memory, EntityId att
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillHellfire(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillHellfire(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -2346,7 +2359,7 @@ bool SkillHellfire(HardwareInterface hardware,  MemoryInterface memory, EntityId
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillCorruptingTouch(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillCorruptingTouch(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     ApplyDisease(defenderID, abilityData.power);
@@ -2357,7 +2370,7 @@ bool SkillCorruptingTouch(HardwareInterface hardware,  MemoryInterface memory, E
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillDemonicPact(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillDemonicPact(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -2367,7 +2380,7 @@ bool SkillDemonicPact(HardwareInterface hardware,  MemoryInterface memory, Entit
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillSoulSiphon(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillSoulSiphon(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     DrainMana(defenderID, abilityData.power);
     RestoreMana(attackerID, abilityData.power);
@@ -2378,7 +2391,7 @@ bool SkillSoulSiphon(HardwareInterface hardware,  MemoryInterface memory, Entity
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillTemptation(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillTemptation(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -2388,7 +2401,7 @@ bool SkillTemptation(HardwareInterface hardware,  MemoryInterface memory, Entity
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillFelblaze(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillFelblaze(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -2398,7 +2411,7 @@ bool SkillFelblaze(HardwareInterface hardware,  MemoryInterface memory, EntityId
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillChaosWhisper(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillChaosWhisper(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -2408,7 +2421,7 @@ bool SkillChaosWhisper(HardwareInterface hardware,  MemoryInterface memory, Enti
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillLustfulGlare(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillLustfulGlare(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyParalyze(defenderID, abilityData.power);
     return false;
@@ -2418,18 +2431,22 @@ bool SkillLustfulGlare(HardwareInterface hardware,  MemoryInterface memory, Enti
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillAbyssalGrasp(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillAbyssalGrasp(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplySlow(defenderID, abilityData.power);
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return Capture(hardware, defenderID, abilityData.power);
+    if (Capture(hardware, trainer_id, defenderID, abilityData.power))
+    {
+        g_battle.end_battle = true;
+    }
+    return false;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillCursedEmbrace(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillCursedEmbrace(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -2439,7 +2456,7 @@ bool SkillCursedEmbrace(HardwareInterface hardware,  MemoryInterface memory, Ent
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillInfernalRush(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillInfernalRush(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -2449,7 +2466,7 @@ bool SkillInfernalRush(HardwareInterface hardware,  MemoryInterface memory, Enti
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillDiabolicCry(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillDiabolicCry(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     RaiseStrength(defenderID);
     return false;
@@ -2459,7 +2476,7 @@ bool SkillDiabolicCry(HardwareInterface hardware,  MemoryInterface memory, Entit
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillHellscape(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillHellscape(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -2471,7 +2488,7 @@ bool SkillHellscape(HardwareInterface hardware,  MemoryInterface memory, EntityI
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillSting(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillSting(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyPoison(defenderID, abilityData.power);
     Attack(hardware, memory, attackerID, defenderID, abilityData);
@@ -2482,7 +2499,7 @@ bool SkillSting(HardwareInterface hardware,  MemoryInterface memory, EntityId at
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillVenomSpit(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillVenomSpit(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyPoison(defenderID, abilityData.power);
     Attack(hardware, memory, attackerID, defenderID, abilityData);
@@ -2493,7 +2510,7 @@ bool SkillVenomSpit(HardwareInterface hardware,  MemoryInterface memory, EntityI
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillToxicCloud(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillToxicCloud(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyPoison(defenderID, abilityData.power);
     Attack(hardware, memory, attackerID, defenderID, abilityData);
@@ -2504,7 +2521,7 @@ bool SkillToxicCloud(HardwareInterface hardware,  MemoryInterface memory, Entity
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillParalyze(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillParalyze(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyParalyze(defenderID, abilityData.power);
     Attack(hardware, memory, attackerID, defenderID, abilityData);
@@ -2515,7 +2532,7 @@ bool SkillParalyze(HardwareInterface hardware,  MemoryInterface memory, EntityId
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillAcidSpray(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillAcidSpray(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     DestroyRandomPlayerItem();
     Attack(hardware, memory, attackerID, defenderID, abilityData);
@@ -2526,7 +2543,7 @@ bool SkillAcidSpray(HardwareInterface hardware,  MemoryInterface memory, EntityI
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillNeurotoxin(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillNeurotoxin(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyParalyze(defenderID, abilityData.power);
     Attack(hardware, memory, attackerID, defenderID, abilityData);
@@ -2537,7 +2554,7 @@ bool SkillNeurotoxin(HardwareInterface hardware,  MemoryInterface memory, Entity
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillContagion(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillContagion(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyDisease(defenderID, abilityData.power);
     Attack(hardware, memory, attackerID, defenderID, abilityData);
@@ -2548,7 +2565,7 @@ bool SkillContagion(HardwareInterface hardware,  MemoryInterface memory, EntityI
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillAntidote(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillAntidote(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     RemovePoison(attackerID);
     return false;
@@ -2558,7 +2575,7 @@ bool SkillAntidote(HardwareInterface hardware,  MemoryInterface memory, EntityId
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillToxicFang(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillToxicFang(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyPoison(defenderID, abilityData.power);
     Attack(hardware, memory, attackerID, defenderID, abilityData);
@@ -2569,7 +2586,7 @@ bool SkillToxicFang(HardwareInterface hardware,  MemoryInterface memory, EntityI
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillVirulentBite(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillVirulentBite(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyDisease(defenderID, abilityData.power);
     Attack(hardware, memory, attackerID, defenderID, abilityData);
@@ -2580,7 +2597,7 @@ bool SkillVirulentBite(HardwareInterface hardware,  MemoryInterface memory, Enti
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillToxicBarrage(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillToxicBarrage(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -2590,7 +2607,7 @@ bool SkillToxicBarrage(HardwareInterface hardware,  MemoryInterface memory, Enti
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillNerveStrike(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillNerveStrike(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyParalyze(defenderID, abilityData.power);
     Attack(hardware, memory, attackerID, defenderID, abilityData);
@@ -2601,7 +2618,7 @@ bool SkillNerveStrike(HardwareInterface hardware,  MemoryInterface memory, Entit
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillToxicMist(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillToxicMist(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     PersistentPoisonCloud(abilityData.power);
     Attack(hardware, memory, attackerID, defenderID, abilityData);
@@ -2612,7 +2629,7 @@ bool SkillToxicMist(HardwareInterface hardware,  MemoryInterface memory, EntityI
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillVenomousTail(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillVenomousTail(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyParalyze(defenderID, abilityData.power);
     Attack(hardware, memory, attackerID, defenderID, abilityData);
@@ -2623,7 +2640,7 @@ bool SkillVenomousTail(HardwareInterface hardware,  MemoryInterface memory, Enti
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillInfectiousTouch(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillInfectiousTouch(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyDisease(defenderID, abilityData.power);
     Attack(hardware, memory, attackerID, defenderID, abilityData);
@@ -2634,7 +2651,7 @@ bool SkillInfectiousTouch(HardwareInterface hardware,  MemoryInterface memory, E
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillPurifyCure(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillPurifyCure(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     RemoveDisease(attackerID);
     return false;
@@ -2646,7 +2663,7 @@ bool SkillPurifyCure(HardwareInterface hardware,  MemoryInterface memory, Entity
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillSacrifice(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillSacrifice(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -2656,7 +2673,7 @@ bool SkillSacrifice(HardwareInterface hardware,  MemoryInterface memory, EntityI
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillRockThrow(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillRockThrow(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -2666,7 +2683,7 @@ bool SkillRockThrow(HardwareInterface hardware,  MemoryInterface memory, EntityI
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillMudSlide(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillMudSlide(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -2676,7 +2693,7 @@ bool SkillMudSlide(HardwareInterface hardware,  MemoryInterface memory, EntityId
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillStoneSkin(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillStoneSkin(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     LowerDefence(defenderID);
     return false;
@@ -2686,7 +2703,7 @@ bool SkillStoneSkin(HardwareInterface hardware,  MemoryInterface memory, EntityI
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillQuicksand(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillQuicksand(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplySlow(defenderID, abilityData.power);
     return false;
@@ -2696,7 +2713,7 @@ bool SkillQuicksand(HardwareInterface hardware,  MemoryInterface memory, EntityI
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillEarthenPrison(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillEarthenPrison(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyParalyze(defenderID, abilityData.power);
     return false;
@@ -2706,7 +2723,7 @@ bool SkillEarthenPrison(HardwareInterface hardware,  MemoryInterface memory, Ent
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillLavaBurst(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillLavaBurst(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -2716,7 +2733,7 @@ bool SkillLavaBurst(HardwareInterface hardware,  MemoryInterface memory, EntityI
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillTerraform(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillTerraform(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -2726,7 +2743,7 @@ bool SkillTerraform(HardwareInterface hardware,  MemoryInterface memory, EntityI
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillBoulderCrush(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillBoulderCrush(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -2736,7 +2753,7 @@ bool SkillBoulderCrush(HardwareInterface hardware,  MemoryInterface memory, Enti
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillEarthquakeStomp(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillEarthquakeStomp(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -2746,7 +2763,7 @@ bool SkillEarthquakeStomp(HardwareInterface hardware,  MemoryInterface memory, E
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillTremorWave(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillTremorWave(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -2756,7 +2773,7 @@ bool SkillTremorWave(HardwareInterface hardware,  MemoryInterface memory, Entity
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillStoneSpike(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillStoneSpike(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -2766,7 +2783,7 @@ bool SkillStoneSpike(HardwareInterface hardware,  MemoryInterface memory, Entity
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillMudClaw(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillMudClaw(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplySlow(defenderID, abilityData.power);
     Attack(hardware, memory, attackerID, defenderID, abilityData);
@@ -2777,7 +2794,7 @@ bool SkillMudClaw(HardwareInterface hardware,  MemoryInterface memory, EntityId 
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillGeoBarrier(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillGeoBarrier(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     RaiseDefence(defenderID);
     return false;
@@ -2787,7 +2804,7 @@ bool SkillGeoBarrier(HardwareInterface hardware,  MemoryInterface memory, Entity
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillMagmaFlow(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillMagmaFlow(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;
@@ -2797,7 +2814,7 @@ bool SkillMagmaFlow(HardwareInterface hardware,  MemoryInterface memory, EntityI
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillLandShift(HardwareInterface hardware,  MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+bool SkillLandShift(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return false;

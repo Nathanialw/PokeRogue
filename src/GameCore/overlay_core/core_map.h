@@ -7,7 +7,7 @@
 #include "types.h"
 
 uint8_t GetMapTile(uint8_t x, uint8_t y);
-void SetMapTile(uint8_t x, uint8_t y, TileType tile);
+void SetMapTile(uint8_t x, uint8_t y, MapTile tile);
 Position FindOpenRoomLocation(HardwareInterface hardware, ObjectsTypes type, uint8_t n);
 
 

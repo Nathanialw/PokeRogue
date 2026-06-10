@@ -15,6 +15,8 @@
 #include "core_ram.h"
 #include "core_memory_access.h"
 #include "core_player.h"
+#include "core_stats.h"
+#include "lib_debugging.h"
 
 
 /**********************************************************************************************************************
@@ -246,9 +248,14 @@ bool DrainMana(EntityId e_id, uint8_t value)
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool RestorePP(EntityId e_id, uint8_t value)
+bool RestorePP(EntityId trainer_id, uint8_t spell_index, uint8_t value)
 {
-    return true;
+    if (g_core.trainers.spellPage[trainer_id][spell_index].pp < value)
+    {
+        g_core.trainers.spellPage[trainer_id][spell_index].pp = g_core.trainers.spellPage[trainer_id][spell_index].spellData.pp;
+        return true;
+    }
+    return false;
 }
 
 /**********************************************************************************************************************
@@ -257,8 +264,12 @@ bool RestorePP(EntityId e_id, uint8_t value)
 SET_MEMORY(".core")
 bool Repel(EntityId e_id, uint8_t duration)
 {
-    g_core.creatures.status.repel[e_id] = duration;
-    return true;
+    if (g_core.creatures.status.repel[e_id] < 8)
+    {
+        g_core.creatures.status.repel[e_id]++;
+        return true;
+    }
+    return false;
 }
 
 /**********************************************************************************************************************
@@ -267,8 +278,12 @@ bool Repel(EntityId e_id, uint8_t duration)
 SET_MEMORY(".core")
 bool Hover(EntityId e_id, uint8_t duration)
 {
-    g_core.creatures.status.hovering[e_id] = duration;
-    return true;
+    if (g_core.creatures.status.hovering[e_id] < 8)
+    {
+        g_core.creatures.status.hovering[e_id]++;
+        return true;
+    }
+    return false;
 }
 
 /**********************************************************************************************************************
@@ -277,8 +292,12 @@ bool Hover(EntityId e_id, uint8_t duration)
 SET_MEMORY(".core")
 bool WaterBreathing(EntityId e_id, uint8_t duration)
 {
-    g_core.creatures.status.waterBreathing[e_id] = duration;
-    return true;
+    if (g_core.creatures.status.waterBreathing[e_id] < 8)
+    {
+        g_core.creatures.status.waterBreathing[e_id] = duration;
+        return true;
+    }
+    return false;
 }
 
 /**********************************************************************************************************************
@@ -287,8 +306,12 @@ bool WaterBreathing(EntityId e_id, uint8_t duration)
 SET_MEMORY(".core")
 bool XRayVision(EntityId e_id, uint8_t duration)
 {
-    g_core.creatures.status.lineOfSight[GetPlayerID()] = duration;
-    return true;
+    if (g_core.creatures.status.lineOfSight[e_id] < 8)
+    {
+        g_core.creatures.status.lineOfSight[e_id]++;
+        return true;
+    }
+    return false;
 }
 
 /**********************************************************************************************************************
@@ -297,8 +320,12 @@ bool XRayVision(EntityId e_id, uint8_t duration)
 SET_MEMORY(".core")
 bool WaterWalking(EntityId e_id, uint8_t duration)
 {
-    g_core.creatures.status.waterWalk[GetPlayerID()] = duration;
-    return true;
+    if (g_core.creatures.status.waterWalk[e_id] < 8)
+    {
+        g_core.creatures.status.waterWalk[e_id]++;
+        return true;
+    }
+    return false;
 }
 
 /**********************************************************************************************************************
@@ -307,8 +334,12 @@ bool WaterWalking(EntityId e_id, uint8_t duration)
 SET_MEMORY(".core")
 bool WallWalking(EntityId e_id, uint8_t duration)
 {
-    g_core.creatures.status.wallWalking[e_id] = duration;
-    return true;
+    if (g_core.creatures.status.wallWalking[e_id] < 8)
+    {
+        g_core.creatures.status.wallWalking[e_id]++;
+        return true;
+    }
+    return false;
 }
 
 /**********************************************************************************************************************
@@ -317,8 +348,12 @@ bool WallWalking(EntityId e_id, uint8_t duration)
 SET_MEMORY(".core")
 bool Invisibility(EntityId e_id, uint8_t duration)
 {
-    g_core.creatures.status.invisibility[e_id] = duration;
-    return true;
+    if (g_core.creatures.status.invisibility[e_id] < 8)
+    {
+        g_core.creatures.status.invisibility[e_id]++;
+        return true;
+    }
+    return false;
 }
 
 /**********************************************************************************************************************
@@ -364,16 +399,19 @@ void DestroyRandomPlayerItem()
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool Capture(HardwareInterface hardware, EntityId target_id, uint8_t successChance)
+bool Capture(HardwareInterface hardware, EntityId trainer_id, EntityId target_id, uint8_t successChance)
 {
     if (target_id == g_core.trainers.partyID[GetPlayerID()][0])
         return false;
 
     uint8_t n = hardware.GetRandom_uint8_t(1, successChance);
-    if (n < 10)
+    DEBUG("capture %d/%d", n, successChance);
+    if (n < 100)
     {
-        if (AddCreatureToParty(target_id))
+        if (AddCreatureToParty(trainer_id, target_id))
         {
+            if (trainer_id == GetPlayerID())
+                g_core.player.currentPartySize++;
             CaptureMonster(target_id);
             return true;
         }
@@ -502,8 +540,11 @@ SET_MEMORY(".core")
 bool ApplyPoison(EntityId e_id, uint8_t duration)
 {
     if (g_core.creatures.status.poison[e_id] < 8)
+    {
         g_core.creatures.status.poison[e_id]++;
-    return true;
+        return true;
+    }
+    return false;
 }
 
 /**********************************************************************************************************************
@@ -513,8 +554,11 @@ SET_MEMORY(".core")
 bool ApplyCurse(EntityId e_id, uint8_t duration)
 {
     if (g_core.creatures.status.curse[e_id] < 8)
+    {
         g_core.creatures.status.curse[e_id]++;
-    return true;
+        return true;
+    }
+    return false;
 }
 
 /**********************************************************************************************************************
@@ -524,8 +568,11 @@ SET_MEMORY(".core")
 bool ApplyParalyze(EntityId e_id, uint8_t duration)
 {
     if (g_core.creatures.status.paralyzed[e_id] < 8)
+    {
         g_core.creatures.status.paralyzed[e_id]++;
-    return true;
+        return true;
+    }
+    return false;
 }
 
 /**********************************************************************************************************************
@@ -535,8 +582,11 @@ SET_MEMORY(".core")
 bool ApplyDisease(EntityId e_id, uint8_t duration)
 {
     if (g_core.creatures.status.disease[e_id] < 8)
+    {
         g_core.creatures.status.disease[e_id]++;
-    return true;
+        return true;
+    }
+    return false;
 }
 
 /**********************************************************************************************************************
@@ -546,8 +596,11 @@ SET_MEMORY(".core")
 bool ApplySleep(EntityId e_id, uint8_t duration)
 {
     if (g_core.creatures.status.sleep[e_id] < 8)
+    {
         g_core.creatures.status.sleep[e_id]++;
-    return true;
+        return true;
+    }
+    return false;
 }
 
 /**********************************************************************************************************************
@@ -557,8 +610,11 @@ SET_MEMORY(".core")
 bool ApplyFear(EntityId e_id, uint8_t duration)
 {
     if (g_core.creatures.status.fear[e_id] < 8)
+    {
         g_core.creatures.status.fear[e_id]++;
-    return true;
+        return true;
+    }
+    return false;
 }
 
 /**********************************************************************************************************************
@@ -568,8 +624,11 @@ SET_MEMORY(".core")
 bool ApplyFrozen(EntityId e_id, uint8_t duration)
 {
     if (g_core.creatures.status.frozen[e_id] < 8)
+    {
         g_core.creatures.status.frozen[e_id]++;
-    return true;
+        return true;
+    }
+    return false;
 }
 
 /**********************************************************************************************************************
@@ -579,8 +638,11 @@ SET_MEMORY(".core")
 bool ApplyBurn(EntityId e_id, uint8_t duration)
 {
     if (g_core.creatures.status.burned[e_id] < 8)
+    {
         g_core.creatures.status.burned[e_id]++;
-    return true;
+        return true;
+    }
+    return false;
 }
 
 /**********************************************************************************************************************
@@ -590,8 +652,11 @@ SET_MEMORY(".core")
 bool ApplyHaste(EntityId e_id, uint8_t duration)
 {
     if (g_core.creatures.status.hasted[e_id] < 8)
+    {
         g_core.creatures.status.hasted[e_id]++;
-    return true;
+        return true;
+    }
+    return false;
 }
 
 /**********************************************************************************************************************
@@ -601,8 +666,11 @@ SET_MEMORY(".core")
 bool ApplySlow(EntityId e_id, uint8_t duration)
 {
     if (g_core.creatures.status.slowed[e_id] < 8)
+    {
         g_core.creatures.status.slowed[e_id]++;
-    return true;
+        return true;
+    }
+    return false;
 }
 
 /**********************************************************************************************************************
@@ -641,8 +709,11 @@ SET_MEMORY(".core")
 bool RemoveCurse(EntityId e_id)
 {
     if (g_core.creatures.status.curse[e_id] > 0)
+    {
         g_core.creatures.status.curse[e_id]--;
-    return true;
+        return true;
+    }
+    return false;
 }
 
 /**********************************************************************************************************************
@@ -652,8 +723,11 @@ SET_MEMORY(".core")
 bool RemoveParalyze(EntityId e_id)
 {
     if (g_core.creatures.status.paralyzed[e_id] > 0)
+    {
         g_core.creatures.status.paralyzed[e_id]--;
-    return true;
+        return true;
+    }
+    return false;
 }
 
 /**********************************************************************************************************************
@@ -663,8 +737,11 @@ SET_MEMORY(".core")
 bool RemoveDisease(EntityId e_id)
 {
     if (g_core.creatures.status.disease[e_id] > 0)
+    {
         g_core.creatures.status.disease[e_id]--;
-    return true;
+        return true;
+    }
+    return false;
 }
 
 /**********************************************************************************************************************
@@ -674,8 +751,11 @@ SET_MEMORY(".core")
 bool RemoveSleep(EntityId e_id)
 {
     if (g_core.creatures.status.sleep[e_id] > 0)
+    {
         g_core.creatures.status.sleep[e_id]--;
-    return true;
+        return true;
+    }
+    return false;
 }
 
 /**********************************************************************************************************************
@@ -685,8 +765,11 @@ SET_MEMORY(".core")
 bool RemoveFear(EntityId e_id)
 {
     if (g_core.creatures.status.fear[e_id] > 0)
+    {
         g_core.creatures.status.fear[e_id]--;
-    return true;
+        return true;
+    }
+    return false;
 }
 
 /**********************************************************************************************************************
@@ -696,8 +779,11 @@ SET_MEMORY(".core")
 bool RemoveFrozen(EntityId e_id)
 {
     if (g_core.creatures.status.frozen[e_id] > 0)
+    {
         g_core.creatures.status.frozen[e_id]--;
-    return true;
+        return true;
+    }
+    return false;
 }
 
 /**********************************************************************************************************************
@@ -707,8 +793,11 @@ SET_MEMORY(".core")
 bool RemoveBurn(EntityId e_id)
 {
     if (g_core.creatures.status.burned[e_id] > 0)
+    {
         g_core.creatures.status.burned[e_id]--;
-    return true;
+        return true;
+    }
+    return false;
 }
 
 /**********************************************************************************************************************
@@ -718,8 +807,11 @@ SET_MEMORY(".core")
 bool RemoveHaste(EntityId e_id)
 {
     if (g_core.creatures.status.hasted[e_id] > 0)
+    {
         g_core.creatures.status.hasted[e_id]--;
-    return true;
+        return true;
+    }
+    return false;
 }
 
 /**********************************************************************************************************************
@@ -729,8 +821,11 @@ SET_MEMORY(".core")
 bool RemoveSlow(EntityId e_id)
 {
     if (g_core.creatures.status.slowed[e_id] > 0)
+    {
         g_core.creatures.status.slowed[e_id]--;
-    return true;
+        return true;
+    }
+    return false;
 }
 
 /**********************************************************************************************************************
@@ -740,8 +835,11 @@ SET_MEMORY(".core")
 bool StatusLesserLight(EntityId e_id, uint8_t duration)
 {
     if (g_core.creatures.status.light[e_id] < 8)
+    {
         g_core.creatures.status.light[e_id]++;
-    return true;
+        return true;
+    }
+    return false;
 }
 
 /**********************************************************************************************************************
@@ -751,8 +849,11 @@ SET_MEMORY(".core")
 bool StatusGreaterLight(EntityId e_id, uint8_t duration)
 {
     if (g_core.creatures.status.light[e_id] < 8)
+    {
         g_core.creatures.status.light[e_id]++;
-    return true;
+        return true;
+    }
+    return false;
 }
 
 /**********************************************************************************************************************
@@ -769,8 +870,11 @@ SET_MEMORY(".core")
 bool FreezeAttackers(EntityId e_id, uint8_t duration)
 {
     if (g_core.creatures.status.light[e_id] < 8)
+    {
         g_core.creatures.status.light[e_id]++;
-    return true;
+        return true;
+    }
+    return false;
 }
 
 /**********************************************************************************************************************
@@ -791,7 +895,7 @@ bool PersistentPoisonCloud(uint8_t duration)
 SET_MEMORY(".core")
 bool RaiseAcidResistance(EntityId e_id)
 {
-    return true;
+    return false;
 }
 
 
@@ -801,7 +905,7 @@ bool RaiseAcidResistance(EntityId e_id)
 SET_MEMORY(".core")
 bool RaiseFireResistance(EntityId e_id)
 {
-    return true;
+    return false;
 }
 
 /**********************************************************************************************************************
@@ -810,7 +914,7 @@ bool RaiseFireResistance(EntityId e_id)
 SET_MEMORY(".core")
 bool RaiseWaterResistance(EntityId e_id)
 {
-    return true;
+    return false;
 }
 
 /**********************************************************************************************************************
@@ -819,7 +923,7 @@ bool RaiseWaterResistance(EntityId e_id)
 SET_MEMORY(".core")
 bool RaiseIceResistance(EntityId e_id)
 {
-    return true;
+    return false;
 }
 
 /**********************************************************************************************************************
@@ -828,7 +932,7 @@ bool RaiseIceResistance(EntityId e_id)
 SET_MEMORY(".core")
 bool RaiseMagicResistance(EntityId e_id)
 {
-    return true;
+    return false;
 }
 
 /**********************************************************************************************************************
@@ -837,7 +941,7 @@ bool RaiseMagicResistance(EntityId e_id)
 SET_MEMORY(".core")
 bool RaiseAllResistance(EntityId e_id)
 {
-    return true;
+    return false;
 }
 
 /**********************************************************************************************************************
@@ -846,7 +950,7 @@ bool RaiseAllResistance(EntityId e_id)
 SET_MEMORY(".core")
 bool LowerAcidResistance(EntityId e_id)
 {
-    return true;
+    return false;
 }
 
 /**********************************************************************************************************************
@@ -855,7 +959,7 @@ bool LowerAcidResistance(EntityId e_id)
 SET_MEMORY(".core")
 bool LowerFireResistance(EntityId e_id)
 {
-    return true;
+    return false;
 }
 
 /**********************************************************************************************************************
@@ -864,7 +968,7 @@ bool LowerFireResistance(EntityId e_id)
 SET_MEMORY(".core")
 bool LowerWaterResistance(EntityId e_id)
 {
-    return true;
+    return false;
 }
 
 /**********************************************************************************************************************
@@ -873,7 +977,7 @@ bool LowerWaterResistance(EntityId e_id)
 SET_MEMORY(".core")
 bool LowerIceResistance(EntityId e_id)
 {
-    return true;
+    return false;
 }
 
 /**********************************************************************************************************************
@@ -882,7 +986,7 @@ bool LowerIceResistance(EntityId e_id)
 SET_MEMORY(".core")
 bool LowerMagicResistance(EntityId e_id)
 {
-    return true;
+    return false;
 }
 
 /**********************************************************************************************************************
@@ -891,7 +995,7 @@ bool LowerMagicResistance(EntityId e_id)
 SET_MEMORY(".core")
 bool LowerAllResistance(EntityId e_id)
 {
-    return true;
+    return false;
 }
 
 /**********************************************************************************************************************
@@ -900,7 +1004,7 @@ bool LowerAllResistance(EntityId e_id)
 SET_MEMORY(".core")
 bool FireEating(EntityId e_id)
 {
-    return true;
+    return false;
 }
 
 /**********************************************************************************************************************
@@ -909,7 +1013,7 @@ bool FireEating(EntityId e_id)
 SET_MEMORY(".core")
 bool WaterEating(EntityId e_id)
 {
-    return true;
+    return false;
 }
 
 /**********************************************************************************************************************
@@ -918,7 +1022,7 @@ bool WaterEating(EntityId e_id)
 SET_MEMORY(".core")
 bool IceEating(EntityId e_id)
 {
-    return true;
+    return false;
 }
 
 /**********************************************************************************************************************
@@ -927,7 +1031,7 @@ bool IceEating(EntityId e_id)
 SET_MEMORY(".core")
 bool AcidEating(EntityId e_id)
 {
-    return true;
+    return false;
 }
 
 /**********************************************************************************************************************
@@ -936,7 +1040,7 @@ bool AcidEating(EntityId e_id)
 SET_MEMORY(".core")
 bool LavaEating(EntityId e_id)
 {
-    return true;
+    return false;
 }
 
 
@@ -955,7 +1059,7 @@ bool LavaEating(EntityId e_id)
 SET_MEMORY(".core")
 bool RaiseStrength(EntityId e_id)
 {
-    return true;
+    return false;
 }
 
 /**********************************************************************************************************************
@@ -964,7 +1068,7 @@ bool RaiseStrength(EntityId e_id)
 SET_MEMORY(".core")
 bool RaiseDefence(EntityId e_id)
 {
-    return true;
+    return false;
 }
 
 /**********************************************************************************************************************
@@ -973,7 +1077,7 @@ bool RaiseDefence(EntityId e_id)
 SET_MEMORY(".core")
 bool RaiseMagic(EntityId e_id)
 {
-    return true;
+    return false;
 }
 
 /**********************************************************************************************************************
@@ -982,7 +1086,7 @@ bool RaiseMagic(EntityId e_id)
 SET_MEMORY(".core")
 bool RaiseSpeed(EntityId e_id)
 {
-    return true;
+    return false;
 }
 
 /**********************************************************************************************************************
@@ -991,7 +1095,7 @@ bool RaiseSpeed(EntityId e_id)
 SET_MEMORY(".core")
 bool RaiseAccuracy(EntityId e_id)
 {
-    return true;
+    return false;
 }
 
 /**********************************************************************************************************************
@@ -1000,7 +1104,7 @@ bool RaiseAccuracy(EntityId e_id)
 SET_MEMORY(".core")
 bool LowerStrength(EntityId e_id)
 {
-    return true;
+    return false;
 }
 
 /**********************************************************************************************************************
@@ -1009,7 +1113,7 @@ bool LowerStrength(EntityId e_id)
 SET_MEMORY(".core")
 bool LowerDefence(EntityId e_id)
 {
-    return true;
+    return false;
 }
 
 /**********************************************************************************************************************
@@ -1018,7 +1122,7 @@ bool LowerDefence(EntityId e_id)
 SET_MEMORY(".core")
 bool LowerMagic(EntityId e_id)
 {
-    return true;
+    return false;
 }
 
 /**********************************************************************************************************************
@@ -1027,7 +1131,7 @@ bool LowerMagic(EntityId e_id)
 SET_MEMORY(".core")
 bool LowerSpeed(EntityId e_id)
 {
-    return true;
+    return false;
 }
 
 /**********************************************************************************************************************
@@ -1036,7 +1140,7 @@ bool LowerSpeed(EntityId e_id)
 SET_MEMORY(".core")
 bool LowerAccuracy(EntityId e_id)
 {
-    return true;
+    return false;
 }
 
 /**********************************************************************************************************************
@@ -1045,7 +1149,7 @@ bool LowerAccuracy(EntityId e_id)
 SET_MEMORY(".core")
 bool RaiseBaseStrength(EntityId e_id)
 {
-    return true;
+    return false;
 }
 
 /**********************************************************************************************************************
@@ -1054,7 +1158,7 @@ bool RaiseBaseStrength(EntityId e_id)
 SET_MEMORY(".core")
 bool RaiseBaseDefence(EntityId e_id)
 {
-    return true;
+    return false;
 }
 
 /**********************************************************************************************************************
@@ -1063,7 +1167,7 @@ bool RaiseBaseDefence(EntityId e_id)
 SET_MEMORY(".core")
 bool RaiseBaseMagic(EntityId e_id)
 {
-    return true;
+    return false;
 }
 
 /**********************************************************************************************************************
@@ -1072,7 +1176,7 @@ bool RaiseBaseMagic(EntityId e_id)
 SET_MEMORY(".core")
 bool RaiseBaseSpeed(EntityId e_id)
 {
-    return true;
+    return false;
 }
 
 /**********************************************************************************************************************
@@ -1081,7 +1185,7 @@ bool RaiseBaseSpeed(EntityId e_id)
 SET_MEMORY(".core")
 bool LowerBaseSpeed(EntityId e_id)
 {
-    return true;
+    return false;
 }
 
 /**********************************************************************************************************************
@@ -1090,7 +1194,7 @@ bool LowerBaseSpeed(EntityId e_id)
 SET_MEMORY(".core")
 bool LowerBaseDefence(EntityId e_id)
 {
-    return true;
+    return false;
 }
 
 /**********************************************************************************************************************
@@ -1099,7 +1203,7 @@ bool LowerBaseDefence(EntityId e_id)
 SET_MEMORY(".core")
 bool LowerBaseMagic(EntityId e_id)
 {
-    return true;
+    return false;
 }
 
 /**********************************************************************************************************************
@@ -1108,7 +1212,7 @@ bool LowerBaseMagic(EntityId e_id)
 SET_MEMORY(".core")
 bool LowerBaseStrength(EntityId e_id)
 {
-    return true;
+    return false;
 }
 
 
@@ -1118,7 +1222,7 @@ bool LowerBaseStrength(EntityId e_id)
 SET_MEMORY(".core")
 bool DrainXP(EntityId e_id)
 {
-    return true;
+    return false;
 }
 
 /********************************************************************************************************************************************************************************************************************************************
@@ -1145,7 +1249,7 @@ bool RemoveMapFog()
 SET_MEMORY(".core")
 bool CreateItem(ItemTypes item)
 {
-    return true;
+    return false;
 }
 
 
@@ -1190,8 +1294,31 @@ bool CreateItemMagic()
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool MapModifyTile(Position pos, TileType tileType)
+bool MapModifyTile(Position pos, MapTile tileType)
 {
+    return false;
+}
+
+/**********************************************************************************************************************
+*
+**********************************************************************************************************************/
+SET_MEMORY(".core")
+bool LevelUpRetainProgress(EntityId target_id)
+{
+    if (target_id == NO_ENTITY) return false;
+    if (g_core.creatures.level[target_id].value >= MAX_CREATURE_LEVEL) return false;
+
+    uint32_t old_max = Int999GetMax(&g_core.creatures.xp[target_id]);
+    uint32_t old_cur = Int999GetCurrent(&g_core.creatures.xp[target_id]);
+
+    // level up
+    g_core.creatures.level[target_id].value++;
+    SetXPToLevel(target_id, &g_core.creatures.xp[target_id]);
+    uint32_t new_max = Int999GetMax(&g_core.creatures.xp[target_id]);
+
+    // new_cur = floor(old_cur * new_max / old_max)
+    uint32_t new_cur = (uint32_t)(((uint64_t)old_cur * new_max) / old_max);
+    Int999SetCurrent(&g_core.creatures.xp[target_id], new_cur);
     return true;
 }
 

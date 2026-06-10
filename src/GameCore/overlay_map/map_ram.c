@@ -16,7 +16,7 @@ const ObjectEffect objectFunctions[OBJECT_COUNT] = {
 
 
 SET_MEMORY(".map.rodata")
-const SpellEffect spellFunctionsMap[SPELL_COUNT] = {
+const SpellEffectMap spellFunctionsMap[SPELL_COUNT] = {
 #include "inc/funcs_spells_CastMap.inc"
 };
 
@@ -38,14 +38,14 @@ MapRunState g_map = {
 
 
 SET_MEMORY(".map")
-bool CastMapSpell(HardwareInterface hardware, MemoryInterface memory, uint8_t spellType, EntityId id, EntityId target_id, SpellData spellData)
+bool CastMapSpell(HardwareInterface hardware, MemoryInterface memory, uint8_t spellType, EntityId caster_id, EntityId target_id, SpellData spellData)
 {
-    return spellFunctionsMap[spellType](hardware, memory, id, target_id, spellData);
+    return spellFunctionsMap[spellType](hardware, memory, caster_id, target_id, spellData);
 }
 
 
 SET_MEMORY(".map")
-bool UseMapItem(HardwareInterface hardware, MemoryInterface memory, uint8_t itemType, EntityId item_id, EntityId id, ItemData itemData)
+bool UseMapItem(HardwareInterface hardware, MemoryInterface memory, uint8_t itemType, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
-    return itemFunctionsMap[itemType](hardware, memory, item_id, id, itemData);
+    return itemFunctionsMap[itemType](hardware, memory, item_id, user_id, target_id, itemData, index);
 }

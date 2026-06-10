@@ -9,7 +9,7 @@
 
 
 SET_MEMORY(".map_gen")
-void GenerateRiver(uint8_t x, uint8_t y, TileType type)
+void GenerateRiver(uint8_t x, uint8_t y, MapTile type)
 {
     uint8_t direction_weighting = 1;
 
@@ -21,7 +21,7 @@ void GenerateRiver(uint8_t x, uint8_t y, TileType type)
 
 
 SET_MEMORY(".map_gen")
-void CheckAdjacentTiles(HardwareInterface hardware, uint8_t x, uint8_t y, TileType type, uint8_t depth, const uint8_t max_depth)
+void CheckAdjacentTiles(HardwareInterface hardware, uint8_t x, uint8_t y, MapTile type, uint8_t depth, const uint8_t max_depth)
 {
     depth++;
     if (depth > max_depth)
@@ -41,7 +41,7 @@ void CheckAdjacentTiles(HardwareInterface hardware, uint8_t x, uint8_t y, TileTy
 }
 
 SET_MEMORY(".map_gen")
-void GenerateLake(HardwareInterface hardware, uint8_t x, uint8_t y, const uint8_t size, TileType type)
+void GenerateLake(HardwareInterface hardware, uint8_t x, uint8_t y, const uint8_t size, MapTile type)
 {
     CheckAdjacentTiles(hardware, x, y, type, 0, size);
 }

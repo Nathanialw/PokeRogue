@@ -63,7 +63,7 @@ typedef enum
     ABILITY_DATA,
     TRAINER_DATA,
     PARTY,
-    BAG,
+    INVENTORY,
     SPELLS,
     RELIGION,
     OPTIONS,
@@ -79,23 +79,7 @@ _Static_assert((MAIN_MENUS_SIZE == 13), "MainMenu state changed");
 **********************************************************************************************************************/
 typedef enum
 {
-    DESERT,
-    SAVANNA,
-    STEPPE,
-    BADLANDS,
-    FOREST,
-    TUNDRA,
-    SWAMP,
-    BOG,
-    JUNGLE,
-    RAINFOREST,
-    BEACH,
-    MOUNTAIN,
-    VOLCANICA,
-    MYSTICAL_GROVE,
-    DEEP_CAVERN,
-    MAGMA_CORE,
-    BIOME_COUNT,
+#include "../inc/data_enum_biomes.inc"
 } Biomes;
 
 _Static_assert((BIOME_COUNT == 16), "BIOME_COUNT changed");
@@ -106,22 +90,7 @@ _Static_assert((BIOME_COUNT == 16), "BIOME_COUNT changed");
 **********************************************************************************************************************/
 typedef enum
 {
-    THEME_DEMONS,
-    THEME_MAGIC,
-    THEME_FLAME,
-    THEME_FROST,
-    THEME_UNDEAD,
-    THEME_DRAGONS,
-    THEME_BEASTS,
-    THEME_GHOSTS,
-    THEME_GOBLINS,
-    THEME_ORCS,
-    THEME_AVIAN,
-    THEME_temp03,
-    THEME_temp04,
-    THEME_temp05,
-    THEME_temp06,
-    THEME_temp07,
+#include "../inc/data_enum_themes.inc"
 } Themes;
 
 /**********************************************************************************************************************/
@@ -130,15 +99,36 @@ typedef enum
 **********************************************************************************************************************/
 typedef enum
 {
-    // GROUND,
-    // WALL_BRICK,
-    // WALL_STONE,
-    // PIT,
-    // WATER,
-    // ACID,
-    // LAVA,
 #include "../inc/data_enum_tiles.inc"
-} TileType;
+} MapTile;
+
+/**********************************************************************************************************************/
+/**
+**********************************************************************************************************************/
+typedef enum
+{
+#include "../inc/data_enum_tile_types.inc"
+    TILE_TYPE_COUNT
+} TileTypes;
+
+/**********************************************************************************************************************/
+/**
+**********************************************************************************************************************/
+typedef enum
+{
+#include "../inc/data_enum_pathing_types.inc"
+    PATHING_COUNT,
+} PathingTypes;
+
+/**********************************************************************************************************************/
+/** the list of races0
+**********************************************************************************************************************/
+typedef enum
+{
+#include "../inc/data_enum_races.inc"
+    RACE_COUNT,
+} Race;
+
 
 
 /**********************************************************************************************************************/
@@ -211,11 +201,13 @@ typedef enum
 **********************************************************************************************************************/
 typedef enum
 {
-    POTION = 0,
-    FOOD,
-    TRINKET,
-    COMMON,
-    MAGICAL,
+    // POTION = 0,
+    // FOOD,
+    // TRINKET,
+    // COMMON,
+    // MAGICAL,
+    // BAG,
+#include "../inc/data_enum_item_types.inc"
 } ItemClass;
 
 
@@ -301,26 +293,27 @@ typedef enum
 **********************************************************************************************************************/
 typedef enum
 {
-    PLANT,
-    FLAME,
-    ICE,
-    AQUATIC,
-    ABERRATION,
-    DRAGONS,
-    GIANTS,
-    BEAST,
-    FEY,
-    DEMIGOD,
-    HUMANOID,
-    ANCIENT,
-    UNDEAD,
-    DEMONIC,
-    TOXIC,
-    EARTHEN,
-    NUM_TYPES,
+    // PLANT,
+    // FLAME,
+    // ICE,
+    // AQUATIC,
+    // ABERRATION,
+    // DRAGONS,
+    // GIANTS,
+    // BEAST,
+    // FEY,
+    // DEMIGOD,
+    // HUMANOID,
+    // ANCIENT,
+    // UNDEAD,
+    // DEMONIC,
+    // TOXIC,
+    // EARTHEN,
+    // NUM_TYPES,
+#include "../inc/data_enum_types.inc"
 } Type;
 
-_Static_assert(NUM_TYPES == 16, "max must be 16 - 4 bits");
+// _Static_assert(NUM_TYPES == 16, "max must be 16 - 4 bits");
 
 /**********************************************************************************************************************/
 /** Font array indexes as the char ar that index

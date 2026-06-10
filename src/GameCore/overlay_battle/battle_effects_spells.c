@@ -15,7 +15,7 @@
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool CastBattleNoAttack_PLACEHOLDER(HardwareInterface hardware, MemoryInterface memory, EntityId partyID, EntityId enemyID, SpellData spellData)
+bool CastBattleNoAttack_PLACEHOLDER(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
 {
     return true;
 }
@@ -26,10 +26,10 @@ bool CastBattleNoAttack_PLACEHOLDER(HardwareInterface hardware, MemoryInterface 
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool CastBattleHeal(HardwareInterface hardware, MemoryInterface memory, EntityId partyID, EntityId enemyID, SpellData spellData)
+bool CastBattleHeal(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
 {
-    if (partyID == NO_ENTITY) return false;
-    HealTarget(partyID, spellData.power);
+    if (friendly_id == NO_ENTITY) return false;
+    HealTarget(friendly_id, spellData.power);
     return true;
 }
 
@@ -40,7 +40,7 @@ bool CastBattleHeal(HardwareInterface hardware, MemoryInterface memory, EntityId
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool CastBattleLevitate(HardwareInterface hardware, MemoryInterface memory, EntityId partyID, EntityId enemyID, SpellData spellData)
+bool CastBattleLevitate(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
 {
     return true;
 }
@@ -51,7 +51,7 @@ bool CastBattleLevitate(HardwareInterface hardware, MemoryInterface memory, Enti
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool CastBattleDisplacement(HardwareInterface hardware, MemoryInterface memory, EntityId partyID, EntityId enemyID, SpellData spellData)
+bool CastBattleDisplacement(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
 {
     return true;
 }
@@ -61,7 +61,7 @@ bool CastBattleDisplacement(HardwareInterface hardware, MemoryInterface memory, 
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool CastBattleWaterWalking(HardwareInterface hardware, MemoryInterface memory, EntityId partyID, EntityId enemyID, SpellData spellData)
+bool CastBattleWaterWalking(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
 {
     return true;
 }
@@ -71,7 +71,7 @@ bool CastBattleWaterWalking(HardwareInterface hardware, MemoryInterface memory, 
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool CastBattleWaterBreathing(HardwareInterface hardware, MemoryInterface memory, EntityId partyID, EntityId enemyID, SpellData spellData)
+bool CastBattleWaterBreathing(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
 {
     return true;
 }
@@ -81,7 +81,7 @@ bool CastBattleWaterBreathing(HardwareInterface hardware, MemoryInterface memory
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool CastBattleTeleport(HardwareInterface hardware, MemoryInterface memory, EntityId partyID, EntityId enemyID, SpellData spellData)
+bool CastBattleTeleport(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
 {
     // Position random_tile_pos = GetSelectedTile(hardware, true);
     // Reposition(partyID, random_tile_pos);
@@ -93,9 +93,9 @@ bool CastBattleTeleport(HardwareInterface hardware, MemoryInterface memory, Enti
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool CastBattleResurrect(HardwareInterface hardware, MemoryInterface memory, EntityId partyID, EntityId enemyID, SpellData spellData)
+bool CastBattleResurrect(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
 {
-    Revive(partyID);
+    Revive(friendly_id);
     return true;
 }
 
@@ -104,7 +104,7 @@ bool CastBattleResurrect(HardwareInterface hardware, MemoryInterface memory, Ent
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool CastBattleRaiseDead(HardwareInterface hardware, MemoryInterface memory, EntityId partyID, EntityId enemyID, SpellData spellData)
+bool CastBattleRaiseDead(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
 {
     // TileHasCorpse(GetPlayerPosition());
     // Summon(SKELETON);
@@ -116,7 +116,7 @@ bool CastBattleRaiseDead(HardwareInterface hardware, MemoryInterface memory, Ent
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool CastBattleDescend(HardwareInterface hardware, MemoryInterface memory, EntityId partyID, EntityId enemyID, SpellData spellData)
+bool CastBattleDescend(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
 {
     return true;
 }
@@ -126,9 +126,9 @@ bool CastBattleDescend(HardwareInterface hardware, MemoryInterface memory, Entit
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool CastBattleFlameEater(HardwareInterface hardware, MemoryInterface memory, EntityId partyID, EntityId enemyID, SpellData spellData)
+bool CastBattleFlameEater(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
 {
-    FireEating(partyID);
+    FireEating(friendly_id);
     return true;
 }
 
@@ -137,7 +137,7 @@ bool CastBattleFlameEater(HardwareInterface hardware, MemoryInterface memory, En
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool CastBattlePortal(HardwareInterface hardware, MemoryInterface memory, EntityId partyID, EntityId enemyID, SpellData spellData)
+bool CastBattlePortal(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
 {
     // uint8_t n = hardware.GetRandom_uint8_t(1, 3);
     // if (n == 1)
@@ -154,7 +154,7 @@ bool CastBattlePortal(HardwareInterface hardware, MemoryInterface memory, Entity
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool CastBattleBrewPotion(HardwareInterface hardware, MemoryInterface memory, EntityId partyID, EntityId enemyID, SpellData spellData)
+bool CastBattleBrewPotion(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
 {
     return true;
 }
@@ -164,7 +164,7 @@ bool CastBattleBrewPotion(HardwareInterface hardware, MemoryInterface memory, En
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool CastBattleRepel(HardwareInterface hardware, MemoryInterface memory, EntityId partyID, EntityId enemyID, SpellData spellData)
+bool CastBattleRepel(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
 {
     return true;
 }
@@ -174,9 +174,9 @@ bool CastBattleRepel(HardwareInterface hardware, MemoryInterface memory, EntityI
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool CastBattleCapture(HardwareInterface hardware, MemoryInterface memory, EntityId partyID, EntityId enemyID, SpellData spellData)
+bool CastBattleCapture(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
 {
-    Capture(hardware, enemyID, spellData.power);
+    Capture(hardware, caster_id, enemy_id, spellData.power);
     return true;
 }
 
@@ -185,9 +185,9 @@ bool CastBattleCapture(HardwareInterface hardware, MemoryInterface memory, Entit
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool CastBattleCurePoison(HardwareInterface hardware, MemoryInterface memory, EntityId partyID, EntityId enemyID, SpellData spellData)
+bool CastBattleCurePoison(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
 {
-    RemovePoison(partyID);
+    RemovePoison(friendly_id);
     return true;
 }
 
@@ -196,9 +196,9 @@ bool CastBattleCurePoison(HardwareInterface hardware, MemoryInterface memory, En
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool CastBattleCureDisease(HardwareInterface hardware, MemoryInterface memory, EntityId partyID, EntityId enemyID, SpellData spellData)
+bool CastBattleCureDisease(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
 {
-    RemoveDisease(partyID);
+    RemoveDisease(friendly_id);
     return true;
 }
 
@@ -207,9 +207,9 @@ bool CastBattleCureDisease(HardwareInterface hardware, MemoryInterface memory, E
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool CastBattleCureCurse(HardwareInterface hardware, MemoryInterface memory, EntityId partyID, EntityId enemyID, SpellData spellData)
+bool CastBattleCureCurse(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
 {
-    RemoveCurse(partyID);
+    RemoveCurse(friendly_id);
     return true;
 }
 
@@ -218,7 +218,7 @@ bool CastBattleCureCurse(HardwareInterface hardware, MemoryInterface memory, Ent
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool CastBattleCreateFood(HardwareInterface hardware, MemoryInterface memory, EntityId partyID, EntityId enemyID, SpellData spellData)
+bool CastBattleCreateFood(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
 {
     CreateItemFood();
     return true;
@@ -229,7 +229,7 @@ bool CastBattleCreateFood(HardwareInterface hardware, MemoryInterface memory, En
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool CastBattleCreateCommon(HardwareInterface hardware, MemoryInterface memory, EntityId partyID, EntityId enemyID, SpellData spellData)
+bool CastBattleCreateCommon(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
 {
     CreateItemCommon();
     return true;
@@ -240,7 +240,7 @@ bool CastBattleCreateCommon(HardwareInterface hardware, MemoryInterface memory, 
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool CastBattleFireball(HardwareInterface hardware, MemoryInterface memory, EntityId partyID, EntityId enemyID, SpellData spellData)
+bool CastBattleFireball(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
 {
     // Attack(partyID, enemyID, spellData);
     return true;
@@ -251,7 +251,7 @@ bool CastBattleFireball(HardwareInterface hardware, MemoryInterface memory, Enti
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool CastBattleIceBolt(HardwareInterface hardware, MemoryInterface memory, EntityId partyID, EntityId enemyID, SpellData spellData)
+bool CastBattleIceBolt(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
 {
     return true;
 }
@@ -261,7 +261,7 @@ bool CastBattleIceBolt(HardwareInterface hardware, MemoryInterface memory, Entit
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool CastBattleRazorGrass(HardwareInterface hardware, MemoryInterface memory, EntityId partyID, EntityId enemyID, SpellData spellData)
+bool CastBattleRazorGrass(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
 {
     return true;
 }
@@ -271,7 +271,7 @@ bool CastBattleRazorGrass(HardwareInterface hardware, MemoryInterface memory, En
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool CastBattleMudSling(HardwareInterface hardware, MemoryInterface memory, EntityId partyID, EntityId enemyID, SpellData spellData)
+bool CastBattleMudSling(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
 {
     return true;
 }
@@ -281,7 +281,7 @@ bool CastBattleMudSling(HardwareInterface hardware, MemoryInterface memory, Enti
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool CastBattleCreateMagicItem(HardwareInterface hardware, MemoryInterface memory, EntityId partyID, EntityId enemyID, SpellData spellData)
+bool CastBattleCreateMagicItem(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
 {
     CreateItemCommon();
     return true;
@@ -292,9 +292,9 @@ bool CastBattleCreateMagicItem(HardwareInterface hardware, MemoryInterface memor
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool CastBattleAwaken(HardwareInterface hardware, MemoryInterface memory, EntityId partyID, EntityId enemyID, SpellData spellData)
+bool CastBattleAwaken(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
 {
-    RemoveSleep(partyID);
+    RemoveSleep(friendly_id);
     return true;
 }
 
@@ -303,17 +303,7 @@ bool CastBattleAwaken(HardwareInterface hardware, MemoryInterface memory, Entity
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool CastBattleNerveRepair(HardwareInterface hardware, MemoryInterface memory, EntityId partyID, EntityId enemyID, SpellData spellData)
-{
-    return true;
-}
-
-
-/**********************************************************************************************************************/
-/*
-**********************************************************************************************************************/
-SET_MEMORY(".battle")
-bool CastBattleBlindingLight(HardwareInterface hardware, MemoryInterface memory, EntityId partyID, EntityId enemyID, SpellData spellData)
+bool CastBattleNerveRepair(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
 {
     return true;
 }
@@ -323,51 +313,7 @@ bool CastBattleBlindingLight(HardwareInterface hardware, MemoryInterface memory,
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool CastBattleSoothe(HardwareInterface hardware, MemoryInterface memory, EntityId partyID, EntityId enemyID, SpellData spellData)
-{
-    RemoveFear(partyID);
-    return true;
-}
-
-
-/**********************************************************************************************************************/
-/*
-**********************************************************************************************************************/
-SET_MEMORY(".battle")
-bool CastBattleFear(HardwareInterface hardware, MemoryInterface memory, EntityId partyID, EntityId enemyID, SpellData spellData)
-{
-    ApplyFear(enemyID, spellData.power);
-    return true;
-}
-
-
-/**********************************************************************************************************************/
-/*
-**********************************************************************************************************************/
-SET_MEMORY(".battle")
-bool CastBattleHaste(HardwareInterface hardware, MemoryInterface memory, EntityId partyID, EntityId enemyID, SpellData spellData)
-{
-    ApplyHaste(partyID, spellData.power);
-    return true;
-}
-
-
-/**********************************************************************************************************************/
-/*
-**********************************************************************************************************************/
-SET_MEMORY(".battle")
-bool CastBattleSlow(HardwareInterface hardware, MemoryInterface memory, EntityId partyID, EntityId enemyID, SpellData spellData)
-{
-    ApplySlow(enemyID, spellData.power);
-    return true;
-}
-
-
-/**********************************************************************************************************************/
-/*
-**********************************************************************************************************************/
-SET_MEMORY(".battle")
-bool CastBattleHypervision(HardwareInterface hardware, MemoryInterface memory, EntityId partyID, EntityId enemyID, SpellData spellData)
+bool CastBattleBlindingLight(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
 {
     return true;
 }
@@ -377,9 +323,9 @@ bool CastBattleHypervision(HardwareInterface hardware, MemoryInterface memory, E
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool CastBattleHypothermia(HardwareInterface hardware, MemoryInterface memory, EntityId partyID, EntityId enemyID, SpellData spellData)
+bool CastBattleSoothe(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
 {
-    ApplyFrozen(enemyID, spellData.power);
+    RemoveFear(friendly_id);
     return true;
 }
 
@@ -388,9 +334,9 @@ bool CastBattleHypothermia(HardwareInterface hardware, MemoryInterface memory, E
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool CastBattleBurnHeal(HardwareInterface hardware, MemoryInterface memory, EntityId partyID, EntityId enemyID, SpellData spellData)
+bool CastBattleFear(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
 {
-    RemoveBurn(partyID);
+    ApplyFear(enemy_id, spellData.power);
     return true;
 }
 
@@ -399,9 +345,9 @@ bool CastBattleBurnHeal(HardwareInterface hardware, MemoryInterface memory, Enti
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool CastBattleFocus(HardwareInterface hardware, MemoryInterface memory, EntityId partyID, EntityId enemyID, SpellData spellData)
+bool CastBattleHaste(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
 {
-    RaiseAccuracy(partyID);
+    ApplyHaste(friendly_id, spellData.power);
     return true;
 }
 
@@ -410,9 +356,9 @@ bool CastBattleFocus(HardwareInterface hardware, MemoryInterface memory, EntityI
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool CastBattleRage(HardwareInterface hardware, MemoryInterface memory, EntityId partyID, EntityId enemyID, SpellData spellData)
+bool CastBattleSlow(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
 {
-    RaiseStrength(partyID);
+    ApplySlow(enemy_id, spellData.power);
     return true;
 }
 
@@ -421,7 +367,7 @@ bool CastBattleRage(HardwareInterface hardware, MemoryInterface memory, EntityId
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool CastBattleOpenChest(HardwareInterface hardware, MemoryInterface memory, EntityId partyID, EntityId enemyID, SpellData spellData)
+bool CastBattleHypervision(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
 {
     return true;
 }
@@ -431,7 +377,61 @@ bool CastBattleOpenChest(HardwareInterface hardware, MemoryInterface memory, Ent
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool CastBattleIncreaseBag(HardwareInterface hardware, MemoryInterface memory, EntityId partyID, EntityId enemyID, SpellData spellData)
+bool CastBattleHypothermia(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
+{
+    ApplyFrozen(enemy_id, spellData.power);
+    return true;
+}
+
+
+/**********************************************************************************************************************/
+/*
+**********************************************************************************************************************/
+SET_MEMORY(".battle")
+bool CastBattleBurnHeal(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
+{
+    RemoveBurn(friendly_id);
+    return true;
+}
+
+
+/**********************************************************************************************************************/
+/*
+**********************************************************************************************************************/
+SET_MEMORY(".battle")
+bool CastBattleFocus(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
+{
+    RaiseAccuracy(friendly_id);
+    return true;
+}
+
+
+/**********************************************************************************************************************/
+/*
+**********************************************************************************************************************/
+SET_MEMORY(".battle")
+bool CastBattleRage(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
+{
+    RaiseStrength(friendly_id);
+    return true;
+}
+
+
+/**********************************************************************************************************************/
+/*
+**********************************************************************************************************************/
+SET_MEMORY(".battle")
+bool CastBattleOpenChest(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
+{
+    return true;
+}
+
+
+/**********************************************************************************************************************/
+/*
+**********************************************************************************************************************/
+SET_MEMORY(".battle")
+bool CastBattleIncreaseBag(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
 {
     // TODO: temorary increase bag slots, add field for onlt the player
     return true;
@@ -442,9 +442,9 @@ bool CastBattleIncreaseBag(HardwareInterface hardware, MemoryInterface memory, E
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool CastBattleGlowingEmbers(HardwareInterface hardware, MemoryInterface memory, EntityId partyID, EntityId enemyID, SpellData spellData)
+bool CastBattleGlowingEmbers(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
 {
-    StatusLesserLight(partyID, spellData.power);
+    StatusLesserLight(friendly_id, spellData.power);
     return true;
 }
 
@@ -453,9 +453,9 @@ bool CastBattleGlowingEmbers(HardwareInterface hardware, MemoryInterface memory,
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool CastBattleBrillianceAura(HardwareInterface hardware, MemoryInterface memory, EntityId partyID, EntityId enemyID, SpellData spellData)
+bool CastBattleBrillianceAura(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
 {
-    StatusGreaterLight(partyID, spellData.power);
+    StatusGreaterLight(friendly_id, spellData.power);
     return true;
 }
 
@@ -464,17 +464,7 @@ bool CastBattleBrillianceAura(HardwareInterface hardware, MemoryInterface memory
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool CastBattleReflect(HardwareInterface hardware, MemoryInterface memory, EntityId partyID, EntityId enemyID, SpellData spellData)
-{
-    return true;
-}
-
-
-/**********************************************************************************************************************/
-/*
-**********************************************************************************************************************/
-SET_MEMORY(".battle")
-bool CastBattleSilence(HardwareInterface hardware, MemoryInterface memory, EntityId partyID, EntityId enemyID, SpellData spellData)
+bool CastBattleReflect(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
 {
     return true;
 }
@@ -484,9 +474,8 @@ bool CastBattleSilence(HardwareInterface hardware, MemoryInterface memory, Entit
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool CastBattlePowerOverwhelming(HardwareInterface hardware, MemoryInterface memory, EntityId partyID, EntityId enemyID, SpellData spellData)
+bool CastBattleSilence(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
 {
-    MakeInvulnerable(partyID);
     return true;
 }
 
@@ -495,9 +484,9 @@ bool CastBattlePowerOverwhelming(HardwareInterface hardware, MemoryInterface mem
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool CastBattleShadows(HardwareInterface hardware, MemoryInterface memory, EntityId partyID, EntityId enemyID, SpellData spellData)
+bool CastBattlePowerOverwhelming(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
 {
-    Invisibility(partyID, spellData.power);
+    MakeInvulnerable(friendly_id);
     return true;
 }
 
@@ -506,9 +495,9 @@ bool CastBattleShadows(HardwareInterface hardware, MemoryInterface memory, Entit
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool CastBattleEmpower(HardwareInterface hardware, MemoryInterface memory, EntityId partyID, EntityId enemyID, SpellData spellData)
+bool CastBattleShadows(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
 {
-    RaiseMagic(partyID);
+    Invisibility(friendly_id, spellData.power);
     return true;
 }
 
@@ -517,9 +506,9 @@ bool CastBattleEmpower(HardwareInterface hardware, MemoryInterface memory, Entit
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool CastBattleDefend(HardwareInterface hardware, MemoryInterface memory, EntityId partyID, EntityId enemyID, SpellData spellData)
+bool CastBattleEmpower(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
 {
-    RaiseDefence(partyID);
+    RaiseMagic(friendly_id);
     return true;
 }
 
@@ -528,9 +517,9 @@ bool CastBattleDefend(HardwareInterface hardware, MemoryInterface memory, Entity
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool CastBattleWizen2(HardwareInterface hardware, MemoryInterface memory, EntityId partyID, EntityId enemyID, SpellData spellData)
+bool CastBattleDefend(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
 {
-    RaiseMagic(partyID);
+    RaiseDefence(friendly_id);
     return true;
 }
 
@@ -539,9 +528,9 @@ bool CastBattleWizen2(HardwareInterface hardware, MemoryInterface memory, Entity
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool CastBattleHasten(HardwareInterface hardware, MemoryInterface memory, EntityId partyID, EntityId enemyID, SpellData spellData)
+bool CastBattleWizen2(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
 {
-    ApplyHaste(partyID, spellData.power);
+    RaiseMagic(friendly_id);
     return true;
 }
 
@@ -550,9 +539,9 @@ bool CastBattleHasten(HardwareInterface hardware, MemoryInterface memory, Entity
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool CastBattleStrengthen(HardwareInterface hardware, MemoryInterface memory, EntityId partyID, EntityId enemyID, SpellData spellData)
+bool CastBattleHasten(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
 {
-    RaiseStrength(partyID);
+    ApplyHaste(friendly_id, spellData.power);
     return true;
 }
 
@@ -561,9 +550,9 @@ bool CastBattleStrengthen(HardwareInterface hardware, MemoryInterface memory, En
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool CastBattleFortify(HardwareInterface hardware, MemoryInterface memory, EntityId partyID, EntityId enemyID, SpellData spellData)
+bool CastBattleStrengthen(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
 {
-    RaiseDefence(partyID);
+    RaiseStrength(friendly_id);
     return true;
 }
 
@@ -572,9 +561,9 @@ bool CastBattleFortify(HardwareInterface hardware, MemoryInterface memory, Entit
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool CastBattleWizen(HardwareInterface hardware, MemoryInterface memory, EntityId partyID, EntityId enemyID, SpellData spellData)
+bool CastBattleFortify(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
 {
-    RaiseMagic(partyID);
+    RaiseDefence(friendly_id);
     return true;
 }
 
@@ -583,9 +572,20 @@ bool CastBattleWizen(HardwareInterface hardware, MemoryInterface memory, EntityI
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool CastBattleGrowMuscle(HardwareInterface hardware, MemoryInterface memory, EntityId partyID, EntityId enemyID, SpellData spellData)
+bool CastBattleWizen(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
 {
-    RaiseSpeed(partyID);
+    RaiseMagic(friendly_id);
+    return true;
+}
+
+
+/**********************************************************************************************************************/
+/*
+**********************************************************************************************************************/
+SET_MEMORY(".battle")
+bool CastBattleGrowMuscle(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
+{
+    RaiseSpeed(friendly_id);
     return true;
 }
 
@@ -594,7 +594,7 @@ bool CastBattleGrowMuscle(HardwareInterface hardware, MemoryInterface memory, En
 /* removes the dark black fog of the battle
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool CastBattleClairvoyance(HardwareInterface hardware, MemoryInterface memory, EntityId partyID, EntityId enemyID, SpellData spellData)
+bool CastBattleClairvoyance(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
 {
     return true;
 }
@@ -604,9 +604,9 @@ bool CastBattleClairvoyance(HardwareInterface hardware, MemoryInterface memory, 
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool CastBattleWallWalking(HardwareInterface hardware, MemoryInterface memory, EntityId partyID, EntityId enemyID, SpellData spellData)
+bool CastBattleWallWalking(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
 {
-    WallWalking(partyID, spellData.power);
+    WallWalking(friendly_id, spellData.power);
     return true;
 }
 
@@ -615,7 +615,7 @@ bool CastBattleWallWalking(HardwareInterface hardware, MemoryInterface memory, E
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool CastBattleCreatePit(HardwareInterface hardware, MemoryInterface memory, EntityId partyID, EntityId enemyID, SpellData spellData)
+bool CastBattleCreatePit(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
 {
     // Position pos = GetSelectedTile(hardware, true);
     // battleModifyTile(pos, PIT);
@@ -627,9 +627,9 @@ bool CastBattleCreatePit(HardwareInterface hardware, MemoryInterface memory, Ent
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool CastBattleXRayVision(HardwareInterface hardware, MemoryInterface memory, EntityId partyID, EntityId enemyID, SpellData spellData)
+bool CastBattleXRayVision(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
 {
-    XRayVision(partyID, spellData.power);
+    XRayVision(friendly_id, spellData.power);
     return true;
 }
 
@@ -638,7 +638,7 @@ bool CastBattleXRayVision(HardwareInterface hardware, MemoryInterface memory, En
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool CastBattleRainStorm(HardwareInterface hardware, MemoryInterface memory, EntityId partyID, EntityId enemyID, SpellData spellData)
+bool CastBattleRainStorm(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
 {
     //increases efficacy of attacks against FLAME for a duration
     return true;
@@ -649,7 +649,7 @@ bool CastBattleRainStorm(HardwareInterface hardware, MemoryInterface memory, Ent
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool CastBattleHeatWave(HardwareInterface hardware, MemoryInterface memory, EntityId partyID, EntityId enemyID, SpellData spellData)
+bool CastBattleHeatWave(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
 {
     //increases efficacy of attacks against ICE for a duration
     return true;
@@ -660,7 +660,7 @@ bool CastBattleHeatWave(HardwareInterface hardware, MemoryInterface memory, Enti
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool CastBattleDrought(HardwareInterface hardware, MemoryInterface memory, EntityId partyID, EntityId enemyID, SpellData spellData)
+bool CastBattleDrought(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
 {
     //increases efficacy of attacks against WATER for a duration
     return true;
@@ -671,7 +671,7 @@ bool CastBattleDrought(HardwareInterface hardware, MemoryInterface memory, Entit
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool CastBattleCrusade(HardwareInterface hardware, MemoryInterface memory, EntityId partyID, EntityId enemyID, SpellData spellData)
+bool CastBattleCrusade(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
 {
     // increases efficacy of attacks against DEMONS for a duration
     return true;
@@ -682,7 +682,7 @@ bool CastBattleCrusade(HardwareInterface hardware, MemoryInterface memory, Entit
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool CastBattleHunt(HardwareInterface hardware, MemoryInterface memory, EntityId partyID, EntityId enemyID, SpellData spellData)
+bool CastBattleHunt(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
 {
     // increases efficacy of attacks against BEASTS for a duration
     return true;
@@ -693,7 +693,7 @@ bool CastBattleHunt(HardwareInterface hardware, MemoryInterface memory, EntityId
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool CastBattlePurification(HardwareInterface hardware, MemoryInterface memory, EntityId partyID, EntityId enemyID, SpellData spellData)
+bool CastBattlePurification(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
 {
     // increases efficacy of attacks against TOXIC for a duration
     return true;

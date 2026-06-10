@@ -4,6 +4,7 @@
 #include "battle_effects_items.h"
 
 #include "battle_actions.h"
+#include "battle_ram.h"
 #include "lib_memory.h"
 
 #include "core_actions.h"
@@ -18,9 +19,9 @@
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool UseBattleLavaResistance(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseBattleLavaResistance(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
-    RaiseFireResistance(e_id);
+    RaiseFireResistance(user_id);
     return true;
 }
 
@@ -28,9 +29,18 @@ bool UseBattleLavaResistance(HardwareInterface hardware, MemoryInterface memory,
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool UseBattleRestorePpPotion(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseBattleRestorePpPotion(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
-    RestorePP(e_id, itemData.power);
+    return RestorePP(user_id, index, itemData.power);
+}
+
+/**********************************************************************************************************************/
+/*
+**********************************************************************************************************************/
+SET_MEMORY(".battle")
+bool UseBattleInvisibilityPotion(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
+{
+    Invisibility(user_id, itemData.power);
     return true;
 }
 
@@ -38,9 +48,9 @@ bool UseBattleRestorePpPotion(HardwareInterface hardware, MemoryInterface memory
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool UseBattleInvisibilityPotion(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseBattleInvulnerabilityPotion(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
-    Invisibility(e_id, itemData.power);
+    MakeInvulnerable(user_id);
     return true;
 }
 
@@ -48,9 +58,9 @@ bool UseBattleInvisibilityPotion(HardwareInterface hardware, MemoryInterface mem
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool UseBattleInvulnerabilityPotion(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseBattleHastePotion(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
-    MakeInvulnerable(e_id);
+    ApplyHaste(user_id, itemData.power);
     return true;
 }
 
@@ -58,9 +68,9 @@ bool UseBattleInvulnerabilityPotion(HardwareInterface hardware, MemoryInterface 
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool UseBattleHastePotion(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseBattleLevitatePotion(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
-    ApplyHaste(e_id, itemData.power);
+    Hover(user_id, itemData.power);
     return true;
 }
 
@@ -68,20 +78,10 @@ bool UseBattleHastePotion(HardwareInterface hardware, MemoryInterface memory, En
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool UseBattleLevitatePotion(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
-{
-    Hover(e_id, itemData.power);
-    return true;
-}
-
-/**********************************************************************************************************************/
-/*
-**********************************************************************************************************************/
-SET_MEMORY(".battle")
-bool UseBattleTeleportPotion(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseBattleTeleportPotion(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
     // Position random_tile_pos = GetSelectedTile(hardware, true);
-    // Reposition(e_id, random_tile_pos);
+    // Reposition(user_id, random_tile_pos);
     return true;
 }
 
@@ -89,7 +89,7 @@ bool UseBattleTeleportPotion(HardwareInterface hardware, MemoryInterface memory,
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool UseBattleBlinkPotion(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseBattleBlinkPotion(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
     return true;
 }
@@ -98,9 +98,9 @@ bool UseBattleBlinkPotion(HardwareInterface hardware, MemoryInterface memory, En
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool UseBattleRepelPotion(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseBattleRepelPotion(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
-    Repel(e_id, itemData.power);
+    Repel(user_id, itemData.power);
     return true;
 }
 
@@ -108,10 +108,10 @@ bool UseBattleRepelPotion(HardwareInterface hardware, MemoryInterface memory, En
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool UseBattleRevivePotion(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseBattleRevivePotion(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
-    if (e_id == NO_ENTITY) return false;
-    Revive(e_id);
+    if (user_id == NO_ENTITY) return false;
+    Revive(user_id);
     return true;
 }
 
@@ -119,9 +119,9 @@ bool UseBattleRevivePotion(HardwareInterface hardware, MemoryInterface memory, E
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool UseBattleSleepDart(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseBattleSleepDart(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
-    ApplySleep(e_id, itemData.power);
+    ApplySleep(user_id, itemData.power);
     return true;
 }
 
@@ -129,9 +129,9 @@ bool UseBattleSleepDart(HardwareInterface hardware, MemoryInterface memory, Enti
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool UseBattleParalyzeDart(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseBattleParalyzeDart(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
-    ApplyParalyze(e_id, itemData.power);
+    ApplyParalyze(user_id, itemData.power);
     return true;
 }
 
@@ -139,9 +139,9 @@ bool UseBattleParalyzeDart(HardwareInterface hardware, MemoryInterface memory, E
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool UseBattlePoisonDart(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseBattlePoisonDart(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
-    ApplyPoison(e_id, itemData.power);
+    ApplyPoison(user_id, itemData.power);
     return true;
 }
 
@@ -149,7 +149,7 @@ bool UseBattlePoisonDart(HardwareInterface hardware, MemoryInterface memory, Ent
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool UseBattleAcidVial(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseBattleAcidVial(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
     DestroyRandomPlayerItem();
     return true;
@@ -159,7 +159,7 @@ bool UseBattleAcidVial(HardwareInterface hardware, MemoryInterface memory, Entit
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool UseBattleHolyWater(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseBattleHolyWater(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
     return true;
 }
@@ -168,7 +168,7 @@ bool UseBattleHolyWater(HardwareInterface hardware, MemoryInterface memory, Enti
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool UseBattleExplosiveFlask(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseBattleExplosiveFlask(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
     return true;
 }
@@ -177,9 +177,9 @@ bool UseBattleExplosiveFlask(HardwareInterface hardware, MemoryInterface memory,
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool UseBattleTorch(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseBattleTorch(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
-    StatusLesserLight(e_id, itemData.power);
+    StatusLesserLight(user_id, itemData.power);
     return true;
 }
 
@@ -187,9 +187,9 @@ bool UseBattleTorch(HardwareInterface hardware, MemoryInterface memory, EntityId
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool UseBattleLantern(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseBattleLantern(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
-    StatusGreaterLight(e_id, itemData.power);
+    StatusGreaterLight(user_id, itemData.power);
     return true;
 }
 
@@ -197,16 +197,7 @@ bool UseBattleLantern(HardwareInterface hardware, MemoryInterface memory, Entity
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool UseBattleMirror(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
-{
-    return true;
-}
-
-/**********************************************************************************************************************/
-/*
-**********************************************************************************************************************/
-SET_MEMORY(".battle")
-bool UseBattleEarmuffs(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseBattleMirror(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
     return true;
 }
@@ -215,7 +206,7 @@ bool UseBattleEarmuffs(HardwareInterface hardware, MemoryInterface memory, Entit
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool UseBattleLockpick(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseBattleEarmuffs(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
     return true;
 }
@@ -224,7 +215,16 @@ bool UseBattleLockpick(HardwareInterface hardware, MemoryInterface memory, Entit
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool UseBattlePouch(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseBattleLockpick(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
+{
+    return true;
+}
+
+/**********************************************************************************************************************/
+/*
+**********************************************************************************************************************/
+SET_MEMORY(".battle")
+bool UseBattlePouch(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
     NoEffect();
     return true;
@@ -234,7 +234,7 @@ bool UseBattlePouch(HardwareInterface hardware, MemoryInterface memory, EntityId
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool UseBattleSack(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseBattleSack(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
     NoEffect();
     return true;
@@ -244,7 +244,7 @@ bool UseBattleSack(HardwareInterface hardware, MemoryInterface memory, EntityId 
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool UseBattleBackpack(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseBattleBackpack(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
     NoEffect();
     return true;
@@ -254,7 +254,7 @@ bool UseBattleBackpack(HardwareInterface hardware, MemoryInterface memory, Entit
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool UseBattleAltarStone(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseBattleAltarStone(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
     return true;
 }
@@ -263,7 +263,7 @@ bool UseBattleAltarStone(HardwareInterface hardware, MemoryInterface memory, Ent
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool UseBattleBootsAcidWalking(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseBattleBootsAcidWalking(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
     NoEffect();
     return true;
@@ -273,7 +273,7 @@ bool UseBattleBootsAcidWalking(HardwareInterface hardware, MemoryInterface memor
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool UseBattleBootsLavaWalking(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseBattleBootsLavaWalking(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
     NoEffect();
     return true;
@@ -283,7 +283,7 @@ bool UseBattleBootsLavaWalking(HardwareInterface hardware, MemoryInterface memor
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool UseBattleBootsWaterWalking(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseBattleBootsWaterWalking(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
     NoEffect();
     return true;
@@ -293,7 +293,7 @@ bool UseBattleBootsWaterWalking(HardwareInterface hardware, MemoryInterface memo
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool UseBattleGlovesAcidResistance(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseBattleGlovesAcidResistance(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
     NoEffect();
     return true;
@@ -303,7 +303,7 @@ bool UseBattleGlovesAcidResistance(HardwareInterface hardware, MemoryInterface m
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool UseBattleWisdomCrown(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseBattleWisdomCrown(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
     NoEffect();
     return true;
@@ -313,9 +313,9 @@ bool UseBattleWisdomCrown(HardwareInterface hardware, MemoryInterface memory, En
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool UseBattleRainWater(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseBattleRainWater(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
-    if (e_id == NO_ENTITY) return false;
+    if (user_id == NO_ENTITY) return false;
     return true;
 }
 
@@ -323,9 +323,9 @@ bool UseBattleRainWater(HardwareInterface hardware, MemoryInterface memory, Enti
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool UseBattleMutton(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseBattleMutton(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
-    if (e_id == NO_ENTITY) return false;
+    if (user_id == NO_ENTITY) return false;
     return true;
 }
 
@@ -333,9 +333,9 @@ bool UseBattleMutton(HardwareInterface hardware, MemoryInterface memory, EntityI
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool UseBattleCake(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseBattleCake(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
-    if (e_id == NO_ENTITY) return false;
+    if (user_id == NO_ENTITY) return false;
     return true;
 }
 
@@ -343,9 +343,9 @@ bool UseBattleCake(HardwareInterface hardware, MemoryInterface memory, EntityId 
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool UseBattleRawMeat(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseBattleRawMeat(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
-    if (e_id == NO_ENTITY) return false;
+    if (user_id == NO_ENTITY) return false;
     return true;
 }
 
@@ -353,9 +353,9 @@ bool UseBattleRawMeat(HardwareInterface hardware, MemoryInterface memory, Entity
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool UseBattleFish(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseBattleFish(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
-    if (e_id == NO_ENTITY) return false;
+    if (user_id == NO_ENTITY) return false;
     return true;
 }
 
@@ -363,9 +363,9 @@ bool UseBattleFish(HardwareInterface hardware, MemoryInterface memory, EntityId 
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool UseBattleManFlesh(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseBattleManFlesh(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
-    if (e_id == NO_ENTITY) return false;
+    if (user_id == NO_ENTITY) return false;
     return true;
 }
 
@@ -373,9 +373,9 @@ bool UseBattleManFlesh(HardwareInterface hardware, MemoryInterface memory, Entit
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool UseBattleBerries(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseBattleBerries(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
-    if (e_id == NO_ENTITY) return false;
+    if (user_id == NO_ENTITY) return false;
     return true;
 }
 
@@ -383,9 +383,9 @@ bool UseBattleBerries(HardwareInterface hardware, MemoryInterface memory, Entity
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool UseBattleWine(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseBattleWine(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
-    if (e_id == NO_ENTITY) return false;
+    if (user_id == NO_ENTITY) return false;
     return true;
 }
 
@@ -393,9 +393,9 @@ bool UseBattleWine(HardwareInterface hardware, MemoryInterface memory, EntityId 
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool UseBattleSoulEssence(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseBattleSoulEssence(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
-    if (e_id == NO_ENTITY) return false;
+    if (user_id == NO_ENTITY) return false;
     return true;
 }
 
@@ -403,18 +403,28 @@ bool UseBattleSoulEssence(HardwareInterface hardware, MemoryInterface memory, En
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool UseBattleLasso(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseBattleLasso(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
-    return Capture(hardware, e_id, itemData.chance);
+    if (Capture(hardware, user_id, target_id, itemData.chance))
+    {
+        g_battle.end_battle = true;
+        return true;
+    }
+    return false;
 }
 
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool UseBattleShackles(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseBattleShackles(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
-    return Capture(hardware, e_id, itemData.chance);
+    if (Capture(hardware, user_id, target_id, itemData.chance))
+    {
+        g_battle.end_battle = true;
+        return true;
+    }
+    return false;
 
 }
 
@@ -422,46 +432,66 @@ bool UseBattleShackles(HardwareInterface hardware, MemoryInterface memory, Entit
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool UseBattleChain(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseBattleChain(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
-    return Capture(hardware, e_id, itemData.chance);
+    if (Capture(hardware, user_id, target_id, itemData.chance))
+    {
+        g_battle.end_battle = true;
+        return true;
+    }
+    return false;
 }
 
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool UseBattleBearTrap(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseBattleBearTrap(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
-    return Capture(hardware, e_id, itemData.chance);
+    if (Capture(hardware, user_id, target_id, itemData.chance))
+    {
+        g_battle.end_battle = true;
+        return true;
+    }
+    return false;
 }
 
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool UseBattleNet(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseBattleNet(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
-    return Capture(hardware, e_id, itemData.chance);
+    if (Capture(hardware, user_id, target_id, itemData.chance))
+    {
+        g_battle.end_battle = true;
+        return true;
+    }
+    return false;
 }
 
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool UseBattleElementalBolas(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseBattleElementalBolas(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
-    return Capture(hardware, e_id, itemData.chance);
+    if (Capture(hardware, user_id, target_id, itemData.chance))
+    {
+        g_battle.end_battle = true;
+        return true;
+    }
+    return false;
 }
 
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool UseBattleWhip(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseBattleWhip(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
-    if (e_id == NO_ENTITY) return false;
-    RaiseStrength(e_id);
+    if (user_id == NO_ENTITY) return false;
+    RaiseStrength(user_id);
     return true;
 }
 
@@ -469,10 +499,10 @@ bool UseBattleWhip(HardwareInterface hardware, MemoryInterface memory, EntityId 
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool UseBattleAmphetamines(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseBattleAmphetamines(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
-    if (e_id == NO_ENTITY) return false;
-    RaiseSpeed(e_id);
+    if (user_id == NO_ENTITY) return false;
+    RaiseSpeed(user_id);
     return true;
 }
 
@@ -480,10 +510,10 @@ bool UseBattleAmphetamines(HardwareInterface hardware, MemoryInterface memory, E
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool UseBattleGrowthHormones(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseBattleGrowthHormones(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
-    if (e_id == NO_ENTITY) return false;
-    RaiseStrength(e_id);
+    if (user_id == NO_ENTITY) return false;
+    RaiseStrength(user_id);
     return true;
 }
 
@@ -491,10 +521,10 @@ bool UseBattleGrowthHormones(HardwareInterface hardware, MemoryInterface memory,
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool UseBattleIronSkinElixir(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseBattleIronSkinElixir(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
-    if (e_id == NO_ENTITY) return false;
-    RaiseDefence(e_id);
+    if (user_id == NO_ENTITY) return false;
+    RaiseDefence(user_id);
     return true;
 }
 
@@ -502,10 +532,10 @@ bool UseBattleIronSkinElixir(HardwareInterface hardware, MemoryInterface memory,
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool UseBattleSwiftnessSerum(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseBattleSwiftnessSerum(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
-    if (e_id == NO_ENTITY) return false;
-    ApplyHaste(e_id, itemData.power);
+    if (user_id == NO_ENTITY) return false;
+    ApplyHaste(user_id, itemData.power);
     return true;
 }
 
@@ -513,9 +543,9 @@ bool UseBattleSwiftnessSerum(HardwareInterface hardware, MemoryInterface memory,
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool UseBattleWildMushroom(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseBattleWildMushroom(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
-    if (e_id == NO_ENTITY) return false;
+    if (user_id == NO_ENTITY) return false;
     return true;
 }
 
@@ -523,9 +553,9 @@ bool UseBattleWildMushroom(HardwareInterface hardware, MemoryInterface memory, E
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool UseBattleHeartScale(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseBattleHeartScale(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
-    if (e_id == NO_ENTITY) return false;
+    if (user_id == NO_ENTITY) return false;
     return true;
 }
 
@@ -533,7 +563,7 @@ bool UseBattleHeartScale(HardwareInterface hardware, MemoryInterface memory, Ent
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool UseBattleSmokeBall(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseBattleSmokeBall(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
     Flee();
     return true;
@@ -543,10 +573,10 @@ bool UseBattleSmokeBall(HardwareInterface hardware, MemoryInterface memory, Enti
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool UseBattleAbilityBook(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseBattleAbilityBook(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
-    if (e_id == NO_ENTITY) return false;
-    LearnSkill(e_id);
+    if (user_id == NO_ENTITY) return false;
+    LearnSkill(user_id);
     return true;
 }
 
@@ -554,11 +584,11 @@ bool UseBattleAbilityBook(HardwareInterface hardware, MemoryInterface memory, En
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool UseBattleHealthPotion(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseBattleHealthPotion(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
-    if (e_id == NO_ENTITY) return false;
-    uint8_t value = g_core.creatures.metaData[item_id].value;
-    return HealTarget(e_id, value);
+    if (user_id == NO_ENTITY) return false;
+    uint8_t value = g_core.items.metaData[item_id].value;
+    return HealTarget(user_id, value);
 }
 
 
@@ -566,7 +596,7 @@ bool UseBattleHealthPotion(HardwareInterface hardware, MemoryInterface memory, E
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool UseBattleVisionPotion(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseBattleVisionPotion(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
     SetBit(g_core.player.effects, P_EFFECTS_MAP_VISION_CREATURES, true);
     return true;
@@ -576,21 +606,21 @@ bool UseBattleVisionPotion(HardwareInterface hardware, MemoryInterface memory, E
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool UseBattleManaPotion(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseBattleManaPotion(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
-    if (e_id == NO_ENTITY) return false;
-    uint8_t value = g_core.creatures.metaData[item_id].value;
-    return RestoreMana(e_id, value);
+    if (user_id == NO_ENTITY) return false;
+    uint8_t value = g_core.items.metaData[item_id].value;
+    return RestoreMana(user_id, value);
 }
 
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool UseBattleSpellBook(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseBattleSpellBook(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
-    uint8_t spell_id = g_core.creatures.metaData[item_id].SpellId;
-    return LearnSpell(memory, e_id, spell_id);
+    uint8_t spell_id = g_core.items.metaData[item_id].spell_id;
+    return LearnSpell(memory, user_id, spell_id);
 }
 
 /**********************************************************************************************************************/
@@ -600,92 +630,92 @@ bool UseBattleSpellBook(HardwareInterface hardware, MemoryInterface memory, Enti
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool UseBattleScroll(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseBattleScroll(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
-    uint8_t spell_id = g_core.creatures.metaData[item_id].SpellId;
-    return CastSpellBattle(hardware, memory, spell_id, e_id, e_id);
+    uint8_t spell_id = g_core.items.metaData[item_id].spell_id;
+    return CastSpellBattle(hardware, memory, spell_id, SPELL_INDEX_NULL, user_id, user_id);
 }
 
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool UseBattleAntidotePotion(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseBattleAntidotePotion(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
-    if (e_id == NO_ENTITY) return false;
-    return RemovePoison(e_id);
+    if (user_id == NO_ENTITY) return false;
+    return RemovePoison(user_id);
 }
 
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool UseBattleDecursePotion(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseBattleDecursePotion(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
-    if (e_id == NO_ENTITY) return false;
-    return RemoveCurse(e_id);
+    if (user_id == NO_ENTITY) return false;
+    return RemoveCurse(user_id);
 }
 
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool UseBattleCurePotion(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseBattleCurePotion(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
-    if (e_id == NO_ENTITY) return false;
-    return RemoveDisease(e_id);
+    if (user_id == NO_ENTITY) return false;
+    return RemoveDisease(user_id);
 }
 
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool UseBattleCloakAcidResistance(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseBattleCloakAcidResistance(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
-    return RaiseAcidResistance(e_id);
+    return RaiseAcidResistance(user_id);
 }
 
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool UseBattleFireResistance(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseBattleFireResistance(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
-    return RaiseFireResistance(e_id);
+    return RaiseFireResistance(user_id);
 }
 
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool UseBattleWaterResistance(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseBattleWaterResistance(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
-    return RaiseWaterResistance(e_id);
+    return RaiseWaterResistance(user_id);
 }
 
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool UseBattleIceResistance(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseBattleIceResistance(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
-    return RaiseIceResistance(e_id);
+    return RaiseIceResistance(user_id);
 }
 
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool UseBattleMagicResistance(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseBattleMagicResistance(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
-    return RaiseMagicResistance(e_id);
+    return RaiseMagicResistance(user_id);
 }
 
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool UseBattleEscapeRope(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseBattleEscapeRope(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
     return GoNextLevel(MAP_LEVEL_UP);
 }
@@ -694,7 +724,26 @@ bool UseBattleEscapeRope(HardwareInterface hardware, MemoryInterface memory, Ent
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool UseBattlePick(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseBattlePick(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
+{
+    return true;
+}
+
+/**********************************************************************************************************************/
+/* SetXPToLevel guarantees max xp is >0
+**********************************************************************************************************************/
+SET_MEMORY(".battle")
+bool UseBattleRareCandy(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
+{
+    LevelUpRetainProgress(target_id);
+    return true;
+}
+
+/**********************************************************************************************************************/
+/*
+**********************************************************************************************************************/
+SET_MEMORY(".battle")
+bool UseBattleShovel(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
     return true;
 }
@@ -703,27 +752,8 @@ bool UseBattlePick(HardwareInterface hardware, MemoryInterface memory, EntityId 
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool UseBattleRareCandy(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
+bool UseBattleXPPotion(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
-    if (e_id == NO_ENTITY) return false;
-    return true;
-}
-
-/**********************************************************************************************************************/
-/*
-**********************************************************************************************************************/
-SET_MEMORY(".battle")
-bool UseBattleShovel(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
-{
-    return true;
-}
-
-/**********************************************************************************************************************/
-/*
-**********************************************************************************************************************/
-SET_MEMORY(".battle")
-bool UseBattleXPPotion(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId e_id, ItemData itemData)
-{
-    if (e_id == NO_ENTITY) return false;
+    if (user_id == NO_ENTITY) return false;
     return true;
 }

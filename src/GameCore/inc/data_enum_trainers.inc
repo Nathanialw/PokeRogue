@@ -2,106 +2,106 @@
 // Database contains 101 total used trainers
 
 // Individual trainers data
-Adalheid,
-Adaltrud,
-Adele,
-Adeline,
-Aelfwyn,
-Aethelburg,
-Aki,
-Alette,
-Alfrun,
-Amelia,
-Anlaf,
-Annabel,
-Antonio,
-Arabella,
-Arild,
-Arnhildur,
-Athelric,
-Audrey,
-Aukje,
-Aylward,
-Bernard,
-Bertrade,
-Bonnie,
-Caitlin,
-Cara,
-Charlotte,
-Chiyo,
-Chunho,
-Coenwulf,
-Daphne,
-Daria,
-Eadgyth,
-Edith,
-Edwin,
-Eira,
-Eleanor,
-Elvina,
-Equitia,
-Erna,
-Evelyn,
-Falon,
-Fenja,
-Fiona,
-Gertrude,
-Godwyn,
-Guinevere,
-Gwendolyn,
-Gwenfrewi,
-Gyrid,
-Gytha,
-Haaske,
-Hama,
-Hardred,
-Harlow,
-Hedda,
-Helen,
-Hildr,
-Hyejin,
-Ida,
-Ingeborg,
-Ingrid,
-Irene,
-Isabel,
-Karin,
-Katarina,
-Katie,
-Kyra,
-Lacey,
-Leofwynn,
-Lillie,
-Liselotte,
-Maggie,
-Mairead,
-Masamune,
-Matilda,
-Maya,
-Mildrith,
-Mindred,
-Nadja,
-Niall,
-Niamh,
-Octavia,
-Ottilie,
-Paige,
-Pernilla,
-Philippa,
-Ronja,
-Sabrina,
-Saewynn,
-Selina,
-Sigrid,
-Svea,
-Thea,
-Thryth,
-Tuva,
-Valentine,
-Wilma,
-Winifred,
-Winston,
-Wulfstan,
-Yuuko,
+Adalheid, //0 
+Adaltrud, //1 
+Adele, //2 
+Adeline, //3 
+Aelfwyn, //4 
+Aethelburg, //5 
+Aki, //6 
+Alette, //7 
+Alfrun, //8 
+Amelia, //9 
+Anlaf, //10 
+Annabel, //11 
+Antonio, //12 
+Arabella, //13 
+Arild, //14 
+Arnhildur, //15 
+Athelric, //16 
+Audrey, //17 
+Aukje, //18 
+Aylward, //19 
+Bernard, //20 
+Bertrade, //21 
+Bonnie, //22 
+Caitlin, //23 
+Cara, //24 
+Charlotte, //25 
+Chiyo, //26 
+Chunho, //27 
+Coenwulf, //28 
+Daphne, //29 
+Daria, //30 
+Eadgyth, //31 
+Edith, //32 
+Edwin, //33 
+Eira, //34 
+Eleanor, //35 
+Elvina, //36 
+Equitia, //37 
+Erna, //38 
+Evelyn, //39 
+Falon, //40 
+Fenja, //41 
+Fiona, //42 
+Gertrude, //43 
+Godwyn, //44 
+Guinevere, //45 
+Gwendolyn, //46 
+Gwenfrewi, //47 
+Gyrid, //48 
+Gytha, //49 
+Haaske, //50 
+Hama, //51 
+Hardred, //52 
+Harlow, //53 
+Hedda, //54 
+Helen, //55 
+Hildr, //56 
+Hyejin, //57 
+Ida, //58 
+Ingeborg, //59 
+Ingrid, //60 
+Irene, //61 
+Isabel, //62 
+Karin, //63 
+Katarina, //64 
+Katie, //65 
+Kyra, //66 
+Lacey, //67 
+Leofwynn, //68 
+Lillie, //69 
+Liselotte, //70 
+Maggie, //71 
+Mairead, //72 
+Masamune, //73 
+Matilda, //74 
+Maya, //75 
+Mildrith, //76 
+Mindred, //77 
+Nadja, //78 
+Niall, //79 
+Niamh, //80 
+Octavia, //81 
+Ottilie, //82 
+Paige, //83 
+Pernilla, //84 
+Philippa, //85 
+Ronja, //86 
+Sabrina, //87 
+Saewynn, //88 
+Selina, //89 
+Sigrid, //90 
+Svea, //91 
+Thea, //92 
+Thryth, //93 
+Tuva, //94 
+Valentine, //95 
+Wilma, //96 
+Winifred, //97 
+Winston, //98 
+Wulfstan, //99 
+Yuuko, //100 
 
 //ALL_NAMES_COUNT = 101;
