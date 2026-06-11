@@ -100,6 +100,7 @@ typedef struct
         uint16_t tar_xp[MAX_PARTY_SIZE];
 
         // TODO: these are the "pokedexes" add checks to populate them
+        BitFieldUint8 defeated_trainers;
         BitFieldUint8 sacrificedCreatures;
         BitFieldUint8 knownCreatures;
         BitFieldUint8 knownSpells;
@@ -113,13 +114,14 @@ typedef struct
         uint8_t vision_radius;
         EntityId id;
         uint8_t currentBagMaxSize;
-        uint8_t currentBagSize;
+        uint8_t occupiedBagSlots;
         uint8_t currentSpellbookMaxSize;
         uint8_t currentSpellbookSize;
         uint8_t currentPartySize;
         Delta d;
         Delta scroll;
         BitFieldUint8 effects;
+
     } player;
 
 
@@ -254,7 +256,8 @@ typedef struct
         uint8_t selectedMenu;
         uint16_t lineHeight;
         uint8_t displayedMenu;
-        uint8_t visibleMenuOptions;
+        uint8_t max_visible_menu_options;
+        uint8_t occupied_visible_menu_options;
         uint8_t totalMenuOptions;
         bool forceRedraw;
         UseFrameBack useOnPartyMember;

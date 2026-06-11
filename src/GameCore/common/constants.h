@@ -74,7 +74,6 @@ _Static_assert(OBJECT_COUNT <= 256, "max must be 256 - one byte");
 #define MAX_SPELLBOOK_SIZE 8
 #define SPELL_INDEX_NULL 255
 #define DEFAULT_SPELLBOOK_SIZE 8
-#define DEFAULT_BAG_SIZE 10
 #define MAX_ITEM_SIZE 25
 #define MAX_SPELL_SIZE 16    // spells not implemented yet, still a maybe
 #define PERK_BAG_SIZE 0     // perks not implemented yet, still a maybe
@@ -111,6 +110,15 @@ _Static_assert(OBJECT_COUNT <= 256, "max must be 256 - one byte");
 #define TOTAL_SPAWNABLE_OBJECT_TYPES 4
 
 #define MAX_CREATURE_LEVEL 99
+
+
+/**********************************************************************************************************************/
+/** Player Defaults
+**********************************************************************************************************************/
+#define DEFAULT_LIGHT_RADIUS 7
+#define DEFAULT_BAG_SIZE 10
+
+
 
 /**********************************************************************************************************************/
 /**BATTLE FRAMES constants
@@ -221,6 +229,7 @@ _Static_assert(DIALOGUE_H + RESOURCE_FRAME_H + BATTLER_AREA_H <= TFT_H, "cannot 
 #define MAIN_MENU_Y 0
 #define MAIN_MENU_W (SMALL_STRINGS * TEXT_W)
 #define MAIN_MENU_H (SCREEN_H / TEXT_H)
+#define MAIN_MENU_LIST_H ((SCREEN_H / TEXT_H) - 2)
 
 #define GLYPH_ROWS_8x8   8
 #define MAX_MENU_SIZE (MAIN_MENU_H * 2)

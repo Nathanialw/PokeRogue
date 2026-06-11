@@ -20,7 +20,7 @@
  *  This file handles map tile interaction logic
  *
 **********************************************************************************************************************/
-typedef bool (*Interaction)(EntityId id, ObjectsTypes type, uint8_t x, uint8_t y);
+typedef bool (*Interaction)(HardwareInterface hardware, MemoryInterface memory, EntityId id, ObjectsTypes type, uint8_t x, uint8_t y);
 
 
 bool NoInteraction(EntityId id, ObjectsTypes type, uint8_t x, uint8_t y);
@@ -47,9 +47,9 @@ const Interaction TileCollisionStepOff[TILE_COUNT] =
 /** Main tile interaction entry point
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool CheckInteractionStepOn(uint8_t tile, EntityId id, ObjectsTypes type, uint8_t x, uint8_t y)
+bool CheckInteractionStepOn(HardwareInterface hardware, MemoryInterface memory, uint8_t tile, EntityId id, ObjectsTypes type, uint8_t x, uint8_t y)
 {
-    return TileCollisionStepOn[tile](id, type, x, y);
+    return TileCollisionStepOn[tile](hardware, memory, id, type, x, y);
 }
 
 
@@ -57,17 +57,34 @@ bool CheckInteractionStepOn(uint8_t tile, EntityId id, ObjectsTypes type, uint8_
 /** Main tile interaction entry point
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool CheckInteractionStepOff(uint8_t tile, EntityId id, ObjectsTypes type, uint8_t x, uint8_t y)
+bool CheckInteractionStepOff(HardwareInterface hardware, MemoryInterface memory, uint8_t tile, EntityId id, ObjectsTypes type, uint8_t x, uint8_t y)
 {
-    return TileCollisionStepOff[tile](id, type, x, y);
+    return TileCollisionStepOff[tile](hardware, memory, id, type, x, y);
 }
 
 /**********************************************************************************************************************/
 /** Triggers the battle state
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-void StartBattle(EntityId id)
+void StartBattleTrainer(EntityId id)
 {
+    g_core.battleMode.enemy_trainer_id = id;
+
+    g_core.battleMode.playerMonsterID = g_core.trainers.partyID[GetPlayerID()][0];
+    g_core.battleMode.enemyMonsterID = g_core.trainers.partyID[id][0];
+
+    g_core.state.overlay = OVERLAY_BATTLE;
+}
+
+
+/**********************************************************************************************************************/
+/** Triggers the battle state
+**********************************************************************************************************************/
+SET_MEMORY(".map")
+void StartBattleCreature(EntityId id)
+{
+    g_core.battleMode.enemy_trainer_id = NO_ENTITY;
+
     g_core.battleMode.playerMonsterID = g_core.trainers.partyID[GetPlayerID()][0];
     g_core.battleMode.enemyMonsterID = id;
 

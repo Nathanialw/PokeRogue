@@ -92,17 +92,47 @@ bool Back(SubMainMenuWindow menuWin)
     }
 
     g_core.menu.selectedMenu = menuWin;
-    g_core.menu.visibleMenuOptions = MAIN_MENUS_SIZE;
+    g_core.menu.occupied_visible_menu_options = MAIN_MENUS_SIZE;
+    g_core.menu.max_visible_menu_options = MAIN_MENUS_SIZE;
     g_core.menu.menuScrollOffset[g_core.menu.depth].y = 0;
     g_core.menu.depth--;
     return true;
 }
 
+
+/**********************************************************************************************************************
+** Sets Menu to open
+ *  Reset menu cache values to defaults
+**********************************************************************************************************************/
+SET_MEMORY(".map")
+void InitMainMenu(void)
+{
+    g_core.menu.x = MAIN_MENU_X;
+    g_core.menu.y = (MAIN_MENU_Y + 1);
+    g_core.menu.h = MAIN_MENU_H;
+    g_core.menu.x_offset = 0;
+    g_core.menu.subMenus = submenus;
+
+    g_core.menu.max_visible_menu_options = MAIN_MENUS_SIZE;
+    g_core.menu.occupied_visible_menu_options = MAIN_MENUS_SIZE;
+    g_core.menu.depth = 0;
+    g_core.menu.sel[g_core.menu.depth].x = 0;
+    g_core.menu.sel[g_core.menu.depth].y = 0;
+
+    g_core.menu.forceRedraw = true;
+    g_core.menu.selectedMenu = MAIN_MENU;
+    g_core.menu.displayedMenu = MENU_NONE;
+}
+
+
+// bool ToggleMenu(SubMainMenuWindow menuWin, uint8_t occupied_visible_menu_options, uint8_t max_visible_menu_options);
+
+
 /**********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool ToggleMenu(SubMainMenuWindow menuWin, uint8_t numMenuOptions)
+bool ToggleMenu(SubMainMenuWindow menuWin, uint8_t occupied_visible_menu_options, uint8_t max_visible_menu_options)
 {
     if (g_core.menu.selectedMenu == menuWin)
     {
@@ -112,8 +142,9 @@ bool ToggleMenu(SubMainMenuWindow menuWin, uint8_t numMenuOptions)
     g_core.menu.sel[g_core.menu.depth].x = 0;
     g_core.menu.sel[g_core.menu.depth].y = 0;
     g_core.menu.selectedMenu = menuWin;
-    g_core.menu.visibleMenuOptions = ListSize(numMenuOptions);
-    g_core.menu.totalMenuOptions = numMenuOptions;
+    g_core.menu.occupied_visible_menu_options = occupied_visible_menu_options;
+    g_core.menu.max_visible_menu_options = max_visible_menu_options; //ListSize(max_visible_menu_options);
+    g_core.menu.totalMenuOptions = max_visible_menu_options;
     ClearMenu();
     return false;
 }
@@ -126,7 +157,7 @@ bool ToggleMenu(SubMainMenuWindow menuWin, uint8_t numMenuOptions)
 SET_MEMORY(".map")
 bool MiniMap(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update)
 {
-    if (ToggleMenu(MAP_SUBMENU, 0))
+    if (ToggleMenu(MAP_SUBMENU, 0, 0))
         return true;
 
     return true;
@@ -139,7 +170,7 @@ bool MiniMap(GraphicsInterface graphics, HardwareInterface hardware, InputInterf
 SET_MEMORY(".map")
 bool MonsterData(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update)
 {
-    if (ToggleMenu(MONSTER_DATA_LIST_SUBMENU, CREATURE_COUNT) && input.GetInputKeyState().dp.y == 0)
+    if (ToggleMenu(MONSTER_DATA_LIST_SUBMENU, CREATURE_COUNT, CREATURE_COUNT) && input.GetInputKeyState().dp.y == 0)
     {
         if (ListJump(graphics, hardware, input, memory)) return true;
 
@@ -150,7 +181,7 @@ bool MonsterData(GraphicsInterface graphics, HardwareInterface hardware, InputIn
 
     uint8_t i = 0;
     uint8_t min_s = g_core.menu.menuScrollOffset[g_core.menu.depth].y;
-    uint8_t max_s = min_s + g_core.menu.visibleMenuOptions;
+    uint8_t max_s = min_s + g_core.menu.max_visible_menu_options;
 
     if (max_s >= 255) max_s = 255; //prevent wraparound, assumes NO_CREATURE is max in Creature enum
 
@@ -172,7 +203,7 @@ bool MonsterData(GraphicsInterface graphics, HardwareInterface hardware, InputIn
 SET_MEMORY(".map")
 bool Objectpedia(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update)
 {
-    if (ToggleMenu(OBJECT_DATA_LIST_SUBMENU, OBJECT_COUNT) && input.GetInputKeyState().dp.y == 0)
+    if (ToggleMenu(OBJECT_DATA_LIST_SUBMENU, OBJECT_COUNT, OBJECT_COUNT) && input.GetInputKeyState().dp.y == 0)
     {
         if (ListJump(graphics, hardware, input, memory)) return true;
 
@@ -183,7 +214,7 @@ bool Objectpedia(GraphicsInterface graphics, HardwareInterface hardware, InputIn
 
     uint8_t i = 0;
     uint8_t min_s = g_core.menu.menuScrollOffset[g_core.menu.depth].y;
-    uint8_t max_s = min_s + g_core.menu.visibleMenuOptions;
+    uint8_t max_s = min_s + g_core.menu.max_visible_menu_options;
     if (max_s >= 255) max_s = 255; //prevent wraparound, assumes NO_CREATURE is max in Creature enum
     while ((min_s + i) < max_s)
     {
@@ -203,7 +234,7 @@ bool Objectpedia(GraphicsInterface graphics, HardwareInterface hardware, InputIn
 SET_MEMORY(".map")
 bool Itempedia(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update)
 {
-    if (ToggleMenu(ITEM_DATA_LIST_SUBMENU, ITEM_COUNT) && input.GetInputKeyState().dp.y == 0)
+    if (ToggleMenu(ITEM_DATA_LIST_SUBMENU, ITEM_COUNT, ITEM_COUNT) && input.GetInputKeyState().dp.y == 0)
     {
         if (ListJump(graphics, hardware, input, memory)) return true;
         EntityId item_id = g_core.menu.sel[g_core.menu.depth].y + g_core.menu.menuScrollOffset[g_core.menu.depth].y;
@@ -214,7 +245,7 @@ bool Itempedia(GraphicsInterface graphics, HardwareInterface hardware, InputInte
 
     uint8_t i = 0;
     uint8_t min_s = g_core.menu.menuScrollOffset[g_core.menu.depth].y;
-    uint8_t max_s = min_s + g_core.menu.visibleMenuOptions;
+    uint8_t max_s = min_s + g_core.menu.max_visible_menu_options;
     if (max_s >= 255) max_s = 255; //prevent wraparound, assumes NO_CREATURE is max in Creature enum
 
     while ((min_s + i) < max_s)
@@ -233,7 +264,7 @@ bool Itempedia(GraphicsInterface graphics, HardwareInterface hardware, InputInte
 SET_MEMORY(".map")
 bool Spellpedia(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update)
 {
-    if (ToggleMenu(SPELL_DATA_LIST_SUBMENU, SPELL_COUNT) && input.GetInputKeyState().dp.y == 0)
+    if (ToggleMenu(SPELL_DATA_LIST_SUBMENU, SPELL_COUNT, SPELL_COUNT) && input.GetInputKeyState().dp.y == 0)
     {
         if (ListJump(graphics, hardware, input, memory)) return true;
         EntityId spell_id = g_core.menu.sel[g_core.menu.depth].y + g_core.menu.menuScrollOffset[g_core.menu.depth].y;
@@ -244,7 +275,7 @@ bool Spellpedia(GraphicsInterface graphics, HardwareInterface hardware, InputInt
 
     uint8_t i = 0;
     uint8_t min_s = g_core.menu.menuScrollOffset[g_core.menu.depth].y;
-    uint8_t max_s = min_s + g_core.menu.visibleMenuOptions;
+    uint8_t max_s = min_s + g_core.menu.max_visible_menu_options;
     if (max_s >= 255) max_s = 255; //prevent wraparound, assumes NO_CREATURE is max in Creature enum
     while ((min_s + i) < max_s)
     {
@@ -263,7 +294,7 @@ bool Spellpedia(GraphicsInterface graphics, HardwareInterface hardware, InputInt
 SET_MEMORY(".map")
 bool Abilitypedia(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update)
 {
-    if (ToggleMenu(ABILITY_DATA_LIST_SUBMENU, ABILITY_COUNT) && input.GetInputKeyState().dp.y == 0)
+    if (ToggleMenu(ABILITY_DATA_LIST_SUBMENU, ABILITY_COUNT, ABILITY_COUNT) && input.GetInputKeyState().dp.y == 0)
     {
         if (ListJump(graphics, hardware, input, memory)) return true;
         EntityId ability_id = g_core.menu.sel[g_core.menu.depth].y + g_core.menu.menuScrollOffset[g_core.menu.depth].y;
@@ -274,7 +305,7 @@ bool Abilitypedia(GraphicsInterface graphics, HardwareInterface hardware, InputI
 
     uint8_t i = 0;
     uint8_t min_s = g_core.menu.menuScrollOffset[g_core.menu.depth].y;
-    uint8_t max_s = min_s + g_core.menu.visibleMenuOptions;
+    uint8_t max_s = min_s + g_core.menu.max_visible_menu_options;
     if (max_s >= 255) max_s = 255; //prevent wraparound, assumes NO_CREATURE is max in Creature enum
     while ((min_s + i) < max_s)
     {
@@ -293,7 +324,7 @@ bool Abilitypedia(GraphicsInterface graphics, HardwareInterface hardware, InputI
 SET_MEMORY(".map")
 bool Trainerpedia(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update)
 {
-    if (ToggleMenu(TRAINER_DATA_LIST_SUBMENU, ABILITY_COUNT) && input.GetInputKeyState().dp.y == 0)
+    if (ToggleMenu(TRAINER_DATA_LIST_SUBMENU, ABILITY_COUNT, ABILITY_COUNT) && input.GetInputKeyState().dp.y == 0)
     {
         if (ListJump(graphics, hardware, input, memory)) return true;
         EntityId ability_id = g_core.menu.sel[g_core.menu.depth].y + g_core.menu.menuScrollOffset[g_core.menu.depth].y;
@@ -303,7 +334,7 @@ bool Trainerpedia(GraphicsInterface graphics, HardwareInterface hardware, InputI
 
     uint8_t i = 0;
     uint8_t min_s = g_core.menu.menuScrollOffset[g_core.menu.depth].y;
-    uint8_t max_s = min_s + g_core.menu.visibleMenuOptions;
+    uint8_t max_s = min_s + g_core.menu.max_visible_menu_options;
     if (max_s >= 255) max_s = 255; //prevent wraparound, assumes NO_CREATURE is max in Creature enum
     while ((min_s + i) < max_s)
     {
@@ -326,12 +357,13 @@ void OpenUseOnSpellPage(HardwareInterface hardware, MemoryInterface memory, UseF
     FillListByTypeID(memory, g_core.player.currentSpellbookSize, g_core.trainers.spellID[player_id]);
 
     g_core.menu.forceRedraw = true;
-    g_core.menu.visibleMenuOptions = g_core.player.currentSpellbookSize;
+
 
     g_core.menu.depth++;
     g_core.menu.sel[g_core.menu.depth].x = 0;
     g_core.menu.sel[g_core.menu.depth].y = 0;
-    g_core.menu.visibleMenuOptions = ListSize(g_core.player.currentSpellbookSize);
+    g_core.menu.max_visible_menu_options = ListSize(g_core.player.currentSpellbookMaxSize);
+    g_core.menu.occupied_visible_menu_options = g_core.player.currentSpellbookSize;
     g_core.menu.totalMenuOptions = g_core.player.currentSpellbookSize;
 }
 
@@ -346,12 +378,13 @@ void OpenUseOnParty(HardwareInterface hardware, MemoryInterface memory, UseFrame
 
     g_core.menu.forceRedraw = true;
     g_core.menu.useOnPartyMember = f;
-    g_core.menu.visibleMenuOptions = MAX_PARTY_SIZE;
+    g_core.menu.max_visible_menu_options = MAX_PARTY_SIZE;
+    g_core.menu.occupied_visible_menu_options = g_core.player.currentPartySize;
 
     g_core.menu.depth++;
     g_core.menu.sel[g_core.menu.depth].x = 0;
     g_core.menu.sel[g_core.menu.depth].y = 0;
-    g_core.menu.visibleMenuOptions = ListSize(MAX_PARTY_SIZE);
+    g_core.menu.max_visible_menu_options = ListSize(MAX_PARTY_SIZE);
     g_core.menu.totalMenuOptions = MAX_PARTY_SIZE;
 }
 
@@ -363,17 +396,25 @@ void BackUseOnParty(MemoryInterface memory)
 {
     EntityId player_id = GetPlayerID();
     if (g_core.menu.useOnPartyMember == BACK_ITEM)
-        FillListByEntityID(memory, g_core.player.currentBagSize, ITEM, g_core.trainers.itemID[player_id]);
+    {
+        FillListByEntityID(memory, g_core.player.occupiedBagSlots, ITEM, g_core.trainers.itemID[player_id]);
+        g_core.menu.max_visible_menu_options = ListSize(g_core.player.currentBagMaxSize);
+        g_core.menu.occupied_visible_menu_options = g_core.player.occupiedBagSlots;
+        g_core.menu.totalMenuOptions = g_core.player.occupiedBagSlots;
+    }
     if (g_core.menu.useOnPartyMember == BACK_SPELL)
+    {
         FillListByTypeID(memory, g_core.player.currentSpellbookSize, g_core.trainers.spellID[player_id]);
+        g_core.menu.max_visible_menu_options = ListSize(g_core.player.currentSpellbookMaxSize);
+        g_core.menu.occupied_visible_menu_options = g_core.player.currentSpellbookSize;
+        g_core.menu.totalMenuOptions = g_core.player.currentSpellbookSize;
+    }
 
     g_core.menu.sel[g_core.menu.depth].x = 0;
     g_core.menu.sel[g_core.menu.depth].y = 0;
     g_core.menu.depth--;
     g_core.menu.forceRedraw = true;
     g_core.menu.lineHeight = 0;
-    g_core.menu.visibleMenuOptions = ListSize(g_core.player.currentBagSize);
-    g_core.menu.totalMenuOptions = g_core.player.currentBagSize;
     g_core.menu.useOnPartyMember = BACK_NONE;
 }
 
@@ -384,7 +425,7 @@ void BackUseOnParty(MemoryInterface memory)
 SET_MEMORY(".map")
 bool Party(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update)
 {
-    if (ToggleMenu(MONSTERS_SUBMENU, g_core.player.currentPartySize))
+    if (ToggleMenu(MONSTERS_SUBMENU, g_core.player.currentPartySize, MAX_PARTY_SIZE))
     {
         uint8_t target_index = g_core.menu.sel[g_core.menu.depth].y + g_core.menu.menuScrollOffset[g_core.menu.depth].y;
         EntityId party_id1 = g_core.trainers.partyID[GetPlayerID()][0];
@@ -406,7 +447,7 @@ SET_MEMORY(".map")
 bool Bag(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update)
 {
     EntityId player_id = GetPlayerID();
-    if (ToggleMenu(BAG_SUBMENU, g_core.player.currentBagSize))
+    if (ToggleMenu(BAG_SUBMENU, g_core.player.occupiedBagSlots, g_core.player.currentBagMaxSize))
     {
         //open use/toss menu
         //if use/toss menu open, select cursor option
@@ -446,9 +487,9 @@ bool Bag(GraphicsInterface graphics, HardwareInterface hardware, InputInterface 
 
             if (action_outcome == ACTION_SUCCEEDED)
             {
-                ConsumeItem(idx, item_id);
+                PlayerConsumeItem(idx, item_id);
                 FullRedraw(graphics, hardware, memory);
-                FillListByEntityID(memory, g_core.player.currentBagSize, ITEM, g_core.trainers.itemID[player_id]);
+                FillListByEntityID(memory, g_core.player.occupiedBagSlots, ITEM, g_core.trainers.itemID[player_id]);
                 DrawList(graphics, hardware, memory);
                 return true;
             }
@@ -473,7 +514,7 @@ bool Bag(GraphicsInterface graphics, HardwareInterface hardware, InputInterface 
             ActionOutcome action_outcome = UseItemMap(hardware, memory, &itemData, item_id, player_id, target_id, target_index);
             if (action_outcome == ACTION_SUCCEEDED)
             {
-                ConsumeItem(item_idx, item_id);
+                PlayerConsumeItem(item_idx, item_id);
                 BackUseOnParty(memory);
                 DrawList(graphics, hardware, memory);
             }
@@ -486,7 +527,7 @@ bool Bag(GraphicsInterface graphics, HardwareInterface hardware, InputInterface 
             ActionOutcome action_outcome = UseItemMap(hardware, memory, &itemData, item_id, player_id, target_id, target_index);;
             if (action_outcome == ACTION_SUCCEEDED)
             {
-                ConsumeItem(item_idx, item_id);
+                PlayerConsumeItem(item_idx, item_id);
                 BackUseOnParty(memory);
                 DrawList(graphics, hardware, memory);
             }
@@ -504,7 +545,7 @@ bool Bag(GraphicsInterface graphics, HardwareInterface hardware, InputInterface 
         return true;
     }
 
-    FillListByEntityID(memory, g_core.player.currentBagSize, ITEM, g_core.trainers.itemID[player_id]);
+    FillListByEntityID(memory, g_core.player.occupiedBagSlots, ITEM, g_core.trainers.itemID[player_id]);
     return true;
 };
 
@@ -515,7 +556,7 @@ SET_MEMORY(".map")
 bool Spells(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update)
 {
     EntityId player_id = GetPlayerID();
-    if (ToggleMenu(SPELLS_SUBMENU, g_core.player.currentSpellbookSize))
+    if (ToggleMenu(SPELLS_SUBMENU, g_core.player.currentSpellbookSize, g_core.player.currentSpellbookMaxSize))
     {
         if (g_core.menu.depth == 1)
         {
@@ -589,7 +630,7 @@ bool Religion(GraphicsInterface graphics, HardwareInterface hardware, InputInter
 SET_MEMORY(".map")
 bool Options(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update)
 {
-    if (ToggleMenu(OPTIONS_SUBMENU, OPTIONS_MENU_SIZE))
+    if (ToggleMenu(OPTIONS_SUBMENU, OPTIONS_MENU_SIZE, OPTIONS_MENU_SIZE))
     {
         //run a switch or a func ptr array against the sel at the current depth
         switch (g_core.menu.sel[g_core.menu.depth].y)
@@ -729,29 +770,6 @@ bool MenuBack(MemoryInterface memory)
     Back(MAIN_MENU);
 
     return true;
-}
-
-/**********************************************************************************************************************
-** Sets Menu to open
- *  Reset menu cache values to defaults
-**********************************************************************************************************************/
-SET_MEMORY(".map")
-void InitMainMenu(void)
-{
-    g_core.menu.x = MAIN_MENU_X;
-    g_core.menu.y = (MAIN_MENU_Y + 1);
-    g_core.menu.h = MAIN_MENU_H;
-    g_core.menu.x_offset = 0;
-    g_core.menu.subMenus = submenus;
-
-    g_core.menu.visibleMenuOptions = MAIN_MENUS_SIZE;
-    g_core.menu.depth = 0;
-    g_core.menu.sel[g_core.menu.depth].x = 0;
-    g_core.menu.sel[g_core.menu.depth].y = 0;
-
-    g_core.menu.forceRedraw = true;
-    g_core.menu.selectedMenu = MAIN_MENU;
-    g_core.menu.displayedMenu = MENU_NONE;
 }
 
 

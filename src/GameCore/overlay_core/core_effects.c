@@ -1272,25 +1272,13 @@ ActionOutcome RemoveMapFog()
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-ActionOutcome CreateItem(HardwareInterface hardware, MemoryInterface memory, ObjectsTypes type, uint8_t t, uint8_t x, uint8_t y, uint8_t l)
-{
-    SpawnEntity(hardware, memory, t, type, x, y, l);
-    return ACTION_FAILED;
-}
-
-
-/**********************************************************************************************************************
-*
-**********************************************************************************************************************/
-SET_MEMORY(".core")
 ActionOutcome CreateItemFood(HardwareInterface hardware, MemoryInterface memory, uint8_t t, uint8_t x, uint8_t y, uint8_t l)
 {
     // TODO: Get random food type
-    uint8_t food_type = 0;
+    uint8_t food_type = hardware.GetRandom_uint8_t(0, OBJECT_COUNT);
     SpawnEntity(hardware, memory, t, food_type, x, y, l);
     return ACTION_SUCCEEDED;
 }
-
 
 /**********************************************************************************************************************
 *
@@ -1299,7 +1287,7 @@ SET_MEMORY(".core")
 ActionOutcome CreateItemCommon(HardwareInterface hardware, MemoryInterface memory, uint8_t t, uint8_t x, uint8_t y, uint8_t l)
 {
     // TODO: Get random common type item
-    uint8_t common_type = 0;
+    uint8_t common_type = hardware.GetRandom_uint8_t(0, OBJECT_COUNT);
     SpawnEntity(hardware, memory, t, common_type, x, y, l);
     return ACTION_SUCCEEDED;
 }
@@ -1311,7 +1299,7 @@ SET_MEMORY(".core")
 ActionOutcome CreateItemMagic(HardwareInterface hardware, MemoryInterface memory, uint8_t t, uint8_t x, uint8_t y, uint8_t l)
 {
     // TODO: Get random common type item
-    uint8_t magic_type = 0;
+    uint8_t magic_type = hardware.GetRandom_uint8_t(0, OBJECT_COUNT);
     SpawnEntity(hardware, memory, t, magic_type, x, y, l);
     return ACTION_SUCCEEDED;
 }

@@ -1,5 +1,5 @@
 // Generated spell name strings
-// Database contains 63 total entries
+// Database contains 69 total entries
 
 // Individual items strings
 CastBattleAwaken,
@@ -50,12 +50,18 @@ CastBattleRaiseSkeleton,
 CastBattleRazorGrass,
 CastBattleReflect,
 CastBattleRepel,
+CastBattleRestoreMana,
 CastBattleResurrect,
 CastBattleRaiseXP,
 CastBattleShadows,
 CastBattleSilence,
 CastBattleSlow,
 CastBattleSoothe,
+CastBattleSpawnAcid,
+CastBattleSpawnFloor,
+CastBattleSpawnLava,
+CastBattleSpawnPits,
+CastBattleSpawnWater,
 CastBattleStrengthen,
 CastBattleCreateFood,
 CastBattleTeleport,

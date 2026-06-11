@@ -394,3 +394,39 @@ bool SpellAttackRaiseXP(bool onAttacker())
 {
     return false;
 }
+
+SET_MEMORY(".battle")
+bool SpellAttackRestoreMana(bool onAttacker())
+{
+    return false;
+}
+
+SET_MEMORY(".battle")
+bool SpellAttackSpawnAcid(bool onAttacker())
+{
+    return false;
+}
+
+SET_MEMORY(".battle")
+bool SpellAttackSpawnFloor(bool onAttacker())
+{
+    return false;
+}
+
+SET_MEMORY(".battle")
+bool SpellAttackSpawnLava(bool onAttacker())
+{
+    return false;
+}
+
+SET_MEMORY(".battle")
+bool SpellAttackSpawnPits(bool onAttacker())
+{
+    return false;
+}
+
+SET_MEMORY(".battle")
+bool SpellAttackSpawnWater(bool onAttacker())
+{
+    return false;
+}

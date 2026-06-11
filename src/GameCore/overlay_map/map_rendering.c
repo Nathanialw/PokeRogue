@@ -558,16 +558,17 @@ void ReDrawSprites(GraphicsInterface graphics, MemoryInterface memory)
             // if (!GetBit(g_map.view.dirtyTiles, (sy * VIEW_TH) + sx))
             // continue;
 
-            if (g_map.view.viewItems.viewEntities[sy][sx] != NO_ITEM)
-            {
-                uint8_t item_type = g_map.view.viewItems.viewEntities[sy][sx];
-                DrawSpriteCached(graphics, memory, sx, sy, item_type, ITEM);
-            }
 \
             if (g_map.view.viewObjects.viewEntities[sy][sx] != NO_OBJECT)
             {
                 uint8_t object_type = g_map.view.viewObjects.viewEntities[sy][sx];
                 DrawSpriteCached(graphics, memory, sx, sy, object_type, OBJECT);\
+            }
+
+            if (g_map.view.viewItems.viewEntities[sy][sx] != NO_ITEM)
+            {
+                uint8_t item_type = g_map.view.viewItems.viewEntities[sy][sx];
+                DrawSpriteCached(graphics, memory, sx, sy, item_type, ITEM);
             }
 
             if (g_map.view.viewCreatures.viewEntities[sy][sx] != NO_CREATURE)

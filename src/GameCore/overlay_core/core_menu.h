@@ -16,7 +16,6 @@ uint16_t ListSize(uint16_t n);
 bool SetMenuDelta(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, Delta delta);
 bool HandleMenuOverflow(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, Delta delta);
 
-bool ToggleMenu(SubMainMenuWindow menuWin, uint8_t numMenuOptions);
 bool Back(SubMainMenuWindow menuWin);
 void ClearMenu(void);
 

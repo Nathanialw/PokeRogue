@@ -9,146 +9,146 @@
 #include "map_effects.h"
 
 SET_MEMORY(".map")
-bool TIleStepOnCastleFloor(EntityId id, ObjectsTypes type, uint8_t x, uint8_t y)
+bool TIleStepOnCastleFloor(HardwareInterface hardware, MemoryInterface memory, EntityId id, ObjectsTypes type, uint8_t x, uint8_t y)
 {
     return NoInteraction(id, type, x, y);
 }
 
 SET_MEMORY(".map")
-bool TIleStepOnDirtFloor(EntityId id, ObjectsTypes type, uint8_t x, uint8_t y)
+bool TIleStepOnDirtFloor(HardwareInterface hardware, MemoryInterface memory, EntityId id, ObjectsTypes type, uint8_t x, uint8_t y)
 {
     return NoInteraction(id, type, x, y);
 }
 
 SET_MEMORY(".map")
-bool TIleStepOnMeadowFloor(EntityId id, ObjectsTypes type, uint8_t x, uint8_t y)
+bool TIleStepOnMeadowFloor(HardwareInterface hardware, MemoryInterface memory, EntityId id, ObjectsTypes type, uint8_t x, uint8_t y)
 {
     return NoInteraction(id, type, x, y);
 }
 
 SET_MEMORY(".map")
-bool TIleStepOnTundraFloor(EntityId id, ObjectsTypes type, uint8_t x, uint8_t y)
+bool TIleStepOnTundraFloor(HardwareInterface hardware, MemoryInterface memory, EntityId id, ObjectsTypes type, uint8_t x, uint8_t y)
 {
     return NoInteraction(id, type, x, y);
 }
 
 SET_MEMORY(".map")
-bool TIleStepOnFloorVolcanic(EntityId id, ObjectsTypes type, uint8_t x, uint8_t y)
+bool TIleStepOnFloorVolcanic(HardwareInterface hardware, MemoryInterface memory, EntityId id, ObjectsTypes type, uint8_t x, uint8_t y)
 {
     return NoInteraction(id, type, x, y);
 }
 
 SET_MEMORY(".map")
-bool TIleStepOnWoodFloor(EntityId id, ObjectsTypes type, uint8_t x, uint8_t y)
+bool TIleStepOnWoodFloor(HardwareInterface hardware, MemoryInterface memory, EntityId id, ObjectsTypes type, uint8_t x, uint8_t y)
 {
     return NoInteraction(id, type, x, y);
 
 }
 
 SET_MEMORY(".map")
-bool TIleStepOnFluidAcid(EntityId id, ObjectsTypes type, uint8_t x, uint8_t y)
+bool TIleStepOnFluidAcid(HardwareInterface hardware, MemoryInterface memory, EntityId id, ObjectsTypes type, uint8_t x, uint8_t y)
 {
     return CollisionFluidTile(id, type, x, y);
 }
 
 SET_MEMORY(".map")
-bool TIleStepOnFluidCrystal(EntityId id, ObjectsTypes type, uint8_t x, uint8_t y)
+bool TIleStepOnFluidCrystal(HardwareInterface hardware, MemoryInterface memory, EntityId id, ObjectsTypes type, uint8_t x, uint8_t y)
 {
     return CollisionFluidTile(id, type, x, y);
 }
 
 SET_MEMORY(".map")
-bool TIleStepOnFluidLava(EntityId id, ObjectsTypes type, uint8_t x, uint8_t y)
+bool TIleStepOnFluidLava(HardwareInterface hardware, MemoryInterface memory, EntityId id, ObjectsTypes type, uint8_t x, uint8_t y)
 {
     return CollisionFluidTile(id, type, x, y);
 }
 
 SET_MEMORY(".map")
-bool TIleStepOnFluidWater(EntityId id, ObjectsTypes type, uint8_t x, uint8_t y)
+bool TIleStepOnFluidWater(HardwareInterface hardware, MemoryInterface memory, EntityId id, ObjectsTypes type, uint8_t x, uint8_t y)
 {
     return CollisionFluidTile(id, type, x, y);
 }
 
 SET_MEMORY(".map")
-bool TIleStepOnPitAcid(EntityId id, ObjectsTypes type, uint8_t x, uint8_t y)
+bool TIleStepOnPitAcid(HardwareInterface hardware, MemoryInterface memory, EntityId id, ObjectsTypes type, uint8_t x, uint8_t y)
 {
     return Pit(id, type, x, y);
 }
 
 SET_MEMORY(".map")
-bool TIleStepOnPitLava(EntityId id, ObjectsTypes type, uint8_t x, uint8_t y)
+bool TIleStepOnPitLava(HardwareInterface hardware, MemoryInterface memory, EntityId id, ObjectsTypes type, uint8_t x, uint8_t y)
 {
     return Pit(id, type, x, y);
 }
 
 SET_MEMORY(".map")
-bool TIleStepOnPitMinor(EntityId id, ObjectsTypes type, uint8_t x, uint8_t y)
+bool TIleStepOnPitMinor(HardwareInterface hardware, MemoryInterface memory, EntityId id, ObjectsTypes type, uint8_t x, uint8_t y)
 {
     return Pit(id, type, x, y);
 }
 
 SET_MEMORY(".map")
-bool TIleStepOnPitSmall(EntityId id, ObjectsTypes type, uint8_t x, uint8_t y)
+bool TIleStepOnPitSmall(HardwareInterface hardware, MemoryInterface memory, EntityId id, ObjectsTypes type, uint8_t x, uint8_t y)
 {
     return Pit(id, type, x, y);
 }
 
 SET_MEMORY(".map")
-bool TIleStepOnPitSnake(EntityId id, ObjectsTypes type, uint8_t x, uint8_t y)
+bool TIleStepOnPitSnake(HardwareInterface hardware, MemoryInterface memory, EntityId id, ObjectsTypes type, uint8_t x, uint8_t y)
 {
     return Pit(id, type, x, y);
 }
 
 SET_MEMORY(".map")
-bool TIleStepOnPitSpike(EntityId id, ObjectsTypes type, uint8_t x, uint8_t y)
+bool TIleStepOnPitSpike(HardwareInterface hardware, MemoryInterface memory, EntityId id, ObjectsTypes type, uint8_t x, uint8_t y)
 {
     return Pit(id, type, x, y);
 }
 
 SET_MEMORY(".map")
-bool TIleStepOnPitWater(EntityId id, ObjectsTypes type, uint8_t x, uint8_t y)
+bool TIleStepOnPitWater(HardwareInterface hardware, MemoryInterface memory, EntityId id, ObjectsTypes type, uint8_t x, uint8_t y)
 {
     return Pit(id, type, x, y);
 }
 
 SET_MEMORY(".map")
-bool TIleStepOnPitWide(EntityId id, ObjectsTypes type, uint8_t x, uint8_t y)
+bool TIleStepOnPitWide(HardwareInterface hardware, MemoryInterface memory, EntityId id, ObjectsTypes type, uint8_t x, uint8_t y)
 {
     return Pit(id, type, x, y);
 }
 
 SET_MEMORY(".map")
-bool TIleStepOnRiverFrozen(EntityId id, ObjectsTypes type, uint8_t x, uint8_t y)
+bool TIleStepOnRiverFrozen(HardwareInterface hardware, MemoryInterface memory, EntityId id, ObjectsTypes type, uint8_t x, uint8_t y)
 {
     return NoInteraction(id, type, x, y);
 }
 
 SET_MEMORY(".map")
-bool TIleStepOnBrickWall(EntityId id, ObjectsTypes type, uint8_t x, uint8_t y)
+bool TIleStepOnBrickWall(HardwareInterface hardware, MemoryInterface memory, EntityId id, ObjectsTypes type, uint8_t x, uint8_t y)
 {
     return Wall(id, type, x, y);
 }
 
 SET_MEMORY(".map")
-bool TIleStepOnCastleWall(EntityId id, ObjectsTypes type, uint8_t x, uint8_t y)
+bool TIleStepOnCastleWall(HardwareInterface hardware, MemoryInterface memory, EntityId id, ObjectsTypes type, uint8_t x, uint8_t y)
 {
     return Wall(id, type, x, y);
 }
 
 SET_MEMORY(".map")
-bool TIleStepOnWallIce(EntityId id, ObjectsTypes type, uint8_t x, uint8_t y)
+bool TIleStepOnWallIce(HardwareInterface hardware, MemoryInterface memory, EntityId id, ObjectsTypes type, uint8_t x, uint8_t y)
 {
     return Wall(id, type, x, y);
 }
 
 SET_MEMORY(".map")
-bool TIleStepOnStoneWall(EntityId id, ObjectsTypes type, uint8_t x, uint8_t y)
+bool TIleStepOnStoneWall(HardwareInterface hardware, MemoryInterface memory, EntityId id, ObjectsTypes type, uint8_t x, uint8_t y)
 {
     return Wall(id, type, x, y);
 }
 
 SET_MEMORY(".map")
-bool TIleStepOnWoodWall(EntityId id, ObjectsTypes type, uint8_t x, uint8_t y)
+bool TIleStepOnWoodWall(HardwareInterface hardware, MemoryInterface memory, EntityId id, ObjectsTypes type, uint8_t x, uint8_t y)
 {
     return Wall(id, type, x, y);
 }

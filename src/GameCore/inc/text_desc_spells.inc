@@ -1,5 +1,5 @@
 // Generated creature descriptions
-// Database contains 63 total descriptions
+// Database contains 69 total descriptions
 
 // Individual description strings
 "A golden radiance spills from your fingertips, illuminating unseen spirits that dance and whisper in the shadows of reality.\0",
@@ -50,12 +50,18 @@
 "RAZOR_GRASS -- PLACEHOLDER TEXT - A mysterious spell awaiting discovery.\0",
 "REFLECT -- PLACEHOLDER TEXT - A mysterious spell awaiting discovery.\0",
 "REPEL -- PLACEHOLDER TEXT - A mysterious spell awaiting discovery.\0",
+"RESTORE_MANA -- PLACEHOLDER TEXT - A mysterious spell awaiting discovery.\0",
 "RESURRECT -- PLACEHOLDER TEXT - A mysterious spell awaiting discovery.\0",
 "RaiseXP -- PLACEHOLDER TEXT - A mysterious spell awaiting discovery.\0",
 "SHADOWS -- PLACEHOLDER TEXT - A mysterious spell awaiting discovery.\0",
 "SILENCE -- PLACEHOLDER TEXT - A mysterious spell awaiting discovery.\0",
 "SLOW -- PLACEHOLDER TEXT - A mysterious spell awaiting discovery.\0",
 "SOOTHE -- PLACEHOLDER TEXT - A mysterious spell awaiting discovery.\0",
+"SPAWN_ACID -- PLACEHOLDER TEXT - A mysterious spell awaiting discovery.\0",
+"SPAWN_FLOOR -- PLACEHOLDER TEXT - A mysterious spell awaiting discovery.\0",
+"SPAWN_LAVA -- PLACEHOLDER TEXT - A mysterious spell awaiting discovery.\0",
+"SPAWN_PITS -- PLACEHOLDER TEXT - A mysterious spell awaiting discovery.\0",
+"SPAWN_WATER -- PLACEHOLDER TEXT - A mysterious spell awaiting discovery.\0",
 "STRENGTHEN -- PLACEHOLDER TEXT - A mysterious spell awaiting discovery.\0",
 "SUMMON_FOOD -- PLACEHOLDER TEXT - A mysterious spell awaiting discovery.\0",
 "A shimmering portal erupts, swallowing the caster whole before depositing them elsewhere with a sudden rush of displaced air.\0",
@@ -67,4 +73,4 @@
 "XRAY_VISION -- PLACEHOLDER TEXT - A mysterious spell awaiting discovery.\0",
 " ------ \0",
 
-//ALL_DESCRIPTIONS_COUNT = 63;
+//ALL_DESCRIPTIONS_COUNT = 69;

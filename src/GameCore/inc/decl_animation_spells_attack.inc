@@ -1,5 +1,5 @@
 // Generated spell animation function headers
-// Database contains 63 total spells
+// Database contains 69 total spells
 
 // Individual spells strings
 bool SpellAttackAwaken(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker);
@@ -50,12 +50,18 @@ bool SpellAttackRaiseSkeleton(GraphicsInterface graphics, HardwareInterface hard
 bool SpellAttackRazorGrass(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker);
 bool SpellAttackReflect(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker);
 bool SpellAttackRepel(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker);
+bool SpellAttackRestoreMana(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker);
 bool SpellAttackResurrect(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker);
 bool SpellAttackRaiseXP(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker);
 bool SpellAttackShadows(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker);
 bool SpellAttackSilence(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker);
 bool SpellAttackSlow(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker);
 bool SpellAttackSoothe(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker);
+bool SpellAttackSpawnAcid(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker);
+bool SpellAttackSpawnFloor(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker);
+bool SpellAttackSpawnLava(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker);
+bool SpellAttackSpawnPits(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker);
+bool SpellAttackSpawnWater(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker);
 bool SpellAttackStrengthen(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker);
 bool SpellAttackCreateFood(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker);
 bool SpellAttackTeleport(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker);

@@ -8,12 +8,13 @@
 #include "lib_memory.h"
 
 #include "core_ram.h"
+#include "lib_debugging.h"
 
 #include "map_entities.h"
 #include "map_player.h"
 #include "map_utils.h"
 
-typedef void (*AIType)(HardwareInterface hardware, EntityId id);
+typedef void (*AIType)(HardwareInterface hardware, EntityId id, ObjectsTypes type);
 
 /**********************************************************************************************************************/
 /** Takes in an entity id
@@ -21,7 +22,7 @@ typedef void (*AIType)(HardwareInterface hardware, EntityId id);
  *  queues the cell position into the newPosition array for the given entity id
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-void RandomWalk(HardwareInterface hardware, EntityId id)
+void RandomWalk(HardwareInterface hardware, EntityId id, ObjectsTypes type)
 {
     Position pos = g_core.creatures.position[id];
 
@@ -45,11 +46,30 @@ void RandomWalk(HardwareInterface hardware, EntityId id)
  *  ON FAIL - return false
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool TargetHoming(HardwareInterface hardware, EntityId id)
+bool TargetHoming(HardwareInterface hardware, EntityId id, ObjectsTypes type)
 {
+    Position* positions = NULL;
+    Position* new_positions = NULL;
+
+    if (type == CREATURE)
+    {
+        positions = g_core.creatures.position;
+        new_positions = g_core.creatures.newPosition;
+    }
+    else if (type == TRAINER)
+    {
+        positions = g_core.trainers.position;
+        new_positions = g_core.trainers.newPosition;
+    }
+    else if (!positions || !new_positions)
+    {
+        DEBUG("Position* or new_positions null");
+        return false;
+    }
+
     uint16_t p_id = GetPlayerID();
     Position player_pos = GetPlayerPosition();
-    Position pos = g_core.creatures.position[id];
+    Position pos = positions[id];
 
     uint8_t player_x = player_pos.x;
     uint8_t player_y = player_pos.y;
@@ -88,7 +108,7 @@ bool TargetHoming(HardwareInterface hardware, EntityId id)
 
 
     Position newPos = {.x = pos_x, .y = pos_y};
-    g_core.creatures.newPosition[id] = newPos;
+    new_positions[id] = newPos;
 
     return true;
 }
@@ -97,7 +117,7 @@ bool TargetHoming(HardwareInterface hardware, EntityId id)
 /** array of pointers to movement types functions
  *  TODO - WORK IN PROGRESS
 **********************************************************************************************************************/
-void Humanoid(HardwareInterface hardware, EntityId id);
+void Humanoid(HardwareInterface hardware, EntityId id, ObjectsTypes type);
 
 //TODO eventually the key will be the creature id, but for now just one ai type
 //TODO you know probably better to have maybe 16 ai types and store a key on the entity
@@ -111,18 +131,18 @@ AIType aiActions[1] =
 /** Runs the logic for humanoid movement
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-void Humanoid(HardwareInterface hardware, EntityId id)
+void Humanoid(HardwareInterface hardware, EntityId id, ObjectsTypes type)
 {
-    if (TargetHoming(hardware, id))
+    if (TargetHoming(hardware, id, type))
         return;
-    RandomWalk(hardware, id);
+    RandomWalk(hardware, id, type);
 };
 
 /**********************************************************************************************************************/
 /** Entry point for movement AI
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-void CreatureAI(HardwareInterface hardware, EntityId id)
+void CreatureAI(HardwareInterface hardware, EntityId id, ObjectsTypes type)
 {
-    aiActions[0](hardware, id);
+    aiActions[0](hardware, id, type);
 }

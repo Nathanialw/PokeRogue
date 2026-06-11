@@ -4,6 +4,7 @@
 
 #include "core_entities.h"
 #include "lib_memory.h"
+#include "lib_constants.h"
 
 #include "enums.h"
 #include "types.h"
@@ -36,12 +37,22 @@ EntityId CaptureMonster(EntityId id)
 *   returns the entity id of the item
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-EntityId PickItem(EntityId id)
+bool PickItem(EntityId trainer_id, EntityId item_id)
 {
-    Position empty_pos = {.x = 0, .y = 0};
-    g_core.items.position[id] = empty_pos;
-    SetBit(g_core.items.onMap, id, false);
-    return id;
+    if (item_id == NO_ENTITY) return item_id;
+    for (uint8_t i = 0; i < MAX_BAG_SIZE; ++i)
+    {
+        if (g_core.trainers.itemID[trainer_id][i] == NO_ENTITY)
+        {
+            Position empty_pos = {.x = 0, .y = 0};
+            g_core.items.position[item_id] = empty_pos;
+            SetBit(g_core.items.onMap, item_id, false);
+            g_core.trainers.itemID[trainer_id][i] = item_id;
+            return true;
+        }
+    }
+
+    return false;
 }
 
 SET_MEMORY(".core")
@@ -64,6 +75,9 @@ bool AddCreatureToParty(EntityId trainer_id, EntityId creature_id)
 SET_MEMORY(".core")
 void DestroyCreature(EntityId id)
 {
+    if (!GetBit(g_core.creatures.active, id))
+        return;
+
     Position empty_pos = {.x = 0, .y = 0};
     g_core.creatures.position[id] = empty_pos;
     SetBit(g_core.creatures.onMap, id, false);
@@ -92,6 +106,9 @@ void DestroyCreature(EntityId id)
 SET_MEMORY(".core")
 void DestroyItem(EntityId id)
 {
+    if (!GetBit(g_core.items.active, id))
+        return;
+
     Position empty_pos = {.x = 0, .y = 0};
     g_core.items.position[id] = empty_pos;
     SetBit(g_core.items.onMap, id, false);
@@ -104,6 +121,10 @@ void DestroyItem(EntityId id)
 SET_MEMORY(".core")
 void DestroyObject(EntityId id)
 {
+    if (!GetBit(g_core.objects.active, id))
+        return;
+
+
     Position empty_pos = {.x = 0, .y = 0};
     g_core.objects.position[id] = empty_pos;
     SetBit(g_core.objects.onMap, id, false);
@@ -115,6 +136,23 @@ void DestroyObject(EntityId id)
 SET_MEMORY(".core")
 void DestroyTrainer(EntityId id)
 {
+    if (!GetBit(g_core.trainers.active, id))
+        return;
+
+    for (uint8_t i = 0; i < MAX_PARTY_SIZE; i++)
+    {
+        EntityId creature_id = g_core.trainers.partyID[id][i];
+        if (creature_id == NO_ENTITY) continue;
+        DestroyCreature(creature_id);
+        g_core.trainers.partyID[creature_id][i] = NO_ENTITY;
+    }
+
+
+    Position empty_pos = {.x = 0, .y = 0};
+    g_core.objects.position[id] = empty_pos;
+    SetBit(g_core.trainers.onMap, id, false);
+    g_core.trainers.types[id] = NO_ENTITY;
+    SetBit(g_core.trainers.active, id, false);
 }
 
 SET_MEMORY(".core")
@@ -272,9 +310,7 @@ EntityId SpawnMonster(HardwareInterface hardware, MemoryInterface memory, uint8_
             break;
         }
         if (i >= MAX_ENTITY_CREATURE_COUNT - 1)
-        {
             return NO_ENTITY;
-        }
     }
 
     if (l <= 0) l = 1;
@@ -338,9 +374,7 @@ EntityId SpawnItem(HardwareInterface hardware, MemoryInterface memory, uint8_t t
             break;
         }
         if (i >= MAX_ENTITY_ITEM_COUNT - 1)
-        {
             return NO_ENTITY;
-        }
     }
 
     GetItemMetadata(hardware, &g_core.items.metaData[id], type);
@@ -370,10 +404,9 @@ EntityId SpawnObject(HardwareInterface hardware, MemoryInterface memory, uint8_t
             break;
         }
         if (i >= MAX_ENTITY_OBJECT_COUNT - 1)
-        {
             return NO_ENTITY;
-        }
     }
+
     ObjectData objectData = {0};
     Flash_GetObjectData(memory, &objectData, type);
 
@@ -412,10 +445,9 @@ EntityId SpawnTrainer(HardwareInterface hardware, MemoryInterface memory, uint8_
             SetBit(g_core.trainers.active, id, true);
             break;
         }
+
         if (i >= MAX_ENTITY_TRAINER_COUNT - 1)
-        {
             return NO_ENTITY;
-        }
     }
 
     SetBit(g_core.trainers.onMap, id, true);
@@ -428,16 +460,10 @@ EntityId SpawnTrainer(HardwareInterface hardware, MemoryInterface memory, uint8_
         g_core.trainers.itemID[id][i] = NO_ENTITY;
 
     for (uint8_t i = 0; i < MAX_SPELLBOOK_SIZE; i++)
-    {
         g_core.trainers.spellID[id][i] = NO_SPELL;
-    }
 
 
-    //  TODO: load trainer spell data from the database flash
-    AddSpellPage(memory, id, HEAL, 0);
-    AddSpellPage(memory, id, DESCEND, 1);
-    AddSpellPage(memory, id, CLAIRVOYANCE, 2);
-    AddSpellPage(memory, id, DISPLACEMENT, 3);
+
 
     //  TODO: set party from trainer data in the database flash
     EntityId e_id = SpawnEntity(hardware, memory, CREATURE, BANSHEE, x, y, 5);
@@ -452,14 +478,6 @@ EntityId SpawnTrainer(HardwareInterface hardware, MemoryInterface memory, uint8_
     g_core.trainers.speed[id].current = 0;
     g_core.trainers.speed[id].max = 40;
 
-
-    //  TODO: set from trainer data in the database flash
-    EntityId item_id = SpawnEntity(hardware, memory, ITEM, RARE_CANDY, x, y, 0);
-    PlayerPickItem(id, item_id);
-    EntityId item_id2 = SpawnEntity(hardware, memory, ITEM, POTION_XP, x, y, 0);
-    PlayerPickItem(id, item_id2);
-    EntityId item_id3 = SpawnEntity(hardware, memory, ITEM, POTION_HEALTH, x, y, 0);
-    PlayerPickItem(id, item_id3);
 
     g_core.trainers.total++;
     return id;

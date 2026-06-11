@@ -88,7 +88,7 @@ def spells(entity):
         # Write individual constants
         f.write(f"// Individual {entity}s data\n")
 
-        for i, (name, power, level, mana_cost, type_0, type_enum, pp, use_on_party_member) in enumerate(spell_data):
+        for i, (name, power, level, type_0, type_enum, pp, use_on_party_member) in enumerate(spell_data):
             # Clean the types for C string
             power_str = f"0x{int(power):02x}"
             level_str = f"0x{int(level):02x}"

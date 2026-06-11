@@ -1,5 +1,5 @@
 // Generated spell name strings
-// Database contains 63 total spell
+// Database contains 69 total spell
 
 // Individual spell strings
 "Awaken\0",
@@ -50,12 +50,18 @@
 "Razor Grass\0",
 "Reflect\0",
 "Repel\0",
+"Restore Mana\0",
 "Resurrect\0",
 "RaiseXP\0",
 "Shadows\0",
 "Silence\0",
 "Slow\0",
 "Soothe\0",
+"Spawn Acid\0",
+"Spawn Floor\0",
+"Spawn Lava\0",
+"Spawn Pits\0",
+"Spawn Water\0",
 "Strengthen\0",
 "Create Food\0",
 "Teleport\0",

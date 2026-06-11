@@ -5,7 +5,7 @@
 #include "types.h"
 
 
-EntityId PickItem(EntityId id);
+bool PickItem(EntityId trainer_id, EntityId item_id);
 EntityId CaptureMonster(EntityId id);
 
 void GetEntityTypes(MemoryInterface memory, uint8_t* typeIDs, const uint8_t* e_ids, ObjectsTypes type, uint8_t n, uint8_t offset);

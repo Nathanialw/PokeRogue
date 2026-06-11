@@ -1,6 +1,7 @@
 //
 // Created by nathanial on 4/13/26.
 //
+#include "lib_memory.h"
 
 #include "lib_decl.h"
 #include "stdbool.h"
@@ -327,6 +328,42 @@ bool SpellStruckXRayVision(GraphicsInterface graphics, HardwareInterface hardwar
 }
 
 bool SpellStruckRaiseXP(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
+{
+    return false;
+}
+
+bool SpellStruckRestoreMana(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
+{
+    return false;
+}
+
+
+SET_MEMORY(".battle")
+bool SpellStruckSpawnAcid(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
+{
+    return false;
+}
+
+SET_MEMORY(".battle")
+bool SpellStruckSpawnFloor(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
+{
+    return false;
+}
+
+SET_MEMORY(".battle")
+bool SpellStruckSpawnLava(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
+{
+    return false;
+}
+
+SET_MEMORY(".battle")
+bool SpellStruckSpawnPits(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
+{
+    return false;
+}
+
+SET_MEMORY(".battle")
+bool SpellStruckSpawnWater(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
     return false;
 }

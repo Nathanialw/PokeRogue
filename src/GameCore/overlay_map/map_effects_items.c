@@ -7,8 +7,11 @@
 #include "core_ram.h"
 #include "core_stats.h"
 #include "core_utils.h"
+#include "map.h"
+
 #include "map_actions.h"
 #include "map_effects.h"
+#include "map_player.h"
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
@@ -157,7 +160,9 @@ ActionOutcome UseMapHolyWater(HardwareInterface hardware, MemoryInterface memory
 SET_MEMORY(".core")
 ActionOutcome UseMapExplosiveFlask(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
-    return ACTION_FAILED;
+    Position tile_pos = g_core.trainers.position[user_id];
+    SetSurroundingTils(tile_pos, FLOOR_DIRT);
+    return ACTION_SUCCEEDED;
 }
 
 /**********************************************************************************************************************/

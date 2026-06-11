@@ -30,6 +30,7 @@ EntityId PlayerCaptureMonster(EntityId e_id)
             return e_id;
         }
 
+
     return e_id;
 }
 
@@ -39,15 +40,11 @@ EntityId PlayerCaptureMonster(EntityId e_id)
 *   ON FAIL - TODO - add a fail state (item cannot be picked up)
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-EntityId PlayerPickItem(EntityId trainer_id, EntityId item_id)
+EntityId PlayerPickItem(EntityId item_id)
 {
-    if (item_id == NO_ENTITY) return item_id;
-    for (uint8_t i = 0; i < MAX_BAG_SIZE; ++i)
-        if (g_core.trainers.itemID[trainer_id][i] == NO_ENTITY)
-        {
-            g_core.trainers.itemID[trainer_id][i] = PickItem(item_id);
-            return item_id;
-        }
+    if (PickItem(g_core.player.id, item_id))
+        g_core.player.occupiedBagSlots++;
+
 
     //  apply passive item effect
     uint8_t item = GetItemType(item_id);
@@ -141,6 +138,12 @@ void ConsumeItem(uint8_t idx, EntityId e_id)
     }
 }
 
+
+void PlayerConsumeItem(uint8_t idx, EntityId e_id)
+{
+    ConsumeItem(idx, e_id);
+    g_core.player.occupiedBagSlots--;
+}
 
 /**********************************************************************************************************************/
 /**Returns the player ID

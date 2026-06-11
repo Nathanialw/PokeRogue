@@ -134,11 +134,12 @@ ActionOutcome UseBattlePoisonDart(HardwareInterface hardware, MemoryInterface me
 }
 
 /**********************************************************************************************************************/
-/*
+/*  // chance to fail and melt a players item
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
 ActionOutcome UseBattleAcidVial(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
+    DoDamage(g_core.battleMode.enemyMonsterID, itemData.power);
     return DestroyRandomPlayerItem();
 }
 
@@ -157,7 +158,8 @@ ActionOutcome UseBattleHolyWater(HardwareInterface hardware, MemoryInterface mem
 SET_MEMORY(".battle")
 ActionOutcome UseBattleExplosiveFlask(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
-    return ACTION_FAILED;
+    DoDamage(g_core.battleMode.enemyMonsterID, itemData.power);
+    return ACTION_SUCCEEDED;
 }
 
 /**********************************************************************************************************************/

@@ -6,14 +6,14 @@
 
 #include "lib_decl.h"
 #include "lib_memory.h"
+#include "lib_debugging.h"
+
 #include "types.h"
 
 #include "core_memory_access.h"
 #include "core_entities.h"
 #include "core_ram.h"
-#include "lib_debugging.h"
 
-#include "map_memory_access.h"
 #include "map_ram.h"
 
 

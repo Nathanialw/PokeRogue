@@ -22,18 +22,18 @@
  *
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool SetUsed(EntityId e_id)
+bool SetUsed(EntityId object_id)
 {
-    if (!GetBit(g_core.objects.interactable, e_id))
+    if (!GetBit(g_core.objects.interactable, object_id))
         return false;
-    SetBit(g_core.objects.interactable, e_id, false);
+    SetBit(g_core.objects.interactable, object_id, false);
     return true;
 }
 
 SET_MEMORY(".map")
-bool CheckUsed(EntityId e_id)
+bool CheckUsed(EntityId object_id)
 {
-    if (!GetBit(g_core.objects.interactable, e_id))
+    if (!GetBit(g_core.objects.interactable, object_id))
         return false;
     return true;
 }
@@ -105,7 +105,7 @@ ActionOutcome InteractWoodenBridge(HardwareInterface hardware, MemoryInterface m
 SET_MEMORY(".map")
 ActionOutcome InteractBookCase(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
-    if (SetUsed(e_id))
+    if (SetUsed(object_id))
     {
         Position pos = GetEntityPosition(OBJECT, object_id);
         uint8_t n = hardware.GetRandom_uint8_t(0, 1);
@@ -124,7 +124,7 @@ ActionOutcome InteractBookCase(HardwareInterface hardware, MemoryInterface memor
 SET_MEMORY(".map")
 ActionOutcome InteractJewelleryCase(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
-    if (SetUsed(e_id))
+    if (SetUsed(object_id))
     {
         Position pos = GetEntityPosition(OBJECT, object_id);
         // TODO pick a random of the correwct item type
@@ -140,7 +140,7 @@ ActionOutcome InteractJewelleryCase(HardwareInterface hardware, MemoryInterface 
 SET_MEMORY(".map")
 ActionOutcome InteractScrollCase(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
-    if (SetUsed(e_id))
+    if (SetUsed(object_id))
     {
         Position pos = GetEntityPosition(OBJECT, object_id);
         SpawnEntity(hardware, memory, ITEM, SCROLL, pos.x, pos.y, 0);
@@ -155,7 +155,7 @@ ActionOutcome InteractScrollCase(HardwareInterface hardware, MemoryInterface mem
 SET_MEMORY(".map")
 ActionOutcome InteractCauldron(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
-    if (SetUsed(e_id))
+    if (SetUsed(object_id))
     {
         Position pos = GetEntityPosition(OBJECT, object_id);
         // TODO pick a random of the correct item type
@@ -204,7 +204,7 @@ SET_MEMORY(".map")
 ActionOutcome InteractCoffin(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractCoffin");
-    if (SetUsed(e_id))
+    if (SetUsed(object_id))
     {
         uint8_t x = g_core.objects.position[object_id].x;
         uint8_t y = g_core.objects.position[object_id].y;
@@ -222,7 +222,7 @@ SET_MEMORY(".map")
 ActionOutcome InteractSarcophagus(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractSarcophagus");
-    if (SetUsed(e_id))
+    if (SetUsed(object_id))
     {
         uint8_t x = g_core.objects.position[object_id].x;
         uint8_t y = g_core.objects.position[object_id].y;
@@ -239,7 +239,7 @@ SET_MEMORY(".map")
 ActionOutcome InteractHangingCorpse(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractHangingCorpse");
-    if (SetUsed(e_id))
+    if (SetUsed(object_id))
     {
         uint8_t x = g_core.objects.position[object_id].x;
         uint8_t y = g_core.objects.position[object_id].y;
@@ -256,7 +256,7 @@ SET_MEMORY(".map")
 ActionOutcome InteractLaidCorpse(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractLaidCorpse");
-    if (SetUsed(e_id))
+    if (SetUsed(object_id))
     {
         uint8_t x = g_core.objects.position[object_id].x;
         uint8_t y = g_core.objects.position[object_id].y;
@@ -677,7 +677,7 @@ SET_MEMORY(".map")
 ActionOutcome InteractBarrel(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractBarrel");
-    if (SetUsed(e_id))
+    if (SetUsed(object_id))
     {
         uint8_t x = g_core.objects.position[object_id].x;
         uint8_t y = g_core.objects.position[object_id].y;
@@ -694,7 +694,7 @@ SET_MEMORY(".map")
 ActionOutcome InteractBasket(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractBasket");
-    if (SetUsed(e_id))
+    if (SetUsed(object_id))
     {
         uint8_t x = g_core.objects.position[object_id].x;
         uint8_t y = g_core.objects.position[object_id].y;
@@ -711,7 +711,7 @@ SET_MEMORY(".map")
 ActionOutcome InteractChest(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractChest");
-    if (SetUsed(e_id))
+    if (SetUsed(object_id))
     {
         uint8_t x = 20;
         uint8_t y = 20;
@@ -728,7 +728,7 @@ SET_MEMORY(".map")
 ActionOutcome InteractCoffer(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractCoffer");
-    if (SetUsed(e_id))
+    if (SetUsed(object_id))
     {
         uint8_t x = g_core.objects.position[object_id].x;
         uint8_t y = g_core.objects.position[object_id].y;
@@ -745,7 +745,7 @@ SET_MEMORY(".map")
 ActionOutcome InteractCrate(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractCrate");
-    if (SetUsed(e_id))
+    if (SetUsed(object_id))
     {
 
 
@@ -764,7 +764,7 @@ SET_MEMORY(".map")
 ActionOutcome InteractTrunk(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractTrunk");
-    if (SetUsed(e_id))
+    if (SetUsed(object_id))
     {
         uint8_t x = g_core.objects.position[object_id].x;
         uint8_t y = g_core.objects.position[object_id].y;
@@ -780,7 +780,7 @@ ActionOutcome InteractTrunk(HardwareInterface hardware, MemoryInterface memory, 
 SET_MEMORY(".map")
 ActionOutcome InteractUrn(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
-    if (SetUsed(e_id))
+    if (SetUsed(object_id))
     {
         uint8_t x = g_core.objects.position[object_id].x;
         uint8_t y = g_core.objects.position[object_id].y;
@@ -796,7 +796,7 @@ ActionOutcome InteractUrn(HardwareInterface hardware, MemoryInterface memory, En
 SET_MEMORY(".map")
 ActionOutcome InteractVault(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
-    if (SetUsed(e_id))
+    if (SetUsed(object_id))
     {
         uint8_t x = g_core.objects.position[object_id].x;
         uint8_t y = g_core.objects.position[object_id].y;

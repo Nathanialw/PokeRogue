@@ -5,5 +5,4 @@
 #include "../common/types.h"
 
 
-void CreatureAI(HardwareInterface hardware, EntityId id);
-void Humanoid(HardwareInterface hardware, EntityId id);
+void CreatureAI(HardwareInterface hardware, EntityId id, ObjectsTypes type);

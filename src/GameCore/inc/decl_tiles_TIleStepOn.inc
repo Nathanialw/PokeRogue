@@ -2,29 +2,29 @@
 // Database contains 24 total tiles
 
 // Individual tiles strings
-bool TIleStepOnCastleFloor(EntityId id, ObjectsTypes type, uint8_t x, uint8_t y);
-bool TIleStepOnDirtFloor(EntityId id, ObjectsTypes type, uint8_t x, uint8_t y);
-bool TIleStepOnMeadowFloor(EntityId id, ObjectsTypes type, uint8_t x, uint8_t y);
-bool TIleStepOnTundraFloor(EntityId id, ObjectsTypes type, uint8_t x, uint8_t y);
-bool TIleStepOnFloorVolcanic(EntityId id, ObjectsTypes type, uint8_t x, uint8_t y);
-bool TIleStepOnWoodFloor(EntityId id, ObjectsTypes type, uint8_t x, uint8_t y);
-bool TIleStepOnFluidAcid(EntityId id, ObjectsTypes type, uint8_t x, uint8_t y);
-bool TIleStepOnFluidCrystal(EntityId id, ObjectsTypes type, uint8_t x, uint8_t y);
-bool TIleStepOnFluidLava(EntityId id, ObjectsTypes type, uint8_t x, uint8_t y);
-bool TIleStepOnFluidWater(EntityId id, ObjectsTypes type, uint8_t x, uint8_t y);
-bool TIleStepOnPitAcid(EntityId id, ObjectsTypes type, uint8_t x, uint8_t y);
-bool TIleStepOnPitLava(EntityId id, ObjectsTypes type, uint8_t x, uint8_t y);
-bool TIleStepOnPitMinor(EntityId id, ObjectsTypes type, uint8_t x, uint8_t y);
-bool TIleStepOnPitSmall(EntityId id, ObjectsTypes type, uint8_t x, uint8_t y);
-bool TIleStepOnPitSnake(EntityId id, ObjectsTypes type, uint8_t x, uint8_t y);
-bool TIleStepOnPitSpike(EntityId id, ObjectsTypes type, uint8_t x, uint8_t y);
-bool TIleStepOnPitWater(EntityId id, ObjectsTypes type, uint8_t x, uint8_t y);
-bool TIleStepOnPitWide(EntityId id, ObjectsTypes type, uint8_t x, uint8_t y);
-bool TIleStepOnRiverFrozen(EntityId id, ObjectsTypes type, uint8_t x, uint8_t y);
-bool TIleStepOnBrickWall(EntityId id, ObjectsTypes type, uint8_t x, uint8_t y);
-bool TIleStepOnCastleWall(EntityId id, ObjectsTypes type, uint8_t x, uint8_t y);
-bool TIleStepOnWallIce(EntityId id, ObjectsTypes type, uint8_t x, uint8_t y);
-bool TIleStepOnStoneWall(EntityId id, ObjectsTypes type, uint8_t x, uint8_t y);
-bool TIleStepOnWoodWall(EntityId id, ObjectsTypes type, uint8_t x, uint8_t y);
+bool TIleStepOnCastleFloor(HardwareInterface hardware, MemoryInterface memory, EntityId id, ObjectsTypes type, uint8_t x, uint8_t y);
+bool TIleStepOnDirtFloor(HardwareInterface hardware, MemoryInterface memory, EntityId id, ObjectsTypes type, uint8_t x, uint8_t y);
+bool TIleStepOnMeadowFloor(HardwareInterface hardware, MemoryInterface memory, EntityId id, ObjectsTypes type, uint8_t x, uint8_t y);
+bool TIleStepOnTundraFloor(HardwareInterface hardware, MemoryInterface memory, EntityId id, ObjectsTypes type, uint8_t x, uint8_t y);
+bool TIleStepOnFloorVolcanic(HardwareInterface hardware, MemoryInterface memory, EntityId id, ObjectsTypes type, uint8_t x, uint8_t y);
+bool TIleStepOnWoodFloor(HardwareInterface hardware, MemoryInterface memory, EntityId id, ObjectsTypes type, uint8_t x, uint8_t y);
+bool TIleStepOnFluidAcid(HardwareInterface hardware, MemoryInterface memory, EntityId id, ObjectsTypes type, uint8_t x, uint8_t y);
+bool TIleStepOnFluidCrystal(HardwareInterface hardware, MemoryInterface memory, EntityId id, ObjectsTypes type, uint8_t x, uint8_t y);
+bool TIleStepOnFluidLava(HardwareInterface hardware, MemoryInterface memory, EntityId id, ObjectsTypes type, uint8_t x, uint8_t y);
+bool TIleStepOnFluidWater(HardwareInterface hardware, MemoryInterface memory, EntityId id, ObjectsTypes type, uint8_t x, uint8_t y);
+bool TIleStepOnPitAcid(HardwareInterface hardware, MemoryInterface memory, EntityId id, ObjectsTypes type, uint8_t x, uint8_t y);
+bool TIleStepOnPitLava(HardwareInterface hardware, MemoryInterface memory, EntityId id, ObjectsTypes type, uint8_t x, uint8_t y);
+bool TIleStepOnPitMinor(HardwareInterface hardware, MemoryInterface memory, EntityId id, ObjectsTypes type, uint8_t x, uint8_t y);
+bool TIleStepOnPitSmall(HardwareInterface hardware, MemoryInterface memory, EntityId id, ObjectsTypes type, uint8_t x, uint8_t y);
+bool TIleStepOnPitSnake(HardwareInterface hardware, MemoryInterface memory, EntityId id, ObjectsTypes type, uint8_t x, uint8_t y);
+bool TIleStepOnPitSpike(HardwareInterface hardware, MemoryInterface memory, EntityId id, ObjectsTypes type, uint8_t x, uint8_t y);
+bool TIleStepOnPitWater(HardwareInterface hardware, MemoryInterface memory, EntityId id, ObjectsTypes type, uint8_t x, uint8_t y);
+bool TIleStepOnPitWide(HardwareInterface hardware, MemoryInterface memory, EntityId id, ObjectsTypes type, uint8_t x, uint8_t y);
+bool TIleStepOnRiverFrozen(HardwareInterface hardware, MemoryInterface memory, EntityId id, ObjectsTypes type, uint8_t x, uint8_t y);
+bool TIleStepOnBrickWall(HardwareInterface hardware, MemoryInterface memory, EntityId id, ObjectsTypes type, uint8_t x, uint8_t y);
+bool TIleStepOnCastleWall(HardwareInterface hardware, MemoryInterface memory, EntityId id, ObjectsTypes type, uint8_t x, uint8_t y);
+bool TIleStepOnWallIce(HardwareInterface hardware, MemoryInterface memory, EntityId id, ObjectsTypes type, uint8_t x, uint8_t y);
+bool TIleStepOnStoneWall(HardwareInterface hardware, MemoryInterface memory, EntityId id, ObjectsTypes type, uint8_t x, uint8_t y);
+bool TIleStepOnWoodWall(HardwareInterface hardware, MemoryInterface memory, EntityId id, ObjectsTypes type, uint8_t x, uint8_t y);
 
 //ALL_NAMES_COUNT = 0;

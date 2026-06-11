@@ -1,5 +1,5 @@
 // Generated spell name strings
-// Database contains 63 total entries
+// Database contains 69 total entries
 
 // Individual items strings
 SpellStruckAwaken,
@@ -50,12 +50,18 @@ SpellStruckRaiseSkeleton,
 SpellStruckRazorGrass,
 SpellStruckReflect,
 SpellStruckRepel,
+SpellStruckRestoreMana,
 SpellStruckResurrect,
 SpellStruckRaiseXP,
 SpellStruckShadows,
 SpellStruckSilence,
 SpellStruckSlow,
 SpellStruckSoothe,
+SpellStruckSpawnAcid,
+SpellStruckSpawnFloor,
+SpellStruckSpawnLava,
+SpellStruckSpawnPits,
+SpellStruckSpawnWater,
 SpellStruckStrengthen,
 SpellStruckCreateFood,
 SpellStruckTeleport,

@@ -38,14 +38,16 @@ BattleMenu battleMenu = ABILITY_MENU;
  *  Set menu cursor cache data to defaults for lists
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool EnterMenu(const uint8_t listSize)
+bool EnterMenu(const uint8_t listSize, const uint8_t max_list_size)
 {
     if (g_core.menu.depth > 0)
     {
         return true;
     }
     g_core.menu.depth++;
-    g_core.menu.visibleMenuOptions = listSize;
+    g_core.menu.max_visible_menu_options = max_list_size;
+    g_core.menu.occupied_visible_menu_options = listSize;
+
     g_core.menu.menuScrollOffset[g_core.menu.depth].y = 0;
     g_core.menu.sel[g_core.menu.depth].y = 0;
     g_core.menu.x = PLAYER_BATTLER_FRAME.x / TEXT_W;
@@ -64,7 +66,8 @@ void OpenUseOnPartyBattle(HardwareInterface hardware, MemoryInterface memory, Us
 {
     FillListByEntityID(memory, g_core.player.currentPartySize, CREATURE, GetPlayerMonsterIDs());
     g_core.menu.useOnPartyMember = f;
-    g_core.menu.visibleMenuOptions = g_core.player.currentPartySize;
+    g_core.menu.max_visible_menu_options = MAX_PARTY_SIZE;
+    g_core.menu.occupied_visible_menu_options = g_core.player.currentPartySize;
 
     g_core.menu.depth++;
 
@@ -99,13 +102,15 @@ void CloseUseOnPartyBattle(MemoryInterface memory, UseFrameBack f)
     EntityId player_id = GetPlayerID();
     if (f == BACK_ITEM)
     {
-        g_core.menu.visibleMenuOptions = g_core.player.currentBagSize;
-        g_core.menu.totalMenuOptions = g_core.player.currentBagSize;
-        FillListByEntityID(memory, g_core.player.currentBagSize, ITEM, g_core.trainers.itemID[player_id]);
+        g_core.menu.max_visible_menu_options = g_core.player.currentSpellbookMaxSize;
+        g_core.menu.occupied_visible_menu_options = g_core.player.occupiedBagSlots;
+        g_core.menu.totalMenuOptions = g_core.player.occupiedBagSlots;
+        FillListByEntityID(memory, g_core.player.occupiedBagSlots, ITEM, g_core.trainers.itemID[player_id]);
     }
     else
     {
-        g_core.menu.visibleMenuOptions = MAX_SPELLBOOK_SIZE;
+        g_core.menu.max_visible_menu_options = g_core.player.currentSpellbookSize;
+        g_core.menu.occupied_visible_menu_options = g_core.player.currentSpellbookMaxSize;
         FillListByTypeID(memory, g_core.player.currentSpellbookSize, g_core.trainers.spellID[player_id]);
         g_core.menu.totalMenuOptions = MAX_SPELLBOOK_SIZE;
     }
@@ -129,7 +134,8 @@ void ExitMenu(MemoryInterface memory)
         g_core.menu.sel[g_core.menu.depth].y = 0;;
         g_core.menu.sel[g_core.menu.depth].x = 0;;
         g_core.menu.menuScrollOffset[g_core.menu.depth].y = 0;
-        g_core.menu.visibleMenuOptions = BATTLE_MENU_SIZE;
+        g_core.menu.max_visible_menu_options = BATTLE_MENU_SIZE;
+        g_core.menu.occupied_visible_menu_options = BATTLE_MENU_SIZE;
         g_core.menu.x = BATTLE_MENU_X;
         g_core.menu.y = BATTLE_MENU_Y;
         g_core.menu.h = BATTLE_MENU_H;
@@ -163,7 +169,7 @@ void CloseMenu(GraphicsInterface graphics, HardwareInterface hardware, MemoryInt
 SET_MEMORY(".battle")
 bool BattleSwap(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update)
 {
-    if (EnterMenu(g_core.player.currentPartySize))
+    if (EnterMenu(g_core.player.currentPartySize, MAX_PARTY_SIZE))
     {
         EntityId player_id = GetPlayerID();
         uint8_t sel = g_core.menu.sel[g_core.menu.depth].y;
@@ -193,7 +199,7 @@ SET_MEMORY(".battle")
 bool BattleSpell(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update)
 {
     EntityId player_id = GetPlayerID();
-    if (EnterMenu(g_core.player.currentSpellbookSize))
+    if (EnterMenu(g_core.player.currentSpellbookSize, g_core.player.currentSpellbookMaxSize))
     {
         EntityId friendly_target_id = g_core.battleMode.playerMonsterID;
         SpellId spell_id = NO_SPELL;
@@ -244,7 +250,7 @@ SET_MEMORY(".battle")
 bool BattleItems(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update)
 {
     EntityId player_id = GetPlayerID();
-    if (EnterMenu(g_core.player.currentBagSize))
+    if (EnterMenu(g_core.player.occupiedBagSlots, g_core.player.currentBagMaxSize))
     {
         EntityId target_id = g_core.battleMode.playerMonsterID;
 
@@ -282,7 +288,7 @@ bool BattleItems(GraphicsInterface graphics, HardwareInterface hardware, InputIn
         if (action_outcome == ACTION_SUCCEEDED)
         {
             if (itemData.consumable)
-                ConsumeItem(bag_idx, item_id);
+                PlayerConsumeItem(bag_idx, item_id);
 
             if (itemData.consumable_party)
                 CloseUseOnPartyBattle(memory, BACK_ITEM);
@@ -305,7 +311,7 @@ bool BattleItems(GraphicsInterface graphics, HardwareInterface hardware, InputIn
         return true;
     }
 
-    FillListByEntityID(memory, g_core.player.currentBagSize, ITEM, g_core.trainers.itemID[player_id]);
+    FillListByEntityID(memory, g_core.player.occupiedBagSlots, ITEM, g_core.trainers.itemID[player_id]);
     return
         true;
 }
@@ -317,7 +323,7 @@ bool BattleItems(GraphicsInterface graphics, HardwareInterface hardware, InputIn
 SET_MEMORY(".battle")
 bool BattleFlee(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update)
 {
-    if (EnterMenu(4))
+    if (EnterMenu(4, 1))
     {
         return true;
     }
@@ -333,7 +339,7 @@ SET_MEMORY(".battle")
 bool BattleCombatLog(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update)
 {
     // fire on initial entry
-    if (EnterMenu(4))
+    if (EnterMenu(4, 1))
     {
         return true;
     }
@@ -385,7 +391,8 @@ void InitBattleMenu(void)
     g_core.menu.h = BATTLE_MENU_H;
 
     g_core.menu.subMenus = battleSubmenus;
-    g_core.menu.visibleMenuOptions = AbilityCount();
+    g_core.menu.max_visible_menu_options = MAX_ABILITIES;
+    g_core.menu.occupied_visible_menu_options = AbilityCount();
 
     g_core.menu.depth = 0;
     g_core.menu.sel[g_core.menu.depth].x = 0;
@@ -414,14 +421,16 @@ void UpdateBattleMenu(InputInterface input, GraphicsInterface graphics, MemoryIn
         battleMenu = BATTLE_MENU;
         g_core.menu.x_offset = BATTLE_MENU_COL_2;
         g_core.menu.sel[g_core.menu.depth].y = 0;
-        g_core.menu.visibleMenuOptions = BATTLE_MENU_SIZE;
+        g_core.menu.max_visible_menu_options = BATTLE_MENU_SIZE;
+        g_core.menu.occupied_visible_menu_options = BATTLE_MENU_SIZE;
     }
     else
     {
         battleMenu = ABILITY_MENU;
         g_core.menu.x_offset = BATTLE_MENU_COL_1;
         g_core.menu.sel[g_core.menu.depth].y = 0;
-        g_core.menu.visibleMenuOptions = AbilityCount();
+        g_core.menu.max_visible_menu_options = MAX_ABILITIES;
+        g_core.menu.occupied_visible_menu_options = AbilityCount();
     }
 }
 

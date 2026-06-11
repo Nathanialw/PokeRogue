@@ -333,12 +333,28 @@ void DrawList(GraphicsInterface graphics, HardwareInterface hardware, MemoryInte
     const uint8_t list_y = y;
 
     uint8_t i = 0;
-    while (1)
+    bool empty = false;
+    const char* text;
+    char empty_line[SMALL_STRINGS] = "------";
+    while (i > max_lines || i < g_core.menu.max_visible_menu_options)
     {
-        GetMenuLine(memory, g_core.menu.text[i], i);
-        bool line_empty = (g_core.menu.text[i][0] == '\0');
-        if (line_empty || i > (max_lines)) break;
-        y += PrintLineStr(graphics, memory, x, y, font_size, max_chars, g_core.menu.text[i], indent);
+        if (!empty)
+        {
+            GetMenuLine(memory, g_core.menu.text[i], i);
+            text = g_core.menu.text[i];
+            if (g_core.menu.text[i][0] == '\0')
+            {
+                empty = true;
+                text = empty_line;
+            }
+        }
+        else
+        {
+            text = empty_line;
+        }
+
+
+        y += PrintLineStr(graphics, memory, x, y, font_size, max_chars, text, indent);
         i++;
     }
 

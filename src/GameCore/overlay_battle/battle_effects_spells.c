@@ -736,3 +736,58 @@ ActionOutcome CastBattleRaiseXP(HardwareInterface hardware, MemoryInterface memo
     GainXP(friendly_id, spellData.power);
     return ACTION_SUCCEEDED;
 }
+
+/**********************************************************************************************************************/
+/*
+**********************************************************************************************************************/
+SET_MEMORY(".battle")
+ActionOutcome CastBattleRestoreMana(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
+{
+    if (friendly_id == NO_ENTITY) return ACTION_CANNOT;
+    return RestoreMana(friendly_id, spellData.power);
+}
+
+/**********************************************************************************************************************/
+/*
+**********************************************************************************************************************/
+SET_MEMORY(".battle")
+ActionOutcome CastBattleSpawnLava(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
+{
+    return ACTION_FAILED;
+}
+
+/**********************************************************************************************************************/
+/*
+**********************************************************************************************************************/
+SET_MEMORY(".battle")
+ActionOutcome CastBattleSpawnWater(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
+{
+    return ACTION_FAILED;
+}
+
+/**********************************************************************************************************************/
+/*
+**********************************************************************************************************************/
+SET_MEMORY(".battle")
+ActionOutcome CastBattleSpawnFloor(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
+{
+    return ACTION_FAILED;
+}
+
+/**********************************************************************************************************************/
+/*
+**********************************************************************************************************************/
+SET_MEMORY(".battle")
+ActionOutcome CastBattleSpawnAcid(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
+{
+    return ACTION_FAILED;
+}
+
+/**********************************************************************************************************************/
+/*
+**********************************************************************************************************************/
+SET_MEMORY(".battle")
+ActionOutcome CastBattleSpawnPits(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
+{
+    return ACTION_FAILED;
+}

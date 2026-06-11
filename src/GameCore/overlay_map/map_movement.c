@@ -80,7 +80,7 @@ bool UpdatePositions(HardwareInterface hardware)
 #if defined(TEST_MAP)
         g_core.trainers.newPosition[id] = g_core.trainers.position[id];
 #else
-        CreatureAI(hardware, id);
+        CreatureAI(hardware, id, TRAINER);
 #endif
         speed[id].current = player_speed - (max - cur);
     }
@@ -93,7 +93,7 @@ bool UpdatePositions(HardwareInterface hardware)
         if (id == p_id) continue;
         Position t_pos = g_core.trainers.newPosition[id];
         if (t_pos.x == pos.x && t_pos.y == pos.y)
-            StartBattle(g_core.trainers.partyID[id][0]);
+            StartBattleTrainer(id);
     }
 
 
@@ -116,7 +116,7 @@ bool UpdatePositions(HardwareInterface hardware)
 #if defined(TEST_MAP)
         g_core.creatures.newPosition[id] = g_core.creatures.position[id];
 #else
-        CreatureAI(hardware, id);
+        CreatureAI(hardware, id, CREATURE);
 #endif
         speed[id].current = player_speed - (max - cur);
     }
@@ -128,7 +128,7 @@ bool UpdatePositions(HardwareInterface hardware)
         if (!GetBit(onMap, id)) continue;
         Position t_pos = g_core.creatures.newPosition[id];
         if (t_pos.x == pos.x && t_pos.y == pos.y)
-            StartBattle(id);
+            StartBattleCreature(id);
     }
 
 
@@ -176,7 +176,7 @@ void UpdateObjectCollision(MemoryInterface memory, HardwareInterface hardware)
 /**Iterates through all entities sets position to the queued position
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-void SetPositions(void)
+void SetPositions(HardwareInterface hardware, MemoryInterface memory)
 {
     //  trainer
     uint8_t* onMap = GetEntitiesOnMap(TRAINER); //array is 256 bytes
@@ -198,11 +198,11 @@ void SetPositions(void)
 
         //check current tile
         uint8_t tileID = GetMapTile(x, y);
-        CheckInteractionStepOff(tileID, id, TRAINER, x, y);
+        CheckInteractionStepOff(hardware, memory, tileID, id, TRAINER, x, y);
 
         //check next tile
         tileID = GetMapTile(nx, ny);
-        if (CheckInteractionStepOn(tileID, id, TRAINER, nx, ny))
+        if (CheckInteractionStepOn(hardware, memory, tileID, id, TRAINER, nx, ny))
             SetEntityPosition(TRAINER, id, x, y, nx, ny);
     }
 
@@ -226,11 +226,11 @@ void SetPositions(void)
 
         //check current tile
         uint8_t tileID = GetMapTile(x, y);
-        CheckInteractionStepOff(tileID, id, CREATURE, x, y);
+        CheckInteractionStepOff(hardware, memory, tileID, id, CREATURE, x, y);
 
         //check next tile
         tileID = GetMapTile(nx, ny);
-        if (CheckInteractionStepOn(tileID, id, CREATURE, nx, ny))
+        if (CheckInteractionStepOn(hardware, memory, tileID, id, CREATURE, nx, ny))
             SetEntityPosition(CREATURE, id, x, y, nx, ny);
     }
 
@@ -248,7 +248,7 @@ void UpdateGame(MemoryInterface memory, HardwareInterface hardware)
     UpdateObjectStatusEffects(hardware);
     if (UpdatePositions(hardware))
     {
-        SetPositions();
+        SetPositions(hardware, memory);
     }
     UpdateObjectCollision(memory, hardware);
     SetCameraPlayer();

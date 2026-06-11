@@ -147,7 +147,6 @@ ActionOutcome WaterWalking(EntityId e_id, uint8_t duration);
 ActionOutcome WallWalking(EntityId e_id, uint8_t duration);
 ActionOutcome WaterBreathing(EntityId e_id, uint8_t duration);
 ActionOutcome XRayVision(EntityId e_id, uint8_t duration);
-ActionOutcome CreateItem(HardwareInterface hardware, MemoryInterface memory, ObjectsTypes type, uint8_t t, uint8_t x, uint8_t y, uint8_t l);
 ActionOutcome CreateItemFood(HardwareInterface hardware, MemoryInterface memory, uint8_t t, uint8_t x, uint8_t y, uint8_t l);
 ActionOutcome CreateItemCommon(HardwareInterface hardware, MemoryInterface memory, uint8_t t, uint8_t x, uint8_t y, uint8_t l);
 ActionOutcome CreateItemMagic(HardwareInterface hardware, MemoryInterface memory, uint8_t t, uint8_t x, uint8_t y, uint8_t l);

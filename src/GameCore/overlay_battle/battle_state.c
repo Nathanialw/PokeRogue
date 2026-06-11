@@ -24,6 +24,7 @@
 #include "battle_ui.h"
 #include "core_entities.h"
 #include "core_memory_access.h"
+#include "core_utils.h"
 
 
 /**********************************************************************************************************************/
@@ -123,6 +124,13 @@ void HandleBattleStateInit(GameInterface* spi)
 
 void CleanUpBattleState(GameInterface* spi)
 {
+    if (g_core.battleMode.enemy_trainer_id != NO_ENTITY)
+    {
+        SetBit(g_core.player.defeated_trainers, g_core.battleMode.enemy_trainer_id, true);
+        DestroyTrainer(g_core.battleMode.enemy_trainer_id);
+        g_core.battleMode.enemy_trainer_id = NO_ENTITY;
+    }
+
     for (uint8_t i = 0; i < MAX_DEAD_CREATURES_CACHED; i++)
         DestroyCreature(g_battle.dead_creatures[i]);
 }
@@ -200,6 +208,7 @@ void HandleBattleState(GameInterface* spi)
         g_core.state.overlay = OVERLAY_MAP;
         return;
     }
+
 
     if (CheckBattleState(BATTLE_DEAD_FRIEND))
     {

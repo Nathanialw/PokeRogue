@@ -82,22 +82,22 @@ void FillListByTypeID(MemoryInterface memory, uint8_t n, uint8_t* ids)
 SET_MEMORY(".core")
 bool HandleMenuOverflow(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, Delta delta)
 {
-    bool options_exceed_menu = g_core.menu.h < g_core.menu.visibleMenuOptions;
+    bool options_exceed_menu = g_core.menu.h < g_core.menu.max_visible_menu_options;
     uint8_t sel_pos_y = g_core.menu.sel[g_core.menu.depth].y;
     uint8_t sel_off_y = g_core.menu.menuScrollOffset[g_core.menu.depth].y;
 
     if (options_exceed_menu)
     {
-        bool cursor_at_mid = sel_pos_y == (g_core.menu.visibleMenuOptions / 2);
-        bool options_within_bot = (sel_pos_y + sel_off_y) > g_core.menu.totalMenuOptions - (g_core.menu.visibleMenuOptions / 2);
-        bool options_within_top = (sel_pos_y + sel_off_y + delta.y) < (g_core.menu.visibleMenuOptions / 2);
+        bool cursor_at_mid = sel_pos_y == (g_core.menu.max_visible_menu_options / 2);
+        bool options_within_bot = (sel_pos_y + sel_off_y) > g_core.menu.totalMenuOptions - (g_core.menu.max_visible_menu_options / 2);
+        bool options_within_top = (sel_pos_y + sel_off_y + delta.y) < (g_core.menu.max_visible_menu_options / 2);
 
         if (cursor_at_mid)
         {
             if (!options_within_top || !options_within_bot)
             {
                 bool minOffset = sel_off_y == 0 && delta.y < 0;
-                bool maxOffset = sel_off_y >= g_core.menu.totalMenuOptions - g_core.menu.visibleMenuOptions && delta.y > 0;
+                bool maxOffset = sel_off_y >= g_core.menu.totalMenuOptions - g_core.menu.max_visible_menu_options && delta.y > 0;
 
                 if (!minOffset && !maxOffset)
                 {
@@ -112,14 +112,14 @@ bool HandleMenuOverflow(GraphicsInterface graphics, HardwareInterface hardware, 
         {
             if (sel_pos_y + delta.y < 0)
             {
-                uint8_t topBotPage = g_core.menu.totalMenuOptions - g_core.menu.visibleMenuOptions;
+                uint8_t topBotPage = g_core.menu.totalMenuOptions - g_core.menu.max_visible_menu_options;
                 g_core.menu.menuScrollOffset[g_core.menu.depth].y = topBotPage;
                 g_core.menu.subMenus[g_core.menu.sel[0].y](graphics, hardware, input, memory, true); // 0 call the function of the menu it is within
             }
         }
         else if (options_within_bot)
         {
-            if (sel_pos_y + delta.y >= g_core.menu.visibleMenuOptions)
+            if (sel_pos_y + delta.y >= g_core.menu.max_visible_menu_options)
             {
                 g_core.menu.menuScrollOffset[g_core.menu.depth].y = 0;
                 g_core.menu.subMenus[g_core.menu.sel[0].y](graphics, hardware, input, memory, true); // 0 call the function of the menu it is within
@@ -146,12 +146,12 @@ bool SetMenuDelta(GraphicsInterface graphics, HardwareInterface hardware, InputI
     g_core.menu.sel[g_core.menu.depth].y += delta.y;
 
 
-    if (g_core.menu.sel[g_core.menu.depth].y >= g_core.menu.visibleMenuOptions)
+    if (g_core.menu.sel[g_core.menu.depth].y >= g_core.menu.occupied_visible_menu_options)
         g_core.menu.sel[g_core.menu.depth].y = 0;
 
 
     if (g_core.menu.sel[g_core.menu.depth].y < 0)
-        g_core.menu.sel[g_core.menu.depth].y = g_core.menu.visibleMenuOptions - 1;
+        g_core.menu.sel[g_core.menu.depth].y = g_core.menu.occupied_visible_menu_options - 1;
 
     g_core.menu.eraseSel.x = g_core.menu.sel[g_core.menu.depth].x;
     g_core.menu.sel[g_core.menu.depth].x += delta.x;
@@ -196,7 +196,7 @@ uint8_t GetSelectorY(void)
 SET_MEMORY(".core")
 void GetMenuLine(MemoryInterface memory, char* text, uint8_t idx)
 {
-    if (idx >= g_core.menu.visibleMenuOptions)
+    if (idx >= g_core.menu.max_visible_menu_options)
     {
         text[0] = '\0';
         return;

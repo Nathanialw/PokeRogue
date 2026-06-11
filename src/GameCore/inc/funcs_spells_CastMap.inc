@@ -1,5 +1,5 @@
 // Generated spell name strings
-// Database contains 63 total entries
+// Database contains 69 total entries
 
 // Individual items strings
 CastMapAwaken,
@@ -50,12 +50,18 @@ CastMapRaiseSkeleton,
 CastMapRazorGrass,
 CastMapReflect,
 CastMapRepel,
+CastMapRestoreMana,
 CastMapResurrect,
 CastMapRaiseXP,
 CastMapShadows,
 CastMapSilence,
 CastMapSlow,
 CastMapSoothe,
+CastMapSpawnAcid,
+CastMapSpawnFloor,
+CastMapSpawnLava,
+CastMapSpawnPits,
+CastMapSpawnWater,
 CastMapStrengthen,
 CastMapCreateFood,
 CastMapTeleport,

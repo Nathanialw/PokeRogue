@@ -29,13 +29,30 @@ void InitPlayer(HardwareInterface hardware, MemoryInterface memory)
     if (g_core.player.id != NO_ENTITY)
         return;
 
-    g_core.player.currentBagSize = DEFAULT_BAG_SIZE;
-    g_core.player.currentSpellbookSize = DEFAULT_SPELLBOOK_SIZE;
-
     Position pos = FindOpenMapLocation(hardware, TRAINER);
     uint8_t x = pos.x;
     uint8_t y = pos.y;
     g_core.player.id = SpawnEntity(hardware, memory, TRAINER, 0, x, y, 0);
+
+    //  TODO: load trainer spell data from the database flash
+    AddSpellPage(memory, g_core.player.id, HEAL, g_core.player.currentSpellbookSize);
+    g_core.player.currentSpellbookSize++;
+    AddSpellPage(memory, g_core.player.id, DESCEND, g_core.player.currentSpellbookSize);
+    g_core.player.currentSpellbookSize++;
+    AddSpellPage(memory, g_core.player.id, CLAIRVOYANCE, g_core.player.currentSpellbookSize);
+    g_core.player.currentSpellbookSize++;
+    AddSpellPage(memory, g_core.player.id, DISPLACEMENT, g_core.player.currentSpellbookSize);
+    g_core.player.currentSpellbookSize++;
+
+
+    //  TODO: set from trainer data in the database flash
+    EntityId item_id = SpawnEntity(hardware, memory, ITEM, RARE_CANDY, x, y, 0);
+    PlayerPickItem(item_id);
+    EntityId item_id2 = SpawnEntity(hardware, memory, ITEM, POTION_XP, x, y, 0);
+    PlayerPickItem(item_id2);
+    EntityId item_id3 = SpawnEntity(hardware, memory, ITEM, EXPLOSIVE_FLASK, x, y, 0);
+    PlayerPickItem(item_id3);
+
     g_core.trainers.speed[g_core.player.id].max = 99;
     g_core.trainers.speed[g_core.player.id].current = 15;
 }
@@ -125,16 +142,15 @@ void CopyObject(EntityId src_id, EntityId target_id)
 SET_MEMORY(".map_gen")
 EntityId CachePlayerCreatureData(HardwareInterface hardware)
 {
-    EntityId creature_idx = 0;
-    EntityId p_ID = GetPlayerID();
-    creature_idx++;
+    EntityId player_id = GetPlayerID();
 
+    EntityId creature_idx = 0;
     for (uint8_t i = 0; i < MAX_PARTY_SIZE; i++)
     {
-        if (g_core.trainers.partyID[p_ID][i] != NO_ENTITY && g_core.trainers.partyID[p_ID][i] > creature_idx)
+        if (g_core.trainers.partyID[player_id][i] != NO_ENTITY)
         {
-            CopyCreature(hardware, g_core.trainers.partyID[p_ID][i], creature_idx);
-            g_core.trainers.partyID[p_ID][i] = creature_idx;
+            CopyCreature(hardware, g_core.trainers.partyID[player_id][i], creature_idx);
+            g_core.trainers.partyID[player_id][i] = creature_idx;
             creature_idx++;
         }
     }
@@ -203,15 +219,11 @@ void ResetEntities(HardwareInterface hardware, MemoryInterface memory, bool copy
 {
     uint16_t creature_start_idx = 0;
     uint16_t item_start_idx = 0;
-    if (copyPlayer)
-    {
-        creature_start_idx = CachePlayerCreatureData(hardware);
-        item_start_idx = CachePlayerItemData();
-    }
+    EntityId player_id = GetPlayerID();
 
     for (uint16_t i = creature_start_idx; i < MAX_ENTITY_CREATURE_COUNT; i++)
     {
-        if (i != GetPlayerID())
+        if (!CheckIfInPlayerParty(i))
             DestroyCreature(i);
     }
 
@@ -226,13 +238,14 @@ void ResetEntities(HardwareInterface hardware, MemoryInterface memory, bool copy
 
     for (uint16_t i = 0; i < MAX_ENTITY_TRAINER_COUNT; i++)
     {
-        if (i != GetPlayerID())
+        if (i != player_id)
             DestroyTrainer(i);
     }
 
     g_core.creatures.total = 0;
     g_core.items.total = 0;
     g_core.objects.total = 0;
+    g_core.trainers.total = 1;
 }
 
 
@@ -432,7 +445,6 @@ void GenerateEntities(GameInterface* spi)
 {
     if (g_core.turn_count == 0)
     {
-        ResetEntities(spi->hardware, spi->memory, false);
         InitPlayer(spi->hardware, spi->memory);
         PopulateLevelTrainers(spi->hardware, spi->memory);
         PopulateLevelCreatures(spi->hardware, spi->memory);

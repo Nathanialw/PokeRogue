@@ -750,3 +750,68 @@ ActionOutcome CastMapRaiseXP(HardwareInterface hardware, MemoryInterface memory,
     GainXP(target_id, spellData.power);
     return ACTION_SUCCEEDED;
 }
+
+/**********************************************************************************************************************/
+/*
+**********************************************************************************************************************/
+SET_MEMORY(".map")
+ActionOutcome CastMapRestoreMana(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
+{
+    if (target_id == NO_ENTITY) return ACTION_CANNOT;
+    return RestoreMana(target_id, spellData.power);
+}
+
+/**********************************************************************************************************************/
+/*
+**********************************************************************************************************************/
+SET_MEMORY(".map")
+ActionOutcome CastMapSpawnLava(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
+{
+    Position tile_pos = g_core.trainers.position[caster_id];
+    SetSurroundingTils(tile_pos, FLUID_LAVA);
+    return ACTION_SUCCEEDED;
+}
+
+/**********************************************************************************************************************/
+/*
+**********************************************************************************************************************/
+SET_MEMORY(".map")
+ActionOutcome CastMapSpawnWater(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
+{
+    Position tile_pos = g_core.trainers.position[caster_id];
+    SetSurroundingTils(tile_pos, FLUID_WATER);
+    return ACTION_SUCCEEDED;
+}
+
+/**********************************************************************************************************************/
+/*
+**********************************************************************************************************************/
+SET_MEMORY(".map")
+ActionOutcome CastMapSpawnFloor(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
+{
+    Position tile_pos = g_core.trainers.position[caster_id];
+    SetSurroundingTils(tile_pos, FLOOR_DIRT);
+    return ACTION_SUCCEEDED;
+}
+
+/**********************************************************************************************************************/
+/*
+**********************************************************************************************************************/
+SET_MEMORY(".map")
+ActionOutcome CastMapSpawnAcid(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
+{
+    Position tile_pos = g_core.trainers.position[caster_id];
+    SetSurroundingTils(tile_pos, FLUID_ACID);
+    return ACTION_SUCCEEDED;
+}
+
+/**********************************************************************************************************************/
+/*
+**********************************************************************************************************************/
+SET_MEMORY(".map")
+ActionOutcome CastMapSpawnPits(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
+{
+    Position tile_pos = g_core.trainers.position[caster_id];
+    SetSurroundingTils(tile_pos, PIT_SMALL);
+    return ACTION_SUCCEEDED;
+}

@@ -65,8 +65,7 @@ void PlayerInteractItemInCell()
 {
     Position pos = GetPlayerPosition();
     EntityId item_id = CheckTileForEntity(ITEM, g_core.player.id, pos);
-    EntityId player_id = GetPlayerID();
-    PlayerPickItem(player_id, item_id);
+    PlayerPickItem(item_id);
 }
 
 SET_MEMORY(".map")
@@ -91,4 +90,53 @@ bool CheckGameLost()
         g_core.trainers.partyID[player_id][i] = creature_id;
     }
     return false;
+}
+
+
+void ApplyPassiveBuff(EntityId item_id)
+{
+    switch (item_id)
+    {
+    case BAG_POUCH:
+        {
+            break;
+        }
+    case BAG_SACK:
+        {
+            break;
+        }
+    case BAG_BACKPACK:
+        {
+            break;
+        }
+
+    case EARMUFFS:
+        {
+            break;
+        }
+    case MIRROR:
+        {
+            break;
+        }
+    case WISDOM_CROWN:
+        {
+            break;
+        }
+    default:
+        {
+            break;
+        }
+    }
+}
+
+void UpdatePlayerVariables()
+{
+    for (uint8_t i = 0; i < MAX_BAG_SIZE; i++)
+    {
+        EntityId item_id = g_core.trainers.itemID[g_core.player.id][i];
+        if (item_id == NO_ENTITY)
+            continue;
+
+        ApplyPassiveBuff(item_id);
+    }
 }

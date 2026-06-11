@@ -52,9 +52,6 @@ HardwareInterface GetHardwareInterface(void)
         .GetRandomUniform = GetRandomUniform,
         .GetRandom_uint8_t = GetRandom_uint8_t,
         .StrChr = strchr,
-        .Print = Print,
-        .PrintVar = PrintVar,
-
     };
     return hardware;
 }
