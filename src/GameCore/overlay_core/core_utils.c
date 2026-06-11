@@ -88,21 +88,31 @@ void GetAsChars_Max99(uint8_t n, CharStr_max99* out)
     (*out)[3] = '\0';
 }
 
-/**********************************************************************************************************************/
-/** takes a char array and a uint8_t and writes the value og the integer as chars to the array
-**********************************************************************************************************************/
+/**********************************************************************************************************************
+ * Converts an Int99 value (0‑99) to a string in out.
+ *  If prependZeros is false, numbers < 10 are written as 1 digit (no leading space).
+ *  @param out          pointer to a CharStr_99 buffer (at least 3 chars)
+ *  @return             number of characters written (1 or 2, excluding null terminator)
+ **********************************************************************************************************************/
 SET_MEMORY(".core")
-void GetAsChars_99(Int99 n, CharStr_99* out, bool prependZeros)
+uint8_t GetAsChars_99(Int99 n, CharStr_99* out, bool prependZeros)
 {
-    uint8_t tens = (n.value / 10) % 10;
+    uint8_t tens = n.value / 10;
     uint8_t ones = n.value % 10;
 
-    if (!prependZeros && CHAR_OFFSET + tens == '0')
-        (*out)[0] = ' ';
+    if (!prependZeros && tens == 0)
+    {
+        (*out)[0] = CHAR_OFFSET + ones;
+        (*out)[1] = '\0';
+        return 1;
+    }
     else
+    {
         (*out)[0] = CHAR_OFFSET + tens;
-    (*out)[1] = CHAR_OFFSET + ones;
-    (*out)[2] = '\0';
+        (*out)[1] = CHAR_OFFSET + ones;
+        (*out)[2] = '\0';
+        return 2;
+    }
 }
 
 /**********************************************************************************************************************/

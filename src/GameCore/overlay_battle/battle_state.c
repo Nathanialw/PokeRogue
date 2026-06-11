@@ -64,7 +64,7 @@ void UpdateBattleRunningState(GraphicsInterface graphics, HardwareInterface hard
 
         if (input.GetButtonB())
         {
-            ExitMenu();
+            ExitMenu(memory);
             HandleBattle(graphics, hardware, memory);
         }
 

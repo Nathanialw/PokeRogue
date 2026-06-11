@@ -21,136 +21,136 @@ uint16_t CalcDamage(EntityId creatureID, uint16_t abilityPower);
 uint16_t CalcHeal(EntityId creatureID, uint16_t abilityPower);
 #endif
 
-bool NoEffect();
+ActionOutcome NoEffect();
 
 /**********************************************************************************************************************/
 /** DAMAGE EFFECTS
 **********************************************************************************************************************/
 void Attack(HardwareInterface hardware, MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData);
 void InstantKill(HardwareInterface hardware, MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData);
-bool QuickAttack(HardwareInterface hardware, MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData);
-bool Parry(EntityId attackerID, EntityId defenderID, SkillData abilityData);
-bool Summon(CreatureID creature);
-void SacrificeHeal(HardwareInterface hardware, MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData);
+ActionOutcome QuickAttack(HardwareInterface hardware, MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData);
+ActionOutcome Parry(EntityId attackerID, EntityId defenderID, SkillData abilityData);
+ActionOutcome Summon(CreatureID creature);
+ActionOutcome SacrificeHeal(HardwareInterface hardware, MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData);
 void DoDamage(EntityId creatureID, uint16_t damage);
 
 /**********************************************************************************************************************/
 /** RESOURCE EFFECTS
 **********************************************************************************************************************/
-bool Revive(EntityId e_id);
-bool MakeInvulnerable(EntityId e_id);
-bool HealTarget(EntityId e_id, uint16_t value);
-bool RestoreMana(EntityId e_id, uint8_t value);
-bool DrainMana(EntityId e_id, uint8_t value);
-bool RestorePP(EntityId trainer_id, uint8_t spell_index, uint8_t value);
+ActionOutcome Revive(EntityId e_id);
+ActionOutcome MakeInvulnerable(EntityId e_id);
+ActionOutcome HealTarget(EntityId e_id, uint16_t value);
+ActionOutcome RestoreMana(EntityId e_id, uint8_t value);
+ActionOutcome DrainMana(EntityId e_id, uint8_t value);
+ActionOutcome RestorePP(EntityId trainer_id, uint8_t spell_index, uint8_t value);
 
 /**********************************************************************************************************************/
 /** STATUS EFFECTS
 **********************************************************************************************************************/
-bool ApplyPoison(EntityId e_id, uint8_t duration);
-bool ApplyCurse(EntityId e_id, uint8_t duration);
-bool ApplyDisease(EntityId e_id, uint8_t duration);
-bool ApplyParalyze(EntityId e_id, uint8_t duration);
-bool ApplySleep(EntityId e_id, uint8_t duration);
-bool ApplyFrozen(EntityId e_id, uint8_t duration);
-bool ApplyFear(EntityId e_id, uint8_t duration);
-bool ApplyBurn(EntityId e_id, uint8_t duration);
-bool ApplySlow(EntityId e_id, uint8_t duration);
-bool ApplyHaste(EntityId e_id, uint8_t duration);
-bool RemovePoison(EntityId e_id);
-bool RemoveCurse(EntityId e_id);
-bool RemoveDisease(EntityId e_id);
-bool RemoveParalyze(EntityId e_id);
-bool RemoveSleep(EntityId e_id);
-bool RemoveFrozen(EntityId e_id);
-bool RemoveFear(EntityId e_id);
-bool RemoveBurn(EntityId e_id);
-bool RemoveSlow(EntityId e_id);
-bool RemoveHaste(EntityId e_id);
-void NextAttackFreezes();
-bool FreezeAttackers(EntityId e_id, uint8_t duration);
-bool PersistentPoisonCloud(uint8_t duration);
+ActionOutcome ApplyPoison(EntityId e_id, uint8_t duration);
+ActionOutcome ApplyCurse(EntityId e_id, uint8_t duration);
+ActionOutcome ApplyDisease(EntityId e_id, uint8_t duration);
+ActionOutcome ApplyParalyze(EntityId e_id, uint8_t duration);
+ActionOutcome ApplySleep(EntityId e_id, uint8_t duration);
+ActionOutcome ApplyFrozen(EntityId e_id, uint8_t duration);
+ActionOutcome ApplyFear(EntityId e_id, uint8_t duration);
+ActionOutcome ApplyBurn(EntityId e_id, uint8_t duration);
+ActionOutcome ApplySlow(EntityId e_id, uint8_t duration);
+ActionOutcome ApplyHaste(EntityId e_id, uint8_t duration);
+ActionOutcome RemovePoison(EntityId e_id);
+ActionOutcome RemoveCurse(EntityId e_id);
+ActionOutcome RemoveDisease(EntityId e_id);
+ActionOutcome RemoveParalyze(EntityId e_id);
+ActionOutcome RemoveSleep(EntityId e_id);
+ActionOutcome RemoveFrozen(EntityId e_id);
+ActionOutcome RemoveFear(EntityId e_id);
+ActionOutcome RemoveBurn(EntityId e_id);
+ActionOutcome RemoveSlow(EntityId e_id);
+ActionOutcome RemoveHaste(EntityId e_id);
+ActionOutcome NextAttackFreezes();
+ActionOutcome FreezeAttackers(EntityId e_id, uint8_t duration);
+ActionOutcome PersistentPoisonCloud(uint8_t duration);
 
 /**********************************************************************************************************************/
 /** RESISTANCES
 **********************************************************************************************************************/
-bool RaiseAcidResistance(EntityId e_id);
-bool RaiseFireResistance(EntityId e_id);
-bool RaiseWaterResistance(EntityId e_id);
-bool RaiseIceResistance(EntityId e_id);
-bool RaiseMagicResistance(EntityId e_id);
-bool RaiseAllResistance(EntityId e_id);
-bool LowerAcidResistance(EntityId e_id);
-bool LowerFireResistance(EntityId e_id);
-bool LowerWaterResistance(EntityId e_id);
-bool LowerIceResistance(EntityId e_id);
-bool LowerMagicResistance(EntityId e_id);
-bool FireEating(EntityId e_id);
-bool WaterEating(EntityId e_id);
-bool IceEating(EntityId e_id);
-bool AcidEating(EntityId e_id);
-bool LavaEating(EntityId e_id);
+ActionOutcome RaiseAcidResistance(EntityId e_id);
+ActionOutcome RaiseFireResistance(EntityId e_id);
+ActionOutcome RaiseWaterResistance(EntityId e_id);
+ActionOutcome RaiseIceResistance(EntityId e_id);
+ActionOutcome RaiseMagicResistance(EntityId e_id);
+ActionOutcome RaiseAllResistance(EntityId e_id);
+ActionOutcome LowerAcidResistance(EntityId e_id);
+ActionOutcome LowerFireResistance(EntityId e_id);
+ActionOutcome LowerWaterResistance(EntityId e_id);
+ActionOutcome LowerIceResistance(EntityId e_id);
+ActionOutcome LowerMagicResistance(EntityId e_id);
+ActionOutcome FireEating(EntityId e_id);
+ActionOutcome WaterEating(EntityId e_id);
+ActionOutcome IceEating(EntityId e_id);
+ActionOutcome AcidEating(EntityId e_id);
+ActionOutcome LavaEating(EntityId e_id);
 
 
 /**********************************************************************************************************************/
 /** CREATURE STATS
 **********************************************************************************************************************/
-bool LowerAccuracy(EntityId e_id);
-bool RaiseAccuracy(EntityId e_id);
-bool RaiseStrength(EntityId e_id);
-bool RaiseDefence(EntityId e_id);
-bool RaiseMagic(EntityId e_id);
-bool RaiseSpeed(EntityId e_id);
-bool LowerSpeed(EntityId e_id);
-bool LowerDefence(EntityId e_id);
-bool LowerMagic(EntityId e_id);
-bool LowerStrength(EntityId e_id);
-bool RaiseBaseStrength(EntityId e_id);
-bool RaiseBaseDefence(EntityId e_id);
-bool RaiseBaseMagic(EntityId e_id);
-bool RaiseBaseSpeed(EntityId e_id);
-bool LowerBaseSpeed(EntityId e_id);
-bool LowerBaseDefence(EntityId e_id);
-bool LowerBaseMagic(EntityId e_id);
-bool LowerBaseStrength(EntityId e_id);
-bool DrainXP(EntityId e_id);
-bool ResetTemporaryStatsMods(EntityId e_id);
-bool LevelUpRetainProgress(EntityId target_id);
+ActionOutcome LowerAccuracy(EntityId e_id);
+ActionOutcome RaiseAccuracy(EntityId e_id);
+ActionOutcome RaiseStrength(EntityId e_id);
+ActionOutcome RaiseDefence(EntityId e_id);
+ActionOutcome RaiseMagic(EntityId e_id);
+ActionOutcome RaiseSpeed(EntityId e_id);
+ActionOutcome LowerSpeed(EntityId e_id);
+ActionOutcome LowerDefence(EntityId e_id);
+ActionOutcome LowerMagic(EntityId e_id);
+ActionOutcome LowerStrength(EntityId e_id);
+ActionOutcome RaiseBaseStrength(EntityId e_id);
+ActionOutcome RaiseBaseDefence(EntityId e_id);
+ActionOutcome RaiseBaseMagic(EntityId e_id);
+ActionOutcome RaiseBaseSpeed(EntityId e_id);
+ActionOutcome LowerBaseSpeed(EntityId e_id);
+ActionOutcome LowerBaseDefence(EntityId e_id);
+ActionOutcome LowerBaseMagic(EntityId e_id);
+ActionOutcome LowerBaseStrength(EntityId e_id);
+ActionOutcome DrainXP(EntityId e_id);
+ActionOutcome ResetTemporaryStatsMods(EntityId e_id);
+ActionOutcome LevelUpRetainProgress(EntityId target_id);
 
 /**********************************************************************************************************************/
 /** PLAYER
 **********************************************************************************************************************/
-bool DiscoverItem(EntityId e_id);
-bool DiscoverCreature(EntityId e_id);
-bool DiscoverObject(EntityId e_id);
-bool DiscoverSpell(Spell spell_id);
-bool DiscoverSkill(Ability ability_id);
-bool LearnSpell(MemoryInterface memory, EntityId e_id, Spell spell_id);
-bool LearnSkill(EntityId e_id);
-bool Capture(HardwareInterface hardware, EntityId trainer_id, EntityId target_id, uint8_t successChance);
-bool AbandonTeam(EntityId e_id);
-bool Flee();
-void DestroyPlayerItem(EntityId item_id);
-void DestroyRandomPlayerItem();
+ActionOutcome DiscoverItem(EntityId e_id);
+ActionOutcome DiscoverCreature(EntityId e_id);
+ActionOutcome DiscoverObject(EntityId e_id);
+ActionOutcome DiscoverSpell(Spell spell_id);
+ActionOutcome DiscoverSkill(Ability ability_id);
+ActionOutcome LearnSpell(MemoryInterface memory, EntityId e_id, Spell spell_id);
+ActionOutcome LearnSkill(EntityId e_id);
+ActionOutcome Capture(HardwareInterface hardware, EntityId trainer_id, EntityId target_id, uint8_t successChance);
+ActionOutcome AbandonTeam(EntityId e_id);
+ActionOutcome Flee();
+ActionOutcome DestroyPlayerItem(EntityId item_id);
+ActionOutcome DestroyRandomPlayerItem();
 
 /**********************************************************************************************************************/
 /** MAP EFFECTS
 **********************************************************************************************************************/
-bool Repel(EntityId e_id, uint8_t duration);
-bool Hover(EntityId e_id, uint8_t duration);
-bool Invisibility(EntityId e_id, uint8_t duration);
+ActionOutcome Repel(EntityId e_id, uint8_t duration);
+ActionOutcome Hover(EntityId e_id, uint8_t duration);
+ActionOutcome Invisibility(EntityId e_id, uint8_t duration);
 
-bool StatusGreaterLight(EntityId e_id, uint8_t duration);
-bool StatusLesserLight(EntityId e_id, uint8_t duration);
+ActionOutcome StatusGreaterLight(EntityId e_id, uint8_t duration);
+ActionOutcome StatusLesserLight(EntityId e_id, uint8_t duration);
 
-bool WaterWalking(EntityId e_id, uint8_t duration);
-bool WallWalking(EntityId e_id, uint8_t duration);
-bool WaterBreathing(EntityId e_id, uint8_t duration);
-bool XRayVision(EntityId e_id, uint8_t duration);
-bool CreateItem(ItemTypes item);
-bool CreateItemFood();
-bool CreateItemCommon();
-bool CreateItemMagic();
-bool MapModifyTile(Position, MapTile tileType);
-bool RemoveMapFog();
-bool GoNextLevel(MapLevelChange dir);
+ActionOutcome WaterWalking(EntityId e_id, uint8_t duration);
+ActionOutcome WallWalking(EntityId e_id, uint8_t duration);
+ActionOutcome WaterBreathing(EntityId e_id, uint8_t duration);
+ActionOutcome XRayVision(EntityId e_id, uint8_t duration);
+ActionOutcome CreateItem(ItemTypes item);
+ActionOutcome CreateItemFood();
+ActionOutcome CreateItemCommon();
+ActionOutcome CreateItemMagic();
+ActionOutcome MapModifyTile(Position, MapTile tileType);
+ActionOutcome RemoveMapFog();
+ActionOutcome GoNextLevel(MapLevelChange dir);

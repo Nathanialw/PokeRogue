@@ -73,7 +73,7 @@ def run():
     # ability struct data
     export_structs.abilities("skill")
     # ability functions headers
-    export.func_c_headers("skill", "Skill", "bool", "HardwareInterface hardware,  MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData")
+    export.func_c_headers("skill", "Skill", "ActionOutcome", "HardwareInterface hardware,  MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData")
     # ability functions
     export.funcs_to_c_array("skill", "Skill")
     # ability animation functions
@@ -95,8 +95,8 @@ def run():
     # spell struct data
     export_structs.spells("spell")
     # spell functions headers
-    export.func_c_headers("spell", "CastBattle", "bool", "HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData")
-    export.func_c_headers("spell", "CastMap", "bool", "HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId enemy_id, SpellData spellData")
+    export.func_c_headers("spell", "CastBattle", "ActionOutcome", "HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData")
+    export.func_c_headers("spell", "CastMap", "ActionOutcome", "HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId enemy_id, SpellData spellData")
     # spell functions
     export.funcs_to_c_array("spell", "CastBattle")
     export.funcs_to_c_array("spell", "CastMap")
@@ -127,8 +127,8 @@ def run():
     bytes_count_map_sprites.append(export_map_sprites.export_image_data("item", 64))
 
     # item functions header
-    export.func_c_headers("item", "UseBattle", "bool", "HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index")
-    export.func_c_headers("item", "UseMap", "bool", "HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index")
+    export.func_c_headers("item", "UseBattle", "ActionOutcome", "HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index")
+    export.func_c_headers("item", "UseMap", "ActionOutcome", "HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index")
     # item functions
     export.funcs_to_c_array("item", "UseBattle")
     export.funcs_to_c_array("item", "UseMap")
@@ -158,7 +158,7 @@ def run():
     bytes_count_map_sprites.append(export_map_sprites.export_image_data("object", 64))
 
     # object functions header
-    export.func_c_headers("object", "Interact", "bool", "HardwareInterface hardware, EntityId object_id, EntityId e_id, ObjectData objectData")
+    export.func_c_headers("object", "Interact", "ActionOutcome", "HardwareInterface hardware, EntityId object_id, EntityId e_id, ObjectData objectData")
     # object functions
     export.funcs_to_c_array("object", "Interact")
     # object name strings

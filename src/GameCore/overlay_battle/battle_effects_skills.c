@@ -7,12 +7,13 @@
 #include "types.h"
 #include "lib_debugging.h"
 #include "lib_memory.h"
+
 #include "core_effects.h"
 #include "core_ram.h"
+#include "core_player.h"
 
 #include "battle_player.h"
 #include "battle_ram.h"
-#include "core_player.h"
 
 
 /*********************************************************************************************************************
@@ -35,10 +36,9 @@
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillNoSkill(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillNoSkill(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    NoEffect();
-    return false;
+    return NoEffect();
 }
 
 
@@ -49,65 +49,65 @@ bool SkillNoSkill(HardwareInterface hardware, MemoryInterface memory, EntityId t
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillFlameBlast(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillFlameBlast(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyBurn(defenderID, abilityData.power);
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillFireball(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillFireball(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyBurn(defenderID, abilityData.power);
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillEmber(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillEmber(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyBurn(defenderID, abilityData.power);
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillIncinerate(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillIncinerate(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyBurn(defenderID, abilityData.power);
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillCombustion(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillCombustion(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyBurn(defenderID, abilityData.power);
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillFlare(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillFlare(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     LowerAccuracy(defenderID);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
@@ -115,20 +115,20 @@ bool SkillFlare(HardwareInterface hardware, MemoryInterface memory, EntityId tra
 **********************************************************************************************************************/
 //UNUSED
 SET_MEMORY(".battle")
-bool SkillHeatWave(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillHeatWave(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     NoEffect();
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillFlamePunch(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillFlamePunch(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 
@@ -136,7 +136,7 @@ bool SkillFlamePunch(HardwareInterface hardware, MemoryInterface memory, EntityI
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillPyre(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillPyre(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     DEBUG("Pyre");
     if (IsInParty(attackerID))
@@ -153,93 +153,93 @@ bool SkillPyre(HardwareInterface hardware, MemoryInterface memory, EntityId trai
         RaiseMagic(attackerID);
     }
     DEBUG("Done Pyre");
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillScorch(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillScorch(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyBurn(defenderID, abilityData.power);
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillCinderStorm(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillCinderStorm(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     LowerSpeed(defenderID);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillMagmaBurst(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillMagmaBurst(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyBurn(defenderID, abilityData.power);
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillSunfury(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillSunfury(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     RaiseStrength(attackerID);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillBlazingCharge(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillBlazingCharge(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     // ensure this attack happens before anything
     NoEffect();
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillAshCloud(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillAshCloud(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     LowerAccuracy(defenderID);
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillInferno(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillInferno(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyBurn(defenderID, abilityData.power);
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillWildfire(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillWildfire(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyBurn(defenderID, abilityData.power);
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -249,91 +249,91 @@ bool SkillWildfire(HardwareInterface hardware, MemoryInterface memory, EntityId 
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillBlizzard(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillBlizzard(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyFrozen(defenderID, abilityData.power);
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillIceShard(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillIceShard(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillFrostBite(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
-{
-    ApplyFrozen(defenderID, abilityData.power);
-    Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
-}
-
-/*********************************************************************************************************************
-*
-**********************************************************************************************************************/
-SET_MEMORY(".battle")
-bool SkillFreeze(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillFrostBite(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyFrozen(defenderID, abilityData.power);
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillHailstorm(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillFreeze(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+{
+    ApplyFrozen(defenderID, abilityData.power);
+    Attack(hardware, memory, attackerID, defenderID, abilityData);
+    return ACTION_SUCCEEDED;
+}
+
+/*********************************************************************************************************************
+*
+**********************************************************************************************************************/
+SET_MEMORY(".battle")
+ActionOutcome SkillHailstorm(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillGlacialSpike(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillGlacialSpike(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillColdSnap(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillColdSnap(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     NextAttackFreezes();
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillIceArmor(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillIceArmor(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     RaiseDefence(attackerID);
     FreezeAttackers(attackerID, abilityData.power);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillFrostNova(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillFrostNova(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     if (IsInParty(defenderID))
     {
@@ -349,75 +349,75 @@ bool SkillFrostNova(HardwareInterface hardware, MemoryInterface memory, EntityId
         Attack(hardware, memory, attackerID, defenderID, abilityData);
     }
 
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillPermafrost(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillPermafrost(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillSnowBlind(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillSnowBlind(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     LowerAccuracy(defenderID);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillIceLance(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillIceLance(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillCryoBlast(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillCryoBlast(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     ApplyFrozen(defenderID, abilityData.power);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillArcticWinds(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillArcticWinds(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyFrozen(defenderID, abilityData.power);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillFrozenOrb(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillFrozenOrb(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillPolarVortex(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillPolarVortex(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     if (IsInParty(defenderID))
     {
@@ -432,7 +432,7 @@ bool SkillPolarVortex(HardwareInterface hardware, MemoryInterface memory, Entity
     {
         Attack(hardware, memory, attackerID, defenderID, abilityData);
     }
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -441,58 +441,58 @@ bool SkillPolarVortex(HardwareInterface hardware, MemoryInterface memory, Entity
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillCavitation(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillCavitation(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillHypervision(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillHypervision(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     RaiseAccuracy(attackerID);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillShellbreaker(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillShellbreaker(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     LowerDefence(defenderID);
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillTorrent(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillTorrent(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillWhirlpool(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillWhirlpool(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillDrowningGrasp(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillDrowningGrasp(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplySlow(defenderID, abilityData.power);
     Attack(hardware, memory, attackerID, defenderID, abilityData);
@@ -501,108 +501,108 @@ bool SkillDrowningGrasp(HardwareInterface hardware, MemoryInterface memory, Enti
     {
         g_battle.end_battle = true;
     }
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillTidalWave(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillTidalWave(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillWaterWhip(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillWaterWhip(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillAquaJet(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillAquaJet(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillRiptide(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillRiptide(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillHydroBlast(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillHydroBlast(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillDeepCurrent(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillDeepCurrent(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillMaelstrom(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillMaelstrom(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillBrineSpray(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillBrineSpray(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillSurge(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillSurge(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillPressureCrush(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillPressureCrush(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyParalyze(defenderID, abilityData.power);
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 
@@ -612,165 +612,165 @@ bool SkillPressureCrush(HardwareInterface hardware, MemoryInterface memory, Enti
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillVineWhip(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillVineWhip(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyParalyze(defenderID, abilityData.power);
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillPollenCloud(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillPollenCloud(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyPoison(defenderID, abilityData.power);
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillThornBarrage(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillThornBarrage(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillBloom(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillBloom(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     HealTarget(attackerID, abilityData.power);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillRootAnchor(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillRootAnchor(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplySlow(defenderID, abilityData.power);
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillForestWard(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillForestWard(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     RaiseDefence(attackerID);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillGravityRoot(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillGravityRoot(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyParalyze(defenderID, abilityData.power);
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillSporeExplosion(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillSporeExplosion(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillLeafStorm(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillLeafStorm(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillBrambleTrap(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillBrambleTrap(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillSeedVolley(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillSeedVolley(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillVerdantGrowth(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillVerdantGrowth(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     RaiseMagic(attackerID);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillToxicIvy(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillToxicIvy(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillCanopyShade(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillCanopyShade(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillPetalBlitz(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillPetalBlitz(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     // ensure this attack hits before anything
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillOvergrowth(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillOvergrowth(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     RaiseMagic(attackerID);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -779,179 +779,179 @@ bool SkillOvergrowth(HardwareInterface hardware, MemoryInterface memory, EntityI
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillConsume(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillConsume(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     HealTarget(attackerID, abilityData.power);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillPsychicShock(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillPsychicShock(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillRealitySlip(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillRealitySlip(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillMaddeningGaze(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillMaddeningGaze(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     AbandonTeam(defenderID);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillVoidRift(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillVoidRift(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillAnomaly(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillAnomaly(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillDissonance(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillDissonance(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillCorrupt(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillCorrupt(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillMindSpike(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillMindSpike(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillEldritchBlast(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillEldritchBlast(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillWarpPulse(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillWarpPulse(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillThoughtLeech(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillThoughtLeech(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     HealTarget(attackerID, abilityData.power);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillSanityBreak(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillSanityBreak(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillAstralChains(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillAstralChains(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplySlow(defenderID, abilityData.power);
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 // UNUSED
 SET_MEMORY(".battle")
-bool SkillChaosNova(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillChaosNova(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     NoEffect();
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 // UNUSED
 SET_MEMORY(".battle")
-bool SkillDimensionalTear(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillDimensionalTear(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     NoEffect();
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillPetrifyingGaze(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillPetrifyingGaze(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     InstantKill(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillPetrifyingTouch(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillPetrifyingTouch(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     InstantKill(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 
@@ -961,160 +961,160 @@ bool SkillPetrifyingTouch(HardwareInterface hardware, MemoryInterface memory, En
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillTailWhip(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillTailWhip(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillWingBuffet(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillWingBuffet(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillDragonBreath(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillDragonBreath(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillFearRoar(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillFearRoar(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyFear(defenderID, abilityData.power);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillFlyby(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillFlyby(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillScalesHarden(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillScalesHarden(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     RaiseDefence(attackerID);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillAncientWrath(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillAncientWrath(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillTreasureHunt(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillTreasureHunt(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillSkyDive(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillSkyDive(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillDraconicFury(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillDraconicFury(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillTailSweep(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillTailSweep(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillEmberRoar(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillEmberRoar(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillScaleStorm(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillScaleStorm(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillWyrmCharge(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillWyrmCharge(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillAncientGuard(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillAncientGuard(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     RaiseDefence(attackerID);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillGoldenInstinct(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillGoldenInstinct(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1123,160 +1123,160 @@ bool SkillGoldenInstinct(HardwareInterface hardware, MemoryInterface memory, Ent
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillBodySlam(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillBodySlam(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillStomp(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillStomp(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillEarthquake(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillEarthquake(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillMightyThrow(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillMightyThrow(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillGroundPound(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillGroundPound(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillCrush(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillCrush(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillTitanSwing(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillTitanSwing(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillMountainBreaker(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillMountainBreaker(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillBoulderToss(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillBoulderToss(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillSeismicSlam(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillSeismicSlam(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillIronGrip(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillIronGrip(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillTremorStep(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillTremorStep(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillColossalCharge(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillColossalCharge(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillLandslide(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillLandslide(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillBedrockShield(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillBedrockShield(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillTitanicRoar(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillTitanicRoar(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     RaiseStrength(attackerID);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1285,120 +1285,120 @@ bool SkillTitanicRoar(HardwareInterface hardware, MemoryInterface memory, Entity
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillScratch(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillScratch(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillPounce(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillPounce(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillFeralRage(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillFeralRage(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     RaiseStrength(attackerID);
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillHuntingInstinct(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillHuntingInstinct(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillPackCall(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillPackCall(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillTerrifyingRoar(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillTerrifyingRoar(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyFear(defenderID, abilityData.power);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillBloodScent(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillBloodScent(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     RaiseStrength(attackerID);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillViciousBite(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillViciousBite(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillRipAndTear(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillRipAndTear(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillAmbushStrike(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillAmbushStrike(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     // only quick attack if the enemy has not attacked otherwise just a normal attack
     if (!QuickAttack(hardware, memory, attackerID, defenderID, abilityData))
         Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillLunge(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillLunge(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillHowlOfThePack(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillHowlOfThePack(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     if (IsInParty(attackerID))
     {
@@ -1413,47 +1413,47 @@ bool SkillHowlOfThePack(HardwareInterface hardware, MemoryInterface memory, Enti
     {
         RaiseStrength(attackerID);
     }
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillSavageMaul(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillSavageMaul(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillPredatorFocus(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillPredatorFocus(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillThroatClamp(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillThroatClamp(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillStalk(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillStalk(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1462,163 +1462,163 @@ bool SkillStalk(HardwareInterface hardware, MemoryInterface memory, EntityId tra
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillPixieDust(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillPixieDust(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplySleep(defenderID, abilityData.power);
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillGlamour(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillGlamour(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillTricksterTreat(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillTricksterTreat(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillEnchantingMelody(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillEnchantingMelody(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyParalyze(defenderID, abilityData.power);
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillFaerieFire(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillFaerieFire(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillDreamDust(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillDreamDust(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplySleep(defenderID, abilityData.power);
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillWildMagic(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillWildMagic(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillGladeTeleport(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillGladeTeleport(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillMoonbeam(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillMoonbeam(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillMirrorGlamour(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillMirrorGlamour(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillFaeWhisper(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillFaeWhisper(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillPetalDance(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillPetalDance(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillStarSprinkle(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillStarSprinkle(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillMysticTangle(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillMysticTangle(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillLuminaBlessing(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillLuminaBlessing(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillTwilightShimmer(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillTwilightShimmer(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1627,7 +1627,7 @@ bool SkillTwilightShimmer(HardwareInterface hardware, MemoryInterface memory, En
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillPrayer(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillPrayer(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     if (IsInParty(attackerID))
     {
@@ -1642,158 +1642,158 @@ bool SkillPrayer(HardwareInterface hardware, MemoryInterface memory, EntityId tr
     {
         HealTarget(attackerID, abilityData.power);
     }
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillDivineSmite(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillDivineSmite(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillBlessing(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillBlessing(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillMiracle(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillMiracle(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillJudgement(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillJudgement(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillAuraOfReverence(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillAuraOfReverence(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillChannelDivinity(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillChannelDivinity(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillApotheosis(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillApotheosis(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillHolyLight(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillHolyLight(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillSacredShield(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillSacredShield(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillCelestialCall(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillCelestialCall(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillPurify(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillPurify(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     RemoveDisease(attackerID);
     RemoveCurse(attackerID);
     RemovePoison(attackerID);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillDivineIntervention(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillDivineIntervention(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillHaloOfGrace(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillHaloOfGrace(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     RaiseMagic(attackerID);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillRighteousFury(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillRighteousFury(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     RaiseStrength(attackerID);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillSeraphicWard(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillSeraphicWard(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     RaiseDefence(attackerID);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1802,68 +1802,68 @@ bool SkillSeraphicWard(HardwareInterface hardware, MemoryInterface memory, Entit
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillTackle(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillTackle(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillSlash(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillSlash(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillBash(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillBash(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyParalyze(defenderID, abilityData.power);
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillPreciseStrike(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillPreciseStrike(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     RaiseAccuracy(attackerID);
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillExorcism(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillExorcism(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillTaunt(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillTaunt(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillRally(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillRally(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     if (IsInParty(attackerID))
     {
@@ -1878,99 +1878,99 @@ bool SkillRally(HardwareInterface hardware, MemoryInterface memory, EntityId tra
     {
         RaiseStrength(attackerID);
     }
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillDisarm(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillDisarm(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     LowerStrength(defenderID);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillCharge(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillCharge(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     QuickAttack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillParry(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillParry(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Parry(attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillCripplingBlow(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillCripplingBlow(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplySlow(defenderID, abilityData.power);
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillGuardBreak(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillGuardBreak(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     LowerDefence(defenderID);
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillSecondWind(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillSecondWind(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     RestoreMana(attackerID, abilityData.power);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillIronWill(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillIronWill(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     RaiseMagic(attackerID);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillShieldBash(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillShieldBash(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillTacticalRetreat(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillTacticalRetreat(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Flee();
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1979,139 +1979,139 @@ bool SkillTacticalRetreat(HardwareInterface hardware, MemoryInterface memory, En
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillPrimordialForce(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillPrimordialForce(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillTimeWarp(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillTimeWarp(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyHaste(attackerID, abilityData.power);
     ApplySlow(defenderID, abilityData.power);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillFossilize(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillFossilize(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillCallOfTheVoid(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillCallOfTheVoid(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     LowerMagic(defenderID);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillWorldTear(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillWorldTear(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillSleepOfAges(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillSleepOfAges(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillAncientWisdom(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillAncientWisdom(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     RaiseMagic(attackerID);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillCatastrophe(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillCatastrophe(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillArcaneEruption(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillArcaneEruption(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillStoneTide(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillStoneTide(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillTemporalShift(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillTemporalShift(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyHaste(attackerID, abilityData.power);
     ApplySlow(defenderID, abilityData.power);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillPrimalScream(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillPrimalScream(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyFear(defenderID, abilityData.power);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillCosmicRay(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillCosmicRay(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillEternalGrasp(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillEternalGrasp(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyParalyze(defenderID, abilityData.power);
     Attack(hardware, memory, attackerID, defenderID, abilityData);
@@ -2119,27 +2119,27 @@ bool SkillEternalGrasp(HardwareInterface hardware, MemoryInterface memory, Entit
     {
         g_battle.end_battle = true;
     }
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillVolcanicOutburst(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillVolcanicOutburst(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillRunicAegis(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillRunicAegis(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -2148,141 +2148,141 @@ bool SkillRunicAegis(HardwareInterface hardware, MemoryInterface memory, EntityI
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillPlague(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillPlague(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyDisease(defenderID, abilityData.power);
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillLifeDrain(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillLifeDrain(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     HealTarget(attackerID, abilityData.power);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillGraveTouch(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillGraveTouch(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyCurse(defenderID, abilityData.power);
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillHaunt(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillHaunt(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyFear(defenderID, abilityData.power);
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillNecroticBurst(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillNecroticBurst(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillRaiseMinion(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillRaiseMinion(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Summon(SKELETON);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillWither(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillWither(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     LowerStrength(defenderID);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillDeathsDoor(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillDeathsDoor(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillWail(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillWail(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     InstantKill(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 // UNUSED
 SET_MEMORY(".battle")
-bool SkillSoulSip(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillSoulSip(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillBoneSpike(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillBoneSpike(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillCursedGround(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillCursedGround(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyCurse(defenderID, abilityData.power);
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillVampiricWave(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillVampiricWave(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     HealTarget(attackerID, abilityData.power);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillPhantomGrasp(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillPhantomGrasp(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyParalyze(defenderID, abilityData.power);
     Attack(hardware, memory, attackerID, defenderID, abilityData);
@@ -2290,37 +2290,37 @@ bool SkillPhantomGrasp(HardwareInterface hardware, MemoryInterface memory, Entit
     {
         g_battle.end_battle = true;
     }
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillTombShield(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillTombShield(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     RaiseDefence(defenderID);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillDarkRitual(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillDarkRitual(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     SacrificeHeal(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillEpitaph(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillEpitaph(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -2329,109 +2329,109 @@ bool SkillEpitaph(HardwareInterface hardware, MemoryInterface memory, EntityId t
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillSultryLook(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillSultryLook(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyParalyze(defenderID, abilityData.power);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillKiss(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillKiss(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyParalyze(defenderID, abilityData.power);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillHellfire(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillHellfire(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillCorruptingTouch(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillCorruptingTouch(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     ApplyDisease(defenderID, abilityData.power);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillDemonicPact(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillDemonicPact(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillSoulSiphon(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillSoulSiphon(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     DrainMana(defenderID, abilityData.power);
     RestoreMana(attackerID, abilityData.power);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillTemptation(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillTemptation(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillFelblaze(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillFelblaze(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillChaosWhisper(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillChaosWhisper(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillLustfulGlare(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillLustfulGlare(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyParalyze(defenderID, abilityData.power);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillAbyssalGrasp(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillAbyssalGrasp(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplySlow(defenderID, abilityData.power);
     Attack(hardware, memory, attackerID, defenderID, abilityData);
@@ -2439,47 +2439,47 @@ bool SkillAbyssalGrasp(HardwareInterface hardware, MemoryInterface memory, Entit
     {
         g_battle.end_battle = true;
     }
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillCursedEmbrace(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillCursedEmbrace(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillInfernalRush(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillInfernalRush(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillDiabolicCry(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillDiabolicCry(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     RaiseStrength(defenderID);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillHellscape(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillHellscape(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -2488,173 +2488,173 @@ bool SkillHellscape(HardwareInterface hardware, MemoryInterface memory, EntityId
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillSting(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillSting(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyPoison(defenderID, abilityData.power);
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillVenomSpit(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillVenomSpit(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyPoison(defenderID, abilityData.power);
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillToxicCloud(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillToxicCloud(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyPoison(defenderID, abilityData.power);
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillParalyze(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillParalyze(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyParalyze(defenderID, abilityData.power);
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillAcidSpray(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillAcidSpray(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     DestroyRandomPlayerItem();
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillNeurotoxin(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillNeurotoxin(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyParalyze(defenderID, abilityData.power);
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillContagion(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillContagion(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyDisease(defenderID, abilityData.power);
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillAntidote(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillAntidote(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     RemovePoison(attackerID);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillToxicFang(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillToxicFang(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyPoison(defenderID, abilityData.power);
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillVirulentBite(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillVirulentBite(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyDisease(defenderID, abilityData.power);
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillToxicBarrage(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillToxicBarrage(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillNerveStrike(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillNerveStrike(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyParalyze(defenderID, abilityData.power);
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillToxicMist(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillToxicMist(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     PersistentPoisonCloud(abilityData.power);
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillVenomousTail(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillVenomousTail(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyParalyze(defenderID, abilityData.power);
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillInfectiousTouch(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillInfectiousTouch(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyDisease(defenderID, abilityData.power);
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillPurifyCure(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillPurifyCure(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     RemoveDisease(attackerID);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -2663,161 +2663,161 @@ bool SkillPurifyCure(HardwareInterface hardware, MemoryInterface memory, EntityI
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillSacrifice(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillSacrifice(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillRockThrow(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillRockThrow(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillMudSlide(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillMudSlide(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillStoneSkin(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillStoneSkin(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     LowerDefence(defenderID);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillQuicksand(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillQuicksand(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplySlow(defenderID, abilityData.power);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillEarthenPrison(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillEarthenPrison(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyParalyze(defenderID, abilityData.power);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillLavaBurst(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillLavaBurst(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillTerraform(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillTerraform(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillBoulderCrush(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillBoulderCrush(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillEarthquakeStomp(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillEarthquakeStomp(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillTremorWave(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillTremorWave(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillStoneSpike(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillStoneSpike(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillMudClaw(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillMudClaw(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplySlow(defenderID, abilityData.power);
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillGeoBarrier(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillGeoBarrier(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     RaiseDefence(defenderID);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillMagmaFlow(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillMagmaFlow(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 /*********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool SkillLandShift(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SkillLandShift(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return false;
+    return ACTION_SUCCEEDED;
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

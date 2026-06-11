@@ -11,7 +11,6 @@
 #include "enums.h"
 #include "types.h"
 
-#include "core_ram.h"
 
 
 // #define MEMORY_PRINT

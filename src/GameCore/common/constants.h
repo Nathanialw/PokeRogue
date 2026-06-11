@@ -57,6 +57,7 @@ _Static_assert(OBJECT_COUNT <= 256, "max must be 256 - one byte");
  *  multiples of 16 for pico cache
 **********************************************************************************************************************/
 #define SMALL_STRINGS 16   // Cache line size - perfect for names/menu items
+#define MEDIUM_STRINGS 32   // Cache line size - perfect for names/menu items
 #define LARGE_STRINGS 128  // Plenty for descriptions (fits 1-2 sentences)
 
 
@@ -136,14 +137,15 @@ _Static_assert(DIALOGUE_H + RESOURCE_FRAME_H + BATTLER_AREA_H <= TFT_H, "cannot 
 
 #define BATTLE_MENU_X 0
 #define BATTLE_MENU_Y ((SCREEN_H-DIALOGUE_H) / TEXT_H)
-#define BATTLE_MENU_W 15
-#define BATTLE_MENU_H 8
+#define BATTLE_MENU_W 2
+#define BATTLE_MENU_H 6
 
 #define BATTLE_MENU_COL_1 0
 #define BATTLE_MENU_COL_2 20
 
 #define BATTLE_LIST_X 0
 #define BATTLE_LIST_Y 9
+#define BATTLE_LIST_H (BATTLER_AREA_H / TEXT_H)
 
 /**********************************************************************************************************************/
 /**MAP constants

@@ -6,8 +6,8 @@
 #include "types.h"
 
 void SetXPToLevel(EntityId id, IntMax999* xp);
-void GainXP(EntityId id, EntityId dead_id);
-
+void GainXPFromKill(EntityId id, EntityId dead_id);
+void GainXP(EntityId creature_id, uint16_t xp_value);
 
 void GetStats(HardwareInterface hardware, MemoryInterface memory, Stats *stats, Creature type, uint8_t level);
 

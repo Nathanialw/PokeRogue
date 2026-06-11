@@ -101,7 +101,7 @@ void DrawCursor(GraphicsInterface graphics, MemoryInterface memory)
 
     const uint16_t x = g_core.menu.x * TEXT_W;
     const uint16_t list_y = g_core.menu.y * TEXT_H;
-    const uint16_t erase_x = x + (g_core.menu.eraseSel.x * g_core.menu.w * TEXT_W);
+    const uint16_t erase_x = x + (g_core.menu.eraseSel.x * g_core.menu.x_offset * TEXT_W);
     Color battler_menu_color = Flash_GetColor(memory, PAL_OFF_WHITE_GRAY);
     graphics.FillRect(erase_x, list_y + (g_core.menu.eraseSel.y * (TEXT_W + g_core.menu.lineHeight)), TEXT_W, TEXT_W, battler_menu_color);
 
@@ -109,18 +109,20 @@ void DrawCursor(GraphicsInterface graphics, MemoryInterface memory)
     Glyph buffer = {0};
     uint8_t sel_y = GetSelectorY();
     uint8_t sel_x = GetSelectorX();
+    uint16_t draw_x = x + (sel_x * g_core.menu.x_offset * TEXT_W);
+    uint16_t draw_y = list_y + (sel_y * (TEXT_W + g_core.menu.lineHeight));
     const FontSize font_size = g_core.settings.fontSize;
     if (font_size == FONT8x8)
     {
         Glyph8x8 character;
         CharFromGlyph1bpp(memory, buffer, character.pixels, '>' - FONT_OFFSET, font_size, Flash_GetColor(memory, PAL_DARK_BLUE_GRAY), Flash_GetColor(memory, PAL_KEY));
-        graphics.DrawTileKeyed(x + (sel_x * g_core.menu.w * TEXT_W), list_y + (sel_y * (TEXT_W + g_core.menu.lineHeight)), TEXT_W, TEXT_W, character.pixels);
+        graphics.DrawTileKeyed(draw_x, draw_y, TEXT_W, TEXT_W, character.pixels);
     }
     else
     {
         Glyph character;
         CharFromGlyph1bpp(memory, buffer, character.pixels, '>' - FONT_OFFSET, font_size, Flash_GetColor(memory, PAL_DARK_BLUE_GRAY), Flash_GetColor(memory, PAL_KEY));
-        graphics.DrawTileKeyed(x + (sel_x * g_core.menu.w * TEXT_W), list_y + (sel_y * (TEXT_W + g_core.menu.lineHeight)), TEXT_W, TEXT_W, character.pixels);
+        graphics.DrawTileKeyed(draw_x, draw_y, TEXT_W, TEXT_W, character.pixels);
     }
 }
 

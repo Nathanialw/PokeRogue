@@ -21,7 +21,7 @@ void GetAsChars_Max999(uint16_t n, CharStr_max999* out);
 
 uint8_t GetBottomByte(uint8_t originalByte);
 uint8_t GetTopByte(uint8_t originalByte);
-void GetAsChars_99(Int99 n, CharStr_99* out, bool prependZeros);
+uint8_t GetAsChars_99(Int99 n, CharStr_99* out, bool prependZeros);
 
 uint16_t Int999GetCurrent(const IntMax999* hp);
 uint16_t Int999GetMax(const IntMax999* hp);

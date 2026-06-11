@@ -456,7 +456,7 @@ EntityId SpawnTrainer(HardwareInterface hardware, MemoryInterface memory, uint8_
     //  TODO: set from trainer data in the database flash
     EntityId item_id = SpawnEntity(hardware, memory, ITEM, RARE_CANDY, x, y, 0);
     PlayerPickItem(id, item_id);
-    EntityId item_id2 = SpawnEntity(hardware, memory, ITEM, CAPTURE_LASSO, x, y, 0);
+    EntityId item_id2 = SpawnEntity(hardware, memory, ITEM, POTION_XP, x, y, 0);
     PlayerPickItem(id, item_id2);
     EntityId item_id3 = SpawnEntity(hardware, memory, ITEM, POTION_HEALTH, x, y, 0);
     PlayerPickItem(id, item_id3);

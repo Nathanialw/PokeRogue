@@ -8,4 +8,4 @@
 void InitBattleMenu(void);
 void UpdateBattleMenu(InputInterface input, GraphicsInterface graphics, MemoryInterface memory);
 bool BattleMenuCommand(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory);
-void ExitMenu(void);
+void ExitMenu(MemoryInterface memory);

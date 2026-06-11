@@ -30,19 +30,12 @@ void SetXPToLevel(EntityId id, IntMax999* xp)
 
 
 /**********************************************************************************************************************/
-/** Retrieves the xp value of a killed creature and adds it to the xp of the slaying creature
- *  handles level up
+/** handles xp gain and  level up
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-void GainXP(EntityId id, EntityId dead_id)
+void GainXP(EntityId creature_id, uint16_t xp_value)
 {
-    Stats stats = g_core.creatures.stats[dead_id];
-    uint8_t level = g_core.creatures.level[dead_id].value;
-    uint16_t total_stats = stats.magic + stats.attack + stats.defence + stats.speed + (50 * level);
-    uint16_t xp_value = total_stats / 20;
-
-
-    IntMax999 xp = g_core.creatures.xp[id];
+    IntMax999 xp = g_core.creatures.xp[creature_id];
     uint16_t cur = Int999GetCurrent(&xp);
     g_core.battleMode.battle_xp_cache = cur;
     uint16_t max = Int999GetMax(&xp);
@@ -53,14 +46,29 @@ void GainXP(EntityId id, EntityId dead_id)
     }
     else
     {
-        g_core.creatures.level[id].value++;
+        g_core.creatures.level[creature_id].value++;
         new_xp = new_xp - max;
-        SetXPToLevel(id, &xp);
+        SetXPToLevel(creature_id, &xp);
         Int999SetCurrent(&xp, new_xp);
         g_core.battleMode.battle_xp_max_cache = Int999GetMax(&xp);
     }
 
-    g_core.creatures.xp[id] = xp;
+    g_core.creatures.xp[creature_id] = xp;
+}
+
+
+/**********************************************************************************************************************/
+/** Retrieves the xp value of a killed creature and calls Gain XP that handles xp gain and level up
+**********************************************************************************************************************/
+SET_MEMORY(".core")
+void GainXPFromKill(EntityId id, EntityId dead_id)
+{
+    Stats stats = g_core.creatures.stats[dead_id];
+    uint8_t level = g_core.creatures.level[dead_id].value;
+    uint16_t total_stats = stats.magic + stats.attack + stats.defence + stats.speed + (50 * level);
+    uint16_t xp_value = total_stats / 20;
+
+    GainXP(id, xp_value);
 }
 
 

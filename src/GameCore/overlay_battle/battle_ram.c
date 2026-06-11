@@ -80,21 +80,21 @@ BattleRunState g_battle = {
 /**     FUNCTIONS
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool Flash_GetSkillEffect(HardwareInterface hardware, MemoryInterface memory, uint8_t skillType, EntityId trainer_id, EntityId party_id, EntityId target_id, SkillData skillData)
+ActionOutcome Flash_GetSkillEffect(HardwareInterface hardware, MemoryInterface memory, uint8_t skillType, EntityId trainer_id, EntityId party_id, EntityId target_id, SkillData skillData)
 {
     return abilityFunctions[skillType](hardware, memory, trainer_id, party_id, target_id, skillData);
 }
 
 
 SET_MEMORY(".battle")
-bool CastBattleSpell(HardwareInterface hardware, MemoryInterface memory, SpellId spell_id, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
+ActionOutcome CastBattleSpell(HardwareInterface hardware, MemoryInterface memory, SpellId spell_id, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
 {
     return spellFunctionsBattle[spell_id](hardware, memory, caster_id, friendly_id, enemy_id, spellData);
 }
 
 
 SET_MEMORY(".battle")
-bool UseBattleItem(HardwareInterface hardware, MemoryInterface memory, uint8_t itemType, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
+ActionOutcome UseBattleItem(HardwareInterface hardware, MemoryInterface memory, uint8_t itemType, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
     return itemFunctionsBattle[itemType](hardware, memory, item_id, user_id, target_id, itemData, index);
 }

@@ -54,11 +54,12 @@ typedef struct
     **********************************************************************************************************************/
     struct
     {
-        ObjectsTypes moveType;
-        ObjectType moveID;
         EntityId playerMonsterID;
         EntityId enemyMonsterID;
         EntityId enemy_trainer_id;
+
+        ObjectsTypes moveType;
+        ObjectType moveID;
         uint8_t current_line;
         char combatLog[COMBAT_LOG_SIZE][40]; // TODO: expand o <= 30 lines for a full screen combat log, dont bother with scrolling, use a wraparound ptr
         char hpStr[10];
@@ -111,7 +112,9 @@ typedef struct
 
         uint8_t vision_radius;
         EntityId id;
+        uint8_t currentBagMaxSize;
         uint8_t currentBagSize;
+        uint8_t currentSpellbookMaxSize;
         uint8_t currentSpellbookSize;
         uint8_t currentPartySize;
         Delta d;
@@ -259,7 +262,7 @@ typedef struct
         uint16_t x; // in tiles
         uint16_t y;
         uint16_t h;
-        uint16_t w;
+        uint16_t x_offset;
         SubMenu* subMenus;
         uint16_t menuSleepTime;
 

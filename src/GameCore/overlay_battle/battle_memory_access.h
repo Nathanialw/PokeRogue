@@ -13,4 +13,3 @@ void Flash_BattlerStruckAnimation(GraphicsInterface graphics, HardwareInterface 
 
 void Flash_GetBattleMenuList(MemoryInterface memory, uint8_t* text, uint8_t idx);
 
-bool Flash_GetSkillEffect(HardwareInterface hardware, MemoryInterface memory, uint8_t skillType, EntityId trainer_id, EntityId party_id, EntityId target_id, SkillData skillData);

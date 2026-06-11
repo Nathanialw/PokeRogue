@@ -11,12 +11,11 @@
 #include "core_memory_access.h"
 #include "core_utils.h"
 #include "core_entities.h"
-
-#include "battle_memory_access.h"
-#include "battle_ram.h"
-#include "battle_ui.h"
-#include "core_graphics.h"
 #include "core_player.h"
+
+#include "battle_ram.h"
+#include "battle_state.h"
+#include "battle_ui.h"
 
 bool AdjustMana(EntityId creature_id, int16_t mana)
 {
@@ -47,7 +46,7 @@ bool AdjustMana(EntityId creature_id, int16_t mana)
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool UseSkill(HardwareInterface hardware, MemoryInterface memory, bool player)
+ActionOutcome UseSkill(HardwareInterface hardware, MemoryInterface memory, bool player)
 {
     EntityId player_creature_id = g_core.battleMode.playerMonsterID;
     EntityId ai_creature_id = g_core.battleMode.enemyMonsterID;
@@ -66,7 +65,9 @@ bool UseSkill(HardwareInterface hardware, MemoryInterface memory, bool player)
         }
 
         PrintCombatLogText(hardware, memory, "Player Casting");
-        Flash_GetSkillEffect(hardware, memory, ability, GetPlayerID(), player_creature_id, ai_creature_id, ability_data);
+
+        //TODO not sure what to do with the outcome value of skills yet
+        ActionOutcome action_outcome = Flash_GetSkillEffect(hardware, memory, ability, GetPlayerID(), player_creature_id, ai_creature_id, ability_data);
     }
     else
     {
@@ -93,7 +94,8 @@ bool UseSkill(HardwareInterface hardware, MemoryInterface memory, bool player)
             return false;
 
         PrintCombatLogText(hardware, memory, "Enemy Casting");
-        Flash_GetSkillEffect(hardware, memory, ability, g_core.battleMode.enemy_trainer_id, ai_creature_id, player_creature_id, ability_data);
+        //TODO not sure what to do with the outcome value of skills yet
+        ActionOutcome action_outcome = Flash_GetSkillEffect(hardware, memory, ability, g_core.battleMode.enemy_trainer_id, ai_creature_id, player_creature_id, ability_data);
     }
 
     //  set move animation cache
@@ -107,36 +109,45 @@ bool UseSkill(HardwareInterface hardware, MemoryInterface memory, bool player)
 *
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool CastSpellBattle(HardwareInterface hardware, MemoryInterface memory, SpellId spellID, uint8_t spellbook_index, EntityId caster_id, EntityId target_id)
+ActionOutcome CastSpellBattle(HardwareInterface hardware, MemoryInterface memory, SpellId spell_id, uint8_t spellbook_index, EntityId caster_id, EntityId target_id)
 {
+    ActionOutcome action_outcome = ACTION_CANNOT;
 
-    if (spellbook_index == SPELL_INDEX_NULL)
+    if (spellbook_index == SPELL_INDEX_NULL || g_core.trainers.spellPage[caster_id][spellbook_index].pp > 0)
     {
         SpellData spellData;
-        Flash_GetSpellData(memory, &spellData, spellID);;
-        if (CastBattleSpell(hardware, memory, spellID, caster_id, g_core.battleMode.playerMonsterID, target_id, spellData))
-        {
-            DEBUG("Scroll success spellID: %d", spellID);
-            return true;
-        }
+        Flash_GetSpellData(memory, &spellData, spell_id);;
+        action_outcome = CastBattleSpell(hardware, memory, spell_id, caster_id, g_core.battleMode.playerMonsterID, target_id, spellData);
 
-        DEBUG("Scroll failed spellID: %d", spellID);
-        return false;
-    }
-    else if (g_core.trainers.spellPage[caster_id][spellbook_index].pp > 0)
-    {
-        SpellData spellData;
-        Flash_GetSpellData(memory, &spellData, spellID);;
-        if (CastBattleSpell(hardware, memory, spellID, caster_id, g_core.battleMode.playerMonsterID, target_id, spellData))
+        if (action_outcome == ACTION_SUCCEEDED)
         {
             if (spellbook_index != SPELL_INDEX_NULL)
                 g_core.trainers.spellPage[caster_id][spellbook_index].pp--;
+
+            PrintCombatLogText(hardware, memory, "Cast Spell Success");
+            g_battle.effect_animation_index = spell_id;
+            g_battle.effect_type = SPELL;
+            g_battle.pass_turn = true;
+            SetBattleState(BATTLE_ATTACK);
         }
-        return true;
+        else if (action_outcome == ACTION_FAILED)
+        {
+            PrintCombatLogText(hardware, memory, "Cast Spell Failed");
+            g_battle.pass_turn = true;
+        }
+        else if (action_outcome == ACTION_CANNOT)
+        {
+            PrintCombatLogText(hardware, memory, "Cannot cast spell");
+        }
     }
 
-    DEBUG("Not enough pp points");
-    return false;
+    else if (g_core.trainers.spellPage[caster_id][spellbook_index].pp == 0)
+    {
+        action_outcome = ACTION_CANNOT;
+        DEBUG("Not enough pp points");
+    }
+
+    return action_outcome;
 }
 
 /**********************************************************************************************************************
@@ -145,7 +156,7 @@ bool CastSpellBattle(HardwareInterface hardware, MemoryInterface memory, SpellId
 *  is a valid e_id is passed, it will attempt to use the item on that entity
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool UseItemBattle(HardwareInterface hardware, MemoryInterface memory, ItemData* itemData, EntityId item_id, EntityId user_id, EntityId target_id, uint8_t index)
+ActionOutcome UseItemBattle(HardwareInterface hardware, MemoryInterface memory, ItemData* itemData, EntityId item_id, EntityId user_id, EntityId target_id, uint8_t index)
 {
     if (item_id == NO_ENTITY) return false;
     ItemTypes itemType = GetItemType(item_id);

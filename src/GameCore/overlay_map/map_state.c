@@ -117,16 +117,14 @@ void UpdateGameRunningState(GraphicsInterface graphics, HardwareInterface hardwa
 
         if (input.GetJSPressed())
         {
-            if (!SetMenuDelta(graphics, hardware, input, memory, input.GetInputKeyState().js))
-                OpenSubMenu(graphics, hardware, input, memory);
+            SetMenuDelta(graphics, hardware, input, memory, input.GetInputKeyState().js);
             return;
         }
 
 
         if (input.GetDPPressed())
         {
-            if (!SetMenuDelta(graphics, hardware, input, memory, input.GetInputKeyState().dp))
-                OpenSubMenu(graphics, hardware, input, memory);
+            SetMenuDelta(graphics, hardware, input, memory, input.GetInputKeyState().dp);
             return;
         }
     }

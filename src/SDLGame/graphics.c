@@ -383,6 +383,8 @@ void EndFrame(void)
     SDL_RenderTexture(g_ramState.renderer, g_ramState.screen, NULL, NULL);
     SDL_RenderPresent(g_ramState.renderer);
     SDL_SetRenderTarget(g_ramState.renderer, g_ramState.screen);
+    SDL_PumpEvents();
+    SDL_FlushEvents(SDL_EVENT_FIRST, SDL_EVENT_LAST);
 }
 
 

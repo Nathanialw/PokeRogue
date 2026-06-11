@@ -4,6 +4,7 @@
 
 #include "core_effects.h"
 
+#include "lib_debugging.h"
 #include "lib_memory.h"
 
 #include "constants.h"
@@ -16,7 +17,6 @@
 #include "core_memory_access.h"
 #include "core_player.h"
 #include "core_stats.h"
-#include "lib_debugging.h"
 
 
 /**********************************************************************************************************************
@@ -27,18 +27,18 @@
 /**********************************************************************************************************************
 *
 **********************************************************************************************************************/
-bool RestoreResource(IntMax999* resource, EntityId creature_id, uint16_t value, uint16_t* cache)
+ActionOutcome RestoreResource(IntMax999* resource, EntityId creature_id, uint16_t value, uint16_t* cache)
 {
-    if (creature_id == NO_CREATURE) return false;
+    if (creature_id == NO_CREATURE) return ACTION_CANNOT;
     IntMax999 res = resource[creature_id];
     uint16_t cur = Int999GetCurrent(&res);
     uint16_t max = Int999GetMax(&res);
-    if (cur == max) return false;
+    if (cur == max) return ACTION_CANNOT;
     *cache = cur;
     cur = (cur + value > max) ? max : cur + value;
     Int999SetCurrent(&res, cur);
     resource[creature_id] = res;
-    return true;
+    return ACTION_SUCCEEDED;
 }
 
 
@@ -82,16 +82,6 @@ void DoDamage(EntityId creatureID, uint16_t damage)
     g_core.battleMode.battle_hp_cache = hp;
     hp = (hp > damage) ? hp - damage : 0;
     Int999SetCurrent(&g_core.creatures.hp[creatureID], hp);
-}
-
-/**********************************************************************************************************************
-*
-**********************************************************************************************************************/
-SET_MEMORY(".core")
-bool HealTarget(EntityId e_id, uint16_t value)
-{
-    uint16_t heal = CalcHeal(e_id, value);
-    return RestoreResource(g_core.creatures.hp, e_id, heal, &g_core.battleMode.battle_hp_cache);
 }
 
 /**********************************************************************************************************************
@@ -152,9 +142,9 @@ uint16_t CalcModifier(MemoryInterface memory, EntityId attackerID, EntityId defe
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool NoEffect()
+ActionOutcome NoEffect()
 {
-    return false;
+    return ACTION_FAILED;
 }
 
 /**********************************************************************************************************************
@@ -183,21 +173,21 @@ void InstantKill(HardwareInterface hardware, MemoryInterface memory, EntityId at
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool QuickAttack(HardwareInterface hardware, MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome QuickAttack(HardwareInterface hardware, MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     // TODO: always attack first
     Attack(hardware, memory, attackerID, defenderID, abilityData);
-    return true;
+    return ACTION_SUCCEEDED;
 }
 
 /**********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool Parry(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome Parry(EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     // TODO:
-    return true;
+    return ACTION_FAILED;
 }
 
 /********************************************************************************************************************************************************************************************************************************************
@@ -211,25 +201,35 @@ bool Parry(EntityId attackerID, EntityId defenderID, SkillData abilityData)
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool Revive(EntityId e_id)
+ActionOutcome HealTarget(EntityId e_id, uint16_t value)
 {
-    return false;
+    uint16_t heal = CalcHeal(e_id, value);
+    return RestoreResource(g_core.creatures.hp, e_id, heal, &g_core.battleMode.battle_hp_cache);
 }
 
 /**********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool MakeInvulnerable(EntityId e_id)
+ActionOutcome Revive(EntityId e_id)
 {
-    return false;
+    return ACTION_FAILED;
 }
 
 /**********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool RestoreMana(EntityId e_id, uint8_t value)
+ActionOutcome MakeInvulnerable(EntityId e_id)
+{
+    return ACTION_FAILED;
+}
+
+/**********************************************************************************************************************
+*
+**********************************************************************************************************************/
+SET_MEMORY(".core")
+ActionOutcome RestoreMana(EntityId e_id, uint8_t value)
 {
     return RestoreResource(g_core.creatures.mp, e_id, value, &g_core.battleMode.battle_mp_cache);
 }
@@ -238,9 +238,9 @@ bool RestoreMana(EntityId e_id, uint8_t value)
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool DrainMana(EntityId e_id, uint8_t value)
+ActionOutcome DrainMana(EntityId e_id, uint8_t value)
 {
-    return true;
+    return ACTION_FAILED;
 }
 
 
@@ -248,143 +248,146 @@ bool DrainMana(EntityId e_id, uint8_t value)
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool RestorePP(EntityId trainer_id, uint8_t spell_index, uint8_t value)
+ActionOutcome RestorePP(EntityId trainer_id, uint8_t spell_index, uint8_t value)
 {
     if (g_core.trainers.spellPage[trainer_id][spell_index].pp < value)
     {
         g_core.trainers.spellPage[trainer_id][spell_index].pp = g_core.trainers.spellPage[trainer_id][spell_index].spellData.pp;
-        return true;
+        return ACTION_SUCCEEDED;
     }
-    return false;
+    return ACTION_CANNOT;
 }
 
 /**********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool Repel(EntityId e_id, uint8_t duration)
+ActionOutcome Repel(EntityId e_id, uint8_t duration)
 {
     if (g_core.creatures.status.repel[e_id] < 8)
     {
         g_core.creatures.status.repel[e_id]++;
-        return true;
+        return ACTION_SUCCEEDED;
     }
-    return false;
+    return ACTION_CANNOT;
 }
 
 /**********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool Hover(EntityId e_id, uint8_t duration)
+ActionOutcome Hover(EntityId e_id, uint8_t duration)
 {
     if (g_core.creatures.status.hovering[e_id] < 8)
     {
         g_core.creatures.status.hovering[e_id]++;
-        return true;
+        return ACTION_SUCCEEDED;
     }
-    return false;
+    return ACTION_CANNOT;
 }
 
 /**********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool WaterBreathing(EntityId e_id, uint8_t duration)
+ActionOutcome WaterBreathing(EntityId e_id, uint8_t duration)
 {
     if (g_core.creatures.status.waterBreathing[e_id] < 8)
     {
         g_core.creatures.status.waterBreathing[e_id] = duration;
-        return true;
+        return ACTION_SUCCEEDED;
     }
-    return false;
+    return ACTION_CANNOT;
 }
 
 /**********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool XRayVision(EntityId e_id, uint8_t duration)
+ActionOutcome XRayVision(EntityId e_id, uint8_t duration)
 {
     if (g_core.creatures.status.lineOfSight[e_id] < 8)
     {
         g_core.creatures.status.lineOfSight[e_id]++;
-        return true;
+        return ACTION_SUCCEEDED;
     }
-    return false;
+    return ACTION_CANNOT;
 }
 
 /**********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool WaterWalking(EntityId e_id, uint8_t duration)
+ActionOutcome WaterWalking(EntityId e_id, uint8_t duration)
 {
     if (g_core.creatures.status.waterWalk[e_id] < 8)
     {
         g_core.creatures.status.waterWalk[e_id]++;
-        return true;
+        return ACTION_SUCCEEDED;
     }
-    return false;
+    return ACTION_CANNOT;
 }
 
 /**********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool WallWalking(EntityId e_id, uint8_t duration)
+ActionOutcome WallWalking(EntityId e_id, uint8_t duration)
 {
     if (g_core.creatures.status.wallWalking[e_id] < 8)
     {
         g_core.creatures.status.wallWalking[e_id]++;
-        return true;
+        return ACTION_SUCCEEDED;
     }
-    return false;
+    return ACTION_CANNOT;
 }
 
 /**********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool Invisibility(EntityId e_id, uint8_t duration)
+ActionOutcome Invisibility(EntityId e_id, uint8_t duration)
 {
     if (g_core.creatures.status.invisibility[e_id] < 8)
     {
         g_core.creatures.status.invisibility[e_id]++;
-        return true;
+        return ACTION_SUCCEEDED;
     }
-    return false;
+    return ACTION_CANNOT;
 }
 
 /**********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool Summon(CreatureID creature)
+ActionOutcome Summon(CreatureID creature)
 {
-    return true;
+    return ACTION_FAILED;
 }
 
 /**********************************************************************************************************************
 *
 **********************************************************************************************************************/
-void SacrificeHeal(HardwareInterface hardware, MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome SacrificeHeal(HardwareInterface hardware, MemoryInterface memory, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     Attack(hardware, memory, attackerID, defenderID, abilityData);
+    return ACTION_SUCCEEDED;
 }
 
 /**********************************************************************************************************************
 *
 **********************************************************************************************************************/
-void DestroyPlayerItem(EntityId item_id)
+ActionOutcome DestroyPlayerItem(EntityId item_id)
 {
+    return ACTION_FAILED;
 }
 
 /**********************************************************************************************************************
 *
 **********************************************************************************************************************/
-void DestroyRandomPlayerItem()
+ActionOutcome DestroyRandomPlayerItem()
 {
+    return ACTION_FAILED;
 }
 
 /********************************************************************************************************************************************************************************************************************************************
@@ -399,10 +402,10 @@ void DestroyRandomPlayerItem()
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool Capture(HardwareInterface hardware, EntityId trainer_id, EntityId target_id, uint8_t successChance)
+ActionOutcome Capture(HardwareInterface hardware, EntityId trainer_id, EntityId target_id, uint8_t successChance)
 {
     if (target_id == g_core.trainers.partyID[GetPlayerID()][0])
-        return false;
+        return ACTION_CANNOT;
 
     uint8_t n = hardware.GetRandom_uint8_t(1, successChance);
     DEBUG("capture %d/%d", n, successChance);
@@ -413,60 +416,61 @@ bool Capture(HardwareInterface hardware, EntityId trainer_id, EntityId target_id
             if (trainer_id == GetPlayerID())
                 g_core.player.currentPartySize++;
             CaptureMonster(target_id);
-            return true;
+            return ACTION_SUCCEEDED;
         }
+        return ACTION_CANNOT; //party full
     }
-    return false;
+    return ACTION_FAILED;
 }
 
 /**********************************************************************************************************************
 *  Sets the flag for the Creature id as discovered for the podedex use
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool DiscoverCreature(EntityId e_id)
+ActionOutcome DiscoverCreature(EntityId e_id)
 {
     SetBit(g_core.player.knownCreatures, GetCreatureType(e_id), 1);
-    return true;
+    return ACTION_SUCCEEDED;
 }
 
 /**********************************************************************************************************************
 *  Sets the flag for the Item id as discovered for the podedex use
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool DiscoverItem(EntityId e_id)
+ActionOutcome DiscoverItem(EntityId e_id)
 {
     SetBit(g_core.player.knownItems, GetItemType(e_id), 1);
-    return true;
+    return ACTION_SUCCEEDED;
 }
 
 /**********************************************************************************************************************
 *  Sets the flag for the skill id as discovered for the podedex use
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool DiscoverSkill(Ability ability_id)
+ActionOutcome DiscoverSkill(Ability ability_id)
 {
     SetBit(g_core.player.knownAbilities, ability_id, 1);
-    return true;
+    return ACTION_SUCCEEDED;
 }
 
 /**********************************************************************************************************************
 *  Sets the flag for the Spell id as discovered for the podedex use
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool DiscoverSpell(Spell spell_id)
+ActionOutcome DiscoverSpell(Spell spell_id)
 {
     SetBit(g_core.player.knownSpells, spell_id, 1);
-    return true;
+    return ACTION_SUCCEEDED;
 }
 
 /**********************************************************************************************************************
 *  Sets the flag for the Object id as discovered for the podedex use
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool DiscoverObject(EntityId e_id)
+ActionOutcome DiscoverObject(EntityId e_id)
 {
     SetBit(g_core.player.knownObjects, GetItemType(e_id), 1);
-    return true;
+    return ACTION_SUCCEEDED;
 }
 
 /**********************************************************************************************************************
@@ -475,9 +479,9 @@ bool DiscoverObject(EntityId e_id)
  *  ON FAIL - return fail
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool LearnSkill(EntityId e_id)
+ActionOutcome LearnSkill(EntityId e_id)
 {
-    return true;
+    return ACTION_FAILED;
 }
 
 /**********************************************************************************************************************
@@ -486,10 +490,10 @@ bool LearnSkill(EntityId e_id)
  *  ON FAIL - return fail
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool LearnSpell(MemoryInterface memory, EntityId e_id, Spell spell_id)
+ActionOutcome LearnSpell(MemoryInterface memory, EntityId e_id, Spell spell_id)
 {
-    if (spell_id == NO_SPELL) return false;
-    if (e_id == NO_ENTITY) return false;
+    if (spell_id == NO_SPELL) return ACTION_CANNOT;;
+    if (e_id == NO_ENTITY) return ACTION_CANNOT;
 
     int8_t spell_book_index = -1;
     for (uint8_t i = 0; i < MAX_SPELLBOOK_SIZE; i++)
@@ -501,28 +505,28 @@ bool LearnSpell(MemoryInterface memory, EntityId e_id, Spell spell_id)
         }
     }
 
-    if (spell_book_index == -1) return false;
+    if (spell_book_index == -1) return ACTION_CANNOT;
 
     AddSpellPage(memory, e_id, spell_id, spell_book_index);
-    return true;
+    return ACTION_SUCCEEDED;
 }
 
 /**********************************************************************************************************************
 *  Creature leaves the team to an adjacent cell on the map
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool AbandonTeam(EntityId e_id)
+ActionOutcome AbandonTeam(EntityId e_id)
 {
-    return true;
+    return ACTION_FAILED;
 }
 
 /**********************************************************************************************************************
 *  Ends Combat and moves player to an adjacent tile
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool Flee()
+ActionOutcome Flee()
 {
-    return true;
+    return ACTION_FAILED;
 }
 
 /********************************************************************************************************************************************************************************************************************************************
@@ -537,351 +541,355 @@ bool Flee()
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool ApplyPoison(EntityId e_id, uint8_t duration)
+ActionOutcome ApplyPoison(EntityId e_id, uint8_t duration)
 {
     if (g_core.creatures.status.poison[e_id] < 8)
     {
         g_core.creatures.status.poison[e_id]++;
-        return true;
+        return ACTION_SUCCEEDED;
     }
-    return false;
+    return ACTION_CANNOT;
 }
 
 /**********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool ApplyCurse(EntityId e_id, uint8_t duration)
+ActionOutcome ApplyCurse(EntityId e_id, uint8_t duration)
 {
     if (g_core.creatures.status.curse[e_id] < 8)
     {
         g_core.creatures.status.curse[e_id]++;
-        return true;
+        return ACTION_SUCCEEDED;
     }
-    return false;
+    return ACTION_CANNOT;
 }
 
 /**********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool ApplyParalyze(EntityId e_id, uint8_t duration)
+ActionOutcome ApplyParalyze(EntityId e_id, uint8_t duration)
 {
     if (g_core.creatures.status.paralyzed[e_id] < 8)
     {
         g_core.creatures.status.paralyzed[e_id]++;
-        return true;
+        return ACTION_SUCCEEDED;
     }
-    return false;
+    return ACTION_CANNOT;
 }
 
 /**********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool ApplyDisease(EntityId e_id, uint8_t duration)
+ActionOutcome ApplyDisease(EntityId e_id, uint8_t duration)
 {
     if (g_core.creatures.status.disease[e_id] < 8)
     {
         g_core.creatures.status.disease[e_id]++;
-        return true;
+        return ACTION_SUCCEEDED;
     }
-    return false;
+    return ACTION_CANNOT;
 }
 
 /**********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool ApplySleep(EntityId e_id, uint8_t duration)
+ActionOutcome ApplySleep(EntityId e_id, uint8_t duration)
 {
     if (g_core.creatures.status.sleep[e_id] < 8)
     {
         g_core.creatures.status.sleep[e_id]++;
-        return true;
+        return ACTION_SUCCEEDED;
     }
-    return false;
+    return ACTION_CANNOT;
 }
 
 /**********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool ApplyFear(EntityId e_id, uint8_t duration)
+ActionOutcome ApplyFear(EntityId e_id, uint8_t duration)
 {
     if (g_core.creatures.status.fear[e_id] < 8)
     {
         g_core.creatures.status.fear[e_id]++;
-        return true;
+        return ACTION_SUCCEEDED;
     }
-    return false;
+    return ACTION_CANNOT;
 }
 
 /**********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool ApplyFrozen(EntityId e_id, uint8_t duration)
+ActionOutcome ApplyFrozen(EntityId e_id, uint8_t duration)
 {
     if (g_core.creatures.status.frozen[e_id] < 8)
     {
         g_core.creatures.status.frozen[e_id]++;
-        return true;
+        return ACTION_SUCCEEDED;
     }
-    return false;
+    return ACTION_CANNOT;
 }
 
 /**********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool ApplyBurn(EntityId e_id, uint8_t duration)
+ActionOutcome ApplyBurn(EntityId e_id, uint8_t duration)
 {
     if (g_core.creatures.status.burned[e_id] < 8)
     {
         g_core.creatures.status.burned[e_id]++;
-        return true;
+        return ACTION_SUCCEEDED;
     }
-    return false;
+    return ACTION_CANNOT;
 }
 
 /**********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool ApplyHaste(EntityId e_id, uint8_t duration)
+ActionOutcome ApplyHaste(EntityId e_id, uint8_t duration)
 {
     if (g_core.creatures.status.hasted[e_id] < 8)
     {
         g_core.creatures.status.hasted[e_id]++;
-        return true;
+        return ACTION_SUCCEEDED;
     }
-    return false;
+    return ACTION_CANNOT;
 }
 
 /**********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool ApplySlow(EntityId e_id, uint8_t duration)
+ActionOutcome ApplySlow(EntityId e_id, uint8_t duration)
 {
     if (g_core.creatures.status.slowed[e_id] < 8)
     {
         g_core.creatures.status.slowed[e_id]++;
-        return true;
+        return ACTION_SUCCEEDED;
     }
-    return false;
+    return ACTION_CANNOT;
 }
 
 /**********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool StatusLesserBlind(EntityId e_id, uint8_t duration)
+ActionOutcome StatusLesserBlind(EntityId e_id, uint8_t duration)
 {
-    return true;
+    return ACTION_FAILED;
 }
 
 /**********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool StatusGreaterBlind(EntityId e_id, uint8_t duration)
+ActionOutcome StatusGreaterBlind(EntityId e_id, uint8_t duration)
 {
-    return true;
+    return ACTION_FAILED;
 }
 
 /**********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool RemovePoison(EntityId e_id)
+ActionOutcome RemovePoison(EntityId e_id)
 {
     if (g_core.creatures.status.poison[e_id] > 0)
+    {
         g_core.creatures.status.poison[e_id]--;
-    return true;
+        return ACTION_SUCCEEDED;
+    }
+    return ACTION_CANNOT;
 }
 
 /**********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool RemoveCurse(EntityId e_id)
+ActionOutcome RemoveCurse(EntityId e_id)
 {
     if (g_core.creatures.status.curse[e_id] > 0)
     {
         g_core.creatures.status.curse[e_id]--;
-        return true;
+        return ACTION_SUCCEEDED;
     }
-    return false;
+    return ACTION_CANNOT;
 }
 
 /**********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool RemoveParalyze(EntityId e_id)
+ActionOutcome RemoveParalyze(EntityId e_id)
 {
     if (g_core.creatures.status.paralyzed[e_id] > 0)
     {
         g_core.creatures.status.paralyzed[e_id]--;
-        return true;
+        return ACTION_SUCCEEDED;
     }
-    return false;
+    return ACTION_CANNOT;
 }
 
 /**********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool RemoveDisease(EntityId e_id)
+ActionOutcome RemoveDisease(EntityId e_id)
 {
     if (g_core.creatures.status.disease[e_id] > 0)
     {
         g_core.creatures.status.disease[e_id]--;
-        return true;
+        return ACTION_SUCCEEDED;
     }
-    return false;
+    return ACTION_CANNOT;
 }
 
 /**********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool RemoveSleep(EntityId e_id)
+ActionOutcome RemoveSleep(EntityId e_id)
 {
     if (g_core.creatures.status.sleep[e_id] > 0)
     {
         g_core.creatures.status.sleep[e_id]--;
-        return true;
+        return ACTION_SUCCEEDED;
     }
-    return false;
+    return ACTION_CANNOT;
 }
 
 /**********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool RemoveFear(EntityId e_id)
+ActionOutcome RemoveFear(EntityId e_id)
 {
     if (g_core.creatures.status.fear[e_id] > 0)
     {
         g_core.creatures.status.fear[e_id]--;
-        return true;
+        return ACTION_SUCCEEDED;
     }
-    return false;
+    return ACTION_CANNOT;
 }
 
 /**********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool RemoveFrozen(EntityId e_id)
+ActionOutcome RemoveFrozen(EntityId e_id)
 {
     if (g_core.creatures.status.frozen[e_id] > 0)
     {
         g_core.creatures.status.frozen[e_id]--;
-        return true;
+        return ACTION_SUCCEEDED;
     }
-    return false;
+    return ACTION_CANNOT;
 }
 
 /**********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool RemoveBurn(EntityId e_id)
+ActionOutcome RemoveBurn(EntityId e_id)
 {
     if (g_core.creatures.status.burned[e_id] > 0)
     {
         g_core.creatures.status.burned[e_id]--;
-        return true;
+        return ACTION_SUCCEEDED;
     }
-    return false;
+    return ACTION_CANNOT;
 }
 
 /**********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool RemoveHaste(EntityId e_id)
+ActionOutcome RemoveHaste(EntityId e_id)
 {
     if (g_core.creatures.status.hasted[e_id] > 0)
     {
         g_core.creatures.status.hasted[e_id]--;
-        return true;
+        return ACTION_SUCCEEDED;
     }
-    return false;
+    return ACTION_CANNOT;
 }
 
 /**********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool RemoveSlow(EntityId e_id)
+ActionOutcome RemoveSlow(EntityId e_id)
 {
     if (g_core.creatures.status.slowed[e_id] > 0)
     {
         g_core.creatures.status.slowed[e_id]--;
-        return true;
+        return ACTION_SUCCEEDED;
     }
-    return false;
+    return ACTION_CANNOT;
 }
 
 /**********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool StatusLesserLight(EntityId e_id, uint8_t duration)
+ActionOutcome StatusLesserLight(EntityId e_id, uint8_t duration)
 {
     if (g_core.creatures.status.light[e_id] < 8)
     {
         g_core.creatures.status.light[e_id]++;
-        return true;
+        return ACTION_SUCCEEDED;
     }
-    return false;
+    return ACTION_CANNOT;
 }
 
 /**********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool StatusGreaterLight(EntityId e_id, uint8_t duration)
+ActionOutcome StatusGreaterLight(EntityId e_id, uint8_t duration)
 {
     if (g_core.creatures.status.light[e_id] < 8)
     {
         g_core.creatures.status.light[e_id]++;
-        return true;
+        return ACTION_SUCCEEDED;
     }
-    return false;
+    return ACTION_CANNOT;
 }
 
 /**********************************************************************************************************************
 *
 **********************************************************************************************************************/
-void NextAttackFreezes()
+ActionOutcome NextAttackFreezes()
 {
+    return ACTION_FAILED;
 }
 
 /**********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool FreezeAttackers(EntityId e_id, uint8_t duration)
+ActionOutcome FreezeAttackers(EntityId e_id, uint8_t duration)
 {
     if (g_core.creatures.status.light[e_id] < 8)
     {
         g_core.creatures.status.light[e_id]++;
-        return true;
+        return ACTION_SUCCEEDED;
     }
-    return false;
+    return ACTION_CANNOT;
 }
 
 /**********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool PersistentPoisonCloud(uint8_t duration)
+ActionOutcome PersistentPoisonCloud(uint8_t duration)
 {
     return true;
 }
@@ -893,9 +901,9 @@ bool PersistentPoisonCloud(uint8_t duration)
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool RaiseAcidResistance(EntityId e_id)
+ActionOutcome RaiseAcidResistance(EntityId e_id)
 {
-    return false;
+    return ACTION_FAILED;
 }
 
 
@@ -903,144 +911,144 @@ bool RaiseAcidResistance(EntityId e_id)
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool RaiseFireResistance(EntityId e_id)
+ActionOutcome RaiseFireResistance(EntityId e_id)
 {
-    return false;
+    return ACTION_FAILED;
 }
 
 /**********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool RaiseWaterResistance(EntityId e_id)
+ActionOutcome RaiseWaterResistance(EntityId e_id)
 {
-    return false;
+    return ACTION_FAILED;
 }
 
 /**********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool RaiseIceResistance(EntityId e_id)
+ActionOutcome RaiseIceResistance(EntityId e_id)
 {
-    return false;
+    return ACTION_FAILED;
 }
 
 /**********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool RaiseMagicResistance(EntityId e_id)
+ActionOutcome RaiseMagicResistance(EntityId e_id)
 {
-    return false;
+    return ACTION_FAILED;
 }
 
 /**********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool RaiseAllResistance(EntityId e_id)
+ActionOutcome RaiseAllResistance(EntityId e_id)
 {
-    return false;
+    return ACTION_FAILED;
 }
 
 /**********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool LowerAcidResistance(EntityId e_id)
+ActionOutcome LowerAcidResistance(EntityId e_id)
 {
-    return false;
+    return ACTION_FAILED;
 }
 
 /**********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool LowerFireResistance(EntityId e_id)
+ActionOutcome LowerFireResistance(EntityId e_id)
 {
-    return false;
+    return ACTION_FAILED;
 }
 
 /**********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool LowerWaterResistance(EntityId e_id)
+ActionOutcome LowerWaterResistance(EntityId e_id)
 {
-    return false;
+    return ACTION_FAILED;
 }
 
 /**********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool LowerIceResistance(EntityId e_id)
+ActionOutcome LowerIceResistance(EntityId e_id)
 {
-    return false;
+    return ACTION_FAILED;
 }
 
 /**********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool LowerMagicResistance(EntityId e_id)
+ActionOutcome LowerMagicResistance(EntityId e_id)
 {
-    return false;
+    return ACTION_FAILED;
 }
 
 /**********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool LowerAllResistance(EntityId e_id)
+ActionOutcome LowerAllResistance(EntityId e_id)
 {
-    return false;
+    return ACTION_FAILED;
 }
 
 /**********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool FireEating(EntityId e_id)
+ActionOutcome FireEating(EntityId e_id)
 {
-    return false;
+    return ACTION_FAILED;
 }
 
 /**********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool WaterEating(EntityId e_id)
+ActionOutcome WaterEating(EntityId e_id)
 {
-    return false;
+    return ACTION_FAILED;
 }
 
 /**********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool IceEating(EntityId e_id)
+ActionOutcome IceEating(EntityId e_id)
 {
-    return false;
+    return ACTION_FAILED;
 }
 
 /**********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool AcidEating(EntityId e_id)
+ActionOutcome AcidEating(EntityId e_id)
 {
-    return false;
+    return ACTION_FAILED;
 }
 
 /**********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool LavaEating(EntityId e_id)
+ActionOutcome LavaEating(EntityId e_id)
 {
-    return false;
+    return ACTION_FAILED;
 }
 
 
@@ -1057,162 +1065,162 @@ bool LavaEating(EntityId e_id)
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool RaiseStrength(EntityId e_id)
+ActionOutcome RaiseStrength(EntityId e_id)
 {
-    return false;
+    return ACTION_FAILED;
 }
 
 /**********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool RaiseDefence(EntityId e_id)
+ActionOutcome RaiseDefence(EntityId e_id)
 {
-    return false;
+    return ACTION_FAILED;
 }
 
 /**********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool RaiseMagic(EntityId e_id)
+ActionOutcome RaiseMagic(EntityId e_id)
 {
-    return false;
+    return ACTION_FAILED;
 }
 
 /**********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool RaiseSpeed(EntityId e_id)
+ActionOutcome RaiseSpeed(EntityId e_id)
 {
-    return false;
+    return ACTION_FAILED;
 }
 
 /**********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool RaiseAccuracy(EntityId e_id)
+ActionOutcome RaiseAccuracy(EntityId e_id)
 {
-    return false;
+    return ACTION_FAILED;
 }
 
 /**********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool LowerStrength(EntityId e_id)
+ActionOutcome LowerStrength(EntityId e_id)
 {
-    return false;
+    return ACTION_FAILED;
 }
 
 /**********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool LowerDefence(EntityId e_id)
+ActionOutcome LowerDefence(EntityId e_id)
 {
-    return false;
+    return ACTION_FAILED;
 }
 
 /**********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool LowerMagic(EntityId e_id)
+ActionOutcome LowerMagic(EntityId e_id)
 {
-    return false;
+    return ACTION_FAILED;
 }
 
 /**********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool LowerSpeed(EntityId e_id)
+ActionOutcome LowerSpeed(EntityId e_id)
 {
-    return false;
+    return ACTION_FAILED;
 }
 
 /**********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool LowerAccuracy(EntityId e_id)
+ActionOutcome LowerAccuracy(EntityId e_id)
 {
-    return false;
+    return ACTION_FAILED;
 }
 
 /**********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool RaiseBaseStrength(EntityId e_id)
+ActionOutcome RaiseBaseStrength(EntityId e_id)
 {
-    return false;
+    return ACTION_FAILED;
 }
 
 /**********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool RaiseBaseDefence(EntityId e_id)
+ActionOutcome RaiseBaseDefence(EntityId e_id)
 {
-    return false;
+    return ACTION_FAILED;
 }
 
 /**********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool RaiseBaseMagic(EntityId e_id)
+ActionOutcome RaiseBaseMagic(EntityId e_id)
 {
-    return false;
+    return ACTION_FAILED;
 }
 
 /**********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool RaiseBaseSpeed(EntityId e_id)
+ActionOutcome RaiseBaseSpeed(EntityId e_id)
 {
-    return false;
+    return ACTION_FAILED;
 }
 
 /**********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool LowerBaseSpeed(EntityId e_id)
+ActionOutcome LowerBaseSpeed(EntityId e_id)
 {
-    return false;
+    return ACTION_FAILED;
 }
 
 /**********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool LowerBaseDefence(EntityId e_id)
+ActionOutcome LowerBaseDefence(EntityId e_id)
 {
-    return false;
+    return ACTION_FAILED;
 }
 
 /**********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool LowerBaseMagic(EntityId e_id)
+ActionOutcome LowerBaseMagic(EntityId e_id)
 {
-    return false;
+    return ACTION_FAILED;
 }
 
 /**********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool LowerBaseStrength(EntityId e_id)
+ActionOutcome LowerBaseStrength(EntityId e_id)
 {
-    return false;
+    return ACTION_FAILED;
 }
 
 
@@ -1220,9 +1228,9 @@ bool LowerBaseStrength(EntityId e_id)
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool DrainXP(EntityId e_id)
+ActionOutcome DrainXP(EntityId e_id)
 {
-    return false;
+    return ACTION_FAILED;
 }
 
 /********************************************************************************************************************************************************************************************************************************************
@@ -1237,19 +1245,19 @@ bool DrainXP(EntityId e_id)
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool RemoveMapFog()
+ActionOutcome RemoveMapFog()
 {
     SetMapFog(1);
-    return true;
+    return ACTION_SUCCEEDED;
 }
 
 /**********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool CreateItem(ItemTypes item)
+ActionOutcome CreateItem(ItemTypes item)
 {
-    return false;
+    return ACTION_FAILED;
 }
 
 
@@ -1257,12 +1265,12 @@ bool CreateItem(ItemTypes item)
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool CreateItemFood()
+ActionOutcome CreateItemFood()
 {
     // TODO: Get random food type
     uint8_t food_type = 0;
     CreateItem(food_type);
-    return true;
+    return ACTION_SUCCEEDED;
 }
 
 
@@ -1270,43 +1278,43 @@ bool CreateItemFood()
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool CreateItemCommon()
+ActionOutcome CreateItemCommon()
 {
     // TODO: Get random common type item
     uint8_t common_type = 0;
     CreateItem(common_type);
-    return true;
+    return ACTION_SUCCEEDED;
 }
 
 /**********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool CreateItemMagic()
+ActionOutcome CreateItemMagic()
 {
     // TODO: Get random common type item
     uint8_t magic_type = 0;
     CreateItem(magic_type);
-    return true;
+    return ACTION_SUCCEEDED;
 }
 
 /**********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool MapModifyTile(Position pos, MapTile tileType)
+ActionOutcome MapModifyTile(Position pos, MapTile tileType)
 {
-    return false;
+    return ACTION_FAILED;
 }
 
 /**********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-bool LevelUpRetainProgress(EntityId target_id)
+ActionOutcome LevelUpRetainProgress(EntityId target_id)
 {
-    if (target_id == NO_ENTITY) return false;
-    if (g_core.creatures.level[target_id].value >= MAX_CREATURE_LEVEL) return false;
+    if (target_id == NO_ENTITY) return ACTION_CANNOT;;
+    if (g_core.creatures.level[target_id].value >= MAX_CREATURE_LEVEL) return ACTION_CANNOT;
 
     uint32_t old_max = Int999GetMax(&g_core.creatures.xp[target_id]);
     uint32_t old_cur = Int999GetCurrent(&g_core.creatures.xp[target_id]);
@@ -1319,33 +1327,36 @@ bool LevelUpRetainProgress(EntityId target_id)
     // new_cur = floor(old_cur * new_max / old_max)
     uint32_t new_cur = (uint32_t)(((uint64_t)old_cur * new_max) / old_max);
     Int999SetCurrent(&g_core.creatures.xp[target_id], new_cur);
-    return true;
+    return ACTION_SUCCEEDED;
 }
 
+/**********************************************************************************************************************
+*
+**********************************************************************************************************************/
 SET_MEMORY(".core")
-bool GoNextLevel(MapLevelChange dir)
+ActionOutcome GoNextLevel(MapLevelChange dir)
 {
     if (dir == MAP_LEVEL_UP && g_core.floor > 1)
     {
         g_core.floor--;
         g_core.state.overlay = OVERLAY_GEN_MAP;
-        return true;
+        return ACTION_SUCCEEDED;
     }
 
     if (dir == MAP_LEVEL_DOWN && g_core.floor < MAX_LEVELS)
     {
         g_core.floor++;
         g_core.state.overlay = OVERLAY_GEN_MAP;
-        return true;
+        return ACTION_SUCCEEDED;
     }
 
     if (dir == MAP_LEVEL_LATERAL)
     {
         g_core.state.overlay = OVERLAY_GEN_MAP;
-        return true;
+        return ACTION_SUCCEEDED;
     }
 
-    return false;
+    return ACTION_FAILED;
 
     // UpdateLevel(g_core.floor, DESERT);
 }

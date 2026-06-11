@@ -41,6 +41,13 @@ typedef uint8_t BitFieldUint8[32];
 typedef uint16_t BitFieldUint16[16];
 typedef uint32_t BitFieldUint32[8];
 
+typedef union
+{
+    uint8_t bytes[32];
+    uint16_t words[16];
+    uint32_t dwords[8];
+} BitFieldUnion;
+
 /**********************************************************************************************************************
 *   entity view for rendering
 **********************************************************************************************************************/
@@ -180,6 +187,7 @@ typedef union
         {
             uint8_t chance;
             uint8_t power;
+            uint8_t value;
         };
 
         union
@@ -265,11 +273,11 @@ typedef struct
 } SpellPage;
 
 
-typedef bool (*SkillEffect)(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData);
-typedef bool (*ItemEffect)(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index);
-typedef bool (*SpellEffect)(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData);
-typedef bool (*SpellEffectMap)(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId enemy_id, SpellData spellData);
-typedef bool (*ObjectEffect)(HardwareInterface hardware, EntityId partyID, EntityId enemyID, ObjectData spellData);
+typedef ActionOutcome (*SkillEffect)(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData);
+typedef ActionOutcome (*ItemEffect)(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index);
+typedef ActionOutcome (*SpellEffect)(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData);
+typedef ActionOutcome (*SpellEffectMap)(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId enemy_id, SpellData spellData);
+typedef ActionOutcome (*ObjectEffect)(HardwareInterface hardware, EntityId partyID, EntityId enemyID, ObjectData spellData);
 
 
 /**********************************************************************************************************************/
