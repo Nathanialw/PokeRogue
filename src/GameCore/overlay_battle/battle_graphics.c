@@ -74,30 +74,26 @@ void HandleBattleLists(GraphicsInterface graphics, MemoryInterface memory)
     uint16_t list_y = y + size;
     uint8_t i = 0;
     uint8_t idx = 0;
-    char empty_line[SMALL_STRINGS] = "------";
+    char empty_line[SMALL_STRINGS] = "------\0";
     const char* text = empty_line;
     char line[MEDIUM_STRINGS];
     bool end = false;
 
-    while (1)
+    while (i < MAX_PARTY_SIZE)
     {
         // if selected into SwapMenu
         if (g_battle.show_party) // drawing party
         {
-            char name[SMALL_STRINGS];
-            GetMenuLine(memory, name, i);
-            const bool line_empty = (name[0] == '\0');
-
-            if (line_empty || i > (max_lines))
+            if (i >= g_core.menu.occupied_visible_menu_options)
             {
-                if (i >= MAX_PARTY_SIZE)
-                    break;
-                list_y += PrintLineStr(graphics, memory, x, list_y, font_size, max_chars, text, indent);
+                list_y += PrintLineStr(graphics, memory, x, list_y, font_size, max_chars, empty_line, indent);
                 g_core.menu.lineHeight = size * 3;
                 list_y += g_core.menu.lineHeight;
             }
             else
             {
+                char name[SMALL_STRINGS];
+                GetMenuLine(memory, name, i);
                 const EntityId player_id = GetPlayerID();
                 const EntityId creature_id = g_core.trainers.partyID[player_id][idx];
                 const Int99 level = g_core.creatures.level[creature_id];

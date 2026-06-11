@@ -11,7 +11,6 @@
 #include "constants.h"
 
 #include "core_memory_access.h"
-#include "core_player.h"
 #include "core_ram.h"
 #include "core_stats.h"
 #include "core_utils.h"

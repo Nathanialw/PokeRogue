@@ -4,7 +4,7 @@ from python.config import constants
 
 def export_types_to_c_array():
     """Export the database contents to a C array file"""
-    filename = f"{constants.INC_FOLDER}/data_types_creatures.inc"
+    filename = f"{constants.DATA_INC_FOLDER}/data_types_creatures.inc"
 
     entities = db_manager.get_creature_types()
 

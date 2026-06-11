@@ -1,14 +1,4 @@
 add_library(GameCore STATIC
-        #   DATA
-        overlay_data/data_rom.c
-
-
-        #   COMMON
-        common/constants.h
-        common/enums.h
-        common/types.h
-
-
         #   CORE
         overlay_core/core_memory_access.c
         overlay_core/core_ram.c
@@ -90,6 +80,7 @@ add_library(GameCore STATIC
         overlay_generate_map/generate_map_state.c
         overlay_generate_map/generate_map_entities.c
         overlay_generate_map/generate_map_river.c
+        overlay_generate_map/generate_map_memory_access.c
 
 
         #   GAME_LOSS
@@ -102,6 +93,7 @@ add_library(GameCore STATIC
 
 target_link_libraries(GameCore
         PicoTypes
+        GameTypes
 )
 
 target_include_directories(GameCore PUBLIC

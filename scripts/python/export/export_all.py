@@ -15,8 +15,13 @@ from . import export_img_prompts
 
 def run():
     init_database()
-    if not os.path.exists(constants.INC_FOLDER):
-        os.mkdir(constants.INC_FOLDER)
+    if not os.path.exists(constants.DATA_INC_FOLDER):
+        os.mkdir(constants.DATA_INC_FOLDER)
+    if not os.path.exists(constants.CODE_INC_FOLDER):
+        os.mkdir(constants.CODE_INC_FOLDER)
+    if not os.path.exists(constants.TYPES_INC_FOLDER):
+        os.mkdir(constants.TYPES_INC_FOLDER)
+
     make_dummy_constants.main()
 
     # CORE DATA
@@ -167,6 +172,8 @@ def run():
     bytes_count_map_sprites.append(export_map_sprites.export_image_data("trainer", 24))
     bytes_count_map_sprites.append(export_map_sprites.export_image_data("trainer", 32))
     bytes_count_map_sprites.append(export_map_sprites.export_image_data("trainer", 64))
+
+    export_structs.trainers("trainer")
 
     # trainer name strings
     counts.append(export.name_to_c_array("trainer"))

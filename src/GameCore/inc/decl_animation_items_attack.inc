@@ -14,6 +14,9 @@ bool ItemAttackChain(GraphicsInterface graphics, HardwareInterface hardware, Mem
 bool ItemAttackLasso(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker);
 bool ItemAttackNet(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker);
 bool ItemAttackShackles(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker);
+bool ItemAttackParalyzeDart(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker);
+bool ItemAttackPoisonDart(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker);
+bool ItemAttackSleepDart(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker);
 bool ItemAttackEarmuffs(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker);
 bool ItemAttackElementalBolas(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker);
 bool ItemAttackEscapeRope(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker);
@@ -36,8 +39,6 @@ bool ItemAttackLantern(GraphicsInterface graphics, HardwareInterface hardware, M
 bool ItemAttackLavaResistance(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker);
 bool ItemAttackLockpick(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker);
 bool ItemAttackMirror(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker);
-bool ItemAttackParalyzeDart(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker);
-bool ItemAttackPoisonDart(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker);
 bool ItemAttackAntidotePotion(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker);
 bool ItemAttackBlinkPotion(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker);
 bool ItemAttackCurePotion(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker);
@@ -57,7 +58,6 @@ bool ItemAttackXPPotion(GraphicsInterface graphics, HardwareInterface hardware, 
 bool ItemAttackRareCandy(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker);
 bool ItemAttackScroll(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker);
 bool ItemAttackShovel(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker);
-bool ItemAttackSleepDart(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker);
 bool ItemAttackSmokeBall(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker);
 bool ItemAttackSpellBook(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker);
 bool ItemAttackSwiftnessSerum(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker);

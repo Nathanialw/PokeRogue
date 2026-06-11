@@ -8,9 +8,14 @@ add_executable(GameCartridgeData
         main.c
 )
 
-target_compile_definitions(GameCore PRIVATE CARTRIDGE_DATA CARTRIDGE)
-target_compile_definitions(PicoTypes PRIVATE CARTRIDGE)
 
+target_compile_definitions(GameData PRIVATE CARTRIDGE_DATA CARTRIDGE)
+#target_compile_definitions(PicoTypes PRIVATE CARTRIDGE_DATA CARTRIDGE)
+#target_compile_definitions(GameTypes PRIVATE CARTRIDGE_DATA CARTRIDGE)
+
+target_include_directories(GameCartridgeData PUBLIC
+        ${CMAKE_CURRENT_SOURCE_DIR}
+)
 
 target_link_options(GameCartridgeData PRIVATE
         "-nostartfiles"
@@ -23,8 +28,9 @@ target_link_options(GameCartridgeData PRIVATE
 
 target_link_libraries(GameCartridgeData
         "-Wl,--whole-archive"
-        GameCore
-        PicoTypes
+        GameData
+#        PicoTypes
+#        GameTypes
         "-Wl,--no-whole-archive"
 )
 

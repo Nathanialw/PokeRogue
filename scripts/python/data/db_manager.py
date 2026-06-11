@@ -831,6 +831,7 @@ SpellData = namedtuple('SpellData', ['name', 'power', 'level', 'type_0', 'type_e
 SkillData = namedtuple('AbilityData', ['power', 'mana_cost', 'type_0'])
 ItemData = namedtuple('ItemData', ['name', 'power', 'item_level', 'item_type', 'type_enum', 'consumable', 'consumable_party', 'consumable_spellbook'])
 ObjectData = namedtuple('ObjectData', ['name', 'power', 'object_type', 'level', 'consumable', 'interactable', 'on_step', 'hallway', 'nook', 'water'])
+TrainerData = namedtuple('TrainerData', ['trainer_name', 'party_0', 'party_1', 'party_2', 'party_3', 'party_4', 'party_5', 'spell_0', 'spell_1', 'spell_2', 'spell_3', 'spell_4', 'spell_5'])
 MapSpriteData = namedtuple('MapSpriteData', ['sprite_idx', 'sprite_color_idx'])
 
 
@@ -945,6 +946,7 @@ def get_entity_enums(table):
 
     conn.close()
     return formatted_results
+
 
 def get_data_enums(table):
     formatted_results = []  # Initialize the list
@@ -1071,6 +1073,21 @@ def get_spells_data():
     formatted_results = [
         SpellData(name, power, level, type_0, type_to_enum[type_0], power_points, use_on_party_member)
         for name, power, level, type_0, power_points, use_on_party_member in cursor.fetchall()
+    ]
+
+    conn.close()
+    return formatted_results
+
+
+def get_trainers_data():
+    conn = sqlite3.connect(DB_FILE)
+    cursor = conn.cursor()
+
+    cursor.execute('SELECT trainer, party_0, party_1, party_2, party_3, party_4, party_5, spell_0, spell_1, spell_2, spell_3, spell_4, spell_5 FROM trainer_data ORDER BY trainer ASC')
+
+    formatted_results = [
+        TrainerData(trainer_name, party_0, party_1, party_2, party_3, party_4, party_5, spell_0, spell_1, spell_2, spell_3, spell_4, spell_5 )
+        for trainer_name, party_0, party_1, party_2, party_3, party_4, party_5, spell_0, spell_1, spell_2, spell_3, spell_4, spell_5 in cursor.fetchall()
     ]
 
     conn.close()

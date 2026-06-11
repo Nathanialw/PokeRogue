@@ -142,8 +142,8 @@ bool ToggleMenu(SubMainMenuWindow menuWin, uint8_t occupied_visible_menu_options
     g_core.menu.sel[g_core.menu.depth].x = 0;
     g_core.menu.sel[g_core.menu.depth].y = 0;
     g_core.menu.selectedMenu = menuWin;
-    g_core.menu.occupied_visible_menu_options = occupied_visible_menu_options;
-    g_core.menu.max_visible_menu_options = max_visible_menu_options; //ListSize(max_visible_menu_options);
+    g_core.menu.occupied_visible_menu_options = ListSize(occupied_visible_menu_options);
+    g_core.menu.max_visible_menu_options = ListSize(max_visible_menu_options);
     g_core.menu.totalMenuOptions = max_visible_menu_options;
     ClearMenu();
     return false;
@@ -378,14 +378,14 @@ void OpenUseOnParty(HardwareInterface hardware, MemoryInterface memory, UseFrame
 
     g_core.menu.forceRedraw = true;
     g_core.menu.useOnPartyMember = f;
-    g_core.menu.max_visible_menu_options = MAX_PARTY_SIZE;
+
+    g_core.menu.max_visible_menu_options = ListSize(MAX_PARTY_SIZE);
     g_core.menu.occupied_visible_menu_options = g_core.player.currentPartySize;
+    g_core.menu.totalMenuOptions = MAX_PARTY_SIZE;
 
     g_core.menu.depth++;
     g_core.menu.sel[g_core.menu.depth].x = 0;
     g_core.menu.sel[g_core.menu.depth].y = 0;
-    g_core.menu.max_visible_menu_options = ListSize(MAX_PARTY_SIZE);
-    g_core.menu.totalMenuOptions = MAX_PARTY_SIZE;
 }
 
 /**********************************************************************************************************************
@@ -399,14 +399,14 @@ void BackUseOnParty(MemoryInterface memory)
     {
         FillListByEntityID(memory, g_core.player.occupiedBagSlots, ITEM, g_core.trainers.itemID[player_id]);
         g_core.menu.max_visible_menu_options = ListSize(g_core.player.currentBagMaxSize);
-        g_core.menu.occupied_visible_menu_options = g_core.player.occupiedBagSlots;
+        g_core.menu.occupied_visible_menu_options = ListSize(g_core.player.occupiedBagSlots);
         g_core.menu.totalMenuOptions = g_core.player.occupiedBagSlots;
     }
     if (g_core.menu.useOnPartyMember == BACK_SPELL)
     {
         FillListByTypeID(memory, g_core.player.currentSpellbookSize, g_core.trainers.spellID[player_id]);
         g_core.menu.max_visible_menu_options = ListSize(g_core.player.currentSpellbookMaxSize);
-        g_core.menu.occupied_visible_menu_options = g_core.player.currentSpellbookSize;
+        g_core.menu.occupied_visible_menu_options = ListSize(g_core.player.currentSpellbookSize);
         g_core.menu.totalMenuOptions = g_core.player.currentSpellbookSize;
     }
 

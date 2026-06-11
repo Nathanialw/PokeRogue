@@ -13,7 +13,7 @@ def make_flags(flag0=0, flag1=0, flag2=0, flag3=0, flag4=0, flag5=0, flag6=0, fl
 
 
 def creatures_skills(entity):
-    filename = f"{constants.INC_FOLDER}/data_{entity}_skills.inc"
+    filename = f"{constants.DATA_INC_FOLDER}/data_{entity}_skills.inc"
     creatures_skills_arr = db_manager.get_creatures_skills()
 
     with open(filename, 'w', encoding='utf-8') as f:
@@ -41,7 +41,7 @@ def creatures_skills(entity):
 
 
 def creatures_level_up_skills(entity):
-    filename = f"{constants.INC_FOLDER}/data_{entity}_level_up_skills.inc"
+    filename = f"{constants.DATA_INC_FOLDER}/data_{entity}_level_up_skills.inc"
     names = db_manager.get_creatures_level_up_skills()
 
     with open(filename, 'w', encoding='utf-8') as f:
@@ -66,7 +66,7 @@ def creatures_level_up_skills(entity):
 
 
 def spells(entity):
-    filename = f"{constants.INC_FOLDER}/data_{entity}s.inc"
+    filename = f"{constants.DATA_INC_FOLDER}/data_{entity}s.inc"
     spell_data = db_manager.get_spells_data()
 
     with open(filename, 'w', encoding='utf-8') as f:
@@ -105,9 +105,43 @@ def spells(entity):
         f.write("\n")
         f.write(f"//COUNT = {len(spell_data)};\n")
 
+def trainers(entity):
+    filename = f"{constants.DATA_INC_FOLDER}/data_{entity}s.inc"
+    trainer_data = db_manager.get_trainers_data()
+
+    with open(filename, 'w', encoding='utf-8') as f:
+        f.write(f"// Generated {entity} data structs\n")
+        f.write(f"// Database contains {len(trainer_data)} total {entity}s\n\n")
+
+        # Write individual constants
+        f.write(f"// Individual {entity}s data\n\n")
+
+        for i, (trainer_name, party_0, party_1, party_2, party_3, party_4, party_5, spell_0, spell_1, spell_2, spell_3, spell_4, spell_5) in enumerate(trainer_data):
+            f.write(f"{{//  {i} - {trainer_name}}}\n")
+            f.write(f"  .party = {{\n")
+            f.write(f"      {party_0},\n")
+            f.write(f"      {party_1},\n")
+            f.write(f"      {party_2},\n")
+            f.write(f"      {party_3},\n")
+            f.write(f"      {party_4},\n")
+            f.write(f"      {party_5},\n")
+            f.write(f"  }},\n")
+            f.write(f" .spells = {{\n")
+            f.write(f"      {spell_0},\n")
+            f.write(f"      {spell_1},\n")
+            f.write(f"      {spell_2},\n")
+            f.write(f"      {spell_3},\n")
+            f.write(f"      {spell_4},\n")
+            f.write(f"      {spell_5},\n")
+            f.write(f"  }},\n")
+            f.write(f"}},\n")
+
+        f.write("\n")
+        f.write(f"//COUNT = {len(trainer_data)};\n")
+
 
 def items(entity):
-    filename = f"{constants.INC_FOLDER}/data_{entity}s.inc"
+    filename = f"{constants.DATA_INC_FOLDER}/data_{entity}s.inc"
     item_data = db_manager.get_items_data()
 
     with open(filename, 'w', encoding='utf-8') as f:
@@ -141,7 +175,7 @@ def items(entity):
 
 
 def abilities(entity):
-    filename = f"{constants.INC_FOLDER}/data_{entity}s.inc"
+    filename = f"{constants.DATA_INC_FOLDER}/data_{entity}s.inc"
     skill_data = db_manager.get_abilities_data()
 
     with open(filename, 'w', encoding='utf-8') as f:
@@ -159,7 +193,7 @@ def abilities(entity):
 
 
 def objects(entity):
-    filename = f"{constants.INC_FOLDER}/data_{entity}s.inc"
+    filename = f"{constants.DATA_INC_FOLDER}/data_{entity}s.inc"
     object_data = db_manager.get_objects_data()
 
     with open(filename, 'w', encoding='utf-8') as f:

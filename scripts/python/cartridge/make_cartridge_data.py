@@ -160,6 +160,7 @@ def main():
         ".game_data_spell",
         ".game_data_item",
         ".game_data_object",
+        ".game_data_trainer",
 
         # colors
         ".colors_16",
@@ -233,7 +234,7 @@ def main():
     print(f"\nSuccess! Created {output_bin.name} {len(rom)} ({rom_size // 1024 // 1024} MB) ({rom_size // 1024} KB) ({rom_size} B)")
 
     # write defines
-    filename = f"{constants.INC_FOLDER}/data_constants_memory.inc"
+    filename = f"{constants.CODE_INC_FOLDER}/data_constants_memory.inc"
 
     with open(filename, 'w', encoding='utf-8') as f:
         f.write(f"#pragma once\n\n")

@@ -15,7 +15,7 @@ import json
 import os
 from pathlib import Path
 
-from python.config import constants
+from python.config.constants import DATA_INC_FOLDER
 from python.data import db_manager
 
 # Starting index for monsters (can be changed)
@@ -138,15 +138,15 @@ def export_image_data(entity, size):
     print(f"\nProcessing...")
 
     # Create inc folder if it doesn't exist
-    os.makedirs(constants.INC_FOLDER, exist_ok=True)
+    os.makedirs(DATA_INC_FOLDER, exist_ok=True)
 
 
     bytes_output = f"sprite_{size}x{size}_{entity}"
     layout_output = f"sprite_{size}x{size}_{entity}_metaData"
 
     # Open output files in write mode (overwrite) to start fresh
-    data_path = os.path.join(constants.INC_FOLDER, f"{bytes_output}.inc")
-    layout_path = os.path.join(constants.INC_FOLDER, f"{layout_output}.inc")
+    data_path = os.path.join(DATA_INC_FOLDER, f"{bytes_output}.inc")
+    layout_path = os.path.join(DATA_INC_FOLDER, f"{layout_output}.inc")
 
     print(data_path)
     print(layout_path)

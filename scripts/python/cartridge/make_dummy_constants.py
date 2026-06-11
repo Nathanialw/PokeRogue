@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-
+import os
 
 from python.config import constants
 
@@ -140,6 +140,7 @@ def main():
         ".game_data_spell",
         ".game_data_item",
         ".game_data_object",
+        ".game_data_trainer",
 
         # colors
         ".colors_16",
@@ -155,8 +156,9 @@ def main():
         ".sounds_notes",
     ]
 
-
-    filename = f"{constants.INC_FOLDER}/data_constants_memory.inc"
+    if not os.path.exists(constants.CODE_INC_FOLDER):
+        os.mkdir(constants.CODE_INC_FOLDER)
+    filename = f"{constants.CODE_INC_FOLDER}/data_constants_memory.inc"
 
     with open(filename, 'w', encoding='utf-8') as f:
         f.write(f"#pragma once\n\n")

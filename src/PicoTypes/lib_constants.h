@@ -10,7 +10,6 @@
 // #define RES_480x480
 
 
-
 #if defined(RES_320x240)
 #define TFT_W 320
 #define TFT_H 240
@@ -48,7 +47,15 @@
 #define TFT_WIDTH  TFT_W
 #define TFT_HEIGHT TFT_H
 #else
-#error "Define RES_320x240 or RES_320x320 or RES_480x480 or SDL"
+//#error "Define RES_320x240 or RES_320x320 or RES_480x480 or SDL"
+#define TFT_W 1280
+#define TFT_H 1280
+#define SCREEN_W TFT_W
+#define SCREEN_H TFT_H
+#define TEXT_W 16
+#define TEXT_H 16
+#define TFT_WIDTH  TFT_W
+#define TFT_HEIGHT TFT_H
 #endif
 
 #define TRANSPARENCY 0xF81F
@@ -69,7 +76,9 @@
 #define BUFFER_H (TFT_W)
 #define BUFFER_W (TFT_H)
 #else
-#error "Define RES_320x240 or RES_320x320 or RES_480x480 or SDL"
+#define BUFFER_H (TFT_W)
+#define BUFFER_W (TFT_H)
+//#error "Define RES_320x240 or RES_320x320 or RES_480x480 or SDL"
 #endif
 
 #define TILE_W (16 * (SCREEN_W / 320))
@@ -80,3 +89,4 @@
 #define BUFFER_SIZE_BACK (BUFFER_W * BUFFER_H)
 #define BUFFER_SIZE_1BYTE ((BUFFER_W * BUFFER_H) * 4)
 #define BUFFER_SIZE_2BYTES ((BUFFER_W * BUFFER_H) * 2)
+

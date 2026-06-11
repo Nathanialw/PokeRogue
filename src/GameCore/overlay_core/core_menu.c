@@ -19,7 +19,7 @@
 SET_MEMORY(".core")
 uint16_t ListSize(uint16_t n)
 {
-    return n > (MAIN_MENU_H - 2) ? (MAIN_MENU_H - 1) * g_core.settings.fontSize : n;
+    return n > MAIN_MENU_LIST_H ? MAIN_MENU_LIST_H : n;
 }
 
 /**********************************************************************************************************************/

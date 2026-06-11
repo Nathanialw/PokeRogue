@@ -137,15 +137,30 @@ SET_MEMORY(".map")
 bool Pit(EntityId id, ObjectsTypes type, uint8_t x, uint8_t y)
 {
     // check current tile, cancel movement
-
-    if (id == g_core.player.id)
+    if (type == TRAINER)
     {
-        g_core.player.scroll.x = 0;
-        g_core.player.scroll.y = 0;
+        if (g_core.creatures.status.waterWalk[id])
+            return true;
+
+
+        EntityId creature_id = g_core.trainers.partyID[id][0];
+        DoDamage(creature_id, 3);
+        bool dead = CheckCreatureDead(creature_id);
+        if (dead)
+        {
+            DestroyPartyCreature(creature_id);
+            if (id == GetPlayerID())
+            {
+                if (CheckGameLost())
+                    g_core.state.overlay = OVERLAY_TITLE_SCREEN;
+            }
+        }
+    }
+    if (type == CREATURE)
+    {
     }
 
-
-    return false;
+    return true;
 }
 
 

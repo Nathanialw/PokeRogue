@@ -652,3 +652,17 @@ typedef struct
 {
     uint16_t x, y, w, h;
 } Room;
+
+
+#define MAX_AI_TRAINER_SPELLS 6
+
+typedef struct
+{
+    union
+    {
+        CreatureID party[MAX_PARTY_SIZE];
+        SpellId spells[MAX_AI_TRAINER_SPELLS];
+    };
+
+    uint8_t bytes[MAX_AI_TRAINER_SPELLS + MAX_PARTY_SIZE];
+} TrainerData;

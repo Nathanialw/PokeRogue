@@ -71,63 +71,57 @@
 {  .index = 38412, .size = 497, .palette = { 0xf81f, 0x7329, 0x5225, 0x41a4, 0x20c2, 0xa4cf, 0x3143, 0x20e2, 0xce34, 0x8bec, 0x3102, 0x0840, 0x5a87, 0x1881, 0x0000, 0x0000 }, },
 // MIRROR / Mirror Auraflow V0.3 031 S213045464 Th0.100 64 [Folder: MIRROR] (sprite index: 33, byte offset: 38909, size: 1580)
 {  .index = 38909, .size = 1580, .palette = { 0xf81f, 0x10a7, 0x1085, 0x1885, 0x20a9, 0x2271, 0x292d, 0x1108, 0xadfc, 0x1045, 0x5131, 0x112b, 0x18a9, 0x6a96, 0x7419, 0x38ae }, },
-// PARALYZE DART / Paralyze Dart Auraflow V0.3 020 S864086781 Th0.100 64 [Folder: PARALYZE_DART] (sprite index: 34, byte offset: 40489, size: 819)
-{  .index = 40489, .size = 819, .palette = { 0xf81f, 0x0841, 0x0000, 0x0000, 0xd6ba, 0x31a6, 0x10c3, 0x0882, 0x1082, 0x0020, 0x0020, 0x1904, 0x0841, 0x738e, 0x0861, 0x0000 }, },
-// POISON DART / Poison Dart Auraflow V0.3 010 S2401303657 Th0.100 64 [Folder: POISON_DART] (sprite index: 35, byte offset: 41308, size: 625)
-{  .index = 41308, .size = 625, .palette = { 0xf81f, 0x0021, 0x222b, 0x34b6, 0x0863, 0x10c5, 0xb7be, 0x1b71, 0x0063, 0x0948, 0x3e3b, 0x08c4, 0x1968, 0x8619, 0x4390, 0x0000 }, },
-// POTION ANTIDOTE / Potion Antidote Auraflow V0.3 003 S218673367 Th0.100 64 [Folder: POTION_ANTIDOTE] (sprite index: 36, byte offset: 41933, size: 881)
-{  .index = 41933, .size = 881, .palette = { 0xf81f, 0x0242, 0x0161, 0x0b84, 0x6f34, 0x2deb, 0x0902, 0x0ca6, 0x0881, 0x36ce, 0xb79b, 0x1163, 0x3ccb, 0x1aa5, 0x1a04, 0x2b87 }, },
-// POTION BLINK / Potion Blink Auraflow V0.3 022 S4236766728 Th0.100 64 [Folder: POTION_BLINK] (sprite index: 37, byte offset: 42814, size: 982)
-{  .index = 42814, .size = 982, .palette = { 0xf81f, 0x2187, 0x29e9, 0x0041, 0x1925, 0xd79e, 0x10c4, 0x74b5, 0x4b90, 0xae7b, 0x322a, 0x63f1, 0x3aad, 0x4aed, 0x8d78, 0x0000 }, },
-// POTION CURE / Potion Cure Auraflow V0.3 022 S3926108744 Th0.100 64 [Folder: POTION_CURE] (sprite index: 38, byte offset: 43796, size: 696)
-{  .index = 43796, .size = 696, .palette = { 0xf81f, 0x18a2, 0x1061, 0x28a1, 0x10a2, 0xd5ca, 0x0820, 0x38c1, 0x61a2, 0x72a5, 0x39c6, 0xf72f, 0xbc67, 0x83ca, 0x3144, 0x0800 }, },
-// POTION DECURSE / Potion Decurse Auraflow V0.3 010 S3711238920 Th0.100 64 [Folder: POTION_DECURSE] (sprite index: 39, byte offset: 44492, size: 1073)
-{  .index = 44492, .size = 1073, .palette = { 0xf81f, 0x0b85, 0x09c3, 0x0962, 0x36ce, 0x01c2, 0x0283, 0x0de9, 0x0a84, 0x16ec, 0x0cc7, 0x0be6, 0x8776, 0x0902, 0x12a5, 0x1cc8 }, },
-// POTION HASTE / Potion Haste Auraflow V0.3 004 S868811784 Th0.100 64 [Folder: POTION_HASTE] (sprite index: 40, byte offset: 45565, size: 1029)
-{  .index = 45565, .size = 1029, .palette = { 0xf81f, 0x1085, 0x30ac, 0xcf3e, 0x30b6, 0x78b9, 0x50b6, 0x1890, 0x92bc, 0x66bd, 0x9cbc, 0x2ad6, 0x34ba, 0x6276, 0x2814, 0x29b1 }, },
-// POTION HEALTH / Potion Health Auraflow V0.3 000 S3298422372 Th0.100 64 [Folder: POTION_HEALTH] (sprite index: 41, byte offset: 46594, size: 877)
-{  .index = 46594, .size = 877, .palette = { 0xf81f, 0x5043, 0x18a3, 0x30a4, 0xb023, 0xd043, 0x2842, 0xd168, 0x4967, 0x7823, 0x9023, 0x68a5, 0xd0a6, 0xb28c, 0xe512, 0x9801 }, },
-// POTION INVISIBILITY / Potion Invisibility Auraflow V0.3 009 S3278092549 Th0.100 64 [Folder: POTION_INVISIBILITY] (sprite index: 42, byte offset: 47471, size: 919)
-{  .index = 47471, .size = 919, .palette = { 0xf81f, 0x13d8, 0x0ab3, 0x01cf, 0x357b, 0xa7be, 0x0043, 0x08c7, 0x092a, 0x34b9, 0x467d, 0x7e9c, 0x11cd, 0x2bb6, 0x1ab2, 0x0000 }, },
-// POTION INVULNERABILITY / Potion Invulnerability Auraflow V0.3 002 S4030034537 Th0.100 64 [Folder: POTION_INVULNERABILITY] (sprite index: 43, byte offset: 48390, size: 895)
-{  .index = 48390, .size = 895, .palette = { 0xf81f, 0xef0c, 0xed01, 0xf604, 0xff06, 0x30c2, 0xc56d, 0x1862, 0x7b48, 0x20c3, 0x68a1, 0xba81, 0xc3e3, 0xffa9, 0xc4a7, 0x59a4 }, },
-// POTION LEVITATE / Potion Levitate Auraflow V0.3 010 S2278676345 Th0.100 64 [Folder: POTION_LEVITATE] (sprite index: 44, byte offset: 49285, size: 856)
-{  .index = 49285, .size = 856, .palette = { 0xf81f, 0x10a3, 0x3bee, 0x2bad, 0x3aaa, 0x4553, 0x1aaa, 0x95b4, 0x1a08, 0x3208, 0x1146, 0x4eb9, 0x2966, 0xa75b, 0x640f, 0x0000 }, },
-// POTION MANA / Potion Mana Auraflow V0.3 011 S1083001125 Th0.100 64 [Folder: POTION_MANA] (sprite index: 45, byte offset: 50141, size: 993)
-{  .index = 50141, .size = 993, .palette = { 0xf81f, 0x1244, 0x0385, 0x0ce7, 0x00a1, 0x0162, 0x1b67, 0x0020, 0x0061, 0x0963, 0x00e2, 0x166a, 0x9ff8, 0x5670, 0x08e2, 0x0000 }, },
-// POTION REPEL / Potion Repel Auraflow V0.3 017 S2067962558 Th0.100 64 [Folder: POTION_REPEL] (sprite index: 46, byte offset: 51134, size: 956)
-{  .index = 51134, .size = 956, .palette = { 0xf81f, 0x20c1, 0x2141, 0x4a22, 0x3c03, 0x5322, 0x2322, 0x7d85, 0xa6c9, 0xe7ce, 0xcf29, 0x6e89, 0x7484, 0x4505, 0x3962, 0x2222 }, },
-// POTION RESTORE PP / Potion Restore Pp Auraflow V0.3 000 S3325046377 Th0.100 64 [Folder: POTION_RESTORE_PP] (sprite index: 47, byte offset: 52090, size: 1024)
-{  .index = 52090, .size = 1024, .palette = { 0xf81f, 0x39a6, 0x0882, 0x0841, 0x30e2, 0x9a02, 0x71c2, 0xd3a3, 0x5101, 0x10c4, 0x2081, 0xdce6, 0x20e3, 0xee89, 0x7b08, 0x0800 }, },
-// POTION REVIVE / Potion Revive Auraflow V0.3 015 S651700347 Th0.100 64 [Folder: POTION_REVIVE] (sprite index: 48, byte offset: 53114, size: 1166)
-{  .index = 53114, .size = 1166, .palette = { 0xf81f, 0x1041, 0x3841, 0x5061, 0x20c3, 0x3a49, 0x2820, 0x2945, 0x73f0, 0x2882, 0xae5a, 0x4904, 0x8842, 0x8904, 0x7a6a, 0x4800 }, },
-// POTION TELEPORT / Potion Teleport Auraflow V0.3 007 S190304835 Th0.100 64 [Folder: POTION_TELEPORT] (sprite index: 49, byte offset: 54280, size: 967)
-{  .index = 54280, .size = 967, .palette = { 0xf81f, 0x1081, 0x1902, 0x0901, 0x1243, 0x1324, 0x1486, 0x0961, 0x29c4, 0x09c2, 0x2eae, 0x3326, 0x2163, 0x9736, 0x3265, 0x4cab }, },
-// POTION VISION / Potion Vision Auraflow V0.3 020 S2103203294 Th0.100 64 [Folder: POTION_VISION] (sprite index: 50, byte offset: 55247, size: 1160)
-{  .index = 55247, .size = 1160, .palette = { 0xf81f, 0x1845, 0x202a, 0x4053, 0x929c, 0x5075, 0x815a, 0x6138, 0xd61d, 0x384e, 0xabfa, 0x410d, 0x6877, 0x282e, 0x6a54, 0x280d }, },
-// POTION XP / Xp Potion Auraflow V0.3 006 S2419340138 Th0.100 64 [Folder: POTION_XP] (sprite index: 51, byte offset: 56407, size: 1011)
-{  .index = 56407, .size = 1011, .palette = { 0xf81f, 0x082c, 0x111c, 0x1a9e, 0x1c1e, 0x2136, 0x3dff, 0x869f, 0x429b, 0x543e, 0x8277, 0x3911, 0x208f, 0x7116, 0x1091, 0x1010 }, },
-// RARE CANDY / Rare Candy Auraflow V0.3 004 S222295213 Th0.100 64 [Folder: RARE_CANDY] (sprite index: 52, byte offset: 57418, size: 1632)
-{  .index = 57418, .size = 1632, .palette = { 0xf81f, 0x206a, 0x20c9, 0x28ee, 0x38ce, 0xa1fb, 0x6337, 0xbb5d, 0x69d7, 0x4171, 0x50d1, 0x49f3, 0xdebe, 0x70f5, 0xacdc, 0x300c }, },
-// SCROLL / Scroll Auraflow V0.3 013 S2185794644 Th0.100 64 [Folder: SCROLL] (sprite index: 53, byte offset: 59050, size: 1576)
-{  .index = 59050, .size = 1576, .palette = { 0xf81f, 0x5247, 0x0861, 0x83ed, 0x10a2, 0x6b09, 0x41c5, 0x3144, 0x7bac, 0x18c2, 0x5ac9, 0x31a6, 0x736b, 0x2104, 0x9cd2, 0x0000 }, },
-// SHOVEL / Shovel Auraflow V0.3 005 S2817784578 Th0.100 64 [Folder: SHOVEL] (sprite index: 54, byte offset: 60626, size: 1016)
-{  .index = 60626, .size = 1016, .palette = { 0xf81f, 0x4a69, 0x4207, 0x1903, 0x10a2, 0x2904, 0x842f, 0x738d, 0x39c7, 0xa553, 0x2965, 0x632b, 0x52ca, 0x3185, 0xdf1b, 0x0000 }, },
-// SLEEP DART / Sleep Dart Auraflow V0.3 009 S2143928769 Th0.100 64 [Folder: SLEEP_DART] (sprite index: 55, byte offset: 61642, size: 764)
-{  .index = 61642, .size = 764, .palette = { 0xf81f, 0x2104, 0x18c3, 0x0861, 0x0020, 0x2965, 0x0841, 0x10a2, 0x632c, 0xce9a, 0x8c71, 0x1082, 0x0862, 0x39c7, 0x4a49, 0x0000 }, },
-// SMOKE BALL / Smoke Ball Auraflow V0.3 021 S836358320 Th0.100 64 [Folder: SMOKE_BALL] (sprite index: 56, byte offset: 62406, size: 1537)
-{  .index = 62406, .size = 1537, .palette = { 0xf81f, 0x084a, 0x0848, 0xc8f9, 0x40d7, 0xe999, 0x186e, 0x18d4, 0xfb37, 0xea59, 0x086d, 0x78d9, 0x897a, 0x7877, 0x4811, 0x3071 }, },
-// SPELL BOOK / Spell Book Auraflow V0.3 005 S3050685082 Th0.100 64 [Folder: SPELL_BOOK] (sprite index: 57, byte offset: 63943, size: 1630)
-{  .index = 63943, .size = 1630, .palette = { 0xf81f, 0x3923, 0x20c2, 0x49e6, 0x4943, 0x0820, 0x30a1, 0x0000, 0x2061, 0x1040, 0x40c1, 0x730a, 0x5963, 0xacf1, 0x1881, 0x6a05 }, },
-// SWIFTNESS SERUM / Swiftness Serum Auraflow V0.3 014 S1178264322 Th0.100 64 [Folder: SWIFTNESS_SERUM] (sprite index: 58, byte offset: 65573, size: 940)
-{  .index = 65573, .size = 940, .palette = { 0xf81f, 0x10a2, 0x0020, 0x2104, 0x1082, 0x0020, 0xad55, 0x0861, 0x630c, 0x4228, 0x2945, 0x18c3, 0x0841, 0x31a6, 0x0861, 0x0000 }, },
-// TORCH / Torch Auraflow V0.3 003 S3127554144 Th0.100 64 [Folder: TORCH] (sprite index: 59, byte offset: 66513, size: 711)
-{  .index = 66513, .size = 711, .palette = { 0xf81f, 0x30c1, 0x61a2, 0xe424, 0xdb63, 0x8243, 0xfec9, 0x5142, 0xed05, 0xaa82, 0xbb23, 0xff8e, 0xf5e6, 0x79c2, 0xb2c2, 0xa222 }, },
-// WATER RESISTANCE / Water Resistance Auraflow V0.3 006 S1612135382 Th0.100 64 [Folder: WATER_RESISTANCE] (sprite index: 60, byte offset: 67224, size: 1621)
-{  .index = 67224, .size = 1621, .palette = { 0xf81f, 0x0088, 0x08ea, 0x1ad3, 0x0044, 0x00c8, 0x09f0, 0x092b, 0x00ec, 0x094e, 0x116e, 0x114b, 0x08c8, 0x1a10, 0x3c98, 0x0001 }, },
-// WHIP / Whip Auraflow V0.3 007 S3045795252 Th0.100 64 [Folder: WHIP] (sprite index: 61, byte offset: 68845, size: 1022)
-{  .index = 68845, .size = 1022, .palette = { 0xf81f, 0x18a2, 0x1061, 0xbac4, 0x30e2, 0x28e3, 0x28a2, 0x91e3, 0x69a3, 0xe56b, 0x3985, 0x5184, 0xc3c8, 0x5102, 0x18c3, 0x7a87 }, },
-// WISDOM CROWN / Wisdom Crown Auraflow V0.3 021 S2390789478 Th0.100 64 [Folder: WISDOM_CROWN] (sprite index: 62, byte offset: 69867, size: 1170)
-{  .index = 69867, .size = 1170, .palette = { 0xf81f, 0x3187, 0x18a4, 0x1044, 0x94b3, 0x526a, 0x20e5, 0x630c, 0xb596, 0x738f, 0x41c9, 0x38cd, 0x8410, 0xdefb, 0x28e7, 0x1809 }, },
+// POTION ANTIDOTE / Potion Antidote Auraflow V0.3 003 S218673367 Th0.100 64 [Folder: POTION_ANTIDOTE] (sprite index: 34, byte offset: 40489, size: 881)
+{  .index = 40489, .size = 881, .palette = { 0xf81f, 0x0242, 0x0161, 0x0b84, 0x6f34, 0x2deb, 0x0902, 0x0ca6, 0x0881, 0x36ce, 0xb79b, 0x1163, 0x3ccb, 0x1aa5, 0x1a04, 0x2b87 }, },
+// POTION BLINK / Potion Blink Auraflow V0.3 022 S4236766728 Th0.100 64 [Folder: POTION_BLINK] (sprite index: 35, byte offset: 41370, size: 982)
+{  .index = 41370, .size = 982, .palette = { 0xf81f, 0x2187, 0x29e9, 0x0041, 0x1925, 0xd79e, 0x10c4, 0x74b5, 0x4b90, 0xae7b, 0x322a, 0x63f1, 0x3aad, 0x4aed, 0x8d78, 0x0000 }, },
+// POTION CURE / Potion Cure Auraflow V0.3 022 S3926108744 Th0.100 64 [Folder: POTION_CURE] (sprite index: 36, byte offset: 42352, size: 696)
+{  .index = 42352, .size = 696, .palette = { 0xf81f, 0x18a2, 0x1061, 0x28a1, 0x10a2, 0xd5ca, 0x0820, 0x38c1, 0x61a2, 0x72a5, 0x39c6, 0xf72f, 0xbc67, 0x83ca, 0x3144, 0x0800 }, },
+// POTION DECURSE / Potion Decurse Auraflow V0.3 010 S3711238920 Th0.100 64 [Folder: POTION_DECURSE] (sprite index: 37, byte offset: 43048, size: 1073)
+{  .index = 43048, .size = 1073, .palette = { 0xf81f, 0x0b85, 0x09c3, 0x0962, 0x36ce, 0x01c2, 0x0283, 0x0de9, 0x0a84, 0x16ec, 0x0cc7, 0x0be6, 0x8776, 0x0902, 0x12a5, 0x1cc8 }, },
+// POTION HASTE / Potion Haste Auraflow V0.3 004 S868811784 Th0.100 64 [Folder: POTION_HASTE] (sprite index: 38, byte offset: 44121, size: 1029)
+{  .index = 44121, .size = 1029, .palette = { 0xf81f, 0x1085, 0x30ac, 0xcf3e, 0x30b6, 0x78b9, 0x50b6, 0x1890, 0x92bc, 0x66bd, 0x9cbc, 0x2ad6, 0x34ba, 0x6276, 0x2814, 0x29b1 }, },
+// POTION HEALTH / Potion Health Auraflow V0.3 000 S3298422372 Th0.100 64 [Folder: POTION_HEALTH] (sprite index: 39, byte offset: 45150, size: 877)
+{  .index = 45150, .size = 877, .palette = { 0xf81f, 0x5043, 0x18a3, 0x30a4, 0xb023, 0xd043, 0x2842, 0xd168, 0x4967, 0x7823, 0x9023, 0x68a5, 0xd0a6, 0xb28c, 0xe512, 0x9801 }, },
+// POTION INVISIBILITY / Potion Invisibility Auraflow V0.3 009 S3278092549 Th0.100 64 [Folder: POTION_INVISIBILITY] (sprite index: 40, byte offset: 46027, size: 919)
+{  .index = 46027, .size = 919, .palette = { 0xf81f, 0x13d8, 0x0ab3, 0x01cf, 0x357b, 0xa7be, 0x0043, 0x08c7, 0x092a, 0x34b9, 0x467d, 0x7e9c, 0x11cd, 0x2bb6, 0x1ab2, 0x0000 }, },
+// POTION INVULNERABILITY / Potion Invulnerability Auraflow V0.3 002 S4030034537 Th0.100 64 [Folder: POTION_INVULNERABILITY] (sprite index: 41, byte offset: 46946, size: 895)
+{  .index = 46946, .size = 895, .palette = { 0xf81f, 0xef0c, 0xed01, 0xf604, 0xff06, 0x30c2, 0xc56d, 0x1862, 0x7b48, 0x20c3, 0x68a1, 0xba81, 0xc3e3, 0xffa9, 0xc4a7, 0x59a4 }, },
+// POTION LEVITATE / Potion Levitate Auraflow V0.3 010 S2278676345 Th0.100 64 [Folder: POTION_LEVITATE] (sprite index: 42, byte offset: 47841, size: 856)
+{  .index = 47841, .size = 856, .palette = { 0xf81f, 0x10a3, 0x3bee, 0x2bad, 0x3aaa, 0x4553, 0x1aaa, 0x95b4, 0x1a08, 0x3208, 0x1146, 0x4eb9, 0x2966, 0xa75b, 0x640f, 0x0000 }, },
+// POTION MANA / Potion Mana Auraflow V0.3 011 S1083001125 Th0.100 64 [Folder: POTION_MANA] (sprite index: 43, byte offset: 48697, size: 993)
+{  .index = 48697, .size = 993, .palette = { 0xf81f, 0x1244, 0x0385, 0x0ce7, 0x00a1, 0x0162, 0x1b67, 0x0020, 0x0061, 0x0963, 0x00e2, 0x166a, 0x9ff8, 0x5670, 0x08e2, 0x0000 }, },
+// POTION REPEL / Potion Repel Auraflow V0.3 017 S2067962558 Th0.100 64 [Folder: POTION_REPEL] (sprite index: 44, byte offset: 49690, size: 956)
+{  .index = 49690, .size = 956, .palette = { 0xf81f, 0x20c1, 0x2141, 0x4a22, 0x3c03, 0x5322, 0x2322, 0x7d85, 0xa6c9, 0xe7ce, 0xcf29, 0x6e89, 0x7484, 0x4505, 0x3962, 0x2222 }, },
+// POTION RESTORE PP / Potion Restore Pp Auraflow V0.3 000 S3325046377 Th0.100 64 [Folder: POTION_RESTORE_PP] (sprite index: 45, byte offset: 50646, size: 1024)
+{  .index = 50646, .size = 1024, .palette = { 0xf81f, 0x39a6, 0x0882, 0x0841, 0x30e2, 0x9a02, 0x71c2, 0xd3a3, 0x5101, 0x10c4, 0x2081, 0xdce6, 0x20e3, 0xee89, 0x7b08, 0x0800 }, },
+// POTION REVIVE / Potion Revive Auraflow V0.3 015 S651700347 Th0.100 64 [Folder: POTION_REVIVE] (sprite index: 46, byte offset: 51670, size: 1166)
+{  .index = 51670, .size = 1166, .palette = { 0xf81f, 0x1041, 0x3841, 0x5061, 0x20c3, 0x3a49, 0x2820, 0x2945, 0x73f0, 0x2882, 0xae5a, 0x4904, 0x8842, 0x8904, 0x7a6a, 0x4800 }, },
+// POTION TELEPORT / Potion Teleport Auraflow V0.3 007 S190304835 Th0.100 64 [Folder: POTION_TELEPORT] (sprite index: 47, byte offset: 52836, size: 967)
+{  .index = 52836, .size = 967, .palette = { 0xf81f, 0x1081, 0x1902, 0x0901, 0x1243, 0x1324, 0x1486, 0x0961, 0x29c4, 0x09c2, 0x2eae, 0x3326, 0x2163, 0x9736, 0x3265, 0x4cab }, },
+// POTION VISION / Potion Vision Auraflow V0.3 020 S2103203294 Th0.100 64 [Folder: POTION_VISION] (sprite index: 48, byte offset: 53803, size: 1160)
+{  .index = 53803, .size = 1160, .palette = { 0xf81f, 0x1845, 0x202a, 0x4053, 0x929c, 0x5075, 0x815a, 0x6138, 0xd61d, 0x384e, 0xabfa, 0x410d, 0x6877, 0x282e, 0x6a54, 0x280d }, },
+// POTION XP / Xp Potion Auraflow V0.3 006 S2419340138 Th0.100 64 [Folder: POTION_XP] (sprite index: 49, byte offset: 54963, size: 1011)
+{  .index = 54963, .size = 1011, .palette = { 0xf81f, 0x082c, 0x111c, 0x1a9e, 0x1c1e, 0x2136, 0x3dff, 0x869f, 0x429b, 0x543e, 0x8277, 0x3911, 0x208f, 0x7116, 0x1091, 0x1010 }, },
+// RARE CANDY / Rare Candy Auraflow V0.3 004 S222295213 Th0.100 64 [Folder: RARE_CANDY] (sprite index: 50, byte offset: 55974, size: 1632)
+{  .index = 55974, .size = 1632, .palette = { 0xf81f, 0x206a, 0x20c9, 0x28ee, 0x38ce, 0xa1fb, 0x6337, 0xbb5d, 0x69d7, 0x4171, 0x50d1, 0x49f3, 0xdebe, 0x70f5, 0xacdc, 0x300c }, },
+// SCROLL / Scroll Auraflow V0.3 013 S2185794644 Th0.100 64 [Folder: SCROLL] (sprite index: 51, byte offset: 57606, size: 1576)
+{  .index = 57606, .size = 1576, .palette = { 0xf81f, 0x5247, 0x0861, 0x83ed, 0x10a2, 0x6b09, 0x41c5, 0x3144, 0x7bac, 0x18c2, 0x5ac9, 0x31a6, 0x736b, 0x2104, 0x9cd2, 0x0000 }, },
+// SHOVEL / Shovel Auraflow V0.3 005 S2817784578 Th0.100 64 [Folder: SHOVEL] (sprite index: 52, byte offset: 59182, size: 1016)
+{  .index = 59182, .size = 1016, .palette = { 0xf81f, 0x4a69, 0x4207, 0x1903, 0x10a2, 0x2904, 0x842f, 0x738d, 0x39c7, 0xa553, 0x2965, 0x632b, 0x52ca, 0x3185, 0xdf1b, 0x0000 }, },
+// SMOKE BALL / Smoke Ball Auraflow V0.3 021 S836358320 Th0.100 64 [Folder: SMOKE_BALL] (sprite index: 53, byte offset: 60198, size: 1537)
+{  .index = 60198, .size = 1537, .palette = { 0xf81f, 0x084a, 0x0848, 0xc8f9, 0x40d7, 0xe999, 0x186e, 0x18d4, 0xfb37, 0xea59, 0x086d, 0x78d9, 0x897a, 0x7877, 0x4811, 0x3071 }, },
+// SPELL BOOK / Spell Book Auraflow V0.3 005 S3050685082 Th0.100 64 [Folder: SPELL_BOOK] (sprite index: 54, byte offset: 61735, size: 1630)
+{  .index = 61735, .size = 1630, .palette = { 0xf81f, 0x3923, 0x20c2, 0x49e6, 0x4943, 0x0820, 0x30a1, 0x0000, 0x2061, 0x1040, 0x40c1, 0x730a, 0x5963, 0xacf1, 0x1881, 0x6a05 }, },
+// SWIFTNESS SERUM / Swiftness Serum Auraflow V0.3 014 S1178264322 Th0.100 64 [Folder: SWIFTNESS_SERUM] (sprite index: 55, byte offset: 63365, size: 940)
+{  .index = 63365, .size = 940, .palette = { 0xf81f, 0x10a2, 0x0020, 0x2104, 0x1082, 0x0020, 0xad55, 0x0861, 0x630c, 0x4228, 0x2945, 0x18c3, 0x0841, 0x31a6, 0x0861, 0x0000 }, },
+// TORCH / Torch Auraflow V0.3 003 S3127554144 Th0.100 64 [Folder: TORCH] (sprite index: 56, byte offset: 64305, size: 711)
+{  .index = 64305, .size = 711, .palette = { 0xf81f, 0x30c1, 0x61a2, 0xe424, 0xdb63, 0x8243, 0xfec9, 0x5142, 0xed05, 0xaa82, 0xbb23, 0xff8e, 0xf5e6, 0x79c2, 0xb2c2, 0xa222 }, },
+// WATER RESISTANCE / Water Resistance Auraflow V0.3 006 S1612135382 Th0.100 64 [Folder: WATER_RESISTANCE] (sprite index: 57, byte offset: 65016, size: 1621)
+{  .index = 65016, .size = 1621, .palette = { 0xf81f, 0x0088, 0x08ea, 0x1ad3, 0x0044, 0x00c8, 0x09f0, 0x092b, 0x00ec, 0x094e, 0x116e, 0x114b, 0x08c8, 0x1a10, 0x3c98, 0x0001 }, },
+// WHIP / Whip Auraflow V0.3 007 S3045795252 Th0.100 64 [Folder: WHIP] (sprite index: 58, byte offset: 66637, size: 1022)
+{  .index = 66637, .size = 1022, .palette = { 0xf81f, 0x18a2, 0x1061, 0xbac4, 0x30e2, 0x28e3, 0x28a2, 0x91e3, 0x69a3, 0xe56b, 0x3985, 0x5184, 0xc3c8, 0x5102, 0x18c3, 0x7a87 }, },
+// WISDOM CROWN / Wisdom Crown Auraflow V0.3 021 S2390789478 Th0.100 64 [Folder: WISDOM_CROWN] (sprite index: 59, byte offset: 67659, size: 1170)
+{  .index = 67659, .size = 1170, .palette = { 0xf81f, 0x3187, 0x18a4, 0x1044, 0x94b3, 0x526a, 0x20e5, 0x630c, 0xb596, 0x738f, 0x41c9, 0x38cd, 0x8410, 0xdefb, 0x28e7, 0x1809 }, },
 
-// Total sprites processed: 63, total data size: 71040 bytes
+// Total sprites processed: 60, total data size: 68832 bytes

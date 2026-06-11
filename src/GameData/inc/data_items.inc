@@ -37,18 +37,18 @@
 { .power = 100, .data = 0x31, .flags = 0b00000000 },
 // 12 - name - .power = 100, .item_level = 1, .item_type = COMMON,  flags = { .consumable = 0, .consumable_party = 0, .consumable_spellbook = 0 } 
 { .power = 100, .data = 0x31, .flags = 0b00000000 },
-// 13 - name - .power = 100, .item_level = 1, .item_type = MAGICAL,  flags = { .consumable = 0, .consumable_party = 0, .consumable_spellbook = 0 } 
-{ .power = 100, .data = 0x41, .flags = 0b00000000 },
-// 14 - name - .power = 100, .item_level = 1, .item_type = MAGICAL,  flags = { .consumable = 1, .consumable_party = 0, .consumable_spellbook = 0 } 
-{ .power = 100, .data = 0x41, .flags = 0b00000001 },
-// 15 - name - .power = 100, .item_level = 1, .item_type = COMMON,  flags = { .consumable = 1, .consumable_party = 0, .consumable_spellbook = 0 } 
+// 13 - name - .power = 100, .item_level = 1, .item_type = COMMON,  flags = { .consumable = 0, .consumable_party = 0, .consumable_spellbook = 0 } 
+{ .power = 100, .data = 0x31, .flags = 0b00000000 },
+// 14 - name - .power = 100, .item_level = 1, .item_type = COMMON,  flags = { .consumable = 1, .consumable_party = 0, .consumable_spellbook = 0 } 
 { .power = 100, .data = 0x31, .flags = 0b00000001 },
-// 16 - name - .power = 100, .item_level = 1, .item_type = FOOD,  flags = { .consumable = 1, .consumable_party = 1, .consumable_spellbook = 0 } 
-{ .power = 100, .data = 0x11, .flags = 0b00000011 },
-// 17 - name - .power = 100, .item_level = 1, .item_type = FOOD,  flags = { .consumable = 1, .consumable_party = 1, .consumable_spellbook = 0 } 
-{ .power = 100, .data = 0x11, .flags = 0b00000011 },
-// 18 - name - .power = 100, .item_level = 1, .item_type = FOOD,  flags = { .consumable = 1, .consumable_party = 1, .consumable_spellbook = 0 } 
-{ .power = 100, .data = 0x11, .flags = 0b00000011 },
+// 15 - name - .power = 100, .item_level = 1, .item_type = COMMON,  flags = { .consumable = 0, .consumable_party = 0, .consumable_spellbook = 0 } 
+{ .power = 100, .data = 0x31, .flags = 0b00000000 },
+// 16 - name - .power = 100, .item_level = 1, .item_type = MAGICAL,  flags = { .consumable = 0, .consumable_party = 0, .consumable_spellbook = 0 } 
+{ .power = 100, .data = 0x41, .flags = 0b00000000 },
+// 17 - name - .power = 100, .item_level = 1, .item_type = MAGICAL,  flags = { .consumable = 1, .consumable_party = 0, .consumable_spellbook = 0 } 
+{ .power = 100, .data = 0x41, .flags = 0b00000001 },
+// 18 - name - .power = 100, .item_level = 1, .item_type = COMMON,  flags = { .consumable = 1, .consumable_party = 0, .consumable_spellbook = 0 } 
+{ .power = 100, .data = 0x31, .flags = 0b00000001 },
 // 19 - name - .power = 100, .item_level = 1, .item_type = FOOD,  flags = { .consumable = 1, .consumable_party = 1, .consumable_spellbook = 0 } 
 { .power = 100, .data = 0x11, .flags = 0b00000011 },
 // 20 - name - .power = 100, .item_level = 1, .item_type = FOOD,  flags = { .consumable = 1, .consumable_party = 1, .consumable_spellbook = 0 } 
@@ -63,66 +63,66 @@
 { .power = 100, .data = 0x11, .flags = 0b00000011 },
 // 25 - name - .power = 100, .item_level = 1, .item_type = FOOD,  flags = { .consumable = 1, .consumable_party = 1, .consumable_spellbook = 0 } 
 { .power = 100, .data = 0x11, .flags = 0b00000011 },
-// 26 - name - .power = 100, .item_level = 1, .item_type = COMMON,  flags = { .consumable = 1, .consumable_party = 1, .consumable_spellbook = 0 } 
+// 26 - name - .power = 100, .item_level = 1, .item_type = FOOD,  flags = { .consumable = 1, .consumable_party = 1, .consumable_spellbook = 0 } 
+{ .power = 100, .data = 0x11, .flags = 0b00000011 },
+// 27 - name - .power = 100, .item_level = 1, .item_type = FOOD,  flags = { .consumable = 1, .consumable_party = 1, .consumable_spellbook = 0 } 
+{ .power = 100, .data = 0x11, .flags = 0b00000011 },
+// 28 - name - .power = 100, .item_level = 1, .item_type = FOOD,  flags = { .consumable = 1, .consumable_party = 1, .consumable_spellbook = 0 } 
+{ .power = 100, .data = 0x11, .flags = 0b00000011 },
+// 29 - name - .power = 100, .item_level = 1, .item_type = COMMON,  flags = { .consumable = 1, .consumable_party = 1, .consumable_spellbook = 0 } 
 { .power = 100, .data = 0x31, .flags = 0b00000011 },
-// 27 - name - .power = 100, .item_level = 1, .item_type = COMMON,  flags = { .consumable = 0, .consumable_party = 0, .consumable_spellbook = 0 } 
-{ .power = 100, .data = 0x31, .flags = 0b00000000 },
-// 28 - name - .power = 100, .item_level = 1, .item_type = MAGICAL,  flags = { .consumable = 0, .consumable_party = 0, .consumable_spellbook = 0 } 
-{ .power = 100, .data = 0x41, .flags = 0b00000000 },
-// 29 - name - .power = 100, .item_level = 1, .item_type = POTION,  flags = { .consumable = 1, .consumable_party = 1, .consumable_spellbook = 0 } 
-{ .power = 100, .data = 0x01, .flags = 0b00000011 },
 // 30 - name - .power = 100, .item_level = 1, .item_type = COMMON,  flags = { .consumable = 0, .consumable_party = 0, .consumable_spellbook = 0 } 
 { .power = 100, .data = 0x31, .flags = 0b00000000 },
-// 31 - name - .power = 100, .item_level = 1, .item_type = COMMON,  flags = { .consumable = 0, .consumable_party = 0, .consumable_spellbook = 0 } 
-{ .power = 100, .data = 0x31, .flags = 0b00000000 },
-// 32 - name - .power = 100, .item_level = 1, .item_type = COMMON,  flags = { .consumable = 0, .consumable_party = 0, .consumable_spellbook = 0 } 
-{ .power = 100, .data = 0x31, .flags = 0b00000000 },
+// 31 - name - .power = 100, .item_level = 1, .item_type = MAGICAL,  flags = { .consumable = 0, .consumable_party = 0, .consumable_spellbook = 0 } 
+{ .power = 100, .data = 0x41, .flags = 0b00000000 },
+// 32 - name - .power = 100, .item_level = 1, .item_type = POTION,  flags = { .consumable = 1, .consumable_party = 1, .consumable_spellbook = 0 } 
+{ .power = 100, .data = 0x01, .flags = 0b00000011 },
 // 33 - name - .power = 100, .item_level = 1, .item_type = COMMON,  flags = { .consumable = 0, .consumable_party = 0, .consumable_spellbook = 0 } 
 { .power = 100, .data = 0x31, .flags = 0b00000000 },
 // 34 - name - .power = 100, .item_level = 1, .item_type = COMMON,  flags = { .consumable = 0, .consumable_party = 0, .consumable_spellbook = 0 } 
 { .power = 100, .data = 0x31, .flags = 0b00000000 },
 // 35 - name - .power = 100, .item_level = 1, .item_type = COMMON,  flags = { .consumable = 0, .consumable_party = 0, .consumable_spellbook = 0 } 
 { .power = 100, .data = 0x31, .flags = 0b00000000 },
-// 36 - name - .power = 100, .item_level = 1, .item_type = POTION,  flags = { .consumable = 1, .consumable_party = 1, .consumable_spellbook = 0 } 
+// 36 - name - .power = 100, .item_level = 1, .item_type = COMMON,  flags = { .consumable = 0, .consumable_party = 0, .consumable_spellbook = 0 } 
+{ .power = 100, .data = 0x31, .flags = 0b00000000 },
+// 37 - name - .power = 100, .item_level = 1, .item_type = POTION,  flags = { .consumable = 1, .consumable_party = 1, .consumable_spellbook = 0 } 
 { .power = 100, .data = 0x01, .flags = 0b00000011 },
-// 37 - name - .power = 100, .item_level = 1, .item_type = POTION,  flags = { .consumable = 1, .consumable_party = 0, .consumable_spellbook = 0 } 
+// 38 - name - .power = 100, .item_level = 1, .item_type = POTION,  flags = { .consumable = 1, .consumable_party = 0, .consumable_spellbook = 0 } 
 { .power = 100, .data = 0x01, .flags = 0b00000001 },
-// 38 - name - .power = 100, .item_level = 1, .item_type = POTION,  flags = { .consumable = 1, .consumable_party = 1, .consumable_spellbook = 0 } 
-{ .power = 100, .data = 0x01, .flags = 0b00000011 },
 // 39 - name - .power = 100, .item_level = 1, .item_type = POTION,  flags = { .consumable = 1, .consumable_party = 1, .consumable_spellbook = 0 } 
 { .power = 100, .data = 0x01, .flags = 0b00000011 },
 // 40 - name - .power = 100, .item_level = 1, .item_type = POTION,  flags = { .consumable = 1, .consumable_party = 1, .consumable_spellbook = 0 } 
 { .power = 100, .data = 0x01, .flags = 0b00000011 },
 // 41 - name - .power = 100, .item_level = 1, .item_type = POTION,  flags = { .consumable = 1, .consumable_party = 1, .consumable_spellbook = 0 } 
 { .power = 100, .data = 0x01, .flags = 0b00000011 },
-// 42 - name - .power = 100, .item_level = 1, .item_type = POTION,  flags = { .consumable = 1, .consumable_party = 0, .consumable_spellbook = 0 } 
-{ .power = 100, .data = 0x01, .flags = 0b00000001 },
-// 43 - name - .power = 100, .item_level = 1, .item_type = POTION,  flags = { .consumable = 1, .consumable_party = 1, .consumable_spellbook = 0 } 
+// 42 - name - .power = 100, .item_level = 1, .item_type = POTION,  flags = { .consumable = 1, .consumable_party = 1, .consumable_spellbook = 0 } 
 { .power = 100, .data = 0x01, .flags = 0b00000011 },
-// 44 - name - .power = 100, .item_level = 1, .item_type = POTION,  flags = { .consumable = 1, .consumable_party = 0, .consumable_spellbook = 0 } 
+// 43 - name - .power = 100, .item_level = 1, .item_type = POTION,  flags = { .consumable = 1, .consumable_party = 0, .consumable_spellbook = 0 } 
 { .power = 100, .data = 0x01, .flags = 0b00000001 },
-// 45 - name - .power = 100, .item_level = 1, .item_type = POTION,  flags = { .consumable = 1, .consumable_party = 1, .consumable_spellbook = 0 } 
+// 44 - name - .power = 100, .item_level = 1, .item_type = POTION,  flags = { .consumable = 1, .consumable_party = 1, .consumable_spellbook = 0 } 
 { .power = 100, .data = 0x01, .flags = 0b00000011 },
-// 46 - name - .power = 100, .item_level = 1, .item_type = POTION,  flags = { .consumable = 1, .consumable_party = 0, .consumable_spellbook = 0 } 
+// 45 - name - .power = 100, .item_level = 1, .item_type = POTION,  flags = { .consumable = 1, .consumable_party = 0, .consumable_spellbook = 0 } 
 { .power = 100, .data = 0x01, .flags = 0b00000001 },
-// 47 - name - .power = 100, .item_level = 1, .item_type = POTION,  flags = { .consumable = 1, .consumable_party = 0, .consumable_spellbook = 1 } 
+// 46 - name - .power = 100, .item_level = 1, .item_type = POTION,  flags = { .consumable = 1, .consumable_party = 1, .consumable_spellbook = 0 } 
+{ .power = 100, .data = 0x01, .flags = 0b00000011 },
+// 47 - name - .power = 100, .item_level = 1, .item_type = POTION,  flags = { .consumable = 1, .consumable_party = 0, .consumable_spellbook = 0 } 
+{ .power = 100, .data = 0x01, .flags = 0b00000001 },
+// 48 - name - .power = 100, .item_level = 1, .item_type = POTION,  flags = { .consumable = 1, .consumable_party = 0, .consumable_spellbook = 1 } 
 { .power = 100, .data = 0x01, .flags = 0b00000101 },
-// 48 - name - .power = 100, .item_level = 1, .item_type = POTION,  flags = { .consumable = 1, .consumable_party = 1, .consumable_spellbook = 0 } 
+// 49 - name - .power = 100, .item_level = 1, .item_type = POTION,  flags = { .consumable = 1, .consumable_party = 1, .consumable_spellbook = 0 } 
 { .power = 100, .data = 0x01, .flags = 0b00000011 },
-// 49 - name - .power = 100, .item_level = 1, .item_type = POTION,  flags = { .consumable = 1, .consumable_party = 0, .consumable_spellbook = 0 } 
-{ .power = 100, .data = 0x01, .flags = 0b00000001 },
 // 50 - name - .power = 100, .item_level = 1, .item_type = POTION,  flags = { .consumable = 1, .consumable_party = 0, .consumable_spellbook = 0 } 
 { .power = 100, .data = 0x01, .flags = 0b00000001 },
-// 51 - name - .power = 100, .item_level = 1, .item_type = MAGICAL,  flags = { .consumable = 1, .consumable_party = 1, .consumable_spellbook = 0 } 
-{ .power = 100, .data = 0x41, .flags = 0b00000011 },
+// 51 - name - .power = 100, .item_level = 1, .item_type = POTION,  flags = { .consumable = 1, .consumable_party = 0, .consumable_spellbook = 0 } 
+{ .power = 100, .data = 0x01, .flags = 0b00000001 },
 // 52 - name - .power = 100, .item_level = 1, .item_type = MAGICAL,  flags = { .consumable = 1, .consumable_party = 1, .consumable_spellbook = 0 } 
 { .power = 100, .data = 0x41, .flags = 0b00000011 },
-// 53 - name - .power = SPELL_COUNT, .item_level = 1, .item_type = MAGICAL,  flags = { .consumable = 1, .consumable_party = 0, .consumable_spellbook = 0 } 
+// 53 - name - .power = 100, .item_level = 1, .item_type = MAGICAL,  flags = { .consumable = 1, .consumable_party = 1, .consumable_spellbook = 0 } 
+{ .power = 100, .data = 0x41, .flags = 0b00000011 },
+// 54 - name - .power = SPELL_COUNT, .item_level = 1, .item_type = MAGICAL,  flags = { .consumable = 1, .consumable_party = 0, .consumable_spellbook = 0 } 
 { .power = SPELL_COUNT, .data = 0x41, .flags = 0b00000001 },
-// 54 - name - .power = 100, .item_level = 1, .item_type = MAGICAL,  flags = { .consumable = 0, .consumable_party = 0, .consumable_spellbook = 0 } 
+// 55 - name - .power = 100, .item_level = 1, .item_type = MAGICAL,  flags = { .consumable = 0, .consumable_party = 0, .consumable_spellbook = 0 } 
 { .power = 100, .data = 0x41, .flags = 0b00000000 },
-// 55 - name - .power = 100, .item_level = 1, .item_type = COMMON,  flags = { .consumable = 1, .consumable_party = 0, .consumable_spellbook = 0 } 
-{ .power = 100, .data = 0x31, .flags = 0b00000001 },
 // 56 - name - .power = 100, .item_level = 1, .item_type = COMMON,  flags = { .consumable = 1, .consumable_party = 0, .consumable_spellbook = 0 } 
 { .power = 100, .data = 0x31, .flags = 0b00000001 },
 // 57 - name - .power = SPELL_COUNT, .item_level = 1, .item_type = MAGICAL,  flags = { .consumable = 1, .consumable_party = 0, .consumable_spellbook = 0 } 

@@ -103,6 +103,7 @@ SECTIONS
     .sprite_16x16_creature           0x50000000 : { KEEP(*(.sprite_16x16_creature))  . = ALIGN(4); }
     .sprite_16x16_item               0x51000000 : { KEEP(*(.sprite_16x16_item))  . = ALIGN(4); }
     .sprite_16x16_object             0x52000000 : { KEEP(*(.sprite_16x16_object))  . = ALIGN(4); }
+    .sprite_16x16_object             0x52000000 : { KEEP(*(.sprite_16x16_object))  . = ALIGN(4); }
     .sprite_16x16_trainer            0x53000000 : { KEEP(*(.sprite_16x16_trainer))  . = ALIGN(4); }
     .sprite_16x16_tile               0x54000000 : { KEEP(*(.sprite_16x16_tile))  . = ALIGN(4); }
     .sprite_16x16_creature_metaData  0x55000000 : { KEEP(*(.sprite_16x16_creature_metaData))  . = ALIGN(4); }
@@ -177,22 +178,23 @@ SECTIONS
     .game_data_spell                 0x191000000 : { KEEP(*(.game_data_spell))  . = ALIGN(4); }
     .game_data_item                  0x192000000 : { KEEP(*(.game_data_item))  . = ALIGN(4); }
     .game_data_object                0x193000000 : { KEEP(*(.game_data_object))  . = ALIGN(4); }
+    .game_data_trainer               0x194000000 : { KEEP(*(.game_data_trainer))  . = ALIGN(4); }
 
     /* ========================================== */
     /*      COLORS                                */
     /* ========================================== */
-    .colors_16                       0x1900000000 : { KEEP(*(.colors_16))  . = ALIGN(4); }
-    .colors_256                      0x1910000000 : { KEEP(*(.colors_256))  . = ALIGN(4); }
+    .colors_16                       0x210000000 : { KEEP(*(.colors_16))  . = ALIGN(4); }
+    .colors_256                      0x221000000 : { KEEP(*(.colors_256))  . = ALIGN(4); }
     /* ========================================== */
     /*      SOUNDS                                */
     /* ========================================== */
-    .sounds_music_data               0x1920000000 : { KEEP(*(.sounds_music_data))  . = ALIGN(4); }
-    .sounds_music_notes              0x1930000000 : { KEEP(*(.sounds_music_notes))  . = ALIGN(4); }
-    .sounds_creatures                0x1940000000 : { KEEP(*(.sounds_creatures))  . = ALIGN(4); }
-    .sounds_spells                   0x1950000000 : { KEEP(*(.sounds_spells))  . = ALIGN(4); }
-    .sounds_skills                   0x1960000000 : { KEEP(*(.sounds_skills))  . = ALIGN(4); }
-    .sounds_menus                    0x1970000000 : { KEEP(*(.sounds_menus))  . = ALIGN(4); }
-    .sounds_notes                    0x1980000000 : { KEEP(*(.sounds_notes))  . = ALIGN(4); }
+    .sounds_music_data               0x242000000 : { KEEP(*(.sounds_music_data))  . = ALIGN(4); }
+    .sounds_music_notes              0x253000000 : { KEEP(*(.sounds_music_notes))  . = ALIGN(4); }
+    .sounds_creatures                0x264000000 : { KEEP(*(.sounds_creatures))  . = ALIGN(4); }
+    .sounds_spells                   0x275000000 : { KEEP(*(.sounds_spells))  . = ALIGN(4); }
+    .sounds_skills                   0x286000000 : { KEEP(*(.sounds_skills))  . = ALIGN(4); }
+    .sounds_menus                    0x297000000 : { KEEP(*(.sounds_menus))  . = ALIGN(4); }
+    .sounds_notes                    0x308000000 : { KEEP(*(.sounds_notes))  . = ALIGN(4); }
 
 
     . = 0x10000000000;

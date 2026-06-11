@@ -3,7 +3,7 @@ from python.config import constants
 
 
 def get_entity_enums(entity):
-    filename = f"{constants.INC_FOLDER}/data_enum_{entity}s.inc"
+    filename = f"{constants.TYPES_INC_FOLDER}/data_enum_{entity}s.inc"
     names = db_manager.get_entity_enums(entity)
 
     count = 0
@@ -23,7 +23,7 @@ def get_entity_enums(entity):
     return count
 
 def get_data_enums(entity):
-    filename = f"{constants.INC_FOLDER}/data_enum_{entity}.inc"
+    filename = f"{constants.TYPES_INC_FOLDER}/data_enum_{entity}.inc"
     names = db_manager.get_data_enums(entity)
 
     count = 0

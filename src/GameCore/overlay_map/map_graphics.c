@@ -191,7 +191,9 @@ void DrawParty(GraphicsInterface graphics, HardwareInterface hardware, MemoryInt
     uint16_t y = MAIN_MENU_Y * TEXT_H;
     const uint16_t w = MAIN_MENU_W * TEXT_W;
     const uint16_t h = MAIN_MENU_H * TEXT_H;
-    graphics.FillRect(x, y, w, h, Flash_GetColor(memory, PAL_LIGHT_GRAY));
+    Color color_bg = Flash_GetColor(memory, PAL_OFF_WHITE_GRAY);
+
+    graphics.FillRect(x, y, w, h, color_bg);
 
     const uint16_t indent = 1;
     const FontSize font_size = g_core.settings.fontSize;
@@ -210,32 +212,12 @@ void DrawParty(GraphicsInterface graphics, HardwareInterface hardware, MemoryInt
     uint16_t i = 0;
     while (i < MAX_PARTY_SIZE)
     {
-        lineHeight = 0;
-        char line[SMALL_STRINGS];
-        GetMenuLine(memory, line, i);
-        bool line_empty = (line[0] == '\0');
-        if (i > (max_lines)) break;
-
-
         EntityId player_id = GetPlayerID();
         EntityId creature_id = g_core.trainers.partyID[player_id][i];
-        // level
         if (creature_id == NO_ENTITY)
         {
-            PrintLineStr(graphics, memory, x, y, font_size, 3, "---", indent);
-        }
-        else
-        {
-            Int99 level = g_core.creatures.level[creature_id];
-            CharStr_99 levelStr;
-            GetAsChars_99(level, &levelStr, false);
-            PrintLineStr(graphics, memory, x, y, font_size, 3, levelStr, indent);
-        }
-
-        y += PrintLineStr(graphics, memory, x + (3 * size), y + lineHeight, font_size, max_chars, line, indent);
-
-        if (creature_id == NO_ENTITY)
-        {
+            lineHeight = 0;
+            y += PrintLineStr(graphics, memory, x, y, font_size, 3, "-----\0", indent);
             lineHeight += (size * 3);
             lineHeight += (size >> 1);
             y += lineHeight;
@@ -243,11 +225,23 @@ void DrawParty(GraphicsInterface graphics, HardwareInterface hardware, MemoryInt
             continue;
         }
 
+        lineHeight = 0;
+        char line[SMALL_STRINGS];
+        GetMenuLine(memory, line, i);
+        if (i > (max_lines)) break;
+
+        // level
+        Int99 level = g_core.creatures.level[creature_id];
+        CharStr_99 levelStr;
+        GetAsChars_99(level, &levelStr, false);
+        PrintLineStr(graphics, memory, x, y, font_size, 3, levelStr, indent);
+        y += PrintLineStr(graphics, memory, x + (3 * size), y + lineHeight, font_size, max_chars, line, indent);
+
+
         //hunger?
         Color color_hp = Flash_GetColor(memory, PAL_BRIGHT_LIGHT_GRN);
-        Color color_mp = Flash_GetColor(memory, PAL_DEEP_BLUE);
+        Color color_mp = Flash_GetColor(memory, PAL_ICE_BLUE);
         Color color_xp = Flash_GetColor(memory, PAL_PALE_BLU_PURP);
-        Color color_bg = Flash_GetColor(memory, PAL_OFF_WHITE_GRAY);
         Color color_border = Flash_GetColor(memory, PAL_DARK_GRN_BLACK);
 
         uint16_t cur = 0;
@@ -287,9 +281,9 @@ void DrawParty(GraphicsInterface graphics, HardwareInterface hardware, MemoryInt
         {
             line_w = (((float)cur / (float)max) * ((float)(max_chars - 2) * (float)size));
             if (line_w > 2) line_w -= 2;
-            graphics.FillRect(x + size, y + lineHeight, (max_chars - 2) * size, size, color_border);
-            graphics.FillRect(x + 1 + size, y + lineHeight + 1, ((max_chars - 2) * size) - 2, size - 2, color_bg);
-            graphics.FillRect(x + 1 + size, y + lineHeight + 1, (uint16_t)line_w, size - 2, color_xp);
+            graphics.FillRect(x + size, y + lineHeight, (max_chars - 2) * size, (size >> 1), color_border);
+            graphics.FillRect(x + 1 + size, y + lineHeight + 1, ((max_chars - 2) * size) - 2, (size >> 1) - 2, color_bg);
+            graphics.FillRect(x + 1 + size, y + lineHeight + 1, (uint16_t)line_w, (size >> 1) - 2, color_xp);
 
             lineHeight += size;
             lineHeight += (size >> 1);
@@ -298,11 +292,10 @@ void DrawParty(GraphicsInterface graphics, HardwareInterface hardware, MemoryInt
         y += lineHeight;
         i++;
     }
+
     g_core.menu.lineHeight = lineHeight;
-
     PrintLineStr(graphics, memory, x, (max_lines - 1) * size, font_size, max_chars, border, false);
-
-    g_core.menu.colorCache = Flash_GetColor(memory, PAL_LIGHT_GRAY);
+    g_core.menu.colorCache = color_bg;
 }
 
 
@@ -313,7 +306,7 @@ SET_MEMORY(".map")
 void DrawList(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory)
 {
     const uint16_t x = MAIN_MENU_X * TEXT_W;
-    uint8_t y = MAIN_MENU_Y * TEXT_H;
+    uint16_t y = MAIN_MENU_Y * TEXT_H;
     const uint16_t w = MAIN_MENU_W * TEXT_W;
     const uint16_t h = MAIN_MENU_H * TEXT_H;
     graphics.FillRect(x, y, w, h, Flash_GetColor(memory, PAL_OFF_WHITE_GRAY));
@@ -330,13 +323,12 @@ void DrawList(GraphicsInterface graphics, HardwareInterface hardware, MemoryInte
     border[max_chars] = '\0';
 
     y += PrintLineStr(graphics, memory, x, y, font_size, max_chars, border, false);
-    const uint8_t list_y = y;
 
     uint8_t i = 0;
     bool empty = false;
     const char* text;
     char empty_line[SMALL_STRINGS] = "------";
-    while (i > max_lines || i < g_core.menu.max_visible_menu_options)
+    while (i < g_core.menu.max_visible_menu_options)
     {
         if (!empty)
         {
@@ -369,10 +361,10 @@ void DrawList(GraphicsInterface graphics, HardwareInterface hardware, MemoryInte
 /**  Draws the background panel to the screen for the "pokedex" style encyclopedias
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-void HandleGameMenuLeftBG(GraphicsInterface graphics, MemoryInterface memory, const uint16_t x, uint8_t y)
+void HandleGameMenuLeftBG(GraphicsInterface graphics, MemoryInterface memory, const uint16_t x, uint16_t y)
 {
-    const uint16_t w = (VIEW_TW * TILE_W) - (MAIN_MENU_W * TILE_W);
-    const uint16_t h = (VIEW_TH * TILE_H);
+    const uint16_t w = SCREEN_W - MAIN_MENU_W;
+    const uint16_t h = SCREEN_H;
     graphics.FillRect(x, y, w, h, Flash_GetColor(memory, PAL_OFF_WHITE_GRAY));
 }
 
@@ -380,7 +372,7 @@ void HandleGameMenuLeftBG(GraphicsInterface graphics, MemoryInterface memory, co
 /**  Draws the name text to the screen for the "pokedex" style encyclopedias
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-void HandleGameMenuLeftName(GraphicsInterface graphics, MemoryInterface memory, const uint16_t x, uint8_t y, const char* name)
+void HandleGameMenuLeftName(GraphicsInterface graphics, MemoryInterface memory, const uint16_t x, uint16_t y, const char* name)
 {
     const uint8_t indent = 1;
     PrintLineStr(graphics, memory, x, y, g_core.settings.fontSize, SMALL_STRINGS, name, indent);
@@ -390,7 +382,7 @@ void HandleGameMenuLeftName(GraphicsInterface graphics, MemoryInterface memory, 
 /**  Draws the rarity and power bars to the screen for the "pokedex" style encyclopedias
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-void HandleGameMenuLeftStat(GraphicsInterface graphics, MemoryInterface memory, const uint16_t x, const uint16_t x2, uint8_t y, uint8_t size, const char* power_str)
+void HandleGameMenuLeftStat(GraphicsInterface graphics, MemoryInterface memory, const uint16_t x, const uint16_t x2, uint16_t y, uint8_t size, const char* power_str)
 {
     const uint8_t indent = 1;
 
@@ -416,7 +408,7 @@ SET_MEMORY(".map")
 void HandleGameMenuBorders(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory)
 {
     const uint16_t x = 0;
-    uint8_t y = 0;
+    uint16_t y = 0;
     const FontSize font_size = g_core.settings.fontSize;
     const uint8_t size = TEXT_W;
     const uint8_t max_lines = (VIEW_TH * font_size);
@@ -427,7 +419,7 @@ void HandleGameMenuBorders(GraphicsInterface graphics, HardwareInterface hardwar
         border[i] = '-';
     border[max_chars] = '\0';
     PrintLineStr(graphics, memory, x, y, font_size, max_chars, border, false);
-    uint16_t numSpaces = (max_lines - 1) * size;
+    uint16_t numSpaces = (MAIN_MENU_LIST_H + 1) * size;
     PrintLineStr(graphics, memory, x, y + numSpaces, font_size, max_chars, border, false);
 }
 
@@ -435,12 +427,11 @@ void HandleGameMenuBorders(GraphicsInterface graphics, HardwareInterface hardwar
 /**  Draws the type info text to the screen for the "pokedex" style encyclopedias
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-void HandleGameMenuTypes(GraphicsInterface graphics, MemoryInterface memory, const char* typeA, const char* typeB)
+void HandleGameMenuTypes(GraphicsInterface graphics, MemoryInterface memory, const uint16_t y, const char* typeA, const char* typeB)
 {
     if (!typeA || !typeB) return;
 
     const uint16_t x = 0;
-    uint8_t y = 0;
     const FontSize font_size = g_core.settings.fontSize;
     const uint8_t size = TEXT_W;
     const uint8_t indent = 1;
@@ -463,8 +454,8 @@ void HandleGameMenuDescription(GraphicsInterface graphics, HardwareInterface har
     const uint8_t MAX_LINES = 8;
     const uint8_t LINE_LEN = 20;
 
-    uint8_t desc_x = 1;
-    uint8_t desc_y = y;
+    uint16_t desc_x = 1;
+    uint16_t desc_y = y;
 
     if (!desc) return;
 
@@ -642,17 +633,17 @@ void HandleGameMenu(GraphicsInterface graphics, HardwareInterface hardware, Memo
     g_core.menu.gameMenu.displayId = g_core.menu.gameMenu.id;
 
     const uint16_t x = 0;
-    uint8_t y = 0;
-    const FontSize font_size = g_core.settings.fontSize;
     const uint8_t size = TEXT_W;
-    FillObjectData(memory, &g_map.entityData);
+    HandleGameMenuLeftBG(graphics, memory, x, 0);
 
-    HandleGameMenuLeftBG(graphics, memory, x, y);
+    FillObjectData(memory, &g_map.entityData);
+    DrawBattler(graphics, memory, x, TEXT_H, &g_map.entityData.layout, g_core.menu.sel[0].y - 1, true);
+
+    const uint16_t y = BATTLER_TILES_H * TILE_H;
     HandleGameMenuBorders(graphics, hardware, memory);
-    DrawBattler(graphics, memory, x, y + (size), &g_map.entityData.layout, g_core.menu.sel[0].y - 1, true);
     HandleGameMenuLeftName(graphics, memory, x, y + (size * 16), g_map.entityData.name);
-    HandleGameMenuTypes(graphics, memory, g_map.entityData.typeA, g_map.entityData.typeB);
-    HandleGameMenuDescription(graphics, hardware, memory, (size * 21), g_map.entityData.desc);
+    HandleGameMenuTypes(graphics, memory, y, g_map.entityData.typeA, g_map.entityData.typeB);
+    HandleGameMenuDescription(graphics, hardware, memory, y + (size * 21), g_map.entityData.desc);
     HandleGameMenuLeftStat(graphics, memory, x, x + (size * 6), y + (size * 18), size, g_map.power);
     HandleGameMenuLeftStat(graphics, memory, x, x + (size * 6), y + (size * 20) - 4, size, g_map.rarity);
 }

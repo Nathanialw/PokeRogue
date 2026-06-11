@@ -2,7 +2,16 @@ from IPython.utils import capture
 from numpy.core.defchararray import capitalize
 
 from python.data import db_manager
-from python.config import constants
+from python.config.constants import DATA_INC_FOLDER, CODE_INC_FOLDER, TYPES_INC_FOLDER
+
+"""
+
+
+DATA Export the database contents to a C array file
+
+
+
+"""
 
 
 def desc_to_c_array(entity):
@@ -24,7 +33,7 @@ def desc_to_c_array(entity):
             creature_map[creature] = []
         creature_map[creature].append((desc, model))
 
-    filename = f"{constants.INC_FOLDER}/text_desc_{entity}s.inc"
+    filename = f"{DATA_INC_FOLDER}/text_desc_{entity}s.inc"
     with open(filename, 'w', encoding='utf-8') as f:
         f.write("// Generated creature descriptions\n")
         f.write(f"// Database contains {len(descriptions)} total descriptions\n\n")
@@ -49,7 +58,7 @@ def desc_to_c_array(entity):
 
 def name_to_c_array(entity):
     """Export the database contents to a C array file"""
-    filename = f"{constants.INC_FOLDER}/text_names_{entity}s.inc"
+    filename = f"{DATA_INC_FOLDER}/text_names_{entity}s.inc"
 
     names = db_manager.get_names(entity)
 
@@ -72,9 +81,87 @@ def name_to_c_array(entity):
     return len(names)
 
 
+def export_map_sprites_char(entity):
+    """Export the database contents to a C array file"""
+    filename = f"{DATA_INC_FOLDER}/map_sprites_{entity}s.inc"
+    sprites = db_manager.get_map_sprites(entity)
+    count = len(sprites)
+
+    with open(filename, 'w', encoding='utf-8') as f:
+        f.write(f"// Generated {entity} sprites and color indexes\n")
+        f.write(f"// Database contains {count} total {entity} sprites\n\n")
+        f.write("// Individual sprites\n")
+
+        desc_vars = []
+        for i, (sprite, color) in enumerate(sprites):
+            # Clean the types for C string
+            f.write(f"{{ .glyph_index = {sprite}, .fg = {color} }},\n")
+
+        f.write("\n")
+        f.write(f"//Sprites count = {count};\n")
+
+    print(f"📄 Exported {count} {entity} sprites to {filename}")
+
+
+# TODO:  will need to parse images, conver to compressed format and store the metadata
+#       and the bytes and return the size of the data array in bytes
+def export_map_sprites(entity, size):
+    """Export the database contents to a C array file"""
+    filename = f"{DATA_INC_FOLDER}/sprite_{size}x{size}_{entity}.inc"
+    sprites = []
+    count = len(sprites)
+
+    with open(filename, 'w', encoding='utf-8') as f:
+        f.write(f"// Generated {entity} sprites and color indexes\n")
+        f.write(f"// Database contains {count} total {entity} sprites\n\n")
+        f.write("// Individual sprites\n")
+
+        desc_vars = []
+        for i, (sprite, color) in enumerate(sprites):
+            #
+            f"{{ 0xFFFF 0xFFFF 0xFFFF}}"
+
+        f.write("\n")
+        f.write(f"//Sprites count = {count};\n")
+
+    print(f"📄 Exported {count} {entity} sprites to {filename}")
+
+    filename = f"{DATA_INC_FOLDER}/sprite_{size}x{size}_{entity}_metaData.inc"
+    sprites = []
+    count = len(sprites)
+
+    with open(filename, 'w', encoding='utf-8') as f:
+        f.write(f"// Generated {entity} sprites and color indexes\n")
+        f.write(f"// Database contains {count} total {entity} sprites\n\n")
+        f.write("// Individual sprites\n")
+
+        desc_vars = []
+        for i, (sprite, color) in enumerate(sprites):
+            #
+            f"{{ 0xFFFF 0xFFFF 0xFFFF}}"
+
+        f.write("\n")
+        f.write(f"//Sprites count = {count};\n")
+
+    print(f"📄 Exported {count} {entity} sprites to {filename}")
+
+    # return the total number of bytes the in the sprites array
+    return 0
+
+
+"""
+  
+
+CODE Export the database contents to a C array file
+
+
+
+"""
+
+
 def funcs_to_c_array(entity, prepend):
     """Export the database contents to a C array file"""
-    filename = f"{constants.INC_FOLDER}/funcs_{entity}s_{prepend}.inc"
+    filename = f"{CODE_INC_FOLDER}/funcs_{entity}s_{prepend}.inc"
 
     names = db_manager.get_funcs(entity)
 
@@ -100,7 +187,7 @@ def func_c_headers(entity, prepend, return_type, params):
     funcs_to_c_array(entity, prepend)
     """Export the database contents to a C array file"""
 
-    filename = f"{constants.INC_FOLDER}/decl_{entity}s_{prepend}.inc"
+    filename = f"{CODE_INC_FOLDER}/decl_{entity}s_{prepend}.inc"
     names = db_manager.get_funcs(entity)
 
     with open(filename, 'w', encoding='utf-8') as f:
@@ -123,7 +210,7 @@ def func_c_headers(entity, prepend, return_type, params):
 
 def funcs_to_c_animations_array(entity, p):
     """Export the database contents to a C array file"""
-    filename = f"{constants.INC_FOLDER}/funcs_animation_{entity}s_{p}.inc"
+    filename = f"{CODE_INC_FOLDER}/funcs_animation_{entity}s_{p}.inc"
 
     names = db_manager.get_funcs(entity)
 
@@ -148,7 +235,7 @@ def funcs_to_c_animations_array(entity, p):
 def func_c_animation_headers(entity, p, return_type, params):
     """Export the database contents to a C array file"""
 
-    filename = f"{constants.INC_FOLDER}/decl_animation_{entity}s_{p}.inc"
+    filename = f"{CODE_INC_FOLDER}/decl_animation_{entity}s_{p}.inc"
     names = db_manager.get_funcs(entity)
 
     with open(filename, 'w', encoding='utf-8') as f:
@@ -167,77 +254,10 @@ def func_c_animation_headers(entity, p, return_type, params):
     print(f"📄 Exported {len(names)} spell headers to {filename}")
 
 
-def export_map_sprites_char(entity):
-    """Export the database contents to a C array file"""
-    filename = f"{constants.INC_FOLDER}/map_sprites_{entity}s.inc"
-    sprites = db_manager.get_map_sprites(entity)
-    count = len(sprites)
-
-    with open(filename, 'w', encoding='utf-8') as f:
-        f.write(f"// Generated {entity} sprites and color indexes\n")
-        f.write(f"// Database contains {count} total {entity} sprites\n\n")
-        f.write("// Individual sprites\n")
-
-        desc_vars = []
-        for i, (sprite, color) in enumerate(sprites):
-            # Clean the types for C string
-            f.write(f"{{ .glyph_index = {sprite}, .fg = {color} }},\n")
-
-        f.write("\n")
-        f.write(f"//Sprites count = {count};\n")
-
-    print(f"📄 Exported {count} {entity} sprites to {filename}")
-
-
-# TODO:  will need to parse images, conver to compressed format and store the metadata
-#       and the bytes and return the size of the data array in bytes
-def export_map_sprites(entity, size):
-    """Export the database contents to a C array file"""
-    filename = f"{constants.INC_FOLDER}/sprite_{size}x{size}_{entity}.inc"
-    sprites = []
-    count = len(sprites)
-
-    with open(filename, 'w', encoding='utf-8') as f:
-        f.write(f"// Generated {entity} sprites and color indexes\n")
-        f.write(f"// Database contains {count} total {entity} sprites\n\n")
-        f.write("// Individual sprites\n")
-
-        desc_vars = []
-        for i, (sprite, color) in enumerate(sprites):
-            #
-            f"{{ 0xFFFF 0xFFFF 0xFFFF}}"
-
-        f.write("\n")
-        f.write(f"//Sprites count = {count};\n")
-
-    print(f"📄 Exported {count} {entity} sprites to {filename}")
-
-    filename = f"{constants.INC_FOLDER}/sprite_{size}x{size}_{entity}_metaData.inc"
-    sprites = []
-    count = len(sprites)
-
-    with open(filename, 'w', encoding='utf-8') as f:
-        f.write(f"// Generated {entity} sprites and color indexes\n")
-        f.write(f"// Database contains {count} total {entity} sprites\n\n")
-        f.write("// Individual sprites\n")
-
-        desc_vars = []
-        for i, (sprite, color) in enumerate(sprites):
-            #
-            f"{{ 0xFFFF 0xFFFF 0xFFFF}}"
-
-        f.write("\n")
-        f.write(f"//Sprites count = {count};\n")
-
-    print(f"📄 Exported {count} {entity} sprites to {filename}")
-
-    # return the total number of bytes the in the sprites array
-    return 0
-
 
 def export_constants(byte_counts, counts, bytes_count_map_sprites):
+    filename = f"{TYPES_INC_FOLDER}/data_constants.inc"
     """Export the count constants to a C array file"""
-    filename = f"{constants.INC_FOLDER}/data_constants.inc"
     with open(filename, 'w', encoding='utf-8') as f:
         f.write("#pragma once\n\n")
         f.write("// Generated constant values\n\n")
@@ -282,7 +302,7 @@ def export_constants(byte_counts, counts, bytes_count_map_sprites):
         f.write(f"#define NO_OBJECT {counts[4]}\n")
         f.write(f"#define NO_TRAINER {counts[5]}\n")
 
-        f.write (f"\n")
+        f.write(f"\n")
         f.write(f"#define SPRITE_16x16_CREATURE_BYTES {bytes_count_map_sprites[0]}\n")
         f.write(f"#define SPRITE_20x20_CREATURE_BYTES {bytes_count_map_sprites[1]}\n")
         f.write(f"#define SPRITE_24x24_CREATURE_BYTES {bytes_count_map_sprites[2]}\n")
