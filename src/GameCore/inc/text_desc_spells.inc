@@ -1,5 +1,5 @@
 // Generated creature descriptions
-// Database contains 62 total descriptions
+// Database contains 63 total descriptions
 
 // Individual description strings
 "A golden radiance spills from your fingertips, illuminating unseen spirits that dance and whisper in the shadows of reality.\0",
@@ -51,6 +51,7 @@
 "REFLECT -- PLACEHOLDER TEXT - A mysterious spell awaiting discovery.\0",
 "REPEL -- PLACEHOLDER TEXT - A mysterious spell awaiting discovery.\0",
 "RESURRECT -- PLACEHOLDER TEXT - A mysterious spell awaiting discovery.\0",
+"RaiseXP -- PLACEHOLDER TEXT - A mysterious spell awaiting discovery.\0",
 "SHADOWS -- PLACEHOLDER TEXT - A mysterious spell awaiting discovery.\0",
 "SILENCE -- PLACEHOLDER TEXT - A mysterious spell awaiting discovery.\0",
 "SLOW -- PLACEHOLDER TEXT - A mysterious spell awaiting discovery.\0",
@@ -66,4 +67,4 @@
 "XRAY_VISION -- PLACEHOLDER TEXT - A mysterious spell awaiting discovery.\0",
 " ------ \0",
 
-//ALL_DESCRIPTIONS_COUNT = 62;
+//ALL_DESCRIPTIONS_COUNT = 63;

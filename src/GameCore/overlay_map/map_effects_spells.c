@@ -1,16 +1,15 @@
 //
 // Created by nathanial on 5/19/26.
 //
-#include "map_effects_spells.h"
-
 #include "lib_memory.h"
 #include "types.h"
 
 #include "core_effects.h"
+#include "core_ram.h"
+#include "core_stats.h"
 #include "lib_debugging.h"
 
 #include "map_player.h"
-#include "map_ram.h"
 #include "map_camera.h"
 #include "map_effects.h"
 
@@ -19,7 +18,7 @@
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool CastMapNoAttack_PLACEHOLDER(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
+ActionOutcome CastMapNoAttack_PLACEHOLDER(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
 {
     return true;
 }
@@ -29,7 +28,7 @@ bool CastMapNoAttack_PLACEHOLDER(HardwareInterface hardware, MemoryInterface mem
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool PlaceholderSpell(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
+ActionOutcome PlaceholderSpell(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
 {
     return true;
 }
@@ -41,7 +40,7 @@ bool PlaceholderSpell(HardwareInterface hardware, MemoryInterface memory, Entity
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool CastMapHeal(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
+ActionOutcome CastMapHeal(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
 {
     if (caster_id == NO_ENTITY) return false;
     HealTarget(caster_id, spellData.power);
@@ -55,7 +54,7 @@ bool CastMapHeal(HardwareInterface hardware, MemoryInterface memory, EntityId ca
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool CastMapLevitate(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
+ActionOutcome CastMapLevitate(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
 {
     Hover(caster_id, spellData.power);
     return true;
@@ -67,7 +66,7 @@ bool CastMapLevitate(HardwareInterface hardware, MemoryInterface memory, EntityI
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool CastMapDisplacement(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
+ActionOutcome CastMapDisplacement(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
 {
     return Reposition(hardware, caster_id);
 }
@@ -77,7 +76,7 @@ bool CastMapDisplacement(HardwareInterface hardware, MemoryInterface memory, Ent
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool CastMapWaterWalking(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
+ActionOutcome CastMapWaterWalking(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
 {
     WaterWalking(caster_id, spellData.power);
     return true;
@@ -88,7 +87,7 @@ bool CastMapWaterWalking(HardwareInterface hardware, MemoryInterface memory, Ent
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool CastMapWaterBreathing(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
+ActionOutcome CastMapWaterBreathing(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
 {
     WaterBreathing(caster_id, spellData.power);
     return true;
@@ -99,7 +98,7 @@ bool CastMapWaterBreathing(HardwareInterface hardware, MemoryInterface memory, E
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool CastMapTeleport(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
+ActionOutcome CastMapTeleport(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
 {
     // Position random_tile_pos = GetSelectedTile(hardware, true);
     // Reposition(caster_id, random_tile_pos);
@@ -111,7 +110,7 @@ bool CastMapTeleport(HardwareInterface hardware, MemoryInterface memory, EntityI
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool CastMapResurrect(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
+ActionOutcome CastMapResurrect(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
 {
     Revive(caster_id);
     return true;
@@ -122,7 +121,7 @@ bool CastMapResurrect(HardwareInterface hardware, MemoryInterface memory, Entity
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool CastMapRaiseDead(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
+ActionOutcome CastMapRaiseDead(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
 {
     // TileHasCorpse(GetPlayerPosition());
     // Summon(SKELETON);
@@ -134,7 +133,7 @@ bool CastMapRaiseDead(HardwareInterface hardware, MemoryInterface memory, Entity
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool CastMapDescend(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
+ActionOutcome CastMapDescend(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
 {
     return GoNextLevel(MAP_LEVEL_DOWN);
 }
@@ -144,7 +143,7 @@ bool CastMapDescend(HardwareInterface hardware, MemoryInterface memory, EntityId
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool CastMapFlameEater(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
+ActionOutcome CastMapFlameEater(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
 {
     FireEating(caster_id);
     return true;
@@ -155,7 +154,7 @@ bool CastMapFlameEater(HardwareInterface hardware, MemoryInterface memory, Entit
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool CastMapPortal(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
+ActionOutcome CastMapPortal(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
 {
     // uint8_t n = hardware.GetRandom_uint8_t(1, 3);
     // if (n == 1)
@@ -172,7 +171,7 @@ bool CastMapPortal(HardwareInterface hardware, MemoryInterface memory, EntityId 
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool CastMapBrewPotion(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
+ActionOutcome CastMapBrewPotion(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
 {
     return true;
 }
@@ -182,7 +181,7 @@ bool CastMapBrewPotion(HardwareInterface hardware, MemoryInterface memory, Entit
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool CastMapRepel(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
+ActionOutcome CastMapRepel(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
 {
     Repel(caster_id, spellData.power);
     return true;
@@ -193,9 +192,8 @@ bool CastMapRepel(HardwareInterface hardware, MemoryInterface memory, EntityId c
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool CastMapCapture(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
+ActionOutcome CastMapCapture(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
 {
-
     if (Capture(hardware, caster_id, target_id, spellData.power))
     {
         return true;
@@ -208,7 +206,7 @@ bool CastMapCapture(HardwareInterface hardware, MemoryInterface memory, EntityId
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool CastMapCurePoison(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
+ActionOutcome CastMapCurePoison(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
 {
     RemovePoison(caster_id);
     return true;
@@ -219,7 +217,7 @@ bool CastMapCurePoison(HardwareInterface hardware, MemoryInterface memory, Entit
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool CastMapCureDisease(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
+ActionOutcome CastMapCureDisease(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
 {
     RemoveDisease(caster_id);
     return true;
@@ -230,7 +228,7 @@ bool CastMapCureDisease(HardwareInterface hardware, MemoryInterface memory, Enti
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool CastMapCureCurse(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
+ActionOutcome CastMapCureCurse(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
 {
     RemoveCurse(caster_id);
     return true;
@@ -241,10 +239,12 @@ bool CastMapCureCurse(HardwareInterface hardware, MemoryInterface memory, Entity
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool CastMapCreateFood(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
+ActionOutcome CastMapCreateFood(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
 {
-    CreateItemFood();
-    return true;
+    uint8_t x = g_core.creatures.position[caster_id].x;
+    uint8_t y = g_core.creatures.position[caster_id].y;
+    uint8_t l = 1;
+    return CreateItemCommon(hardware, memory, ITEM, x, y, l);
 }
 
 
@@ -252,10 +252,12 @@ bool CastMapCreateFood(HardwareInterface hardware, MemoryInterface memory, Entit
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool CastMapCreateCommon(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
+ActionOutcome CastMapCreateCommon(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
 {
-    CreateItemCommon();
-    return true;
+    uint8_t x = g_core.creatures.position[caster_id].x;
+    uint8_t y = g_core.creatures.position[caster_id].y;
+    uint8_t l = 1;
+    return CreateItemCommon(hardware, memory, ITEM, x, y, l);
 }
 
 
@@ -263,7 +265,7 @@ bool CastMapCreateCommon(HardwareInterface hardware, MemoryInterface memory, Ent
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool CastMapFireball(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
+ActionOutcome CastMapFireball(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
 {
     // Attack(caster_id, target_id, spellData);
     return true;
@@ -274,7 +276,7 @@ bool CastMapFireball(HardwareInterface hardware, MemoryInterface memory, EntityI
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool CastMapIceBolt(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
+ActionOutcome CastMapIceBolt(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
 {
     return true;
 }
@@ -284,7 +286,7 @@ bool CastMapIceBolt(HardwareInterface hardware, MemoryInterface memory, EntityId
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool CastMapRazorGrass(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
+ActionOutcome CastMapRazorGrass(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
 {
     return true;
 }
@@ -294,7 +296,7 @@ bool CastMapRazorGrass(HardwareInterface hardware, MemoryInterface memory, Entit
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool CastMapMudSling(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
+ActionOutcome CastMapMudSling(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
 {
     return true;
 }
@@ -304,10 +306,12 @@ bool CastMapMudSling(HardwareInterface hardware, MemoryInterface memory, EntityI
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool CastMapCreateMagicItem(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
+ActionOutcome CastMapCreateMagicItem(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
 {
-    CreateItemCommon();
-    return true;
+    uint8_t x = g_core.creatures.position[caster_id].x;
+    uint8_t y = g_core.creatures.position[caster_id].y;
+    uint8_t l = 1;
+    return CreateItemCommon(hardware, memory, ITEM, x, y, l);
 }
 
 
@@ -315,7 +319,7 @@ bool CastMapCreateMagicItem(HardwareInterface hardware, MemoryInterface memory, 
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool CastMapAwaken(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
+ActionOutcome CastMapAwaken(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
 {
     RemoveSleep(caster_id);
     return true;
@@ -326,7 +330,7 @@ bool CastMapAwaken(HardwareInterface hardware, MemoryInterface memory, EntityId 
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool CastMapNerveRepair(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
+ActionOutcome CastMapNerveRepair(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
 {
     return true;
 }
@@ -336,7 +340,7 @@ bool CastMapNerveRepair(HardwareInterface hardware, MemoryInterface memory, Enti
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool CastMapBlindingLight(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
+ActionOutcome CastMapBlindingLight(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
 {
     return true;
 }
@@ -346,7 +350,7 @@ bool CastMapBlindingLight(HardwareInterface hardware, MemoryInterface memory, En
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool CastMapSoothe(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
+ActionOutcome CastMapSoothe(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
 {
     RemoveFear(caster_id);
     return true;
@@ -357,7 +361,7 @@ bool CastMapSoothe(HardwareInterface hardware, MemoryInterface memory, EntityId 
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool CastMapFear(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
+ActionOutcome CastMapFear(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
 {
     ApplyFear(target_id, spellData.power);
     return true;
@@ -368,7 +372,7 @@ bool CastMapFear(HardwareInterface hardware, MemoryInterface memory, EntityId ca
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool CastMapHaste(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
+ActionOutcome CastMapHaste(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
 {
     ApplyHaste(caster_id, spellData.power);
     return true;
@@ -379,7 +383,7 @@ bool CastMapHaste(HardwareInterface hardware, MemoryInterface memory, EntityId c
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool CastMapSlow(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
+ActionOutcome CastMapSlow(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
 {
     ApplySlow(target_id, spellData.power);
     return true;
@@ -390,7 +394,7 @@ bool CastMapSlow(HardwareInterface hardware, MemoryInterface memory, EntityId ca
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool CastMapHypervision(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
+ActionOutcome CastMapHypervision(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
 {
     return true;
 }
@@ -400,7 +404,7 @@ bool CastMapHypervision(HardwareInterface hardware, MemoryInterface memory, Enti
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool CastMapHypothermia(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
+ActionOutcome CastMapHypothermia(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
 {
     ApplyFrozen(target_id, spellData.power);
     return true;
@@ -411,7 +415,7 @@ bool CastMapHypothermia(HardwareInterface hardware, MemoryInterface memory, Enti
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool CastMapBurnHeal(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
+ActionOutcome CastMapBurnHeal(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
 {
     RemoveBurn(caster_id);
     return true;
@@ -422,7 +426,7 @@ bool CastMapBurnHeal(HardwareInterface hardware, MemoryInterface memory, EntityI
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool CastMapFocus(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
+ActionOutcome CastMapFocus(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
 {
     RaiseAccuracy(caster_id);
     return true;
@@ -433,7 +437,7 @@ bool CastMapFocus(HardwareInterface hardware, MemoryInterface memory, EntityId c
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool CastMapRage(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
+ActionOutcome CastMapRage(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
 {
     RaiseStrength(caster_id);
     return true;
@@ -444,7 +448,7 @@ bool CastMapRage(HardwareInterface hardware, MemoryInterface memory, EntityId ca
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool CastMapOpenChest(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
+ActionOutcome CastMapOpenChest(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
 {
     DEBUG("CastMapOpenChest Faileod to open chest");
     return false;
@@ -455,7 +459,7 @@ bool CastMapOpenChest(HardwareInterface hardware, MemoryInterface memory, Entity
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool CastMapIncreaseBag(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
+ActionOutcome CastMapIncreaseBag(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
 {
     // TODO: temorary increase bag slots, add field for onlt the player
     return false;
@@ -466,7 +470,7 @@ bool CastMapIncreaseBag(HardwareInterface hardware, MemoryInterface memory, Enti
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool CastMapGlowingEmbers(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
+ActionOutcome CastMapGlowingEmbers(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
 {
     StatusLesserLight(caster_id, spellData.power);
     return false;
@@ -477,7 +481,7 @@ bool CastMapGlowingEmbers(HardwareInterface hardware, MemoryInterface memory, En
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool CastMapBrillianceAura(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
+ActionOutcome CastMapBrillianceAura(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
 {
     StatusGreaterLight(caster_id, spellData.power);
     return false;
@@ -488,7 +492,7 @@ bool CastMapBrillianceAura(HardwareInterface hardware, MemoryInterface memory, E
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool CastMapReflect(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
+ActionOutcome CastMapReflect(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
 {
     return false;
 }
@@ -498,7 +502,7 @@ bool CastMapReflect(HardwareInterface hardware, MemoryInterface memory, EntityId
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool CastMapSilence(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
+ActionOutcome CastMapSilence(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
 {
     return false;
 }
@@ -508,7 +512,7 @@ bool CastMapSilence(HardwareInterface hardware, MemoryInterface memory, EntityId
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool CastMapPowerOverwhelming(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
+ActionOutcome CastMapPowerOverwhelming(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
 {
     MakeInvulnerable(caster_id);
     return true;
@@ -519,7 +523,7 @@ bool CastMapPowerOverwhelming(HardwareInterface hardware, MemoryInterface memory
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool CastMapShadows(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
+ActionOutcome CastMapShadows(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
 {
     Invisibility(caster_id, spellData.power);
     return true;
@@ -530,7 +534,7 @@ bool CastMapShadows(HardwareInterface hardware, MemoryInterface memory, EntityId
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool CastMapEmpower(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
+ActionOutcome CastMapEmpower(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
 {
     RaiseMagic(caster_id);
     return true;
@@ -541,7 +545,7 @@ bool CastMapEmpower(HardwareInterface hardware, MemoryInterface memory, EntityId
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool CastMapDefend(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
+ActionOutcome CastMapDefend(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
 {
     RaiseDefence(caster_id);
     return true;
@@ -552,7 +556,7 @@ bool CastMapDefend(HardwareInterface hardware, MemoryInterface memory, EntityId 
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool CastMapWizen2(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
+ActionOutcome CastMapWizen2(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
 {
     RaiseMagic(caster_id);
     return true;
@@ -563,7 +567,7 @@ bool CastMapWizen2(HardwareInterface hardware, MemoryInterface memory, EntityId 
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool CastMapHasten(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
+ActionOutcome CastMapHasten(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
 {
     ApplyHaste(caster_id, spellData.power);
     return true;
@@ -574,7 +578,7 @@ bool CastMapHasten(HardwareInterface hardware, MemoryInterface memory, EntityId 
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool CastMapStrengthen(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
+ActionOutcome CastMapStrengthen(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
 {
     RaiseStrength(caster_id);
     return true;
@@ -585,7 +589,7 @@ bool CastMapStrengthen(HardwareInterface hardware, MemoryInterface memory, Entit
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool CastMapFortify(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
+ActionOutcome CastMapFortify(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
 {
     RaiseDefence(caster_id);
     return true;
@@ -596,7 +600,7 @@ bool CastMapFortify(HardwareInterface hardware, MemoryInterface memory, EntityId
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool CastMapWizen(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
+ActionOutcome CastMapWizen(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
 {
     RaiseMagic(caster_id);
     return true;
@@ -607,7 +611,7 @@ bool CastMapWizen(HardwareInterface hardware, MemoryInterface memory, EntityId c
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool CastMapGrowMuscle(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
+ActionOutcome CastMapGrowMuscle(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
 {
     RaiseSpeed(caster_id);
     return true;
@@ -618,7 +622,7 @@ bool CastMapGrowMuscle(HardwareInterface hardware, MemoryInterface memory, Entit
 /* removes the dark black fog of the map
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool CastMapClairvoyance(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
+ActionOutcome CastMapClairvoyance(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
 {
     RemoveMapFog();
     return true;
@@ -629,7 +633,7 @@ bool CastMapClairvoyance(HardwareInterface hardware, MemoryInterface memory, Ent
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool CastMapWallWalking(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
+ActionOutcome CastMapWallWalking(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
 {
     WallWalking(caster_id, spellData.power);
     return true;
@@ -640,7 +644,7 @@ bool CastMapWallWalking(HardwareInterface hardware, MemoryInterface memory, Enti
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool CastMapCreatePit(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
+ActionOutcome CastMapCreatePit(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
 {
     // Position pos = GetSelectedTile(hardware, true);
     // MapModifyTile(pos, PIT);
@@ -652,7 +656,7 @@ bool CastMapCreatePit(HardwareInterface hardware, MemoryInterface memory, Entity
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool CastMapXRayVision(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
+ActionOutcome CastMapXRayVision(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
 {
     XRayVision(caster_id, spellData.power);
     return true;
@@ -663,7 +667,7 @@ bool CastMapXRayVision(HardwareInterface hardware, MemoryInterface memory, Entit
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool CastMapRainStorm(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
+ActionOutcome CastMapRainStorm(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
 {
     //increases efficacy of attacks against FLAME for a duration
     return true;
@@ -674,7 +678,7 @@ bool CastMapRainStorm(HardwareInterface hardware, MemoryInterface memory, Entity
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool CastMapHeatWave(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
+ActionOutcome CastMapHeatWave(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
 {
     //increases efficacy of attacks against ICE for a duration
     return true;
@@ -685,7 +689,7 @@ bool CastMapHeatWave(HardwareInterface hardware, MemoryInterface memory, EntityI
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool CastMapDrought(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
+ActionOutcome CastMapDrought(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
 {
     //increases efficacy of attacks against WATER for a duration
     return true;
@@ -696,7 +700,7 @@ bool CastMapDrought(HardwareInterface hardware, MemoryInterface memory, EntityId
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool CastMapCrusade(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
+ActionOutcome CastMapCrusade(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
 {
     // increases efficacy of attacks against DEMONS for a duration
     return true;
@@ -707,7 +711,7 @@ bool CastMapCrusade(HardwareInterface hardware, MemoryInterface memory, EntityId
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool CastMapHunt(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
+ActionOutcome CastMapHunt(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
 {
     // increases efficacy of attacks against BEASTS for a duration
     return true;
@@ -718,7 +722,7 @@ bool CastMapHunt(HardwareInterface hardware, MemoryInterface memory, EntityId ca
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool CastMapPurification(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
+ActionOutcome CastMapPurification(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
 {
     // increases efficacy of attacks against TOXIC for a duration
     return true;
@@ -729,9 +733,20 @@ bool CastMapPurification(HardwareInterface hardware, MemoryInterface memory, Ent
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool CastMapRaiseSkeleton(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome CastMapRaiseSkeleton(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
 {
     // TileHasCorpse(GetPlayerPosition());
     // Summon(SKELETON);
     return true;
+}
+
+/**********************************************************************************************************************/
+/*
+**********************************************************************************************************************/
+SET_MEMORY(".map")
+ActionOutcome CastMapRaiseXP(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
+{
+    if (target_id == NO_ENTITY) return ACTION_CANNOT;
+    GainXP(target_id, spellData.power);
+    return ACTION_SUCCEEDED;
 }

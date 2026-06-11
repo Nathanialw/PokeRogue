@@ -4,8 +4,10 @@
 
 #include "core_effects.h"
 #include "core_entities.h"
+#include "core_map.h"
 #include "core_player.h"
 #include "core_ram.h"
+#include "core_stats.h"
 #include "core_utils.h"
 
 #include "lib_debugging.h"
@@ -40,10 +42,10 @@ bool CheckUsed(EntityId e_id)
 *  TODO run the effect stored as the index in the metadata field
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool InteractAltar(HardwareInterface hardware, EntityId item_id, EntityId object_id, EntityId e_id, ObjectData objectData)
+ActionOutcome InteractAltar(HardwareInterface hardware, EntityId item_id, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractAltar");
-    return false;
+    return ACTION_FAILED;
 }
 
 /**********************************************************************************************************************
@@ -51,102 +53,116 @@ bool InteractAltar(HardwareInterface hardware, EntityId item_id, EntityId object
  *  TODO chance of random movement
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool InteractRaft(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
+ActionOutcome InteractRaft(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractRaft");
-    return false;
+    return ACTION_FAILED;
 }
 
 /**********************************************************************************************************************
 *  TODO keeps the player on the boat when moved on water
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool InteractRowBoat(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
+ActionOutcome InteractRowBoat(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractRowBoat");
-    return false;
+    return ACTION_FAILED;
 }
 
 /**********************************************************************************************************************
 *  TODO chance of breaking when walked on
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool InteractRopeBridge(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
+ActionOutcome InteractRopeBridge(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractRopeBridge");
-    NoEffect();
-    return false;
+    return NoEffect();
 }
 
 /**********************************************************************************************************************
 *  TODO chance of spawning a troll
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool InteractStoneBridge(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
+ActionOutcome InteractStoneBridge(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractStoneBridge");
-    NoEffect();
-    return false;
+    return NoEffect();
 }
 
 /**********************************************************************************************************************
 * TODO supersedes the effect of water lava and acid
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool InteractWoodenBridge(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
+ActionOutcome InteractWoodenBridge(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractWoodenBridge");
-    NoEffect();
-    return false;
+    return NoEffect();
 }
 
 /**********************************************************************************************************************
 *  TODO generates a spellbook or skillbook item
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool InteractBookCase(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
+ActionOutcome InteractBookCase(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
-    Position pos = GetEntityPosition(OBJECT, object_id);
-    // TODO pick a random of the correwct item type
-    SpawnEntity(hardware, memory, ITEM, POTION_HEALTH, pos.x, pos.y, 0);
-    return false;
+    if (SetUsed(e_id))
+    {
+        Position pos = GetEntityPosition(OBJECT, object_id);
+        uint8_t n = hardware.GetRandom_uint8_t(0, 1);
+        if (n == 0)
+            SpawnEntity(hardware, memory, ITEM, SPELL_BOOK, pos.x, pos.y, 0);
+        else
+            SpawnEntity(hardware, memory, ITEM, ABILITY_BOOK, pos.x, pos.y, 0);
+        return ACTION_SUCCEEDED;
+    }
+    return ACTION_CANNOT;
 }
 
 /**********************************************************************************************************************
 *  TODO generates a ring or amulet item
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool InteractJewelleryCase(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
+ActionOutcome InteractJewelleryCase(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
-    Position pos = GetEntityPosition(OBJECT, object_id);
-    // TODO pick a random of the correwct item type
-    SpawnEntity(hardware, memory, ITEM, POTION_HEALTH, pos.x, pos.y, 0);
-    return false;
+    if (SetUsed(e_id))
+    {
+        Position pos = GetEntityPosition(OBJECT, object_id);
+        // TODO pick a random of the correwct item type
+        SpawnEntity(hardware, memory, ITEM, POTION_HEALTH, pos.x, pos.y, 0);
+        return ACTION_SUCCEEDED;
+    }
+    return ACTION_CANNOT;
 }
 
 /**********************************************************************************************************************
 *  TODO generates a random scroll
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool InteractScrollCase(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
+ActionOutcome InteractScrollCase(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
-    ItemData itemData = {};
-    Position pos = GetEntityPosition(OBJECT, object_id);
-    // TODO pick a random of the correwct item type
-    SpawnEntity(hardware, memory, ITEM, POTION_HEALTH, pos.x, pos.y, 0);
-    return false;
+    if (SetUsed(e_id))
+    {
+        Position pos = GetEntityPosition(OBJECT, object_id);
+        SpawnEntity(hardware, memory, ITEM, SCROLL, pos.x, pos.y, 0);
+        return ACTION_SUCCEEDED;
+    }
+    return ACTION_CANNOT;
 }
 
 /**********************************************************************************************************************
 *   TODO spawns a random potion
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool InteractCauldron(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
+ActionOutcome InteractCauldron(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
-    Position pos = GetEntityPosition(OBJECT, object_id);
-    // TODO pick a random of the correwct item type
-    SpawnEntity(hardware, memory, ITEM, POTION_HEALTH, pos.x, pos.y, 0);
-    return false;
+    if (SetUsed(e_id))
+    {
+        Position pos = GetEntityPosition(OBJECT, object_id);
+        // TODO pick a random of the correct item type
+        SpawnEntity(hardware, memory, ITEM, POTION_HEALTH, pos.x, pos.y, 0);
+        return ACTION_SUCCEEDED;
+    }
+    return ACTION_CANNOT;
 }
 
 /**********************************************************************************************************************
@@ -154,31 +170,30 @@ bool InteractCauldron(HardwareInterface hardware, MemoryInterface memory, Entity
 *  TODO chance to melt items in bag
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool InteractAcidCloud(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
+ActionOutcome InteractAcidCloud(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractAcidCloud");
-    return false;
+    return ACTION_FAILED;
 }
 
 /**********************************************************************************************************************
 *  TODO chance to apply poison
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool InteractPoisonGas(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
+ActionOutcome InteractPoisonGas(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
-    ApplyPoison(e_id, 1);
     DEBUG("InteractPoisonGas");
-    return false;
+    return ApplyPoison(e_id, 1);
 }
 
 /**********************************************************************************************************************
 *  TODO chance to do damage
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool InteractSmokeCloud(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
+ActionOutcome InteractSmokeCloud(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractSmokeCloud");
-    return false;
+    return ACTION_FAILED;
 }
 
 /**********************************************************************************************************************
@@ -186,12 +201,17 @@ bool InteractSmokeCloud(HardwareInterface hardware, MemoryInterface memory, Enti
 *  TODO chance to generate an item
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool InteractCoffin(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
+ActionOutcome InteractCoffin(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
-    if (SetUsed(e_id))
-        CreateItemCommon();
     DEBUG("InteractCoffin");
-    return false;
+    if (SetUsed(e_id))
+    {
+        uint8_t x = g_core.objects.position[object_id].x;
+        uint8_t y = g_core.objects.position[object_id].y;
+        uint8_t l = 1;
+        return CreateItemCommon(hardware, memory, ITEM, x, y, l);
+    }
+    return ACTION_CANNOT;
 }
 
 /**********************************************************************************************************************
@@ -199,36 +219,51 @@ bool InteractCoffin(HardwareInterface hardware, MemoryInterface memory, EntityId
 *  TODO chance to generate an item
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool InteractSarcophagus(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
+ActionOutcome InteractSarcophagus(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
-    if (SetUsed(e_id))
-        CreateItemCommon();
     DEBUG("InteractSarcophagus");
-    return false;
+    if (SetUsed(e_id))
+    {
+        uint8_t x = g_core.objects.position[object_id].x;
+        uint8_t y = g_core.objects.position[object_id].y;
+        uint8_t l = 1;
+        return CreateItemCommon(hardware, memory, ITEM, x, y, l);
+    }
+    return ACTION_CANNOT;
 }
 
 /**********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool InteractHangingCorpse(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
+ActionOutcome InteractHangingCorpse(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
-    if (SetUsed(e_id))
-        CreateItemCommon();
     DEBUG("InteractHangingCorpse");
-    return false;
+    if (SetUsed(e_id))
+    {
+        uint8_t x = g_core.objects.position[object_id].x;
+        uint8_t y = g_core.objects.position[object_id].y;
+        uint8_t l = 1;
+        return CreateItemCommon(hardware, memory, ITEM, x, y, l);
+    }
+    return ACTION_CANNOT;
 }
 
 /**********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool InteractLaidCorpse(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
+ActionOutcome InteractLaidCorpse(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
-    if (SetUsed(e_id))
-        CreateItemCommon();
     DEBUG("InteractLaidCorpse");
-    return false;
+    if (SetUsed(e_id))
+    {
+        uint8_t x = g_core.objects.position[object_id].x;
+        uint8_t y = g_core.objects.position[object_id].y;
+        uint8_t l = 1;
+        return CreateItemCommon(hardware, memory, ITEM, x, y, l);
+    }
+    return ACTION_CANNOT;
 }
 
 /**********************************************************************************************************************
@@ -237,10 +272,10 @@ bool InteractLaidCorpse(HardwareInterface hardware, MemoryInterface memory, Enti
 *  TODO chance to to damage when the player moves onto
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool InteractBarredDoor(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
+ActionOutcome InteractBarredDoor(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractBarredDoor");
-    return false;
+    return ACTION_FAILED;
 }
 
 /**********************************************************************************************************************
@@ -249,10 +284,10 @@ bool InteractBarredDoor(HardwareInterface hardware, MemoryInterface memory, Enti
 *  TODO chance to to damage when the player moves onto
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool InteractIronDoor(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
+ActionOutcome InteractIronDoor(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractIronDoor");
-    return false;
+    return ACTION_FAILED;
 }
 
 /**********************************************************************************************************************
@@ -261,10 +296,10 @@ bool InteractIronDoor(HardwareInterface hardware, MemoryInterface memory, Entity
 *  TODO chance to to damage when the player moves onto
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool InteractStoneDoor(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
+ActionOutcome InteractStoneDoor(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractStoneDoor");
-    return false;
+    return ACTION_FAILED;
 }
 
 /**********************************************************************************************************************
@@ -273,10 +308,10 @@ bool InteractStoneDoor(HardwareInterface hardware, MemoryInterface memory, Entit
 *  TODO chance to to damage when the player moves onto
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool InteractWickerDoor(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
+ActionOutcome InteractWickerDoor(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractWickerDoor");
-    return false;
+    return ACTION_FAILED;
 }
 
 /**********************************************************************************************************************
@@ -285,106 +320,121 @@ bool InteractWickerDoor(HardwareInterface hardware, MemoryInterface memory, Enti
 *  TODO chance to to damage when the player moves onto
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool InteractWoodDoor(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
+ActionOutcome InteractWoodDoor(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractWoodDoor");
-    return false;
+    return ACTION_FAILED;
 }
 
 /**********************************************************************************************************************
 *  TODO add a success chance
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool InteractLadder(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
+ActionOutcome InteractLadder(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractLadder");
     if (GetPlayerID() == e_id)
-        MapAscend(hardware, memory, g_core.player.id);
-    return false;
+        return MapAscend(hardware, memory, g_core.player.id);
+    return ACTION_CANNOT;
 }
 
 /**********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool InteractStairs(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
+ActionOutcome InteractStairs(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractStairs");
     if (GetPlayerID() == e_id)
-        MapDescend(hardware, memory, g_core.player.id);
-    return true;
+        return MapDescend(hardware, memory, g_core.player.id);
+    return ACTION_CANNOT;
 }
 
 /**********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool InteractCave(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
+ActionOutcome InteractCave(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractCave");
     if (GetPlayerID() == e_id)
-        MapLateral(hardware, memory, g_core.player.id);
-    return true;
+        return MapLateral(hardware, memory, g_core.player.id);
+    return ACTION_CANNOT;
 }
 
 /**********************************************************************************************************************
 *  TODO add light radius
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool InteractBonfire(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
+ActionOutcome InteractBonfire(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractBonfire");
     if (g_core.objects.interactable[e_id])
+    {
         g_core.objects.toggle[e_id] = !g_core.objects.toggle[e_id];
-    return false;
+        return ACTION_SUCCEEDED;
+    }
+    return ACTION_CANNOT;
 }
 
 /**********************************************************************************************************************
 *  TODO add light radius
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool InteractBrazier(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
+ActionOutcome InteractBrazier(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractBrazier");
     if (g_core.objects.interactable[e_id])
+    {
         g_core.objects.toggle[e_id] = !g_core.objects.toggle[e_id];
-    return false;
+        return ACTION_SUCCEEDED;
+    }
+    return ACTION_CANNOT;
 }
 
 /**********************************************************************************************************************
 *  TODO add light radius
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool InteractCampfire(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
+ActionOutcome InteractCampfire(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractCampfire");
     if (g_core.objects.interactable[e_id])
+    {
         g_core.objects.toggle[e_id] = !g_core.objects.toggle[e_id];
-    return false;
+        return ACTION_SUCCEEDED;
+    }
+    return ACTION_CANNOT;
 }
 
 /**********************************************************************************************************************
 *  TODO add light radius
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool InteractStandingTorch(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
+ActionOutcome InteractStandingTorch(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractStandingTorch");
     if (g_core.objects.interactable[e_id])
+    {
         g_core.objects.toggle[e_id] = !g_core.objects.toggle[e_id];
-    return false;
+        return ACTION_SUCCEEDED;
+    }
+    return ACTION_CANNOT;
 }
 
 /**********************************************************************************************************************
 *  TODO add light radius
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool InteractWallTorch(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
+ActionOutcome InteractWallTorch(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
-    if (g_core.objects.interactable[e_id])
-        g_core.objects.toggle[e_id] = !g_core.objects.toggle[e_id];
     DEBUG("InteractWallTorch");
-    return false;
+    if (g_core.objects.interactable[e_id])
+    {
+        g_core.objects.toggle[e_id] = !g_core.objects.toggle[e_id];
+        return ACTION_SUCCEEDED;
+    }
+    return ACTION_CANNOT;
 }
 
 /**********************************************************************************************************************
@@ -392,12 +442,15 @@ bool InteractWallTorch(HardwareInterface hardware, MemoryInterface memory, Entit
 *  TODO deals damage
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool InteractCrumblingFloor(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
+ActionOutcome InteractCrumblingFloor(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractCrumblingFloor");
     if (GetPlayerID() == e_id)
+    {
         MapDescend(hardware, memory, g_core.player.id);
-    return false;
+        return ACTION_SUCCEEDED;
+    }
+    return ACTION_CANNOT;
 }
 
 /**********************************************************************************************************************
@@ -406,13 +459,13 @@ bool InteractCrumblingFloor(HardwareInterface hardware, MemoryInterface memory, 
 *  TODO HAVE THE FOUNTAIN OPEN THE PART PAGE AND SELECT THE CREATURE, EFFECT BASED ON CREATURE TYPE
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool InteractAcidFountain(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
+ActionOutcome InteractAcidFountain(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("TODO HAVE THE FOUNTAIN OPEN THE PART PAGE AND SELECT THE CREATURE, EFFECT BASED ON CREATURE TYPE");
     if (!CheckUsed(object_id))
     {
         DEBUG("Fountain already drained");
-        return false;
+        return ACTION_CANNOT;
     }
 
     EntityId creature_id = g_core.trainers.partyID[e_id][0];
@@ -420,11 +473,11 @@ bool InteractAcidFountain(HardwareInterface hardware, MemoryInterface memory, En
     {
         SetUsed(object_id);
         DEBUG("Drank from Acid Fountain restoring 20 Mana to party member 0");
-        return true;
+        return ACTION_SUCCEEDED;
     }
 
     DEBUG("party member 0 already at max mana");
-    return false;
+    return ACTION_CANNOT;
 }
 
 /**********************************************************************************************************************
@@ -432,36 +485,36 @@ bool InteractAcidFountain(HardwareInterface hardware, MemoryInterface memory, En
 *  TODO HAVE THE FOUNTAIN OPEN THE PART PAGE AND SELECT THE CREATURE, EFFECT BASED ON CREATURE TYPE
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool InteractBloodFountain(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
+ActionOutcome InteractBloodFountain(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("TODO HAVE THE FOUNTAIN OPEN THE PART PAGE AND SELECT THE CREATURE, EFFECT BASED ON CREATURE TYPE");
     if (!CheckUsed(object_id))
     {
         DEBUG("Fountain already drained");
-        return false;
+        return ACTION_CANNOT;
     }
     EntityId creature_id = g_core.trainers.partyID[e_id][0];
     if (RestoreMana(creature_id, 20))
     {
         SetUsed(object_id);
         DEBUG("Drank from Blood Fountain restoring 20 Mana to party member 0");
-        return true;
+        return ACTION_SUCCEEDED;
     }
     DEBUG("party member 0 already at max mana");
-    return false;
+    return ACTION_CANNOT;
 }
 
 /**********************************************************************************************************************
 *  TODO HAVE THE FOUNTAIN OPEN THE PART PAGE AND SELECT THE CREATURE, EFFECT BASED ON CREATURE TYPE
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool InteractWaterFountain(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
+ActionOutcome InteractWaterFountain(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("TODO HAVE THE FOUNTAIN OPEN THE PART PAGE AND SELECT THE CREATURE, EFFECT BASED ON CREATURE TYPE");
     if (!CheckUsed(object_id))
     {
         DEBUG("Fountain already drained");
-        return false;
+        return ACTION_CANNOT;
     }
 
     EntityId creature_id = g_core.trainers.partyID[e_id][0];
@@ -469,21 +522,31 @@ bool InteractWaterFountain(HardwareInterface hardware, MemoryInterface memory, E
     {
         SetUsed(object_id);
         DEBUG("Drank from Water Fountain restoring 20 Mana to party member 0");
-        return true;
+        return ACTION_SUCCEEDED;
     }
 
     DEBUG("party member 0 already at max mana");
-    return false;
+    return ACTION_CANNOT;
 }
 
 /**********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool InteractWell(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
+ActionOutcome InteractWell(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractWell");
-    return false;
+    if (!CheckUsed(object_id))
+    {
+        DEBUG("Fountain already drained");
+        return ACTION_CANNOT;
+    }
+
+    EntityId creature_id = g_core.trainers.partyID[e_id][0];
+    GainXP(creature_id, objectData.power);
+    SetUsed(object_id);
+    DEBUG("Drank from Well gaining XP for a party member");
+    return ACTION_SUCCEEDED;
 }
 
 /**********************************************************************************************************************
@@ -491,214 +554,256 @@ bool InteractWell(HardwareInterface hardware, MemoryInterface memory, EntityId o
 *  TODO spawns an item
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool InteractHiddenCompartment(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
+ActionOutcome InteractHiddenCompartment(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractHiddenCompartment");
-    return false;
+    return ACTION_FAILED;
 }
 
 /**********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool InteractAcidPit(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
+ActionOutcome InteractAcidPit(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractAcidPit");
-    return false;
+    return ACTION_FAILED;
 }
 
 /**********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool InteractLavaPit(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
+ActionOutcome InteractLavaPit(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractLavaPit");
-    return false;
+    return ACTION_FAILED;
 }
 
 /**********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool InteractNarowPit(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
+ActionOutcome InteractNarowPit(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractNarowPit");
-    return false;
+    return ACTION_FAILED;
 }
 
 /**********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool InteractShallowPit(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
+ActionOutcome InteractShallowPit(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractShallowPit");
-    return false;
+    return ACTION_FAILED;
 }
 
 /**********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool InteractSnakesPit(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
+ActionOutcome InteractSnakesPit(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractSnakesPit");
-    return false;
+    return ACTION_FAILED;
 }
 
 /**********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool InteractSpikedPit(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
+ActionOutcome InteractSpikedPit(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractSpkiedPit");
-    return false;
+    return ACTION_FAILED;
 }
 
 /**********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool InteractPitStandard(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
+ActionOutcome InteractPitStandard(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractPitStandard");
-    return false;
+    return ACTION_FAILED;
 }
 
 /**********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool InteractWaterPit(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
+ActionOutcome InteractWaterPit(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractWaterPit");
-    return false;
+    return ACTION_FAILED;
 }
 
 /**********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool InteractWidePit(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
+ActionOutcome InteractWidePit(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractWidePit");
-    return false;
+    return ACTION_FAILED;
 }
 
 /**********************************************************************************************************************
 *  TODO spawns an item
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool InteractArmorRack(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
+ActionOutcome InteractArmorRack(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractArmorRack");
-    return false;
+    return ACTION_FAILED;
 }
 
 /**********************************************************************************************************************
 *  TODO spawns an item
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool InteractWeaponRack(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
+ActionOutcome InteractWeaponRack(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractWeaponRack");
-    return false;
+    return ACTION_FAILED;
 }
 
 /**********************************************************************************************************************
 *  TODO spawns an item
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool InteractBarrel(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
+ActionOutcome InteractBarrel(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
-    if (SetUsed(e_id))
-        CreateItemCommon();
     DEBUG("InteractBarrel");
-    return false;
+    if (SetUsed(e_id))
+    {
+        uint8_t x = g_core.objects.position[object_id].x;
+        uint8_t y = g_core.objects.position[object_id].y;
+        uint8_t l = 1;
+        return CreateItemCommon(hardware, memory, ITEM, x, y, l);
+    }
+    return ACTION_FAILED;
 }
 
 /**********************************************************************************************************************
 *  TODO spawns an item
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool InteractBasket(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
+ActionOutcome InteractBasket(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
-    if (SetUsed(e_id))
-        CreateItemCommon();
     DEBUG("InteractBasket");
-    return false;
+    if (SetUsed(e_id))
+    {
+        uint8_t x = g_core.objects.position[object_id].x;
+        uint8_t y = g_core.objects.position[object_id].y;
+        uint8_t l = 1;
+        return CreateItemCommon(hardware, memory, ITEM, x, y, l);
+    }
+    return ACTION_FAILED;
 }
 
 /**********************************************************************************************************************
 *  TODO spawns an item
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool InteractChest(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
+ActionOutcome InteractChest(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
-    if (SetUsed(e_id))
-        CreateItemMagic();
     DEBUG("InteractChest");
-    return false;
+    if (SetUsed(e_id))
+    {
+        uint8_t x = 20;
+        uint8_t y = 20;
+        uint8_t l = 20;
+        return CreateItemMagic(hardware, memory, ITEM, x, y, l);
+    }
+    return ACTION_FAILED;
 }
 
 /**********************************************************************************************************************
 *  TODO spawns an item
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool InteractCoffer(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
+ActionOutcome InteractCoffer(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
-    if (SetUsed(e_id))
-        CreateItemCommon();
     DEBUG("InteractCoffer");
-    return false;
+    if (SetUsed(e_id))
+    {
+        uint8_t x = g_core.objects.position[object_id].x;
+        uint8_t y = g_core.objects.position[object_id].y;
+        uint8_t l = 1;
+        return CreateItemCommon(hardware, memory, ITEM, x, y, l);
+    }
+    return ACTION_FAILED;
 }
 
 /**********************************************************************************************************************
 *  TODO spawns an item
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool InteractCrate(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
+ActionOutcome InteractCrate(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
-    if (SetUsed(e_id))
-        CreateItemCommon();
     DEBUG("InteractCrate");
-    return false;
+    if (SetUsed(e_id))
+    {
+
+
+        uint8_t x = g_core.objects.position[object_id].x;
+        uint8_t y = g_core.objects.position[object_id].y;
+        uint8_t l = 1;
+        return CreateItemCommon(hardware, memory, ITEM, x, y, l);
+    }
+    return ACTION_FAILED;
 }
 
 /**********************************************************************************************************************
 *  TODO spawns an item
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool InteractTrunk(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
+ActionOutcome InteractTrunk(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
-    if (SetUsed(e_id))
-        CreateItemMagic();
     DEBUG("InteractTrunk");
-    return false;
+    if (SetUsed(e_id))
+    {
+        uint8_t x = g_core.objects.position[object_id].x;
+        uint8_t y = g_core.objects.position[object_id].y;
+        uint8_t l = 1;
+        return CreateItemCommon(hardware, memory, ITEM, x, y, l);
+    }
+    return ACTION_FAILED;
 }
 
 /**********************************************************************************************************************
 *  TODO spawns an item
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool InteractUrn(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
+ActionOutcome InteractUrn(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     if (SetUsed(e_id))
-        CreateItemCommon();
-    return false;
+    {
+        uint8_t x = g_core.objects.position[object_id].x;
+        uint8_t y = g_core.objects.position[object_id].y;
+        uint8_t l = 1;
+        return CreateItemCommon(hardware, memory, ITEM, x, y, l);
+    }
+    return ACTION_FAILED;
 }
 
 /**********************************************************************************************************************
 *  TODO spawns an item
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool InteractVault(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
+ActionOutcome InteractVault(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     if (SetUsed(e_id))
-        CreateItemCommon();
-    return false;
+    {
+        uint8_t x = g_core.objects.position[object_id].x;
+        uint8_t y = g_core.objects.position[object_id].y;
+        uint8_t l = 1;
+        return CreateItemCommon(hardware, memory, ITEM, x, y, l);
+    }
+    return ACTION_FAILED;
 }
 
 /**********************************************************************************************************************
@@ -706,7 +811,7 @@ bool InteractVault(HardwareInterface hardware, MemoryInterface memory, EntityId 
 *  TODO no collision for trainers
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool InteractWard(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
+ActionOutcome InteractWard(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData)
 {
     DEBUG("InteractWard");
     return false;

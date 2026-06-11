@@ -14,4 +14,4 @@ void GetStats(HardwareInterface hardware, MemoryInterface memory, Stats *stats, 
 IntMax999 GetHP(Creature type, uint8_t level);
 IntMax999 GetMP(Creature type, uint8_t level);
 
-void GetSkills(MemoryInterface memory, EntityId id, Type type);
+void SetDefaultSkills(MemoryInterface memory, EntityId id, Type type);

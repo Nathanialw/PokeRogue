@@ -1,5 +1,5 @@
 // Generated spell data structs
-// Database contains 62 total used spells
+// Database contains 63 total used spells
 
 // Individual spells data
 AWAKEN, //0 
@@ -51,18 +51,19 @@ RAZOR_GRASS, //45
 REFLECT, //46 
 REPEL, //47 
 RESURRECT, //48 
-SHADOWS, //49 
-SILENCE, //50 
-SLOW, //51 
-SOOTHE, //52 
-STRENGTHEN, //53 
-SUMMON_FOOD, //54 
-TELEPORT, //55 
-WALL_WALKING, //56 
-WATER_BREATHING, //57 
-WATER_WALKING, //58 
-WIZEN, //59 
-WIZEN2, //60 
-XRAY_VISION, //61 
+RaiseXP, //49 
+SHADOWS, //50 
+SILENCE, //51 
+SLOW, //52 
+SOOTHE, //53 
+STRENGTHEN, //54 
+SUMMON_FOOD, //55 
+TELEPORT, //56 
+WALL_WALKING, //57 
+WATER_BREATHING, //58 
+WATER_WALKING, //59 
+WIZEN, //60 
+WIZEN2, //61 
+XRAY_VISION, //62 
 
-//ALL_NAMES_COUNT = 62;
+//ALL_NAMES_COUNT = 63;

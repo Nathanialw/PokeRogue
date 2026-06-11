@@ -1,5 +1,5 @@
 // Generated spell name strings
-// Database contains 62 total entries
+// Database contains 63 total entries
 
 // Individual items strings
 SpellAttackAwaken,
@@ -51,6 +51,7 @@ SpellAttackRazorGrass,
 SpellAttackReflect,
 SpellAttackRepel,
 SpellAttackResurrect,
+SpellAttackRaiseXP,
 SpellAttackShadows,
 SpellAttackSilence,
 SpellAttackSlow,

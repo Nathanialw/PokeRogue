@@ -7,8 +7,15 @@
 #include "types.h"
 
 
-bool MapDescend(HardwareInterface hardware, MemoryInterface memory, EntityId e_id);
-bool MapAscend(HardwareInterface hardware, MemoryInterface memory, EntityId e_id);
-bool MapLateral(HardwareInterface hardware, MemoryInterface memory, EntityId e_id);
+ActionOutcome MapDescend(HardwareInterface hardware, MemoryInterface memory, EntityId e_id);
+ActionOutcome MapAscend(HardwareInterface hardware, MemoryInterface memory, EntityId e_id);
+ActionOutcome MapLateral(HardwareInterface hardware, MemoryInterface memory, EntityId e_id);
 bool RevealMap();
 bool Reposition(HardwareInterface hardware, EntityId e_id);
+
+
+//tiles
+bool CollisionFluidTile(EntityId id, ObjectsTypes type, uint8_t x, uint8_t y);;
+bool Pit(EntityId id, ObjectsTypes type, uint8_t x, uint8_t y);
+bool Wall(EntityId id, ObjectsTypes type, uint8_t x, uint8_t y);
+bool NoInteraction(EntityId id, ObjectsTypes type, uint8_t x, uint8_t y);

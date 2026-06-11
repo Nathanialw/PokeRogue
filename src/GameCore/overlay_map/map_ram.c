@@ -38,14 +38,21 @@ MapRunState g_map = {
 
 
 SET_MEMORY(".map")
-bool CastMapSpell(HardwareInterface hardware, MemoryInterface memory, uint8_t spellType, EntityId caster_id, EntityId target_id, SpellData spellData)
+ActionOutcome CastMapSpell(HardwareInterface hardware, MemoryInterface memory, uint8_t spellType, EntityId caster_id, EntityId target_id, SpellData spellData)
 {
     return spellFunctionsMap[spellType](hardware, memory, caster_id, target_id, spellData);
 }
 
 
 SET_MEMORY(".map")
-bool UseMapItem(HardwareInterface hardware, MemoryInterface memory, uint8_t itemType, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
+ActionOutcome UseMapItem(HardwareInterface hardware, MemoryInterface memory, uint8_t itemType, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
     return itemFunctionsMap[itemType](hardware, memory, item_id, user_id, target_id, itemData, index);
+}
+
+
+SET_MEMORY(".map")
+ActionOutcome UseMapObject(HardwareInterface hardware, uint8_t objectType, EntityId object_id, EntityId target_id, ObjectData objectData)
+{
+    return objectFunctions[objectType](hardware, object_id, target_id, objectData);
 }

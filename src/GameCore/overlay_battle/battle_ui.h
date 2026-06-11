@@ -7,4 +7,4 @@
 
 
 void PrintCombatLogText(HardwareInterface hardware, MemoryInterface memory, const char* text);
-void PrintCombatLogFull(GraphicsInterface graphics, MemoryInterface memory);
+void CombatLogFullDraw(GraphicsInterface graphics, MemoryInterface memory);

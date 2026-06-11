@@ -23,8 +23,6 @@ add_library(GameCore STATIC
         overlay_core/core_player.c
         overlay_core/core_stats.c
         overlay_core/core_effects.c
-        overlay_core/core_effects_items.c
-        overlay_core/core_effects_spells.c
         overlay_core/core_save.c
         overlay_core/core_sound.c
 
@@ -53,6 +51,9 @@ add_library(GameCore STATIC
         overlay_map/tooltip.h
         overlay_map/map_effects_spells.c
         overlay_map/map_effects_items.c
+        overlay_map/map_effects_tiles_step_off.c
+        overlay_map/map_effects_tiles_step_on.c
+
 
         #   BATTLES
         overlay_battle/battle_animation_skills_attack.c
@@ -93,6 +94,7 @@ add_library(GameCore STATIC
 
         #   GAME_LOSS
         overlay_game_loss/game_loss_state.c
+
 
         #
 )

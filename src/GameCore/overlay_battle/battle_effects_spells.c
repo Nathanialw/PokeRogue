@@ -2,13 +2,13 @@
 // Created by nathanial on 6/9/26.
 //
 
-#include "battle_effects_spells.h"
-
+#include "battle_ui.h"
 #include "types.h"
 #include "lib_memory.h"
 
 #include "core_effects.h"
 #include "core_entities.h"
+#include "core_stats.h"
 
 
 /**********************************************************************************************************************/
@@ -17,6 +17,7 @@
 SET_MEMORY(".battle")
 ActionOutcome CastBattleNoAttack_PLACEHOLDER(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
 {
+    PrintCombatLogText(hardware, memory, "CastBattleNoAttack_PLACEHOLDER");
     return ACTION_FAILED;
 }
 
@@ -41,6 +42,7 @@ ActionOutcome CastBattleHeal(HardwareInterface hardware, MemoryInterface memory,
 SET_MEMORY(".battle")
 ActionOutcome CastBattleLevitate(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
 {
+    PrintCombatLogText(hardware, memory, "CastBattleLevitate Not implemented");
     return ACTION_FAILED;
 }
 
@@ -52,6 +54,7 @@ ActionOutcome CastBattleLevitate(HardwareInterface hardware, MemoryInterface mem
 SET_MEMORY(".battle")
 ActionOutcome CastBattleDisplacement(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
 {
+    PrintCombatLogText(hardware, memory, "CastBattleDisplacement Not implemented");
     return ACTION_FAILED;
 }
 
@@ -62,6 +65,7 @@ ActionOutcome CastBattleDisplacement(HardwareInterface hardware, MemoryInterface
 SET_MEMORY(".battle")
 ActionOutcome CastBattleWaterWalking(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
 {
+    PrintCombatLogText(hardware, memory, "CastBattleWaterBreathing Not implemented");
     return ACTION_FAILED;
 }
 
@@ -72,6 +76,7 @@ ActionOutcome CastBattleWaterWalking(HardwareInterface hardware, MemoryInterface
 SET_MEMORY(".battle")
 ActionOutcome CastBattleWaterBreathing(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
 {
+    PrintCombatLogText(hardware, memory, "CastBattleWaterBreathing Not implemented");
     return ACTION_FAILED;
 }
 
@@ -84,6 +89,7 @@ ActionOutcome CastBattleTeleport(HardwareInterface hardware, MemoryInterface mem
 {
     // Position random_tile_pos = GetSelectedTile(hardware, true);
     // Reposition(partyID, random_tile_pos);
+    PrintCombatLogText(hardware, memory, "CastBattleTeleport Not implemented");
     return ACTION_FAILED;
 }
 
@@ -94,6 +100,8 @@ ActionOutcome CastBattleTeleport(HardwareInterface hardware, MemoryInterface mem
 SET_MEMORY(".battle")
 ActionOutcome CastBattleResurrect(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
 {
+    //has any creature died in the battle
+    //revive it and add it to your party
     return Revive(friendly_id);
 }
 
@@ -104,8 +112,10 @@ ActionOutcome CastBattleResurrect(HardwareInterface hardware, MemoryInterface me
 SET_MEMORY(".battle")
 ActionOutcome CastBattleRaiseDead(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
 {
-    // TileHasCorpse(GetPlayerPosition());
-    // Summon(SKELETON);
+    //has any creature died in the battle
+    //if so create a skeleton or zombie or maybe a random undead
+    //add skeleton to your party
+    PrintCombatLogText(hardware, memory, "CastBattleRaiseDead Not implemented");
     return ACTION_FAILED;
 }
 
@@ -116,6 +126,7 @@ ActionOutcome CastBattleRaiseDead(HardwareInterface hardware, MemoryInterface me
 SET_MEMORY(".battle")
 ActionOutcome CastBattleDescend(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
 {
+    PrintCombatLogText(hardware, memory, "CastBattleDescend Not implemented");
     return ACTION_FAILED;
 }
 
@@ -143,6 +154,7 @@ ActionOutcome CastBattlePortal(HardwareInterface hardware, MemoryInterface memor
     //     battleAscend(hardware, memory, partyID);
     // else
     //     battleLateral(hardware, memory, partyID);
+    PrintCombatLogText(hardware, memory, "CastBattlePortal Not implemented");
     return ACTION_FAILED;
 }
 
@@ -153,6 +165,7 @@ ActionOutcome CastBattlePortal(HardwareInterface hardware, MemoryInterface memor
 SET_MEMORY(".battle")
 ActionOutcome CastBattleBrewPotion(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
 {
+    PrintCombatLogText(hardware, memory, "CastBattleBrewPotion Not implemented");
     return ACTION_FAILED;
 }
 
@@ -163,6 +176,7 @@ ActionOutcome CastBattleBrewPotion(HardwareInterface hardware, MemoryInterface m
 SET_MEMORY(".battle")
 ActionOutcome CastBattleRepel(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
 {
+    PrintCombatLogText(hardware, memory, "CastBattleRepel Not implemented");
     return ACTION_FAILED;
 }
 
@@ -213,7 +227,10 @@ ActionOutcome CastBattleCureCurse(HardwareInterface hardware, MemoryInterface me
 SET_MEMORY(".battle")
 ActionOutcome CastBattleCreateFood(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
 {
-    return CreateItemFood();
+    uint8_t x = 20;
+    uint8_t y = 20;
+    uint8_t l = 20;
+    return CreateItemCommon(hardware, memory, ITEM, x, y, l);
 }
 
 
@@ -223,7 +240,10 @@ ActionOutcome CastBattleCreateFood(HardwareInterface hardware, MemoryInterface m
 SET_MEMORY(".battle")
 ActionOutcome CastBattleCreateCommon(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
 {
-    return CreateItemCommon();
+    uint8_t x = 20;
+    uint8_t y = 20;
+    uint8_t l = 20;
+    return CreateItemCommon(hardware, memory, ITEM, x, y, l);
 }
 
 
@@ -234,6 +254,7 @@ SET_MEMORY(".battle")
 ActionOutcome CastBattleFireball(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
 {
     // Attack(partyID, enemyID, spellData);
+    PrintCombatLogText(hardware, memory, "CastBattleFireball Not implemented");
     return ACTION_FAILED;
 }
 
@@ -244,6 +265,7 @@ ActionOutcome CastBattleFireball(HardwareInterface hardware, MemoryInterface mem
 SET_MEMORY(".battle")
 ActionOutcome CastBattleIceBolt(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
 {
+    PrintCombatLogText(hardware, memory, "CastBattleIceBolt Not implemented");
     return ACTION_FAILED;
 }
 
@@ -254,6 +276,7 @@ ActionOutcome CastBattleIceBolt(HardwareInterface hardware, MemoryInterface memo
 SET_MEMORY(".battle")
 ActionOutcome CastBattleRazorGrass(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
 {
+    PrintCombatLogText(hardware, memory, "CastBattleRazorGrass Not implemented");
     return ACTION_FAILED;
 }
 
@@ -264,6 +287,7 @@ ActionOutcome CastBattleRazorGrass(HardwareInterface hardware, MemoryInterface m
 SET_MEMORY(".battle")
 ActionOutcome CastBattleMudSling(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
 {
+    PrintCombatLogText(hardware, memory, "CastBattleMudSling Not implemented");
     return ACTION_FAILED;
 }
 
@@ -274,7 +298,10 @@ ActionOutcome CastBattleMudSling(HardwareInterface hardware, MemoryInterface mem
 SET_MEMORY(".battle")
 ActionOutcome CastBattleCreateMagicItem(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
 {
-    return CreateItemCommon();
+    uint8_t x = 20;
+    uint8_t y = 20;
+    uint8_t l = 20;
+    return CreateItemCommon(hardware, memory, ITEM, x, y, l);
 }
 
 
@@ -294,6 +321,7 @@ ActionOutcome CastBattleAwaken(HardwareInterface hardware, MemoryInterface memor
 SET_MEMORY(".battle")
 ActionOutcome CastBattleNerveRepair(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
 {
+    PrintCombatLogText(hardware, memory, "CastBattleNerveRepair Not implemented");
     return ACTION_FAILED;
 }
 
@@ -304,6 +332,7 @@ ActionOutcome CastBattleNerveRepair(HardwareInterface hardware, MemoryInterface 
 SET_MEMORY(".battle")
 ActionOutcome CastBattleBlindingLight(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
 {
+    PrintCombatLogText(hardware, memory, "CastBattleBlindingLight Not implemented");
     return ACTION_FAILED;
 }
 
@@ -354,6 +383,7 @@ ActionOutcome CastBattleSlow(HardwareInterface hardware, MemoryInterface memory,
 SET_MEMORY(".battle")
 ActionOutcome CastBattleHypervision(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
 {
+    PrintCombatLogText(hardware, memory, "CastBattleHypervision Not implemented");
     return ACTION_FAILED;
 }
 
@@ -421,6 +451,7 @@ SET_MEMORY(".battle")
 ActionOutcome CastBattleIncreaseBag(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
 {
     // TODO: temorary increase bag slots, add field for onlt the player
+    PrintCombatLogText(hardware, memory, "CastBattleIncreaseBag Not implemented");
     return ACTION_FAILED;
 }
 
@@ -451,6 +482,7 @@ ActionOutcome CastBattleBrillianceAura(HardwareInterface hardware, MemoryInterfa
 SET_MEMORY(".battle")
 ActionOutcome CastBattleReflect(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
 {
+    PrintCombatLogText(hardware, memory, "CastBattleReflect Not implemented");
     return ACTION_FAILED;
 }
 
@@ -461,6 +493,7 @@ ActionOutcome CastBattleReflect(HardwareInterface hardware, MemoryInterface memo
 SET_MEMORY(".battle")
 ActionOutcome CastBattleSilence(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
 {
+    PrintCombatLogText(hardware, memory, "CastBattleSilence Not implemented");
     return ACTION_FAILED;
 }
 
@@ -571,6 +604,7 @@ ActionOutcome CastBattleGrowMuscle(HardwareInterface hardware, MemoryInterface m
 SET_MEMORY(".battle")
 ActionOutcome CastBattleClairvoyance(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
 {
+    PrintCombatLogText(hardware, memory, "CastBattleClairvoyance Not implemented");
     return ACTION_FAILED;
 }
 
@@ -593,6 +627,7 @@ ActionOutcome CastBattleCreatePit(HardwareInterface hardware, MemoryInterface me
 {
     // Position pos = GetSelectedTile(hardware, true);
     // battleModifyTile(pos, PIT);
+    PrintCombatLogText(hardware, memory, "CastBattleCreatePit Not implemented");
     return ACTION_FAILED;
 }
 
@@ -614,6 +649,7 @@ SET_MEMORY(".battle")
 ActionOutcome CastBattleRainStorm(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
 {
     //increases efficacy of attacks against FLAME for a duration
+    PrintCombatLogText(hardware, memory, "CastBattleRainStorm Not implemented");
     return ACTION_FAILED;
 }
 
@@ -625,6 +661,7 @@ SET_MEMORY(".battle")
 ActionOutcome CastBattleHeatWave(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
 {
     //increases efficacy of attacks against ICE for a duration
+    PrintCombatLogText(hardware, memory, "CastBattleHeatWave Not implemented");
     return ACTION_FAILED;
 }
 
@@ -636,6 +673,7 @@ SET_MEMORY(".battle")
 ActionOutcome CastBattleDrought(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
 {
     //increases efficacy of attacks against WATER for a duration
+    PrintCombatLogText(hardware, memory, "CastBattleDrought Not implemented");
     return ACTION_FAILED;
 }
 
@@ -647,6 +685,7 @@ SET_MEMORY(".battle")
 ActionOutcome CastBattleCrusade(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
 {
     // increases efficacy of attacks against DEMONS for a duration
+    PrintCombatLogText(hardware, memory, "CastBattleCrusade Not implemented");
     return ACTION_FAILED;
 }
 
@@ -658,6 +697,7 @@ SET_MEMORY(".battle")
 ActionOutcome CastBattleHunt(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
 {
     // increases efficacy of attacks against BEASTS for a duration
+    PrintCombatLogText(hardware, memory, "CastBattleHunt Not implemented");
     return ACTION_FAILED;
 }
 
@@ -669,6 +709,7 @@ SET_MEMORY(".battle")
 ActionOutcome CastBattlePurification(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
 {
     // increases efficacy of attacks against TOXIC for a duration
+    PrintCombatLogText(hardware, memory, "CastBattlePurification Not implemented");
     return ACTION_FAILED;
 }
 
@@ -677,9 +718,21 @@ ActionOutcome CastBattlePurification(HardwareInterface hardware, MemoryInterface
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-ActionOutcome CastBattleRaiseSkeleton(EntityId attackerID, EntityId defenderID, SkillData abilityData)
+ActionOutcome CastBattleRaiseSkeleton(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
 {
     // TileHasCorpse(GetPlayerPosition());
     // Summon(SKELETON);
+    PrintCombatLogText(hardware, memory, "CastBattleRaiseSkeleton Not implemented");
     return ACTION_FAILED;
+}
+
+/**********************************************************************************************************************/
+/*
+**********************************************************************************************************************/
+SET_MEMORY(".battle")
+ActionOutcome CastBattleRaiseXP(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
+{
+    if (friendly_id == NO_ENTITY) return ACTION_CANNOT;
+    GainXP(friendly_id, spellData.power);
+    return ACTION_SUCCEEDED;
 }

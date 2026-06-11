@@ -97,6 +97,7 @@ def funcs_to_c_array(entity, prepend):
 
 
 def func_c_headers(entity, prepend, return_type, params):
+    funcs_to_c_array(entity, prepend)
     """Export the database contents to a C array file"""
 
     filename = f"{constants.INC_FOLDER}/decl_{entity}s_{prepend}.inc"

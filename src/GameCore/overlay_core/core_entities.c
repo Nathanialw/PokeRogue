@@ -296,7 +296,7 @@ EntityId SpawnMonster(HardwareInterface hardware, MemoryInterface memory, uint8_
     g_core.creatures.stealth[id].sound = 3;
     g_core.creatures.stealth[id].smell = 0;
 
-    GetSkills(memory, id, type);
+    SetDefaultSkills(memory, id, type);
     SetBit(g_core.creatures.alive, id, true);
     SetBit(g_core.creatures.onMap, id, true);
     g_core.creatures.speed[id].current = 0;

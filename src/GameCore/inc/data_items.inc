@@ -11,8 +11,8 @@
 //    consumable_spellbook
 
 // Individual items data
-// 0 - name - .power = ABILITY_COUNT, .item_level = 1, .item_type = MAGICAL,  flags = { .consumable = 1, .consumable_party = 0, .consumable_spellbook = 0 } 
-{ .power = ABILITY_COUNT, .data = 0x41, .flags = 0b00000001 },
+// 0 - name - .power = ABILITY_COUNT, .item_level = 1, .item_type = MAGICAL,  flags = { .consumable = 1, .consumable_party = 1, .consumable_spellbook = 0 } 
+{ .power = ABILITY_COUNT, .data = 0x41, .flags = 0b00000011 },
 // 1 - name - .power = 100, .item_level = 1, .item_type = COMMON,  flags = { .consumable = 1, .consumable_party = 1, .consumable_spellbook = 0 } 
 { .power = 100, .data = 0x31, .flags = 0b00000011 },
 // 2 - name - .power = 100, .item_level = 1, .item_type = MAGICAL,  flags = { .consumable = 0, .consumable_party = 0, .consumable_spellbook = 0 } 
@@ -71,8 +71,8 @@
 { .power = 100, .data = 0x41, .flags = 0b00000000 },
 // 29 - name - .power = 100, .item_level = 1, .item_type = POTION,  flags = { .consumable = 1, .consumable_party = 1, .consumable_spellbook = 0 } 
 { .power = 100, .data = 0x01, .flags = 0b00000011 },
-// 30 - name - .power = 100, .item_level = 1, .item_type = COMMON,  flags = { .consumable = 1, .consumable_party = 0, .consumable_spellbook = 0 } 
-{ .power = 100, .data = 0x31, .flags = 0b00000001 },
+// 30 - name - .power = 100, .item_level = 1, .item_type = COMMON,  flags = { .consumable = 0, .consumable_party = 0, .consumable_spellbook = 0 } 
+{ .power = 100, .data = 0x31, .flags = 0b00000000 },
 // 31 - name - .power = 100, .item_level = 1, .item_type = COMMON,  flags = { .consumable = 0, .consumable_party = 0, .consumable_spellbook = 0 } 
 { .power = 100, .data = 0x31, .flags = 0b00000000 },
 // 32 - name - .power = 100, .item_level = 1, .item_type = COMMON,  flags = { .consumable = 0, .consumable_party = 0, .consumable_spellbook = 0 } 

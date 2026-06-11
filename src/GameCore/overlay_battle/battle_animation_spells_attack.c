@@ -388,3 +388,9 @@ bool SpellAttackXRayVision(bool onAttacker())
 {
     return false;
 }
+
+SET_MEMORY(".battle")
+bool SpellAttackRaiseXP(bool onAttacker())
+{
+    return false;
+}

@@ -1,5 +1,5 @@
 // Generated spell data structs
-// Database contains 62 total spells
+// Database contains 63 total spells
 
 // layout: 
 //    .power = 8 bits (uint8_t)
@@ -113,31 +113,33 @@
 { .power = 0x0a, .level = 0x01, .data = 0x95, .flags = 0b00000000  },
 // 48 - RESURRECT -> .power = 10 .level = 1 .type = DEMIGOD .pp = 5 .flags = { . use_on_party_member = 0 }
 { .power = 0x0a, .level = 0x01, .data = 0x95, .flags = 0b00000000  },
-// 49 - SHADOWS -> .power = 10 .level = 1 .type = DEMONIC .pp = 5 .flags = { . use_on_party_member = 0 }
+// 49 - RaiseXP -> .power = 100 .level = 1 .type = ANCIENT .pp = 5 .flags = { . use_on_party_member = 0 }
+{ .power = 0x64, .level = 0x01, .data = 0xb5, .flags = 0b00000000  },
+// 50 - SHADOWS -> .power = 10 .level = 1 .type = DEMONIC .pp = 5 .flags = { . use_on_party_member = 0 }
 { .power = 0x0a, .level = 0x01, .data = 0xd5, .flags = 0b00000000  },
-// 50 - SILENCE -> .power = 10 .level = 1 .type = AQUATIC .pp = 5 .flags = { . use_on_party_member = 0 }
+// 51 - SILENCE -> .power = 10 .level = 1 .type = AQUATIC .pp = 5 .flags = { . use_on_party_member = 0 }
 { .power = 0x0a, .level = 0x01, .data = 0x35, .flags = 0b00000000  },
-// 51 - SLOW -> .power = 10 .level = 1 .type = DEMONIC .pp = 5 .flags = { . use_on_party_member = 0 }
+// 52 - SLOW -> .power = 10 .level = 1 .type = DEMONIC .pp = 5 .flags = { . use_on_party_member = 0 }
 { .power = 0x0a, .level = 0x01, .data = 0xd5, .flags = 0b00000000  },
-// 52 - SOOTHE -> .power = 10 .level = 1 .type = DEMIGOD .pp = 5 .flags = { . use_on_party_member = 0 }
+// 53 - SOOTHE -> .power = 10 .level = 1 .type = DEMIGOD .pp = 5 .flags = { . use_on_party_member = 0 }
 { .power = 0x0a, .level = 0x01, .data = 0x95, .flags = 0b00000000  },
-// 53 - STRENGTHEN -> .power = 10 .level = 1 .type = EARTHEN .pp = 1 .flags = { . use_on_party_member = 0 }
+// 54 - STRENGTHEN -> .power = 10 .level = 1 .type = EARTHEN .pp = 1 .flags = { . use_on_party_member = 0 }
 { .power = 0x0a, .level = 0x01, .data = 0xf1, .flags = 0b00000000  },
-// 54 - SUMMON_FOOD -> .power = 10 .level = 1 .type = HUMANOID .pp = 5 .flags = { . use_on_party_member = 0 }
+// 55 - SUMMON_FOOD -> .power = 10 .level = 1 .type = HUMANOID .pp = 5 .flags = { . use_on_party_member = 0 }
 { .power = 0x0a, .level = 0x01, .data = 0xa5, .flags = 0b00000000  },
-// 55 - TELEPORT -> .power = 10 .level = 1 .type = DEMIGOD .pp = 5 .flags = { . use_on_party_member = 0 }
+// 56 - TELEPORT -> .power = 10 .level = 1 .type = DEMIGOD .pp = 5 .flags = { . use_on_party_member = 0 }
 { .power = 0x0a, .level = 0x01, .data = 0x95, .flags = 0b00000000  },
-// 56 - WALL_WALKING -> .power = 10 .level = 1 .type = EARTHEN .pp = 5 .flags = { . use_on_party_member = 0 }
+// 57 - WALL_WALKING -> .power = 10 .level = 1 .type = EARTHEN .pp = 5 .flags = { . use_on_party_member = 0 }
 { .power = 0x0a, .level = 0x01, .data = 0xf5, .flags = 0b00000000  },
-// 57 - WATER_BREATHING -> .power = 10 .level = 1 .type = AQUATIC .pp = 5 .flags = { . use_on_party_member = 0 }
+// 58 - WATER_BREATHING -> .power = 10 .level = 1 .type = AQUATIC .pp = 5 .flags = { . use_on_party_member = 0 }
 { .power = 0x0a, .level = 0x01, .data = 0x35, .flags = 0b00000000  },
-// 58 - WATER_WALKING -> .power = 10 .level = 1 .type = AQUATIC .pp = 5 .flags = { . use_on_party_member = 0 }
+// 59 - WATER_WALKING -> .power = 10 .level = 1 .type = AQUATIC .pp = 5 .flags = { . use_on_party_member = 0 }
 { .power = 0x0a, .level = 0x01, .data = 0x35, .flags = 0b00000000  },
-// 59 - WIZEN -> .power = 10 .level = 1 .type = PLANT .pp = 1 .flags = { . use_on_party_member = 0 }
+// 60 - WIZEN -> .power = 10 .level = 1 .type = PLANT .pp = 1 .flags = { . use_on_party_member = 0 }
 { .power = 0x0a, .level = 0x01, .data = 0x01, .flags = 0b00000000  },
-// 60 - WIZEN2 -> .power = 10 .level = 1 .type = AQUATIC .pp = 5 .flags = { . use_on_party_member = 0 }
+// 61 - WIZEN2 -> .power = 10 .level = 1 .type = AQUATIC .pp = 5 .flags = { . use_on_party_member = 0 }
 { .power = 0x0a, .level = 0x01, .data = 0x35, .flags = 0b00000000  },
-// 61 - XRAY_VISION -> .power = 10 .level = 1 .type = EARTHEN .pp = 5 .flags = { . use_on_party_member = 0 }
+// 62 - XRAY_VISION -> .power = 10 .level = 1 .type = EARTHEN .pp = 5 .flags = { . use_on_party_member = 0 }
 { .power = 0x0a, .level = 0x01, .data = 0xf5, .flags = 0b00000000  },
 
-//COUNT = 62;
+//COUNT = 63;

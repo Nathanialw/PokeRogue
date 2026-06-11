@@ -1,5 +1,5 @@
 // Generated spell name strings
-// Database contains 62 total spell
+// Database contains 63 total spell
 
 // Individual spell strings
 "Awaken\0",
@@ -51,6 +51,7 @@
 "Reflect\0",
 "Repel\0",
 "Resurrect\0",
+"RaiseXP\0",
 "Shadows\0",
 "Silence\0",
 "Slow\0",

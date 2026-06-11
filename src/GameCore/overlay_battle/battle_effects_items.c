@@ -1,8 +1,6 @@
 //
 // Created by nathanial on 2/22/26.
 //
-#include "battle_effects_items.h"
-
 #include "lib_memory.h"
 
 #include "core_effects.h"
@@ -536,7 +534,8 @@ SET_MEMORY(".battle")
 ActionOutcome UseBattleAbilityBook(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
     if (user_id == NO_ENTITY) return ACTION_CANNOT;
-    return LearnSkill(user_id);;
+    SpellId skill_id = g_core.items.metaData[item_id].spell_id;
+    return TeachSkill(target_id, skill_id);
 }
 
 /**********************************************************************************************************************/

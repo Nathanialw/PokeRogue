@@ -74,8 +74,6 @@ def run():
     export_structs.abilities("skill")
     # ability functions headers
     export.func_c_headers("skill", "Skill", "ActionOutcome", "HardwareInterface hardware,  MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData")
-    # ability functions
-    export.funcs_to_c_array("skill", "Skill")
     # ability animation functions
     export.funcs_to_c_animations_array("skill", "attack")
     export.funcs_to_c_animations_array("skill", "struck")
@@ -96,10 +94,7 @@ def run():
     export_structs.spells("spell")
     # spell functions headers
     export.func_c_headers("spell", "CastBattle", "ActionOutcome", "HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData")
-    export.func_c_headers("spell", "CastMap", "ActionOutcome", "HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId enemy_id, SpellData spellData")
-    # spell functions
-    export.funcs_to_c_array("spell", "CastBattle")
-    export.funcs_to_c_array("spell", "CastMap")
+    export.func_c_headers("spell", "CastMap", "ActionOutcome", "HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData")
     # spell animation functions
     export.funcs_to_c_animations_array("spell", "attack")
     export.funcs_to_c_animations_array("spell", "struck")
@@ -129,9 +124,6 @@ def run():
     # item functions header
     export.func_c_headers("item", "UseBattle", "ActionOutcome", "HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index")
     export.func_c_headers("item", "UseMap", "ActionOutcome", "HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index")
-    # item functions
-    export.funcs_to_c_array("item", "UseBattle")
-    export.funcs_to_c_array("item", "UseMap")
     # item animation functions
     export.funcs_to_c_animations_array("item", "attack")
     export.funcs_to_c_animations_array("item", "struck")
@@ -159,8 +151,6 @@ def run():
 
     # object functions header
     export.func_c_headers("object", "Interact", "ActionOutcome", "HardwareInterface hardware, EntityId object_id, EntityId e_id, ObjectData objectData")
-    # object functions
-    export.funcs_to_c_array("object", "Interact")
     # object name strings
     counts.append(export.name_to_c_array("object"))
     # object description strings
@@ -193,6 +183,9 @@ def run():
     bytes_count_map_sprites.append(export_map_sprites.export_image_data("tile", 24))
     bytes_count_map_sprites.append(export_map_sprites.export_image_data("tile", 32))
     bytes_count_map_sprites.append(export_map_sprites.export_image_data("tile", 64))
+
+    export.func_c_headers("tile", "TIleStepOn", "bool", "EntityId id, ObjectsTypes type, uint8_t x, uint8_t y")
+    export.func_c_headers("tile", "TIleStepOff", "bool", "EntityId id, ObjectsTypes type, uint8_t x, uint8_t y")
 
     # tile name strings
     # counts.append(export.name_to_c_array("tile"))

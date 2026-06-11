@@ -22,11 +22,14 @@ extern const Battle_Animation skillsStruck[ABILITY_COUNT];
 **********************************************************************************************************************/
 extern const SkillEffect abilityFunctions[ABILITY_COUNT];
 
+#define MAX_DEAD_CREATURES_CACHED 16
+
 typedef struct
 {
     State state;
     uint8_t effect_animation_index;
     ObjectsTypes effect_type;
+    EntityId dead_creatures[MAX_DEAD_CREATURES_CACHED]; // picked 16 arbitrarily, no sure how many slots will be needed yet
     bool end_battle;
     bool show_party;
     bool pass_turn;

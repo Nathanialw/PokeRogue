@@ -325,3 +325,8 @@ bool SpellStruckXRayVision(GraphicsInterface graphics, HardwareInterface hardwar
 {
     return false;
 }
+
+bool SpellStruckRaiseXP(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
+{
+    return false;
+}

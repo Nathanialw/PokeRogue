@@ -22,6 +22,7 @@
 #include "battle_player.h"
 #include "battle_ram.h"
 #include "battle_ui.h"
+#include "core_entities.h"
 #include "core_memory_access.h"
 
 
@@ -115,15 +116,23 @@ void HandleBattleStateInit(GameInterface* spi)
     spi->graphics.EndFrame();
 
     g_battle.end_battle = false;
+    g_battle.pass_turn = false;
+    for (uint8_t i = 0; i < MAX_DEAD_CREATURES_CACHED; i++)
+        g_battle.dead_creatures[i] = NO_ENTITY;
 }
 
+void CleanUpBattleState(GameInterface* spi)
+{
+    for (uint8_t i = 0; i < MAX_DEAD_CREATURES_CACHED; i++)
+        DestroyCreature(g_battle.dead_creatures[i]);
+}
 
 SET_MEMORY(".battle")
 void HandleBattleState(GameInterface* spi)
 {
     if (CheckBattleState(BATTLE_ATTACK))
     {
-        PrintCombatLogFull(spi->graphics, spi->memory);
+        CombatLogFullDraw(spi->graphics, spi->memory);
         if (!g_battle.pass_turn)
         {
             AnimationUpdateMana(spi->graphics, spi->hardware, spi->memory, false);
@@ -147,10 +156,9 @@ void HandleBattleState(GameInterface* spi)
         }
         else
         {
-
             if (UseSkill(spi->hardware, spi->memory, false))
             {
-                PrintCombatLogFull(spi->graphics, spi->memory);
+                CombatLogFullDraw(spi->graphics, spi->memory);
                 AnimationUpdateMana(spi->graphics, spi->hardware, spi->memory, true);
                 BattlerAnimationAttack(spi->graphics, spi->hardware, spi->memory, false); //attacking animation
                 BattlerAnimationStruck(spi->graphics, spi->hardware, spi->memory, true); //hit animation
@@ -227,6 +235,8 @@ uint8_t OverlayBattleEntry(GameInterface* spi)
         MainBattleLoop(spi);;
         spi->graphics.EndFrame();
     }
+
+    CleanUpBattleState(spi);
 
     return g_core.state.overlay;
 }

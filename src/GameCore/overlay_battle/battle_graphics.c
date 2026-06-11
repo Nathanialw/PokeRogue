@@ -255,7 +255,7 @@ void CreatureStats(GraphicsInterface graphics, HardwareInterface hardware, Memor
 }
 
 
-void PrintCombatLogFull(GraphicsInterface graphics, MemoryInterface memory)
+void CombatLogFullDraw(GraphicsInterface graphics, MemoryInterface memory)
 {
     graphics.FillRect(DIALOGUE_BOX_FRAME.x, DIALOGUE_BOX_FRAME.y + (6 * TEXT_H), DIALOGUE_BOX_FRAME.w, DIALOGUE_BOX_FRAME.h, Flash_GetColor(memory, PAL_OFF_WHITE_GRAY));
 
@@ -338,7 +338,7 @@ void HandleBattle(GraphicsInterface graphics, HardwareInterface hardware, Memory
 
 
     //combat log
-    PrintCombatLogFull(graphics, memory);
+    CombatLogFullDraw(graphics, memory);
 
     g_core.menu.colorCache = Flash_GetColor(memory, PAL_OFF_WHITE_GRAY);
 }

@@ -359,18 +359,3 @@ void Flash_GetTypeName(MemoryInterface memory, char* text, uint8_t typeIndex)
 #endif
 }
 
-
-/*****************************************************************************************************************************
-*   FUNCTION ARRAYS
-*
-*****************************************************************************************************************************/
-
-SET_MEMORY(".map")
-bool Flash_GetObjectEffect(MemoryInterface memory, HardwareInterface hardware, uint8_t objectType, EntityId object_id, EntityId target_id, ObjectData objectData)
-{
-#ifdef STANDALONE
-    return g_gameFlash.funcs.objectFunctions[objectType](object_id, target_id, objectData);
-#else
-    return objectFunctions[objectType](hardware, object_id, target_id, objectData);
-#endif
-}

@@ -152,7 +152,7 @@ IntMax999 GetMP(Creature type, uint8_t level)
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-void GetSkills(MemoryInterface memory, EntityId id, Type type)
+void SetDefaultSkills(MemoryInterface memory, EntityId id, Type type)
 {
     uint8_t idx = 0;
     while (idx < MAX_ABILITIES)

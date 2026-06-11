@@ -16,6 +16,7 @@
 #include "core_player.h"
 #include "core_state.h"
 #include "core_utils.h"
+#include "lib_debugging.h"
 #include "map_actions.h"
 
 #include "map_graphics.h"
@@ -441,7 +442,9 @@ bool Bag(GraphicsInterface graphics, HardwareInterface hardware, InputInterface 
             if (!itemData.consumable)
                 return true;
 
-            if (UseItemMap(hardware, memory, &itemData, item_id, player_id, NO_ENTITY, 0))
+            ActionOutcome action_outcome = UseItemMap(hardware, memory, &itemData, item_id, player_id, NO_ENTITY, 0);
+
+            if (action_outcome == ACTION_SUCCEEDED)
             {
                 ConsumeItem(idx, item_id);
                 FullRedraw(graphics, hardware, memory);
@@ -450,7 +453,9 @@ bool Bag(GraphicsInterface graphics, HardwareInterface hardware, InputInterface 
                 return true;
             }
             else
+            {
                 return true;
+            }
         }
 
 
@@ -465,7 +470,8 @@ bool Bag(GraphicsInterface graphics, HardwareInterface hardware, InputInterface 
 
         if (itemData.consumable_spellbook)
         {
-            if (UseItemMap(hardware, memory, &itemData, item_id, player_id, target_id, target_index))
+            ActionOutcome action_outcome = UseItemMap(hardware, memory, &itemData, item_id, player_id, target_id, target_index);
+            if (action_outcome == ACTION_SUCCEEDED)
             {
                 ConsumeItem(item_idx, item_id);
                 BackUseOnParty(memory);
@@ -477,7 +483,8 @@ bool Bag(GraphicsInterface graphics, HardwareInterface hardware, InputInterface 
 
         if (itemData.consumable_party)
         {
-            if (UseItemMap(hardware, memory, &itemData, item_id, player_id, target_id, target_index))
+            ActionOutcome action_outcome = UseItemMap(hardware, memory, &itemData, item_id, player_id, target_id, target_index);;
+            if (action_outcome == ACTION_SUCCEEDED)
             {
                 ConsumeItem(item_idx, item_id);
                 BackUseOnParty(memory);
@@ -530,7 +537,7 @@ bool Spells(GraphicsInterface graphics, HardwareInterface hardware, InputInterfa
             }
             else
             {
-                CastSpellMap(hardware, memory, spell_id, spellbook_index, player_id, NO_ENTITY);
+                ActionOutcome action_outcome = CastSpellMap(hardware, memory, spell_id, spellbook_index, player_id, NO_ENTITY);
                 MenuBack(memory);
                 Exit(graphics, hardware, input, memory, false);
                 SetInputState(INPUT_IDLE);
@@ -545,8 +552,20 @@ bool Spells(GraphicsInterface graphics, HardwareInterface hardware, InputInterfa
         EntityId spell_id = g_core.trainers.spellID[player_id][spellbook_index];
         EntityId creature_id = g_core.trainers.partyID[player_id][g_core.menu.sel[g_core.menu.depth].y + g_core.menu.menuScrollOffset[g_core.menu.depth].y];
 
-        if (CastSpellMap(hardware, memory, spell_id, spellbook_index, player_id, creature_id))
+        ActionOutcome action_outcome = CastSpellMap(hardware, memory, spell_id, spellbook_index, player_id, creature_id);
+
+        if (action_outcome == ACTION_SUCCEEDED)
+        {
             BackUseOnParty(memory);
+        }
+        else if (action_outcome == ACTION_FAILED)
+        {
+            DEBUG("Spell failed on this target");
+        }
+        else if (action_outcome == ACTION_CANNOT)
+        {
+            DEBUG("Spell cannot be cast on this target");
+        }
 
         return true;
     }

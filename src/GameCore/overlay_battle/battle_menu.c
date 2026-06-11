@@ -442,6 +442,6 @@ bool BattleMenuCommand(GraphicsInterface graphics, HardwareInterface hardware, I
     if (battleMenu == BATTLE_MENU)
         battleSubmenus[g_core.menu.sel[0].y](graphics, hardware, input, memory, true); //0 to enter the menu base entry point
 
-    PrintCombatLogFull(graphics, memory);
+    CombatLogFullDraw(graphics, memory);
     return use_skill_success;
 }

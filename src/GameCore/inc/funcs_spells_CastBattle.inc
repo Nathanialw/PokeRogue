@@ -1,5 +1,5 @@
 // Generated spell name strings
-// Database contains 62 total entries
+// Database contains 63 total entries
 
 // Individual items strings
 CastBattleAwaken,
@@ -51,6 +51,7 @@ CastBattleRazorGrass,
 CastBattleReflect,
 CastBattleRepel,
 CastBattleResurrect,
+CastBattleRaiseXP,
 CastBattleShadows,
 CastBattleSilence,
 CastBattleSlow,

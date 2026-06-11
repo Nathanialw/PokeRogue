@@ -479,9 +479,26 @@ ActionOutcome DiscoverObject(EntityId e_id)
  *  ON FAIL - return fail
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-ActionOutcome LearnSkill(EntityId e_id)
+ActionOutcome TeachSkill(EntityId creature_id, SpellId spell_id)
 {
-    return ACTION_FAILED;
+    if (creature_id == NO_ENTITY) return ACTION_CANNOT;
+
+    uint8_t skill_slot = 0;
+    while (skill_slot < MAX_ABILITIES)
+    {
+        if (g_core.creatures.attacks[creature_id][skill_slot] == NO_ABILITY)
+            break;
+
+        skill_slot++;
+    }
+
+    if (skill_slot < MAX_ABILITIES)
+    {
+        g_core.creatures.attacks[creature_id][skill_slot] = spell_id;
+        return ACTION_SUCCEEDED;
+    }
+
+    return ACTION_CANNOT;
 }
 
 /**********************************************************************************************************************
@@ -1255,8 +1272,9 @@ ActionOutcome RemoveMapFog()
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-ActionOutcome CreateItem(ItemTypes item)
+ActionOutcome CreateItem(HardwareInterface hardware, MemoryInterface memory, ObjectsTypes type, uint8_t t, uint8_t x, uint8_t y, uint8_t l)
 {
+    SpawnEntity(hardware, memory, t, type, x, y, l);
     return ACTION_FAILED;
 }
 
@@ -1265,11 +1283,11 @@ ActionOutcome CreateItem(ItemTypes item)
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-ActionOutcome CreateItemFood()
+ActionOutcome CreateItemFood(HardwareInterface hardware, MemoryInterface memory, uint8_t t, uint8_t x, uint8_t y, uint8_t l)
 {
     // TODO: Get random food type
     uint8_t food_type = 0;
-    CreateItem(food_type);
+    SpawnEntity(hardware, memory, t, food_type, x, y, l);
     return ACTION_SUCCEEDED;
 }
 
@@ -1278,11 +1296,11 @@ ActionOutcome CreateItemFood()
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-ActionOutcome CreateItemCommon()
+ActionOutcome CreateItemCommon(HardwareInterface hardware, MemoryInterface memory, uint8_t t, uint8_t x, uint8_t y, uint8_t l)
 {
     // TODO: Get random common type item
     uint8_t common_type = 0;
-    CreateItem(common_type);
+    SpawnEntity(hardware, memory, t, common_type, x, y, l);
     return ACTION_SUCCEEDED;
 }
 
@@ -1290,11 +1308,11 @@ ActionOutcome CreateItemCommon()
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-ActionOutcome CreateItemMagic()
+ActionOutcome CreateItemMagic(HardwareInterface hardware, MemoryInterface memory, uint8_t t, uint8_t x, uint8_t y, uint8_t l)
 {
     // TODO: Get random common type item
     uint8_t magic_type = 0;
-    CreateItem(magic_type);
+    SpawnEntity(hardware, memory, t, magic_type, x, y, l);
     return ACTION_SUCCEEDED;
 }
 
