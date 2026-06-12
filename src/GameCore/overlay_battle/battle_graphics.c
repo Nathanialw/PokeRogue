@@ -79,11 +79,14 @@ void HandleBattleLists(GraphicsInterface graphics, MemoryInterface memory)
     char line[MEDIUM_STRINGS];
     bool end = false;
 
-    while (i < MAX_PARTY_SIZE)
+    while (1)
     {
         // if selected into SwapMenu
         if (g_battle.show_party) // drawing party
         {
+            if (i >= MAX_PARTY_SIZE)
+                break;
+
             if (i >= g_core.menu.occupied_visible_menu_options)
             {
                 list_y += PrintLineStr(graphics, memory, x, list_y, font_size, max_chars, empty_line, indent);
@@ -322,17 +325,21 @@ void HandleBattle(GraphicsInterface graphics, HardwareInterface hardware, Memory
     graphics.FillRect(enemy.x, enemy.y, enemy.w, enemy.h, Flash_GetColor(memory, PAL_OFF_WHITE_GRAY));
     graphics.FillRect(player.x, player.y, player.w, player.h, Flash_GetColor(memory, PAL_OFF_WHITE_GRAY));
 
-    SpriteLayout pLayout = {};
-    Flash_GetSpriteLayout_64(memory, &pLayout, GetCreatureType(g_core.battleMode.playerMonsterID), CREATURE, false);
-    DrawBattler(graphics, memory, player.x + BATTLER_OFFSET, player.y, &pLayout, CREATURE, false);
+    if (g_core.battleMode.playerMonsterID != NO_ENTITY)
+    {
+        SpriteLayout pLayout = {};
+        Flash_GetSpriteLayout_64(memory, &pLayout, GetCreatureType(g_core.battleMode.playerMonsterID), CREATURE, false);
+        DrawBattler(graphics, memory, player.x + BATTLER_OFFSET, player.y, &pLayout, CREATURE, false);
+        CreatureStats(graphics, hardware, memory, g_core.battleMode.playerMonsterID, playerHP, size, font_size);
+    }
 
-    SpriteLayout eLayout = {};
-    Flash_GetSpriteLayout_64(memory, &eLayout, GetCreatureType(g_core.battleMode.enemyMonsterID), CREATURE, true);
-    DrawBattler(graphics, memory, enemy.x + BATTLER_OFFSET, enemy.y, &eLayout, CREATURE, true);
-
-    CreatureStats(graphics, hardware, memory, g_core.battleMode.playerMonsterID, playerHP, size, font_size);
-    CreatureStats(graphics, hardware, memory, g_core.battleMode.enemyMonsterID, enemyHP, size, font_size);
-    //player creature xp
+    if (g_core.battleMode.enemyMonsterID != NO_ENTITY)
+    {
+        SpriteLayout eLayout = {};
+        Flash_GetSpriteLayout_64(memory, &eLayout, GetCreatureType(g_core.battleMode.enemyMonsterID), CREATURE, true);
+        DrawBattler(graphics, memory, enemy.x + BATTLER_OFFSET, enemy.y, &eLayout, CREATURE, true);
+        CreatureStats(graphics, hardware, memory, g_core.battleMode.enemyMonsterID, enemyHP, size, font_size);
+    }
 
     uint16_t x = dialogue.x;
     uint16_t y = dialogue.y;

@@ -353,22 +353,6 @@ void FullRedraw(GraphicsInterface graphics, HardwareInterface hardware, MemoryIn
 
     ReDrawTiles(graphics, memory, cam);
 
-    for (uint16_t i = 0; i < g_core.items.total; i++)
-    {
-        if (g_core.items.types[i] == NO_ITEM) continue;
-
-        uint8_t x = g_core.items.position[i].x;
-        uint8_t y = g_core.items.position[i].y;
-        if (GetBit(g_core.items.onMap, i) && CameraContains(x, y))
-        {
-            uint8_t rx = (x - cam.x);
-            uint8_t ry = (y - cam.y);
-            if (!CheckVision(rx, ry)) continue;
-            DrawSprite(graphics, memory, rx, ry, g_core.items.types[i], ITEM);
-            g_map.view.viewItems.viewEntities[ry][rx] = g_core.items.types[i];
-        }
-    }
-
     for (uint16_t i = 0; i < g_core.objects.total; i++)
     {
         if (g_core.objects.types[i] == NO_OBJECT) continue;
@@ -382,6 +366,22 @@ void FullRedraw(GraphicsInterface graphics, HardwareInterface hardware, MemoryIn
             if (!CheckVision(rx, ry)) continue;
             DrawSprite(graphics, memory, rx, ry, g_core.objects.types[i], OBJECT);
             g_map.view.viewObjects.viewEntities[ry][rx] = g_core.objects.types[i];
+        }
+    }
+
+    for (uint16_t i = 0; i < g_core.items.total; i++)
+    {
+        if (g_core.items.types[i] == NO_ITEM) continue;
+
+        uint8_t x = g_core.items.position[i].x;
+        uint8_t y = g_core.items.position[i].y;
+        if (GetBit(g_core.items.onMap, i) && CameraContains(x, y))
+        {
+            uint8_t rx = (x - cam.x);
+            uint8_t ry = (y - cam.y);
+            if (!CheckVision(rx, ry)) continue;
+            DrawSprite(graphics, memory, rx, ry, g_core.items.types[i], ITEM);
+            g_map.view.viewItems.viewEntities[ry][rx] = g_core.items.types[i];
         }
     }
 

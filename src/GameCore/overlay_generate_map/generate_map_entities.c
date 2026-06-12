@@ -13,6 +13,8 @@
 #include "core_utils.h"
 
 #include "generate_map.h"
+#include "generate_map_memory_access.h"
+#include "lib_debugging.h"
 
 
 /*******************************************************************************************************************
@@ -32,26 +34,31 @@ void InitPlayer(HardwareInterface hardware, MemoryInterface memory)
     Position pos = FindOpenMapLocation(hardware, TRAINER);
     uint8_t x = pos.x;
     uint8_t y = pos.y;
-    g_core.player.id = SpawnEntity(hardware, memory, TRAINER, 0, x, y, 0);
+    g_core.player.id = SpawnEntity(hardware, memory, TRAINER, Bernard, x, y, 0);
+    g_core.trainers.bag[g_core.player.id].current_max_size = DEFAULT_BAG_SIZE;
+    g_core.trainers.spellbook[g_core.player.id].current_max_pages = DEFAULT_SPELLBOOK_SIZE;
+
+    TrainerData trainer_data = {0};
+    Flash_GetTrainerData(memory, &trainer_data, 0);
+
 
     //  TODO: load trainer spell data from the database flash
-    AddSpellPage(memory, g_core.player.id, HEAL, g_core.player.currentSpellbookSize);
-    g_core.player.currentSpellbookSize++;
-    AddSpellPage(memory, g_core.player.id, DESCEND, g_core.player.currentSpellbookSize);
-    g_core.player.currentSpellbookSize++;
-    AddSpellPage(memory, g_core.player.id, CLAIRVOYANCE, g_core.player.currentSpellbookSize);
-    g_core.player.currentSpellbookSize++;
-    AddSpellPage(memory, g_core.player.id, DISPLACEMENT, g_core.player.currentSpellbookSize);
-    g_core.player.currentSpellbookSize++;
+    AddSpellPage(memory, g_core.player.id, HEAL, GetPlayerSpellbook()->occupied_pages);
+    AddSpellPage(memory, g_core.player.id, DESCEND, GetPlayerSpellbook()->occupied_pages);
+    AddSpellPage(memory, g_core.player.id, CLAIRVOYANCE, GetPlayerSpellbook()->occupied_pages);
+    AddSpellPage(memory, g_core.player.id, DISPLACEMENT, GetPlayerSpellbook()->occupied_pages);
+    AddSpellPage(memory, g_core.player.id, SUMMON_WARD, GetPlayerSpellbook()->occupied_pages);
 
 
     //  TODO: set from trainer data in the database flash
     EntityId item_id = SpawnEntity(hardware, memory, ITEM, RARE_CANDY, x, y, 0);
-    PlayerPickItem(item_id);
+    PickItem(g_core.player.id, item_id);
     EntityId item_id2 = SpawnEntity(hardware, memory, ITEM, POTION_XP, x, y, 0);
-    PlayerPickItem(item_id2);
-    EntityId item_id3 = SpawnEntity(hardware, memory, ITEM, EXPLOSIVE_FLASK, x, y, 0);
-    PlayerPickItem(item_id3);
+    PickItem(g_core.player.id, item_id2);
+    EntityId item_id3 = SpawnEntity(hardware, memory, ITEM, SPELL_BOOK, x, y, 0);
+    PickItem(g_core.player.id, item_id3);
+    EntityId item_id4 = SpawnEntity(hardware, memory, ITEM, CAPTURE_LASSO, x, y, 0);
+    PickItem(g_core.player.id, item_id4);
 
     g_core.trainers.speed[g_core.player.id].max = 99;
     g_core.trainers.speed[g_core.player.id].current = 15;
@@ -280,7 +287,7 @@ void PopulateLevelTrainers(HardwareInterface hardware, MemoryInterface memory)
     uint8_t trainer_level = 1;
     for (uint8_t i = 0; i < NUM_MAP_TRAINERS; i++)
     {
-        const ItemTypes trainer_type = hardware.GetRandom_uint8_t(0, TRAINER_COUNT);
+        const ItemTypes trainer_type = hardware.GetRandom_uint8_t(0, TRAINER_COUNT - 1);
         const Position pos = FindOpenMapLocation(hardware, TRAINER);
         if (pos.x == 0 && pos.y == 0) continue;
         SpawnEntity(hardware, memory, TRAINER, trainer_type, pos.x, pos.y, trainer_level);
@@ -312,9 +319,12 @@ void PopulateLevelCreatures(HardwareInterface hardware, MemoryInterface memory)
         if (GetBit(g_core.creatures.onMap, i) && GetBit(g_core.creatures.alive, i))
             g_core.creatures.newPosition[i] = g_core.creatures.position[i];
 #else
-    uint8_t creature_level = g_core.floor;
     for (uint8_t i = 0; i < g_core.roomCount >> 2; i++)
     {
+        uint8_t min_level = (g_core.floor - 2) < 0 ? 1 : (g_core.floor - 2);
+        uint8_t max_level = g_core.floor + 2;
+        uint8_t creature_level = hardware.GetRandom_uint8_t(min_level, max_level);
+
         uint8_t index = hardware.GetRandom_uint8_t(0, BIOME_MONSTER_TYPES);
         const Creature creature = Flash_GetBiomeCreature(memory, g_core.biome, index);
         const Position pos = FindOpenRoomLocation(hardware, CREATURE, i);
@@ -324,6 +334,10 @@ void PopulateLevelCreatures(HardwareInterface hardware, MemoryInterface memory)
 
     for (uint8_t i = 0; i < g_core.roomCount >> 1; i++)
     {
+        uint8_t min_level = (g_core.floor - 2) < 0 ? 1 : (g_core.floor - 2);
+        uint8_t max_level = g_core.floor + 2;
+        uint8_t creature_level = hardware.GetRandom_uint8_t(min_level, max_level);
+
         uint8_t index = hardware.GetRandom_uint8_t(0, THEME_MONSTER_TYPES);
         const Creature creature = Flash_GetThemeCreature(memory, g_core.theme, index);
         const Position pos = FindOpenRoomLocation(hardware, CREATURE, i);
@@ -360,23 +374,12 @@ void PopulateLevelItems(HardwareInterface hardware, MemoryInterface memory)
         const uint8_t n = hardware.GetRandom_uint8_t(1, 3);
         for (uint8_t j = 0; j < n; j++)
         {
-            const ItemTypes item_type = hardware.GetRandom_uint8_t(0, ITEM_COUNT);
+            const ItemTypes item_type = hardware.GetRandom_uint8_t(0, ITEM_COUNT - 1);
             const Position pos = FindOpenRoomLocation(hardware, ITEM, i);
             if (pos.x == 0 && pos.y == 0) continue;
             SpawnEntity(hardware, memory, ITEM, item_type, pos.x, pos.y, item_level);
         }
     }
-    Position tile_position = {0, 0};
-    while (g_core.items.total < MAX_ENTITY_ITEM_COUNT)
-    {
-        tile_position = FindHallDeadEnd(ITEM, tile_position);
-        if (tile_position.x == 0 && tile_position.y == 0) break;
-        const ItemTypes item_type = hardware.GetRandom_uint8_t(0, ITEM_COUNT);
-        const Position pos = tile_position;
-        EntityId entity_id = SpawnEntity(hardware, memory, ITEM, item_type, pos.x, pos.y, item_level);
-        if (entity_id == NO_ENTITY) break;
-    }
-
 #endif
 }
 
@@ -398,34 +401,39 @@ void PopulateLevelObjects(HardwareInterface hardware, MemoryInterface memory)
     }
 #else
     uint8_t object_level = 1;
-    for (uint8_t i = 0; i < g_core.roomCount; i++)
+    for (uint8_t i = 0; i < MAX_ENTITY_OBJECT_COUNT; i++)
     {
-        const Object object_type = hardware.GetRandom_uint8_t(0, OBJECT_COUNT);
-        const Position pos = FindOpenRoomLocation(hardware, OBJECT, i);
+        const Object object_type = hardware.GetRandom_uint8_t(0, OBJECT_COUNT - 1);
+        ObjectData object_data = {0};
+        Flash_GetObjectData(memory, &object_data, object_type);
+
+        Position pos = {0};
+        if (object_data.nook)
+        {
+            pos = FindRandomNookPosition(hardware, OBJECT);
+        }
+        else if (object_data.hallway)
+        {
+            pos = FindRandomHallPosition(hardware, OBJECT);
+        }
+        else if (object_data.water)
+        {
+            // TODO handle water objects
+            continue;
+        }
+        else
+        {
+            uint8_t room_index = hardware.GetRandom_uint8_t(0, g_core.roomCount);
+            pos = FindOpenRoomLocation(hardware, OBJECT, room_index);
+        }
+
         if (pos.x == 0 && pos.y == 0) continue;
         SpawnEntity(hardware, memory, OBJECT, object_type, pos.x, pos.y, object_level);
     }
 
-    // Position tile_position = {0};
-    // while (g_core.objects.total < MAX_ENTITY_OBJECT_COUNT)
-    // {
-    //     tile_position = FindHall(OBJECT, tile_position);
-    //     if (tile_position.x == 0 && tile_position.y == 0) break;
-    //     const Object object_type = hardware.GetRandom_uint8_t(0, OBJECT_COUNT);
-    //     const Position pos = tile_position;
-    //     EntityId entity_id = SpawnEntity(hardware, memory, OBJECT, object_type, pos.x, pos.y, object_level);
-    //     if (tile_position.x < MAP_W)
-    //     {
-    //         tile_position.x++;
-    //     }
-    //     else
-    //     {
-    //         tile_position.x = 0;
-    //         tile_position.y++;
-    //     }
-    //     if (entity_id == NO_ENTITY) break;
-    // }
 #endif
+
+    DEBUG("%d objects spawned", g_core.objects.total);
 }
 
 
@@ -446,6 +454,8 @@ void GenerateEntities(GameInterface* spi)
     if (g_core.turn_count == 0)
     {
         InitPlayer(spi->hardware, spi->memory);
+        FindHallDeadEnds();
+        FindHalls();
         PopulateLevelTrainers(spi->hardware, spi->memory);
         PopulateLevelCreatures(spi->hardware, spi->memory);
         PopulateLevelObjects(spi->hardware, spi->memory);

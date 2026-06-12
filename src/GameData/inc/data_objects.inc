@@ -36,15 +36,15 @@
 //    13 - CORPSE_LAID
 { .power = 0x05, .data = 0x01, .flags = 0b00000011 },
 //    14 - DOOR_BARRED
-{ .power = 0x64, .data = 0x01, .flags = 0b00001010 },
+{ .power = 0x04, .data = 0x01, .flags = 0b00001110 },
 //    15 - DOOR_IRON
-{ .power = 0x64, .data = 0x01, .flags = 0b00001010 },
+{ .power = 0x03, .data = 0x01, .flags = 0b00001110 },
 //    16 - DOOR_STONE
-{ .power = 0x05, .data = 0x01, .flags = 0b00001010 },
+{ .power = 0x05, .data = 0x01, .flags = 0b00001110 },
 //    17 - DOOR_WICKER
-{ .power = 0x64, .data = 0x01, .flags = 0b00001010 },
+{ .power = 0x01, .data = 0x01, .flags = 0b00001110 },
 //    18 - DOOR_WOOD
-{ .power = 0x64, .data = 0x01, .flags = 0b00001010 },
+{ .power = 0x02, .data = 0x01, .flags = 0b00001110 },
 //    19 - EGRESS_CAVE
 { .power = 0x05, .data = 0x01, .flags = 0b00000010 },
 //    20 - EGRESS_LADDER

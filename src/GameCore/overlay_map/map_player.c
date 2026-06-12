@@ -3,6 +3,8 @@
 //
 
 #include "map_player.h"
+
+#include "core_entities.h"
 #include "lib_memory.h"
 
 #include "core_map.h"
@@ -65,7 +67,7 @@ void PlayerInteractItemInCell()
 {
     Position pos = GetPlayerPosition();
     EntityId item_id = CheckTileForEntity(ITEM, g_core.player.id, pos);
-    PlayerPickItem(item_id);
+    PickItem(GetPlayerID(), item_id);
 }
 
 SET_MEMORY(".map")
@@ -73,8 +75,8 @@ void PlayerInteractObjectInCell(MemoryInterface memory, HardwareInterface hardwa
 {
     Position pos = GetPlayerPosition();
     EntityId object_id = CheckTileForEntity(OBJECT, g_core.player.id, pos);
-    EntityId p_ID = GetPlayerID();
-    InteractObject(memory, hardware, object_id, g_core.trainers.partyID[p_ID][0]);
+    EntityId player_id = GetPlayerID();
+    InteractObject(memory, hardware, object_id, player_id, TRAINER);
 }
 
 
@@ -82,12 +84,10 @@ SET_MEMORY(".map")
 bool CheckGameLost()
 {
     EntityId player_id = GetPlayerID();
-    if (g_core.trainers.partyID[player_id][1] == NO_ENTITY) return true;
-
-    for (uint8_t i = 0; i < MAX_PARTY_SIZE - 1; i++)
+    if (g_core.trainers.partyID[player_id][0] == NO_ENTITY)
     {
-        EntityId creature_id = g_core.trainers.partyID[player_id][i - 1];
-        g_core.trainers.partyID[player_id][i] = creature_id;
+        g_core.state.overlay = OVERLAY_GAME_LOSS;
+        return true;
     }
     return false;
 }

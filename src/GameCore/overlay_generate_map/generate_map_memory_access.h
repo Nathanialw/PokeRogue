@@ -11,4 +11,4 @@
 
 
 
-void Flash_GetTrainerData(MemoryInterface memory, TrainerData* trainer_data, Type trainer_type);
+void Flash_GetTrainerData(MemoryInterface memory, TrainerData* trainer_data, TrainerId trainer_type);

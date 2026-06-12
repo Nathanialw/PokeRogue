@@ -1,5 +1,5 @@
 // Generated item sprites and color indexes
-// Database contains 63 total item sprites
+// Database contains 64 total item sprites
 
 // Individual sprites
 { .glyph_index = CH_i, .fg = PAL_PURPLE_BLUE },
@@ -65,5 +65,6 @@
 { .glyph_index = CH_i, .fg = PAL_PURPLE_BLUE },
 { .glyph_index = CH_i, .fg = PAL_PURPLE_BLUE },
 { .glyph_index = CH_i, .fg = PAL_PURPLE_BLUE },
+{ .glyph_index = CH_i, .fg = PAL_PURPLE_BLUE },
 
-//Sprites count = 63;
+//Sprites count = 64;

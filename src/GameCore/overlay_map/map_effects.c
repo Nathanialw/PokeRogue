@@ -103,6 +103,48 @@ bool Reposition(HardwareInterface hardware, EntityId e_id)
 }
 
 
+/**********************************************************************************************************************
+*
+**********************************************************************************************************************/
+ActionOutcome DamageCreature(CreatureID entity_id, uint8_t damage, ObjectsTypes entity_type)
+{
+    if (entity_type == CREATURE)
+    {
+        if (entity_id == NO_CREATURE) return ACTION_FAILED;
+        if (damage == 0) return ACTION_FAILED;
+
+        DoDamage(entity_id, damage);
+        bool dead = CheckCreatureDead(entity_id);
+        if (dead)
+            DestroyCreature(entity_id);
+    }
+    else if (entity_type == TRAINER)
+    {
+        EntityId creature_id = g_core.trainers.partyID[entity_id][0];
+        if (creature_id == NO_CREATURE) return ACTION_FAILED;
+        if (damage == 0) return ACTION_FAILED;
+
+        DoDamage(creature_id, damage);
+        bool dead = CheckCreatureDead(creature_id);
+        if (dead)
+        {
+            DestroyPartyCreature(creature_id);
+            EntityId new_creature = GetNextPartyCreature(entity_id);
+            if (entity_id == GetPlayerID())
+            {
+                CheckGameLost();
+            }
+            else if (new_creature == NO_CREATURE)
+            {
+                DestroyTrainer(entity_id);
+            }
+        }
+    }
+
+
+    return ACTION_FAILED;
+}
+
 /**********************************************************************************************************************/
 /** Space is empty, free to move into
 **********************************************************************************************************************/
@@ -142,22 +184,11 @@ bool Pit(EntityId id, ObjectsTypes type, uint8_t x, uint8_t y)
         if (g_core.creatures.status.waterWalk[id])
             return true;
 
-
-        EntityId creature_id = g_core.trainers.partyID[id][0];
-        DoDamage(creature_id, 3);
-        bool dead = CheckCreatureDead(creature_id);
-        if (dead)
-        {
-            DestroyPartyCreature(creature_id);
-            if (id == GetPlayerID())
-            {
-                if (CheckGameLost())
-                    g_core.state.overlay = OVERLAY_TITLE_SCREEN;
-            }
-        }
+        DamageCreature(id, 3, type);
     }
     if (type == CREATURE)
     {
+        DamageCreature(id, 3, type);
     }
 
     return true;
@@ -179,20 +210,12 @@ bool CollisionFluidTile(EntityId id, ObjectsTypes type, uint8_t x, uint8_t y)
 
 
         EntityId creature_id = g_core.trainers.partyID[id][0];
-        DoDamage(creature_id, 3);
-        bool dead = CheckCreatureDead(creature_id);
-        if (dead)
-        {
-            DestroyPartyCreature(creature_id);
-            if (id == GetPlayerID())
-            {
-                if (CheckGameLost())
-                    g_core.state.overlay = OVERLAY_TITLE_SCREEN;
-            }
-        }
+        DamageCreature(id, 3, type);
+
     }
     if (type == CREATURE)
     {
+        DamageCreature(id, 3, type);
     }
 
     // check for damage and position drift

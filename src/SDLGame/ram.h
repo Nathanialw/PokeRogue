@@ -42,6 +42,8 @@ typedef struct
     SDL_Surface* surface;
     SDL_Texture* screen;
     SDL_Texture* pixel_buffer;
+    SDL_Texture* view;
+
     SDL_Window* window;
     SDL_Renderer* renderer;
 
@@ -61,6 +63,7 @@ typedef struct
     uint8_t* bytes;
     uint8_t* funcs;
     bool running;
+    bool redraw;
 } RamState;
 
 

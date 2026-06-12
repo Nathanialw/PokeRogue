@@ -18,9 +18,14 @@ typedef char CharStr_uint16[6];
 
 
 typedef uint8_t EntityId;
-typedef uint16_t Pixel;
 typedef uint8_t CreatureID;
 typedef uint8_t SpellId;
+typedef uint8_t ItemId;
+typedef uint8_t ObjectId;
+typedef uint8_t SkillId;
+typedef uint8_t TrainerId;
+
+typedef uint16_t Pixel;
 typedef uint16_t TileSet[NUM_TILES * TILE_PIXELS];
 typedef uint16_t Glyph16x96s[49];
 typedef uint16_t Glyph16x96[(16 * 96)];
@@ -272,12 +277,27 @@ typedef struct
     uint8_t pp;
 } SpellPage;
 
+typedef struct
+{
+    uint8_t current_max_pages;
+    uint8_t occupied_pages;
+    SpellId spell_id[MAX_SPELLBOOK_SIZE];
+    SpellPage page[MAX_SPELLBOOK_SIZE];
+} SpellBook;
+
+
+typedef struct
+{
+    uint8_t occupied_slots;
+    uint8_t current_max_size;
+} BagData;
+
 
 typedef ActionOutcome (*SkillEffect)(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData);
 typedef ActionOutcome (*ItemEffect)(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index);
 typedef ActionOutcome (*SpellEffect)(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData);
 typedef ActionOutcome (*SpellEffectMap)(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId enemy_id, SpellData spellData);
-typedef ActionOutcome (*ObjectEffect)(HardwareInterface hardware, EntityId partyID, EntityId enemyID, ObjectData spellData);
+typedef ActionOutcome (*ObjectEffect)(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData, ObjectsTypes objectType);
 
 
 /**********************************************************************************************************************/
@@ -546,7 +566,7 @@ typedef union Stats
     uint8_t bytes[4];
 } Stats;
 
-_Static_assert(sizeof(Stats) == 4, "Stats must be 4 bytes");
+_Static_assert(sizeof(Stats) == 4, "Stats must be 6 bytes");
 
 /**********************************************************************************************************************
 ** Min and max values of stats
@@ -557,8 +577,22 @@ typedef union
     struct
     {
         Stats min;
-        uint16_t growth;
         Stats max;
+
+        struct
+        {
+            uint8_t attack : 4;
+            uint8_t defence : 4;
+            uint8_t speed : 4;
+            uint8_t magic : 4;
+        } growth;
+
+
+        // struct
+        // {
+        //     uint8_t fire : 6;
+        //     uint8_t ice : 4;
+        // } resists;
     };
 
     uint8_t bytes[10];
@@ -654,15 +688,14 @@ typedef struct
 } Room;
 
 
-#define MAX_AI_TRAINER_SPELLS 6
-
-typedef struct
+typedef union
 {
-    union
+    struct
     {
         CreatureID party[MAX_PARTY_SIZE];
-        SpellId spells[MAX_AI_TRAINER_SPELLS];
+        SpellId spells[MAX_DEFAULT_TRAINER_SPELLS];
+        ItemId items[MAX_DEFAULT_TRAINER_ITEMS];
     };
 
-    uint8_t bytes[MAX_AI_TRAINER_SPELLS + MAX_PARTY_SIZE];
+    uint8_t bytes[MAX_DEFAULT_TRAINER_SPELLS + MAX_PARTY_SIZE + MAX_DEFAULT_TRAINER_ITEMS];
 } TrainerData;

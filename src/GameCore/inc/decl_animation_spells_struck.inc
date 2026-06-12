@@ -1,5 +1,5 @@
 // Generated spell animation function headers
-// Database contains 69 total spells
+// Database contains 70 total spells
 
 // Individual spells strings
 bool SpellStruckAwaken(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker);
@@ -64,6 +64,7 @@ bool SpellStruckSpawnPits(GraphicsInterface graphics, HardwareInterface hardware
 bool SpellStruckSpawnWater(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker);
 bool SpellStruckStrengthen(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker);
 bool SpellStruckCreateFood(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker);
+bool SpellStruckSummonWard(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker);
 bool SpellStruckTeleport(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker);
 bool SpellStruckWallWalking(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker);
 bool SpellStruckWaterBreathing(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker);
@@ -72,4 +73,4 @@ bool SpellStruckWizen(GraphicsInterface graphics, HardwareInterface hardware, Me
 bool SpellStruckWizen2(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker);
 bool SpellStruckXRayVision(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker);
 
-//ALL_NAMES_COUNT = 0;
+//ALL_NAMES_COUNT = 70;

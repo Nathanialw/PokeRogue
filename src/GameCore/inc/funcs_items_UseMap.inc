@@ -1,5 +1,5 @@
 // Generated item name strings
-// Database contains 63 total entries
+// Database contains 64 total entries
 
 // Individual items strings
 UseMapAbilityBook,
@@ -60,10 +60,11 @@ UseMapScroll,
 UseMapShovel,
 UseMapSmokeBall,
 UseMapSpellBook,
+UseMapSpellbookPage,
 UseMapSwiftnessSerum,
 UseMapTorch,
 UseMapWaterResistance,
 UseMapWhip,
 UseMapWisdomCrown,
 
-//ALL_NAMES_COUNT = 0;
+//ALL_NAMES_COUNT = 64;

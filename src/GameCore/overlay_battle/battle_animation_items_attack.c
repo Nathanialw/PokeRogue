@@ -362,3 +362,9 @@ bool ItemAttackXPPotion(bool onAttacker)
     return false;
 }
 
+
+bool ItemAttackSpellbookPage(bool onAttacker)
+{
+    return false;
+}
+

@@ -429,3 +429,9 @@ bool ItemStruckXPPotion(GraphicsInterface graphics, HardwareInterface hardware, 
 {
     return false;
 }
+
+SET_MEMORY(".battle")
+bool ItemStruckSpellbookPage(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
+{
+    return false;
+}

@@ -52,6 +52,7 @@ def run():
     # CREATURES
     export_structs.creatures_skills("creature")
     export_structs.creatures_level_up_skills("creature")
+    export_structs.creature("creature")
     # creature name strings
     counts.append(export.name_to_c_array("creature"))
     # creature description strings
@@ -155,7 +156,7 @@ def run():
     bytes_count_map_sprites.append(export_map_sprites.export_image_data("object", 64))
 
     # object functions header
-    export.func_c_headers("object", "Interact", "ActionOutcome", "HardwareInterface hardware, EntityId object_id, EntityId e_id, ObjectData objectData")
+    export.func_c_headers("object", "Interact", "ActionOutcome", "HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData, ObjectsTypes objectType")
     # object name strings
     counts.append(export.name_to_c_array("object"))
     # object description strings
@@ -174,6 +175,7 @@ def run():
     bytes_count_map_sprites.append(export_map_sprites.export_image_data("trainer", 64))
 
     export_structs.trainers("trainer")
+
 
     # trainer name strings
     counts.append(export.name_to_c_array("trainer"))

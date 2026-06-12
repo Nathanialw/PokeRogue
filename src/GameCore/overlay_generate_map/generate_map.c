@@ -94,20 +94,30 @@ Position FindOpenRoomLocation(HardwareInterface hardware, ObjectsTypes type, uin
     return (Position){0, 0};
 }
 
+#define MAX_HALLS 1000
+#define MAX_NOOKS 100
+
+SET_MEMORY(".map_gen.data")
+Position hallPositions[MAX_HALLS];\
+SET_MEMORY(".map_gen.data")
+uint16_t hallCount = 0;
+
+SET_MEMORY(".map_gen.data")
+Position nookPositions[MAX_NOOKS];\
+SET_MEMORY(".map_gen.data")
+uint16_t nookCount = 0;
+
 SET_MEMORY(".map_gen")
-Position FindHallDeadEnd(ObjectsTypes type, Position position)
+void FindHallDeadEnds()
 {
-    bool begin = true;
-    for (uint16_t y = position.y; y < MAP_H; y++)
+    nookCount = 0;
+
+    for (uint16_t y = 0; y < MAP_H; y++)
     {
-        uint16_t n = 0;
-        if (begin)
-            n = position.x;
-        begin = false;
-        for (uint16_t x = n; x < MAP_W; x++)
+        for (uint16_t x = 0; x < MAP_W; x++)
         {
             uint8_t tile = GetMapTile(x, y);
-            if (tile == FLOOR_DIRT && CheckTileForEntity(type, NO_ENTITY, (Position){x, y}) == NO_ENTITY)
+            if (tile == FLOOR_DIRT)
             {
                 //check at least 3 adjecent tiles has a wall
                 uint8_t adj_count = 0;
@@ -115,30 +125,43 @@ Position FindHallDeadEnd(ObjectsTypes type, Position position)
                 if (x < MAP_W - 1 && GetMapTile(x + 1, y) != FLOOR_DIRT) adj_count++;
                 if (y > 0 && GetMapTile(x, y - 1) != FLOOR_DIRT) adj_count++;
                 if (y < MAP_H - 1 && GetMapTile(x, y + 1) != FLOOR_DIRT) adj_count++;
-                if (adj_count == 3)return (Position){x, y};
+                if (adj_count == 3)
+                {
+                    hallPositions[hallCount++] = (Position){x, y};
+                    if (hallCount == MAX_HALLS) return;
+                }
             }
         }
+    }
+}
+
+SET_MEMORY(".map_gen")
+Position FindRandomNookPosition(HardwareInterface hardware, ObjectsTypes type)
+{
+    uint8_t attempts = 100;
+    while (attempts--)
+    {
+        uint16_t index = hardware.GetRandom_uint8_t(0, MAX_NOOKS);
+        Position position = nookPositions[index];
+
+        if (CheckTileForEntity(type, NO_ENTITY, position) == NO_ENTITY)
+            return position;
     }
     return (Position){0, 0};
 }
 
 SET_MEMORY(".map_gen")
-Position FindHall(ObjectsTypes type, Position position)
+void FindHalls()
 {
-    bool begin = true;
-    for (uint16_t y = position.y; y < MAP_H; y++)
-    {
-        uint16_t n = 0;
-        if (begin)
-            n = position.x;
-        begin = false;
+    hallCount = 0;
 
-        for (uint16_t x = n; x < MAP_W; x++)
+    for (uint16_t y = 0; y < MAP_H; y++)
+    {
+        for (uint16_t x = 0; x < MAP_W; x++)
         {
             uint8_t tile = GetMapTile(x, y);
-            if (tile == FLOOR_DIRT && CheckTileForEntity(type, NO_ENTITY, (Position){x, y}) == NO_ENTITY)
+            if (tile == FLOOR_DIRT)
             {
-
                 //check horizontal
                 uint8_t adj_count = 0;
                 if (x > 0 && GetMapTile(x - 1, y) == FLOOR_DIRT) adj_count++;
@@ -146,7 +169,11 @@ Position FindHall(ObjectsTypes type, Position position)
                 if (y > 0 && GetMapTile(x, y - 1) == WALL_STONE) adj_count++;
                 if (y < MAP_H - 1 && GetMapTile(x, y + 1) == WALL_STONE) adj_count++;
                 if (adj_count == 4)
-                    return (Position){x, y};
+                {
+                    hallPositions[hallCount++] = (Position){x, y};
+                    if (hallCount == MAX_HALLS) return;
+                    continue;
+                }
 
                 //check vertical
                 adj_count = 0;
@@ -155,9 +182,27 @@ Position FindHall(ObjectsTypes type, Position position)
                 if (y > 0 && GetMapTile(x, y - 1) == FLOOR_DIRT) adj_count++;
                 if (y < MAP_H - 1 && GetMapTile(x, y + 1) == FLOOR_DIRT) adj_count++;
                 if (adj_count == 4)
-                    return (Position){x, y};
+                {
+                    hallPositions[hallCount++] = (Position){x, y};
+                    if (hallCount == MAX_HALLS) return;
+                }
             }
         }
+    }
+}
+
+
+SET_MEMORY(".map_gen")
+Position FindRandomHallPosition(HardwareInterface hardware, ObjectsTypes type)
+{
+    uint8_t attempts = 100;
+    while (attempts--)
+    {
+        uint16_t index = hardware.GetRandom_uint16_t(0, MAX_HALLS);
+        Position position = hallPositions[index];
+
+        if (CheckTileForEntity(type, NO_ENTITY, position) == NO_ENTITY)
+            return position;
     }
     return (Position){0, 0};
 }

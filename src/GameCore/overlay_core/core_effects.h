@@ -16,7 +16,7 @@
 /** ACCESSIBLE FOR TESTING
 **********************************************************************************************************************/
 #ifdef ENABLE_DEBUG_OUTPUT
-uint16_t CalcModifier(MemoryInterface memory, EntityId attackerID, EntityId defenderID, Type attackType, uint16_t damage);
+uint16_t CalcModifier(MemoryInterface memory, EntityId attackerID, EntityId defenderID, Type attackType, uint16_t input_damage);
 uint16_t CalcDamage(EntityId creatureID, uint16_t abilityPower);
 uint16_t CalcHeal(EntityId creatureID, uint16_t abilityPower);
 #endif
@@ -148,7 +148,7 @@ ActionOutcome WallWalking(EntityId e_id, uint8_t duration);
 ActionOutcome WaterBreathing(EntityId e_id, uint8_t duration);
 ActionOutcome XRayVision(EntityId e_id, uint8_t duration);
 ActionOutcome CreateItemFood(HardwareInterface hardware, MemoryInterface memory, uint8_t t, uint8_t x, uint8_t y, uint8_t l);
-ActionOutcome CreateItemCommon(HardwareInterface hardware, MemoryInterface memory, uint8_t t, uint8_t x, uint8_t y, uint8_t l);
+EntityId CreateItemCommon(HardwareInterface hardware, MemoryInterface memory, uint8_t t, uint8_t x, uint8_t y, uint8_t l);
 ActionOutcome CreateItemMagic(HardwareInterface hardware, MemoryInterface memory, uint8_t t, uint8_t x, uint8_t y, uint8_t l);
 ActionOutcome MapModifyTile(Position, MapTile tileType);
 ActionOutcome RemoveMapFog();

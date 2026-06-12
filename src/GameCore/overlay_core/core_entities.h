@@ -22,9 +22,12 @@ void DestroyPartyCreature(EntityId id);
 
 EntityId SpawnEntity(HardwareInterface hardware, MemoryInterface memory, ObjectsTypes type, uint8_t t, uint8_t x, uint8_t y, uint8_t l);
 bool AddCreatureToParty(EntityId trainer_id, EntityId creatureid);
+bool DeleteCreatureFromParty(EntityId trainer_id, EntityId creature_id);
+EntityId GetNextPartyCreature(EntityId trainer_id);
 
 IntMax999 GetCreaturehp(EntityId id);
 IntMax999 GetCreaturemp(EntityId id);
 IntMax999 GetCreaturexp(EntityId id);
 
 void AddSpellPage(MemoryInterface memory, EntityId id, Spell spell, uint8_t spellbook_idx);
+void ClearSpellPage(EntityId id, uint8_t spellbook_idx);

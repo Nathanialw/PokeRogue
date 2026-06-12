@@ -258,4 +258,4 @@ ActionOutcome SkillWither(HardwareInterface hardware,  MemoryInterface memory, E
 ActionOutcome SkillWorldTear(HardwareInterface hardware,  MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData);
 ActionOutcome SkillWyrmCharge(HardwareInterface hardware,  MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData);
 
-//ALL_NAMES_COUNT = 0;
+//ALL_NAMES_COUNT = 255;

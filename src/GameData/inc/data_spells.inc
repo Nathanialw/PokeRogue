@@ -1,5 +1,5 @@
 // Generated spell data structs
-// Database contains 69 total spells
+// Database contains 70 total spells
 
 // layout: 
 //    .power = 8 bits (uint8_t)
@@ -139,19 +139,21 @@
 { .power = 0x0a, .level = 0x01, .data = 0xf1, .flags = 0b00000000  },
 // 61 - SUMMON_FOOD -> .power = 10 .level = 1 .type = HUMANOID .pp = 5 .flags = { . use_on_party_member = 0 }
 { .power = 0x0a, .level = 0x01, .data = 0xa5, .flags = 0b00000000  },
-// 62 - TELEPORT -> .power = 10 .level = 1 .type = DEMIGOD .pp = 5 .flags = { . use_on_party_member = 0 }
+// 62 - SUMMON_WARD -> .power = 10 .level = 1 .type = DEMIGOD .pp = 5 .flags = { . use_on_party_member = 0 }
 { .power = 0x0a, .level = 0x01, .data = 0x95, .flags = 0b00000000  },
-// 63 - WALL_WALKING -> .power = 10 .level = 1 .type = EARTHEN .pp = 5 .flags = { . use_on_party_member = 0 }
+// 63 - TELEPORT -> .power = 10 .level = 1 .type = DEMIGOD .pp = 5 .flags = { . use_on_party_member = 0 }
+{ .power = 0x0a, .level = 0x01, .data = 0x95, .flags = 0b00000000  },
+// 64 - WALL_WALKING -> .power = 10 .level = 1 .type = EARTHEN .pp = 5 .flags = { . use_on_party_member = 0 }
 { .power = 0x0a, .level = 0x01, .data = 0xf5, .flags = 0b00000000  },
-// 64 - WATER_BREATHING -> .power = 10 .level = 1 .type = AQUATIC .pp = 5 .flags = { . use_on_party_member = 0 }
+// 65 - WATER_BREATHING -> .power = 10 .level = 1 .type = AQUATIC .pp = 5 .flags = { . use_on_party_member = 0 }
 { .power = 0x0a, .level = 0x01, .data = 0x35, .flags = 0b00000000  },
-// 65 - WATER_WALKING -> .power = 10 .level = 1 .type = AQUATIC .pp = 5 .flags = { . use_on_party_member = 0 }
+// 66 - WATER_WALKING -> .power = 10 .level = 1 .type = AQUATIC .pp = 5 .flags = { . use_on_party_member = 0 }
 { .power = 0x0a, .level = 0x01, .data = 0x35, .flags = 0b00000000  },
-// 66 - WIZEN -> .power = 10 .level = 1 .type = PLANT .pp = 1 .flags = { . use_on_party_member = 0 }
+// 67 - WIZEN -> .power = 10 .level = 1 .type = PLANT .pp = 1 .flags = { . use_on_party_member = 0 }
 { .power = 0x0a, .level = 0x01, .data = 0x01, .flags = 0b00000000  },
-// 67 - WIZEN2 -> .power = 10 .level = 1 .type = AQUATIC .pp = 5 .flags = { . use_on_party_member = 0 }
+// 68 - WIZEN2 -> .power = 10 .level = 1 .type = AQUATIC .pp = 5 .flags = { . use_on_party_member = 0 }
 { .power = 0x0a, .level = 0x01, .data = 0x35, .flags = 0b00000000  },
-// 68 - XRAY_VISION -> .power = 10 .level = 1 .type = EARTHEN .pp = 5 .flags = { . use_on_party_member = 0 }
+// 69 - XRAY_VISION -> .power = 10 .level = 1 .type = EARTHEN .pp = 5 .flags = { . use_on_party_member = 0 }
 { .power = 0x0a, .level = 0x01, .data = 0xf5, .flags = 0b00000000  },
 
-//COUNT = 69;
+//COUNT = 70;

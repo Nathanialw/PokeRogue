@@ -221,6 +221,17 @@ void AnimationBattlerStart(GraphicsInterface graphics, HardwareInterface hardwar
 SET_MEMORY(".battle")
 void AnimationBattlerDie(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
 {
+    if (onAttacker)
+    {
+        if (g_core.battleMode.playerMonsterID == NO_ENTITY)
+            return;
+    }
+    else
+    {
+        if (g_core.battleMode.enemyMonsterID == NO_ENTITY)
+            return;
+    }
+
     Rect_16 r = GetBattlerRect(onAttacker);
     RefreshBattler(graphics, memory, onAttacker, r);
     MoveCenterToDown(graphics, hardware, r, r.h, 1);
@@ -233,8 +244,18 @@ void AnimationBattlerDie(GraphicsInterface graphics, HardwareInterface hardware,
 SET_MEMORY(".battle")
 void BattlerAnimationAttack(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool player)
 {
-    const ObjectsTypes move_type = g_core.battleMode.moveType;
+    if (player)
+    {
+        if (g_core.battleMode.playerMonsterID == NO_ENTITY)
+            return;
+    }
+    else
+    {
+        if (g_core.battleMode.enemyMonsterID == NO_ENTITY)
+            return;
+    }
 
+    const ObjectsTypes move_type = g_core.battleMode.moveType;
     const ObjectType move_id = g_core.battleMode.moveID;
 
     if (move_type == ITEM)
@@ -249,8 +270,18 @@ void BattlerAnimationAttack(GraphicsInterface graphics, HardwareInterface hardwa
 SET_MEMORY(".battle")
 void BattlerAnimationStruck(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool player)
 {
-    const ObjectsTypes move_type = g_core.battleMode.moveType;
+    if (player)
+    {
+        if (g_core.battleMode.playerMonsterID == NO_ENTITY)
+            return;
+    }
+    else
+    {
+        if (g_core.battleMode.enemyMonsterID == NO_ENTITY)
+            return;
+    }
 
+    const ObjectsTypes move_type = g_core.battleMode.moveType;
     const ObjectType move_id = g_core.battleMode.moveID;
 
     if (move_type == ITEM)

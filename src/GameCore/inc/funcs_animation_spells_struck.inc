@@ -1,5 +1,5 @@
 // Generated spell name strings
-// Database contains 69 total entries
+// Database contains 70 total entries
 
 // Individual items strings
 SpellStruckAwaken,
@@ -64,6 +64,7 @@ SpellStruckSpawnPits,
 SpellStruckSpawnWater,
 SpellStruckStrengthen,
 SpellStruckCreateFood,
+SpellStruckSummonWard,
 SpellStruckTeleport,
 SpellStruckWallWalking,
 SpellStruckWaterBreathing,
@@ -72,4 +73,4 @@ SpellStruckWizen,
 SpellStruckWizen2,
 SpellStruckXRayVision,
 
-//ALL_NAMES_COUNT = 0;
+//ALL_NAMES_COUNT = 70;

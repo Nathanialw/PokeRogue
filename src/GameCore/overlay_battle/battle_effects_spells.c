@@ -8,6 +8,7 @@
 
 #include "core_effects.h"
 #include "core_entities.h"
+#include "core_ram.h"
 #include "core_stats.h"
 
 
@@ -227,10 +228,13 @@ ActionOutcome CastBattleCureCurse(HardwareInterface hardware, MemoryInterface me
 SET_MEMORY(".battle")
 ActionOutcome CastBattleCreateFood(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
 {
-    uint8_t x = 20;
-    uint8_t y = 20;
-    uint8_t l = 20;
-    return CreateItemCommon(hardware, memory, ITEM, x, y, l);
+    uint8_t x = g_core.trainers.position[caster_id].x;
+    uint8_t y = g_core.trainers.position[caster_id].y;
+    uint8_t l = g_core.floor * 2;
+    EntityId item_id = CreateItemCommon(hardware, memory, ITEM, x, y, l);
+    if (item_id == NO_ENTITY) return ACTION_FAILED;
+    PickItem(caster_id, item_id);
+    return ACTION_SUCCEEDED;
 }
 
 
@@ -240,10 +244,13 @@ ActionOutcome CastBattleCreateFood(HardwareInterface hardware, MemoryInterface m
 SET_MEMORY(".battle")
 ActionOutcome CastBattleCreateCommon(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
 {
-    uint8_t x = 20;
-    uint8_t y = 20;
-    uint8_t l = 20;
-    return CreateItemCommon(hardware, memory, ITEM, x, y, l);
+    uint8_t x = g_core.trainers.position[caster_id].x;
+    uint8_t y = g_core.trainers.position[caster_id].y;
+    uint8_t l = g_core.floor * 2;
+    EntityId item_id = CreateItemCommon(hardware, memory, ITEM, x, y, l);
+    if (item_id == NO_ENTITY) return ACTION_FAILED;
+    PickItem(caster_id, item_id);
+    return ACTION_SUCCEEDED;
 }
 
 
@@ -298,10 +305,13 @@ ActionOutcome CastBattleMudSling(HardwareInterface hardware, MemoryInterface mem
 SET_MEMORY(".battle")
 ActionOutcome CastBattleCreateMagicItem(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
 {
-    uint8_t x = 20;
-    uint8_t y = 20;
-    uint8_t l = 20;
-    return CreateItemCommon(hardware, memory, ITEM, x, y, l);
+    uint8_t x = g_core.trainers.position[caster_id].x;
+    uint8_t y = g_core.trainers.position[caster_id].y;
+    uint8_t l = g_core.floor * 2;
+    EntityId item_id = CreateItemCommon(hardware, memory, ITEM, x, y, l);
+    if (item_id == NO_ENTITY) return ACTION_FAILED;
+    PickItem(caster_id, item_id);
+    return ACTION_SUCCEEDED;
 }
 
 
@@ -788,6 +798,15 @@ ActionOutcome CastBattleSpawnAcid(HardwareInterface hardware, MemoryInterface me
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
 ActionOutcome CastBattleSpawnPits(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
+{
+    return ACTION_FAILED;
+}
+
+/**********************************************************************************************************************/
+/*
+**********************************************************************************************************************/
+SET_MEMORY(".battle")
+ActionOutcome CastBattleSummonWard(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
 {
     return ACTION_FAILED;
 }

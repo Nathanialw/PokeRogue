@@ -113,11 +113,14 @@ typedef struct
 
         uint8_t vision_radius;
         EntityId id;
-        uint8_t currentBagMaxSize;
-        uint8_t occupiedBagSlots;
-        uint8_t currentSpellbookMaxSize;
-        uint8_t currentSpellbookSize;
+
+        // uint8_t currentBagMaxSize;
+        // uint8_t occupiedBagSlots;
+
+        // uint8_t currentSpellbookMaxSize;
+        // uint8_t currentSpellbookSize;
         uint8_t currentPartySize;
+
         Delta d;
         Delta scroll;
         BitFieldUint8 effects;
@@ -180,10 +183,10 @@ typedef struct
         struct
         {
             uint8_t strength[MAX_ENTITY_CREATURE_COUNT / 2];
-            uint8_t defence[MAX_ENTITY_CREATURE_COUNT / 2];
+            uint8_t fortitude[MAX_ENTITY_CREATURE_COUNT / 2];
             uint8_t magic[MAX_ENTITY_CREATURE_COUNT / 2];
-            uint8_t speed[MAX_ENTITY_CREATURE_COUNT / 2];
-        } stat;
+            uint8_t agility[MAX_ENTITY_CREATURE_COUNT / 2];
+        } attributes;
 
         BitFieldUint8 alive;
         Stats stats[MAX_ENTITY_CREATURE_COUNT];
@@ -200,10 +203,12 @@ typedef struct
     struct
     {
         uint16_t total;
-        EntityId itemID[MAX_ENTITY_TRAINER_COUNT][MAX_BAG_SIZE];
         EntityId partyID[MAX_ENTITY_TRAINER_COUNT][MAX_PARTY_SIZE];
-        uint8_t spellID[MAX_ENTITY_TRAINER_COUNT][MAX_SPELLBOOK_SIZE];
-        SpellPage spellPage[MAX_ENTITY_TRAINER_COUNT][MAX_SPELLBOOK_SIZE];
+        EntityId itemID[MAX_ENTITY_TRAINER_COUNT][MAX_BAG_SIZE];
+        BagData bag[MAX_ENTITY_TRAINER_COUNT];
+        // uint8_t spellID[MAX_ENTITY_TRAINER_COUNT][MAX_SPELLBOOK_SIZE];
+        SpellBook spellbook[MAX_ENTITY_TRAINER_COUNT];
+        // SpellPage spellPage[MAX_ENTITY_TRAINER_COUNT][MAX_SPELLBOOK_SIZE];
 
         Position position[MAX_ENTITY_TRAINER_COUNT];
         Position newPosition[MAX_ENTITY_TRAINER_COUNT]; // can be changed to hold delta, a uint8_t can hold up to 2

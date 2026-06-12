@@ -113,7 +113,7 @@ ActionOutcome CastSpellBattle(HardwareInterface hardware, MemoryInterface memory
 {
     ActionOutcome action_outcome = ACTION_CANNOT;
 
-    if (spellbook_index == SPELL_INDEX_NULL || g_core.trainers.spellPage[caster_id][spellbook_index].pp > 0)
+    if (spellbook_index == SPELL_INDEX_NULL || GetPlayerSpellbook()->page[spellbook_index].pp > 0)
     {
         SpellData spellData;
         Flash_GetSpellData(memory, &spellData, spell_id);;
@@ -122,7 +122,7 @@ ActionOutcome CastSpellBattle(HardwareInterface hardware, MemoryInterface memory
         if (action_outcome == ACTION_SUCCEEDED)
         {
             if (spellbook_index != SPELL_INDEX_NULL)
-                g_core.trainers.spellPage[caster_id][spellbook_index].pp--;
+                GetPlayerSpellbook()->page[spellbook_index].pp--;
 
             PrintCombatLogText(hardware, memory, "Cast Spell Success");
             g_battle.effect_animation_index = spell_id;
@@ -141,7 +141,7 @@ ActionOutcome CastSpellBattle(HardwareInterface hardware, MemoryInterface memory
         }
     }
 
-    else if (g_core.trainers.spellPage[caster_id][spellbook_index].pp == 0)
+    else if (GetPlayerSpellbook()->page[spellbook_index].pp == 0)
     {
         action_outcome = ACTION_CANNOT;
         DEBUG("Not enough pp points");

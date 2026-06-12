@@ -13,12 +13,14 @@ CoreRunState g_core = {
     .btns.defaultGameLoopRate = 10,
     .btns.gameLoopRate = 10,
 
-    .player.occupiedBagSlots = 0,
-    .player.currentSpellbookSize = 0,
-    .player.currentSpellbookMaxSize = DEFAULT_SPELLBOOK_SIZE,
+    // .player.currentSpellbookSize = 0,
+    // .player.currentSpellbookMaxSize = DEFAULT_SPELLBOOK_SIZE,
     .player.vision_radius = DEFAULT_LIGHT_RADIUS,
-    .player.currentBagMaxSize = DEFAULT_BAG_SIZE,
+
+    // .player.occupiedBagSlots = 0,
+    // .player.currentBagMaxSize = DEFAULT_BAG_SIZE,
 
     .state.running = 1,
     .player.id = NO_ENTITY,
+    .battleMode.enemy_trainer_id = NO_ENTITY,
 };

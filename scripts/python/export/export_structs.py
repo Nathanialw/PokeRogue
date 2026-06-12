@@ -105,6 +105,7 @@ def spells(entity):
         f.write("\n")
         f.write(f"//COUNT = {len(spell_data)};\n")
 
+
 def trainers(entity):
     filename = f"{constants.DATA_INC_FOLDER}/data_{entity}s.inc"
     trainer_data = db_manager.get_trainers_data()
@@ -116,7 +117,7 @@ def trainers(entity):
         # Write individual constants
         f.write(f"// Individual {entity}s data\n\n")
 
-        for i, (trainer_name, party_0, party_1, party_2, party_3, party_4, party_5, spell_0, spell_1, spell_2, spell_3, spell_4, spell_5) in enumerate(trainer_data):
+        for i, (trainer_name, party_0, party_1, party_2, party_3, party_4, party_5, spell_0, spell_1, spell_2, spell_3, spell_4, spell_5, item_0, item_1, item_2, item_3, item_4, item_5) in enumerate(trainer_data):
             f.write(f"{{//  {i} - {trainer_name}}}\n")
             f.write(f"  .party = {{\n")
             f.write(f"      {party_0},\n")
@@ -134,6 +135,36 @@ def trainers(entity):
             f.write(f"      {spell_4},\n")
             f.write(f"      {spell_5},\n")
             f.write(f"  }},\n")
+            f.write(f" .items = {{\n")
+            f.write(f"      {item_0},\n")
+            f.write(f"      {item_1},\n")
+            f.write(f"      {item_2},\n")
+            f.write(f"      {item_3},\n")
+            f.write(f"      {item_4},\n")
+            f.write(f"      {item_5},\n")
+            f.write(f"  }},\n")
+            f.write(f"}},\n")
+
+        f.write("\n")
+        f.write(f"//COUNT = {len(trainer_data)};\n")
+
+
+def creature(entity):
+    filename = f"{constants.DATA_INC_FOLDER}/data_{entity}s.inc"
+    trainer_data = db_manager.get_creature_stats()
+
+    with open(filename, 'w', encoding='utf-8') as f:
+        f.write(f"// Generated {entity} data structs\n")
+        f.write(f"// Database contains {len(trainer_data)} total {entity}s\n\n")
+
+        # Write individual constants
+        f.write(f"// Individual {entity}s data\n\n")
+
+        for i, (name, attack_min, defence_min, magic_min, speed_min, attack_max, defence_max, magic_max, speed_max, attack_growth, defence_growth, magic_growth, speed_growth) in enumerate(trainer_data):
+            f.write(f"{{//  {i} - {name}}}\n")
+            f.write(f"      .min = {{ {attack_min}, {defence_min}, {magic_min}, {speed_min}, }},\n")
+            f.write(f"      .max = {{ {attack_max}, {defence_max}, {magic_max}, {speed_max}, }},\n")
+            f.write(f"      .growth = {{ {attack_growth}, {defence_growth}, {magic_growth}, {speed_growth}, }},\n")
             f.write(f"}},\n")
 
         f.write("\n")

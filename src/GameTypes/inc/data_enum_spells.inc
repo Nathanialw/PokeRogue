@@ -1,5 +1,5 @@
 // Generated spell data structs
-// Database contains 69 total used spells
+// Database contains 70 total used spells
 
 // Individual spells data
 AWAKEN, //0 
@@ -64,12 +64,13 @@ SPAWN_PITS, //58
 SPAWN_WATER, //59 
 STRENGTHEN, //60 
 SUMMON_FOOD, //61 
-TELEPORT, //62 
-WALL_WALKING, //63 
-WATER_BREATHING, //64 
-WATER_WALKING, //65 
-WIZEN, //66 
-WIZEN2, //67 
-XRAY_VISION, //68 
+SUMMON_WARD, //62 
+TELEPORT, //63 
+WALL_WALKING, //64 
+WATER_BREATHING, //65 
+WATER_WALKING, //66 
+WIZEN, //67 
+WIZEN2, //68 
+XRAY_VISION, //69 
 
-//ALL_NAMES_COUNT = 69;
+//ALL_NAMES_COUNT = 70;

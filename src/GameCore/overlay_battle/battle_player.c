@@ -42,19 +42,34 @@ bool PlayerDefeated(void)
 }
 
 
+/**********************************************************************************************************************/
+/*
+**********************************************************************************************************************/
+SET_MEMORY(".battle")
+bool UpdateBattleCreature()
+{
+    g_core.battleMode.enemyMonsterID = GetNextPartyCreature(g_core.battleMode.enemy_trainer_id);
+    if (g_core.battleMode.enemyMonsterID == NO_ENTITY)
+        return false;
+    return true;
+}
 
 /**********************************************************************************************************************/
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool CheckBattleEnd(EntityId attackerID, EntityId defenderID)
+bool EnemyDefeated()
 {
-    uint8_t hp = Int999GetCurrent(&g_core.creatures.hp[defenderID]);
+    if (g_core.battleMode.enemy_trainer_id != NO_ENTITY)
+        if (g_core.battleMode.enemyMonsterID == NO_ENTITY)
+            return true;
+
+    EntityId creature_id = g_core.battleMode.enemyMonsterID;
+    uint8_t hp = Int999GetCurrent(&g_core.creatures.hp[creature_id]);
     if (hp == 0)
-    {
-        return false;
-    }
-    return true;
+        return true;
+
+    return false;
 }
 
 /**********************************************************************************************************************/
@@ -63,9 +78,7 @@ bool CheckBattleEnd(EntityId attackerID, EntityId defenderID)
 SET_MEMORY(".battle")
 bool CheckPlayerAttackOutcome()
 {
-    EntityId player_creature_id = g_core.battleMode.playerMonsterID;
-    EntityId ai_creature_id = g_core.battleMode.enemyMonsterID;
-    return CheckBattleEnd(player_creature_id, ai_creature_id);
+    return EnemyDefeated();
 }
 
 /**********************************************************************************************************************/
@@ -74,9 +87,6 @@ bool CheckPlayerAttackOutcome()
 SET_MEMORY(".battle")
 bool CheckEnemyAttackOutcome()
 {
-    EntityId player_creature_id = g_core.battleMode.playerMonsterID;
-    EntityId ai_creature_id = g_core.battleMode.enemyMonsterID;
-    CheckBattleEnd(ai_creature_id, player_creature_id);
     return PlayerDefeated();
 }
 

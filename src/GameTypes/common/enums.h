@@ -31,11 +31,12 @@ typedef enum
     BATTLE_DEAD_ENEMY,
     BATTLE_DEAD_FRIEND,
     BATTLE_CAPTURE_ENEMY,
+    BATTLE_FLEE,
     BATTLE_NONE,
     BATTLE_INPUT_STATE_SIZE,
 } BattleState;
 
-_Static_assert((BATTLE_INPUT_STATE_SIZE == 6), "update State struct to reflect new size");
+_Static_assert((BATTLE_INPUT_STATE_SIZE == 7), "update State struct to reflect new size");
 
 /**********************************************************************************************************************/
 /** Options menu list in the main menu
@@ -187,9 +188,9 @@ typedef enum
 typedef enum
 {
     CREATURE,
+    TRAINER,
     OBJECT,
     ITEM,
-    TRAINER,
     SPELL,
     SKILL,
     NO_OBJECT_TYPE,

@@ -48,13 +48,13 @@ ActionOutcome RestoreResource(IntMax999* resource, EntityId creature_id, uint16_
 SET_MEMORY(".core")
 uint16_t CalcDamage(EntityId creatureID, uint16_t abilityPower)
 {
-    uint8_t level = g_core.creatures.level[creatureID].value;
-    uint16_t ratio = 100 / level;
-    uint16_t base = (g_core.creatures.stats[creatureID].attack / ratio);
-    uint16_t skill = (abilityPower / ratio);
-    uint16_t mod = GetNibble(g_core.creatures.stat.strength, creatureID);
+    const uint8_t level = g_core.creatures.level[creatureID].value >> 1;
+    const uint16_t base = g_core.creatures.stats[creatureID].attack;
+    const uint16_t skill = abilityPower;
+    const uint16_t mod = GetNibble(g_core.creatures.attributes.strength, creatureID);
 
-    uint16_t damage = base + skill + mod;
+    uint16_t damage = level + base + skill + mod;
+    DEBUG("CalcDamage %d %d %d %d - total %d", level, base, skill, mod, damage);
     if (damage == 0) damage = 1;
     return damage;
 }
@@ -90,46 +90,45 @@ void DoDamage(EntityId creatureID, uint16_t damage)
  *  Apply the damage reduction from defence
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-uint16_t CalcModifier(MemoryInterface memory, EntityId attackerID, EntityId defenderID, Type attackType, uint16_t damage)
+uint16_t CalcModifier(MemoryInterface memory, EntityId attackerID, EntityId defenderID, Type attackType, uint16_t input_damage)
 {
     Creature creature_type1 = GetCreatureType(attackerID);
     MonsterType m_type;
     Flash_GetType(memory, &m_type, creature_type1);
-    Type typeA = m_type.typeA;
-    Type typeB = m_type.typeB;
+    Type attacker_typeA = m_type.typeA;
+    Type attacker_typeB = m_type.typeB;
 
-    if (typeA == attackType || typeB == attackType)
-        damage = (float)damage * 1.25f;
+    uint16_t output_damage = input_damage; //input damage already capped at 999
+    if (attacker_typeA == attackType || attacker_typeB == attackType)
+        output_damage = input_damage << 1;
 
-    Creature creature_type2 = GetCreatureType(defenderID);
-    uint16_t base = (g_core.creatures.stats[defenderID].defence / 15);
-    uint16_t mod = GetNibble(g_core.creatures.stat.defence, defenderID);
+    CreatureID target_creature_id = GetCreatureType(defenderID);
+    uint8_t base = g_core.creatures.stats[defenderID].defence >> 1; //max 255
+    uint8_t mod = g_core.creatures.attributes.fortitude[defenderID]; //max 255
+    uint16_t damage_reduction = base + mod;
 
     MonsterType m_type2;
-    Flash_GetType(memory, &m_type2, creature_type1);
-    Type typeC = m_type2.typeA;
-    Type typeD = m_type2.typeB;
+    Flash_GetType(memory, &m_type2, target_creature_id);
+    Type defender_typeA = m_type2.typeA;
+    Type defender_typeB = m_type2.typeB;
 
-    uint8_t mult_a;
-    Flash_GetTypeEffects(memory, &mult_a, (attackType * TYPE_COUNT) + typeC);
-    uint8_t mult_b;
-    Flash_GetTypeEffects(memory, &mult_b, (attackType * TYPE_COUNT) + typeD);
-    uint8_t val_a = (uint8_t)mult_a;
-    uint8_t val_b = (uint8_t)mult_b;
-    float mult1 = ((float)mult_a + (float)mult_b) / 200.0f;
+    int8_t mult_a = 0;
+    Flash_GetTypeEffects(memory, &mult_a, (attackType * TYPE_COUNT) + defender_typeA);
+    int8_t mult_b = 0;
+    Flash_GetTypeEffects(memory, &mult_b, (attackType * TYPE_COUNT) + defender_typeB);
+    int32_t effectiveness = 200 + mult_a + mult_b;
+    ASSERT(effectiveness >= 0, "effectiveness cannot be less than zero, probable data corruption, attack type: %d - defender types: %d %d", attackType, defender_typeA, defender_typeB);
+    uint16_t raw_damage = (uint16_t)(((uint32_t)output_damage * effectiveness) / 200);
 
-    if (mult1 != 0)
-    {
-        uint16_t raw_damage = (float)damage + ((float)damage * mult1);
-        uint16_t reduction = (float)base - (float)mod;
-        if (reduction > raw_damage)
-            damage = 1;
-        else
-            damage = raw_damage - reduction;
-    }
 
-    if (damage == 0) damage = 1;
-    return damage;
+    if (damage_reduction > raw_damage)
+        output_damage = 1; //immunities are handled elsewhere
+    else
+        output_damage = raw_damage - damage_reduction;
+
+    DEBUG("CalcModifier %d%% - raw with mods: %u after reduction: %u", effectiveness - 200, raw_damage, output_damage);
+    if (output_damage == 0) output_damage = 1;
+    return output_damage;
 }
 
 /**********************************************************************************************************************
@@ -250,9 +249,9 @@ ActionOutcome DrainMana(EntityId e_id, uint8_t value)
 SET_MEMORY(".core")
 ActionOutcome RestorePP(EntityId trainer_id, uint8_t spell_index, uint8_t value)
 {
-    if (g_core.trainers.spellPage[trainer_id][spell_index].pp < value)
+    if (g_core.trainers.spellbook[trainer_id].page[spell_index].pp < value)
     {
-        g_core.trainers.spellPage[trainer_id][spell_index].pp = g_core.trainers.spellPage[trainer_id][spell_index].spellData.pp;
+        g_core.trainers.spellbook[trainer_id].page[spell_index].pp = g_core.trainers.spellbook[trainer_id].page[spell_index].spellData.pp;
         return ACTION_SUCCEEDED;
     }
     return ACTION_CANNOT;
@@ -513,9 +512,9 @@ ActionOutcome LearnSpell(MemoryInterface memory, EntityId e_id, Spell spell_id)
     if (e_id == NO_ENTITY) return ACTION_CANNOT;
 
     int8_t spell_book_index = -1;
-    for (uint8_t i = 0; i < MAX_SPELLBOOK_SIZE; i++)
+    for (uint8_t i = 0; i < g_core.trainers.spellbook[e_id].current_max_pages; i++)
     {
-        if (g_core.trainers.spellID[e_id][i] == NO_SPELL)
+        if (g_core.trainers.spellbook[e_id].spell_id[i] == NO_SPELL)
         {
             spell_book_index = i;
             break;
@@ -887,6 +886,8 @@ ActionOutcome NextAttackFreezes()
 {
     return ACTION_FAILED;
 }
+
+
 
 /**********************************************************************************************************************
 *
@@ -1275,7 +1276,7 @@ SET_MEMORY(".core")
 ActionOutcome CreateItemFood(HardwareInterface hardware, MemoryInterface memory, uint8_t t, uint8_t x, uint8_t y, uint8_t l)
 {
     // TODO: Get random food type
-    uint8_t food_type = hardware.GetRandom_uint8_t(0, OBJECT_COUNT);
+    uint8_t food_type = hardware.GetRandom_uint8_t(0, ITEM_COUNT);
     SpawnEntity(hardware, memory, t, food_type, x, y, l);
     return ACTION_SUCCEEDED;
 }
@@ -1284,12 +1285,11 @@ ActionOutcome CreateItemFood(HardwareInterface hardware, MemoryInterface memory,
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-ActionOutcome CreateItemCommon(HardwareInterface hardware, MemoryInterface memory, uint8_t t, uint8_t x, uint8_t y, uint8_t l)
+EntityId CreateItemCommon(HardwareInterface hardware, MemoryInterface memory, uint8_t t, uint8_t x, uint8_t y, uint8_t l)
 {
     // TODO: Get random common type item
-    uint8_t common_type = hardware.GetRandom_uint8_t(0, OBJECT_COUNT);
-    SpawnEntity(hardware, memory, t, common_type, x, y, l);
-    return ACTION_SUCCEEDED;
+    uint8_t common_type = hardware.GetRandom_uint8_t(0, ITEM_COUNT);
+    return SpawnEntity(hardware, memory, t, common_type, x, y, l);
 }
 
 /**********************************************************************************************************************
@@ -1299,7 +1299,7 @@ SET_MEMORY(".core")
 ActionOutcome CreateItemMagic(HardwareInterface hardware, MemoryInterface memory, uint8_t t, uint8_t x, uint8_t y, uint8_t l)
 {
     // TODO: Get random common type item
-    uint8_t magic_type = hardware.GetRandom_uint8_t(0, OBJECT_COUNT);
+    uint8_t magic_type = hardware.GetRandom_uint8_t(0, ITEM_COUNT);
     SpawnEntity(hardware, memory, t, magic_type, x, y, l);
     return ACTION_SUCCEEDED;
 }

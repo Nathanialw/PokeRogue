@@ -52,7 +52,7 @@ GameInterface api;
 
 int main()
 {
-    if (SDL_CreateWindowAndRenderer("window", SCREEN_W, SCREEN_H, 0, &g_ramState.window, &g_ramState.renderer) != 1)
+    if (SDL_CreateWindowAndRenderer("window", SCREEN_W, SCREEN_H, SDL_WINDOW_RESIZABLE, &g_ramState.window, &g_ramState.renderer) != 1)
     {
         printf("Failed to create window and renderer: %s\n", SDL_GetError());
         return 1;

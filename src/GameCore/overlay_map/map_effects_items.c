@@ -702,3 +702,12 @@ ActionOutcome UseMapXPPotion(HardwareInterface hardware, MemoryInterface memory,
     GainXP(target_id, itemData.value);
     return ACTION_SUCCEEDED;
 }
+
+/**********************************************************************************************************************/
+/*
+**********************************************************************************************************************/
+SET_MEMORY(".core")
+ActionOutcome UseMapSpellbookPage(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
+{
+    return ACTION_SUCCEEDED;
+}

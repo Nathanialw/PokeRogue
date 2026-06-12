@@ -9,6 +9,7 @@
 #include <SDL3/SDL_timer.h>
 
 #include "core_ram.h"
+#include "graphics.h"
 #include "lib_debugging.h"
 #include "lib_decl.h"
 #include "ram.h"
@@ -78,6 +79,10 @@ KeyState ProcessInput(void)
         case SDL_EVENT_QUIT:
             // handle quit, set a flag, etc.
             break;
+
+        case SDL_EVENT_WINDOW_RESIZED:
+            g_ramState.redraw = true;
+            break;
         }
     }
 
@@ -99,6 +104,12 @@ void HandleInput(void)
         Delta d1 = InputDeltaDPad(key_state);
         if (key_state.buttons == g_ramState.keys.buttons && d1.x == 0 && d1.y == 0)
         {
+            if (g_ramState.redraw)
+            {
+                EndFrame();
+                g_ramState.redraw = false;
+            }
+
             SDL_Delay(20);
             continue;
         }

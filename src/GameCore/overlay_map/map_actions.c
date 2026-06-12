@@ -12,7 +12,7 @@
 
 #include "core_memory_access.h"
 #include "core_entities.h"
-#include "core_ram.h"
+#include "core_player.h"
 
 #include "map_ram.h"
 
@@ -21,13 +21,31 @@
 /*
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-ActionOutcome InteractObject(MemoryInterface memory, HardwareInterface hardware, EntityId object_e_id, EntityId e_id)
+ActionOutcome InteractObject(MemoryInterface memory, HardwareInterface hardware, EntityId object_e_id, EntityId e_id, ObjectsTypes entity_type)
 {
     if (object_e_id == NO_ENTITY) return false;
-    Object object_type = GetObjectType(object_e_id);
+    Object object_type_id = GetObjectType(object_e_id);
     ObjectData object_data;
-    Flash_GetObjectData(memory, &object_data, object_type);
-    return UseMapObject(hardware, object_type, object_e_id, e_id, object_data);
+    Flash_GetObjectData(memory, &object_data, object_type_id);
+    return UseMapObject(hardware, memory, object_type_id, object_e_id, e_id, object_data, entity_type);
+}
+
+/**********************************************************************************************************************/
+/*
+**********************************************************************************************************************/
+SET_MEMORY(".map")
+ActionOutcome InteractObjectStepOn(MemoryInterface memory, HardwareInterface hardware, EntityId object_e_id, EntityId e_id, ObjectsTypes entity_type)
+{
+    if (object_e_id == NO_ENTITY) return false;
+    Object object_type_id = GetObjectType(object_e_id);
+    ObjectData object_data;
+    Flash_GetObjectData(memory, &object_data, object_type_id);
+
+    if (object_data.on_step)
+    {
+        return UseMapObject(hardware, memory, object_type_id, object_e_id, e_id, object_data, entity_type);
+    }
+    return ACTION_FAILED;
 }
 
 
@@ -61,7 +79,7 @@ ActionOutcome CastSpellMap(HardwareInterface hardware, MemoryInterface memory, S
             DEBUG("Cannot use this now spellID: %d", spellID);
         }
     }
-    else if (g_core.trainers.spellPage[caster_id][spellbook_index].pp > 0)
+    else if (GetPlayerSpellbook()->page[spellbook_index].pp > 0)
     {
         SpellData spellData;
         Flash_GetSpellData(memory, &spellData, spellID);;
@@ -70,13 +88,13 @@ ActionOutcome CastSpellMap(HardwareInterface hardware, MemoryInterface memory, S
 
         if (action_outcome == ACTION_SUCCEEDED)
         {
-            DEBUG("Scroll success spellID: %d", spellID);
-            g_core.trainers.spellPage[caster_id][spellbook_index].pp--;
+            DEBUG("Spell success spellID: %d", spellID);
+            GetPlayerSpellbook()->page[spellbook_index].pp--;
             return true;
         }
         else if (action_outcome == ACTION_FAILED)
         {
-            DEBUG("Scroll failed spellID: %d", spellID);
+            DEBUG("Spell failed spellID: %d", spellID);
         }
         else if (action_outcome == ACTION_CANNOT)
         {

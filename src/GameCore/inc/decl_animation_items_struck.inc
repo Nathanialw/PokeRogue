@@ -1,5 +1,5 @@
 // Generated item animation function headers
-// Database contains 63 total items
+// Database contains 64 total items
 
 // Individual items strings
 bool ItemStruckAbilityBook(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker);
@@ -60,10 +60,11 @@ bool ItemStruckScroll(GraphicsInterface graphics, HardwareInterface hardware, Me
 bool ItemStruckShovel(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker);
 bool ItemStruckSmokeBall(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker);
 bool ItemStruckSpellBook(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker);
+bool ItemStruckSpellbookPage(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker);
 bool ItemStruckSwiftnessSerum(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker);
 bool ItemStruckTorch(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker);
 bool ItemStruckWaterResistance(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker);
 bool ItemStruckWhip(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker);
 bool ItemStruckWisdomCrown(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker);
 
-//ALL_NAMES_COUNT = 0;
+//ALL_NAMES_COUNT = 64;

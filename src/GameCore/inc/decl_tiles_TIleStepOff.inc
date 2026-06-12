@@ -27,4 +27,4 @@ bool TIleStepOffWallIce(HardwareInterface hardware, MemoryInterface memory, Enti
 bool TIleStepOffStoneWall(HardwareInterface hardware, MemoryInterface memory, EntityId id, ObjectsTypes type, uint8_t x, uint8_t y);
 bool TIleStepOffWoodWall(HardwareInterface hardware, MemoryInterface memory, EntityId id, ObjectsTypes type, uint8_t x, uint8_t y);
 
-//ALL_NAMES_COUNT = 0;
+//ALL_NAMES_COUNT = 24;

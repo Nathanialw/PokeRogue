@@ -258,4 +258,4 @@ bool SkillAttackWither(GraphicsInterface graphics, HardwareInterface hardware, M
 bool SkillAttackWorldTear(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker);
 bool SkillAttackWyrmCharge(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker);
 
-//ALL_NAMES_COUNT = 0;
+//ALL_NAMES_COUNT = 255;

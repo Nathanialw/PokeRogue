@@ -5,6 +5,8 @@
 #include "types.h"
 
 #include "core_effects.h"
+#include "core_entities.h"
+#include "core_map.h"
 #include "core_ram.h"
 #include "core_stats.h"
 #include "lib_debugging.h"
@@ -241,10 +243,13 @@ ActionOutcome CastMapCureCurse(HardwareInterface hardware, MemoryInterface memor
 SET_MEMORY(".map")
 ActionOutcome CastMapCreateFood(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
 {
-    uint8_t x = g_core.creatures.position[caster_id].x;
-    uint8_t y = g_core.creatures.position[caster_id].y;
-    uint8_t l = 1;
-    return CreateItemCommon(hardware, memory, ITEM, x, y, l);
+    uint8_t x = g_core.trainers.position[caster_id].x;
+    uint8_t y = g_core.trainers.position[caster_id].y;
+    uint8_t l = g_core.floor * 2;
+    EntityId item_id = CreateItemCommon(hardware, memory, ITEM, x, y, l);
+    if (item_id == NO_ENTITY) return ACTION_FAILED;
+    PickItem(caster_id, item_id);
+    return ACTION_SUCCEEDED;
 }
 
 
@@ -254,10 +259,13 @@ ActionOutcome CastMapCreateFood(HardwareInterface hardware, MemoryInterface memo
 SET_MEMORY(".map")
 ActionOutcome CastMapCreateCommon(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
 {
-    uint8_t x = g_core.creatures.position[caster_id].x;
-    uint8_t y = g_core.creatures.position[caster_id].y;
-    uint8_t l = 1;
-    return CreateItemCommon(hardware, memory, ITEM, x, y, l);
+    uint8_t x = g_core.trainers.position[caster_id].x;
+    uint8_t y = g_core.trainers.position[caster_id].y;
+    uint8_t l = g_core.floor * 2;
+    EntityId item_id = CreateItemCommon(hardware, memory, ITEM, x, y, l);
+    if (item_id == NO_ENTITY) return ACTION_FAILED;
+    PickItem(caster_id, item_id);
+    return ACTION_SUCCEEDED;
 }
 
 
@@ -308,10 +316,13 @@ ActionOutcome CastMapMudSling(HardwareInterface hardware, MemoryInterface memory
 SET_MEMORY(".map")
 ActionOutcome CastMapCreateMagicItem(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
 {
-    uint8_t x = g_core.creatures.position[caster_id].x;
-    uint8_t y = g_core.creatures.position[caster_id].y;
-    uint8_t l = 1;
-    return CreateItemCommon(hardware, memory, ITEM, x, y, l);
+    uint8_t x = g_core.trainers.position[caster_id].x;
+    uint8_t y = g_core.trainers.position[caster_id].y;
+    uint8_t l = g_core.floor * 2;
+    EntityId item_id = CreateItemCommon(hardware, memory, ITEM, x, y, l);
+    if (item_id == NO_ENTITY) return ACTION_FAILED;
+    PickItem(caster_id, item_id);
+    return ACTION_SUCCEEDED;
 }
 
 
@@ -814,4 +825,19 @@ ActionOutcome CastMapSpawnPits(HardwareInterface hardware, MemoryInterface memor
     Position tile_pos = g_core.trainers.position[caster_id];
     SetSurroundingTils(tile_pos, PIT_SMALL);
     return ACTION_SUCCEEDED;
+}
+
+/**********************************************************************************************************************/
+/*
+**********************************************************************************************************************/
+SET_MEMORY(".map")
+ActionOutcome CastMapSummonWard(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
+{
+    Position position = g_core.trainers.position[caster_id];
+    if (CheckTileForEntity(OBJECT, NO_ENTITY, position) == NO_ENTITY)
+    {
+        SpawnEntity(hardware, memory, OBJECT, WARD, position.x, position.y, 1);
+        return ACTION_SUCCEEDED;
+    }
+    return ACTION_CANNOT;
 }

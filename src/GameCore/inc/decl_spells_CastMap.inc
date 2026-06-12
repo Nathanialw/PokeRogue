@@ -1,5 +1,5 @@
 // Generated spell function headers
-// Database contains 69 total spells
+// Database contains 70 total spells
 
 // Individual spells strings
 ActionOutcome CastMapAwaken(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData);
@@ -64,6 +64,7 @@ ActionOutcome CastMapSpawnPits(HardwareInterface hardware, MemoryInterface memor
 ActionOutcome CastMapSpawnWater(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData);
 ActionOutcome CastMapStrengthen(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData);
 ActionOutcome CastMapCreateFood(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData);
+ActionOutcome CastMapSummonWard(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData);
 ActionOutcome CastMapTeleport(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData);
 ActionOutcome CastMapWallWalking(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData);
 ActionOutcome CastMapWaterBreathing(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData);
@@ -72,4 +73,4 @@ ActionOutcome CastMapWizen(HardwareInterface hardware, MemoryInterface memory, E
 ActionOutcome CastMapWizen2(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData);
 ActionOutcome CastMapXRayVision(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData);
 
-//ALL_NAMES_COUNT = 0;
+//ALL_NAMES_COUNT = 70;

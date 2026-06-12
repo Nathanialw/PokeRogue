@@ -7,7 +7,7 @@
 
 
 bool PlayerDefeated(void);
-bool CheckBattleEnd(EntityId attackerID, EntityId defenderID);
 bool CheckPlayerAttackOutcome();
+bool UpdateBattleCreature();
 bool CheckEnemyAttackOutcome();
 bool IsInParty(EntityId id);

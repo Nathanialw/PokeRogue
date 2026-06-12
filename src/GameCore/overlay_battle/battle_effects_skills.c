@@ -497,7 +497,7 @@ ActionOutcome SkillDrowningGrasp(HardwareInterface hardware, MemoryInterface mem
 
     if (Capture(hardware, trainer_id, defenderID, abilityData.power))
     {
-        g_battle.end_battle = true;
+        g_battle.enemy_captured = true;
     }
     return ACTION_SUCCEEDED;
 }
@@ -2115,7 +2115,7 @@ ActionOutcome SkillEternalGrasp(HardwareInterface hardware, MemoryInterface memo
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     if (Capture(hardware, trainer_id, defenderID, abilityData.power))
     {
-        g_battle.end_battle = true;
+        g_battle.enemy_captured = true;
     }
     return ACTION_SUCCEEDED;
 }
@@ -2286,7 +2286,7 @@ ActionOutcome SkillPhantomGrasp(HardwareInterface hardware, MemoryInterface memo
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     if (Capture(hardware, trainer_id, defenderID, abilityData.power))
     {
-        g_battle.end_battle = true;
+        g_battle.enemy_captured = true;
     }
     return ACTION_SUCCEEDED;
 }
@@ -2435,7 +2435,7 @@ ActionOutcome SkillAbyssalGrasp(HardwareInterface hardware, MemoryInterface memo
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     if (Capture(hardware, trainer_id, defenderID, abilityData.power))
     {
-        g_battle.end_battle = true;
+        g_battle.enemy_captured = true;
     }
     return ACTION_SUCCEEDED;
 }

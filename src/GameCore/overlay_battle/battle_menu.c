@@ -102,16 +102,18 @@ void CloseUseOnPartyBattle(MemoryInterface memory, UseFrameBack f)
     EntityId player_id = GetPlayerID();
     if (f == BACK_ITEM)
     {
-        g_core.menu.max_visible_menu_options = g_core.player.currentSpellbookMaxSize;
-        g_core.menu.occupied_visible_menu_options = g_core.player.occupiedBagSlots;
-        g_core.menu.totalMenuOptions = g_core.player.occupiedBagSlots;
-        FillListByEntityID(memory, g_core.player.occupiedBagSlots, ITEM, g_core.trainers.itemID[player_id]);
+        BagData bag_data = GetPlayerBagData();
+        g_core.menu.max_visible_menu_options = bag_data.current_max_size;
+        g_core.menu.occupied_visible_menu_options = bag_data.occupied_slots;
+        g_core.menu.totalMenuOptions = bag_data.occupied_slots;
+        FillListByEntityID(memory, bag_data.occupied_slots, ITEM, g_core.trainers.itemID[player_id]);
     }
     else
     {
-        g_core.menu.max_visible_menu_options = g_core.player.currentSpellbookSize;
-        g_core.menu.occupied_visible_menu_options = g_core.player.currentSpellbookMaxSize;
-        FillListByTypeID(memory, g_core.player.currentSpellbookSize, g_core.trainers.spellID[player_id]);
+        SpellBook* spell_book = GetPlayerSpellbook();
+        g_core.menu.max_visible_menu_options = spell_book->occupied_pages;
+        g_core.menu.occupied_visible_menu_options = spell_book->current_max_pages;
+        FillListByTypeID(memory, spell_book->occupied_pages, spell_book->spell_id);
         g_core.menu.totalMenuOptions = MAX_SPELLBOOK_SIZE;
     }
 
@@ -199,7 +201,7 @@ SET_MEMORY(".battle")
 bool BattleSpell(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update)
 {
     EntityId player_id = GetPlayerID();
-    if (EnterMenu(g_core.player.currentSpellbookSize, g_core.player.currentSpellbookMaxSize))
+    if (EnterMenu(GetPlayerSpellbook()->occupied_pages, GetPlayerSpellbook()->current_max_pages))
     {
         EntityId friendly_target_id = g_core.battleMode.playerMonsterID;
         SpellId spell_id = NO_SPELL;
@@ -210,7 +212,7 @@ bool BattleSpell(GraphicsInterface graphics, HardwareInterface hardware, InputIn
         if (!g_battle.show_party)
         {
             spellbook_idx = g_core.menu.sel[g_core.menu.depth].y + g_core.menu.menuScrollOffset[g_core.menu.depth].y;
-            spell_id = g_core.trainers.spellID[player_id][spellbook_idx];
+            spell_id = GetPlayerSpellbook()->spell_id[spellbook_idx];
             Flash_GetSpellData(memory, &spell_data, spell_id);
 
             if (spell_data.use_on_party_member)
@@ -222,7 +224,7 @@ bool BattleSpell(GraphicsInterface graphics, HardwareInterface hardware, InputIn
         else
         {
             spellbook_idx = g_core.menu.sel[g_core.menu.depth - 1].y + g_core.menu.menuScrollOffset[g_core.menu.depth - 1].y;
-            spell_id = g_core.trainers.spellID[player_id][spellbook_idx];
+            spell_id = GetPlayerSpellbook()->spell_id[spellbook_idx];
             friendly_target_id = g_core.menu.sel[g_core.menu.depth].y + g_core.menu.menuScrollOffset[g_core.menu.depth].y;
             Flash_GetSpellData(memory, &spell_data, spell_id);
             PrintCombatLogText(hardware, memory, "Use Spell on Party");
@@ -237,7 +239,7 @@ bool BattleSpell(GraphicsInterface graphics, HardwareInterface hardware, InputIn
     }
 
 
-    FillListByTypeID(memory, g_core.player.currentSpellbookSize, g_core.trainers.spellID[player_id]);
+    FillListByTypeID(memory, GetPlayerSpellbook()->occupied_pages, GetPlayerSpellbook()->spell_id);
     return true;
 }
 
@@ -250,7 +252,7 @@ SET_MEMORY(".battle")
 bool BattleItems(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update)
 {
     EntityId player_id = GetPlayerID();
-    if (EnterMenu(g_core.player.occupiedBagSlots, g_core.player.currentBagMaxSize))
+    if (EnterMenu(GetPlayerBagData().occupied_slots, GetPlayerBagData().current_max_size))
     {
         EntityId target_id = g_core.battleMode.playerMonsterID;
 
@@ -288,7 +290,7 @@ bool BattleItems(GraphicsInterface graphics, HardwareInterface hardware, InputIn
         if (action_outcome == ACTION_SUCCEEDED)
         {
             if (itemData.consumable)
-                PlayerConsumeItem(bag_idx, item_id);
+                ConsumeItem(player_id, bag_idx, item_id);
 
             if (itemData.consumable_party)
                 CloseUseOnPartyBattle(memory, BACK_ITEM);
@@ -311,9 +313,8 @@ bool BattleItems(GraphicsInterface graphics, HardwareInterface hardware, InputIn
         return true;
     }
 
-    FillListByEntityID(memory, g_core.player.occupiedBagSlots, ITEM, g_core.trainers.itemID[player_id]);
-    return
-        true;
+    FillListByEntityID(memory, GetPlayerBagData().occupied_slots, ITEM, g_core.trainers.itemID[player_id]);
+    return true;
 }
 
 /**********************************************************************************************************************/
@@ -323,11 +324,7 @@ bool BattleItems(GraphicsInterface graphics, HardwareInterface hardware, InputIn
 SET_MEMORY(".battle")
 bool BattleFlee(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update)
 {
-    if (EnterMenu(4, 1))
-    {
-        return true;
-    }
-
+    SetBattleState(BATTLE_FLEE);
     return true;
 }
 
@@ -398,6 +395,7 @@ void InitBattleMenu(void)
     g_core.menu.sel[g_core.menu.depth].x = 0;
     g_core.menu.sel[g_core.menu.depth].y = 0;
     g_core.menu.selectedMenu = BATTLE_MENU;
+    g_core.menu.x_offset = 0;
 }
 
 /**********************************************************************************************************************/
@@ -416,7 +414,8 @@ void UpdateBattleMenu(InputInterface input, GraphicsInterface graphics, MemoryIn
     Color battler_menu_color = Flash_GetColor(memory, PAL_OFF_WHITE_GRAY);
     graphics.FillRect(erase_x, list_y + (g_core.menu.eraseSel.y * (TEXT_W + g_core.menu.lineHeight)), TEXT_W, TEXT_W, battler_menu_color);
 
-    if (g_core.menu.x_offset == BATTLE_MENU_COL_1)
+    //these 2 values need ot be synced they are need to COL_1/COL 2 is the width, x is the index
+    if (g_core.menu.x_offset == BATTLE_MENU_COL_1 && g_core.menu.sel[g_core.menu.depth].x == 1)
     {
         battleMenu = BATTLE_MENU;
         g_core.menu.x_offset = BATTLE_MENU_COL_2;

@@ -27,4 +27,4 @@ TIleStepOffWallIce,
 TIleStepOffStoneWall,
 TIleStepOffWoodWall,
 
-//ALL_NAMES_COUNT = 0;
+//ALL_NAMES_COUNT = 24;

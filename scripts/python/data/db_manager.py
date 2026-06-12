@@ -827,11 +827,12 @@ def cleanup_descriptions(type, dry_run=True, purge_all=False):
 
 CreatureType = namedtuple('CreatureType', ['formatted', 'type_0', 'type_1'])
 CreatureData = namedtuple('CreatureData', ['type_0', 'type_1'])
+CreatureStats = namedtuple('CreatureData', ['name', 'attack_min', 'defence_min', 'magic_min', 'speed_min', 'attack_max', 'defence_max', 'magic_max', 'speed_max', 'attack_growth', 'defence_growth', 'magic_growth', 'speed_growth'])
 SpellData = namedtuple('SpellData', ['name', 'power', 'level', 'type_0', 'type_enum', 'power_points', 'use_on_party_member'])
 SkillData = namedtuple('AbilityData', ['power', 'mana_cost', 'type_0'])
 ItemData = namedtuple('ItemData', ['name', 'power', 'item_level', 'item_type', 'type_enum', 'consumable', 'consumable_party', 'consumable_spellbook'])
 ObjectData = namedtuple('ObjectData', ['name', 'power', 'object_type', 'level', 'consumable', 'interactable', 'on_step', 'hallway', 'nook', 'water'])
-TrainerData = namedtuple('TrainerData', ['trainer_name', 'party_0', 'party_1', 'party_2', 'party_3', 'party_4', 'party_5', 'spell_0', 'spell_1', 'spell_2', 'spell_3', 'spell_4', 'spell_5'])
+TrainerData = namedtuple('TrainerData', ['trainer_name', 'party_0', 'party_1', 'party_2', 'party_3', 'party_4', 'party_5', 'spell_0', 'spell_1', 'spell_2', 'spell_3', 'spell_4', 'spell_5', 'item_0', 'item_1', 'item_2', 'item_3', 'item_4', 'item_5'])
 MapSpriteData = namedtuple('MapSpriteData', ['sprite_idx', 'sprite_color_idx'])
 
 
@@ -1083,11 +1084,41 @@ def get_trainers_data():
     conn = sqlite3.connect(DB_FILE)
     cursor = conn.cursor()
 
-    cursor.execute('SELECT trainer, party_0, party_1, party_2, party_3, party_4, party_5, spell_0, spell_1, spell_2, spell_3, spell_4, spell_5 FROM trainer_data ORDER BY trainer ASC')
+    cursor.execute('SELECT trainer, party_0, party_1, party_2, party_3, party_4, party_5, spell_0, spell_1, spell_2, spell_3, spell_4, spell_5, item_0, item_1, item_2, item_3, item_4, item_5 FROM trainer_data ORDER BY trainer ASC')
 
     formatted_results = [
-        TrainerData(trainer_name, party_0, party_1, party_2, party_3, party_4, party_5, spell_0, spell_1, spell_2, spell_3, spell_4, spell_5 )
-        for trainer_name, party_0, party_1, party_2, party_3, party_4, party_5, spell_0, spell_1, spell_2, spell_3, spell_4, spell_5 in cursor.fetchall()
+        TrainerData(trainer_name, party_0, party_1, party_2, party_3, party_4, party_5, spell_0, spell_1, spell_2, spell_3, spell_4, spell_5, item_0, item_1, item_2, item_3, item_4, item_5 )
+        for trainer_name, party_0, party_1, party_2, party_3, party_4, party_5, spell_0, spell_1, spell_2, spell_3, spell_4, spell_5, item_0, item_1, item_2, item_3, item_4, item_5 in cursor.fetchall()
+    ]
+
+    conn.close()
+    return formatted_results
+
+def get_creature_stats():
+    conn = sqlite3.connect(DB_FILE)
+    cursor = conn.cursor()
+
+    cursor.execute('''
+        SELECT
+            cd.name,
+            cd.attack_min, cd.defence_min, cd.magic_min, cd.speed_min,
+            cd.attack_max, cd.defence_max, cd.magic_max, cd.speed_max,
+            cd.attack_growth, cd.defence_growth, cd.magic_growth, cd.speed_growth
+        FROM creature_data cd
+        INNER JOIN creatures c ON cd.name = c.name
+        WHERE c.used = 1
+        ORDER BY cd.name ASC
+    ''')
+
+    formatted_results = [
+        CreatureStats(name,
+                       attack_min, defence_min, magic_min, speed_min,
+                      attack_max, defence_max, magic_max, speed_max,
+                      attack_growth, defence_growth, magic_growth, speed_growth)
+        for name, attack_min, defence_min, magic_min, speed_min,
+            attack_max, defence_max, magic_max, speed_max,
+            attack_growth, defence_growth, magic_growth, speed_growth
+        in cursor.fetchall()
     ]
 
     conn.close()

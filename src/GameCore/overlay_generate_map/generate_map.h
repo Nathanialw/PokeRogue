@@ -8,5 +8,7 @@
 
 void InitMap(HardwareInterface hardware);
 void SetMapBorder(void);
-Position FindHallDeadEnd(ObjectsTypes type, Position position);
-Position FindHall(ObjectsTypes type, Position position);
+void FindHallDeadEnds();
+void FindHalls();
+Position FindRandomHallPosition(HardwareInterface hardware, ObjectsTypes type);
+Position FindRandomNookPosition(HardwareInterface hardware, ObjectsTypes type);

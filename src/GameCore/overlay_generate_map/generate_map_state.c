@@ -44,7 +44,6 @@ void GameRunInit(HardwareInterface hardware, MemoryInterface memory)
 
     g_core.initialized = true;
 
-    ResetEntities(hardware, memory, false);
 }
 
 

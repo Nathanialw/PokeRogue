@@ -43,6 +43,13 @@ uint8_t GetRandom_uint8_t(uint8_t min, uint8_t max)
     return rand() % (max - min + 1) + min;
 }
 
+uint16_t GetRandom_uint16_t(uint16_t min, uint16_t max)
+{
+    if (max == 0) return 0;
+    if (min > max) return min;
+    return rand() % (max - min + 1) + min;
+}
+
 HardwareInterface HardwareInterfaceInit()
 {
     HardwareInterface mardwareInterface = {
@@ -52,6 +59,7 @@ HardwareInterface HardwareInterfaceInit()
         .Abs = Abs,
         .GetRandomUniform = GetRandomUniform,
         .GetRandom_uint8_t = GetRandom_uint8_t,
+        .GetRandom_uint16_t = GetRandom_uint16_t,
         .StrChr = strchr,
     };
     return mardwareInterface;

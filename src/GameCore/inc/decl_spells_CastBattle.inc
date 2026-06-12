@@ -1,5 +1,5 @@
 // Generated spell function headers
-// Database contains 69 total spells
+// Database contains 70 total spells
 
 // Individual spells strings
 ActionOutcome CastBattleAwaken(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData);
@@ -64,6 +64,7 @@ ActionOutcome CastBattleSpawnPits(HardwareInterface hardware, MemoryInterface me
 ActionOutcome CastBattleSpawnWater(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData);
 ActionOutcome CastBattleStrengthen(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData);
 ActionOutcome CastBattleCreateFood(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData);
+ActionOutcome CastBattleSummonWard(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData);
 ActionOutcome CastBattleTeleport(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData);
 ActionOutcome CastBattleWallWalking(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData);
 ActionOutcome CastBattleWaterBreathing(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData);
@@ -72,4 +73,4 @@ ActionOutcome CastBattleWizen(HardwareInterface hardware, MemoryInterface memory
 ActionOutcome CastBattleWizen2(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData);
 ActionOutcome CastBattleXRayVision(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData);
 
-//ALL_NAMES_COUNT = 0;
+//ALL_NAMES_COUNT = 70;

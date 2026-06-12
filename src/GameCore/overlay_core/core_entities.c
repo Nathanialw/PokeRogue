@@ -14,6 +14,7 @@
 #include "core_ram.h"
 #include "core_stats.h"
 #include "core_utils.h"
+#include "generate_map_memory_access.h"
 
 
 /**********************************************************************************************************************/
@@ -38,7 +39,7 @@ EntityId CaptureMonster(EntityId id)
 SET_MEMORY(".core")
 bool PickItem(EntityId trainer_id, EntityId item_id)
 {
-    if (item_id == NO_ENTITY) return item_id;
+    if (item_id == NO_ENTITY) return false;
     for (uint8_t i = 0; i < MAX_BAG_SIZE; ++i)
     {
         if (g_core.trainers.itemID[trainer_id][i] == NO_ENTITY)
@@ -47,6 +48,7 @@ bool PickItem(EntityId trainer_id, EntityId item_id)
             g_core.items.position[item_id] = empty_pos;
             SetBit(g_core.items.onMap, item_id, false);
             g_core.trainers.itemID[trainer_id][i] = item_id;
+            g_core.trainers.bag[trainer_id].occupied_slots++;
             return true;
         }
     }
@@ -66,6 +68,34 @@ bool AddCreatureToParty(EntityId trainer_id, EntityId creature_id)
         }
     }
     return false;
+}
+
+SET_MEMORY(".core")
+bool DeleteCreatureFromParty(EntityId trainer_id, EntityId creature_id)
+{
+    for (uint8_t i = 0; i < MAX_PARTY_SIZE; i++)
+    {
+        if (g_core.trainers.partyID[trainer_id][i] == creature_id)
+            g_core.trainers.partyID[trainer_id][i] = NO_ENTITY;
+
+        if (g_core.trainers.partyID[trainer_id][i] == NO_ENTITY && i < MAX_PARTY_SIZE - 1)
+            g_core.trainers.partyID[trainer_id][i] = g_core.trainers.partyID[trainer_id][i + 1];
+    }
+    return false;
+}
+
+SET_MEMORY(".core")
+EntityId GetNextPartyCreature(EntityId trainer_id)
+{
+    for (uint8_t i = 0; i < MAX_PARTY_SIZE - 1; i++)
+        if (g_core.trainers.partyID[trainer_id][i] == NO_ENTITY)
+            g_core.trainers.partyID[trainer_id][i] = g_core.trainers.partyID[trainer_id][i + 1];
+
+    for (uint8_t i = 0; i < MAX_PARTY_SIZE; i++)
+        if (g_core.trainers.partyID[trainer_id][i] == NO_ENTITY)
+            return g_core.trainers.partyID[trainer_id][i];
+
+    return NO_ENTITY;
 }
 
 /**********************************************************************************************************************/
@@ -290,7 +320,7 @@ typedef EntityId (*Spawn)(HardwareInterface hardware, MemoryInterface memory, ui
 /** point array for creating entities
 **********************************************************************************************************************/
 SET_MEMORY(".core.rodata")
-const Spawn spawn[TOTAL_SPAWNABLE_OBJECT_TYPES] = {SpawnMonster, SpawnObject, SpawnItem, SpawnTrainer};
+const Spawn spawn[TOTAL_SPAWNABLE_OBJECT_TYPES] = {SpawnMonster, SpawnTrainer, SpawnObject, SpawnItem};
 
 /**********************************************************************************************************************/
 /** Sets initial data values of a given entity ID of type creature
@@ -299,6 +329,8 @@ const Spawn spawn[TOTAL_SPAWNABLE_OBJECT_TYPES] = {SpawnMonster, SpawnObject, Sp
 SET_MEMORY(".core")
 EntityId SpawnMonster(HardwareInterface hardware, MemoryInterface memory, uint8_t type, uint8_t x, uint8_t y, uint8_t l)
 {
+    if (type == NO_TRAINER) return NO_CREATURE;
+
     EntityId id = NO_ENTITY;
     for (uint16_t i = 0; i < MAX_ENTITY_CREATURE_COUNT; i++)
     {
@@ -363,6 +395,8 @@ void GetItemMetadata(HardwareInterface hardware, ObjectType* metadata, uint8_t t
 SET_MEMORY(".core")
 EntityId SpawnItem(HardwareInterface hardware, MemoryInterface memory, uint8_t type, uint8_t x, uint8_t y, uint8_t l)
 {
+    if (type == NO_ITEM) return NO_ENTITY;
+
     EntityId id = NO_ENTITY;
     for (uint16_t i = 0; i < MAX_ENTITY_ITEM_COUNT; i++)
     {
@@ -393,6 +427,9 @@ EntityId SpawnItem(HardwareInterface hardware, MemoryInterface memory, uint8_t t
 SET_MEMORY(".core")
 EntityId SpawnObject(HardwareInterface hardware, MemoryInterface memory, uint8_t type, uint8_t x, uint8_t y, uint8_t l)
 {
+    if (type == NO_OBJECT)
+        return NO_ENTITY;
+
     EntityId id = NO_ENTITY;
     for (uint16_t i = 0; i < MAX_ENTITY_OBJECT_COUNT; i++)
     {
@@ -424,16 +461,33 @@ EntityId SpawnObject(HardwareInterface hardware, MemoryInterface memory, uint8_t
  *  TODO - cahnge to a generic object spawner, we wll have 255 object types, shirne will be one
 **********************************************************************************************************************/
 SET_MEMORY(".core")
+void ClearSpellPage(EntityId id, uint8_t spellbook_idx)
+{
+    g_core.trainers.spellbook[id].page[spellbook_idx].spellData = (SpellData){0};
+    g_core.trainers.spellbook[id].spell_id[spellbook_idx] = NO_SPELL;
+}
+
+/**********************************************************************************************************************/
+/** Sets initial data values of a given entity ID of type object
+ *  TODO - cahnge to a generic object spawner, we wll have 255 object types, shirne will be one
+**********************************************************************************************************************/
+SET_MEMORY(".core")
 void AddSpellPage(MemoryInterface memory, EntityId id, Spell spell, uint8_t spellbook_idx)
 {
-    Flash_GetSpellData(memory, &g_core.trainers.spellPage[id][spellbook_idx].spellData, spell);
-    g_core.trainers.spellPage[id][spellbook_idx].pp = g_core.trainers.spellPage[id][spellbook_idx].spellData.pp;
-    g_core.trainers.spellID[id][spellbook_idx] = spell;
+    if (spell == NO_SPELL)
+        return;
+
+    Flash_GetSpellData(memory, &g_core.trainers.spellbook[id].page[spellbook_idx].spellData, spell);
+    g_core.trainers.spellbook[id].page[spellbook_idx].pp = g_core.trainers.spellbook[id].page[spellbook_idx].spellData.pp;
+    g_core.trainers.spellbook[id].spell_id[spellbook_idx] = spell;
+    g_core.trainers.spellbook[id].occupied_pages++;
 }
 
 SET_MEMORY(".core")
 EntityId SpawnTrainer(HardwareInterface hardware, MemoryInterface memory, uint8_t type, uint8_t x, uint8_t y, uint8_t l)
 {
+    if (type == NO_TRAINER) return NO_ENTITY;
+
     EntityId id = NO_ENTITY;
     for (uint16_t i = 0; i < MAX_ENTITY_TRAINER_COUNT; i++)
     {
@@ -452,21 +506,45 @@ EntityId SpawnTrainer(HardwareInterface hardware, MemoryInterface memory, uint8_
     SetBit(g_core.trainers.onMap, id, true);
     Position pos = {.x = x, .y = y};
 
+    g_core.trainers.bag[id].occupied_slots = 0;
+    g_core.trainers.bag[id].current_max_size = MAX_DEFAULT_TRAINER_ITEMS;
+
+
+    TrainerData trainer_data = {0};
+    Flash_GetTrainerData(memory, &trainer_data, type);
+
     for (uint8_t i = 0; i < MAX_PARTY_SIZE; i++)
-        g_core.trainers.partyID[id][i] = NO_ENTITY;
+    {
+        if (trainer_data.party[i] != NO_CREATURE)
+        {
+            EntityId e_id = SpawnEntity(hardware, memory, CREATURE, trainer_data.party[i], x, y, 5);
+            g_core.trainers.partyID[id][i] = CaptureMonster(e_id);
+        }
+        else
+        {
+            g_core.trainers.partyID[id][i] = NO_ENTITY;
+        }
+    }
+
+
+    g_core.trainers.spellbook[id] = (SpellBook){0};
+    g_core.trainers.spellbook[id].current_max_pages = MAX_DEFAULT_TRAINER_SPELLS;
+    for (uint8_t i = 0; i < MAX_SPELLBOOK_SIZE; i++)
+        g_core.trainers.spellbook[id].spell_id[i] = NO_SPELL;
+
+    for (uint8_t i = 0; i < MAX_DEFAULT_TRAINER_SPELLS; i++)
+        AddSpellPage(memory, id, trainer_data.spells[i], i);
+
 
     for (uint8_t i = 0; i < MAX_BAG_SIZE; i++)
         g_core.trainers.itemID[id][i] = NO_ENTITY;
 
-    for (uint8_t i = 0; i < MAX_SPELLBOOK_SIZE; i++)
-        g_core.trainers.spellID[id][i] = NO_SPELL;
+    for (uint8_t i = 0; i < MAX_DEFAULT_TRAINER_ITEMS; i++)
+    {
+        EntityId item_id = SpawnEntity(hardware, memory, ITEM, trainer_data.items[i], x, y, 0);
+        PickItem(id, item_id);
+    }
 
-
-
-
-    //  TODO: set party from trainer data in the database flash
-    EntityId e_id = SpawnEntity(hardware, memory, CREATURE, BANSHEE, x, y, 5);
-    g_core.trainers.partyID[id][0] = CaptureMonster(e_id);
 
     g_core.trainers.position[id] = pos;
     g_core.trainers.types[id] = type;
@@ -476,7 +554,6 @@ EntityId SpawnTrainer(HardwareInterface hardware, MemoryInterface memory, uint8_
     SetBit(g_core.trainers.onMap, id, true);
     g_core.trainers.speed[id].current = 0;
     g_core.trainers.speed[id].max = 40;
-
 
     g_core.trainers.total++;
     return id;

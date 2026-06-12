@@ -1,5 +1,5 @@
 // Generated creature descriptions
-// Database contains 69 total descriptions
+// Database contains 70 total descriptions
 
 // Individual description strings
 "A golden radiance spills from your fingertips, illuminating unseen spirits that dance and whisper in the shadows of reality.\0",
@@ -64,6 +64,7 @@
 "SPAWN_WATER -- PLACEHOLDER TEXT - A mysterious spell awaiting discovery.\0",
 "STRENGTHEN -- PLACEHOLDER TEXT - A mysterious spell awaiting discovery.\0",
 "SUMMON_FOOD -- PLACEHOLDER TEXT - A mysterious spell awaiting discovery.\0",
+"SUMMON_WARD -- PLACEHOLDER TEXT - A mysterious spell awaiting discovery.\0",
 "A shimmering portal erupts, swallowing the caster whole before depositing them elsewhere with a sudden rush of displaced air.\0",
 "WALL_WALKING -- PLACEHOLDER TEXT - A mysterious spell awaiting discovery.\0",
 "WATER_BREATHING -- PLACEHOLDER TEXT - A mysterious spell awaiting discovery.\0",
@@ -73,4 +74,4 @@
 "XRAY_VISION -- PLACEHOLDER TEXT - A mysterious spell awaiting discovery.\0",
 " ------ \0",
 
-//ALL_DESCRIPTIONS_COUNT = 69;
+//ALL_DESCRIPTIONS_COUNT = 70;

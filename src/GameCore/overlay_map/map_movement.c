@@ -11,8 +11,8 @@
 #include "core_map.h"
 #include "core_player.h"
 #include "core_ram.h"
-
 #include "map_actions.h"
+
 #include "map_ai.h"
 #include "map_camera.h"
 #include "map_collision.h"
@@ -144,17 +144,33 @@ void UpdateObjectCollision(MemoryInterface memory, HardwareInterface hardware)
     g_map.objectCollision = NO_OBJECT;
     g_map.itemCollision = NO_ITEM;
 
-    EntityId e_id = GetPlayerID();
-    for (uint16_t o_id = 0; o_id < g_core.objects.total; o_id++)
+    for (uint16_t e_id = 0; e_id < g_core.trainers.total; e_id++)
     {
-        if (!GetBit(g_core.trainers.onMap, e_id) || !GetBit(g_core.trainers.active, e_id) || !GetBit(g_core.objects.active, o_id)) continue;
-        Position cp = g_core.trainers.newPosition[e_id];
-        Position op = g_core.objects.position[o_id];
-        if (cp.x == op.x && cp.y == op.y)
+        for (uint16_t o_id = 0; o_id < g_core.objects.total; o_id++)
         {
-            // InteractObject(memory, hardware, o_id, e_id);
-            if (e_id == GetPlayerID())
-                g_map.objectCollision = g_core.objects.types[o_id];
+            if (!GetBit(g_core.trainers.onMap, e_id) || !GetBit(g_core.trainers.active, e_id) || !GetBit(g_core.objects.active, o_id)) continue;
+            Position cp = g_core.trainers.newPosition[e_id];
+            Position op = g_core.objects.position[o_id];
+            if (cp.x == op.x && cp.y == op.y)
+            {
+                InteractObjectStepOn(memory, hardware, o_id, e_id, TRAINER);
+                if (e_id == GetPlayerID())
+                    g_map.objectCollision = g_core.objects.types[o_id];
+            }
+        }
+    }
+
+    for (uint16_t e_id = 0; e_id < g_core.creatures.total; e_id++)
+    {
+        for (uint16_t o_id = 0; o_id < g_core.objects.total; o_id++)
+        {
+            if (!GetBit(g_core.creatures.onMap, e_id) || !GetBit(g_core.creatures.active, e_id) || !GetBit(g_core.objects.active, o_id)) continue;
+            Position cp = g_core.creatures.newPosition[e_id];
+            Position op = g_core.objects.position[o_id];
+            if (cp.x == op.x && cp.y == op.y)
+            {
+                InteractObjectStepOn(memory, hardware, o_id, e_id, CREATURE);
+            }
         }
     }
 
@@ -246,10 +262,8 @@ SET_MEMORY(".map")
 void UpdateGame(MemoryInterface memory, HardwareInterface hardware)
 {
     UpdateObjectStatusEffects(hardware);
-    if (UpdatePositions(hardware))
-    {
-        SetPositions(hardware, memory);
-    }
+    UpdatePositions(hardware);
     UpdateObjectCollision(memory, hardware);
+    SetPositions(hardware, memory);
     SetCameraPlayer();
 }

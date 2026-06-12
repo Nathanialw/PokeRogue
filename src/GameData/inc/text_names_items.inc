@@ -1,5 +1,5 @@
 // Generated item name strings
-// Database contains 63 total item
+// Database contains 64 total item
 
 // Individual item strings
 "Ability Book\0",
@@ -60,6 +60,7 @@
 "Shovel\0",
 "Smoke Ball\0",
 "Spell Book\0",
+"Spellbook Page\0",
 "Swiftness Serum\0",
 "Torch\0",
 "Water Resistanc\0",

@@ -92,7 +92,6 @@ def export_map_sprites_char(entity):
         f.write(f"// Database contains {count} total {entity} sprites\n\n")
         f.write("// Individual sprites\n")
 
-        desc_vars = []
         for i, (sprite, color) in enumerate(sprites):
             # Clean the types for C string
             f.write(f"{{ .glyph_index = {sprite}, .fg = {color} }},\n")
@@ -116,7 +115,6 @@ def export_map_sprites(entity, size):
         f.write(f"// Database contains {count} total {entity} sprites\n\n")
         f.write("// Individual sprites\n")
 
-        desc_vars = []
         for i, (sprite, color) in enumerate(sprites):
             #
             f"{{ 0xFFFF 0xFFFF 0xFFFF}}"
@@ -135,7 +133,6 @@ def export_map_sprites(entity, size):
         f.write(f"// Database contains {count} total {entity} sprites\n\n")
         f.write("// Individual sprites\n")
 
-        desc_vars = []
         for i, (sprite, color) in enumerate(sprites):
             #
             f"{{ 0xFFFF 0xFFFF 0xFFFF}}"
@@ -171,14 +168,14 @@ def funcs_to_c_array(entity, prepend):
 
         # Write individual constants
         f.write("// Individual items strings\n")
-        desc_vars = []
+
         for i, (function_name) in enumerate(names):
             # Clean the types for C string
             f.write(f"{prepend}{function_name},\n")
 
         f.write("\n")
 
-        f.write(f"//ALL_NAMES_COUNT = {len(desc_vars)};\n")
+        f.write(f"//ALL_NAMES_COUNT = {len(names)};\n")
 
     print(f"📄 Exported {len(names)} item names to {filename}")
 
@@ -196,14 +193,14 @@ def func_c_headers(entity, prepend, return_type, params):
 
         # Write individual constants
         f.write(f"// Individual {entity}s strings\n")
-        desc_vars = []
+
         for i, (function_name) in enumerate(names):
             # Clean the types for C string
             f.write(f"{return_type} {prepend}{function_name}({params});\n")
 
         f.write("\n")
 
-        f.write(f"//ALL_NAMES_COUNT = {len(desc_vars)};\n")
+        f.write(f"//ALL_NAMES_COUNT = {len(names)};\n")
 
     print(f"📄 Exported {len(names)} spell headers to {filename}")
 
@@ -220,14 +217,13 @@ def funcs_to_c_animations_array(entity, p):
 
         # Write individual constants
         f.write("// Individual items strings\n")
-        desc_vars = []
         for i, (function_name) in enumerate(names):
             # Clean the types for C string
             f.write(f"{capitalize(entity)}{capitalize(p)}{function_name},\n")
 
         f.write("\n")
 
-        f.write(f"//ALL_NAMES_COUNT = {len(desc_vars)};\n")
+        f.write(f"//ALL_NAMES_COUNT = {len(names)};\n")
 
     print(f"📄 Exported {len(names)} item names to {filename}")
 
@@ -244,12 +240,12 @@ def func_c_animation_headers(entity, p, return_type, params):
 
         # Write individual constants
         f.write(f"// Individual {entity}s strings\n")
-        desc_vars = []
+
         for i, (function_name) in enumerate(names):
             f.write(f"{return_type} {capitalize(entity)}{capitalize(p)}{function_name}({params});\n")
 
         f.write("\n")
-        f.write(f"//ALL_NAMES_COUNT = {len(desc_vars)};\n")
+        f.write(f"//ALL_NAMES_COUNT = {len(names)};\n")
 
     print(f"📄 Exported {len(names)} spell headers to {filename}")
 

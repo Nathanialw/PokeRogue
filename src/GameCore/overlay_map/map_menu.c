@@ -354,17 +354,16 @@ SET_MEMORY(".map")
 void OpenUseOnSpellPage(HardwareInterface hardware, MemoryInterface memory, UseFrameBack f)
 {
     EntityId player_id = GetPlayerID();
-    FillListByTypeID(memory, g_core.player.currentSpellbookSize, g_core.trainers.spellID[player_id]);
+    SpellBook* spellbook = GetPlayerSpellbook();
+    FillListByTypeID(memory, spellbook->occupied_pages, spellbook->spell_id);
 
     g_core.menu.forceRedraw = true;
-
-
     g_core.menu.depth++;
     g_core.menu.sel[g_core.menu.depth].x = 0;
     g_core.menu.sel[g_core.menu.depth].y = 0;
-    g_core.menu.max_visible_menu_options = ListSize(g_core.player.currentSpellbookMaxSize);
-    g_core.menu.occupied_visible_menu_options = g_core.player.currentSpellbookSize;
-    g_core.menu.totalMenuOptions = g_core.player.currentSpellbookSize;
+    g_core.menu.max_visible_menu_options = ListSize(spellbook->current_max_pages);
+    g_core.menu.occupied_visible_menu_options = spellbook->occupied_pages;
+    g_core.menu.totalMenuOptions = spellbook->occupied_pages;
 }
 
 
@@ -378,6 +377,7 @@ void OpenUseOnParty(HardwareInterface hardware, MemoryInterface memory, UseFrame
 
     g_core.menu.forceRedraw = true;
     g_core.menu.useOnPartyMember = f;
+
 
     g_core.menu.max_visible_menu_options = ListSize(MAX_PARTY_SIZE);
     g_core.menu.occupied_visible_menu_options = g_core.player.currentPartySize;
@@ -397,17 +397,19 @@ void BackUseOnParty(MemoryInterface memory)
     EntityId player_id = GetPlayerID();
     if (g_core.menu.useOnPartyMember == BACK_ITEM)
     {
-        FillListByEntityID(memory, g_core.player.occupiedBagSlots, ITEM, g_core.trainers.itemID[player_id]);
-        g_core.menu.max_visible_menu_options = ListSize(g_core.player.currentBagMaxSize);
-        g_core.menu.occupied_visible_menu_options = ListSize(g_core.player.occupiedBagSlots);
-        g_core.menu.totalMenuOptions = g_core.player.occupiedBagSlots;
+        BagData bag_data = GetPlayerBagData();
+        FillListByEntityID(memory, bag_data.occupied_slots, ITEM, g_core.trainers.itemID[player_id]);
+        g_core.menu.max_visible_menu_options = ListSize(bag_data.current_max_size);
+        g_core.menu.occupied_visible_menu_options = ListSize(bag_data.occupied_slots);
+        g_core.menu.totalMenuOptions = bag_data.occupied_slots;
     }
     if (g_core.menu.useOnPartyMember == BACK_SPELL)
     {
-        FillListByTypeID(memory, g_core.player.currentSpellbookSize, g_core.trainers.spellID[player_id]);
-        g_core.menu.max_visible_menu_options = ListSize(g_core.player.currentSpellbookMaxSize);
-        g_core.menu.occupied_visible_menu_options = ListSize(g_core.player.currentSpellbookSize);
-        g_core.menu.totalMenuOptions = g_core.player.currentSpellbookSize;
+        SpellBook* spellbook = GetPlayerSpellbook();
+        FillListByTypeID(memory, spellbook->occupied_pages, spellbook->spell_id);
+        g_core.menu.max_visible_menu_options = ListSize(spellbook->current_max_pages);
+        g_core.menu.occupied_visible_menu_options = ListSize(spellbook->occupied_pages);
+        g_core.menu.totalMenuOptions = spellbook->occupied_pages;
     }
 
     g_core.menu.sel[g_core.menu.depth].x = 0;
@@ -447,7 +449,8 @@ SET_MEMORY(".map")
 bool Bag(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update)
 {
     EntityId player_id = GetPlayerID();
-    if (ToggleMenu(BAG_SUBMENU, g_core.player.occupiedBagSlots, g_core.player.currentBagMaxSize))
+    BagData bag_data = GetPlayerBagData();
+    if (ToggleMenu(BAG_SUBMENU, bag_data.occupied_slots, bag_data.current_max_size))
     {
         //open use/toss menu
         //if use/toss menu open, select cursor option
@@ -487,9 +490,9 @@ bool Bag(GraphicsInterface graphics, HardwareInterface hardware, InputInterface 
 
             if (action_outcome == ACTION_SUCCEEDED)
             {
-                PlayerConsumeItem(idx, item_id);
+                ConsumeItem(player_id, idx, item_id);
                 FullRedraw(graphics, hardware, memory);
-                FillListByEntityID(memory, g_core.player.occupiedBagSlots, ITEM, g_core.trainers.itemID[player_id]);
+                FillListByEntityID(memory, bag_data.occupied_slots, ITEM, g_core.trainers.itemID[player_id]);
                 DrawList(graphics, hardware, memory);
                 return true;
             }
@@ -514,7 +517,7 @@ bool Bag(GraphicsInterface graphics, HardwareInterface hardware, InputInterface 
             ActionOutcome action_outcome = UseItemMap(hardware, memory, &itemData, item_id, player_id, target_id, target_index);
             if (action_outcome == ACTION_SUCCEEDED)
             {
-                PlayerConsumeItem(item_idx, item_id);
+                ConsumeItem(player_id, item_idx, item_id);
                 BackUseOnParty(memory);
                 DrawList(graphics, hardware, memory);
             }
@@ -527,7 +530,7 @@ bool Bag(GraphicsInterface graphics, HardwareInterface hardware, InputInterface 
             ActionOutcome action_outcome = UseItemMap(hardware, memory, &itemData, item_id, player_id, target_id, target_index);;
             if (action_outcome == ACTION_SUCCEEDED)
             {
-                PlayerConsumeItem(item_idx, item_id);
+                ConsumeItem(player_id, item_idx, item_id);
                 BackUseOnParty(memory);
                 DrawList(graphics, hardware, memory);
             }
@@ -545,7 +548,7 @@ bool Bag(GraphicsInterface graphics, HardwareInterface hardware, InputInterface 
         return true;
     }
 
-    FillListByEntityID(memory, g_core.player.occupiedBagSlots, ITEM, g_core.trainers.itemID[player_id]);
+    FillListByEntityID(memory, GetPlayerBagData().occupied_slots, ITEM, g_core.trainers.itemID[player_id]);
     return true;
 };
 
@@ -556,12 +559,14 @@ SET_MEMORY(".map")
 bool Spells(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update)
 {
     EntityId player_id = GetPlayerID();
-    if (ToggleMenu(SPELLS_SUBMENU, g_core.player.currentSpellbookSize, g_core.player.currentSpellbookMaxSize))
+    SpellBook* spellbook = GetPlayerSpellbook();
+
+    if (ToggleMenu(SPELLS_SUBMENU, spellbook->occupied_pages, spellbook->current_max_pages))
     {
         if (g_core.menu.depth == 1)
         {
             uint8_t spellbook_index = g_core.menu.sel[g_core.menu.depth].y + g_core.menu.menuScrollOffset[g_core.menu.depth].y;
-            EntityId spell_id = g_core.trainers.spellID[player_id][spellbook_index];
+            EntityId spell_id = spellbook->spell_id[spellbook_index];
 
             if (spell_id == NO_SPELL)
             {
@@ -590,7 +595,7 @@ bool Spells(GraphicsInterface graphics, HardwareInterface hardware, InputInterfa
         }
 
         uint8_t spellbook_index = g_core.menu.sel[g_core.menu.depth - 1].y + g_core.menu.menuScrollOffset[g_core.menu.depth - 1].y;
-        EntityId spell_id = g_core.trainers.spellID[player_id][spellbook_index];
+        EntityId spell_id = spellbook->spell_id[spellbook_index];
         EntityId creature_id = g_core.trainers.partyID[player_id][g_core.menu.sel[g_core.menu.depth].y + g_core.menu.menuScrollOffset[g_core.menu.depth].y];
 
         ActionOutcome action_outcome = CastSpellMap(hardware, memory, spell_id, spellbook_index, player_id, creature_id);
@@ -611,7 +616,7 @@ bool Spells(GraphicsInterface graphics, HardwareInterface hardware, InputInterfa
         return true;
     }
 
-    FillListByTypeID(memory, g_core.player.currentSpellbookSize, g_core.trainers.spellID[player_id]);
+    FillListByTypeID(memory, spellbook->occupied_pages, spellbook->spell_id);
     return true;
 };
 

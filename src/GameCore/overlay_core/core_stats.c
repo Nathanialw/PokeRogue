@@ -22,7 +22,7 @@ void SetXPToLevel(EntityId id, IntMax999* xp)
 {
     const Stats stats = g_core.creatures.stats[id];
     const Int99 level = g_core.creatures.level[id];
-    const uint16_t total_stats = (stats.magic + stats.attack + stats.defence + stats.speed + (50 * level.value)) >> 2;
+    const uint16_t total_stats = (stats.attack + stats.defence + stats.magic + stats.speed + (20 * level.value)) >> 1;
 
     Int999SetCurrent(xp, 0);
     Int999SetMax(xp, total_stats);
@@ -65,8 +65,8 @@ void GainXPFromKill(EntityId id, EntityId dead_id)
 {
     Stats stats = g_core.creatures.stats[dead_id];
     uint8_t level = g_core.creatures.level[dead_id].value;
-    uint16_t total_stats = stats.magic + stats.attack + stats.defence + stats.speed + (50 * level);
-    uint16_t xp_value = total_stats / 20;
+    uint16_t total_stats = stats.magic + stats.attack + stats.defence + stats.speed + (20 * level);
+    uint16_t xp_value = total_stats / 5;
 
     GainXP(id, xp_value);
 }
@@ -75,19 +75,6 @@ void GainXPFromKill(EntityId id, EntityId dead_id)
 /**********************************************************************************************************************/
 /** extracts growth values from bytes 4 bits each
 **********************************************************************************************************************/
-SET_MEMORY(".core")
-static inline uint8_t GrowthAttack(uint16_t g) { return (g >> 12) & 0xF; }
-
-SET_MEMORY(".core")
-static inline uint8_t GrowthDefence(uint16_t g) { return (g >> 8) & 0xF; }
-
-SET_MEMORY(".core")
-static inline uint8_t GrowthMagic(uint16_t g) { return (g >> 4) & 0xF; }
-
-SET_MEMORY(".core")
-static inline uint8_t GrowthSpeed(uint16_t g) { return g & 0xF; }
-
-
 SET_MEMORY(".core.rodata")
 static const uint8_t growth_table[8] = {1, 2, 3, 4, 5, 6, 7, 8};
 
@@ -102,12 +89,10 @@ void GetStats(HardwareInterface hardware, MemoryInterface memory, Stats* stats, 
     Stats minStats = g_core.statsCache.min;
     Stats maxStats = g_core.statsCache.max;
 
-    uint8_t growth = Flash_GetStatGrowth(memory, type);
-
-    uint8_t a = growth_table[GrowthAttack(growth)];
-    uint8_t d = growth_table[GrowthDefence(growth)];
-    uint8_t m = growth_table[GrowthMagic(growth)];
-    uint8_t s = growth_table[GrowthSpeed(growth)];
+    uint8_t a = growth_table[g_core.statsCache.growth.attack];
+    uint8_t d = growth_table[g_core.statsCache.growth.defence];
+    uint8_t m = growth_table[g_core.statsCache.growth.magic];
+    uint8_t s = growth_table[g_core.statsCache.growth.speed];
 
     stats->attack = hardware.GetRandom_uint8_t(minStats.attack, maxStats.attack);
     stats->defence = hardware.GetRandom_uint8_t(minStats.defence, maxStats.defence);

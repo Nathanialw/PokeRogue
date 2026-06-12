@@ -15,8 +15,8 @@
 /*      ENTITIES
 **********************************************************************************************************************/
 SET_MEMORY(".mao_gen")
-void Flash_GetTrainerData(MemoryInterface memory, TrainerData* trainer_data, Type trainer_type)
+void Flash_GetTrainerData(MemoryInterface memory, TrainerData* trainer_data, TrainerId trainer_type)
 {
     const uint8_t size = sizeof(TrainerData);
-    // memory.GetRom(GAME_DATA_TRAINER_POSITION + (trainer_type * size), trainer_data->bytes, size);
+    memory.GetRom(GAME_DATA_TRAINER_POSITION + (trainer_type * size), trainer_data->bytes, size);
 }

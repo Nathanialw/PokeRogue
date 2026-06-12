@@ -430,3 +430,15 @@ bool SpellAttackSpawnWater(bool onAttacker())
 {
     return false;
 }
+
+SET_MEMORY(".battle")
+bool SpellAttackSpellbookPage(bool onAttacker())
+{
+    return false;
+}
+
+SET_MEMORY(".battle")
+bool SpellAttackSummonWard(bool onAttacker())
+{
+    return false;
+}

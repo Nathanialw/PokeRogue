@@ -104,7 +104,6 @@ target_include_directories(GameCore PUBLIC
         ${CMAKE_CURRENT_SOURCE_DIR}/overlay_battle
         ${CMAKE_CURRENT_SOURCE_DIR}/overlay_map
         ${CMAKE_CURRENT_SOURCE_DIR}/overlay_generate_map
-        ${CMAKE_CURRENT_SOURCE_DIR}/overlay_populate_map
         ${CMAKE_CURRENT_SOURCE_DIR}/overlay_splash_screen
         ${CMAKE_CURRENT_SOURCE_DIR}/overlay_game_loss
 )

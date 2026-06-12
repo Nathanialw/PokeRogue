@@ -30,42 +30,7 @@ EntityId PlayerCaptureMonster(EntityId e_id)
             return e_id;
         }
 
-
     return e_id;
-}
-
-/**********************************************************************************************************************/
-/** Searches the bag to find an open slot to pick up an item
- *  ON SUCCESS - adds item id to the bag array
-*   ON FAIL - TODO - add a fail state (item cannot be picked up)
-**********************************************************************************************************************/
-SET_MEMORY(".core")
-EntityId PlayerPickItem(EntityId item_id)
-{
-    if (PickItem(g_core.player.id, item_id))
-        g_core.player.occupiedBagSlots++;
-
-
-    //  apply passive item effect
-    uint8_t item = GetItemType(item_id);
-    switch (item)
-    {
-    case BAG:
-        {
-            break;
-        }
-    case MAGICAL:
-        {
-            break;
-        }
-    default:
-        {
-            break;
-        }
-    }
-
-
-    return item_id;
 }
 
 
@@ -93,6 +58,27 @@ EntityId* GetPlayerMonsterIDs(void)
 {
     EntityId p_ID = GetPlayerID();
     return g_core.trainers.partyID[p_ID];
+}
+
+/**********************************************************************************************************************/
+/**
+**********************************************************************************************************************/
+SET_MEMORY(".core")
+BagData GetPlayerBagData(void)
+{
+    EntityId p_ID = GetPlayerID();
+    return g_core.trainers.bag[p_ID];
+}
+
+
+/**********************************************************************************************************************/
+/**
+**********************************************************************************************************************/
+SET_MEMORY(".core")
+SpellBook* GetPlayerSpellbook(void)
+{
+    EntityId player_id = GetPlayerID();
+    return &g_core.trainers.spellbook[player_id];
 }
 
 
@@ -126,7 +112,7 @@ void DestroyEnemyCreature(HardwareInterface hardware)
  * Sets the bag index of the item to NO_ITEM
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-void ConsumeItem(uint8_t idx, EntityId e_id)
+void ConsumeItem1(uint8_t idx, EntityId e_id)
 {
     DestroyItem(e_id);
     EntityId player_id = GetPlayerID();
@@ -135,14 +121,26 @@ void ConsumeItem(uint8_t idx, EntityId e_id)
     {
         g_core.trainers.itemID[player_id][i] = g_core.trainers.itemID[player_id][i + 1];
         g_core.trainers.itemID[player_id][i + 1] = NO_ENTITY;
+        g_core.trainers.bag[player_id].occupied_slots--;
     }
 }
 
 
-void PlayerConsumeItem(uint8_t idx, EntityId e_id)
+/**********************************************************************************************************************/
+/**Destroys the item entity
+ * Sets the bag index of the item to NO_ITEM
+**********************************************************************************************************************/
+SET_MEMORY(".core")
+void ConsumeItem(EntityId trainer_id, uint8_t idx, EntityId e_id)
 {
-    ConsumeItem(idx, e_id);
-    g_core.player.occupiedBagSlots--;
+    DestroyItem(e_id);
+    g_core.trainers.itemID[trainer_id][idx] = NO_ENTITY;
+    g_core.trainers.bag[trainer_id].occupied_slots--;
+    for (uint8_t i = idx; i < MAX_BAG_SIZE - 1; ++i)
+    {
+        g_core.trainers.itemID[trainer_id][i] = g_core.trainers.itemID[trainer_id][i + 1];
+        g_core.trainers.itemID[trainer_id][i + 1] = NO_ENTITY;
+    }
 }
 
 /**********************************************************************************************************************/

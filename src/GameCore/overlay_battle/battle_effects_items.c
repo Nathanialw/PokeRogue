@@ -10,6 +10,7 @@
 
 #include "battle_actions.h"
 #include "battle_ram.h"
+#include "core_entities.h"
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
 /// UseBattle EFFECTS
@@ -385,8 +386,19 @@ SET_MEMORY(".battle")
 ActionOutcome UseBattleLasso(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
     ActionOutcome action_outcome = Capture(hardware, user_id, target_id, itemData.chance);
+
     if (action_outcome == ACTION_SUCCEEDED)
-        g_battle.end_battle = true;
+    {
+        if (g_core.battleMode.enemy_trainer_id == NO_ENTITY)
+        {
+            g_battle.enemy_captured = true;
+        }
+        else
+        {
+            g_battle.enemy_captured = true;
+        }
+    }
+
     return action_outcome;
 }
 
@@ -398,7 +410,7 @@ ActionOutcome UseBattleShackles(HardwareInterface hardware, MemoryInterface memo
 {
     ActionOutcome action_outcome = Capture(hardware, user_id, target_id, itemData.chance);
     if (action_outcome == ACTION_SUCCEEDED)
-        g_battle.end_battle = true;
+        g_battle.enemy_captured = true;
     return action_outcome;
 }
 
@@ -410,7 +422,7 @@ ActionOutcome UseBattleChain(HardwareInterface hardware, MemoryInterface memory,
 {
     ActionOutcome action_outcome = Capture(hardware, user_id, target_id, itemData.chance);
     if (action_outcome == ACTION_SUCCEEDED)
-        g_battle.end_battle = true;
+        g_battle.enemy_captured = true;
     return action_outcome;
 }
 
@@ -422,7 +434,7 @@ ActionOutcome UseBattleBearTrap(HardwareInterface hardware, MemoryInterface memo
 {
     ActionOutcome action_outcome = Capture(hardware, user_id, target_id, itemData.chance);
     if (action_outcome == ACTION_SUCCEEDED)
-        g_battle.end_battle = true;
+        g_battle.enemy_captured = true;
     return action_outcome;
 }
 
@@ -434,7 +446,7 @@ ActionOutcome UseBattleNet(HardwareInterface hardware, MemoryInterface memory, E
 {
     ActionOutcome action_outcome = Capture(hardware, user_id, target_id, itemData.chance);
     if (action_outcome == ACTION_SUCCEEDED)
-        g_battle.end_battle = true;
+        g_battle.enemy_captured = true;
     return action_outcome;
 }
 
@@ -446,7 +458,7 @@ ActionOutcome UseBattleElementalBolas(HardwareInterface hardware, MemoryInterfac
 {
     ActionOutcome action_outcome = Capture(hardware, user_id, target_id, itemData.chance);
     if (action_outcome == ACTION_SUCCEEDED)
-        g_battle.end_battle = true;
+        g_battle.enemy_captured = true;
     return action_outcome;
 }
 
@@ -715,5 +727,14 @@ ActionOutcome UseBattleXPPotion(HardwareInterface hardware, MemoryInterface memo
 {
     if (user_id == NO_ENTITY) return ACTION_CANNOT;
     GainXP(target_id, itemData.value);
+    return ACTION_FAILED;
+}
+
+/**********************************************************************************************************************/
+/*
+**********************************************************************************************************************/
+SET_MEMORY(".battle")
+ActionOutcome UseBattleSpellbookPage(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
+{
     return ACTION_FAILED;
 }

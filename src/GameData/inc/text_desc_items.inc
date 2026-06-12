@@ -1,5 +1,5 @@
 // Generated creature descriptions
-// Database contains 63 total descriptions
+// Database contains 64 total descriptions
 
 // Individual description strings
 "A dusty tome crackles with arcane energy, its leather cover etched in glowing runes, pages whispering forgotten secrets.\0",
@@ -60,6 +60,7 @@
 "SHOVEL -- PLACEHOLDER TEXT - A mysterious item awaiting discovery.\0",
 "SMOKE_BALL -- PLACEHOLDER TEXT - A mysterious item awaiting discovery.\0",
 "A weathered tome bound in dragonhide, its pages whisper with incantations that glow like embers when read under moonlight.\0",
+"SPELL_BOOK_PAGE -- PLACEHOLDER TEXT - A mysterious item awaiting discovery.\0",
 "SWIFTNESS_SERUM -- PLACEHOLDER TEXT - A mysterious item awaiting discovery.\0",
 "TORCH -- PLACEHOLDER TEXT - A mysterious item awaiting discovery.\0",
 "WATER_RESISTANCE -- PLACEHOLDER TEXT - A mysterious item awaiting discovery.\0",
@@ -67,4 +68,4 @@
 "A circlet of silver and sapphire adorned with ancient runes that whisper forgotten knowledge when worn.\0",
 " ------ \0",
 
-//ALL_DESCRIPTIONS_COUNT = 63;
+//ALL_DESCRIPTIONS_COUNT = 64;

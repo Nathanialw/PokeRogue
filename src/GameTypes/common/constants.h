@@ -23,7 +23,6 @@
 #define ASSERT_ALIGNED8(N) _Static_assert(((N) % 8) == 0, "ALIGNED_SIZE must be divisible by " #N)
 #define ASSERT_ALIGNED16(N) _Static_assert(((N) % 16) == 0, "ALIGNED_SIZE must be divisible by " #N)
 #define ASSERT_ALIGNED32(N) _Static_assert(((N) % 32) == 0, "ALIGNED_SIZE must be divisible by " #N)
-#define GROWTH_PACK(a,d,m,s)  ( ((a)&0xF)<<12 | ((d)&0xF)<<8 | ((m)&0xF)<<4 | ((s)&0xF) )
 
 /**********************************************************************************************************************/
 /** ENUMS constants
@@ -71,7 +70,7 @@ _Static_assert(OBJECT_COUNT <= 256, "max must be 256 - one byte");
 /**PLAYER constants
 **********************************************************************************************************************/
 #define MAX_PARTY_SIZE 6
-#define MAX_SPELLBOOK_SIZE 8
+#define MAX_SPELLBOOK_SIZE 30
 #define SPELL_INDEX_NULL 255
 #define DEFAULT_SPELLBOOK_SIZE 8
 #define MAX_ITEM_SIZE 25
@@ -100,8 +99,12 @@ _Static_assert(OBJECT_COUNT <= 256, "max must be 256 - one byte");
 #define MAX_ENTITY_ITEM_COUNT 254
 #define MAX_ENTITY_OBJECT_COUNT 254
 #define MAX_ENTITY_CREATURE_COUNT 32
-#define MAX_ENTITY_TRAINER_COUNT 16
+#define MAX_ENTITY_TRAINER_COUNT 4
 #endif
+
+
+#define MAX_DEFAULT_TRAINER_SPELLS 6
+#define MAX_DEFAULT_TRAINER_ITEMS 6
 
 #define ENTITY_ITEM_COUNT 255
 #define ENTITY_COUNT 100

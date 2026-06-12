@@ -55,7 +55,7 @@ void Flash_GetCreatureStatsRange(MemoryInterface memory, StatsRange* stats, Crea
     return g_gameFlash.gameData.creatureStats[creature_type];
 #else
     const uint8_t length = 10;
-    memory.GetRom(TILESET_THEME_POSITION + (creature_type * length), stats->bytes, length);
+    memory.GetRom(GAME_DATA_CREATURE_STATS_POSITION + (creature_type * length), stats->bytes, length);
 
 #if defined(MEMORY_PRINT)
     for (uint8_t i = 0; i < length; i++)
@@ -86,12 +86,12 @@ void Flash_GetType(MemoryInterface memory, MonsterType* monsterType, uint8_t ind
 
 //TODO
 SET_MEMORY(".core")
-void Flash_GetTypeEffects(MemoryInterface memory, uint8_t* type, uint8_t index)
+void Flash_GetTypeEffects(MemoryInterface memory, int8_t* modifier, uint8_t index)
 {
 #ifdef STANDALONE
     return g_gameFlash.gameData.typeEffects[index];
 #else
-    memory.GetRom(GAME_DATA_TYPE_EFFECTS_POSITION + index, type, 1);
+    memory.GetRom(GAME_DATA_TYPE_EFFECTS_POSITION + index, (uint8_t*)modifier, 1);
 #if defined(MEMORY_PRINT)
     for (uint8_t i = 0; i < 1; i++)
         memory.Print(str_spawn_creature_type, type[0]);
@@ -596,23 +596,6 @@ void Flash_GetMenuText(MemoryInterface memory, uint8_t* textBuffer, uint8_t inde
 /**********************************************************************************************************************/
 /*      ENTITIES
 **********************************************************************************************************************/
-SET_MEMORY(".core")
-uint8_t Flash_GetStatGrowth(MemoryInterface memory, Creature type)
-{
-#ifdef STANDALONE
-    return g_gameFlash.gameData.creatureStats[type].growth;
-#else
-    const uint8_t length = 1;
-    uint8_t struct_bytes[length];
-    memory.GetRom(GAME_DATA_CREATURE_STATS_POSITION + type, struct_bytes, length);
-#if defined(MEMORY_PRINT)
-    for (uint8_t i = 0; i < length; i++)
-        memory.Print(str_spawn_creature_type, struct_bytes[i]);
-    memory.Print(new_line);
-#endif
-    return struct_bytes[0];
-#endif
-}
 
 
 

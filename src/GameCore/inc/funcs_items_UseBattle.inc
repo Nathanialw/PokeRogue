@@ -1,5 +1,5 @@
 // Generated item name strings
-// Database contains 63 total entries
+// Database contains 64 total entries
 
 // Individual items strings
 UseBattleAbilityBook,
@@ -60,10 +60,11 @@ UseBattleScroll,
 UseBattleShovel,
 UseBattleSmokeBall,
 UseBattleSpellBook,
+UseBattleSpellbookPage,
 UseBattleSwiftnessSerum,
 UseBattleTorch,
 UseBattleWaterResistance,
 UseBattleWhip,
 UseBattleWisdomCrown,
 
-//ALL_NAMES_COUNT = 0;
+//ALL_NAMES_COUNT = 64;

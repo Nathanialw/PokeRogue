@@ -367,3 +367,9 @@ bool SpellStruckSpawnWater(GraphicsInterface graphics, HardwareInterface hardwar
 {
     return false;
 }
+
+SET_MEMORY(".battle")
+bool SpellStruckSummonWard(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
+{
+    return false;
+}

@@ -1,5 +1,5 @@
 // Generated spell name strings
-// Database contains 69 total entries
+// Database contains 70 total entries
 
 // Individual items strings
 CastBattleAwaken,
@@ -64,6 +64,7 @@ CastBattleSpawnPits,
 CastBattleSpawnWater,
 CastBattleStrengthen,
 CastBattleCreateFood,
+CastBattleSummonWard,
 CastBattleTeleport,
 CastBattleWallWalking,
 CastBattleWaterBreathing,
@@ -72,4 +73,4 @@ CastBattleWizen,
 CastBattleWizen2,
 CastBattleXRayVision,
 
-//ALL_NAMES_COUNT = 0;
+//ALL_NAMES_COUNT = 70;

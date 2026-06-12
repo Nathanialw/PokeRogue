@@ -20,6 +20,14 @@
       NO_SPELL,
       NO_SPELL,
   },
+ .items = {
+      BAG_BACKPACK,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+  },
 },
 {//  1 - Adaltrud}
   .party = {
@@ -37,6 +45,14 @@
       NO_SPELL,
       NO_SPELL,
       NO_SPELL,
+  },
+ .items = {
+      BAG_SACK,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
   },
 },
 {//  2 - Adele}
@@ -56,6 +72,14 @@
       NO_SPELL,
       NO_SPELL,
   },
+ .items = {
+      POTION_MANA,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+  },
 },
 {//  3 - Adeline}
   .party = {
@@ -73,6 +97,14 @@
       NO_SPELL,
       NO_SPELL,
       NO_SPELL,
+  },
+ .items = {
+      BAG_BACKPACK,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
   },
 },
 {//  4 - Aelfwyn}
@@ -92,6 +124,14 @@
       NO_SPELL,
       NO_SPELL,
   },
+ .items = {
+      FOOD_WILD_MUSHROOM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+  },
 },
 {//  5 - Aethelburg}
   .party = {
@@ -109,6 +149,14 @@
       NO_SPELL,
       NO_SPELL,
       NO_SPELL,
+  },
+ .items = {
+      LANTERN,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
   },
 },
 {//  6 - Aki}
@@ -128,6 +176,14 @@
       NO_SPELL,
       NO_SPELL,
   },
+ .items = {
+      DART_PARALYZE,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+  },
 },
 {//  7 - Alette}
   .party = {
@@ -145,6 +201,14 @@
       NO_SPELL,
       NO_SPELL,
       NO_SPELL,
+  },
+ .items = {
+      DART_SLEEP,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
   },
 },
 {//  8 - Alfrun}
@@ -164,6 +228,14 @@
       NO_SPELL,
       NO_SPELL,
   },
+ .items = {
+      GROWTH_HORMONES,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+  },
 },
 {//  9 - Amelia}
   .party = {
@@ -181,6 +253,14 @@
       NO_SPELL,
       NO_SPELL,
       NO_SPELL,
+  },
+ .items = {
+      FOOD_MAN_FLESH,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
   },
 },
 {//  10 - Anlaf}
@@ -200,6 +280,14 @@
       NO_SPELL,
       NO_SPELL,
   },
+ .items = {
+      FOOD_CAKE,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+  },
 },
 {//  11 - Annabel}
   .party = {
@@ -217,6 +305,14 @@
       NO_SPELL,
       NO_SPELL,
       NO_SPELL,
+  },
+ .items = {
+      POTION_RESTORE_PP,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
   },
 },
 {//  12 - Antonio}
@@ -236,6 +332,14 @@
       NO_SPELL,
       NO_SPELL,
   },
+ .items = {
+      POTION_DECURSE,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+  },
 },
 {//  13 - Arabella}
   .party = {
@@ -253,6 +357,14 @@
       NO_SPELL,
       NO_SPELL,
       NO_SPELL,
+  },
+ .items = {
+      CAPTURE_SHACKLES,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
   },
 },
 {//  14 - Arild}
@@ -272,6 +384,14 @@
       NO_SPELL,
       NO_SPELL,
   },
+ .items = {
+      HEART_SCALE,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+  },
 },
 {//  15 - Arnhildur}
   .party = {
@@ -289,6 +409,14 @@
       NO_SPELL,
       NO_SPELL,
       NO_SPELL,
+  },
+ .items = {
+      SMOKE_BALL,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
   },
 },
 {//  16 - Athelric}
@@ -308,6 +436,14 @@
       NO_SPELL,
       NO_SPELL,
   },
+ .items = {
+      FOOD_FISH,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+  },
 },
 {//  17 - Audrey}
   .party = {
@@ -325,6 +461,14 @@
       NO_SPELL,
       NO_SPELL,
       NO_SPELL,
+  },
+ .items = {
+      FOOD_FISH,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
   },
 },
 {//  18 - Aukje}
@@ -344,6 +488,14 @@
       NO_SPELL,
       NO_SPELL,
   },
+ .items = {
+      POTION_REVIVE,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+  },
 },
 {//  19 - Aylward}
   .party = {
@@ -361,6 +513,14 @@
       NO_SPELL,
       NO_SPELL,
       NO_SPELL,
+  },
+ .items = {
+      FOOD_MUTTON,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
   },
 },
 {//  20 - Bernard}
@@ -380,6 +540,14 @@
       NO_SPELL,
       NO_SPELL,
   },
+ .items = {
+      POTION_MANA,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+  },
 },
 {//  21 - Bertrade}
   .party = {
@@ -397,6 +565,14 @@
       NO_SPELL,
       NO_SPELL,
       NO_SPELL,
+  },
+ .items = {
+      ESCAPE_ROPE,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
   },
 },
 {//  22 - Bonnie}
@@ -416,6 +592,14 @@
       NO_SPELL,
       NO_SPELL,
   },
+ .items = {
+      ACID_VIAL,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+  },
 },
 {//  23 - Caitlin}
   .party = {
@@ -433,6 +617,14 @@
       NO_SPELL,
       NO_SPELL,
       NO_SPELL,
+  },
+ .items = {
+      FOOD_WINE,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
   },
 },
 {//  24 - Cara}
@@ -452,6 +644,14 @@
       NO_SPELL,
       NO_SPELL,
   },
+ .items = {
+      AMPHETAMINES,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+  },
 },
 {//  25 - Charlotte}
   .party = {
@@ -469,6 +669,14 @@
       NO_SPELL,
       NO_SPELL,
       NO_SPELL,
+  },
+ .items = {
+      CAPTURE_CHAIN,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
   },
 },
 {//  26 - Chiyo}
@@ -488,6 +696,14 @@
       NO_SPELL,
       NO_SPELL,
   },
+ .items = {
+      ACID_VIAL,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+  },
 },
 {//  27 - Chunho}
   .party = {
@@ -505,6 +721,14 @@
       NO_SPELL,
       NO_SPELL,
       NO_SPELL,
+  },
+ .items = {
+      LOCKPICK,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
   },
 },
 {//  28 - Coenwulf}
@@ -524,6 +748,14 @@
       NO_SPELL,
       NO_SPELL,
   },
+ .items = {
+      FOOD_RAIN_WATER,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+  },
 },
 {//  29 - Daphne}
   .party = {
@@ -541,6 +773,14 @@
       NO_SPELL,
       NO_SPELL,
       NO_SPELL,
+  },
+ .items = {
+      DART_POISON,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
   },
 },
 {//  30 - Daria}
@@ -560,6 +800,14 @@
       NO_SPELL,
       NO_SPELL,
   },
+ .items = {
+      POTION_HASTE,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+  },
 },
 {//  31 - Eadgyth}
   .party = {
@@ -577,6 +825,14 @@
       NO_SPELL,
       NO_SPELL,
       NO_SPELL,
+  },
+ .items = {
+      EARMUFFS,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
   },
 },
 {//  32 - Edith}
@@ -596,6 +852,14 @@
       NO_SPELL,
       NO_SPELL,
   },
+ .items = {
+      HOLY_WATER,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+  },
 },
 {//  33 - Edwin}
   .party = {
@@ -613,6 +877,14 @@
       NO_SPELL,
       NO_SPELL,
       NO_SPELL,
+  },
+ .items = {
+      FOOD_RAIN_WATER,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
   },
 },
 {//  34 - Eira}
@@ -632,6 +904,14 @@
       NO_SPELL,
       NO_SPELL,
   },
+ .items = {
+      FOOD_BERRIES,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+  },
 },
 {//  35 - Eleanor}
   .party = {
@@ -649,6 +929,14 @@
       NO_SPELL,
       NO_SPELL,
       NO_SPELL,
+  },
+ .items = {
+      POTION_XP,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
   },
 },
 {//  36 - Elvina}
@@ -668,6 +956,14 @@
       NO_SPELL,
       NO_SPELL,
   },
+ .items = {
+      LOCKPICK,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+  },
 },
 {//  37 - Equitia}
   .party = {
@@ -685,6 +981,14 @@
       NO_SPELL,
       NO_SPELL,
       NO_SPELL,
+  },
+ .items = {
+      POTION_REVIVE,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
   },
 },
 {//  38 - Erna}
@@ -704,6 +1008,14 @@
       NO_SPELL,
       NO_SPELL,
   },
+ .items = {
+      RARE_CANDY,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+  },
 },
 {//  39 - Evelyn}
   .party = {
@@ -721,6 +1033,14 @@
       NO_SPELL,
       NO_SPELL,
       NO_SPELL,
+  },
+ .items = {
+      FOOD_RAW_MEAT,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
   },
 },
 {//  40 - Falon}
@@ -740,6 +1060,14 @@
       NO_SPELL,
       NO_SPELL,
   },
+ .items = {
+      POTION_INVULNERABILITY,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+  },
 },
 {//  41 - Fenja}
   .party = {
@@ -757,6 +1085,14 @@
       NO_SPELL,
       NO_SPELL,
       NO_SPELL,
+  },
+ .items = {
+      ABILITY_BOOK,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
   },
 },
 {//  42 - Fiona}
@@ -776,6 +1112,14 @@
       NO_SPELL,
       NO_SPELL,
   },
+ .items = {
+      POTION_HEALTH,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+  },
 },
 {//  43 - Gertrude}
   .party = {
@@ -793,6 +1137,14 @@
       NO_SPELL,
       NO_SPELL,
       NO_SPELL,
+  },
+ .items = {
+      ALTAR_STONE,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
   },
 },
 {//  44 - Godwyn}
@@ -812,6 +1164,14 @@
       NO_SPELL,
       NO_SPELL,
   },
+ .items = {
+      SCROLL,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+  },
 },
 {//  45 - Guinevere}
   .party = {
@@ -829,6 +1189,14 @@
       NO_SPELL,
       NO_SPELL,
       NO_SPELL,
+  },
+ .items = {
+      IRON_SKIN_ELIXIR,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
   },
 },
 {//  46 - Gwendolyn}
@@ -848,6 +1216,14 @@
       NO_SPELL,
       NO_SPELL,
   },
+ .items = {
+      WISDOM_CROWN,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+  },
 },
 {//  47 - Gwenfrewi}
   .party = {
@@ -865,6 +1241,14 @@
       NO_SPELL,
       NO_SPELL,
       NO_SPELL,
+  },
+ .items = {
+      ALTAR_STONE,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
   },
 },
 {//  48 - Gyrid}
@@ -884,6 +1268,14 @@
       NO_SPELL,
       NO_SPELL,
   },
+ .items = {
+      POTION_BLINK,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+  },
 },
 {//  49 - Gytha}
   .party = {
@@ -901,6 +1293,14 @@
       NO_SPELL,
       NO_SPELL,
       NO_SPELL,
+  },
+ .items = {
+      SWIFTNESS_SERUM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
   },
 },
 {//  50 - Haaske}
@@ -920,6 +1320,14 @@
       NO_SPELL,
       NO_SPELL,
   },
+ .items = {
+      POTION_REPEL,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+  },
 },
 {//  51 - Hama}
   .party = {
@@ -937,6 +1345,14 @@
       NO_SPELL,
       NO_SPELL,
       NO_SPELL,
+  },
+ .items = {
+      DART_POISON,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
   },
 },
 {//  52 - Hardred}
@@ -956,6 +1372,14 @@
       NO_SPELL,
       NO_SPELL,
   },
+ .items = {
+      FOOD_RAW_MEAT,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+  },
 },
 {//  53 - Harlow}
   .party = {
@@ -973,6 +1397,14 @@
       NO_SPELL,
       NO_SPELL,
       NO_SPELL,
+  },
+ .items = {
+      CAPTURE_LASSO,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
   },
 },
 {//  54 - Hedda}
@@ -992,6 +1424,14 @@
       NO_SPELL,
       NO_SPELL,
   },
+ .items = {
+      POTION_RESTORE_PP,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+  },
 },
 {//  55 - Helen}
   .party = {
@@ -1009,6 +1449,14 @@
       NO_SPELL,
       NO_SPELL,
       NO_SPELL,
+  },
+ .items = {
+      EXPLOSIVE_FLASK,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
   },
 },
 {//  56 - Hildr}
@@ -1028,6 +1476,14 @@
       NO_SPELL,
       NO_SPELL,
   },
+ .items = {
+      LAVA_RESISTANCE,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+  },
 },
 {//  57 - Hyejin}
   .party = {
@@ -1045,6 +1501,14 @@
       NO_SPELL,
       NO_SPELL,
       NO_SPELL,
+  },
+ .items = {
+      LANTERN,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
   },
 },
 {//  58 - Ida}
@@ -1064,6 +1528,14 @@
       NO_SPELL,
       NO_SPELL,
   },
+ .items = {
+      POTION_DECURSE,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+  },
 },
 {//  59 - Ingeborg}
   .party = {
@@ -1081,6 +1553,14 @@
       NO_SPELL,
       NO_SPELL,
       NO_SPELL,
+  },
+ .items = {
+      POTION_HASTE,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
   },
 },
 {//  60 - Ingrid}
@@ -1100,6 +1580,14 @@
       NO_SPELL,
       NO_SPELL,
   },
+ .items = {
+      POTION_CURE,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+  },
 },
 {//  61 - Irene}
   .party = {
@@ -1117,6 +1605,14 @@
       NO_SPELL,
       NO_SPELL,
       NO_SPELL,
+  },
+ .items = {
+      POTION_BLINK,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
   },
 },
 {//  62 - Isabel}
@@ -1136,6 +1632,14 @@
       NO_SPELL,
       NO_SPELL,
   },
+ .items = {
+      POTION_CURE,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+  },
 },
 {//  63 - Karin}
   .party = {
@@ -1153,6 +1657,14 @@
       NO_SPELL,
       NO_SPELL,
       NO_SPELL,
+  },
+ .items = {
+      POTION_VISION,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
   },
 },
 {//  64 - Katarina}
@@ -1172,6 +1684,14 @@
       NO_SPELL,
       NO_SPELL,
   },
+ .items = {
+      FOOD_MUTTON,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+  },
 },
 {//  65 - Katie}
   .party = {
@@ -1189,6 +1709,14 @@
       NO_SPELL,
       NO_SPELL,
       NO_SPELL,
+  },
+ .items = {
+      ELEMENTAL_BOLAS,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
   },
 },
 {//  66 - Kyra}
@@ -1208,6 +1736,14 @@
       NO_SPELL,
       NO_SPELL,
   },
+ .items = {
+      POTION_INVISIBILITY,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+  },
 },
 {//  67 - Lacey}
   .party = {
@@ -1225,6 +1761,14 @@
       NO_SPELL,
       NO_SPELL,
       NO_SPELL,
+  },
+ .items = {
+      LAVA_RESISTANCE,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
   },
 },
 {//  68 - Leofwynn}
@@ -1244,6 +1788,14 @@
       NO_SPELL,
       NO_SPELL,
   },
+ .items = {
+      TORCH,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+  },
 },
 {//  69 - Lillie}
   .party = {
@@ -1261,6 +1813,14 @@
       NO_SPELL,
       NO_SPELL,
       NO_SPELL,
+  },
+ .items = {
+      FOOD_MAN_FLESH,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
   },
 },
 {//  70 - Liselotte}
@@ -1280,6 +1840,14 @@
       NO_SPELL,
       NO_SPELL,
   },
+ .items = {
+      CAPTURE_BEAR_TRAP,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+  },
 },
 {//  71 - Maggie}
   .party = {
@@ -1297,6 +1865,14 @@
       NO_SPELL,
       NO_SPELL,
       NO_SPELL,
+  },
+ .items = {
+      WATER_RESISTANCE,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
   },
 },
 {//  72 - Mairead}
@@ -1316,6 +1892,14 @@
       NO_SPELL,
       NO_SPELL,
   },
+ .items = {
+      WHIP,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+  },
 },
 {//  73 - Masamune}
   .party = {
@@ -1333,6 +1917,14 @@
       NO_SPELL,
       NO_SPELL,
       NO_SPELL,
+  },
+ .items = {
+      MIRROR,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
   },
 },
 {//  74 - Matilda}
@@ -1352,6 +1944,14 @@
       NO_SPELL,
       NO_SPELL,
   },
+ .items = {
+      FOOD_SOUL_ESSENCE,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+  },
 },
 {//  75 - Maya}
   .party = {
@@ -1369,6 +1969,14 @@
       NO_SPELL,
       NO_SPELL,
       NO_SPELL,
+  },
+ .items = {
+      POTION_TELEPORT,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
   },
 },
 {//  76 - Mildrith}
@@ -1388,6 +1996,14 @@
       NO_SPELL,
       NO_SPELL,
   },
+ .items = {
+      MIRROR,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+  },
 },
 {//  77 - Mindred}
   .party = {
@@ -1405,6 +2021,14 @@
       NO_SPELL,
       NO_SPELL,
       NO_SPELL,
+  },
+ .items = {
+      POTION_REPEL,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
   },
 },
 {//  78 - Nadja}
@@ -1424,6 +2048,14 @@
       NO_SPELL,
       NO_SPELL,
   },
+ .items = {
+      POTION_ANTIDOTE,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+  },
 },
 {//  79 - Niall}
   .party = {
@@ -1441,6 +2073,14 @@
       NO_SPELL,
       NO_SPELL,
       NO_SPELL,
+  },
+ .items = {
+      BAG_POUCH,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
   },
 },
 {//  80 - Niamh}
@@ -1460,6 +2100,14 @@
       NO_SPELL,
       NO_SPELL,
   },
+ .items = {
+      HOLY_WATER,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+  },
 },
 {//  81 - Octavia}
   .party = {
@@ -1477,6 +2125,14 @@
       NO_SPELL,
       NO_SPELL,
       NO_SPELL,
+  },
+ .items = {
+      DART_PARALYZE,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
   },
 },
 {//  82 - Ottilie}
@@ -1496,6 +2152,14 @@
       NO_SPELL,
       NO_SPELL,
   },
+ .items = {
+      CAPTURE_NET,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+  },
 },
 {//  83 - Paige}
   .party = {
@@ -1513,6 +2177,14 @@
       NO_SPELL,
       NO_SPELL,
       NO_SPELL,
+  },
+ .items = {
+      TORCH,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
   },
 },
 {//  84 - Pernilla}
@@ -1532,6 +2204,14 @@
       NO_SPELL,
       NO_SPELL,
   },
+ .items = {
+      SHOVEL,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+  },
 },
 {//  85 - Philippa}
   .party = {
@@ -1549,6 +2229,14 @@
       NO_SPELL,
       NO_SPELL,
       NO_SPELL,
+  },
+ .items = {
+      DART_SLEEP,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
   },
 },
 {//  86 - Ronja}
@@ -1568,6 +2256,14 @@
       NO_SPELL,
       NO_SPELL,
   },
+ .items = {
+      WATER_RESISTANCE,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+  },
 },
 {//  87 - Sabrina}
   .party = {
@@ -1585,6 +2281,14 @@
       NO_SPELL,
       NO_SPELL,
       NO_SPELL,
+  },
+ .items = {
+      BAG_SACK,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
   },
 },
 {//  88 - Saewynn}
@@ -1604,6 +2308,14 @@
       NO_SPELL,
       NO_SPELL,
   },
+ .items = {
+      POTION_HEALTH,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+  },
 },
 {//  89 - Selina}
   .party = {
@@ -1621,6 +2333,14 @@
       NO_SPELL,
       NO_SPELL,
       NO_SPELL,
+  },
+ .items = {
+      POTION_LEVITATE,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
   },
 },
 {//  90 - Sigrid}
@@ -1640,6 +2360,14 @@
       NO_SPELL,
       NO_SPELL,
   },
+ .items = {
+      POTION_TELEPORT,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+  },
 },
 {//  91 - Svea}
   .party = {
@@ -1657,6 +2385,14 @@
       NO_SPELL,
       NO_SPELL,
       NO_SPELL,
+  },
+ .items = {
+      POTION_INVULNERABILITY,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
   },
 },
 {//  92 - Thea}
@@ -1676,6 +2412,14 @@
       NO_SPELL,
       NO_SPELL,
   },
+ .items = {
+      POTION_INVISIBILITY,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+  },
 },
 {//  93 - Thryth}
   .party = {
@@ -1693,6 +2437,14 @@
       NO_SPELL,
       NO_SPELL,
       NO_SPELL,
+  },
+ .items = {
+      EXPLOSIVE_FLASK,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
   },
 },
 {//  94 - Tuva}
@@ -1712,6 +2464,14 @@
       NO_SPELL,
       NO_SPELL,
   },
+ .items = {
+      POTION_LEVITATE,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+  },
 },
 {//  95 - Valentine}
   .party = {
@@ -1729,6 +2489,14 @@
       NO_SPELL,
       NO_SPELL,
       NO_SPELL,
+  },
+ .items = {
+      POTION_ANTIDOTE,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
   },
 },
 {//  96 - Wilma}
@@ -1748,6 +2516,14 @@
       NO_SPELL,
       NO_SPELL,
   },
+ .items = {
+      SPELL_BOOK,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+  },
 },
 {//  97 - Winifred}
   .party = {
@@ -1765,6 +2541,14 @@
       NO_SPELL,
       NO_SPELL,
       NO_SPELL,
+  },
+ .items = {
+      BAG_POUCH,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
   },
 },
 {//  98 - Winston}
@@ -1784,6 +2568,14 @@
       NO_SPELL,
       NO_SPELL,
   },
+ .items = {
+      FOOD_CAKE,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+  },
 },
 {//  99 - Wulfstan}
   .party = {
@@ -1802,6 +2594,14 @@
       NO_SPELL,
       NO_SPELL,
   },
+ .items = {
+      WISDOM_CROWN,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+  },
 },
 {//  100 - Yuuko}
   .party = {
@@ -1819,6 +2619,14 @@
       NO_SPELL,
       NO_SPELL,
       NO_SPELL,
+  },
+ .items = {
+      EARMUFFS,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
+      NO_ITEM,
   },
 },
 

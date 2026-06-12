@@ -1,5 +1,5 @@
 // Generated item data structs
-// Database contains 63 total used items
+// Database contains 64 total used items
 
 // Individual items data
 ABILITY_BOOK, //0 
@@ -60,10 +60,11 @@ SCROLL, //54
 SHOVEL, //55 
 SMOKE_BALL, //56 
 SPELL_BOOK, //57 
-SWIFTNESS_SERUM, //58 
-TORCH, //59 
-WATER_RESISTANCE, //60 
-WHIP, //61 
-WISDOM_CROWN, //62 
+SPELL_BOOK_PAGE, //58 
+SWIFTNESS_SERUM, //59 
+TORCH, //60 
+WATER_RESISTANCE, //61 
+WHIP, //62 
+WISDOM_CROWN, //63 
 
-//ALL_NAMES_COUNT = 63;
+//ALL_NAMES_COUNT = 64;

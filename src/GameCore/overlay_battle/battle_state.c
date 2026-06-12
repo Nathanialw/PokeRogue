@@ -116,7 +116,7 @@ void HandleBattleStateInit(GameInterface* spi)
     DrawCursor(spi->graphics, spi->memory);
     spi->graphics.EndFrame();
 
-    g_battle.end_battle = false;
+    g_battle.enemy_captured = false;
     g_battle.pass_turn = false;
     for (uint8_t i = 0; i < MAX_DEAD_CREATURES_CACHED; i++)
         g_battle.dead_creatures[i] = NO_ENTITY;
@@ -133,6 +133,8 @@ void CleanUpBattleState(GameInterface* spi)
 
     for (uint8_t i = 0; i < MAX_DEAD_CREATURES_CACHED; i++)
         DestroyCreature(g_battle.dead_creatures[i]);
+
+    g_core.battleMode.enemyMonsterID = NO_ENTITY;
 }
 
 SET_MEMORY(".battle")
@@ -154,13 +156,14 @@ void HandleBattleState(GameInterface* spi)
         }
         g_battle.pass_turn = false;
 
-        if (!CheckPlayerAttackOutcome())
-        {
-            SetBattleState(BATTLE_DEAD_ENEMY);
-        }
-        else if (g_battle.end_battle)
+        if (g_battle.enemy_captured)
         {
             SetBattleState(BATTLE_CAPTURE_ENEMY);
+            g_battle.enemy_captured = false;
+        }
+        else if (CheckPlayerAttackOutcome())
+        {
+            SetBattleState(BATTLE_DEAD_ENEMY);
         }
         else
         {
@@ -190,23 +193,45 @@ void HandleBattleState(GameInterface* spi)
         DrawCursor(spi->graphics, spi->memory);
     }
 
+    if (CheckBattleState(BATTLE_FLEE))
+    {
+        SetInputState(INPUT_ACTING);
+        g_core.state.overlay = OVERLAY_MAP;
+        return;
+    }
 
     if (CheckBattleState(BATTLE_DEAD_ENEMY))
     {
         AnimationBattlerDie(spi->graphics, spi->hardware, spi->memory, false);
         DestroyEnemyCreature(spi->hardware);
         AnimationUpdateXP(spi->graphics, spi->hardware, spi->memory);
-        SetInputState(INPUT_ACTING);
-        g_core.state.overlay = OVERLAY_MAP;
-        return;
+        if (!UpdateBattleCreature())
+        {
+            SetInputState(INPUT_ACTING);
+            g_core.state.overlay = OVERLAY_MAP;
+            return;
+        }
     }
 
     if (CheckBattleState(BATTLE_CAPTURE_ENEMY))
     {
         AnimationBattlerDie(spi->graphics, spi->hardware, spi->memory, false);
-        SetInputState(INPUT_ACTING);
-        g_core.state.overlay = OVERLAY_MAP;
-        return;
+
+        if (g_core.battleMode.enemy_trainer_id == NO_ENTITY)
+        {
+            SetInputState(INPUT_ACTING);
+            g_core.state.overlay = OVERLAY_MAP;
+            return;
+        }
+
+        DeleteCreatureFromParty(g_core.battleMode.enemy_trainer_id, g_core.battleMode.enemyMonsterID);
+        g_core.battleMode.enemyMonsterID = NO_ENTITY;
+        if (!UpdateBattleCreature())
+        {
+            SetInputState(INPUT_ACTING);
+            g_core.state.overlay = OVERLAY_MAP;
+            return;
+        }
     }
 
 

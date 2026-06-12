@@ -83,6 +83,7 @@ typedef struct __attribute__((packed))
     void (*SleepMS)(uint32_t t);
     void* (*MemSet)(void*, int, size_t);
     uint8_t (*GetRandom_uint8_t)(uint8_t min, uint8_t max);
+    uint16_t (*GetRandom_uint16_t)(uint16_t min, uint16_t max);
 
     uint8_t (*GetRandomUniform)(uint8_t min, uint8_t max);
     uint32_t (*Abs)(int max);

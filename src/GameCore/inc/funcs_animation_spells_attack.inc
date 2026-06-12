@@ -1,5 +1,5 @@
 // Generated spell name strings
-// Database contains 69 total entries
+// Database contains 70 total entries
 
 // Individual items strings
 SpellAttackAwaken,
@@ -64,6 +64,7 @@ SpellAttackSpawnPits,
 SpellAttackSpawnWater,
 SpellAttackStrengthen,
 SpellAttackCreateFood,
+SpellAttackSummonWard,
 SpellAttackTeleport,
 SpellAttackWallWalking,
 SpellAttackWaterBreathing,
@@ -72,4 +73,4 @@ SpellAttackWizen,
 SpellAttackWizen2,
 SpellAttackXRayVision,
 
-//ALL_NAMES_COUNT = 0;
+//ALL_NAMES_COUNT = 70;

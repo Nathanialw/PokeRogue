@@ -30,7 +30,7 @@ typedef struct
     uint8_t effect_animation_index;
     ObjectsTypes effect_type;
     EntityId dead_creatures[MAX_DEAD_CREATURES_CACHED]; // picked 16 arbitrarily, no sure how many slots will be needed yet
-    bool end_battle;
+    bool enemy_captured;
     bool show_party;
     bool pass_turn;
 } BattleRunState;

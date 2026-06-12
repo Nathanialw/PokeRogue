@@ -258,4 +258,4 @@ SkillAttackWither,
 SkillAttackWorldTear,
 SkillAttackWyrmCharge,
 
-//ALL_NAMES_COUNT = 0;
+//ALL_NAMES_COUNT = 255;
