@@ -2,6 +2,8 @@ import struct
 import os
 from pathlib import Path
 
+raw_path = '../../../assets_raw/sound/'
+output_path = '../../../bin/'
 
 def pack_files(output_path, input_files):
     # Make sure all input files exist
@@ -81,11 +83,11 @@ def get_files_pathlib(directory):
 
 
 if __name__ == '__main__':
-    effects_bin = "effects.bin"
-    input_effects = get_files_pathlib('effects')
+    effects_bin = f"{output_path}/effects.bin"
+    input_effects = get_files_pathlib(f'{raw_path}/effects/walking')
 
-    music_bin = "music.bin"
-    input_music = get_files_pathlib('music')
+    music_bin = f"{output_path}/music.bin"
+    input_music = get_files_pathlib(f'{raw_path}/music')
 
 pack_files(effects_bin, input_effects)
 pack_files(music_bin, input_music)
