@@ -18,10 +18,10 @@ typedef struct
 typedef struct
 {
     ItemTypes type_id;
-    IntMax999 hp;
-    IntMax999 mp;
-    IntMax999 xp;
-    Int99 level;
+    uint_max999 hp;
+    uint_max999 mp;
+    uint_max999 xp;
+    uint99 level;
     Attacks abilities;
     Stats stats;
 

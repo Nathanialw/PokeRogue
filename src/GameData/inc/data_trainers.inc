@@ -3,7 +3,7 @@
 
 // Individual trainers data
 
-{//  0 - Adalheid}
+{//  0 - ADALHEID}
   .party = {
       GHOUL,
       NO_CREATURE,
@@ -29,7 +29,7 @@
       NO_ITEM,
   },
 },
-{//  1 - Adaltrud}
+{//  1 - ADALTRUD}
   .party = {
       GHOST,
       NO_CREATURE,
@@ -55,7 +55,7 @@
       NO_ITEM,
   },
 },
-{//  2 - Adele}
+{//  2 - ADELE}
   .party = {
       DWARF,
       NO_CREATURE,
@@ -81,7 +81,7 @@
       NO_ITEM,
   },
 },
-{//  3 - Adeline}
+{//  3 - ADELINE}
   .party = {
       BULETTE,
       NO_CREATURE,
@@ -107,7 +107,7 @@
       NO_ITEM,
   },
 },
-{//  4 - Aelfwyn}
+{//  4 - AELFWYN}
   .party = {
       DOBHRAN,
       NO_CREATURE,
@@ -133,7 +133,7 @@
       NO_ITEM,
   },
 },
-{//  5 - Aethelburg}
+{//  5 - AETHELBURG}
   .party = {
       FOSSEGRIM,
       NO_CREATURE,
@@ -159,7 +159,7 @@
       NO_ITEM,
   },
 },
-{//  6 - Aki}
+{//  6 - AKI}
   .party = {
       FENODEREE,
       NO_CREATURE,
@@ -185,7 +185,7 @@
       NO_ITEM,
   },
 },
-{//  7 - Alette}
+{//  7 - ALETTE}
   .party = {
       FAR_DARRIG,
       NO_CREATURE,
@@ -211,7 +211,7 @@
       NO_ITEM,
   },
 },
-{//  8 - Alfrun}
+{//  8 - ALFRUN}
   .party = {
       DEVA,
       NO_CREATURE,
@@ -237,7 +237,7 @@
       NO_ITEM,
   },
 },
-{//  9 - Amelia}
+{//  9 - AMELIA}
   .party = {
       GOLEM,
       NO_CREATURE,
@@ -263,7 +263,7 @@
       NO_ITEM,
   },
 },
-{//  10 - Anlaf}
+{//  10 - ANLAF}
   .party = {
       GNOME,
       NO_CREATURE,
@@ -289,7 +289,7 @@
       NO_ITEM,
   },
 },
-{//  11 - Annabel}
+{//  11 - ANNABEL}
   .party = {
       AMMIT,
       NO_CREATURE,
@@ -315,7 +315,7 @@
       NO_ITEM,
   },
 },
-{//  12 - Antonio}
+{//  12 - ANTONIO}
   .party = {
       AKKOROKAMUI,
       NO_CREATURE,
@@ -341,7 +341,7 @@
       NO_ITEM,
   },
 },
-{//  13 - Arabella}
+{//  13 - ARABELLA}
   .party = {
       CHUPACABRA,
       NO_CREATURE,
@@ -367,7 +367,7 @@
       NO_ITEM,
   },
 },
-{//  14 - Arild}
+{//  14 - ARILD}
   .party = {
       DOLOR,
       NO_CREATURE,
@@ -393,7 +393,7 @@
       NO_ITEM,
   },
 },
-{//  15 - Arnhildur}
+{//  15 - ARNHILDUR}
   .party = {
       DOMOVOI,
       NO_CREATURE,
@@ -419,7 +419,7 @@
       NO_ITEM,
   },
 },
-{//  16 - Athelric}
+{//  16 - ATHELRIC}
   .party = {
       GOBLIN,
       NO_CREATURE,
@@ -445,7 +445,7 @@
       NO_ITEM,
   },
 },
-{//  17 - Audrey}
+{//  17 - AUDREY}
   .party = {
       CATOBLEPAS,
       NO_CREATURE,
@@ -471,7 +471,7 @@
       NO_ITEM,
   },
 },
-{//  18 - Aukje}
+{//  18 - AUKJE}
   .party = {
       FAIRY,
       NO_CREATURE,
@@ -497,7 +497,7 @@
       NO_ITEM,
   },
 },
-{//  19 - Aylward}
+{//  19 - AYLWARD}
   .party = {
       GLASHTIG,
       NO_CREATURE,
@@ -523,7 +523,7 @@
       NO_ITEM,
   },
 },
-{//  20 - Bernard}
+{//  20 - BERNARD}
   .party = {
       ADZE,
       NO_CREATURE,
@@ -549,7 +549,7 @@
       NO_ITEM,
   },
 },
-{//  21 - Bertrade}
+{//  21 - BERTRADE}
   .party = {
       DRYAD,
       NO_CREATURE,
@@ -575,7 +575,7 @@
       NO_ITEM,
   },
 },
-{//  22 - Bonnie}
+{//  22 - BONNIE}
   .party = {
       BARGHEST,
       NO_CREATURE,
@@ -601,7 +601,7 @@
       NO_ITEM,
   },
 },
-{//  23 - Caitlin}
+{//  23 - CAITLIN}
   .party = {
       CHANGELING,
       NO_CREATURE,
@@ -627,7 +627,7 @@
       NO_ITEM,
   },
 },
-{//  24 - Cara}
+{//  24 - CARA}
   .party = {
       DEMON,
       NO_CREATURE,
@@ -653,7 +653,7 @@
       NO_ITEM,
   },
 },
-{//  25 - Charlotte}
+{//  25 - CHARLOTTE}
   .party = {
       CLURICAUN,
       NO_CREATURE,
@@ -679,7 +679,7 @@
       NO_ITEM,
   },
 },
-{//  26 - Chiyo}
+{//  26 - CHIYO}
   .party = {
       FETCH,
       NO_CREATURE,
@@ -705,7 +705,7 @@
       NO_ITEM,
   },
 },
-{//  27 - Chunho}
+{//  27 - CHUNHO}
   .party = {
       BROWNIE,
       NO_CREATURE,
@@ -731,7 +731,7 @@
       NO_ITEM,
   },
 },
-{//  28 - Coenwulf}
+{//  28 - COENWULF}
   .party = {
       GILLY_DHU,
       NO_CREATURE,
@@ -757,7 +757,7 @@
       NO_ITEM,
   },
 },
-{//  29 - Daphne}
+{//  29 - DAPHNE}
   .party = {
       BANSHEE,
       NO_CREATURE,
@@ -783,7 +783,7 @@
       NO_ITEM,
   },
 },
-{//  30 - Daria}
+{//  30 - DARIA}
   .party = {
       ANANSI,
       NO_CREATURE,
@@ -809,7 +809,7 @@
       NO_ITEM,
   },
 },
-{//  31 - Eadgyth}
+{//  31 - EADGYTH}
   .party = {
       GALLYTROT,
       NO_CREATURE,
@@ -835,7 +835,7 @@
       NO_ITEM,
   },
 },
-{//  32 - Edith}
+{//  32 - EDITH}
   .party = {
       FIR_DARRIG,
       NO_CREATURE,
@@ -861,7 +861,7 @@
       NO_ITEM,
   },
 },
-{//  33 - Edwin}
+{//  33 - EDWIN}
   .party = {
       CALADRIUS,
       NO_CREATURE,
@@ -887,7 +887,7 @@
       NO_ITEM,
   },
 },
-{//  34 - Eira}
+{//  34 - EIRA}
   .party = {
       CERBERUS,
       NO_CREATURE,
@@ -913,7 +913,7 @@
       NO_ITEM,
   },
 },
-{//  35 - Eleanor}
+{//  35 - ELEANOR}
   .party = {
       DRAKE,
       NO_CREATURE,
@@ -939,7 +939,7 @@
       NO_ITEM,
   },
 },
-{//  36 - Elvina}
+{//  36 - ELVINA}
   .party = {
       GANCANOGH,
       NO_CREATURE,
@@ -965,7 +965,7 @@
       NO_ITEM,
   },
 },
-{//  37 - Equitia}
+{//  37 - EQUITIA}
   .party = {
       ARCHON,
       NO_CREATURE,
@@ -991,7 +991,7 @@
       NO_ITEM,
   },
 },
-{//  38 - Erna}
+{//  38 - ERNA}
   .party = {
       DRAUGR,
       NO_CREATURE,
@@ -1017,7 +1017,7 @@
       NO_ITEM,
   },
 },
-{//  39 - Evelyn}
+{//  39 - EVELYN}
   .party = {
       CAT_SITH,
       NO_CREATURE,
@@ -1043,7 +1043,7 @@
       NO_ITEM,
   },
 },
-{//  40 - Falon}
+{//  40 - FALON}
   .party = {
       AMPHISBAENA,
       NO_CREATURE,
@@ -1069,7 +1069,7 @@
       NO_ITEM,
   },
 },
-{//  41 - Fenja}
+{//  41 - FENJA}
   .party = {
       DRAGON,
       NO_CREATURE,
@@ -1095,7 +1095,7 @@
       NO_ITEM,
   },
 },
-{//  42 - Fiona}
+{//  42 - FIONA}
   .party = {
       DUNNIE,
       NO_CREATURE,
@@ -1121,7 +1121,7 @@
       NO_ITEM,
   },
 },
-{//  43 - Gertrude}
+{//  43 - GERTRUDE}
   .party = {
       GIANT_FROST,
       NO_CREATURE,
@@ -1147,7 +1147,7 @@
       NO_ITEM,
   },
 },
-{//  44 - Godwyn}
+{//  44 - GODWYN}
   .party = {
       DOPPELGANGER,
       NO_CREATURE,
@@ -1173,7 +1173,7 @@
       NO_ITEM,
   },
 },
-{//  45 - Guinevere}
+{//  45 - GUINEVERE}
   .party = {
       DINGONEK,
       NO_CREATURE,
@@ -1199,7 +1199,7 @@
       NO_ITEM,
   },
 },
-{//  46 - Gwendolyn}
+{//  46 - GWENDOLYN}
   .party = {
       CAILLEACH,
       NO_CREATURE,
@@ -1225,7 +1225,7 @@
       NO_ITEM,
   },
 },
-{//  47 - Gwenfrewi}
+{//  47 - GWENFREWI}
   .party = {
       BYAKHEE,
       NO_CREATURE,
@@ -1251,7 +1251,7 @@
       NO_ITEM,
   },
 },
-{//  48 - Gyrid}
+{//  48 - GYRID}
   .party = {
       ERLKING,
       NO_CREATURE,
@@ -1277,7 +1277,7 @@
       NO_ITEM,
   },
 },
-{//  49 - Gytha}
+{//  49 - GYTHA}
   .party = {
       DOBBIE,
       NO_CREATURE,
@@ -1303,7 +1303,7 @@
       NO_ITEM,
   },
 },
-{//  50 - Haaske}
+{//  50 - HAASKE}
   .party = {
       FACHAN,
       NO_CREATURE,
@@ -1329,7 +1329,7 @@
       NO_ITEM,
   },
 },
-{//  51 - Hama}
+{//  51 - HAMA}
   .party = {
       FENRIR,
       NO_CREATURE,
@@ -1355,7 +1355,7 @@
       NO_ITEM,
   },
 },
-{//  52 - Hardred}
+{//  52 - HARDRED}
   .party = {
       GOANNOTGH,
       NO_CREATURE,
@@ -1381,7 +1381,7 @@
       NO_ITEM,
   },
 },
-{//  53 - Harlow}
+{//  53 - HARLOW}
   .party = {
       CHONCHON,
       NO_CREATURE,
@@ -1407,7 +1407,7 @@
       NO_ITEM,
   },
 },
-{//  54 - Hedda}
+{//  54 - HEDDA}
   .party = {
       ELEMENTAL_WATER,
       NO_CREATURE,
@@ -1433,7 +1433,7 @@
       NO_ITEM,
   },
 },
-{//  55 - Helen}
+{//  55 - HELEN}
   .party = {
       BEHOLDER,
       NO_CREATURE,
@@ -1459,7 +1459,7 @@
       NO_ITEM,
   },
 },
-{//  56 - Hildr}
+{//  56 - HILDR}
   .party = {
       ELEMENTAL_FIRE,
       NO_CREATURE,
@@ -1485,7 +1485,7 @@
       NO_ITEM,
   },
 },
-{//  57 - Hyejin}
+{//  57 - HYEJIN}
   .party = {
       BOGIE,
       NO_CREATURE,
@@ -1511,7 +1511,7 @@
       NO_ITEM,
   },
 },
-{//  58 - Ida}
+{//  58 - IDA}
   .party = {
       EFREET,
       NO_CREATURE,
@@ -1537,7 +1537,7 @@
       NO_ITEM,
   },
 },
-{//  59 - Ingeborg}
+{//  59 - INGEBORG}
   .party = {
       ELF_HIGH,
       NO_CREATURE,
@@ -1563,7 +1563,7 @@
       NO_ITEM,
   },
 },
-{//  60 - Ingrid}
+{//  60 - INGRID}
   .party = {
       ELEMENTAL_AIR,
       NO_CREATURE,
@@ -1589,7 +1589,7 @@
       NO_ITEM,
   },
 },
-{//  61 - Irene}
+{//  61 - IRENE}
   .party = {
       ANKYLOSAURUS,
       NO_CREATURE,
@@ -1615,7 +1615,7 @@
       NO_ITEM,
   },
 },
-{//  62 - Isabel}
+{//  62 - ISABEL}
   .party = {
       ALP,
       NO_CREATURE,
@@ -1641,7 +1641,7 @@
       NO_ITEM,
   },
 },
-{//  63 - Karin}
+{//  63 - KARIN}
   .party = {
       DULLAHAN,
       NO_CREATURE,
@@ -1667,7 +1667,7 @@
       NO_ITEM,
   },
 },
-{//  64 - Katarina}
+{//  64 - KATARINA}
   .party = {
       CALLICANTZARO,
       NO_CREATURE,
@@ -1693,7 +1693,7 @@
       NO_ITEM,
   },
 },
-{//  65 - Katie}
+{//  65 - KATIE}
   .party = {
       CWN_ANNWN,
       NO_CREATURE,
@@ -1719,7 +1719,7 @@
       NO_ITEM,
   },
 },
-{//  66 - Kyra}
+{//  66 - KYRA}
   .party = {
       AMPHIPTERE,
       NO_CREATURE,
@@ -1745,7 +1745,7 @@
       NO_ITEM,
   },
 },
-{//  67 - Lacey}
+{//  67 - LACEY}
   .party = {
       ALUX,
       NO_CREATURE,
@@ -1771,7 +1771,7 @@
       NO_ITEM,
   },
 },
-{//  68 - Leofwynn}
+{//  68 - LEOFWYNN}
   .party = {
       FOMORIAN,
       NO_CREATURE,
@@ -1797,7 +1797,7 @@
       NO_ITEM,
   },
 },
-{//  69 - Lillie}
+{//  69 - LILLIE}
   .party = {
       CENTAUR,
       NO_CREATURE,
@@ -1823,7 +1823,7 @@
       NO_ITEM,
   },
 },
-{//  70 - Liselotte}
+{//  70 - LISELOTTE}
   .party = {
       COCKATRICE,
       NO_CREATURE,
@@ -1849,7 +1849,7 @@
       NO_ITEM,
   },
 },
-{//  71 - Maggie}
+{//  71 - MAGGIE}
   .party = {
       ALRAUNE,
       NO_CREATURE,
@@ -1875,7 +1875,7 @@
       NO_ITEM,
   },
 },
-{//  72 - Mairead}
+{//  72 - MAIREAD}
   .party = {
       CYCLOPS,
       NO_CREATURE,
@@ -1901,7 +1901,7 @@
       NO_ITEM,
   },
 },
-{//  73 - Masamune}
+{//  73 - MASAMUNE}
   .party = {
       BONNACON,
       NO_CREATURE,
@@ -1927,7 +1927,7 @@
       NO_ITEM,
   },
 },
-{//  74 - Matilda}
+{//  74 - MATILDA}
   .party = {
       CHIMERA,
       NO_CREATURE,
@@ -1953,7 +1953,7 @@
       NO_ITEM,
   },
 },
-{//  75 - Maya}
+{//  75 - MAYA}
   .party = {
       ANKHEG,
       NO_CREATURE,
@@ -1979,7 +1979,7 @@
       NO_ITEM,
   },
 },
-{//  76 - Mildrith}
+{//  76 - MILDRITH}
   .party = {
       GALLYBEG,
       NO_CREATURE,
@@ -2005,7 +2005,7 @@
       NO_ITEM,
   },
 },
-{//  77 - Mindred}
+{//  77 - MINDRED}
   .party = {
       ANZU,
       NO_CREATURE,
@@ -2031,7 +2031,7 @@
       NO_ITEM,
   },
 },
-{//  78 - Nadja}
+{//  78 - NADJA}
   .party = {
       EBON,
       NO_CREATURE,
@@ -2057,7 +2057,7 @@
       NO_ITEM,
   },
 },
-{//  79 - Niall}
+{//  79 - NIALL}
   .party = {
       BUGBEAR,
       NO_CREATURE,
@@ -2083,7 +2083,7 @@
       NO_ITEM,
   },
 },
-{//  80 - Niamh}
+{//  80 - NIAMH}
   .party = {
       BASILISK,
       NO_CREATURE,
@@ -2109,7 +2109,7 @@
       NO_ITEM,
   },
 },
-{//  81 - Octavia}
+{//  81 - OCTAVIA}
   .party = {
       BALOR,
       NO_CREATURE,
@@ -2135,7 +2135,7 @@
       NO_ITEM,
   },
 },
-{//  82 - Ottilie}
+{//  82 - OTTILIE}
   .party = {
       CU_SITH,
       NO_CREATURE,
@@ -2161,7 +2161,7 @@
       NO_ITEM,
   },
 },
-{//  83 - Paige}
+{//  83 - PAIGE}
   .party = {
       BOGGART,
       NO_CREATURE,
@@ -2187,7 +2187,7 @@
       NO_ITEM,
   },
 },
-{//  84 - Pernilla}
+{//  84 - PERNILLA}
   .party = {
       DUERGAR,
       NO_CREATURE,
@@ -2213,7 +2213,7 @@
       NO_ITEM,
   },
 },
-{//  85 - Philippa}
+{//  85 - PHILIPPA}
   .party = {
       BABA_YAGA,
       NO_CREATURE,
@@ -2239,7 +2239,7 @@
       NO_ITEM,
   },
 },
-{//  86 - Ronja}
+{//  86 - RONJA}
   .party = {
       ELEMENTAL_EARTH,
       NO_CREATURE,
@@ -2265,7 +2265,7 @@
       NO_ITEM,
   },
 },
-{//  87 - Sabrina}
+{//  87 - SABRINA}
   .party = {
       BUGGANE,
       NO_CREATURE,
@@ -2291,7 +2291,7 @@
       NO_ITEM,
   },
 },
-{//  88 - Saewynn}
+{//  88 - SAEWYNN}
   .party = {
       ABOLETH,
       NO_CREATURE,
@@ -2317,7 +2317,7 @@
       NO_ITEM,
   },
 },
-{//  89 - Selina}
+{//  89 - SELINA}
   .party = {
       ANGEL,
       NO_CREATURE,
@@ -2343,7 +2343,7 @@
       NO_ITEM,
   },
 },
-{//  90 - Sigrid}
+{//  90 - SIGRID}
   .party = {
       ERINYES,
       NO_CREATURE,
@@ -2369,7 +2369,7 @@
       NO_ITEM,
   },
 },
-{//  91 - Svea}
+{//  91 - SVEA}
   .party = {
       ELF_FOREST,
       NO_CREATURE,
@@ -2395,7 +2395,7 @@
       NO_ITEM,
   },
 },
-{//  92 - Thea}
+{//  92 - THEA}
   .party = {
       ELF_DARK,
       NO_CREATURE,
@@ -2421,7 +2421,7 @@
       NO_ITEM,
   },
 },
-{//  93 - Thryth}
+{//  93 - THRYTH}
   .party = {
       FOLLET,
       NO_CREATURE,
@@ -2447,7 +2447,7 @@
       NO_ITEM,
   },
 },
-{//  94 - Tuva}
+{//  94 - TUVA}
   .party = {
       ENFIELD,
       NO_CREATURE,
@@ -2473,7 +2473,7 @@
       NO_ITEM,
   },
 },
-{//  95 - Valentine}
+{//  95 - VALENTINE}
   .party = {
       AEON,
       NO_CREATURE,
@@ -2499,7 +2499,7 @@
       NO_ITEM,
   },
 },
-{//  96 - Wilma}
+{//  96 - WILMA}
   .party = {
       DRACOLICH,
       NO_CREATURE,
@@ -2525,7 +2525,7 @@
       NO_ITEM,
   },
 },
-{//  97 - Winifred}
+{//  97 - WINIFRED}
   .party = {
       GARGOYLE,
       NO_CREATURE,
@@ -2551,7 +2551,7 @@
       NO_ITEM,
   },
 },
-{//  98 - Winston}
+{//  98 - WINSTON}
   .party = {
       CAMBION,
       NO_CREATURE,
@@ -2577,7 +2577,7 @@
       NO_ITEM,
   },
 },
-{//  99 - Wulfstan}
+{//  99 - WULFSTAN}
   .party = {
       GIANT_STONE,
       NO_CREATURE,
@@ -2603,7 +2603,7 @@
       NO_ITEM,
   },
 },
-{//  100 - Yuuko}
+{//  100 - YUUKO}
   .party = {
       BRAG,
       NO_CREATURE,

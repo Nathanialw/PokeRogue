@@ -12,7 +12,6 @@
 #include "types.h"
 
 
-
 // #define MEMORY_PRINT
 
 #if defined(MEMORY_PRINT)
@@ -54,7 +53,7 @@ void Flash_GetCreatureStatsRange(MemoryInterface memory, StatsRange* stats, Crea
 #ifdef STANDALONE
     return g_gameFlash.gameData.creatureStats[creature_type];
 #else
-    const uint8_t length = 10;
+    const uint8_t length = sizeof(StatsRange);
     memory.GetRom(GAME_DATA_CREATURE_STATS_POSITION + (creature_type * length), stats->bytes, length);
 
 #if defined(MEMORY_PRINT)
@@ -165,7 +164,6 @@ void Flash_GetObjectData(MemoryInterface memory, ObjectData* object_data, uint8_
 #endif
 #endif
 }
-
 
 
 /**********************************************************************************************************************/
@@ -349,7 +347,7 @@ void Flash_GetSpriteCreature16x16(MemoryInterface memory, uint8_t* glyph, uint8_
         glyph[i] = g_gameFlash.spriteData.font16x16[(index * 16) + i];
     }
 #else
-    const uint16_t length = 0;
+    const uint16_t length = 1;
     memory.GetRom(SPRITE_16X16_CREATURE_POSITION + (length * index), glyph, length);
 
 #if defined(MEMORY_PRINT)
@@ -461,18 +459,6 @@ Color Flash_GetColor(MemoryInterface memory, uint8_t color)
 **********************************************************************************************************************/
 // Game Data
 SET_MEMORY(".core")
-void Flash_GetSpellbookText(MemoryInterface memory, char* textBuffer, uint8_t index)
-{
-#ifdef STANDALONE
-    for (uint8_t i = 0; i < SMALL_STRINGS; i++)
-        textBuffer[i] = g_gameFlash.text.names.spells[index][i];
-#else
-    Flash_GetSpellName(memory, textBuffer, index);
-#endif
-}
-
-
-SET_MEMORY(".core")
 void Flash_GetCreatureName(MemoryInterface memory, char* text, uint8_t index)
 {
 #ifdef STANDALONE
@@ -570,9 +556,6 @@ void Flash_GetObjectName(MemoryInterface memory, char* text, uint8_t index)
 }
 
 
-
-
-
 SET_MEMORY(".core")
 void Flash_GetMenuText(MemoryInterface memory, uint8_t* textBuffer, uint8_t index)
 {
@@ -596,7 +579,6 @@ void Flash_GetMenuText(MemoryInterface memory, uint8_t* textBuffer, uint8_t inde
 /**********************************************************************************************************************/
 /*      ENTITIES
 **********************************************************************************************************************/
-
 
 
 SET_MEMORY(".core")
@@ -637,3 +619,57 @@ Creature Flash_GetThemeCreature(MemoryInterface memory, uint8_t theme, Creature 
 #endif
 }
 
+
+SET_MEMORY(".core.rodata")
+const char text_lines[20][SMALL_STRINGS] = {
+    "Attack: ",
+    "Defence: ",
+    "Magic: ",
+    "Speed: ",
+    "Accuracy: ",
+    "Loyalty: ",
+
+    "Strength: ",
+    "Fortitude: ",
+    "Intelligence: ",
+    "Agility: ",
+    "Dexterity: ",
+    "Stamina: ",
+
+    "Toxic: ",
+    "Fire: ",
+    "Water: ",
+    "Ice: ",
+    "Earth: ",
+    "Magic: ",
+
+    "Error: ",
+};
+
+/**********************************************************************************************************************/
+/*      a length of 0 means place null at the end of the text
+**********************************************************************************************************************/
+SET_MEMORY(".core")
+void Flash_GetTextByIndex(MemoryInterface memory, char* text, uint8_t index, uint8_t null_position)
+{
+    const char* cursor = text_lines[index];
+
+    bool copying = true;
+    for (uint8_t i = 0; i < null_position; i++)
+    {
+        if (!copying)
+        {
+            text[i] = ' ';
+        }
+        else if (cursor[i])
+        {
+            text[i] = cursor[i];
+        }
+        else if (!cursor[i])
+        {
+            copying = false;
+            text[i] = ' ';
+        }
+    }
+    text[null_position] = '\0';
+}

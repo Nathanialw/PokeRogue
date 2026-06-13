@@ -18,7 +18,7 @@
 #include "battle_stats.h"
 #include "core_player.h"
 
-void CreateCreatureName(const char* name, const Int99 level, char* out)
+void CreateCreatureName(const char* name, const uint99 level, char* out)
 {
     uint8_t char_index = 0;
     uint8_t line_index = 0;
@@ -99,7 +99,7 @@ void HandleBattleLists(GraphicsInterface graphics, MemoryInterface memory)
                 GetMenuLine(memory, name, i);
                 const EntityId player_id = GetPlayerID();
                 const EntityId creature_id = g_core.trainers.partyID[player_id][idx];
-                const Int99 level = g_core.creatures.level[creature_id];
+                const uint99 level = g_core.creatures.level[creature_id];
 
                 CreateCreatureName(name, level, line);
                 //level //name
@@ -111,13 +111,13 @@ void HandleBattleLists(GraphicsInterface graphics, MemoryInterface memory)
                     //health //mana / xp
                     const uint16_t rect_w = w / 2;
 
-                    const IntMax999 hp = GetCreaturehp(creature_id);
+                    const uint_max999 hp = GetCreaturehp(creature_id);
                     const uint16_t cur_hp = Int999GetCurrent(&hp);
                     const uint16_t max_hp = Int999GetMax(&hp);
-                    const IntMax999 mp = GetCreaturemp(creature_id);
+                    const uint_max999 mp = GetCreaturemp(creature_id);
                     const uint16_t cur_mp = Int999GetCurrent(&mp);
                     const uint16_t max_mp = Int999GetMax(&mp);
-                    const IntMax999 xp = GetCreaturexp(creature_id);
+                    const uint_max999 xp = GetCreaturexp(creature_id);
                     const uint16_t cur_xp = Int999GetCurrent(&xp);
                     const uint16_t max_xp = Int999GetMax(&xp);
 
@@ -220,7 +220,7 @@ void CreatureStats(GraphicsInterface graphics, HardwareInterface hardware, Memor
     char text[SMALL_STRINGS];
     Flash_GetCreatureName(memory, text, GetCreatureType(creature_id));
     char line[MEDIUM_STRINGS];
-    const Int99 level = g_core.creatures.level[creature_id];
+    const uint99 level = g_core.creatures.level[creature_id];
     CreateCreatureName(text, level, line);
     PrintLineStr(graphics, memory, rect.x + TEXT_W, rect.y + TEXT_W, font_size, max_chars, line, false);
     //Level text
@@ -234,13 +234,13 @@ void CreatureStats(GraphicsInterface graphics, HardwareInterface hardware, Memor
     Color color_xp = Flash_GetColor(memory, PAL_PALE_BLU_PURP);
 
 
-    IntMax999 hp = GetCreaturehp(creature_id);
+    uint_max999 hp = GetCreaturehp(creature_id);
     uint16_t cur_hp = Int999GetCurrent(&hp);
     uint16_t max_hp = Int999GetMax(&hp);
-    IntMax999 mp = GetCreaturemp(creature_id);
+    uint_max999 mp = GetCreaturemp(creature_id);
     uint16_t cur_mp = Int999GetCurrent(&mp);
     uint16_t max_mp = Int999GetMax(&mp);
-    IntMax999 xp = GetCreaturexp(creature_id);
+    uint_max999 xp = GetCreaturexp(creature_id);
     uint16_t cur_xp = Int999GetCurrent(&xp);
     uint16_t max_xp = Int999GetMax(&xp);
 

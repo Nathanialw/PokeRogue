@@ -430,12 +430,14 @@ bool Party(GraphicsInterface graphics, HardwareInterface hardware, InputInterfac
     if (ToggleMenu(MONSTERS_SUBMENU, g_core.player.currentPartySize, MAX_PARTY_SIZE))
     {
         uint8_t target_index = g_core.menu.sel[g_core.menu.depth].y + g_core.menu.menuScrollOffset[g_core.menu.depth].y;
-        EntityId party_id1 = g_core.trainers.partyID[GetPlayerID()][0];
+        // EntityId party_id1 = g_core.trainers.partyID[GetPlayerID()][0];
         EntityId party_id2 = g_core.trainers.partyID[GetPlayerID()][target_index];
-        g_core.trainers.partyID[GetPlayerID()][0] = party_id2;
-        g_core.trainers.partyID[GetPlayerID()][target_index] = party_id1;
-        FillListByEntityID(memory, g_core.player.currentPartySize, CREATURE, GetPlayerMonsterIDs());
-        DrawParty(graphics, hardware, memory);
+        // g_core.trainers.partyID[GetPlayerID()][0] = party_id2;
+        // g_core.trainers.partyID[GetPlayerID()][target_index] = party_id1;
+        // FillListByEntityID(memory, g_core.player.currentPartySize, CREATURE, GetPlayerMonsterIDs());
+        // DrawParty(graphics, hardware, memory);
+
+        DrawPartyCreatureStats(graphics, memory, party_id2);
     }
 
     FillListByEntityID(memory, g_core.player.currentPartySize, CREATURE, GetPlayerMonsterIDs());

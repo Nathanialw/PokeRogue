@@ -2,6 +2,7 @@
 // Created by nathanial on 5/19/26.
 //
 #include "lib_memory.h"
+#include "lib_debugging.h"
 #include "types.h"
 
 #include "core_effects.h"
@@ -9,9 +10,7 @@
 #include "core_map.h"
 #include "core_ram.h"
 #include "core_stats.h"
-#include "lib_debugging.h"
 
-#include "map_player.h"
 #include "map_camera.h"
 #include "map_effects.h"
 
@@ -439,7 +438,7 @@ ActionOutcome CastMapBurnHeal(HardwareInterface hardware, MemoryInterface memory
 SET_MEMORY(".map")
 ActionOutcome CastMapFocus(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
 {
-    RaiseAccuracy(caster_id);
+    RaiseAccuracy(target_id, spellData.power);
     return true;
 }
 
@@ -450,7 +449,7 @@ ActionOutcome CastMapFocus(HardwareInterface hardware, MemoryInterface memory, E
 SET_MEMORY(".map")
 ActionOutcome CastMapRage(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
 {
-    RaiseStrength(caster_id);
+    RaiseStrength(target_id, spellData.power);
     return true;
 }
 
@@ -462,7 +461,7 @@ SET_MEMORY(".map")
 ActionOutcome CastMapOpenChest(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
 {
     DEBUG("CastMapOpenChest Faileod to open chest");
-    return false;
+    return ACTION_CANNOT;
 }
 
 
@@ -473,7 +472,7 @@ SET_MEMORY(".map")
 ActionOutcome CastMapIncreaseBag(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
 {
     // TODO: temorary increase bag slots, add field for onlt the player
-    return false;
+    return ACTION_CANNOT;
 }
 
 
@@ -483,8 +482,7 @@ ActionOutcome CastMapIncreaseBag(HardwareInterface hardware, MemoryInterface mem
 SET_MEMORY(".map")
 ActionOutcome CastMapGlowingEmbers(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
 {
-    StatusLesserLight(caster_id, spellData.power);
-    return false;
+    return StatusLesserLight(caster_id, spellData.power);
 }
 
 
@@ -494,8 +492,7 @@ ActionOutcome CastMapGlowingEmbers(HardwareInterface hardware, MemoryInterface m
 SET_MEMORY(".map")
 ActionOutcome CastMapBrillianceAura(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
 {
-    StatusGreaterLight(caster_id, spellData.power);
-    return false;
+    return StatusGreaterLight(caster_id, spellData.power);
 }
 
 
@@ -505,7 +502,7 @@ ActionOutcome CastMapBrillianceAura(HardwareInterface hardware, MemoryInterface 
 SET_MEMORY(".map")
 ActionOutcome CastMapReflect(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
 {
-    return false;
+    return ACTION_CANNOT;
 }
 
 
@@ -515,7 +512,7 @@ ActionOutcome CastMapReflect(HardwareInterface hardware, MemoryInterface memory,
 SET_MEMORY(".map")
 ActionOutcome CastMapSilence(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
 {
-    return false;
+    return ACTION_CANNOT;
 }
 
 
@@ -525,8 +522,7 @@ ActionOutcome CastMapSilence(HardwareInterface hardware, MemoryInterface memory,
 SET_MEMORY(".map")
 ActionOutcome CastMapPowerOverwhelming(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
 {
-    MakeInvulnerable(caster_id);
-    return true;
+    return MakeInvulnerable(caster_id);
 }
 
 
@@ -536,8 +532,7 @@ ActionOutcome CastMapPowerOverwhelming(HardwareInterface hardware, MemoryInterfa
 SET_MEMORY(".map")
 ActionOutcome CastMapShadows(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
 {
-    Invisibility(caster_id, spellData.power);
-    return true;
+    return Invisibility(caster_id, spellData.power);
 }
 
 
@@ -547,7 +542,7 @@ ActionOutcome CastMapShadows(HardwareInterface hardware, MemoryInterface memory,
 SET_MEMORY(".map")
 ActionOutcome CastMapEmpower(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
 {
-    RaiseMagic(caster_id);
+    RaiseMagic(target_id, spellData.power);
     return true;
 }
 
@@ -558,7 +553,7 @@ ActionOutcome CastMapEmpower(HardwareInterface hardware, MemoryInterface memory,
 SET_MEMORY(".map")
 ActionOutcome CastMapDefend(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
 {
-    RaiseDefence(caster_id);
+    RaiseDefence(target_id, spellData.power);
     return true;
 }
 
@@ -569,7 +564,7 @@ ActionOutcome CastMapDefend(HardwareInterface hardware, MemoryInterface memory, 
 SET_MEMORY(".map")
 ActionOutcome CastMapWizen2(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
 {
-    RaiseMagic(caster_id);
+    RaiseMagic(target_id, spellData.power);
     return true;
 }
 
@@ -591,7 +586,7 @@ ActionOutcome CastMapHasten(HardwareInterface hardware, MemoryInterface memory, 
 SET_MEMORY(".map")
 ActionOutcome CastMapStrengthen(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
 {
-    RaiseStrength(caster_id);
+    RaiseStrength(target_id, spellData.power);
     return true;
 }
 
@@ -602,7 +597,7 @@ ActionOutcome CastMapStrengthen(HardwareInterface hardware, MemoryInterface memo
 SET_MEMORY(".map")
 ActionOutcome CastMapFortify(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
 {
-    RaiseDefence(caster_id);
+    RaiseDefence(target_id, spellData.power);
     return true;
 }
 
@@ -613,7 +608,7 @@ ActionOutcome CastMapFortify(HardwareInterface hardware, MemoryInterface memory,
 SET_MEMORY(".map")
 ActionOutcome CastMapWizen(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
 {
-    RaiseMagic(caster_id);
+    RaiseMagic(target_id, spellData.power);
     return true;
 }
 
@@ -624,7 +619,7 @@ ActionOutcome CastMapWizen(HardwareInterface hardware, MemoryInterface memory, E
 SET_MEMORY(".map")
 ActionOutcome CastMapGrowMuscle(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
 {
-    RaiseSpeed(caster_id);
+    RaiseSpeed(target_id, spellData.power);
     return true;
 }
 
@@ -840,4 +835,103 @@ ActionOutcome CastMapSummonWard(HardwareInterface hardware, MemoryInterface memo
         return ACTION_SUCCEEDED;
     }
     return ACTION_CANNOT;
+}
+
+SET_MEMORY(".map")
+ActionOutcome CastMapRaiseStrength(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
+{
+    return RaiseStrength(target_id, spellData.power);
+}
+
+SET_MEMORY(".map")
+ActionOutcome CastMapRaiseFortitude(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
+{
+    return RaiseFortitude(target_id, spellData.power);
+}
+
+SET_MEMORY(".map")
+ActionOutcome CastMapRaiseIntelligence(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
+{
+    return RaiseIntelligence(target_id, spellData.power);
+}
+
+SET_MEMORY(".map")
+ActionOutcome CastMapRaiseAgility(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
+{
+    return RaiseAgility(target_id, spellData.power);
+}
+
+
+SET_MEMORY(".map")
+ActionOutcome CastMapRaiseMaxHP(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
+{
+    return RaiseMaxHP(target_id, spellData.power);
+}
+
+
+SET_MEMORY(".map")
+ActionOutcome CastMapRaiseMaxMP(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
+{
+    return RaiseMaxMP(caster_id, spellData.power);
+}
+
+
+SET_MEMORY(".map")
+ActionOutcome CastMapGainAccuracy(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
+{
+    return RaiseAccuracy(target_id, spellData.power);
+}
+
+SET_MEMORY(".map")
+ActionOutcome CastMapGainLoyalty(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
+{
+    return RaiseLoyalty(target_id, spellData.power);
+}
+
+SET_MEMORY(".map")
+ActionOutcome CastMapRaiseDexterity(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
+{
+    return RaiseDexterity(target_id, spellData.power);
+}
+
+SET_MEMORY(".map")
+ActionOutcome CastMapRaiseEarthResist(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
+{
+    return RaiseEarthResistance(target_id, spellData.power);
+}
+
+SET_MEMORY(".map")
+ActionOutcome CastMapRaiseFireResist(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
+{
+    return RaiseFireResistance(target_id, spellData.power);
+}
+
+SET_MEMORY(".map")
+ActionOutcome CastMapRaiseIceResist(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
+{
+    return RaiseIceResistance(target_id, spellData.power);
+}
+
+SET_MEMORY(".map")
+ActionOutcome CastMapRaiseMagicResist(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
+{
+    return RaiseMagicResistance(target_id, spellData.power);
+}
+
+SET_MEMORY(".map")
+ActionOutcome CastMapRaiseStamina(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
+{
+    return RaiseStamina(target_id, spellData.power);
+}
+
+SET_MEMORY(".map")
+ActionOutcome CastMapRaiseToxicResist(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
+{
+    return RaiseAcidResistance(target_id, spellData.power);
+}
+
+SET_MEMORY(".map")
+ActionOutcome CastMapRaiseWaterResist(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
+{
+    return RaiseWaterResistance(target_id, spellData.power);
 }

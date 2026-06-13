@@ -38,7 +38,7 @@ ActionOutcome CastBattleHeal(HardwareInterface hardware, MemoryInterface memory,
 // no interaction effect for lava, water, acid or pits
 
 /**********************************************************************************************************************/
-/*
+/* //TODO
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
 ActionOutcome CastBattleLevitate(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
@@ -50,7 +50,7 @@ ActionOutcome CastBattleLevitate(HardwareInterface hardware, MemoryInterface mem
 // teleport to random empty cell on the battle
 
 /**********************************************************************************************************************/
-/*
+/*//TODO
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
 ActionOutcome CastBattleDisplacement(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
@@ -61,7 +61,7 @@ ActionOutcome CastBattleDisplacement(HardwareInterface hardware, MemoryInterface
 
 
 /**********************************************************************************************************************/
-/*
+/*//TODO
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
 ActionOutcome CastBattleWaterWalking(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
@@ -72,7 +72,7 @@ ActionOutcome CastBattleWaterWalking(HardwareInterface hardware, MemoryInterface
 
 
 /**********************************************************************************************************************/
-/*
+/*//TODO
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
 ActionOutcome CastBattleWaterBreathing(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
@@ -83,7 +83,7 @@ ActionOutcome CastBattleWaterBreathing(HardwareInterface hardware, MemoryInterfa
 
 
 /**********************************************************************************************************************/
-/*
+/*//TODO
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
 ActionOutcome CastBattleTeleport(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
@@ -108,7 +108,7 @@ ActionOutcome CastBattleResurrect(HardwareInterface hardware, MemoryInterface me
 
 
 /**********************************************************************************************************************/
-/*
+/*//TODO
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
 ActionOutcome CastBattleRaiseDead(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
@@ -122,7 +122,7 @@ ActionOutcome CastBattleRaiseDead(HardwareInterface hardware, MemoryInterface me
 
 
 /**********************************************************************************************************************/
-/*
+/*//TODO
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
 ActionOutcome CastBattleDescend(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
@@ -143,7 +143,7 @@ ActionOutcome CastBattleFlameEater(HardwareInterface hardware, MemoryInterface m
 
 
 /**********************************************************************************************************************/
-/*
+/*//TODO
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
 ActionOutcome CastBattlePortal(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
@@ -161,7 +161,7 @@ ActionOutcome CastBattlePortal(HardwareInterface hardware, MemoryInterface memor
 
 
 /**********************************************************************************************************************/
-/*
+/*//TODO
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
 ActionOutcome CastBattleBrewPotion(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
@@ -172,7 +172,7 @@ ActionOutcome CastBattleBrewPotion(HardwareInterface hardware, MemoryInterface m
 
 
 /**********************************************************************************************************************/
-/*
+/*//TODO
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
 ActionOutcome CastBattleRepel(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
@@ -255,7 +255,7 @@ ActionOutcome CastBattleCreateCommon(HardwareInterface hardware, MemoryInterface
 
 
 /**********************************************************************************************************************/
-/*
+/*//TODO
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
 ActionOutcome CastBattleFireball(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
@@ -267,7 +267,7 @@ ActionOutcome CastBattleFireball(HardwareInterface hardware, MemoryInterface mem
 
 
 /**********************************************************************************************************************/
-/*
+/*//TODO
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
 ActionOutcome CastBattleIceBolt(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
@@ -278,7 +278,7 @@ ActionOutcome CastBattleIceBolt(HardwareInterface hardware, MemoryInterface memo
 
 
 /**********************************************************************************************************************/
-/*
+/*//TODO
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
 ActionOutcome CastBattleRazorGrass(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
@@ -289,7 +289,7 @@ ActionOutcome CastBattleRazorGrass(HardwareInterface hardware, MemoryInterface m
 
 
 /**********************************************************************************************************************/
-/*
+/*//TODO
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
 ActionOutcome CastBattleMudSling(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
@@ -326,7 +326,7 @@ ActionOutcome CastBattleAwaken(HardwareInterface hardware, MemoryInterface memor
 
 
 /**********************************************************************************************************************/
-/*
+/*//TODO
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
 ActionOutcome CastBattleNerveRepair(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
@@ -337,7 +337,7 @@ ActionOutcome CastBattleNerveRepair(HardwareInterface hardware, MemoryInterface 
 
 
 /**********************************************************************************************************************/
-/*
+/*//TODO
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
 ActionOutcome CastBattleBlindingLight(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
@@ -388,7 +388,7 @@ ActionOutcome CastBattleSlow(HardwareInterface hardware, MemoryInterface memory,
 
 
 /**********************************************************************************************************************/
-/*
+/*//TODO
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
 ActionOutcome CastBattleHypervision(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
@@ -424,7 +424,7 @@ ActionOutcome CastBattleBurnHeal(HardwareInterface hardware, MemoryInterface mem
 SET_MEMORY(".battle")
 ActionOutcome CastBattleFocus(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
 {
-    return RaiseAccuracy(friendly_id);
+    return RaiseAccuracy(friendly_id, spellData.power);
 }
 
 
@@ -434,7 +434,7 @@ ActionOutcome CastBattleFocus(HardwareInterface hardware, MemoryInterface memory
 SET_MEMORY(".battle")
 ActionOutcome CastBattleRage(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
 {
-    return RaiseStrength(friendly_id);
+    return RaiseStrength(friendly_id, spellData.power);
 }
 
 
@@ -455,7 +455,7 @@ ActionOutcome CastBattleOpenChest(HardwareInterface hardware, MemoryInterface me
 
 
 /**********************************************************************************************************************/
-/*
+/*//TODO
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
 ActionOutcome CastBattleIncreaseBag(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
@@ -487,7 +487,7 @@ ActionOutcome CastBattleBrillianceAura(HardwareInterface hardware, MemoryInterfa
 
 
 /**********************************************************************************************************************/
-/*
+/*//TODO
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
 ActionOutcome CastBattleReflect(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
@@ -498,7 +498,7 @@ ActionOutcome CastBattleReflect(HardwareInterface hardware, MemoryInterface memo
 
 
 /**********************************************************************************************************************/
-/*
+/*//TODO
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
 ActionOutcome CastBattleSilence(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
@@ -534,7 +534,7 @@ ActionOutcome CastBattleShadows(HardwareInterface hardware, MemoryInterface memo
 SET_MEMORY(".battle")
 ActionOutcome CastBattleEmpower(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
 {
-    return RaiseMagic(friendly_id);
+    return RaiseMagic(friendly_id, spellData.power);
 }
 
 
@@ -544,7 +544,7 @@ ActionOutcome CastBattleEmpower(HardwareInterface hardware, MemoryInterface memo
 SET_MEMORY(".battle")
 ActionOutcome CastBattleDefend(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
 {
-    return RaiseDefence(friendly_id);
+    return RaiseDefence(friendly_id, spellData.power);
 }
 
 
@@ -554,7 +554,7 @@ ActionOutcome CastBattleDefend(HardwareInterface hardware, MemoryInterface memor
 SET_MEMORY(".battle")
 ActionOutcome CastBattleWizen2(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
 {
-    return RaiseMagic(friendly_id);
+    return RaiseMagic(friendly_id, spellData.power);
 }
 
 
@@ -574,7 +574,7 @@ ActionOutcome CastBattleHasten(HardwareInterface hardware, MemoryInterface memor
 SET_MEMORY(".battle")
 ActionOutcome CastBattleStrengthen(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
 {
-    return RaiseStrength(friendly_id);
+    return RaiseAttack(friendly_id, spellData.power);
 }
 
 
@@ -584,7 +584,7 @@ ActionOutcome CastBattleStrengthen(HardwareInterface hardware, MemoryInterface m
 SET_MEMORY(".battle")
 ActionOutcome CastBattleFortify(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
 {
-    return RaiseDefence(friendly_id);
+    return RaiseDefence(friendly_id, spellData.power);
 }
 
 
@@ -594,7 +594,7 @@ ActionOutcome CastBattleFortify(HardwareInterface hardware, MemoryInterface memo
 SET_MEMORY(".battle")
 ActionOutcome CastBattleWizen(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
 {
-    return RaiseMagic(friendly_id);
+    return RaiseMagic(friendly_id, spellData.power);
 }
 
 
@@ -604,12 +604,12 @@ ActionOutcome CastBattleWizen(HardwareInterface hardware, MemoryInterface memory
 SET_MEMORY(".battle")
 ActionOutcome CastBattleGrowMuscle(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
 {
-    return RaiseSpeed(friendly_id);
+    return RaiseSpeed(friendly_id, spellData.power);
 }
 
 
 /**********************************************************************************************************************/
-/* removes the dark black fog of the battle
+/* //TODO
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
 ActionOutcome CastBattleClairvoyance(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
@@ -630,7 +630,7 @@ ActionOutcome CastBattleWallWalking(HardwareInterface hardware, MemoryInterface 
 
 
 /**********************************************************************************************************************/
-/*
+/*//TODO
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
 ActionOutcome CastBattleCreatePit(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
@@ -643,17 +643,17 @@ ActionOutcome CastBattleCreatePit(HardwareInterface hardware, MemoryInterface me
 
 
 /**********************************************************************************************************************/
-/*
+/*//TODO
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
 ActionOutcome CastBattleXRayVision(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
 {
-    return XRayVision(friendly_id, spellData.power);
+    return ACTION_FAILED;
 }
 
 
 /**********************************************************************************************************************/
-/*
+/*//TODO
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
 ActionOutcome CastBattleRainStorm(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
@@ -665,7 +665,7 @@ ActionOutcome CastBattleRainStorm(HardwareInterface hardware, MemoryInterface me
 
 
 /**********************************************************************************************************************/
-/*
+/*//TODO
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
 ActionOutcome CastBattleHeatWave(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
@@ -677,7 +677,7 @@ ActionOutcome CastBattleHeatWave(HardwareInterface hardware, MemoryInterface mem
 
 
 /**********************************************************************************************************************/
-/*
+/*//TODO
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
 ActionOutcome CastBattleDrought(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
@@ -689,7 +689,7 @@ ActionOutcome CastBattleDrought(HardwareInterface hardware, MemoryInterface memo
 
 
 /**********************************************************************************************************************/
-/*
+/*//TODO
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
 ActionOutcome CastBattleCrusade(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
@@ -701,7 +701,7 @@ ActionOutcome CastBattleCrusade(HardwareInterface hardware, MemoryInterface memo
 
 
 /**********************************************************************************************************************/
-/*
+/*//TODO
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
 ActionOutcome CastBattleHunt(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
@@ -713,7 +713,7 @@ ActionOutcome CastBattleHunt(HardwareInterface hardware, MemoryInterface memory,
 
 
 /**********************************************************************************************************************/
-/*
+/*//TODO
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
 ActionOutcome CastBattlePurification(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
@@ -725,7 +725,7 @@ ActionOutcome CastBattlePurification(HardwareInterface hardware, MemoryInterface
 
 
 /**********************************************************************************************************************/
-/*
+/*//TODO
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
 ActionOutcome CastBattleRaiseSkeleton(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
@@ -758,7 +758,7 @@ ActionOutcome CastBattleRestoreMana(HardwareInterface hardware, MemoryInterface 
 }
 
 /**********************************************************************************************************************/
-/*
+/*//TODO
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
 ActionOutcome CastBattleSpawnLava(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
@@ -767,7 +767,7 @@ ActionOutcome CastBattleSpawnLava(HardwareInterface hardware, MemoryInterface me
 }
 
 /**********************************************************************************************************************/
-/*
+/*//TODO
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
 ActionOutcome CastBattleSpawnWater(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
@@ -776,7 +776,7 @@ ActionOutcome CastBattleSpawnWater(HardwareInterface hardware, MemoryInterface m
 }
 
 /**********************************************************************************************************************/
-/*
+/*//TODO
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
 ActionOutcome CastBattleSpawnFloor(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
@@ -785,7 +785,7 @@ ActionOutcome CastBattleSpawnFloor(HardwareInterface hardware, MemoryInterface m
 }
 
 /**********************************************************************************************************************/
-/*
+/*//TODO
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
 ActionOutcome CastBattleSpawnAcid(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
@@ -794,7 +794,7 @@ ActionOutcome CastBattleSpawnAcid(HardwareInterface hardware, MemoryInterface me
 }
 
 /**********************************************************************************************************************/
-/*
+/*//TODO
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
 ActionOutcome CastBattleSpawnPits(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
@@ -803,10 +803,110 @@ ActionOutcome CastBattleSpawnPits(HardwareInterface hardware, MemoryInterface me
 }
 
 /**********************************************************************************************************************/
-/*
+/* //TODO
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
 ActionOutcome CastBattleSummonWard(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
 {
     return ACTION_FAILED;
+}
+
+SET_MEMORY(".battle")
+ActionOutcome CastBattleRaiseStrength(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
+{
+    return RaiseStrength(friendly_id, spellData.power);
+}
+
+
+SET_MEMORY(".battle")
+ActionOutcome CastBattleRaiseFortitude(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
+{
+    return RaiseFortitude(friendly_id, spellData.power);
+}
+
+
+SET_MEMORY(".battle")
+ActionOutcome CastBattleRaiseIntelligence(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
+{
+    return RaiseIntelligence(friendly_id, spellData.power);
+}
+
+
+SET_MEMORY(".battle")
+ActionOutcome CastBattleRaiseAgility(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
+{
+    return RaiseAgility(friendly_id, spellData.power);
+}
+
+SET_MEMORY(".battle")
+ActionOutcome CastBattleRaiseMaxHP(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
+{
+    return RaiseMaxHP(friendly_id, spellData.power);
+}
+
+SET_MEMORY(".battle")
+ActionOutcome CastBattleRaiseMaxMP(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
+{
+    return RaiseMaxMP(friendly_id, spellData.power);
+}
+
+
+SET_MEMORY(".battle")
+ActionOutcome CastBattleGainAccuracy(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
+{
+    return RaiseAccuracy(friendly_id, spellData.power);;
+}
+
+SET_MEMORY(".battle")
+ActionOutcome CastBattleGainLoyalty(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
+{
+    return RaiseLoyalty(friendly_id, spellData.power);;
+}
+
+SET_MEMORY(".battle")
+ActionOutcome CastBattleRaiseDexterity(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
+{
+    return RaiseDexterity(friendly_id, spellData.power);;
+}
+
+SET_MEMORY(".battle")
+ActionOutcome CastBattleRaiseEarthResist(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
+{
+    return RaiseEarthResistance(friendly_id, spellData.power);;
+}
+
+SET_MEMORY(".battle")
+ActionOutcome CastBattleRaiseFireResist(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
+{
+    return RaiseFireResistance(friendly_id, spellData.power);;;
+}
+
+SET_MEMORY(".battle")
+ActionOutcome CastBattleRaiseIceResist(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
+{
+    return RaiseIceResistance(friendly_id, spellData.power);;;
+}
+
+SET_MEMORY(".battle")
+ActionOutcome CastBattleRaiseMagicResist(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
+{
+    return RaiseMagicResistance(friendly_id, spellData.power);;;
+}
+
+SET_MEMORY(".battle")
+ActionOutcome CastBattleRaiseStamina(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
+{
+    return RaiseStamina(friendly_id, spellData.power);;;
+}
+
+SET_MEMORY(".battle")
+ActionOutcome CastBattleRaiseToxicResist(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
+{
+    return RaiseAcidResistance(friendly_id, spellData.power);;;
+}
+
+SET_MEMORY(".battle")
+ActionOutcome CastBattleRaiseWaterResist(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
+{
+    return RaiseWaterResistance(friendly_id, spellData.power);;;
 }

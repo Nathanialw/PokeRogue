@@ -64,6 +64,7 @@ add_library(GameCore STATIC
         overlay_battle/battle_stats.c
         overlay_battle/battle_animation_effects.c
         overlay_battle/battle_ui.c
+        overlay_battle/battle_effects.c
         overlay_battle/battle_effects_skills.c
         overlay_battle/battle_effects_spells.c
         overlay_battle/battle_effects_items.c

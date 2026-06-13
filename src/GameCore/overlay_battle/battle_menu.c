@@ -7,6 +7,7 @@
 #include "lib_decl.h"
 
 #include "battle_actions.h"
+#include "battle_effects.h"
 #include "battle_graphics.h"
 #include "battle_ram.h"
 #include "battle_state.h"
@@ -324,7 +325,7 @@ bool BattleItems(GraphicsInterface graphics, HardwareInterface hardware, InputIn
 SET_MEMORY(".battle")
 bool BattleFlee(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update)
 {
-    SetBattleState(BATTLE_FLEE);
+    Flee();
     return true;
 }
 

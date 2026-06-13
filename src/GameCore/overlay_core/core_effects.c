@@ -27,10 +27,11 @@
 /**********************************************************************************************************************
 *
 **********************************************************************************************************************/
-ActionOutcome RestoreResource(IntMax999* resource, EntityId creature_id, uint16_t value, uint16_t* cache)
+SET_MEMORY(".core")
+ActionOutcome RestoreResource(uint_max999* resource, EntityId creature_id, uint8_t value, uint16_t* cache)
 {
     if (creature_id == NO_CREATURE) return ACTION_CANNOT;
-    IntMax999 res = resource[creature_id];
+    uint_max999 res = resource[creature_id];
     uint16_t cur = Int999GetCurrent(&res);
     uint16_t max = Int999GetMax(&res);
     if (cur == max) return ACTION_CANNOT;
@@ -50,8 +51,8 @@ uint16_t CalcDamage(EntityId creatureID, uint16_t abilityPower)
 {
     const uint8_t level = g_core.creatures.level[creatureID].value >> 1;
     const uint16_t base = g_core.creatures.stats[creatureID].attack;
-    const uint16_t skill = abilityPower;
-    const uint16_t mod = GetNibble(g_core.creatures.attributes.strength, creatureID);
+    const uint16_t skill = abilityPower + g_core.creatures.attributes[creatureID].intelligence;
+    const uint16_t mod = g_core.creatures.attributes[creatureID].strength;
 
     uint16_t damage = level + base + skill + mod;
     DEBUG("CalcDamage %d %d %d %d - total %d", level, base, skill, mod, damage);
@@ -104,7 +105,7 @@ uint16_t CalcModifier(MemoryInterface memory, EntityId attackerID, EntityId defe
 
     CreatureID target_creature_id = GetCreatureType(defenderID);
     uint8_t base = g_core.creatures.stats[defenderID].defence >> 1; //max 255
-    uint8_t mod = g_core.creatures.attributes.fortitude[defenderID]; //max 255
+    uint8_t mod = g_core.creatures.attributes[defenderID].fortitude; //max 255
     uint16_t damage_reduction = base + mod;
 
     MonsterType m_type2;
@@ -136,6 +137,152 @@ uint16_t CalcModifier(MemoryInterface memory, EntityId attackerID, EntityId defe
  *      MIx and match these EFFECTS to create item, spell, skill and object interaction effects
  *
 **********************************************************************************************************************/
+SET_MEMORY(".core")
+uint16_t IncreaseValue_999(uint16_t n, uint16_t value)
+{
+    if (n == 999) return n;
+    if (value == 0) return n;
+
+
+    const uint16_t temp = n + value;
+    if (temp < 999)
+        n += value;
+    else
+        n = 999;
+
+    return n;
+}
+
+SET_MEMORY(".core")
+uint16_t DecreaseValue(uint16_t n, uint16_t value)
+{
+    if (n == 0) return n;
+    if (value == 0) return n;
+
+    if (n > value)
+        n -= value;
+    else
+        n = 0;
+
+    return n;
+}
+
+
+SET_MEMORY(".core")
+bool IncreaseValue_255(uint8_t* n, uint8_t value)
+{
+    if (*n == 255) return false;
+    if (value == 0) return false;
+
+
+    const uint16_t temp = (uint16_t)*n + (uint16_t)value;
+    if (temp < 255)
+        *n += value;
+    else
+        *n = 255;
+
+    return true;
+}
+
+
+SET_MEMORY(".core")
+bool IncreaseValue_int99(int99* n, uint8_t value)
+{
+    if (*n == 99) return false;
+    if (value == 0) return false;
+
+
+    const int16_t temp = *n + value;
+    if (temp < 99)
+        *n += value;
+    else
+        *n = 99;
+
+    return true;
+}
+
+SET_MEMORY(".core")
+bool DecreaseValue_int99(int99* n, uint8_t value)
+{
+    if (*n == -99) return false;
+    if (value == 0) return false;
+
+    const int16_t temp = *n - value;
+    if (temp > -99) // clamp to the real minimum -99
+        *n -= value;
+    else
+        *n = -99;
+
+    return true;
+}
+
+
+SET_MEMORY(".core")
+bool IncreaseValue_uint99(uint99* n, uint8_t value)
+{
+    if (n->value == 99) return false;
+    if (value == 0) return false;
+
+
+    const uint16_t temp = n->value + (uint16_t)value;
+    if (temp < 99)
+        n->value += value;
+    else
+        n->value = 99;
+
+    return true;
+}
+
+SET_MEMORY(".core")
+bool DecreaseValue_99(uint99* n, uint8_t value)
+{
+    if (n->value == 0) return false;
+    if (value == 0) return false;
+
+    if (n->value > value)
+        n->value -= value;
+    else
+        n->value = 0;
+
+    return true;
+}
+
+
+SET_MEMORY(".core")
+bool IncreaseValue_IntMax999(uint_max999* n, uint8_t value)
+{
+    uint16_t cur = Int999GetCurrent(n);
+    uint16_t max = Int999GetMax(n);
+    if (cur == max) return false;
+    if (value == 0) return false;
+
+
+    const uint16_t temp = cur + (uint16_t)value;
+    if (temp < max)
+        cur += value;
+    else
+        cur = 99;
+
+    Int999SetCurrent(n, cur);
+    return true;
+}
+
+SET_MEMORY(".core")
+bool DecreaseValue_IntMax999(uint_max999* n, uint8_t value)
+{
+    uint16_t cur = Int999GetCurrent(n);
+    if (cur == 0) return false;
+    if (value == 0) return false;
+
+    if (cur > value)
+        cur -= value;
+    else
+        cur = 0;
+
+    Int999SetCurrent(n, cur);
+    return true;
+}
+
 
 /**********************************************************************************************************************
 *
@@ -473,6 +620,32 @@ ActionOutcome DiscoverObject(EntityId e_id)
 }
 
 /**********************************************************************************************************************
+*
+**********************************************************************************************************************/
+SET_MEMORY(".core")
+ActionOutcome GainSpellbookPages(EntityId trainer_id, uint8_t pages)
+{
+    if (trainer_id == NO_ENTITY) return ACTION_CANNOT;
+    if (trainer_id == NO_ENTITY) return ACTION_CANNOT;
+
+    uint8_t temp = g_core.trainers.spellbook[trainer_id].current_max_pages + pages;
+    if (temp < MAX_SPELLBOOK_SIZE)
+    {
+        g_core.trainers.spellbook[trainer_id].current_max_pages += pages;
+        return ACTION_SUCCEEDED;
+    }
+
+    if (g_core.trainers.spellbook[trainer_id].current_max_pages < MAX_SPELLBOOK_SIZE)
+    {
+        g_core.trainers.spellbook[trainer_id].current_max_pages = MAX_SPELLBOOK_SIZE;
+        return ACTION_SUCCEEDED;
+    }
+
+
+    return ACTION_CANNOT;
+}
+
+/**********************************************************************************************************************
 *  Checks whether the given entity ID can learn the spell
  *  ON SUCCESS - return true
  *  ON FAIL - return fail
@@ -532,15 +705,6 @@ ActionOutcome LearnSpell(MemoryInterface memory, EntityId e_id, Spell spell_id)
 **********************************************************************************************************************/
 SET_MEMORY(".core")
 ActionOutcome AbandonTeam(EntityId e_id)
-{
-    return ACTION_FAILED;
-}
-
-/**********************************************************************************************************************
-*  Ends Combat and moves player to an adjacent tile
-**********************************************************************************************************************/
-SET_MEMORY(".core")
-ActionOutcome Flee()
 {
     return ACTION_FAILED;
 }
@@ -880,13 +1044,12 @@ ActionOutcome StatusGreaterLight(EntityId e_id, uint8_t duration)
 }
 
 /**********************************************************************************************************************
-*
+*   TODO
 **********************************************************************************************************************/
 ActionOutcome NextAttackFreezes()
 {
     return ACTION_FAILED;
 }
-
 
 
 /**********************************************************************************************************************
@@ -904,7 +1067,7 @@ ActionOutcome FreezeAttackers(EntityId e_id, uint8_t duration)
 }
 
 /**********************************************************************************************************************
-*
+*   TODO
 **********************************************************************************************************************/
 SET_MEMORY(".core")
 ActionOutcome PersistentPoisonCloud(uint8_t duration)
@@ -919,8 +1082,77 @@ ActionOutcome PersistentPoisonCloud(uint8_t duration)
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-ActionOutcome RaiseAcidResistance(EntityId e_id)
+ActionOutcome AbsorbEarth(EntityId e_id)
 {
+    g_core.creatures.absorb[e_id].earth = 1;
+    return ACTION_SUCCEEDED;
+}
+/**********************************************************************************************************************
+*
+**********************************************************************************************************************/
+SET_MEMORY(".core")
+ActionOutcome AbsorbToxic(EntityId e_id)
+{
+    g_core.creatures.absorb[e_id].toxic = 1;
+    return ACTION_SUCCEEDED;
+}
+/**********************************************************************************************************************
+*
+**********************************************************************************************************************/
+SET_MEMORY(".core")
+ActionOutcome AbsorbWater(EntityId e_id)
+{
+    g_core.creatures.absorb[e_id].earth = 1;
+    return ACTION_SUCCEEDED;
+}
+/**********************************************************************************************************************
+*
+**********************************************************************************************************************/
+SET_MEMORY(".core")
+ActionOutcome AbsorbIce(EntityId e_id)
+{
+    g_core.creatures.absorb[e_id].ice = 1;
+    return ACTION_SUCCEEDED;
+}
+/**********************************************************************************************************************
+*
+**********************************************************************************************************************/
+SET_MEMORY(".core")
+ActionOutcome AbsorbFire(EntityId e_id)
+{
+    g_core.creatures.absorb[e_id].fire = 1;
+    return ACTION_SUCCEEDED;
+}
+/**********************************************************************************************************************
+*
+**********************************************************************************************************************/
+SET_MEMORY(".core")
+ActionOutcome AbsorbMagic(EntityId e_id)
+{
+    g_core.creatures.absorb[e_id].magic = 1;
+    return ACTION_SUCCEEDED;
+}
+
+
+/**********************************************************************************************************************
+*
+**********************************************************************************************************************/
+SET_MEMORY(".core")
+ActionOutcome RaiseEarthResistance(EntityId e_id, uint8_t value)
+{
+    if (IncreaseValue_int99(&g_core.creatures.resists[e_id].earth, value))
+        return ACTION_SUCCEEDED;
+    return ACTION_FAILED;
+}
+
+/**********************************************************************************************************************
+*
+**********************************************************************************************************************/
+SET_MEMORY(".core")
+ActionOutcome RaiseAcidResistance(EntityId e_id, uint8_t value)
+{
+    if (IncreaseValue_int99(&g_core.creatures.resists[e_id].toxic, value))
+        return ACTION_SUCCEEDED;
     return ACTION_FAILED;
 }
 
@@ -929,8 +1161,10 @@ ActionOutcome RaiseAcidResistance(EntityId e_id)
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-ActionOutcome RaiseFireResistance(EntityId e_id)
+ActionOutcome RaiseFireResistance(EntityId e_id, uint8_t value)
 {
+    if (IncreaseValue_int99(&g_core.creatures.resists[e_id].fire, value))
+        return ACTION_SUCCEEDED;
     return ACTION_FAILED;
 }
 
@@ -938,8 +1172,10 @@ ActionOutcome RaiseFireResistance(EntityId e_id)
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-ActionOutcome RaiseWaterResistance(EntityId e_id)
+ActionOutcome RaiseWaterResistance(EntityId e_id, uint8_t value)
 {
+    if (IncreaseValue_int99(&g_core.creatures.resists[e_id].water, value))
+        return ACTION_SUCCEEDED;
     return ACTION_FAILED;
 }
 
@@ -947,8 +1183,10 @@ ActionOutcome RaiseWaterResistance(EntityId e_id)
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-ActionOutcome RaiseIceResistance(EntityId e_id)
+ActionOutcome RaiseIceResistance(EntityId e_id, uint8_t value)
 {
+    if (IncreaseValue_int99(&g_core.creatures.resists[e_id].ice, value))
+        return ACTION_SUCCEEDED;
     return ACTION_FAILED;
 }
 
@@ -956,8 +1194,10 @@ ActionOutcome RaiseIceResistance(EntityId e_id)
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-ActionOutcome RaiseMagicResistance(EntityId e_id)
+ActionOutcome RaiseMagicResistance(EntityId e_id, uint8_t value)
 {
+    if (IncreaseValue_int99(&g_core.creatures.resists[e_id].magic, value))
+        return ACTION_SUCCEEDED;
     return ACTION_FAILED;
 }
 
@@ -965,8 +1205,29 @@ ActionOutcome RaiseMagicResistance(EntityId e_id)
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-ActionOutcome RaiseAllResistance(EntityId e_id)
+ActionOutcome RaiseAllResistance(EntityId e_id, uint8_t value)
 {
+    ActionOutcome action_outcome = ACTION_FAILED;
+    if (RaiseAcidResistance(e_id, value) ||
+        RaiseEarthResistance(e_id, value) ||
+        RaiseFireResistance(e_id, value) ||
+        RaiseWaterResistance(e_id, value) ||
+        RaiseIceResistance(e_id, value) ||
+        RaiseMagicResistance(e_id, value))
+    {
+        action_outcome = ACTION_SUCCEEDED;
+    };
+    return action_outcome;
+}
+
+/**********************************************************************************************************************
+*
+**********************************************************************************************************************/
+SET_MEMORY(".core")
+ActionOutcome LowerEarthResistance(EntityId e_id, uint8_t value)
+{
+    if (DecreaseValue_int99(&g_core.creatures.resists[e_id].earth, value))
+        return ACTION_SUCCEEDED;
     return ACTION_FAILED;
 }
 
@@ -974,8 +1235,10 @@ ActionOutcome RaiseAllResistance(EntityId e_id)
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-ActionOutcome LowerAcidResistance(EntityId e_id)
+ActionOutcome LowerAcidResistance(EntityId e_id, uint8_t value)
 {
+    if (DecreaseValue_int99(&g_core.creatures.resists[e_id].toxic, value))
+        return ACTION_SUCCEEDED;
     return ACTION_FAILED;
 }
 
@@ -983,8 +1246,10 @@ ActionOutcome LowerAcidResistance(EntityId e_id)
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-ActionOutcome LowerFireResistance(EntityId e_id)
+ActionOutcome LowerFireResistance(EntityId e_id, uint8_t value)
 {
+    if (DecreaseValue_int99(&g_core.creatures.resists[e_id].fire, value))
+        return ACTION_SUCCEEDED;
     return ACTION_FAILED;
 }
 
@@ -992,8 +1257,10 @@ ActionOutcome LowerFireResistance(EntityId e_id)
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-ActionOutcome LowerWaterResistance(EntityId e_id)
+ActionOutcome LowerWaterResistance(EntityId e_id, uint8_t value)
 {
+    if (DecreaseValue_int99(&g_core.creatures.resists[e_id].water, value))
+        return ACTION_SUCCEEDED;
     return ACTION_FAILED;
 }
 
@@ -1001,8 +1268,10 @@ ActionOutcome LowerWaterResistance(EntityId e_id)
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-ActionOutcome LowerIceResistance(EntityId e_id)
+ActionOutcome LowerIceResistance(EntityId e_id, uint8_t value)
 {
+    if (DecreaseValue_int99(&g_core.creatures.resists[e_id].ice, value))
+        return ACTION_SUCCEEDED;
     return ACTION_FAILED;
 }
 
@@ -1010,8 +1279,10 @@ ActionOutcome LowerIceResistance(EntityId e_id)
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-ActionOutcome LowerMagicResistance(EntityId e_id)
+ActionOutcome LowerMagicResistance(EntityId e_id, uint8_t value)
 {
+    if (DecreaseValue_int99(&g_core.creatures.resists[e_id].magic, value))
+        return ACTION_SUCCEEDED;
     return ACTION_FAILED;
 }
 
@@ -1019,9 +1290,19 @@ ActionOutcome LowerMagicResistance(EntityId e_id)
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-ActionOutcome LowerAllResistance(EntityId e_id)
+ActionOutcome LowerAllResistance(EntityId e_id, uint8_t value)
 {
-    return ACTION_FAILED;
+    ActionOutcome action_outcome = ACTION_FAILED;
+    if (LowerAcidResistance(e_id, value) ||
+        LowerEarthResistance(e_id, value) ||
+        LowerFireResistance(e_id, value) ||
+        LowerWaterResistance(e_id, value) ||
+        LowerIceResistance(e_id, value) ||
+        LowerMagicResistance(e_id, value))
+    {
+        action_outcome = ACTION_SUCCEEDED;
+    };
+    return action_outcome;
 }
 
 /**********************************************************************************************************************
@@ -1030,7 +1311,11 @@ ActionOutcome LowerAllResistance(EntityId e_id)
 SET_MEMORY(".core")
 ActionOutcome FireEating(EntityId e_id)
 {
-    return ACTION_FAILED;
+    //cou;d use the top values >99 to denotes absorb and have a decay time
+    // maybe not, can't save the orgiunal value, woudl have to cache, better to use  somethin else
+
+
+    return ACTION_SUCCEEDED;
 }
 
 /**********************************************************************************************************************
@@ -1039,7 +1324,7 @@ ActionOutcome FireEating(EntityId e_id)
 SET_MEMORY(".core")
 ActionOutcome WaterEating(EntityId e_id)
 {
-    return ACTION_FAILED;
+    return ACTION_SUCCEEDED;
 }
 
 /**********************************************************************************************************************
@@ -1048,7 +1333,7 @@ ActionOutcome WaterEating(EntityId e_id)
 SET_MEMORY(".core")
 ActionOutcome IceEating(EntityId e_id)
 {
-    return ACTION_FAILED;
+    return ACTION_SUCCEEDED;
 }
 
 /**********************************************************************************************************************
@@ -1057,7 +1342,7 @@ ActionOutcome IceEating(EntityId e_id)
 SET_MEMORY(".core")
 ActionOutcome AcidEating(EntityId e_id)
 {
-    return ACTION_FAILED;
+    return ACTION_SUCCEEDED;
 }
 
 /**********************************************************************************************************************
@@ -1066,16 +1351,14 @@ ActionOutcome AcidEating(EntityId e_id)
 SET_MEMORY(".core")
 ActionOutcome LavaEating(EntityId e_id)
 {
-    return ACTION_FAILED;
+    return ACTION_SUCCEEDED;
 }
 
 
 /********************************************************************************************************************************************************************************************************************************************
-
 *
-*   ATTRIBUTES
+*   STATS
 *
-
 ********************************************************************************************************************************************************************************************************************************************/
 
 
@@ -1083,162 +1366,84 @@ ActionOutcome LavaEating(EntityId e_id)
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-ActionOutcome RaiseStrength(EntityId e_id)
+ActionOutcome RaiseAttack(EntityId e_id, uint8_t value)
 {
-    return ACTION_FAILED;
+    uint16_t attribute = IncreaseValue_999(g_core.creatures.stats[e_id].attack, value);
+    if (attribute == g_core.creatures.stats[e_id].attack)
+        return ACTION_CANNOT;
+
+    g_core.creatures.stats[e_id].attack = attribute;
+    return ACTION_SUCCEEDED;
 }
 
 /**********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-ActionOutcome RaiseDefence(EntityId e_id)
+ActionOutcome RaiseDefence(EntityId e_id, uint8_t value)
 {
-    return ACTION_FAILED;
+    uint16_t attribute = IncreaseValue_999(g_core.creatures.stats[e_id].defence, value);
+    if (attribute == g_core.creatures.stats[e_id].defence)
+        return ACTION_CANNOT;
+
+    g_core.creatures.stats[e_id].defence = attribute;
+    return ACTION_SUCCEEDED;
 }
 
 /**********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-ActionOutcome RaiseMagic(EntityId e_id)
+ActionOutcome RaiseMagic(EntityId e_id, uint8_t value)
 {
-    return ACTION_FAILED;
+    uint16_t attribute = IncreaseValue_999(g_core.creatures.stats[e_id].magic, value);
+    if (attribute == g_core.creatures.stats[e_id].magic)
+        return ACTION_CANNOT;
+
+    g_core.creatures.stats[e_id].magic = attribute;
+    return ACTION_SUCCEEDED;
 }
 
 /**********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-ActionOutcome RaiseSpeed(EntityId e_id)
+ActionOutcome RaiseSpeed(EntityId e_id, uint8_t value)
 {
-    return ACTION_FAILED;
+    uint16_t attribute = IncreaseValue_999(g_core.creatures.stats[e_id].speed, value);
+    if (attribute == g_core.creatures.stats[e_id].speed)
+        return ACTION_CANNOT;
+
+    g_core.creatures.stats[e_id].speed = attribute;
+    return ACTION_SUCCEEDED;
 }
 
 /**********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-ActionOutcome RaiseAccuracy(EntityId e_id)
+ActionOutcome RaiseAccuracy(EntityId e_id, uint8_t value)
 {
-    return ACTION_FAILED;
+    uint16_t attribute = IncreaseValue_999(g_core.creatures.stats[e_id].accuracy, value);
+    if (attribute == g_core.creatures.stats[e_id].accuracy)
+        return ACTION_CANNOT;
+
+    g_core.creatures.stats[e_id].accuracy = attribute;
+    return ACTION_SUCCEEDED;
 }
 
 /**********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-ActionOutcome LowerStrength(EntityId e_id)
+ActionOutcome RaiseLoyalty(EntityId e_id, uint8_t value)
 {
-    return ACTION_FAILED;
-}
+    uint16_t attribute = IncreaseValue_999(g_core.creatures.stats[e_id].loyalty, value);
+    if (attribute == g_core.creatures.stats[e_id].loyalty)
+        return ACTION_CANNOT;
 
-/**********************************************************************************************************************
-*
-**********************************************************************************************************************/
-SET_MEMORY(".core")
-ActionOutcome LowerDefence(EntityId e_id)
-{
-    return ACTION_FAILED;
-}
-
-/**********************************************************************************************************************
-*
-**********************************************************************************************************************/
-SET_MEMORY(".core")
-ActionOutcome LowerMagic(EntityId e_id)
-{
-    return ACTION_FAILED;
-}
-
-/**********************************************************************************************************************
-*
-**********************************************************************************************************************/
-SET_MEMORY(".core")
-ActionOutcome LowerSpeed(EntityId e_id)
-{
-    return ACTION_FAILED;
-}
-
-/**********************************************************************************************************************
-*
-**********************************************************************************************************************/
-SET_MEMORY(".core")
-ActionOutcome LowerAccuracy(EntityId e_id)
-{
-    return ACTION_FAILED;
-}
-
-/**********************************************************************************************************************
-*
-**********************************************************************************************************************/
-SET_MEMORY(".core")
-ActionOutcome RaiseBaseStrength(EntityId e_id)
-{
-    return ACTION_FAILED;
-}
-
-/**********************************************************************************************************************
-*
-**********************************************************************************************************************/
-SET_MEMORY(".core")
-ActionOutcome RaiseBaseDefence(EntityId e_id)
-{
-    return ACTION_FAILED;
-}
-
-/**********************************************************************************************************************
-*
-**********************************************************************************************************************/
-SET_MEMORY(".core")
-ActionOutcome RaiseBaseMagic(EntityId e_id)
-{
-    return ACTION_FAILED;
-}
-
-/**********************************************************************************************************************
-*
-**********************************************************************************************************************/
-SET_MEMORY(".core")
-ActionOutcome RaiseBaseSpeed(EntityId e_id)
-{
-    return ACTION_FAILED;
-}
-
-/**********************************************************************************************************************
-*
-**********************************************************************************************************************/
-SET_MEMORY(".core")
-ActionOutcome LowerBaseSpeed(EntityId e_id)
-{
-    return ACTION_FAILED;
-}
-
-/**********************************************************************************************************************
-*
-**********************************************************************************************************************/
-SET_MEMORY(".core")
-ActionOutcome LowerBaseDefence(EntityId e_id)
-{
-    return ACTION_FAILED;
-}
-
-/**********************************************************************************************************************
-*
-**********************************************************************************************************************/
-SET_MEMORY(".core")
-ActionOutcome LowerBaseMagic(EntityId e_id)
-{
-    return ACTION_FAILED;
-}
-
-/**********************************************************************************************************************
-*
-**********************************************************************************************************************/
-SET_MEMORY(".core")
-ActionOutcome LowerBaseStrength(EntityId e_id)
-{
-    return ACTION_FAILED;
+    g_core.creatures.stats[e_id].loyalty = attribute;
+    return ACTION_SUCCEEDED;
 }
 
 
@@ -1246,9 +1451,317 @@ ActionOutcome LowerBaseStrength(EntityId e_id)
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-ActionOutcome DrainXP(EntityId e_id)
+ActionOutcome LowerAttack(EntityId e_id, uint8_t value)
 {
-    return ACTION_FAILED;
+    uint16_t attribute = DecreaseValue(g_core.creatures.stats[e_id].attack, value);
+    if (attribute == g_core.creatures.stats[e_id].attack)
+        return ACTION_CANNOT;
+
+    g_core.creatures.stats[e_id].attack = attribute;
+    return ACTION_SUCCEEDED;
+}
+
+/**********************************************************************************************************************
+*
+**********************************************************************************************************************/
+SET_MEMORY(".core")
+ActionOutcome LowerDefence(EntityId e_id, uint8_t value)
+{
+    uint16_t attribute = DecreaseValue(g_core.creatures.stats[e_id].defence, value);
+    if (attribute == g_core.creatures.stats[e_id].defence)
+        return ACTION_CANNOT;
+
+    g_core.creatures.stats[e_id].defence = attribute;
+    return ACTION_SUCCEEDED;
+}
+
+/**********************************************************************************************************************
+*
+**********************************************************************************************************************/
+SET_MEMORY(".core")
+ActionOutcome LowerMagic(EntityId e_id, uint8_t value)
+{
+    uint16_t attribute = DecreaseValue(g_core.creatures.stats[e_id].magic, value);
+    if (attribute == g_core.creatures.stats[e_id].magic)
+        return ACTION_CANNOT;
+
+    g_core.creatures.stats[e_id].magic = attribute;
+    return ACTION_SUCCEEDED;
+}
+
+/**********************************************************************************************************************
+*
+**********************************************************************************************************************/
+SET_MEMORY(".core")
+ActionOutcome LowerSpeed(EntityId e_id, uint8_t value)
+{
+    uint16_t attribute = DecreaseValue(g_core.creatures.stats[e_id].speed, value);
+    if (attribute == g_core.creatures.stats[e_id].speed)
+        return ACTION_CANNOT;
+
+    g_core.creatures.stats[e_id].speed = attribute;
+    return ACTION_SUCCEEDED;
+}
+
+/**********************************************************************************************************************
+*
+**********************************************************************************************************************/
+SET_MEMORY(".core")
+ActionOutcome LowerAccuracy(EntityId e_id, uint8_t value)
+{
+    uint16_t attribute = DecreaseValue(g_core.creatures.stats[e_id].accuracy, value);
+    if (attribute == g_core.creatures.stats[e_id].speed)
+        return ACTION_CANNOT;
+
+    g_core.creatures.stats[e_id].accuracy = attribute;
+    return ACTION_SUCCEEDED;
+}
+
+/**********************************************************************************************************************
+*
+**********************************************************************************************************************/
+SET_MEMORY(".core")
+ActionOutcome LowerLoyalty(EntityId e_id, uint8_t value)
+{
+    uint16_t attribute = DecreaseValue(g_core.creatures.stats[e_id].loyalty, value);
+    if (attribute == g_core.creatures.stats[e_id].loyalty)
+        return ACTION_CANNOT;
+
+    g_core.creatures.stats[e_id].loyalty = attribute;
+    return ACTION_SUCCEEDED;
+}
+
+/********************************************************************************************************************************************************************************************************************************************
+*
+*   ATTRIBUTES
+*
+********************************************************************************************************************************************************************************************************************************************/
+
+/**********************************************************************************************************************
+*
+**********************************************************************************************************************/
+SET_MEMORY(".core")
+ActionOutcome RaiseStrength(EntityId e_id, uint8_t value)
+{
+    uint16_t attribute = IncreaseValue_999(g_core.creatures.attributes[e_id].strength, value);
+    if (attribute == g_core.creatures.attributes[e_id].strength)
+        return ACTION_CANNOT;
+
+    g_core.creatures.attributes[e_id].strength = attribute;
+    return ACTION_SUCCEEDED;
+}
+
+/**********************************************************************************************************************
+*
+**********************************************************************************************************************/
+SET_MEMORY(".core")
+ActionOutcome RaiseFortitude(EntityId e_id, uint8_t value)
+{
+    uint16_t attribute = IncreaseValue_999(g_core.creatures.attributes[e_id].fortitude, value);
+    if (attribute == g_core.creatures.attributes[e_id].fortitude)
+        return ACTION_CANNOT;
+
+    g_core.creatures.attributes[e_id].fortitude = attribute;
+    return ACTION_SUCCEEDED;
+}
+
+/**********************************************************************************************************************
+*
+**********************************************************************************************************************/
+SET_MEMORY(".core")
+ActionOutcome RaiseIntelligence(EntityId e_id, uint8_t value)
+{
+    uint16_t attribute = IncreaseValue_999(g_core.creatures.attributes[e_id].intelligence, value);
+    if (attribute == g_core.creatures.attributes[e_id].intelligence)
+        return ACTION_CANNOT;
+
+    g_core.creatures.attributes[e_id].intelligence = attribute;
+    return ACTION_SUCCEEDED;
+}
+
+/**********************************************************************************************************************
+*
+**********************************************************************************************************************/
+SET_MEMORY(".core")
+ActionOutcome RaiseAgility(EntityId e_id, uint8_t value)
+{
+    uint16_t attribute = IncreaseValue_999(g_core.creatures.attributes[e_id].agility, value);
+    if (attribute == g_core.creatures.attributes[e_id].agility)
+        return ACTION_CANNOT;
+
+    g_core.creatures.attributes[e_id].agility = attribute;
+    return ACTION_SUCCEEDED;
+}
+
+/**********************************************************************************************************************
+*
+**********************************************************************************************************************/
+SET_MEMORY(".core")
+ActionOutcome RaiseDexterity(EntityId e_id, uint8_t value)
+{
+    uint16_t attribute = IncreaseValue_999(g_core.creatures.attributes[e_id].dexterity, value);
+    if (attribute == g_core.creatures.attributes[e_id].dexterity)
+        return ACTION_CANNOT;
+
+    g_core.creatures.attributes[e_id].dexterity = attribute;
+    return ACTION_SUCCEEDED;
+}
+
+/**********************************************************************************************************************
+*
+**********************************************************************************************************************/
+SET_MEMORY(".core")
+ActionOutcome RaiseStamina(EntityId e_id, uint8_t value)
+{
+    uint16_t attribute = IncreaseValue_999(g_core.creatures.attributes[e_id].stamina, value);
+    if (attribute == g_core.creatures.attributes[e_id].stamina)
+        return ACTION_CANNOT;
+
+    g_core.creatures.attributes[e_id].stamina = attribute;
+    return ACTION_SUCCEEDED;
+}
+
+/**********************************************************************************************************************
+*
+**********************************************************************************************************************/
+SET_MEMORY(".core")
+ActionOutcome LowerStrength(EntityId e_id, uint8_t value)
+{
+    uint16_t attribute = DecreaseValue(g_core.creatures.attributes[e_id].strength, value);
+    if (attribute == g_core.creatures.attributes[e_id].strength)
+        return ACTION_CANNOT;
+
+    g_core.creatures.attributes[e_id].strength = attribute;
+    return ACTION_SUCCEEDED;
+}
+
+/**********************************************************************************************************************
+*
+**********************************************************************************************************************/
+SET_MEMORY(".core")
+ActionOutcome LowerFortitude(EntityId e_id, uint8_t value)
+{
+    uint16_t attribute = DecreaseValue(g_core.creatures.attributes[e_id].fortitude, value);
+    if (attribute == g_core.creatures.attributes[e_id].fortitude)
+        return ACTION_CANNOT;
+
+    g_core.creatures.attributes[e_id].fortitude = attribute;
+    return ACTION_SUCCEEDED;
+}
+
+/**********************************************************************************************************************
+*
+**********************************************************************************************************************/
+SET_MEMORY(".core")
+ActionOutcome LowerIntelligence(EntityId e_id, uint8_t value)
+{
+    uint16_t attribute = DecreaseValue(g_core.creatures.attributes[e_id].intelligence, value);
+    if (attribute == g_core.creatures.attributes[e_id].intelligence)
+        return ACTION_CANNOT;
+
+    g_core.creatures.attributes[e_id].intelligence = attribute;
+    return ACTION_SUCCEEDED;
+}
+
+/**********************************************************************************************************************
+*
+**********************************************************************************************************************/
+SET_MEMORY(".core")
+ActionOutcome LowerAgility(EntityId e_id, uint8_t value)
+{
+    uint16_t attribute = DecreaseValue(g_core.creatures.attributes[e_id].agility, value);
+    if (attribute == g_core.creatures.attributes[e_id].agility)
+        return ACTION_CANNOT;
+
+    g_core.creatures.attributes[e_id].agility = attribute;
+    return ACTION_SUCCEEDED;
+}
+
+
+/**********************************************************************************************************************
+*
+**********************************************************************************************************************/
+SET_MEMORY(".core")
+ActionOutcome LowerDexterity(EntityId e_id, uint8_t value)
+{
+    uint16_t attribute = DecreaseValue(g_core.creatures.attributes[e_id].dexterity, value);
+    if (attribute == g_core.creatures.attributes[e_id].dexterity)
+        return ACTION_CANNOT;
+
+    g_core.creatures.attributes[e_id].dexterity = attribute;
+    return ACTION_SUCCEEDED;
+}
+
+
+/**********************************************************************************************************************
+*
+**********************************************************************************************************************/
+SET_MEMORY(".core")
+ActionOutcome LowerStamina(EntityId e_id, uint8_t value)
+{
+    uint16_t attribute = DecreaseValue(g_core.creatures.attributes[e_id].stamina, value);
+    if (attribute == g_core.creatures.attributes[e_id].stamina)
+        return ACTION_CANNOT;
+
+    g_core.creatures.attributes[e_id].stamina = attribute;
+    return ACTION_SUCCEEDED;
+}
+
+
+/**********************************************************************************************************************
+*
+**********************************************************************************************************************/
+SET_MEMORY(".core")
+ActionOutcome LowerCurrentXP(EntityId e_id, uint8_t value)
+{
+    if (DecreaseValue_IntMax999(&g_core.creatures.xp[e_id], value))
+        return ACTION_SUCCEEDED;
+    return ACTION_CANNOT;
+}
+
+
+/**********************************************************************************************************************
+*
+**********************************************************************************************************************/
+SET_MEMORY(".core")
+ActionOutcome RaiseMaxHP(EntityId e_id, uint8_t value)
+{
+    if (IncreaseValue_IntMax999(&g_core.creatures.hp[e_id], value))
+        return ACTION_SUCCEEDED;
+    return ACTION_CANNOT;
+}
+
+/**********************************************************************************************************************
+*
+**********************************************************************************************************************/
+SET_MEMORY(".core")
+ActionOutcome LowerMaxHP(EntityId e_id, uint8_t value)
+{
+    if (DecreaseValue_IntMax999(&g_core.creatures.hp[e_id], value))
+        return ACTION_SUCCEEDED;
+    return ACTION_CANNOT;
+}
+
+/**********************************************************************************************************************
+*
+**********************************************************************************************************************/
+SET_MEMORY(".core")
+ActionOutcome RaiseMaxMP(EntityId e_id, uint8_t value)
+{
+    if (IncreaseValue_IntMax999(&g_core.creatures.mp[e_id], value))
+        return ACTION_SUCCEEDED;
+    return ACTION_CANNOT;
+}
+
+/**********************************************************************************************************************
+*
+**********************************************************************************************************************/
+SET_MEMORY(".core")
+ActionOutcome LowerMaxMP(EntityId e_id, uint8_t value)
+{
+    if (DecreaseValue_IntMax999(&g_core.creatures.mp[e_id], value))
+        return ACTION_SUCCEEDED;
+    return ACTION_CANNOT;
 }
 
 /********************************************************************************************************************************************************************************************************************************************

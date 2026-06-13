@@ -104,7 +104,7 @@ ActionOutcome SkillCombustion(HardwareInterface hardware, MemoryInterface memory
 SET_MEMORY(".battle")
 ActionOutcome SkillFlare(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    LowerAccuracy(defenderID);
+    LowerAccuracy(defenderID, abilityData.power);
     return ACTION_SUCCEEDED;
 }
 
@@ -143,12 +143,12 @@ ActionOutcome SkillPyre(HardwareInterface hardware, MemoryInterface memory, Enti
         for (uint8_t i = 0; i < MAX_PARTY_SIZE; ++i)
         {
             if (g_core.trainers.partyID[p_ID][i] == NO_ENTITY) continue;
-            RaiseMagic(g_core.trainers.partyID[p_ID][i]);
+            RaiseMagic(g_core.trainers.partyID[p_ID][i], abilityData.power);
         }
     }
     else
     {
-        RaiseMagic(attackerID);
+        RaiseMagic(attackerID, abilityData.power);
     }
     DEBUG("Done Pyre");
     return ACTION_SUCCEEDED;
@@ -171,8 +171,7 @@ ActionOutcome SkillScorch(HardwareInterface hardware, MemoryInterface memory, En
 SET_MEMORY(".battle")
 ActionOutcome SkillCinderStorm(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    LowerSpeed(defenderID);
-    return ACTION_SUCCEEDED;
+    return LowerSpeed(defenderID, abilityData.power);
 }
 
 /*********************************************************************************************************************
@@ -192,8 +191,7 @@ ActionOutcome SkillMagmaBurst(HardwareInterface hardware, MemoryInterface memory
 SET_MEMORY(".battle")
 ActionOutcome SkillSunfury(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    RaiseStrength(attackerID);
-    return ACTION_SUCCEEDED;
+    return RaiseStrength(attackerID, abilityData.power);
 }
 
 /*********************************************************************************************************************
@@ -213,7 +211,7 @@ ActionOutcome SkillBlazingCharge(HardwareInterface hardware, MemoryInterface mem
 SET_MEMORY(".battle")
 ActionOutcome SkillAshCloud(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    LowerAccuracy(defenderID);
+    LowerAccuracy(defenderID, abilityData.power);
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return ACTION_SUCCEEDED;
 }
@@ -322,7 +320,7 @@ ActionOutcome SkillColdSnap(HardwareInterface hardware, MemoryInterface memory, 
 SET_MEMORY(".battle")
 ActionOutcome SkillIceArmor(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    RaiseDefence(attackerID);
+    RaiseDefence(attackerID, abilityData.power);
     FreezeAttackers(attackerID, abilityData.power);
     return ACTION_SUCCEEDED;
 }
@@ -366,7 +364,7 @@ ActionOutcome SkillPermafrost(HardwareInterface hardware, MemoryInterface memory
 SET_MEMORY(".battle")
 ActionOutcome SkillSnowBlind(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    LowerAccuracy(defenderID);
+    LowerAccuracy(defenderID, abilityData.power);
     return ACTION_SUCCEEDED;
 }
 
@@ -451,7 +449,7 @@ ActionOutcome SkillCavitation(HardwareInterface hardware, MemoryInterface memory
 SET_MEMORY(".battle")
 ActionOutcome SkillHypervision(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    RaiseAccuracy(attackerID);
+    RaiseAccuracy(attackerID, abilityData.power);
     return ACTION_SUCCEEDED;
 }
 
@@ -461,7 +459,7 @@ ActionOutcome SkillHypervision(HardwareInterface hardware, MemoryInterface memor
 SET_MEMORY(".battle")
 ActionOutcome SkillShellbreaker(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    LowerDefence(defenderID);
+    LowerDefence(defenderID, abilityData.power);
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return ACTION_SUCCEEDED;
 }
@@ -665,7 +663,7 @@ ActionOutcome SkillRootAnchor(HardwareInterface hardware, MemoryInterface memory
 SET_MEMORY(".battle")
 ActionOutcome SkillForestWard(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    RaiseDefence(attackerID);
+    RaiseDefence(attackerID, abilityData.power);
     return ACTION_SUCCEEDED;
 }
 
@@ -726,7 +724,7 @@ ActionOutcome SkillSeedVolley(HardwareInterface hardware, MemoryInterface memory
 SET_MEMORY(".battle")
 ActionOutcome SkillVerdantGrowth(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    RaiseMagic(attackerID);
+    RaiseMagic(attackerID, abilityData.power);
     return ACTION_SUCCEEDED;
 }
 
@@ -767,7 +765,7 @@ ActionOutcome SkillPetalBlitz(HardwareInterface hardware, MemoryInterface memory
 SET_MEMORY(".battle")
 ActionOutcome SkillOvergrowth(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    RaiseMagic(attackerID);
+    RaiseMagic(attackerID, abilityData.power);
     return ACTION_SUCCEEDED;
 }
 
@@ -1011,7 +1009,7 @@ ActionOutcome SkillFlyby(HardwareInterface hardware, MemoryInterface memory, Ent
 SET_MEMORY(".battle")
 ActionOutcome SkillScalesHarden(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    RaiseDefence(attackerID);
+    RaiseDefence(attackerID, abilityData.power);
     return ACTION_SUCCEEDED;
 }
 
@@ -1101,7 +1099,7 @@ ActionOutcome SkillWyrmCharge(HardwareInterface hardware, MemoryInterface memory
 SET_MEMORY(".battle")
 ActionOutcome SkillAncientGuard(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    RaiseDefence(attackerID);
+    RaiseDefence(attackerID, abilityData.power);
     return ACTION_SUCCEEDED;
 }
 
@@ -1273,7 +1271,7 @@ ActionOutcome SkillBedrockShield(HardwareInterface hardware, MemoryInterface mem
 SET_MEMORY(".battle")
 ActionOutcome SkillTitanicRoar(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    RaiseStrength(attackerID);
+    RaiseStrength(attackerID, abilityData.power);
     return ACTION_SUCCEEDED;
 }
 
@@ -1305,7 +1303,7 @@ ActionOutcome SkillPounce(HardwareInterface hardware, MemoryInterface memory, En
 SET_MEMORY(".battle")
 ActionOutcome SkillFeralRage(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    RaiseStrength(attackerID);
+    RaiseStrength(attackerID, abilityData.power);
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return ACTION_SUCCEEDED;
 }
@@ -1346,7 +1344,7 @@ ActionOutcome SkillTerrifyingRoar(HardwareInterface hardware, MemoryInterface me
 SET_MEMORY(".battle")
 ActionOutcome SkillBloodScent(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    RaiseStrength(attackerID);
+    RaiseStrength(attackerID, abilityData.power);
     return ACTION_SUCCEEDED;
 }
 
@@ -1404,12 +1402,12 @@ ActionOutcome SkillHowlOfThePack(HardwareInterface hardware, MemoryInterface mem
         {
             EntityId p_ID = GetPlayerID();
             if (g_core.trainers.partyID[p_ID][i] == NO_ENTITY) continue;
-            RaiseStrength(g_core.trainers.partyID[p_ID][i]);
+            RaiseStrength(g_core.trainers.partyID[p_ID][i], abilityData.power);
         }
     }
     else
     {
-        RaiseStrength(attackerID);
+        RaiseStrength(attackerID, abilityData.power);
     }
     return ACTION_SUCCEEDED;
 }
@@ -1770,7 +1768,7 @@ ActionOutcome SkillDivineIntervention(HardwareInterface hardware, MemoryInterfac
 SET_MEMORY(".battle")
 ActionOutcome SkillHaloOfGrace(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    RaiseMagic(attackerID);
+    RaiseMagic(attackerID, abilityData.power);
     return ACTION_SUCCEEDED;
 }
 
@@ -1780,7 +1778,7 @@ ActionOutcome SkillHaloOfGrace(HardwareInterface hardware, MemoryInterface memor
 SET_MEMORY(".battle")
 ActionOutcome SkillRighteousFury(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    RaiseStrength(attackerID);
+    RaiseStrength(attackerID, abilityData.power);
     return ACTION_SUCCEEDED;
 }
 
@@ -1790,7 +1788,7 @@ ActionOutcome SkillRighteousFury(HardwareInterface hardware, MemoryInterface mem
 SET_MEMORY(".battle")
 ActionOutcome SkillSeraphicWard(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    RaiseDefence(attackerID);
+    RaiseDefence(attackerID, abilityData.power);
     return ACTION_SUCCEEDED;
 }
 
@@ -1833,7 +1831,7 @@ ActionOutcome SkillBash(HardwareInterface hardware, MemoryInterface memory, Enti
 SET_MEMORY(".battle")
 ActionOutcome SkillPreciseStrike(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    RaiseAccuracy(attackerID);
+    RaiseAccuracy(attackerID, abilityData.power);
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return ACTION_SUCCEEDED;
 }
@@ -1869,12 +1867,12 @@ ActionOutcome SkillRally(HardwareInterface hardware, MemoryInterface memory, Ent
         {
             EntityId p_ID = GetPlayerID();
             if (g_core.trainers.partyID[p_ID][i] == NO_ENTITY) continue;
-            RaiseStrength(g_core.trainers.partyID[p_ID][i]);
+            RaiseStrength(g_core.trainers.partyID[p_ID][i], abilityData.power);
         }
     }
     else
     {
-        RaiseStrength(attackerID);
+        RaiseStrength(attackerID, abilityData.power);
     }
     return ACTION_SUCCEEDED;
 }
@@ -1885,7 +1883,7 @@ ActionOutcome SkillRally(HardwareInterface hardware, MemoryInterface memory, Ent
 SET_MEMORY(".battle")
 ActionOutcome SkillDisarm(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    LowerStrength(defenderID);
+    LowerStrength(defenderID, abilityData.power);
     return ACTION_SUCCEEDED;
 }
 
@@ -1926,7 +1924,7 @@ ActionOutcome SkillCripplingBlow(HardwareInterface hardware, MemoryInterface mem
 SET_MEMORY(".battle")
 ActionOutcome SkillGuardBreak(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    LowerDefence(defenderID);
+    LowerDefence(defenderID, abilityData.power);
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return ACTION_SUCCEEDED;
 }
@@ -1947,7 +1945,7 @@ ActionOutcome SkillSecondWind(HardwareInterface hardware, MemoryInterface memory
 SET_MEMORY(".battle")
 ActionOutcome SkillIronWill(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    RaiseMagic(attackerID);
+    RaiseMagic(attackerID, abilityData.power);
     return ACTION_SUCCEEDED;
 }
 
@@ -2010,7 +2008,7 @@ ActionOutcome SkillFossilize(HardwareInterface hardware, MemoryInterface memory,
 SET_MEMORY(".battle")
 ActionOutcome SkillCallOfTheVoid(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    LowerMagic(defenderID);
+    LowerMagic(defenderID, abilityData.power);
     return ACTION_SUCCEEDED;
 }
 
@@ -2040,7 +2038,7 @@ ActionOutcome SkillSleepOfAges(HardwareInterface hardware, MemoryInterface memor
 SET_MEMORY(".battle")
 ActionOutcome SkillAncientWisdom(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    RaiseMagic(attackerID);
+    RaiseMagic(attackerID, abilityData.power);
     return ACTION_SUCCEEDED;
 }
 
@@ -2212,7 +2210,7 @@ ActionOutcome SkillRaiseMinion(HardwareInterface hardware, MemoryInterface memor
 SET_MEMORY(".battle")
 ActionOutcome SkillWither(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    LowerStrength(defenderID);
+    LowerStrength(defenderID, abilityData.power);
     return ACTION_SUCCEEDED;
 }
 
@@ -2297,7 +2295,7 @@ ActionOutcome SkillPhantomGrasp(HardwareInterface hardware, MemoryInterface memo
 SET_MEMORY(".battle")
 ActionOutcome SkillTombShield(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    RaiseDefence(defenderID);
+    RaiseDefence(defenderID, abilityData.power);
     return ACTION_SUCCEEDED;
 }
 
@@ -2466,7 +2464,7 @@ ActionOutcome SkillInfernalRush(HardwareInterface hardware, MemoryInterface memo
 SET_MEMORY(".battle")
 ActionOutcome SkillDiabolicCry(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    RaiseStrength(defenderID);
+    RaiseStrength(defenderID, abilityData.power);
     return ACTION_SUCCEEDED;
 }
 
@@ -2693,7 +2691,7 @@ ActionOutcome SkillMudSlide(HardwareInterface hardware, MemoryInterface memory, 
 SET_MEMORY(".battle")
 ActionOutcome SkillStoneSkin(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    LowerDefence(defenderID);
+    LowerDefence(defenderID, abilityData.power);
     return ACTION_SUCCEEDED;
 }
 
@@ -2794,7 +2792,7 @@ ActionOutcome SkillMudClaw(HardwareInterface hardware, MemoryInterface memory, E
 SET_MEMORY(".battle")
 ActionOutcome SkillGeoBarrier(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    RaiseDefence(defenderID);
+    RaiseDefence(defenderID, abilityData.power);
     return ACTION_SUCCEEDED;
 }
 

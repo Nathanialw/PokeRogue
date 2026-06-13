@@ -95,7 +95,7 @@ void GetAsChars_Max99(uint8_t n, CharStr_max99* out)
  *  @return             number of characters written (1 or 2, excluding null terminator)
  **********************************************************************************************************************/
 SET_MEMORY(".core")
-uint8_t GetAsChars_99(Int99 n, CharStr_99* out, bool prependZeros)
+uint8_t GetAsChars_99(uint99 n, CharStr_99* out, bool prependZeros)
 {
     uint8_t tens = n.value / 10;
     uint8_t ones = n.value % 10;
@@ -148,7 +148,7 @@ uint8_t GetNibble(uint8_t* bitField, uint8_t id)
 /** Returns the current value of the given IntMax999
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-uint16_t Int999GetCurrent(const IntMax999* hp)
+uint16_t Int999GetCurrent(const uint_max999* hp)
 {
     return (hp->current_high << 8) | hp->current_low;
 }
@@ -157,7 +157,7 @@ uint16_t Int999GetCurrent(const IntMax999* hp)
 /** Returns the max value of the given IntMax999
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-uint16_t Int999GetMax(const IntMax999* hp)
+uint16_t Int999GetMax(const uint_max999* hp)
 {
     return (hp->max_high << 8) | hp->max_low;
 }
@@ -166,7 +166,7 @@ uint16_t Int999GetMax(const IntMax999* hp)
 /** Sets the current value of the given IntMax999 to the given value
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-void Int999SetCurrent(IntMax999* hp, uint16_t value)
+void Int999SetCurrent(uint_max999* hp, uint16_t value)
 {
     hp->current_low = value & 0xFF;
     hp->current_high = (value >> 8) & 0x03;
@@ -176,14 +176,14 @@ void Int999SetCurrent(IntMax999* hp, uint16_t value)
 /** Sets the max value of the given IntMax999 to the given value
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-void Int999SetMax(IntMax999* hp, uint16_t value)
+void Int999SetMax(uint_max999* hp, uint16_t value)
 {
     hp->max_low = value & 0xFF;
     hp->max_high = (value >> 8) & 0x03;
 }
 
 SET_MEMORY(".core")
-void Int999ApplyValue(HardwareInterface hardware, IntMax999* hp, int16_t value)
+void Int999ApplyValue(HardwareInterface hardware, uint_max999* hp, int16_t value)
 {
     uint16_t n = Int999GetCurrent(hp);
     if (n >= hardware.Abs(value))

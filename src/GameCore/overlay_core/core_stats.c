@@ -18,10 +18,10 @@
  *  Sets current x to 0
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-void SetXPToLevel(EntityId id, IntMax999* xp)
+void SetXPToLevel(EntityId id, uint_max999* xp)
 {
     const Stats stats = g_core.creatures.stats[id];
-    const Int99 level = g_core.creatures.level[id];
+    const uint99 level = g_core.creatures.level[id];
     const uint16_t total_stats = (stats.attack + stats.defence + stats.magic + stats.speed + (20 * level.value)) >> 1;
 
     Int999SetCurrent(xp, 0);
@@ -35,7 +35,7 @@ void SetXPToLevel(EntityId id, IntMax999* xp)
 SET_MEMORY(".core")
 void GainXP(EntityId creature_id, uint16_t xp_value)
 {
-    IntMax999 xp = g_core.creatures.xp[creature_id];
+    uint_max999 xp = g_core.creatures.xp[creature_id];
     uint16_t cur = Int999GetCurrent(&xp);
     g_core.battleMode.battle_xp_cache = cur;
     uint16_t max = Int999GetMax(&xp);
@@ -111,9 +111,9 @@ void GetStats(HardwareInterface hardware, MemoryInterface memory, Stats* stats, 
  *  TODO get the values from the DB values and calc with growth
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-IntMax999 GetHP(Creature type, uint8_t level)
+uint_max999 GetHP(Creature type, uint8_t level)
 {
-    IntMax999 k = {0};
+    uint_max999 k = {0};
     Int999SetCurrent(&k, ((level + 1) * 20));
     Int999SetMax(&k, ((level + 1) * 20));\
     return k;
@@ -124,9 +124,9 @@ IntMax999 GetHP(Creature type, uint8_t level)
  *  TODO get the values from the DB values and calc with growth
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-IntMax999 GetMP(Creature type, uint8_t level)
+uint_max999 GetMP(Creature type, uint8_t level)
 {
-    IntMax999 k = {0};
+    uint_max999 k = {0};
     Int999SetCurrent(&k, (level + 1) * 10);
     Int999SetMax(&k, (level + 1) * 10);
     return k;

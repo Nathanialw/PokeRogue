@@ -54,7 +54,7 @@
  *  HEALTH - RISE TODO: NOT IMPLEMENTED YET
  ************************************************************************************************************/
 SET_MEMORY(".battle")
-void UpdateResourceBar(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, uint16_t offset_h, uint16_t cache_value, IntMax999* stat, bool attackersTurn)
+void UpdateResourceBar(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, uint16_t offset_h, uint16_t cache_value, uint_max999* stat, bool attackersTurn)
 {
     Rect_16 r = {0};
     uint16_t cur_mp = 0;

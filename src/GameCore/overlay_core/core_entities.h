@@ -25,9 +25,13 @@ bool AddCreatureToParty(EntityId trainer_id, EntityId creatureid);
 bool DeleteCreatureFromParty(EntityId trainer_id, EntityId creature_id);
 EntityId GetNextPartyCreature(EntityId trainer_id);
 
-IntMax999 GetCreaturehp(EntityId id);
-IntMax999 GetCreaturemp(EntityId id);
-IntMax999 GetCreaturexp(EntityId id);
+Stats GetCreatureStats(EntityId id);
+Attributes GetCreatureAttributes(EntityId id);
+Resists GetCreatureResists(EntityId id);
+Absorb GetCreatureAbsorb(EntityId id);
+uint_max999 GetCreaturehp(EntityId id);
+uint_max999 GetCreaturemp(EntityId id);
+uint_max999 GetCreaturexp(EntityId id);
 
 void AddSpellPage(MemoryInterface memory, EntityId id, Spell spell, uint8_t spellbook_idx);
 void ClearSpellPage(EntityId id, uint8_t spellbook_idx);

@@ -124,7 +124,6 @@ typedef struct
         Delta d;
         Delta scroll;
         BitFieldUint8 effects;
-
     } player;
 
 
@@ -164,38 +163,18 @@ typedef struct
             uint8_t slowed[MAX_ENTITY_CREATURE_COUNT / 2];
         } status;
 
-        struct
-        {
-            uint8_t toxic[MAX_ENTITY_CREATURE_COUNT / 2];
-            uint8_t fire[MAX_ENTITY_CREATURE_COUNT / 2];
-            uint8_t water[MAX_ENTITY_CREATURE_COUNT / 2];
-            uint8_t ice[MAX_ENTITY_CREATURE_COUNT / 2];
-            uint8_t earth[MAX_ENTITY_CREATURE_COUNT / 2];
-            uint8_t magic[MAX_ENTITY_CREATURE_COUNT / 2];
-            BitFieldUint8 toxicEating;
-            BitFieldUint8 fireEating;
-            BitFieldUint8 waterEating;
-            BitFieldUint8 iceEating;
-            BitFieldUint8 earthEating;
-            BitFieldUint8 magicEating;
-        } resist;
-
-        struct
-        {
-            uint8_t strength[MAX_ENTITY_CREATURE_COUNT / 2];
-            uint8_t fortitude[MAX_ENTITY_CREATURE_COUNT / 2];
-            uint8_t magic[MAX_ENTITY_CREATURE_COUNT / 2];
-            uint8_t agility[MAX_ENTITY_CREATURE_COUNT / 2];
-        } attributes;
-
         BitFieldUint8 alive;
+
+        Absorb absorb[MAX_ENTITY_CREATURE_COUNT];
+        Resists resists[MAX_ENTITY_CREATURE_COUNT];
+        Attributes attributes[MAX_ENTITY_CREATURE_COUNT];
         Stats stats[MAX_ENTITY_CREATURE_COUNT];
         Attacks attacks[MAX_ENTITY_CREATURE_COUNT];
-        IntMax999 hp[MAX_ENTITY_CREATURE_COUNT];
-        IntMax999 mp[MAX_ENTITY_CREATURE_COUNT];
-        IntMax999 xp[MAX_ENTITY_CREATURE_COUNT]; // can be changed to hold delta, a uint8_t can hold up to 2
+        uint_max999 hp[MAX_ENTITY_CREATURE_COUNT];
+        uint_max999 mp[MAX_ENTITY_CREATURE_COUNT];
+        uint_max999 xp[MAX_ENTITY_CREATURE_COUNT]; // can be changed to hold delta, a uint8_t can hold up to 2
         IntMax99 speed[MAX_ENTITY_CREATURE_COUNT];
-        Int99 level[MAX_ENTITY_CREATURE_COUNT];
+        uint99 level[MAX_ENTITY_CREATURE_COUNT];
         Senses senses[MAX_ENTITY_CREATURE_COUNT];
         Senses stealth[MAX_ENTITY_CREATURE_COUNT];
     } creatures;

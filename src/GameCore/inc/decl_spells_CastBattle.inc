@@ -1,5 +1,5 @@
 // Generated spell function headers
-// Database contains 70 total spells
+// Database contains 86 total spells
 
 // Individual spells strings
 ActionOutcome CastBattleAwaken(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData);
@@ -26,6 +26,8 @@ ActionOutcome CastBattleFireball(HardwareInterface hardware, MemoryInterface mem
 ActionOutcome CastBattleFlameEater(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData);
 ActionOutcome CastBattleFocus(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData);
 ActionOutcome CastBattleFortify(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData);
+ActionOutcome CastBattleGainAccuracy(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData);
+ActionOutcome CastBattleGainLoyalty(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData);
 ActionOutcome CastBattleGlowingEmbers(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData);
 ActionOutcome CastBattleGrowMuscle(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData);
 ActionOutcome CastBattleHaste(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData);
@@ -45,8 +47,22 @@ ActionOutcome CastBattlePowerOverwhelming(HardwareInterface hardware, MemoryInte
 ActionOutcome CastBattlePurification(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData);
 ActionOutcome CastBattleRage(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData);
 ActionOutcome CastBattleRainStorm(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData);
+ActionOutcome CastBattleRaiseAgility(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData);
 ActionOutcome CastBattleRaiseDead(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData);
+ActionOutcome CastBattleRaiseDexterity(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData);
+ActionOutcome CastBattleRaiseEarthResist(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData);
+ActionOutcome CastBattleRaiseFireResist(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData);
+ActionOutcome CastBattleRaiseFortitude(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData);
+ActionOutcome CastBattleRaiseIceResist(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData);
+ActionOutcome CastBattleRaiseIntelligence(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData);
+ActionOutcome CastBattleRaiseMagicResist(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData);
+ActionOutcome CastBattleRaiseMaxHP(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData);
+ActionOutcome CastBattleRaiseMaxMP(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData);
 ActionOutcome CastBattleRaiseSkeleton(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData);
+ActionOutcome CastBattleRaiseStamina(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData);
+ActionOutcome CastBattleRaiseStrength(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData);
+ActionOutcome CastBattleRaiseToxicResist(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData);
+ActionOutcome CastBattleRaiseWaterResist(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData);
 ActionOutcome CastBattleRazorGrass(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData);
 ActionOutcome CastBattleReflect(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData);
 ActionOutcome CastBattleRepel(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData);
@@ -73,4 +89,4 @@ ActionOutcome CastBattleWizen(HardwareInterface hardware, MemoryInterface memory
 ActionOutcome CastBattleWizen2(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData);
 ActionOutcome CastBattleXRayVision(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData);
 
-//ALL_NAMES_COUNT = 70;
+//ALL_NAMES_COUNT = 86;

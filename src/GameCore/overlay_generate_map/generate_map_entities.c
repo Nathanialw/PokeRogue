@@ -34,7 +34,7 @@ void InitPlayer(HardwareInterface hardware, MemoryInterface memory)
     Position pos = FindOpenMapLocation(hardware, TRAINER);
     uint8_t x = pos.x;
     uint8_t y = pos.y;
-    g_core.player.id = SpawnEntity(hardware, memory, TRAINER, Bernard, x, y, 0);
+    g_core.player.id = SpawnEntity(hardware, memory, TRAINER, BERNARD, x, y, 0);
     g_core.trainers.bag[g_core.player.id].current_max_size = DEFAULT_BAG_SIZE;
     g_core.trainers.spellbook[g_core.player.id].current_max_pages = DEFAULT_SPELLBOOK_SIZE;
 
@@ -47,7 +47,7 @@ void InitPlayer(HardwareInterface hardware, MemoryInterface memory)
     AddSpellPage(memory, g_core.player.id, DESCEND, GetPlayerSpellbook()->occupied_pages);
     AddSpellPage(memory, g_core.player.id, CLAIRVOYANCE, GetPlayerSpellbook()->occupied_pages);
     AddSpellPage(memory, g_core.player.id, DISPLACEMENT, GetPlayerSpellbook()->occupied_pages);
-    AddSpellPage(memory, g_core.player.id, SUMMON_WARD, GetPlayerSpellbook()->occupied_pages);
+    AddSpellPage(memory, g_core.player.id, WIZEN, GetPlayerSpellbook()->occupied_pages);
 
 
     //  TODO: set from trainer data in the database flash
@@ -459,7 +459,7 @@ void GenerateEntities(GameInterface* spi)
         PopulateLevelTrainers(spi->hardware, spi->memory);
         PopulateLevelCreatures(spi->hardware, spi->memory);
         PopulateLevelObjects(spi->hardware, spi->memory);
-        PopulateLevelItems(spi->hardware, spi->memory);
+        // PopulateLevelItems(spi->hardware, spi->memory);
         PlacePlayerOnMap(spi->hardware);
     }
 }

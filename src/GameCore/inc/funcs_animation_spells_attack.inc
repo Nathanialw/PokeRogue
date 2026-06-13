@@ -1,5 +1,5 @@
 // Generated spell name strings
-// Database contains 70 total entries
+// Database contains 86 total entries
 
 // Individual items strings
 SpellAttackAwaken,
@@ -26,6 +26,8 @@ SpellAttackFireball,
 SpellAttackFlameEater,
 SpellAttackFocus,
 SpellAttackFortify,
+SpellAttackGainAccuracy,
+SpellAttackGainLoyalty,
 SpellAttackGlowingEmbers,
 SpellAttackGrowMuscle,
 SpellAttackHaste,
@@ -45,8 +47,22 @@ SpellAttackPowerOverwhelming,
 SpellAttackPurification,
 SpellAttackRage,
 SpellAttackRainStorm,
+SpellAttackRaiseAgility,
 SpellAttackRaiseDead,
+SpellAttackRaiseDexterity,
+SpellAttackRaiseEarthResist,
+SpellAttackRaiseFireResist,
+SpellAttackRaiseFortitude,
+SpellAttackRaiseIceResist,
+SpellAttackRaiseIntelligence,
+SpellAttackRaiseMagicResist,
+SpellAttackRaiseMaxHP,
+SpellAttackRaiseMaxMP,
 SpellAttackRaiseSkeleton,
+SpellAttackRaiseStamina,
+SpellAttackRaiseStrength,
+SpellAttackRaiseToxicResist,
+SpellAttackRaiseWaterResist,
 SpellAttackRazorGrass,
 SpellAttackReflect,
 SpellAttackRepel,
@@ -73,4 +89,4 @@ SpellAttackWizen,
 SpellAttackWizen2,
 SpellAttackXRayVision,
 
-//ALL_NAMES_COUNT = 70;
+//ALL_NAMES_COUNT = 86;

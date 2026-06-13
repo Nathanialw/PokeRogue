@@ -1,17 +1,12 @@
 // Generated object name strings
-// Database contains 43 total entries
+// Database contains 35 total entries
 
 // Individual items strings
 InteractAltar,
-InteractRaft,
-InteractRowBoat,
 InteractBookCase,
 InteractJewelleryCase,
 InteractScrollCase,
 InteractCauldron,
-InteractAcidCloud,
-InteractPoisonGas,
-InteractSmokeCloud,
 InteractCoffin,
 InteractSarcophagus,
 InteractHangingCorpse,
@@ -32,9 +27,6 @@ InteractWallTorch,
 InteractAcidFountain,
 InteractBloodFountain,
 InteractWaterFountain,
-InteractHiddenCompartment,
-InteractArmorRack,
-InteractWeaponRack,
 InteractBarrel,
 InteractBasket,
 InteractChest,
@@ -46,4 +38,4 @@ InteractVault,
 InteractWard,
 InteractWell,
 
-//ALL_NAMES_COUNT = 43;
+//ALL_NAMES_COUNT = 35;

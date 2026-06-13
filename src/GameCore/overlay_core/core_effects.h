@@ -74,17 +74,21 @@ ActionOutcome PersistentPoisonCloud(uint8_t duration);
 /**********************************************************************************************************************/
 /** RESISTANCES
 **********************************************************************************************************************/
-ActionOutcome RaiseAcidResistance(EntityId e_id);
-ActionOutcome RaiseFireResistance(EntityId e_id);
-ActionOutcome RaiseWaterResistance(EntityId e_id);
-ActionOutcome RaiseIceResistance(EntityId e_id);
-ActionOutcome RaiseMagicResistance(EntityId e_id);
-ActionOutcome RaiseAllResistance(EntityId e_id);
-ActionOutcome LowerAcidResistance(EntityId e_id);
-ActionOutcome LowerFireResistance(EntityId e_id);
-ActionOutcome LowerWaterResistance(EntityId e_id);
-ActionOutcome LowerIceResistance(EntityId e_id);
-ActionOutcome LowerMagicResistance(EntityId e_id);
+ActionOutcome RaiseEarthResistance(EntityId e_id, uint8_t value);
+ActionOutcome RaiseAcidResistance(EntityId e_id, uint8_t value);
+ActionOutcome RaiseFireResistance(EntityId e_id, uint8_t value);
+ActionOutcome RaiseWaterResistance(EntityId e_id, uint8_t value);
+ActionOutcome RaiseIceResistance(EntityId e_id, uint8_t value);
+ActionOutcome RaiseMagicResistance(EntityId e_id, uint8_t value);
+ActionOutcome RaiseAllResistance(EntityId e_id, uint8_t value);
+
+ActionOutcome LowerEarthResistance(EntityId e_id, uint8_t value);
+ActionOutcome LowerAcidResistance(EntityId e_id, uint8_t value);
+ActionOutcome LowerFireResistance(EntityId e_id, uint8_t value);
+ActionOutcome LowerWaterResistance(EntityId e_id, uint8_t value);
+ActionOutcome LowerIceResistance(EntityId e_id, uint8_t value);
+ActionOutcome LowerMagicResistance(EntityId e_id, uint8_t value);
+
 ActionOutcome FireEating(EntityId e_id);
 ActionOutcome WaterEating(EntityId e_id);
 ActionOutcome IceEating(EntityId e_id);
@@ -95,27 +99,42 @@ ActionOutcome LavaEating(EntityId e_id);
 /**********************************************************************************************************************/
 /** CREATURE STATS
 **********************************************************************************************************************/
-ActionOutcome LowerAccuracy(EntityId e_id);
-ActionOutcome RaiseAccuracy(EntityId e_id);
-ActionOutcome RaiseStrength(EntityId e_id);
-ActionOutcome RaiseDefence(EntityId e_id);
-ActionOutcome RaiseMagic(EntityId e_id);
-ActionOutcome RaiseSpeed(EntityId e_id);
-ActionOutcome LowerSpeed(EntityId e_id);
-ActionOutcome LowerDefence(EntityId e_id);
-ActionOutcome LowerMagic(EntityId e_id);
-ActionOutcome LowerStrength(EntityId e_id);
-ActionOutcome RaiseBaseStrength(EntityId e_id);
-ActionOutcome RaiseBaseDefence(EntityId e_id);
-ActionOutcome RaiseBaseMagic(EntityId e_id);
-ActionOutcome RaiseBaseSpeed(EntityId e_id);
-ActionOutcome LowerBaseSpeed(EntityId e_id);
-ActionOutcome LowerBaseDefence(EntityId e_id);
-ActionOutcome LowerBaseMagic(EntityId e_id);
-ActionOutcome LowerBaseStrength(EntityId e_id);
-ActionOutcome DrainXP(EntityId e_id);
-ActionOutcome ResetTemporaryStatsMods(EntityId e_id);
+ActionOutcome RaiseAttack(EntityId e_id, uint8_t value);
+ActionOutcome RaiseDefence(EntityId e_id, uint8_t value);
+ActionOutcome RaiseMagic(EntityId e_id, uint8_t value);
+ActionOutcome RaiseSpeed(EntityId e_id, uint8_t value);
+ActionOutcome RaiseAccuracy(EntityId e_id, uint8_t value);
+ActionOutcome RaiseLoyalty(EntityId e_id, uint8_t value);
+ActionOutcome LowerAttack(EntityId e_id, uint8_t value);
+ActionOutcome LowerDefence(EntityId e_id, uint8_t value);
+ActionOutcome LowerMagic(EntityId e_id, uint8_t value);
+ActionOutcome LowerSpeed(EntityId e_id, uint8_t value);
+ActionOutcome LowerAccuracy(EntityId e_id, uint8_t value);
+ActionOutcome LowerLoyalty(EntityId e_id, uint8_t value);
+
+ActionOutcome RaiseStrength(EntityId e_id, uint8_t value);
+ActionOutcome RaiseFortitude(EntityId e_id, uint8_t value);
+ActionOutcome RaiseIntelligence(EntityId e_id, uint8_t value);
+ActionOutcome RaiseAgility(EntityId e_id, uint8_t value);
+ActionOutcome RaiseDexterity(EntityId e_id, uint8_t value);
+ActionOutcome RaiseStamina(EntityId e_id, uint8_t value);
+ActionOutcome LowerStrength(EntityId e_id, uint8_t value);
+ActionOutcome LowerFortitude(EntityId e_id, uint8_t value);
+ActionOutcome LowerIntelligence(EntityId e_id, uint8_t value);
+ActionOutcome LowerAgility(EntityId e_id, uint8_t value);
+ActionOutcome LowerDexterity(EntityId e_id, uint8_t value);
+ActionOutcome LowerStamina(EntityId e_id, uint8_t value);
+
+ActionOutcome LowerCurrentXP(EntityId e_id, uint8_t value);
+
+ActionOutcome RaiseMaxMP(EntityId e_id, uint8_t value);
+ActionOutcome RaiseMaxHP(EntityId e_id, uint8_t value);
+ActionOutcome LowerMaxMP(EntityId e_id, uint8_t value);
+ActionOutcome LowerMaxHP(EntityId e_id, uint8_t value);
+
 ActionOutcome LevelUpRetainProgress(EntityId target_id);
+
+ActionOutcome ResetTemporaryStatsMods(EntityId e_id);
 
 /**********************************************************************************************************************/
 /** PLAYER
@@ -125,6 +144,8 @@ ActionOutcome DiscoverCreature(EntityId e_id);
 ActionOutcome DiscoverObject(EntityId e_id);
 ActionOutcome DiscoverSpell(Spell spell_id);
 ActionOutcome DiscoverSkill(Ability ability_id);
+
+ActionOutcome GainSpellbookPages(EntityId trainer_id, uint8_t pages);
 ActionOutcome LearnSpell(MemoryInterface memory, EntityId e_id, Spell spell_id);
 ActionOutcome TeachSkill(EntityId creature_id, SpellId spell_id);
 ActionOutcome Capture(HardwareInterface hardware, EntityId trainer_id, EntityId target_id, uint8_t successChance);

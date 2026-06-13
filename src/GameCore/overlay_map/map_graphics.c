@@ -7,6 +7,7 @@
 #include "lib_memory.h"
 #include "types.h"
 
+#include "core_entities.h"
 #include "core_utils.h"
 #include "core_graphics.h"
 #include "core_memory_access.h"
@@ -179,6 +180,127 @@ void DrawSpriteCached(GraphicsInterface graphics, MemoryInterface memory, uint8_
     graphics.DrawTileKeyed(px, py, MAP_TILE_W, MAP_TILE_H, g_map.tileCache.spritePixels.pixels);
 }
 
+/**********************************************************************************************************************/
+/**  Draws the player party frame
+ *  Draws each creature name and their resources
+**********************************************************************************************************************/
+SET_MEMORY(".map")
+void DrawPartyCreatureStats(GraphicsInterface graphics, MemoryInterface memory, EntityId creature_id)
+{
+    const uint16_t w = SCREEN_W - MAIN_MENU_W;
+    const uint16_t h = SCREEN_H;
+    const uint16_t left_margin = TEXT_W;
+    const uint16_t top_margin = TEXT_H;
+
+    const uint16_t line_height = TEXT_H + 4;
+    const uint16_t line_length = SMALL_STRINGS;
+    const uint16_t title_length = SMALL_STRINGS;
+    const uint16_t section_spacing = SMALL_STRINGS;
+    uint16_t spacing = 0;
+    uint8_t i = 0;
+
+#define SECTION_SPACING (spacing * TEXT_H)
+#define LINE_HEIGHT ((top_margin << 2) + (line_height * i++) + SECTION_SPACING)
+#define LINE_HEIGHT_SAME_LINE (top_margin + line_height * (i - 1))
+#define COLUMN_1 ((CharStr_uint8*)(cursor + (title_length - 2)))
+#define COLUMN_2_TITLE (left_margin + ((line_length + 2) * TEXT_W))
+#define COLUMN_2_DATA ((CharStr_uint8*)(cursor + (title_length * 2) + 3))
+
+    graphics.FillRect(0, 0, w, h, Flash_GetColor(memory, PAL_OFF_WHITE_GRAY));
+    CreatureID type = GetCreatureType(creature_id);
+    char line[line_length];
+    char* cursor = line;
+    Flash_GetCreatureName(memory, cursor, type);
+    PrintLineStr(graphics, memory, TEXT_W, top_margin, g_core.settings.fontSize, SMALL_STRINGS, cursor, 0);
+
+
+    Stats stats = GetCreatureStats(creature_id);
+    Flash_GetTextByIndex(memory, line, i, line_length);
+    GetAsChars_uint8(stats.attack, COLUMN_1, false);
+    PrintLineStr(graphics, memory, left_margin, LINE_HEIGHT, g_core.settings.fontSize, SMALL_STRINGS, line, 0);
+
+    Flash_GetTextByIndex(memory, line, i, line_length);
+    GetAsChars_uint8(stats.defence, COLUMN_1, false);
+    PrintLineStr(graphics, memory, left_margin, LINE_HEIGHT, g_core.settings.fontSize, SMALL_STRINGS, line, 0);
+
+    Flash_GetTextByIndex(memory, line, i, line_length);
+    GetAsChars_uint8(stats.magic, COLUMN_1, false);
+    PrintLineStr(graphics, memory, left_margin, LINE_HEIGHT, g_core.settings.fontSize, SMALL_STRINGS, line, 0);
+
+    Flash_GetTextByIndex(memory, line, i, line_length);
+    GetAsChars_uint8(stats.speed, COLUMN_1, false);
+    PrintLineStr(graphics, memory, left_margin, LINE_HEIGHT, g_core.settings.fontSize, SMALL_STRINGS, line, 0);
+
+    Flash_GetTextByIndex(memory, line, i, line_length);
+    GetAsChars_uint8(stats.accuracy, COLUMN_1, false);
+    PrintLineStr(graphics, memory, left_margin, LINE_HEIGHT, g_core.settings.fontSize, SMALL_STRINGS, line, 0);
+
+    Flash_GetTextByIndex(memory, line, i, line_length);
+    GetAsChars_uint8(stats.loyalty, COLUMN_1, false);
+    PrintLineStr(graphics, memory, left_margin, LINE_HEIGHT, g_core.settings.fontSize, SMALL_STRINGS, line, 0);
+
+    spacing++;
+    Attributes attributes = GetCreatureAttributes(creature_id);
+    Flash_GetTextByIndex(memory, line, i, line_length);
+    GetAsChars_uint8(attributes.strength, COLUMN_1, false);
+    PrintLineStr(graphics, memory, left_margin, LINE_HEIGHT, g_core.settings.fontSize, SMALL_STRINGS, line, 0);
+
+    Flash_GetTextByIndex(memory, line, i, line_length);
+    GetAsChars_uint8(attributes.fortitude, COLUMN_1, false);
+    PrintLineStr(graphics, memory, left_margin, LINE_HEIGHT, g_core.settings.fontSize, SMALL_STRINGS, line, 0);
+
+    Flash_GetTextByIndex(memory, line, i, line_length);
+    GetAsChars_uint8(attributes.intelligence, COLUMN_1, false);
+    PrintLineStr(graphics, memory, left_margin, LINE_HEIGHT, g_core.settings.fontSize, SMALL_STRINGS, line, 0);
+
+    Flash_GetTextByIndex(memory, line, i, line_length);
+    GetAsChars_uint8(attributes.agility, COLUMN_1, false);
+    PrintLineStr(graphics, memory, left_margin, LINE_HEIGHT, g_core.settings.fontSize, SMALL_STRINGS, line, 0);
+
+    Flash_GetTextByIndex(memory, line, i, line_length);
+    GetAsChars_uint8(attributes.dexterity, COLUMN_1, false);
+    PrintLineStr(graphics, memory, left_margin, LINE_HEIGHT, g_core.settings.fontSize, SMALL_STRINGS, line, 0);
+
+    Flash_GetTextByIndex(memory, line, i, line_length);
+    GetAsChars_uint8(attributes.stamina, COLUMN_1, false);
+    PrintLineStr(graphics, memory, left_margin, LINE_HEIGHT, g_core.settings.fontSize, SMALL_STRINGS, line, 0);
+
+
+    spacing++;
+    const char absorb[] = "absorb";
+    Resists resists = GetCreatureResists(creature_id);
+    Absorb absorbs = GetCreatureAbsorb(creature_id);
+
+    Flash_GetTextByIndex(memory, line, i, line_length);
+    GetAsChars_uint8(resists.toxic, COLUMN_1, false);
+    PrintLineStr(graphics, memory, left_margin, LINE_HEIGHT, g_core.settings.fontSize, SMALL_STRINGS, line, 0);
+    if (absorbs.toxic) PrintLineStr(graphics, memory, COLUMN_2_TITLE, LINE_HEIGHT_SAME_LINE, g_core.settings.fontSize, SMALL_STRINGS, absorb, 0);
+
+    Flash_GetTextByIndex(memory, line, i, line_length);
+    GetAsChars_uint8(resists.fire, COLUMN_1, false);
+    PrintLineStr(graphics, memory, left_margin, LINE_HEIGHT, g_core.settings.fontSize, SMALL_STRINGS, line, 0);
+    if (absorbs.fire) PrintLineStr(graphics, memory, COLUMN_2_TITLE, LINE_HEIGHT_SAME_LINE, g_core.settings.fontSize, SMALL_STRINGS, absorb, 0);
+
+    Flash_GetTextByIndex(memory, line, i, line_length);
+    GetAsChars_uint8(resists.water, COLUMN_1, false);
+    PrintLineStr(graphics, memory, left_margin, LINE_HEIGHT, g_core.settings.fontSize, SMALL_STRINGS, line, 0);
+    if (absorbs.water) PrintLineStr(graphics, memory, COLUMN_2_TITLE, LINE_HEIGHT_SAME_LINE, g_core.settings.fontSize, SMALL_STRINGS, line, 0);
+
+    Flash_GetTextByIndex(memory, line, i, line_length);
+    GetAsChars_uint8(resists.ice, COLUMN_1, false);
+    PrintLineStr(graphics, memory, left_margin, LINE_HEIGHT, g_core.settings.fontSize, SMALL_STRINGS, line, 0);
+    if (absorbs.ice) PrintLineStr(graphics, memory, COLUMN_2_TITLE, LINE_HEIGHT_SAME_LINE, g_core.settings.fontSize, SMALL_STRINGS, line, 0);
+
+    Flash_GetTextByIndex(memory, line, i, line_length);
+    GetAsChars_uint8(resists.earth, COLUMN_1, false);
+    PrintLineStr(graphics, memory, left_margin, LINE_HEIGHT, g_core.settings.fontSize, SMALL_STRINGS, line, 0);
+    if (absorbs.earth) PrintLineStr(graphics, memory, COLUMN_2_TITLE, LINE_HEIGHT_SAME_LINE, g_core.settings.fontSize, SMALL_STRINGS, line, 0);
+
+    Flash_GetTextByIndex(memory, line, i, line_length);
+    GetAsChars_uint8(resists.magic, COLUMN_1, false);
+    PrintLineStr(graphics, memory, left_margin, LINE_HEIGHT, g_core.settings.fontSize, SMALL_STRINGS, line, 0);
+    if (absorbs.magic) PrintLineStr(graphics, memory, COLUMN_2_TITLE, LINE_HEIGHT_SAME_LINE, g_core.settings.fontSize, SMALL_STRINGS, line, 0);
+}
 
 /**********************************************************************************************************************/
 /**  Draws the player party frame
@@ -231,7 +353,7 @@ void DrawParty(GraphicsInterface graphics, HardwareInterface hardware, MemoryInt
         if (i > (max_lines)) break;
 
         // level
-        Int99 level = g_core.creatures.level[creature_id];
+        uint99 level = g_core.creatures.level[creature_id];
         CharStr_99 levelStr;
         GetAsChars_99(level, &levelStr, false);
         PrintLineStr(graphics, memory, x, y, font_size, 3, levelStr, indent);
@@ -248,7 +370,7 @@ void DrawParty(GraphicsInterface graphics, HardwareInterface hardware, MemoryInt
         uint16_t max = 0;
         float line_w = 0.0f;
 
-        IntMax999 hp = g_core.creatures.hp[creature_id];
+        uint_max999 hp = g_core.creatures.hp[creature_id];
         cur = Int999GetCurrent(&hp);
         max = Int999GetMax(&hp);
         if (max > 0)
@@ -261,7 +383,7 @@ void DrawParty(GraphicsInterface graphics, HardwareInterface hardware, MemoryInt
         }
         lineHeight += size;
 
-        IntMax999 mp = g_core.creatures.mp[creature_id];
+        uint_max999 mp = g_core.creatures.mp[creature_id];
         cur = Int999GetCurrent(&mp);
         max = Int999GetMax(&mp);
         if (max > 0)
@@ -274,7 +396,7 @@ void DrawParty(GraphicsInterface graphics, HardwareInterface hardware, MemoryInt
             lineHeight += size;
         }
 
-        IntMax999 xp = g_core.creatures.xp[creature_id];
+        uint_max999 xp = g_core.creatures.xp[creature_id];
         cur = Int999GetCurrent(&xp);
         max = Int999GetMax(&xp);
         if (max > 0)

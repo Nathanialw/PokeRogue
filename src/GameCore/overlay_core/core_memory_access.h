@@ -40,18 +40,15 @@ void Flash_GetObjectName(MemoryInterface memory, char* text, uint8_t index);
 void Flash_GetMenuText(MemoryInterface memory, uint8_t* textBuffer, uint8_t index);
 
 //entities
-
-void Flash_GetSpellbookText(MemoryInterface memory, char* textBuffer, uint8_t index);
 void Flash_GetCreatureName(MemoryInterface memory, char* text, uint8_t index);
 void Flash_GetItemName(MemoryInterface memory, char* text, uint8_t index);
 void Flash_GetSpellName(MemoryInterface memory, char* text, uint8_t index);
 void Flash_GetSkillName(MemoryInterface memory, char* text, uint8_t index);
 void Flash_GetTrainerName(MemoryInterface memory, char* text, uint8_t index);
 
-//FUNCTIONS
-bool Flash_GetSpellEffect(HardwareInterface hardware, MemoryInterface memory, uint8_t index, EntityId id, EntityId target_id, SpellData spellData);
-bool Flash_GetItemEffect(HardwareInterface hardware, MemoryInterface memory, uint8_t itemType, EntityId item_id, EntityId id, ItemData itemData);
 
 Creature Flash_GetBiomeCreature(MemoryInterface memory, uint8_t biome, Creature index);
 Creature Flash_GetThemeCreature(MemoryInterface memory, uint8_t theme, Creature index);
 
+
+void Flash_GetTextByIndex(MemoryInterface memory, char* text, uint8_t index, uint8_t null_position);

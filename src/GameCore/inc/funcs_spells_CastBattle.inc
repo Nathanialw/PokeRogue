@@ -1,5 +1,5 @@
 // Generated spell name strings
-// Database contains 70 total entries
+// Database contains 86 total entries
 
 // Individual items strings
 CastBattleAwaken,
@@ -26,6 +26,8 @@ CastBattleFireball,
 CastBattleFlameEater,
 CastBattleFocus,
 CastBattleFortify,
+CastBattleGainAccuracy,
+CastBattleGainLoyalty,
 CastBattleGlowingEmbers,
 CastBattleGrowMuscle,
 CastBattleHaste,
@@ -45,8 +47,22 @@ CastBattlePowerOverwhelming,
 CastBattlePurification,
 CastBattleRage,
 CastBattleRainStorm,
+CastBattleRaiseAgility,
 CastBattleRaiseDead,
+CastBattleRaiseDexterity,
+CastBattleRaiseEarthResist,
+CastBattleRaiseFireResist,
+CastBattleRaiseFortitude,
+CastBattleRaiseIceResist,
+CastBattleRaiseIntelligence,
+CastBattleRaiseMagicResist,
+CastBattleRaiseMaxHP,
+CastBattleRaiseMaxMP,
 CastBattleRaiseSkeleton,
+CastBattleRaiseStamina,
+CastBattleRaiseStrength,
+CastBattleRaiseToxicResist,
+CastBattleRaiseWaterResist,
 CastBattleRazorGrass,
 CastBattleReflect,
 CastBattleRepel,
@@ -73,4 +89,4 @@ CastBattleWizen,
 CastBattleWizen2,
 CastBattleXRayVision,
 
-//ALL_NAMES_COUNT = 70;
+//ALL_NAMES_COUNT = 86;

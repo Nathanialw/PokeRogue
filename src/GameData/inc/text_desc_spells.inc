@@ -1,5 +1,5 @@
 // Generated creature descriptions
-// Database contains 70 total descriptions
+// Database contains 86 total descriptions
 
 // Individual description strings
 "A golden radiance spills from your fingertips, illuminating unseen spirits that dance and whisper in the shadows of reality.\0",
@@ -26,6 +26,8 @@
 "FLAME_EATER -- PLACEHOLDER TEXT - A mysterious spell awaiting discovery.\0",
 "FOCUS -- PLACEHOLDER TEXT - A mysterious spell awaiting discovery.\0",
 "FORTIFY -- PLACEHOLDER TEXT - A mysterious spell awaiting discovery.\0",
+"GAIN_ACCURACY -- PLACEHOLDER TEXT - A mysterious spell awaiting discovery.\0",
+"GAIN_LOYALTY -- PLACEHOLDER TEXT - A mysterious spell awaiting discovery.\0",
 "GLOWING_EMBERS -- PLACEHOLDER TEXT - A mysterious spell awaiting discovery.\0",
 "A surge of arcane energy erupts, reshaping flesh and sinew, swelling limbs with unnatural power and raw strength.\0",
 "A shimmering aura encases the target, multiplying their speed and movements like a blur of lightning.\0",
@@ -45,8 +47,22 @@
 "PURIFICATION -- PLACEHOLDER TEXT - A mysterious spell awaiting discovery.\0",
 "RAGE -- PLACEHOLDER TEXT - A mysterious spell awaiting discovery.\0",
 "RAIN_STORM -- PLACEHOLDER TEXT - A mysterious spell awaiting discovery.\0",
+"RAISE_AGILITY -- PLACEHOLDER TEXT - A mysterious spell awaiting discovery.\0",
 "RAISE_DEAD -- PLACEHOLDER TEXT - A mysterious spell awaiting discovery.\0",
+"RAISE_DEXTERITY -- PLACEHOLDER TEXT - A mysterious spell awaiting discovery.\0",
+"RAISE_EARTH_RESIST -- PLACEHOLDER TEXT - A mysterious spell awaiting discovery.\0",
+"RAISE_FIRE_RESIST -- PLACEHOLDER TEXT - A mysterious spell awaiting discovery.\0",
+"RAISE_FORTITUDE -- PLACEHOLDER TEXT - A mysterious spell awaiting discovery.\0",
+"RAISE_ICE_RESIST -- PLACEHOLDER TEXT - A mysterious spell awaiting discovery.\0",
+"RAISE_INTELLIGENCE -- PLACEHOLDER TEXT - A mysterious spell awaiting discovery.\0",
+"RAISE_MAGIC_RESIST -- PLACEHOLDER TEXT - A mysterious spell awaiting discovery.\0",
+"RAISE_MAX_HP -- PLACEHOLDER TEXT - A mysterious spell awaiting discovery.\0",
+"RAISE_MAX_MP -- PLACEHOLDER TEXT - A mysterious spell awaiting discovery.\0",
 "RAISE_SKELETON -- PLACEHOLDER TEXT - A mysterious spell awaiting discovery.\0",
+"RAISE_STAMINA -- PLACEHOLDER TEXT - A mysterious spell awaiting discovery.\0",
+"RAISE_STRENGTH -- PLACEHOLDER TEXT - A mysterious spell awaiting discovery.\0",
+"RAISE_TOXIC_RESIST -- PLACEHOLDER TEXT - A mysterious spell awaiting discovery.\0",
+"RAISE_WATER_RESIST -- PLACEHOLDER TEXT - A mysterious spell awaiting discovery.\0",
 "RAZOR_GRASS -- PLACEHOLDER TEXT - A mysterious spell awaiting discovery.\0",
 "REFLECT -- PLACEHOLDER TEXT - A mysterious spell awaiting discovery.\0",
 "REPEL -- PLACEHOLDER TEXT - A mysterious spell awaiting discovery.\0",
@@ -74,4 +90,4 @@
 "XRAY_VISION -- PLACEHOLDER TEXT - A mysterious spell awaiting discovery.\0",
 " ------ \0",
 
-//ALL_DESCRIPTIONS_COUNT = 70;
+//ALL_DESCRIPTIONS_COUNT = 86;

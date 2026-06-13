@@ -1,5 +1,5 @@
 // Generated spell name strings
-// Database contains 70 total entries
+// Database contains 86 total entries
 
 // Individual items strings
 CastMapAwaken,
@@ -26,6 +26,8 @@ CastMapFireball,
 CastMapFlameEater,
 CastMapFocus,
 CastMapFortify,
+CastMapGainAccuracy,
+CastMapGainLoyalty,
 CastMapGlowingEmbers,
 CastMapGrowMuscle,
 CastMapHaste,
@@ -45,8 +47,22 @@ CastMapPowerOverwhelming,
 CastMapPurification,
 CastMapRage,
 CastMapRainStorm,
+CastMapRaiseAgility,
 CastMapRaiseDead,
+CastMapRaiseDexterity,
+CastMapRaiseEarthResist,
+CastMapRaiseFireResist,
+CastMapRaiseFortitude,
+CastMapRaiseIceResist,
+CastMapRaiseIntelligence,
+CastMapRaiseMagicResist,
+CastMapRaiseMaxHP,
+CastMapRaiseMaxMP,
 CastMapRaiseSkeleton,
+CastMapRaiseStamina,
+CastMapRaiseStrength,
+CastMapRaiseToxicResist,
+CastMapRaiseWaterResist,
 CastMapRazorGrass,
 CastMapReflect,
 CastMapRepel,
@@ -73,4 +89,4 @@ CastMapWizen,
 CastMapWizen2,
 CastMapXRayVision,
 
-//ALL_NAMES_COUNT = 70;
+//ALL_NAMES_COUNT = 86;

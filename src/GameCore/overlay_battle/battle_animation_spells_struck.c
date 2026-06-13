@@ -373,3 +373,100 @@ bool SpellStruckSummonWard(GraphicsInterface graphics, HardwareInterface hardwar
 {
     return false;
 }
+
+SET_MEMORY(".battle")
+bool SpellStruckRaiseStrength(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
+{
+    return false;
+}
+
+SET_MEMORY(".battle")
+bool SpellStruckRaiseFortitude(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
+{
+    return false;
+}
+
+SET_MEMORY(".battle")
+bool SpellStruckRaiseIntelligence(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
+{
+    return false;
+}
+
+SET_MEMORY(".battle")
+bool SpellStruckRaiseAgility(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
+{
+    return false;
+}
+
+SET_MEMORY(".battle")
+bool SpellStruckRaiseMaxHP(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
+{
+    return false;
+}
+
+SET_MEMORY(".battle")
+bool SpellStruckRaiseMaxMP(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
+{
+    return false;
+}
+
+
+SET_MEMORY(".battle")
+bool SpellStruckGainAccuracy(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
+{
+    return false;
+}
+
+SET_MEMORY(".battle")
+bool SpellStruckGainLoyalty(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
+{
+    return false;
+}
+
+SET_MEMORY(".battle")
+bool SpellStruckRaiseDexterity(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
+{
+    return false;
+}
+
+SET_MEMORY(".battle")
+bool SpellStruckRaiseEarthResist(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
+{
+    return false;
+}
+
+SET_MEMORY(".battle")
+bool SpellStruckRaiseFireResist(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
+{
+    return false;
+}
+
+SET_MEMORY(".battle")
+bool SpellStruckRaiseIceResist(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
+{
+    return false;
+}
+
+SET_MEMORY(".battle")
+bool SpellStruckRaiseMagicResist(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
+{
+    return false;
+}
+
+SET_MEMORY(".battle")
+bool SpellStruckRaiseStamina(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
+{
+    return false;
+}
+
+SET_MEMORY(".battle")
+bool SpellStruckRaiseToxicResist(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
+{
+    return false;
+}
+
+SET_MEMORY(".battle")
+bool SpellStruckRaiseWaterResist(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
+{
+    return false;
+}

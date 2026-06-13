@@ -11,6 +11,7 @@
 #include "battle_actions.h"
 #include "battle_ram.h"
 #include "core_entities.h"
+#include "core_memory_access.h"
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
 /// UseBattle EFFECTS
@@ -20,7 +21,7 @@
 SET_MEMORY(".battle")
 ActionOutcome UseBattleLavaResistance(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
-    return RaiseFireResistance(user_id);
+    return RaiseFireResistance(target_id, itemData.power);
 }
 
 /**********************************************************************************************************************/
@@ -29,7 +30,7 @@ ActionOutcome UseBattleLavaResistance(HardwareInterface hardware, MemoryInterfac
 SET_MEMORY(".battle")
 ActionOutcome UseBattleRestorePpPotion(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
-    return RestorePP(user_id, index, itemData.power);
+    return RestorePP(target_id, index, itemData.power);
 }
 
 /**********************************************************************************************************************/
@@ -38,7 +39,7 @@ ActionOutcome UseBattleRestorePpPotion(HardwareInterface hardware, MemoryInterfa
 SET_MEMORY(".battle")
 ActionOutcome UseBattleInvisibilityPotion(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
-    return Invisibility(user_id, itemData.power);
+    return Invisibility(target_id, itemData.power);
 }
 
 /**********************************************************************************************************************/
@@ -47,7 +48,7 @@ ActionOutcome UseBattleInvisibilityPotion(HardwareInterface hardware, MemoryInte
 SET_MEMORY(".battle")
 ActionOutcome UseBattleInvulnerabilityPotion(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
-    return MakeInvulnerable(user_id);
+    return MakeInvulnerable(target_id);
 }
 
 /**********************************************************************************************************************/
@@ -56,7 +57,7 @@ ActionOutcome UseBattleInvulnerabilityPotion(HardwareInterface hardware, MemoryI
 SET_MEMORY(".battle")
 ActionOutcome UseBattleHastePotion(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
-    return ApplyHaste(user_id, itemData.power);
+    return ApplyHaste(target_id, itemData.power);
 }
 
 /**********************************************************************************************************************/
@@ -103,8 +104,8 @@ ActionOutcome UseBattleRepelPotion(HardwareInterface hardware, MemoryInterface m
 SET_MEMORY(".battle")
 ActionOutcome UseBattleRevivePotion(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
-    if (user_id == NO_ENTITY) return ACTION_CANNOT;
-    return Revive(user_id);
+    if (target_id == NO_ENTITY) return ACTION_CANNOT;
+    return Revive(target_id);
 }
 
 /**********************************************************************************************************************/
@@ -113,7 +114,7 @@ ActionOutcome UseBattleRevivePotion(HardwareInterface hardware, MemoryInterface 
 SET_MEMORY(".battle")
 ActionOutcome UseBattleSleepDart(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
-    return ApplySleep(user_id, itemData.power);
+    return ApplySleep(target_id, itemData.power);
 }
 
 /**********************************************************************************************************************/
@@ -122,7 +123,7 @@ ActionOutcome UseBattleSleepDart(HardwareInterface hardware, MemoryInterface mem
 SET_MEMORY(".battle")
 ActionOutcome UseBattleParalyzeDart(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
-    return ApplyParalyze(user_id, itemData.power);
+    return ApplyParalyze(target_id, itemData.power);
 }
 
 /**********************************************************************************************************************/
@@ -131,7 +132,7 @@ ActionOutcome UseBattleParalyzeDart(HardwareInterface hardware, MemoryInterface 
 SET_MEMORY(".battle")
 ActionOutcome UseBattlePoisonDart(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
-    return ApplyPoison(user_id, itemData.power);
+    return ApplyPoison(target_id, itemData.power);
 }
 
 /**********************************************************************************************************************/
@@ -468,8 +469,8 @@ ActionOutcome UseBattleElementalBolas(HardwareInterface hardware, MemoryInterfac
 SET_MEMORY(".battle")
 ActionOutcome UseBattleWhip(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
-    if (user_id == NO_ENTITY) return ACTION_CANNOT;
-    return RaiseStrength(user_id);
+    if (target_id == NO_ENTITY) return ACTION_CANNOT;
+    return RaiseStrength(target_id, itemData.power);
 }
 
 /**********************************************************************************************************************/
@@ -478,8 +479,8 @@ ActionOutcome UseBattleWhip(HardwareInterface hardware, MemoryInterface memory, 
 SET_MEMORY(".battle")
 ActionOutcome UseBattleAmphetamines(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
-    if (user_id == NO_ENTITY) return ACTION_CANNOT;
-    return RaiseSpeed(user_id);
+    if (target_id == NO_ENTITY) return ACTION_CANNOT;
+    return RaiseSpeed(target_id, itemData.power);
 }
 
 /**********************************************************************************************************************/
@@ -488,8 +489,8 @@ ActionOutcome UseBattleAmphetamines(HardwareInterface hardware, MemoryInterface 
 SET_MEMORY(".battle")
 ActionOutcome UseBattleGrowthHormones(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
-    if (user_id == NO_ENTITY) return ACTION_CANNOT;
-    return RaiseStrength(user_id);
+    if (target_id == NO_ENTITY) return ACTION_CANNOT;
+    return RaiseStrength(target_id, itemData.power);
 }
 
 /**********************************************************************************************************************/
@@ -498,8 +499,8 @@ ActionOutcome UseBattleGrowthHormones(HardwareInterface hardware, MemoryInterfac
 SET_MEMORY(".battle")
 ActionOutcome UseBattleIronSkinElixir(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
-    if (user_id == NO_ENTITY) return ACTION_CANNOT;
-    return RaiseDefence(user_id);
+    if (target_id == NO_ENTITY) return ACTION_CANNOT;
+    return RaiseDefence(target_id, itemData.power);
 }
 
 /**********************************************************************************************************************/
@@ -508,8 +509,8 @@ ActionOutcome UseBattleIronSkinElixir(HardwareInterface hardware, MemoryInterfac
 SET_MEMORY(".battle")
 ActionOutcome UseBattleSwiftnessSerum(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
-    if (user_id == NO_ENTITY) return ACTION_CANNOT;
-    return ApplyHaste(user_id, itemData.power);
+    if (target_id == NO_ENTITY) return ACTION_CANNOT;
+    return ApplyHaste(target_id, itemData.power);
 }
 
 /**********************************************************************************************************************/
@@ -518,7 +519,7 @@ ActionOutcome UseBattleSwiftnessSerum(HardwareInterface hardware, MemoryInterfac
 SET_MEMORY(".battle")
 ActionOutcome UseBattleWildMushroom(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
-    if (user_id == NO_ENTITY) return ACTION_CANNOT;
+    if (target_id == NO_ENTITY) return ACTION_CANNOT;
     return ACTION_FAILED;
 }
 
@@ -528,7 +529,7 @@ ActionOutcome UseBattleWildMushroom(HardwareInterface hardware, MemoryInterface 
 SET_MEMORY(".battle")
 ActionOutcome UseBattleHeartScale(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
-    if (user_id == NO_ENTITY) return ACTION_CANNOT;
+    if (target_id == NO_ENTITY) return ACTION_CANNOT;
     return ACTION_FAILED;
 }
 
@@ -547,7 +548,7 @@ ActionOutcome UseBattleSmokeBall(HardwareInterface hardware, MemoryInterface mem
 SET_MEMORY(".battle")
 ActionOutcome UseBattleAbilityBook(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
-    if (user_id == NO_ENTITY) return ACTION_CANNOT;
+    if (target_id == NO_ENTITY) return ACTION_CANNOT;
     SpellId skill_id = g_core.items.metaData[item_id].spell_id;
     return TeachSkill(target_id, skill_id);
 }
@@ -558,9 +559,9 @@ ActionOutcome UseBattleAbilityBook(HardwareInterface hardware, MemoryInterface m
 SET_MEMORY(".battle")
 ActionOutcome UseBattleHealthPotion(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
-    if (user_id == NO_ENTITY) return ACTION_CANNOT;
+    if (target_id == NO_ENTITY) return ACTION_CANNOT;
     uint8_t value = g_core.items.metaData[item_id].value;
-    return HealTarget(user_id, value);
+    return HealTarget(target_id, value);
 }
 
 
@@ -580,9 +581,9 @@ ActionOutcome UseBattleVisionPotion(HardwareInterface hardware, MemoryInterface 
 SET_MEMORY(".battle")
 ActionOutcome UseBattleManaPotion(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
-    if (user_id == NO_ENTITY) return ACTION_CANNOT;
+    if (target_id == NO_ENTITY) return ACTION_CANNOT;
     uint8_t value = g_core.items.metaData[item_id].value;
-    return RestoreMana(user_id, value);
+    return RestoreMana(target_id, value);
 }
 
 /**********************************************************************************************************************/
@@ -596,16 +597,16 @@ ActionOutcome UseBattleSpellBook(HardwareInterface hardware, MemoryInterface mem
 }
 
 /**********************************************************************************************************************/
-/*  Check while spell i is
- *  Try ro cast it
-*
-*
+/*
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
 ActionOutcome UseBattleScroll(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
     uint8_t spell_id = g_core.items.metaData[item_id].spell_id;
-    return CastSpellBattle(hardware, memory, spell_id, SPELL_INDEX_NULL, user_id, user_id);
+    SpellData spell_data = {0};
+    Flash_GetSpellData(memory, &spell_data, spell_id);
+
+    return CastSpellBattle(hardware, memory, spell_id, SPELL_INDEX_NULL, user_id, target_id);
 }
 
 /**********************************************************************************************************************/
@@ -615,7 +616,7 @@ SET_MEMORY(".battle")
 ActionOutcome UseBattleAntidotePotion(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
     if (user_id == NO_ENTITY) return ACTION_CANNOT;
-    return RemovePoison(user_id);
+    return RemovePoison(target_id);
 }
 
 /**********************************************************************************************************************/
@@ -625,7 +626,7 @@ SET_MEMORY(".battle")
 ActionOutcome UseBattleDecursePotion(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
     if (user_id == NO_ENTITY) return ACTION_CANNOT;
-    return RemoveCurse(user_id);
+    return RemoveCurse(target_id);
 }
 
 /**********************************************************************************************************************/
@@ -635,7 +636,7 @@ SET_MEMORY(".battle")
 ActionOutcome UseBattleCurePotion(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
     if (user_id == NO_ENTITY) return ACTION_CANNOT;
-    return RemoveDisease(user_id);
+    return RemoveDisease(target_id);
 }
 
 /**********************************************************************************************************************/
@@ -644,7 +645,7 @@ ActionOutcome UseBattleCurePotion(HardwareInterface hardware, MemoryInterface me
 SET_MEMORY(".battle")
 ActionOutcome UseBattleCloakAcidResistance(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
-    return RaiseAcidResistance(user_id);
+    return RaiseAcidResistance(target_id, itemData.power);
 }
 
 /**********************************************************************************************************************/
@@ -653,7 +654,7 @@ ActionOutcome UseBattleCloakAcidResistance(HardwareInterface hardware, MemoryInt
 SET_MEMORY(".battle")
 ActionOutcome UseBattleFireResistance(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
-    return RaiseFireResistance(user_id);
+    return RaiseFireResistance(target_id, itemData.power);
 }
 
 /**********************************************************************************************************************/
@@ -662,7 +663,7 @@ ActionOutcome UseBattleFireResistance(HardwareInterface hardware, MemoryInterfac
 SET_MEMORY(".battle")
 ActionOutcome UseBattleWaterResistance(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
-    return RaiseWaterResistance(user_id);
+    return RaiseWaterResistance(target_id, itemData.power);
 }
 
 /**********************************************************************************************************************/
@@ -671,7 +672,7 @@ ActionOutcome UseBattleWaterResistance(HardwareInterface hardware, MemoryInterfa
 SET_MEMORY(".battle")
 ActionOutcome UseBattleIceResistance(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
-    return RaiseIceResistance(user_id);
+    return RaiseIceResistance(target_id, itemData.power);
 }
 
 /**********************************************************************************************************************/
@@ -680,7 +681,7 @@ ActionOutcome UseBattleIceResistance(HardwareInterface hardware, MemoryInterface
 SET_MEMORY(".battle")
 ActionOutcome UseBattleMagicResistance(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
-    return RaiseMagicResistance(user_id);
+    return RaiseMagicResistance(target_id, itemData.power);
 }
 
 /**********************************************************************************************************************/

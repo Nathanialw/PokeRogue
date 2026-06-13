@@ -442,3 +442,99 @@ bool SpellAttackSummonWard(bool onAttacker())
 {
     return false;
 }
+
+SET_MEMORY(".battle")
+bool SpellAttackRaiseStrength(bool onAttacker())
+{
+    return false;
+}
+
+
+SET_MEMORY(".battle")
+bool SpellAttackRaiseFortitude(bool onAttacker())
+{
+    return false;
+}
+
+SET_MEMORY(".battle")
+bool SpellAttackRaiseIntelligence(bool onAttacker())
+{
+    return false;
+}
+
+SET_MEMORY(".battle")
+bool SpellAttackRaiseAgility(bool onAttacker())
+{
+    return false;
+}
+SET_MEMORY(".battle")
+bool SpellAttackRaiseMaxMP(bool onAttacker())
+{
+    return false;
+}
+SET_MEMORY(".battle")
+bool SpellAttackRaiseMaxHP(bool onAttacker())
+{
+    return false;
+}
+
+
+SET_MEMORY(".battle")
+bool SpellAttackGainAccuracy(bool onAttacker())
+{
+    return false;
+}
+
+SET_MEMORY(".battle")
+bool SpellAttackGainLoyalty(bool onAttacker())
+{
+    return false;
+}
+
+SET_MEMORY(".battle")
+bool SpellAttackRaiseDexterity(bool onAttacker())
+{
+    return false;
+}
+
+SET_MEMORY(".battle")
+bool SpellAttackRaiseEarthResist(bool onAttacker())
+{
+    return false;
+}
+
+SET_MEMORY(".battle")
+bool SpellAttackRaiseFireResist(bool onAttacker())
+{
+    return false;
+}
+
+SET_MEMORY(".battle")
+bool SpellAttackRaiseIceResist(bool onAttacker())
+{
+    return false;
+}
+
+SET_MEMORY(".battle")
+bool SpellAttackRaiseMagicResist(bool onAttacker())
+{
+    return false;
+}
+
+SET_MEMORY(".battle")
+bool SpellAttackRaiseStamina(bool onAttacker())
+{
+    return false;
+}
+
+SET_MEMORY(".battle")
+bool SpellAttackRaiseToxicResist(bool onAttacker())
+{
+    return false;
+}
+
+SET_MEMORY(".battle")
+bool SpellAttackRaiseWaterResist(bool onAttacker())
+{
+    return false;
+}

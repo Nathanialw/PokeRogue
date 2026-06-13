@@ -1,5 +1,5 @@
 // Generated spell name strings
-// Database contains 70 total entries
+// Database contains 86 total entries
 
 // Individual items strings
 SpellStruckAwaken,
@@ -26,6 +26,8 @@ SpellStruckFireball,
 SpellStruckFlameEater,
 SpellStruckFocus,
 SpellStruckFortify,
+SpellStruckGainAccuracy,
+SpellStruckGainLoyalty,
 SpellStruckGlowingEmbers,
 SpellStruckGrowMuscle,
 SpellStruckHaste,
@@ -45,8 +47,22 @@ SpellStruckPowerOverwhelming,
 SpellStruckPurification,
 SpellStruckRage,
 SpellStruckRainStorm,
+SpellStruckRaiseAgility,
 SpellStruckRaiseDead,
+SpellStruckRaiseDexterity,
+SpellStruckRaiseEarthResist,
+SpellStruckRaiseFireResist,
+SpellStruckRaiseFortitude,
+SpellStruckRaiseIceResist,
+SpellStruckRaiseIntelligence,
+SpellStruckRaiseMagicResist,
+SpellStruckRaiseMaxHP,
+SpellStruckRaiseMaxMP,
 SpellStruckRaiseSkeleton,
+SpellStruckRaiseStamina,
+SpellStruckRaiseStrength,
+SpellStruckRaiseToxicResist,
+SpellStruckRaiseWaterResist,
 SpellStruckRazorGrass,
 SpellStruckReflect,
 SpellStruckRepel,
@@ -73,4 +89,4 @@ SpellStruckWizen,
 SpellStruckWizen2,
 SpellStruckXRayVision,
 
-//ALL_NAMES_COUNT = 70;
+//ALL_NAMES_COUNT = 86;

@@ -1,5 +1,5 @@
 // Generated spell animation function headers
-// Database contains 70 total spells
+// Database contains 86 total spells
 
 // Individual spells strings
 bool SpellStruckAwaken(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker);
@@ -26,6 +26,8 @@ bool SpellStruckFireball(GraphicsInterface graphics, HardwareInterface hardware,
 bool SpellStruckFlameEater(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker);
 bool SpellStruckFocus(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker);
 bool SpellStruckFortify(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker);
+bool SpellStruckGainAccuracy(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker);
+bool SpellStruckGainLoyalty(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker);
 bool SpellStruckGlowingEmbers(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker);
 bool SpellStruckGrowMuscle(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker);
 bool SpellStruckHaste(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker);
@@ -45,8 +47,22 @@ bool SpellStruckPowerOverwhelming(GraphicsInterface graphics, HardwareInterface 
 bool SpellStruckPurification(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker);
 bool SpellStruckRage(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker);
 bool SpellStruckRainStorm(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker);
+bool SpellStruckRaiseAgility(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker);
 bool SpellStruckRaiseDead(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker);
+bool SpellStruckRaiseDexterity(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker);
+bool SpellStruckRaiseEarthResist(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker);
+bool SpellStruckRaiseFireResist(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker);
+bool SpellStruckRaiseFortitude(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker);
+bool SpellStruckRaiseIceResist(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker);
+bool SpellStruckRaiseIntelligence(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker);
+bool SpellStruckRaiseMagicResist(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker);
+bool SpellStruckRaiseMaxHP(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker);
+bool SpellStruckRaiseMaxMP(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker);
 bool SpellStruckRaiseSkeleton(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker);
+bool SpellStruckRaiseStamina(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker);
+bool SpellStruckRaiseStrength(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker);
+bool SpellStruckRaiseToxicResist(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker);
+bool SpellStruckRaiseWaterResist(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker);
 bool SpellStruckRazorGrass(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker);
 bool SpellStruckReflect(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker);
 bool SpellStruckRepel(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker);
@@ -73,4 +89,4 @@ bool SpellStruckWizen(GraphicsInterface graphics, HardwareInterface hardware, Me
 bool SpellStruckWizen2(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker);
 bool SpellStruckXRayVision(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker);
 
-//ALL_NAMES_COUNT = 70;
+//ALL_NAMES_COUNT = 86;

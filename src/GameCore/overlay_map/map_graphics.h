@@ -6,6 +6,7 @@
 
 #include "lib_decl.h"
 #include "lib_types.h"
+#include "types.h"
 
 /**********************************************************************************************************************/
 /**
@@ -17,6 +18,7 @@ void DrawSprite(GraphicsInterface graphics, MemoryInterface memory, uint8_t scre
 void DrawSpriteCached(GraphicsInterface graphics, MemoryInterface memory, uint8_t screen_tx, uint8_t screen_ty, uint8_t sprite_id, ObjectsTypes type);
 // void DrawTileCached(GraphicsInterface graphics, MemoryInterface memory, uint8_t screen_tx, uint8_t screen_ty, uint8_t tile_id);
 
+void DrawPartyCreatureStats(GraphicsInterface graphics, MemoryInterface memory, EntityId creature_id);
 void DrawParty(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory);
 void DrawList(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory);
 

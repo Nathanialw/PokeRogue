@@ -1,5 +1,5 @@
 // Generated spell function headers
-// Database contains 70 total spells
+// Database contains 86 total spells
 
 // Individual spells strings
 ActionOutcome CastMapAwaken(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData);
@@ -26,6 +26,8 @@ ActionOutcome CastMapFireball(HardwareInterface hardware, MemoryInterface memory
 ActionOutcome CastMapFlameEater(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData);
 ActionOutcome CastMapFocus(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData);
 ActionOutcome CastMapFortify(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData);
+ActionOutcome CastMapGainAccuracy(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData);
+ActionOutcome CastMapGainLoyalty(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData);
 ActionOutcome CastMapGlowingEmbers(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData);
 ActionOutcome CastMapGrowMuscle(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData);
 ActionOutcome CastMapHaste(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData);
@@ -45,8 +47,22 @@ ActionOutcome CastMapPowerOverwhelming(HardwareInterface hardware, MemoryInterfa
 ActionOutcome CastMapPurification(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData);
 ActionOutcome CastMapRage(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData);
 ActionOutcome CastMapRainStorm(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData);
+ActionOutcome CastMapRaiseAgility(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData);
 ActionOutcome CastMapRaiseDead(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData);
+ActionOutcome CastMapRaiseDexterity(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData);
+ActionOutcome CastMapRaiseEarthResist(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData);
+ActionOutcome CastMapRaiseFireResist(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData);
+ActionOutcome CastMapRaiseFortitude(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData);
+ActionOutcome CastMapRaiseIceResist(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData);
+ActionOutcome CastMapRaiseIntelligence(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData);
+ActionOutcome CastMapRaiseMagicResist(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData);
+ActionOutcome CastMapRaiseMaxHP(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData);
+ActionOutcome CastMapRaiseMaxMP(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData);
 ActionOutcome CastMapRaiseSkeleton(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData);
+ActionOutcome CastMapRaiseStamina(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData);
+ActionOutcome CastMapRaiseStrength(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData);
+ActionOutcome CastMapRaiseToxicResist(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData);
+ActionOutcome CastMapRaiseWaterResist(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData);
 ActionOutcome CastMapRazorGrass(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData);
 ActionOutcome CastMapReflect(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData);
 ActionOutcome CastMapRepel(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData);
@@ -73,4 +89,4 @@ ActionOutcome CastMapWizen(HardwareInterface hardware, MemoryInterface memory, E
 ActionOutcome CastMapWizen2(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData);
 ActionOutcome CastMapXRayVision(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData);
 
-//ALL_NAMES_COUNT = 70;
+//ALL_NAMES_COUNT = 86;

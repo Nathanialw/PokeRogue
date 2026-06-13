@@ -1,17 +1,12 @@
 // Generated object name strings
-// Database contains 43 total object
+// Database contains 35 total object
 
 // Individual object strings
 "Altar\0",
-"Raft\0",
-"Row Boat\0",
 "Book Case\0",
 "Jewellery Case\0",
 "Scroll Case\0",
 "Cauldron\0",
-"Acid Cloud\0",
-"Poison Gas\0",
-"Smoke Cloud\0",
 "Coffin\0",
 "Sarcophagus\0",
 "Corpse\0",
@@ -32,9 +27,6 @@
 "Fountain\0",
 "Fountain\0",
 "Fountain\0",
-"Hidden Compartm\0",
-"Armor Rack\0",
-"Weapon Rack\0",
 "Barrel\0",
 "Basket\0",
 "Chest\0",

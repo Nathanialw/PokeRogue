@@ -82,13 +82,15 @@ def spells(entity):
         f.write(f"//             }}\n\n")
         f.write(f"//    .flags = {{  8 bits (uint8_t)\n")
         f.write(f"//                .use_on_party_member = 1 bits\n")
-        f.write(f"//                (7 bits of padding)\n")
+        f.write(f"//                .use_on_enemy = 1 bits\n")
+        f.write(f"//                .use_on_trainer = 1 bits\n")
+        f.write(f"//                (5 bits of padding)\n")
         f.write(f"//             }}\n\n")
 
         # Write individual constants
         f.write(f"// Individual {entity}s data\n")
 
-        for i, (name, power, level, type_0, type_enum, pp, use_on_party_member) in enumerate(spell_data):
+        for i, (name, power, level, type_0, type_enum, pp, use_on_party_member, use_on_enemy, use_on_trainer) in enumerate(spell_data):
             # Clean the types for C string
             power_str = f"0x{int(power):02x}"
             level_str = f"0x{int(level):02x}"
@@ -96,7 +98,7 @@ def spells(entity):
             data_value = (int(type_enum) << 4) | int(pp)
             data_str = f"0x{data_value:02x}"
 
-            flags = make_flags(use_on_party_member)
+            flags = make_flags(use_on_party_member, use_on_enemy, use_on_trainer)
             flags_str = f"0b{flags:08b}"
 
             f.write(f"// {i} - {name} -> .power = {power} .level = {level} .type = {type_0} .pp = {pp} .flags = {{ . use_on_party_member = {use_on_party_member} }}\n")
@@ -162,9 +164,9 @@ def creature(entity):
 
         for i, (name, attack_min, defence_min, magic_min, speed_min, attack_max, defence_max, magic_max, speed_max, attack_growth, defence_growth, magic_growth, speed_growth) in enumerate(trainer_data):
             f.write(f"{{//  {i} - {name}}}\n")
-            f.write(f"      .min = {{ {attack_min}, {defence_min}, {magic_min}, {speed_min}, }},\n")
-            f.write(f"      .max = {{ {attack_max}, {defence_max}, {magic_max}, {speed_max}, }},\n")
-            f.write(f"      .growth = {{ {attack_growth}, {defence_growth}, {magic_growth}, {speed_growth}, }},\n")
+            f.write(f"      .min    = {{ .attack = {attack_min:3}, .defence = {defence_min:3}, .magic = {magic_min:3}, .speed= {speed_min:3}, }},\n")
+            f.write(f"      .max    = {{ .attack = {attack_max:3}, .defence = {defence_max:3}, .magic = {magic_max:3}, .speed = {speed_max:3}, }},\n")
+            f.write(f"      .growth = {{ .attack = {attack_growth:3}, .defence = {defence_growth:3}, .magic = {magic_growth:3}, .speed = {speed_growth:3}, }},\n")
             f.write(f"}},\n")
 
         f.write("\n")
@@ -213,11 +215,16 @@ def abilities(entity):
         f.write(f"// Generated {entity} data structs\n")
         f.write(f"// Database contains {len(skill_data)} total {entity}s\n\n")
 
-        # Write individual constants
+        f.write(f"//    .power =           8 bits\n")
+        f.write(f"//    .power_special =   8 bits\n")
+        f.write(f"//    .manaCost =        8 bits\n")
+        f.write(f"//    .type_0 =          4 bits\n\n")
+
         f.write(f"// Individual {entity}s data\n")
-        for i, (power, mana_cost, type_0) in enumerate(skill_data):
+        for i, (name, formatted, power, power_special, mana_cost, type_0) in enumerate(skill_data):
             # Clean the types for C string
-            f.write("{" + f" .power = {power}, .manaCost = {mana_cost}, .type = {type_0} " + "},\n")
+            f.write(f"// {name} - {formatted}, \n")
+            f.write(f"{{ .power = {power:3},  .power_special = {power_special:3}, .manaCost = {mana_cost:3}, .type = {type_0:10} }},\n")
 
         f.write("\n")
         f.write(f"//COUNT = {len(skill_data)};\n")

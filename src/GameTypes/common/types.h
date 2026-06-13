@@ -25,6 +25,8 @@ typedef uint8_t ObjectId;
 typedef uint8_t SkillId;
 typedef uint8_t TrainerId;
 
+typedef int8_t int99;
+
 typedef uint16_t Pixel;
 typedef uint16_t TileSet[NUM_TILES * TILE_PIXELS];
 typedef uint16_t Glyph16x96s[49];
@@ -146,9 +148,9 @@ typedef union
             struct
             {
                 uint8_t use_on_party_member : 1;
+                uint8_t use_on_enemy : 1;
+                uint8_t use_on_trainer : 1;
 
-                uint8_t _pad6 : 1;
-                uint8_t _pad5 : 1;
                 uint8_t _pad4 : 1;
                 uint8_t _pad3 : 1;
                 uint8_t _pad2 : 1;
@@ -171,6 +173,7 @@ typedef union
     struct
     {
         uint8_t power;
+        uint8_t power_special;
         uint8_t manaCost;
         uint8_t type : 4;
         //TODO: bits unused
@@ -179,10 +182,10 @@ typedef union
         //crit chance?
     };
 
-    uint8_t bytes[3];
+    uint8_t bytes[4];
 } SkillData;
 
-_Static_assert(sizeof(SkillData) == 3, "SkillData must be 3 bytes");
+_Static_assert(sizeof(SkillData) == 4, "SkillData must be 4 bytes");
 
 typedef union
 {
@@ -223,7 +226,7 @@ typedef union
     uint8_t bytes[3];
 } ItemData;
 
-_Static_assert(sizeof(ItemData) == 3, "ItemData must be 2 bytes");
+_Static_assert(sizeof(ItemData) == 3, "ItemData must be 3 bytes");
 
 typedef union
 {
@@ -360,9 +363,9 @@ typedef union
     };
 
     uint8_t bytes[3];
-} IntMax999;
+} uint_max999;
 
-_Static_assert(sizeof(IntMax999) == 3, "IntMax999 must be 3 bytes");
+_Static_assert(sizeof(uint_max999) == 3, "IntMax999 must be 3 bytes");
 
 /**********************************************************************************************************************/
 /**  Stores 2 integers each with the max value of 99
@@ -432,10 +435,43 @@ typedef union
         uint8_t greater : 1;
     };
 
-    uint8_t byte;
-} Int99;
+    struct
+    {
+        uint8_t resist : 7; // max 127
+        uint8_t absorb_bool : 1;
+    };
 
-_Static_assert(sizeof(Int99) == 1, "Int99 must be 1 byte");
+    uint8_t byte;
+} uint99;
+
+/**********************************************************************************************************************/
+/**  the top 10 bits hold the value < 1023 - meant for max 999 applications
+*   the bottom  6 bits holds flags
+*   max 999 value while using the remaining bits as flags
+**********************************************************************************************************************/
+typedef union
+{
+    struct
+    {
+        uint16_t value : 10; // max 999
+        uint16_t flags : 6;
+    };
+
+    struct
+    {
+        uint16_t _pad_value : 10; // max 999
+        uint16_t _pad0 : 1;
+        uint16_t _pad1 : 1;
+        uint16_t _pad2 : 1;
+        uint16_t _pad3 : 1;
+        uint16_t _pad4 : 1;
+        uint16_t _pad5 : 1;
+    };
+
+    uint8_t byte[2];
+} Int999;
+
+_Static_assert(sizeof(Int999) == 2, "Int99 must be 2 byte");
 
 /**********************************************************************************************************************/
 /** holds the metadata of each object in the sprite arrays
@@ -553,20 +589,91 @@ _Static_assert(sizeof(Senses) == 1, "Senses must be 1 byte");
  *  Grows with levels and can be modified by items/spells/skill
  *  each value is 1 byte - max <256
 **********************************************************************************************************************/
-typedef union Stats
+typedef union
 {
     struct
     {
-        uint8_t attack;
-        uint8_t defence;
-        uint8_t speed;
-        uint8_t magic;
+        uint64_t attack : 10; //base damage
+        uint64_t defence : 10; //damage reduction
+        uint64_t speed : 10; //turn count modifier, flee calculation
+        uint64_t magic : 10; //skill power damage modifier
+        uint64_t accuracy : 10; //accuracy...
+        uint64_t loyalty : 10; //increases chance ot recapture
+
+        uint64_t _pad2 : 4;
     };
 
-    uint8_t bytes[4];
+    uint8_t bytes[8];
 } Stats;
 
-_Static_assert(sizeof(Stats) == 4, "Stats must be 6 bytes");
+_Static_assert(sizeof(Stats) == 8, "Stats must be 6 bytes");
+
+
+/**********************************************************************************************************************
+**
+**********************************************************************************************************************/
+typedef union
+{
+    struct
+    {
+        uint64_t strength : 10; //crit and damage
+        uint64_t fortitude : 10; //hp modifier
+        uint64_t intelligence : 10; //skill power damage modifier
+        uint64_t agility : 10; //dodge
+        uint64_t dexterity : 10; //crit
+        uint64_t stamina : 10; //mana pool modifier
+
+        uint64_t _pad1 : 4;
+    };
+
+    uint8_t bytes[8];
+} Attributes;
+
+_Static_assert(sizeof(Attributes) == 8, "Stats must be 4 bytes");
+
+
+/**********************************************************************************************************************
+**
+**********************************************************************************************************************/
+typedef union
+{
+    struct
+    {
+        int99 toxic;
+        int99 fire;
+        int99 water;
+        int99 ice;
+        int99 earth;
+        int99 magic;
+    };
+
+    uint8_t bytes[6];
+} Resists;
+
+_Static_assert(sizeof(Resists) == 6, "Stats must be 6 bytes");
+
+/**********************************************************************************************************************
+**
+**********************************************************************************************************************/
+typedef union
+{
+    struct
+    {
+        uint8_t toxic : 1;
+        uint8_t fire : 1;
+        uint8_t water : 1;
+        uint8_t ice : 1;
+        uint8_t earth : 1;
+        uint8_t magic : 1;
+
+        uint8_t pad0 : 1;
+        uint8_t pad1 : 1;
+    };
+
+    uint8_t bytes[1];
+} Absorb;
+
+_Static_assert(sizeof(Absorb) == 1, "Stats must be 1 bytes");
 
 /**********************************************************************************************************************
 ** Min and max values of stats
@@ -587,18 +694,18 @@ typedef union
             uint8_t magic : 4;
         } growth;
 
-
-        // struct
-        // {
-        //     uint8_t fire : 6;
-        //     uint8_t ice : 4;
-        // } resists;
+        uint8_t _pad0;
+        uint8_t _pad1;
+        uint8_t _pad3;
+        uint8_t _pad4;
+        uint8_t _pad5;
+        uint8_t _pad6;
     };
 
-    uint8_t bytes[10];
+    uint8_t bytes[24];
 } StatsRange;
 
-_Static_assert(sizeof(StatsRange) == 10, "StatsRange must be 10 bytes");
+_Static_assert(sizeof(StatsRange) == 24, "StatsRange must be 10 bytes");
 
 /**********************************************************************************************************************/
 /** stores the 2 type values each monster has
@@ -679,7 +786,7 @@ typedef union
 } SpriteFrames;
 
 
-_Static_assert(sizeof(SpriteFrames) == 40, "Sprite must be 4 bytes");
+_Static_assert(sizeof(SpriteFrames) == 40, "Sprite must be 40 bytes");
 
 
 typedef struct

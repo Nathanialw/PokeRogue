@@ -1,5 +1,5 @@
 // Generated spell data structs
-// Database contains 70 total spells
+// Database contains 86 total spells
 
 // layout: 
 //    .power = 8 bits (uint8_t)
@@ -11,22 +11,24 @@
 
 //    .flags = {  8 bits (uint8_t)
 //                .use_on_party_member = 1 bits
-//                (7 bits of padding)
+//                .use_on_enemy = 1 bits
+//                .use_on_trainer = 1 bits
+//                (5 bits of padding)
 //             }
 
 // Individual spells data
-// 0 - AWAKEN -> .power = 10 .level = 1 .type = HUMANOID .pp = 5 .flags = { . use_on_party_member = 0 }
-{ .power = 0x0a, .level = 0x01, .data = 0xa5, .flags = 0b00000000  },
-// 1 - BLINDING_LIGHT -> .power = 10 .level = 1 .type = DEMIGOD .pp = 5 .flags = { . use_on_party_member = 0 }
-{ .power = 0x0a, .level = 0x01, .data = 0x95, .flags = 0b00000000  },
+// 0 - AWAKEN -> .power = 1 .level = 1 .type = HUMANOID .pp = 5 .flags = { . use_on_party_member = 0 }
+{ .power = 0x01, .level = 0x01, .data = 0xa5, .flags = 0b00000000  },
+// 1 - BLINDING_LIGHT -> .power = 1 .level = 1 .type = DEMIGOD .pp = 5 .flags = { . use_on_party_member = 1 }
+{ .power = 0x01, .level = 0x01, .data = 0x95, .flags = 0b00000001  },
 // 2 - BREW_POTION -> .power = 10 .level = 1 .type = DEMONIC .pp = 5 .flags = { . use_on_party_member = 0 }
 { .power = 0x0a, .level = 0x01, .data = 0xd5, .flags = 0b00000000  },
-// 3 - BRILLIANCE_AURA -> .power = 10 .level = 1 .type = DEMIGOD .pp = 5 .flags = { . use_on_party_member = 0 }
-{ .power = 0x0a, .level = 0x01, .data = 0x95, .flags = 0b00000000  },
-// 4 - BURN_HEAL -> .power = 10 .level = 1 .type = HUMANOID .pp = 5 .flags = { . use_on_party_member = 0 }
-{ .power = 0x0a, .level = 0x01, .data = 0xa5, .flags = 0b00000000  },
+// 3 - BRILLIANCE_AURA -> .power = 2 .level = 1 .type = DEMIGOD .pp = 5 .flags = { . use_on_party_member = 0 }
+{ .power = 0x02, .level = 0x01, .data = 0x95, .flags = 0b00000100  },
+// 4 - BURN_HEAL -> .power = 1 .level = 1 .type = HUMANOID .pp = 5 .flags = { . use_on_party_member = 1 }
+{ .power = 0x01, .level = 0x01, .data = 0xa5, .flags = 0b00000001  },
 // 5 - CAPTURE -> .power = 10 .level = 1 .type = HUMANOID .pp = 5 .flags = { . use_on_party_member = 0 }
-{ .power = 0x0a, .level = 0x01, .data = 0xa5, .flags = 0b00000000  },
+{ .power = 0x0a, .level = 0x01, .data = 0xa5, .flags = 0b00000100  },
 // 6 - CLAIRVOYANCE -> .power = 10 .level = 1 .type = DEMIGOD .pp = 5 .flags = { . use_on_party_member = 0 }
 { .power = 0x0a, .level = 0x01, .data = 0x95, .flags = 0b00000000  },
 // 7 - CREATE_COMMON_ITEM -> .power = 10 .level = 1 .type = HUMANOID .pp = 5 .flags = { . use_on_party_member = 0 }
@@ -37,123 +39,155 @@
 { .power = 0x0a, .level = 0x01, .data = 0xf5, .flags = 0b00000000  },
 // 10 - CRUSADE -> .power = 10 .level = 1 .type = DEMIGOD .pp = 5 .flags = { . use_on_party_member = 0 }
 { .power = 0x0a, .level = 0x01, .data = 0x95, .flags = 0b00000000  },
-// 11 - CURE_CURSE -> .power = 10 .level = 1 .type = DEMIGOD .pp = 5 .flags = { . use_on_party_member = 0 }
-{ .power = 0x0a, .level = 0x01, .data = 0x95, .flags = 0b00000000  },
-// 12 - CURE_DISEASE -> .power = 10 .level = 1 .type = HUMANOID .pp = 5 .flags = { . use_on_party_member = 0 }
-{ .power = 0x0a, .level = 0x01, .data = 0xa5, .flags = 0b00000000  },
-// 13 - CURE_POISON -> .power = 10 .level = 1 .type = HUMANOID .pp = 5 .flags = { . use_on_party_member = 0 }
-{ .power = 0x0a, .level = 0x01, .data = 0xa5, .flags = 0b00000000  },
-// 14 - DEFEND -> .power = 10 .level = 1 .type = EARTHEN .pp = 5 .flags = { . use_on_party_member = 0 }
-{ .power = 0x0a, .level = 0x01, .data = 0xf5, .flags = 0b00000000  },
+// 11 - CURE_CURSE -> .power = 1 .level = 1 .type = DEMIGOD .pp = 5 .flags = { . use_on_party_member = 1 }
+{ .power = 0x01, .level = 0x01, .data = 0x95, .flags = 0b00000001  },
+// 12 - CURE_DISEASE -> .power = 1 .level = 1 .type = HUMANOID .pp = 5 .flags = { . use_on_party_member = 1 }
+{ .power = 0x01, .level = 0x01, .data = 0xa5, .flags = 0b00000001  },
+// 13 - CURE_POISON -> .power = 1 .level = 1 .type = HUMANOID .pp = 5 .flags = { . use_on_party_member = 1 }
+{ .power = 0x01, .level = 0x01, .data = 0xa5, .flags = 0b00000001  },
+// 14 - DEFEND -> .power = 1 .level = 1 .type = EARTHEN .pp = 5 .flags = { . use_on_party_member = 1 }
+{ .power = 0x01, .level = 0x01, .data = 0xf5, .flags = 0b00000001  },
 // 15 - DESCEND -> .power = 10 .level = 1 .type = EARTHEN .pp = 5 .flags = { . use_on_party_member = 0 }
 { .power = 0x0a, .level = 0x01, .data = 0xf5, .flags = 0b00000000  },
 // 16 - DISPLACEMENT -> .power = 5 .level = 1 .type = DEMIGOD .pp = 5 .flags = { . use_on_party_member = 0 }
 { .power = 0x05, .level = 0x01, .data = 0x95, .flags = 0b00000000  },
 // 17 - DROUGHT -> .power = 10 .level = 1 .type = EARTHEN .pp = 5 .flags = { . use_on_party_member = 0 }
 { .power = 0x0a, .level = 0x01, .data = 0xf5, .flags = 0b00000000  },
-// 18 - EMPOWER -> .power = 10 .level = 1 .type = EARTHEN .pp = 5 .flags = { . use_on_party_member = 0 }
-{ .power = 0x0a, .level = 0x01, .data = 0xf5, .flags = 0b00000000  },
-// 19 - FEAR -> .power = 10 .level = 1 .type = DEMONIC .pp = 5 .flags = { . use_on_party_member = 0 }
-{ .power = 0x0a, .level = 0x01, .data = 0xd5, .flags = 0b00000000  },
+// 18 - EMPOWER -> .power = 1 .level = 1 .type = EARTHEN .pp = 5 .flags = { . use_on_party_member = 1 }
+{ .power = 0x01, .level = 0x01, .data = 0xf5, .flags = 0b00000001  },
+// 19 - FEAR -> .power = 1 .level = 1 .type = DEMONIC .pp = 5 .flags = { . use_on_party_member = 0 }
+{ .power = 0x01, .level = 0x01, .data = 0xd5, .flags = 0b00000100  },
 // 20 - FIRE_BALL -> .power = 10 .level = 1 .type = FLAME .pp = 5 .flags = { . use_on_party_member = 0 }
+{ .power = 0x0a, .level = 0x01, .data = 0x15, .flags = 0b00000100  },
+// 21 - FLAME_EATER -> .power = 10 .level = 1 .type = FLAME .pp = 5 .flags = { . use_on_party_member = 1 }
+{ .power = 0x0a, .level = 0x01, .data = 0x15, .flags = 0b00000001  },
+// 22 - FOCUS -> .power = 1 .level = 1 .type = BEAST .pp = 5 .flags = { . use_on_party_member = 0 }
+{ .power = 0x01, .level = 0x01, .data = 0x75, .flags = 0b00000000  },
+// 23 - FORTIFY -> .power = 1 .level = 1 .type = EARTHEN .pp = 5 .flags = { . use_on_party_member = 1 }
+{ .power = 0x01, .level = 0x01, .data = 0xf5, .flags = 0b00000001  },
+// 24 - GAIN_ACCURACY -> .power = 1 .level = 1 .type = DRAGONS .pp = 5 .flags = { . use_on_party_member = 1 }
+{ .power = 0x01, .level = 0x01, .data = 0x55, .flags = 0b00000001  },
+// 25 - GAIN_LOYALTY -> .power = 1 .level = 1 .type = DEMIGOD .pp = 5 .flags = { . use_on_party_member = 1 }
+{ .power = 0x01, .level = 0x01, .data = 0x95, .flags = 0b00000001  },
+// 26 - GLOWING_EMBERS -> .power = 1 .level = 1 .type = FLAME .pp = 5 .flags = { . use_on_party_member = 0 }
+{ .power = 0x01, .level = 0x01, .data = 0x15, .flags = 0b00000100  },
+// 27 - GROW_MUSCLE -> .power = 1 .level = 1 .type = PLANT .pp = 5 .flags = { . use_on_party_member = 1 }
+{ .power = 0x01, .level = 0x01, .data = 0x05, .flags = 0b00000001  },
+// 28 - HASTE -> .power = 1 .level = 1 .type = DEMIGOD .pp = 5 .flags = { . use_on_party_member = 1 }
+{ .power = 0x01, .level = 0x01, .data = 0x95, .flags = 0b00000001  },
+// 29 - HASTEN -> .power = 1 .level = 1 .type = PLANT .pp = 5 .flags = { . use_on_party_member = 1 }
+{ .power = 0x01, .level = 0x01, .data = 0x05, .flags = 0b00000001  },
+// 30 - HEAL -> .power = 25 .level = 1 .type = DEMIGOD .pp = 5 .flags = { . use_on_party_member = 1 }
+{ .power = 0x19, .level = 0x01, .data = 0x95, .flags = 0b00000001  },
+// 31 - HEAT_WAVE -> .power = 10 .level = 1 .type = FLAME .pp = 5 .flags = { . use_on_party_member = 0 }
 { .power = 0x0a, .level = 0x01, .data = 0x15, .flags = 0b00000000  },
-// 21 - FLAME_EATER -> .power = 10 .level = 1 .type = FLAME .pp = 5 .flags = { . use_on_party_member = 0 }
-{ .power = 0x0a, .level = 0x01, .data = 0x15, .flags = 0b00000000  },
-// 22 - FOCUS -> .power = 10 .level = 1 .type = BEAST .pp = 5 .flags = { . use_on_party_member = 0 }
-{ .power = 0x0a, .level = 0x01, .data = 0x75, .flags = 0b00000000  },
-// 23 - FORTIFY -> .power = 10 .level = 1 .type = EARTHEN .pp = 1 .flags = { . use_on_party_member = 0 }
-{ .power = 0x0a, .level = 0x01, .data = 0xf1, .flags = 0b00000000  },
-// 24 - GLOWING_EMBERS -> .power = 5 .level = 1 .type = FLAME .pp = 5 .flags = { . use_on_party_member = 0 }
-{ .power = 0x05, .level = 0x01, .data = 0x15, .flags = 0b00000000  },
-// 25 - GROW_MUSCLE -> .power = 10 .level = 1 .type = PLANT .pp = 1 .flags = { . use_on_party_member = 0 }
-{ .power = 0x0a, .level = 0x01, .data = 0x01, .flags = 0b00000000  },
-// 26 - HASTE -> .power = 10 .level = 1 .type = DEMIGOD .pp = 5 .flags = { . use_on_party_member = 0 }
-{ .power = 0x0a, .level = 0x01, .data = 0x95, .flags = 0b00000000  },
-// 27 - HASTEN -> .power = 10 .level = 1 .type = PLANT .pp = 5 .flags = { . use_on_party_member = 0 }
-{ .power = 0x0a, .level = 0x01, .data = 0x05, .flags = 0b00000000  },
-// 28 - HEAL -> .power = 10 .level = 1 .type = DEMIGOD .pp = 5 .flags = { . use_on_party_member = 1 }
-{ .power = 0x0a, .level = 0x01, .data = 0x95, .flags = 0b00000001  },
-// 29 - HEAT_WAVE -> .power = 10 .level = 1 .type = FLAME .pp = 5 .flags = { . use_on_party_member = 0 }
-{ .power = 0x0a, .level = 0x01, .data = 0x15, .flags = 0b00000000  },
-// 30 - HUNT -> .power = 10 .level = 1 .type = HUMANOID .pp = 5 .flags = { . use_on_party_member = 0 }
+// 32 - HUNT -> .power = 10 .level = 1 .type = HUMANOID .pp = 5 .flags = { . use_on_party_member = 0 }
 { .power = 0x0a, .level = 0x01, .data = 0xa5, .flags = 0b00000000  },
-// 31 - HYPOTHERMIA -> .power = 10 .level = 1 .type = ICE .pp = 5 .flags = { . use_on_party_member = 0 }
-{ .power = 0x0a, .level = 0x01, .data = 0x25, .flags = 0b00000000  },
-// 32 - ICE_BOLT -> .power = 10 .level = 1 .type = ICE .pp = 5 .flags = { . use_on_party_member = 0 }
-{ .power = 0x0a, .level = 0x01, .data = 0x25, .flags = 0b00000000  },
-// 33 - INCREASE_BAG -> .power = 10 .level = 1 .type = DEMIGOD .pp = 5 .flags = { . use_on_party_member = 0 }
+// 33 - HYPOTHERMIA -> .power = 1 .level = 1 .type = ICE .pp = 5 .flags = { . use_on_party_member = 0 }
+{ .power = 0x01, .level = 0x01, .data = 0x25, .flags = 0b00000100  },
+// 34 - ICE_BOLT -> .power = 10 .level = 1 .type = ICE .pp = 5 .flags = { . use_on_party_member = 0 }
+{ .power = 0x0a, .level = 0x01, .data = 0x25, .flags = 0b00000100  },
+// 35 - INCREASE_BAG -> .power = 10 .level = 1 .type = DEMIGOD .pp = 5 .flags = { . use_on_party_member = 0 }
 { .power = 0x0a, .level = 0x01, .data = 0x95, .flags = 0b00000000  },
-// 34 - LEVITATE -> .power = 10 .level = 1 .type = DEMIGOD .pp = 5 .flags = { . use_on_party_member = 0 }
+// 36 - LEVITATE -> .power = 10 .level = 1 .type = DEMIGOD .pp = 5 .flags = { . use_on_party_member = 0 }
 { .power = 0x0a, .level = 0x01, .data = 0x95, .flags = 0b00000000  },
-// 35 - MUD_SLING -> .power = 10 .level = 1 .type = EARTHEN .pp = 5 .flags = { . use_on_party_member = 0 }
-{ .power = 0x0a, .level = 0x01, .data = 0xf5, .flags = 0b00000000  },
-// 36 - NERVE_REPAIR -> .power = 10 .level = 1 .type = HUMANOID .pp = 5 .flags = { . use_on_party_member = 0 }
+// 37 - MUD_SLING -> .power = 10 .level = 1 .type = EARTHEN .pp = 5 .flags = { . use_on_party_member = 0 }
+{ .power = 0x0a, .level = 0x01, .data = 0xf5, .flags = 0b00000100  },
+// 38 - NERVE_REPAIR -> .power = 1 .level = 1 .type = HUMANOID .pp = 5 .flags = { . use_on_party_member = 1 }
+{ .power = 0x01, .level = 0x01, .data = 0xa5, .flags = 0b00000001  },
+// 39 - OPEN_CHEST -> .power = 10 .level = 1 .type = HUMANOID .pp = 5 .flags = { . use_on_party_member = 0 }
 { .power = 0x0a, .level = 0x01, .data = 0xa5, .flags = 0b00000000  },
-// 37 - OPEN_CHEST -> .power = 10 .level = 1 .type = HUMANOID .pp = 5 .flags = { . use_on_party_member = 0 }
-{ .power = 0x0a, .level = 0x01, .data = 0xa5, .flags = 0b00000000  },
-// 38 - PORTAL -> .power = 10 .level = 1 .type = DEMIGOD .pp = 5 .flags = { . use_on_party_member = 0 }
+// 40 - PORTAL -> .power = 10 .level = 1 .type = DEMIGOD .pp = 5 .flags = { . use_on_party_member = 0 }
 { .power = 0x0a, .level = 0x01, .data = 0x95, .flags = 0b00000000  },
-// 39 - POWER_OVERWHELMING -> .power = 10 .level = 1 .type = DEMIGOD .pp = 5 .flags = { . use_on_party_member = 0 }
-{ .power = 0x0a, .level = 0x01, .data = 0x95, .flags = 0b00000000  },
-// 40 - PURIFICATION -> .power = 10 .level = 1 .type = FEY .pp = 5 .flags = { . use_on_party_member = 0 }
+// 41 - POWER_OVERWHELMING -> .power = 1 .level = 1 .type = DEMIGOD .pp = 5 .flags = { . use_on_party_member = 1 }
+{ .power = 0x01, .level = 0x01, .data = 0x95, .flags = 0b00000001  },
+// 42 - PURIFICATION -> .power = 10 .level = 1 .type = FEY .pp = 5 .flags = { . use_on_party_member = 0 }
 { .power = 0x0a, .level = 0x01, .data = 0x85, .flags = 0b00000000  },
-// 41 - RAGE -> .power = 10 .level = 1 .type = BEAST .pp = 5 .flags = { . use_on_party_member = 0 }
-{ .power = 0x0a, .level = 0x01, .data = 0x75, .flags = 0b00000000  },
-// 42 - RAIN_STORM -> .power = 10 .level = 1 .type = AQUATIC .pp = 5 .flags = { . use_on_party_member = 0 }
+// 43 - RAGE -> .power = 1 .level = 1 .type = BEAST .pp = 5 .flags = { . use_on_party_member = 0 }
+{ .power = 0x01, .level = 0x01, .data = 0x75, .flags = 0b00000000  },
+// 44 - RAIN_STORM -> .power = 10 .level = 1 .type = AQUATIC .pp = 5 .flags = { . use_on_party_member = 0 }
 { .power = 0x0a, .level = 0x01, .data = 0x35, .flags = 0b00000000  },
-// 43 - RAISE_DEAD -> .power = 10 .level = 1 .type = UNDEAD .pp = 5 .flags = { . use_on_party_member = 0 }
+// 45 - RAISE_AGILITY -> .power = 1 .level = 1 .type = BEAST .pp = 5 .flags = { . use_on_party_member = 1 }
+{ .power = 0x01, .level = 0x01, .data = 0x75, .flags = 0b00000001  },
+// 46 - RAISE_DEAD -> .power = 10 .level = 1 .type = UNDEAD .pp = 5 .flags = { . use_on_party_member = 0 }
 { .power = 0x0a, .level = 0x01, .data = 0xc5, .flags = 0b00000000  },
-// 44 - RAISE_SKELETON -> .power = 10 .level = 1 .type = UNDEAD .pp = 5 .flags = { . use_on_party_member = 0 }
-{ .power = 0x0a, .level = 0x01, .data = 0xc5, .flags = 0b00000000  },
-// 45 - RAZOR_GRASS -> .power = 10 .level = 1 .type = PLANT .pp = 5 .flags = { . use_on_party_member = 0 }
-{ .power = 0x0a, .level = 0x01, .data = 0x05, .flags = 0b00000000  },
-// 46 - REFLECT -> .power = 10 .level = 1 .type = AQUATIC .pp = 5 .flags = { . use_on_party_member = 0 }
+// 47 - RAISE_DEXTERITY -> .power = 1 .level = 1 .type = HUMANOID .pp = 5 .flags = { . use_on_party_member = 1 }
+{ .power = 0x01, .level = 0x01, .data = 0xa5, .flags = 0b00000001  },
+// 48 - RAISE_EARTH_RESIST -> .power = 10 .level = 1 .type = TOXIC .pp = 5 .flags = { . use_on_party_member = 0 }
+{ .power = 0x0a, .level = 0x01, .data = 0xe5, .flags = 0b00000000  },
+// 49 - RAISE_FIRE_RESIST -> .power = 10 .level = 1 .type = AQUATIC .pp = 5 .flags = { . use_on_party_member = 0 }
 { .power = 0x0a, .level = 0x01, .data = 0x35, .flags = 0b00000000  },
-// 47 - REPEL -> .power = 10 .level = 1 .type = DEMIGOD .pp = 5 .flags = { . use_on_party_member = 0 }
-{ .power = 0x0a, .level = 0x01, .data = 0x95, .flags = 0b00000000  },
-// 48 - RESTORE_MANA -> .power = 10 .level = 1 .type = FEY .pp = 5 .flags = { . use_on_party_member = 1 }
-{ .power = 0x0a, .level = 0x01, .data = 0x85, .flags = 0b00000001  },
-// 49 - RESURRECT -> .power = 10 .level = 1 .type = DEMIGOD .pp = 5 .flags = { . use_on_party_member = 0 }
-{ .power = 0x0a, .level = 0x01, .data = 0x95, .flags = 0b00000000  },
-// 50 - RaiseXP -> .power = 100 .level = 1 .type = ANCIENT .pp = 5 .flags = { . use_on_party_member = 0 }
-{ .power = 0x64, .level = 0x01, .data = 0xb5, .flags = 0b00000000  },
-// 51 - SHADOWS -> .power = 10 .level = 1 .type = DEMONIC .pp = 5 .flags = { . use_on_party_member = 0 }
-{ .power = 0x0a, .level = 0x01, .data = 0xd5, .flags = 0b00000000  },
-// 52 - SILENCE -> .power = 10 .level = 1 .type = AQUATIC .pp = 5 .flags = { . use_on_party_member = 0 }
-{ .power = 0x0a, .level = 0x01, .data = 0x35, .flags = 0b00000000  },
-// 53 - SLOW -> .power = 10 .level = 1 .type = DEMONIC .pp = 5 .flags = { . use_on_party_member = 0 }
-{ .power = 0x0a, .level = 0x01, .data = 0xd5, .flags = 0b00000000  },
-// 54 - SOOTHE -> .power = 10 .level = 1 .type = DEMIGOD .pp = 5 .flags = { . use_on_party_member = 0 }
-{ .power = 0x0a, .level = 0x01, .data = 0x95, .flags = 0b00000000  },
-// 55 - SPAWN_ACID -> .power = 10 .level = 1 .type = PLANT .pp = 5 .flags = { . use_on_party_member = 0 }
-{ .power = 0x0a, .level = 0x01, .data = 0x05, .flags = 0b00000000  },
-// 56 - SPAWN_FLOOR -> .power = 10 .level = 1 .type = EARTHEN .pp = 5 .flags = { . use_on_party_member = 0 }
-{ .power = 0x0a, .level = 0x01, .data = 0xf5, .flags = 0b00000000  },
-// 57 - SPAWN_LAVA -> .power = 10 .level = 1 .type = FLAME .pp = 5 .flags = { . use_on_party_member = 0 }
+// 50 - RAISE_FORTITUDE -> .power = 1 .level = 1 .type = EARTHEN .pp = 5 .flags = { . use_on_party_member = 1 }
+{ .power = 0x01, .level = 0x01, .data = 0xf5, .flags = 0b00000001  },
+// 51 - RAISE_ICE_RESIST -> .power = 10 .level = 1 .type = FLAME .pp = 5 .flags = { . use_on_party_member = 0 }
 { .power = 0x0a, .level = 0x01, .data = 0x15, .flags = 0b00000000  },
-// 58 - SPAWN_PITS -> .power = 10 .level = 1 .type = EARTHEN .pp = 5 .flags = { . use_on_party_member = 0 }
+// 52 - RAISE_INTELLIGENCE -> .power = 1 .level = 1 .type = FEY .pp = 5 .flags = { . use_on_party_member = 1 }
+{ .power = 0x01, .level = 0x01, .data = 0x85, .flags = 0b00000001  },
+// 53 - RAISE_MAGIC_RESIST -> .power = 10 .level = 1 .type = ANCIENT .pp = 5 .flags = { . use_on_party_member = 0 }
+{ .power = 0x0a, .level = 0x01, .data = 0xb5, .flags = 0b00000000  },
+// 54 - RAISE_MAX_HP -> .power = 1 .level = 1 .type = DEMIGOD .pp = 5 .flags = { . use_on_party_member = 1 }
+{ .power = 0x01, .level = 0x01, .data = 0x95, .flags = 0b00000001  },
+// 55 - RAISE_MAX_MP -> .power = 1 .level = 1 .type = DEMIGOD .pp = 5 .flags = { . use_on_party_member = 1 }
+{ .power = 0x01, .level = 0x01, .data = 0x95, .flags = 0b00000001  },
+// 56 - RAISE_SKELETON -> .power = 10 .level = 1 .type = UNDEAD .pp = 5 .flags = { . use_on_party_member = 0 }
+{ .power = 0x0a, .level = 0x01, .data = 0xc5, .flags = 0b00000000  },
+// 57 - RAISE_STAMINA -> .power = 1 .level = 1 .type = BEAST .pp = 5 .flags = { . use_on_party_member = 1 }
+{ .power = 0x01, .level = 0x01, .data = 0x75, .flags = 0b00000001  },
+// 58 - RAISE_STRENGTH -> .power = 1 .level = 1 .type = HUMANOID .pp = 5 .flags = { . use_on_party_member = 1 }
+{ .power = 0x01, .level = 0x01, .data = 0xa5, .flags = 0b00000001  },
+// 59 - RAISE_TOXIC_RESIST -> .power = 10 .level = 1 .type = UNDEAD .pp = 5 .flags = { . use_on_party_member = 0 }
+{ .power = 0x0a, .level = 0x01, .data = 0xc5, .flags = 0b00000000  },
+// 60 - RAISE_WATER_RESIST -> .power = 10 .level = 1 .type = PLANT .pp = 5 .flags = { . use_on_party_member = 0 }
+{ .power = 0x0a, .level = 0x01, .data = 0x05, .flags = 0b00000000  },
+// 61 - RAZOR_GRASS -> .power = 10 .level = 1 .type = PLANT .pp = 5 .flags = { . use_on_party_member = 0 }
+{ .power = 0x0a, .level = 0x01, .data = 0x05, .flags = 0b00000100  },
+// 62 - REFLECT -> .power = 1 .level = 1 .type = AQUATIC .pp = 5 .flags = { . use_on_party_member = 1 }
+{ .power = 0x01, .level = 0x01, .data = 0x35, .flags = 0b00000001  },
+// 63 - REPEL -> .power = 10 .level = 1 .type = DEMIGOD .pp = 5 .flags = { . use_on_party_member = 0 }
+{ .power = 0x0a, .level = 0x01, .data = 0x95, .flags = 0b00000000  },
+// 64 - RESTORE_MANA -> .power = 20 .level = 1 .type = FEY .pp = 5 .flags = { . use_on_party_member = 1 }
+{ .power = 0x14, .level = 0x01, .data = 0x85, .flags = 0b00000001  },
+// 65 - RESURRECT -> .power = 10 .level = 1 .type = DEMIGOD .pp = 5 .flags = { . use_on_party_member = 0 }
+{ .power = 0x0a, .level = 0x01, .data = 0x95, .flags = 0b00000000  },
+// 66 - RaiseXP -> .power = 100 .level = 1 .type = ANCIENT .pp = 5 .flags = { . use_on_party_member = 1 }
+{ .power = 0x64, .level = 0x01, .data = 0xb5, .flags = 0b00000001  },
+// 67 - SHADOWS -> .power = 1 .level = 1 .type = DEMONIC .pp = 5 .flags = { . use_on_party_member = 1 }
+{ .power = 0x01, .level = 0x01, .data = 0xd5, .flags = 0b00000001  },
+// 68 - SILENCE -> .power = 1 .level = 1 .type = AQUATIC .pp = 5 .flags = { . use_on_party_member = 1 }
+{ .power = 0x01, .level = 0x01, .data = 0x35, .flags = 0b00000001  },
+// 69 - SLOW -> .power = 1 .level = 1 .type = DEMONIC .pp = 5 .flags = { . use_on_party_member = 0 }
+{ .power = 0x01, .level = 0x01, .data = 0xd5, .flags = 0b00000100  },
+// 70 - SOOTHE -> .power = 1 .level = 1 .type = DEMIGOD .pp = 5 .flags = { . use_on_party_member = 1 }
+{ .power = 0x01, .level = 0x01, .data = 0x95, .flags = 0b00000001  },
+// 71 - SPAWN_ACID -> .power = 10 .level = 1 .type = PLANT .pp = 5 .flags = { . use_on_party_member = 0 }
+{ .power = 0x0a, .level = 0x01, .data = 0x05, .flags = 0b00000000  },
+// 72 - SPAWN_FLOOR -> .power = 10 .level = 1 .type = EARTHEN .pp = 5 .flags = { . use_on_party_member = 0 }
 { .power = 0x0a, .level = 0x01, .data = 0xf5, .flags = 0b00000000  },
-// 59 - SPAWN_WATER -> .power = 10 .level = 1 .type = AQUATIC .pp = 5 .flags = { . use_on_party_member = 0 }
+// 73 - SPAWN_LAVA -> .power = 10 .level = 1 .type = FLAME .pp = 5 .flags = { . use_on_party_member = 0 }
+{ .power = 0x0a, .level = 0x01, .data = 0x15, .flags = 0b00000000  },
+// 74 - SPAWN_PITS -> .power = 10 .level = 1 .type = EARTHEN .pp = 5 .flags = { . use_on_party_member = 0 }
+{ .power = 0x0a, .level = 0x01, .data = 0xf5, .flags = 0b00000000  },
+// 75 - SPAWN_WATER -> .power = 10 .level = 1 .type = AQUATIC .pp = 5 .flags = { . use_on_party_member = 0 }
 { .power = 0x0a, .level = 0x01, .data = 0x35, .flags = 0b00000000  },
-// 60 - STRENGTHEN -> .power = 10 .level = 1 .type = EARTHEN .pp = 1 .flags = { . use_on_party_member = 0 }
-{ .power = 0x0a, .level = 0x01, .data = 0xf1, .flags = 0b00000000  },
-// 61 - SUMMON_FOOD -> .power = 10 .level = 1 .type = HUMANOID .pp = 5 .flags = { . use_on_party_member = 0 }
+// 76 - STRENGTHEN -> .power = 1 .level = 1 .type = EARTHEN .pp = 5 .flags = { . use_on_party_member = 1 }
+{ .power = 0x01, .level = 0x01, .data = 0xf5, .flags = 0b00000001  },
+// 77 - SUMMON_FOOD -> .power = 10 .level = 1 .type = HUMANOID .pp = 5 .flags = { . use_on_party_member = 0 }
 { .power = 0x0a, .level = 0x01, .data = 0xa5, .flags = 0b00000000  },
-// 62 - SUMMON_WARD -> .power = 10 .level = 1 .type = DEMIGOD .pp = 5 .flags = { . use_on_party_member = 0 }
+// 78 - SUMMON_WARD -> .power = 10 .level = 1 .type = DEMIGOD .pp = 5 .flags = { . use_on_party_member = 0 }
 { .power = 0x0a, .level = 0x01, .data = 0x95, .flags = 0b00000000  },
-// 63 - TELEPORT -> .power = 10 .level = 1 .type = DEMIGOD .pp = 5 .flags = { . use_on_party_member = 0 }
+// 79 - TELEPORT -> .power = 10 .level = 1 .type = DEMIGOD .pp = 5 .flags = { . use_on_party_member = 0 }
 { .power = 0x0a, .level = 0x01, .data = 0x95, .flags = 0b00000000  },
-// 64 - WALL_WALKING -> .power = 10 .level = 1 .type = EARTHEN .pp = 5 .flags = { . use_on_party_member = 0 }
+// 80 - WALL_WALKING -> .power = 10 .level = 1 .type = EARTHEN .pp = 5 .flags = { . use_on_party_member = 0 }
 { .power = 0x0a, .level = 0x01, .data = 0xf5, .flags = 0b00000000  },
-// 65 - WATER_BREATHING -> .power = 10 .level = 1 .type = AQUATIC .pp = 5 .flags = { . use_on_party_member = 0 }
+// 81 - WATER_BREATHING -> .power = 10 .level = 1 .type = AQUATIC .pp = 5 .flags = { . use_on_party_member = 0 }
 { .power = 0x0a, .level = 0x01, .data = 0x35, .flags = 0b00000000  },
-// 66 - WATER_WALKING -> .power = 10 .level = 1 .type = AQUATIC .pp = 5 .flags = { . use_on_party_member = 0 }
+// 82 - WATER_WALKING -> .power = 10 .level = 1 .type = AQUATIC .pp = 5 .flags = { . use_on_party_member = 0 }
 { .power = 0x0a, .level = 0x01, .data = 0x35, .flags = 0b00000000  },
-// 67 - WIZEN -> .power = 10 .level = 1 .type = PLANT .pp = 1 .flags = { . use_on_party_member = 0 }
-{ .power = 0x0a, .level = 0x01, .data = 0x01, .flags = 0b00000000  },
-// 68 - WIZEN2 -> .power = 10 .level = 1 .type = AQUATIC .pp = 5 .flags = { . use_on_party_member = 0 }
-{ .power = 0x0a, .level = 0x01, .data = 0x35, .flags = 0b00000000  },
-// 69 - XRAY_VISION -> .power = 10 .level = 1 .type = EARTHEN .pp = 5 .flags = { . use_on_party_member = 0 }
+// 83 - WIZEN -> .power = 1 .level = 1 .type = PLANT .pp = 5 .flags = { . use_on_party_member = 1 }
+{ .power = 0x01, .level = 0x01, .data = 0x05, .flags = 0b00000001  },
+// 84 - WIZEN2 -> .power = 1 .level = 1 .type = AQUATIC .pp = 5 .flags = { . use_on_party_member = 1 }
+{ .power = 0x01, .level = 0x01, .data = 0x35, .flags = 0b00000001  },
+// 85 - XRAY_VISION -> .power = 10 .level = 1 .type = EARTHEN .pp = 5 .flags = { . use_on_party_member = 0 }
 { .power = 0x0a, .level = 0x01, .data = 0xf5, .flags = 0b00000000  },
 
-//COUNT = 70;
+//COUNT = 86;

@@ -807,10 +807,10 @@ ActionOutcome InteractChest(HardwareInterface hardware, MemoryInterface memory, 
     DEBUG("InteractChest");
     if (SetUsed(object_id))
     {
-        uint8_t x = 20;
-        uint8_t y = 20;
+        uint8_t x = g_core.objects.position[object_id].x;
+        uint8_t y = g_core.objects.position[object_id].y;
         uint8_t l = 20;
-        return CreateItemMagic(hardware, memory, ITEM, x, y, l);
+        return CreateItemCommon(hardware, memory, ITEM, x, y, l);
     }
     return ACTION_FAILED;
 }

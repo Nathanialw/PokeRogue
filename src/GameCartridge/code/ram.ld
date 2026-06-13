@@ -43,7 +43,7 @@ SECTIONS
         . = ALIGN(4);
     }
 
-    .map 0x20010000 : AT(0x030000)
+    .map 0x20010000 : AT(0x040000)
     {
         KEEP(*(.map_entry))
         KEEP(*(.map.text))    /* code */
@@ -54,7 +54,7 @@ SECTIONS
         . = ALIGN(4);
     }
 
-    .map_gen 0x20010000 : AT(0x040000)
+    .map_gen 0x20010000 : AT(0x060000)
     {
         KEEP(*(.map_gen_entry))
         KEEP(*(.map_gen.text))    /* code */
@@ -65,7 +65,7 @@ SECTIONS
         . = ALIGN(4);
     }
 
-    .battle 0x20010000 : AT(0x050000)
+    .battle 0x20010000 : AT(0x080000)
     {
         KEEP(*(.battle_entry))
         KEEP(*(.battle.text))    /* code */
@@ -76,7 +76,7 @@ SECTIONS
         . = ALIGN(4);
     }
 
-    .battle 0x20010000 : AT(0x060000)
+    .battle 0x20010000 : AT(0x100000)
     {
         KEEP(*(.game_loss_entry))
         KEEP(*(.game_loss.text))    /* code */

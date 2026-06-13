@@ -67,7 +67,7 @@ void FillListByTypeID(MemoryInterface memory, uint8_t n, uint8_t* ids)
     uint8_t i = g_core.menu.menuScrollOffset[g_core.menu.depth].y;
     while (i < n)
     {
-        Flash_GetSpellbookText(memory, g_core.menu.text[i], ids[i]);
+        Flash_GetSpellName(memory, g_core.menu.text[i], ids[i]);
         i++;
     }
     g_core.menu.text[i][0] = '\0';

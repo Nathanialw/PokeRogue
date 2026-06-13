@@ -237,21 +237,58 @@ Creature GetCreatureType(EntityId id)
     return g_core.creatures.types[id];
 }
 
+SET_MEMORY(".core")
+Stats GetCreatureStats(EntityId id)
+{
+    if (id == NO_ENTITY)
+        return (Stats){0};
+
+    return g_core.creatures.stats[id];
+}
 
 SET_MEMORY(".core")
-IntMax999 GetCreaturehp(EntityId id)
+Attributes GetCreatureAttributes(EntityId id)
+{
+    if (id == NO_ENTITY)
+        return (Attributes){0};
+
+    return g_core.creatures.attributes[id];
+}
+
+SET_MEMORY(".core")
+Resists GetCreatureResists(EntityId id)
+{
+    if (id == NO_ENTITY)
+        return (Resists){0};
+
+    return g_core.creatures.resists[id];
+}
+
+
+SET_MEMORY(".core")
+Absorb GetCreatureAbsorb(EntityId id)
+{
+    if (id == NO_ENTITY)
+        return (Absorb){0};
+
+    return g_core.creatures.absorb[id];
+}
+
+
+SET_MEMORY(".core")
+uint_max999 GetCreaturehp(EntityId id)
 {
     return g_core.creatures.hp[id];
 }
 
 SET_MEMORY(".core")
-IntMax999 GetCreaturemp(EntityId id)
+uint_max999 GetCreaturemp(EntityId id)
 {
     return g_core.creatures.mp[id];
 }
 
 SET_MEMORY(".core")
-IntMax999 GetCreaturexp(EntityId id)
+uint_max999 GetCreaturexp(EntityId id)
 {
     return g_core.creatures.xp[id];
 }

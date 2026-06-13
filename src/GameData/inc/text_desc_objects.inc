@@ -1,17 +1,12 @@
 // Generated creature descriptions
-// Database contains 43 total descriptions
+// Database contains 35 total descriptions
 
 // Individual description strings
 "ALTAR -- PLACEHOLDER TEXT - A mysterious object awaiting discovery.\0",
-"A weathered wooden raft with carved runes drifts silently, its hull wrapped in seaweed and glowing faintly under moonlight.\0",
-"The small wooden boat creaks as it glides through misty waters, its oars leaving shimmering trails of starlight behind.\0",
 "CABINET_BOOK -- PLACEHOLDER TEXT - A mysterious object awaiting discovery.\0",
 "CABINET_JEWELLERY -- PLACEHOLDER TEXT - A mysterious object awaiting discovery.\0",
 "CABINET_SCROLL -- PLACEHOLDER TEXT - A mysterious object awaiting discovery.\0",
 "CAULDRON -- PLACEHOLDER TEXT - A mysterious object awaiting discovery.\0",
-"The swirling, iridescent mist burns with a corrosive glow, melting stone and flesh alike upon contact.\0",
-"A swirling emerald mist coils upward, reeking of sulfur and withering all life in its path with a touch.\0",
-"CLOUD_SMOKE -- PLACEHOLDER TEXT - A mysterious object awaiting discovery.\0",
 "A gilded casket adorned with glowing runes and embossed with eerie, shifting faces, humming with trapped whispers of the dead.\0",
 "A carved obsidian casket lined with enchanted silver threads that hum with ghostly whispers when touched.\0",
 "CORPSE_HANGING -- PLACEHOLDER TEXT - A mysterious object awaiting discovery.\0",
@@ -32,9 +27,6 @@
 "The fountain bubbles with a swirling emerald-green liquid, emitting a corrosive mist that dissolves flesh on contact.\0",
 "A crimson stream flows ceaselessly from its ornate marble basin, its waters shimmering with an eerie, metallic sheen.\0",
 "The water shimmers with an ethereal blue glow, rising from the basin in delicate spirals before dissolving into mist.\0",
-"HIDDEN_COMPARTMENT -- PLACEHOLDER TEXT - A mysterious object awaiting discovery.\0",
-"The armor gleams with enchanted silver plates that shift like liquid moonlight, whispering secrets in the wind.\0",
-"RACK_WEAPON -- PLACEHOLDER TEXT - A mysterious object awaiting discovery.\0",
 "TREASURE_BARREL -- PLACEHOLDER TEXT - A mysterious object awaiting discovery.\0",
 "TREASURE_BASKET -- PLACEHOLDER TEXT - A mysterious object awaiting discovery.\0",
 "A gilded wooden chest, bound in iron, etched with runes, and humming with forgotten magic, rests atop a moss-covered pedestal.\0",
@@ -47,4 +39,4 @@
 "WELL -- PLACEHOLDER TEXT - A mysterious object awaiting discovery.\0",
 " ------ \0",
 
-//ALL_DESCRIPTIONS_COUNT = 43;
+//ALL_DESCRIPTIONS_COUNT = 35;

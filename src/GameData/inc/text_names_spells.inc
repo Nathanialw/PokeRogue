@@ -1,5 +1,5 @@
 // Generated spell name strings
-// Database contains 70 total spell
+// Database contains 86 total spell
 
 // Individual spell strings
 "Awaken\0",
@@ -26,6 +26,8 @@
 "Flame Eater\0",
 "Focus\0",
 "Fortify\0",
+"Gain Accuracy\0",
+"Gain Loyalty\0",
 "Glowing Embers\0",
 "Grow Muscle\0",
 "Haste\0",
@@ -45,8 +47,22 @@
 "Purification\0",
 "Rage\0",
 "Rain Storm\0",
+"Raise Agility\0",
 "Raise Dead\0",
+"Raise Dexterity\0",
+"Raise Earth Res\0",
+"Raise Fire Resi\0",
+"Raise Fortitude\0",
+"Raise Ice Resis\0",
+"Raise Intellige\0",
+"Raise Magic Res\0",
+"Raise Max HP\0",
+"Raise Max MP\0",
 "Raise Skeleton\0",
+"Raise Stamina\0",
+"Raise Strength\0",
+"Raise Toxic Res\0",
+"Raise Water Res\0",
 "Razor Grass\0",
 "Reflect\0",
 "Repel\0",
