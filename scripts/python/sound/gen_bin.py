@@ -1,12 +1,21 @@
 import struct
 import os
 from pathlib import Path
+import wave                     # <-- new import
 
 raw_path = '../../../assets_raw/sound/'
 output_path = '../../../bin/'
 
-def pack_files(output_path, input_files):
-    # Make sure all input files exist
+def get_wav_spec(filepath):
+    try:
+        with wave.open(str(filepath), 'rb') as wf:   # ← added str()
+            return (wf.getnchannels(), wf.getframerate(), wf.getsampwidth() * 8)
+    except Exception as e:
+        print(f"WAV read error for {filepath}: {e}")
+        return None
+
+
+def pack_files_id(output_path, input_files, id_start=0):
     for f in input_files:
         if not os.path.isfile(f):
             print(f"Error: '{f}' not found.")
@@ -20,74 +29,80 @@ def pack_files(output_path, input_files):
         print("Too many files (max 65535).")
         return
 
-    # Header format (little-endian)
-    # Magic: 4 bytes "ASST"
-    # Version: 1 byte
-    # File count: 2 bytes (unsigned short)
-    # For each file:
-    #   name: 32 bytes (UTF-8, null-padded)
-    #   offset: 4 bytes (unsigned int) from start of bin
-    #   size: 4 bytes (unsigned int)
-    ENTRY_FMT = '<32sII'  # name, offset, size
+    ENTRY_FMT = '<HII'          # id, offset, size
     entry_size = struct.calcsize(ENTRY_FMT)
-
-    # Calculate header size
     header_size = 4 + 1 + 2 + num_files * entry_size
 
-    # Read all files into memory and build entries
     entries = []
     blobs = []
     current_offset = header_size
 
+    # First, gather audio specs for consistency check
+    spec_list = []
     for filepath in input_files:
+        spec_list.append(get_wav_spec(filepath))
+
+    # Determine if all specs match (for WAV files only)
+    unique_specs = set(s for s in spec_list if s is not None)
+    if len(unique_specs) > 1:
+        print("\n*** WARNING: WAV files have different audio specs! ***")
+        for fp, spec in zip(input_files, spec_list):
+            if spec:
+                print(f"  {spec}  {fp}")
+
+    for idx, filepath in enumerate(input_files):
         with open(filepath, 'rb') as f:
             data = f.read()
         size = len(data)
 
-        # Truncate/pad filename to 32 bytes
-        name = os.path.basename(filepath).encode('utf-8')
-        if len(name) > 31:
-            name = name[:31] + b'\0'
-        else:
-            name = name + b'\0' * (32 - len(name))
-
-        entries.append((name, current_offset, size))
+        asset_id = id_start + idx
+        entries.append((asset_id, current_offset, size))
         blobs.append(data)
         current_offset += size
 
     # Write the .bin file
     with open(output_path, 'wb') as out:
-        # Magic and header info
         out.write(b'ASST')
-        out.write(struct.pack('<B', 1))  # version
-        out.write(struct.pack('<H', num_files))  # file count
+        out.write(struct.pack('<B', 1))
+        out.write(struct.pack('<H', num_files))
 
-        # Write file entries
-        for name, offset, size in entries:
-            out.write(struct.pack(ENTRY_FMT, name, offset, size))
+        for asset_id, offset, size in entries:
+            out.write(struct.pack(ENTRY_FMT, asset_id, offset, size))
 
-        # Write raw file data
         for data in blobs:
             out.write(data)
 
     print(f"Created {output_path} with {num_files} files:")
-    for name, offset, size in entries:
-        name_str = name.split(b'\0')[0].decode('utf-8')
-        print(f"  {name_str}: offset=0x{offset:08X}, size={size} bytes")
+    for idx, (asset_id, offset, size) in enumerate(entries):
+        name = os.path.basename(input_files[asset_id - id_start])
+        spec = spec_list[idx]
+        if spec:
+            ch, rate, bits = spec
+            print(f"  ID {asset_id:3d}: {name:40s}  [{ch} ch, {rate} Hz, {bits}‑bit]  offset=0x{offset:08X}, size={size}")
+        else:
+            print(f"  ID {asset_id:3d}: {name:40s}  [non‑WAV]                offset=0x{offset:08X}, size={size}")
+
+    # Write the C header with #define SOUND_...
+    with open(output_path.replace('.bin', '_ids.h'), 'w') as hdr:
+        hdr.write('#pragma once\n\n')
+        for asset_id, _, _ in entries:
+            name = os.path.basename(input_files[asset_id - id_start])
+            macro_name = name.upper().replace(' ', '_').replace('.', '_')
+            hdr.write(f'#define SOUND_{macro_name} {asset_id}\n')
 
 
-
-def get_files_pathlib(directory):
-    # Returns list of Path objects for files only
-    return [p for p in Path(directory).iterdir() if p.is_file()]
+def get_files_sorted(directory):
+    p = Path(directory)
+    if not p.is_dir():
+        return []
+    return sorted([f for f in p.iterdir() if f.is_file()])
 
 
 if __name__ == '__main__':
     effects_bin = f"{output_path}/effects.bin"
-    input_effects = get_files_pathlib(f'{raw_path}/effects/walking')
+    input_effects = get_files_sorted(f'{raw_path}/effects/walking')
+    pack_files_id(effects_bin, input_effects, id_start=0)
 
-    music_bin = f"{output_path}/music.bin"
-    input_music = get_files_pathlib(f'{raw_path}/music')
-
-pack_files(effects_bin, input_effects)
-pack_files(music_bin, input_music)
+    # music_bin = f"{output_path}/music.bin"
+    # input_music = get_files_sorted(f'{raw_path}/music')
+    # pack_files_id(music_bin, input_music, id_start=0)

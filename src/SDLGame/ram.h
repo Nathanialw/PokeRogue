@@ -61,9 +61,21 @@ typedef struct
     PartialFrameBuffer framebuffer;
     KeyState keys;
     uint8_t* bytes;
+
+
+
     uint8_t* funcs;
     bool running;
     bool redraw;
+
+
+    uint8_t* music_bytes;
+    size_t music_size;
+
+    uint8_t* effects_bytes;
+    size_t effects_size;
+    SDL_Thread *sound_thread;
+    SDL_Thread *music_thread;
 } RamState;
 
 

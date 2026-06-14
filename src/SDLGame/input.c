@@ -8,6 +8,7 @@
 #include <SDL3/SDL_init.h>
 #include <SDL3/SDL_timer.h>
 
+#include "audio.h"
 #include "core_ram.h"
 #include "graphics.h"
 #include "lib_debugging.h"
@@ -113,6 +114,9 @@ void HandleInput(void)
             SDL_Delay(20);
             continue;
         }
+
+        RequestSound(0);
+
 
         g_ramState.keys.buttons = key_state.buttons;
         g_ramState.keys.dp = d1;

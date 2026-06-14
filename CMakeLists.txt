@@ -81,7 +81,22 @@ add_subdirectory(src/tools/music_editor)
 if (BUILD_TESTS)
     add_subdirectory(src/GameCoreTests)
 elseif (SDL)
+    # ---------- SDL3 (static) ----------
+    set(SDL_STATIC ON CACHE BOOL "" FORCE)
+    set(SDL_SHARED OFF CACHE BOOL "" FORCE)
+    add_subdirectory(vendor/SDL EXCLUDE_FROM_ALL)
+
+    # ---------- SDL3_mixer (static + vendored codecs) ----------
+    set(SDL3MIXER_BUILD_SHARED_LIBS OFF CACHE BOOL "" FORCE)
+    set(BUILD_SHARED_LIBS OFF CACHE BOOL "" FORCE)          # ← Add this
+    set(SDL3MIXER_VENDORED          ON  CACHE BOOL "" FORCE)
+    set(SDL3MIXER_DEPS_SHARED       OFF CACHE BOOL "" FORCE)
+#    add_compile_definitions(SDL_INCLUDE_SDL_BEGIN_CODE_H)
+#    add_compile_options(-Wno-unknown-attributes)
+    add_subdirectory(vendor/SDL_mixer)
+
     add_subdirectory(src/SDLGame)
+
 elseif (PICO)
     add_subdirectory(src/PicoGame)
 elseif (CARTRIDGE_DATA)

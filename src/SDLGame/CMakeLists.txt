@@ -9,15 +9,18 @@ add_executable(SDLRogue
         ram.c
 )
 
+
+
+
 target_compile_definitions(SDLRogue PRIVATE ENABLE_DEBUG_OUTPUT ENABLE_ASSERTS SDL)
 target_compile_definitions(GameCore PRIVATE ENABLE_DEBUG_OUTPUT ENABLE_ASSERTS SDL) #MEMORY_PRINT TEST_MAP
 target_compile_definitions(PicoTypes PRIVATE ENABLE_DEBUG_OUTPUT ENABLE_ASSERTS SDL)
 
-
 target_link_libraries(SDLRogue PRIVATE
         GameCore
         PicoTypes
-        SDL3
+        SDL3::SDL3-static
+        SDL3_mixer::SDL3_mixer     # ← Correct
 )
 
 
@@ -32,6 +35,7 @@ target_include_directories(SDLRogue PRIVATE
 ## set the output directory for built objects.
 ## This makes sure that the dynamic library goes into the build directory automatically.
 #set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/$<CONFIGURATION>")
+
 #set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/$<CONFIGURATION>")
 #
 ## This assumes the SDL source is available in vendored/SDL
@@ -42,3 +46,4 @@ target_include_directories(SDLRogue PRIVATE
 #
 ## Link to the actual SDL3 library.
 #target_link_libraries(hello PRIVATE )
+
