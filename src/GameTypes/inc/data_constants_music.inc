@@ -1,0 +1,6 @@
+#pragma once
+
+#define SOUND_DREAM_LIKE_OGG 0
+#define SOUND_MANIC_RITUAL_OGG 1
+#define SOUND_NIGHT_HUNTER_OGG 2
+#define SOUND_NIGHT_TERRORS_OGG 3

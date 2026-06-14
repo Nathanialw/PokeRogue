@@ -1,21 +1,23 @@
 import struct
 import os
 from pathlib import Path
-import wave                     # <-- new import
+import wave
+from python.config.constants import TYPES_INC_FOLDER
 
 raw_path = '../../../assets_raw/sound/'
 output_path = '../../../bin/'
 
+
 def get_wav_spec(filepath):
     try:
-        with wave.open(str(filepath), 'rb') as wf:   # ← added str()
+        with wave.open(str(filepath), 'rb') as wf:  # ← added str()
             return (wf.getnchannels(), wf.getframerate(), wf.getsampwidth() * 8)
     except Exception as e:
         print(f"WAV read error for {filepath}: {e}")
         return None
 
 
-def pack_files_id(output_path, input_files, id_start=0):
+def pack_files_id(output_path, input_files, audio_type, id_start=0):
     for f in input_files:
         if not os.path.isfile(f):
             print(f"Error: '{f}' not found.")
@@ -29,7 +31,7 @@ def pack_files_id(output_path, input_files, id_start=0):
         print("Too many files (max 65535).")
         return
 
-    ENTRY_FMT = '<HII'          # id, offset, size
+    ENTRY_FMT = '<HII'  # id, offset, size
     entry_size = struct.calcsize(ENTRY_FMT)
     header_size = 4 + 1 + 2 + num_files * entry_size
 
@@ -83,7 +85,9 @@ def pack_files_id(output_path, input_files, id_start=0):
             print(f"  ID {asset_id:3d}: {name:40s}  [non‑WAV]                offset=0x{offset:08X}, size={size}")
 
     # Write the C header with #define SOUND_...
-    with open(output_path.replace('.bin', '_ids.h'), 'w') as hdr:
+
+    header_path = f"../../{TYPES_INC_FOLDER}/data_constants_{audio_type}.inc"
+    with open(header_path, 'w') as hdr:
         hdr.write('#pragma once\n\n')
         for asset_id, _, _ in entries:
             name = os.path.basename(input_files[asset_id - id_start])
@@ -99,10 +103,13 @@ def get_files_sorted(directory):
 
 
 if __name__ == '__main__':
-    effects_bin = f"{output_path}/effects.bin"
-    input_effects = get_files_sorted(f'{raw_path}/effects/walking')
-    pack_files_id(effects_bin, input_effects, id_start=0)
 
-    # music_bin = f"{output_path}/music.bin"
-    # input_music = get_files_sorted(f'{raw_path}/music')
-    # pack_files_id(music_bin, input_music, id_start=0)
+    effects = 'effects'
+    effects_bin = f"{output_path}/{effects}.bin"
+    input_effects = get_files_sorted(f'{raw_path}/{effects}/walking')
+    pack_files_id(effects_bin, input_effects, effects, id_start=0)
+
+    music = 'music'
+    music_bin = f"{output_path}/{music}.bin"
+    input_music = get_files_sorted(f'{raw_path}/{music}')
+    pack_files_id(music_bin, input_music, music, id_start=0)
