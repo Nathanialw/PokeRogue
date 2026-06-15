@@ -5,8 +5,8 @@ import sys
 from pathlib import Path
 
 from python.data.db_manager import get_images
+from python.config.constants import IMAGE_TYPES
 
-image_types = ["item", "spell", "skill", "creature", "object", "trainer", "tile"]
 
 
 def copy_first_images(entity_type):
@@ -23,7 +23,14 @@ def copy_first_images(entity_type):
     folders_without_images = 0
 
     images = get_images(entity_type)
+    if not images:
+        print(f"No images found for {entity_type}")
+        return
+
     for image_path, name in images:
+        if not image_path:
+            image_path = "assets_raw/sprites/default/default.jpg"
+
         src_file = image_path
         if src_file and src_file.find('/') > 0:
             img_name = image_path.split('/').pop()
@@ -52,7 +59,7 @@ def copy_first_images(entity_type):
 def main():
 
 
-    for entity_type in image_types:
+    for entity_type in IMAGE_TYPES:
         copy_first_images(entity_type)
 
 

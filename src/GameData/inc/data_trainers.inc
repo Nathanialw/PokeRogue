@@ -1711,7 +1711,7 @@
       NO_SPELL,
   },
  .items = {
-      ELEMENTAL_BOLAS,
+      CAPTURE_BOLAS,
       NO_ITEM,
       NO_ITEM,
       NO_ITEM,

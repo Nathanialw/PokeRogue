@@ -15,6 +15,7 @@ Items = [
     "BOOTS_LAVA_WALKING",
     "BOOTS_WATER_WALKING",
     "CAPTURE_BEAR_TRAP",
+    "CAPTURE_BOLAS",
     "CAPTURE_CHAIN",
     "CAPTURE_LASSO",
     "CAPTURE_NET",
@@ -26,7 +27,6 @@ Items = [
     "DART_POISON",
     "DART_SLEEP",
     "EARMUFFS",
-    "ELEMENTAL_BOLAS",
     "ESCAPE_ROPE",
     "EXPLOSIVE_FLASK",
     "FLIPPERS",
@@ -97,6 +97,7 @@ ItemsDict = [
    { "name": 'BOOTS_LAVA_WALKING', 'prompt': "A pair of boots crafted from obsidian and enchanted ember, allowing the wearer to stride across molten rock unharmed."},
    { "name": 'BOOTS_WATER_WALKING', 'prompt': "Boots that allow the wearer to stride effortlessly across rivers, lakes, and seas, leaving barely a ripple in their wake."},
    { "name": 'CAPTURE_BEAR_TRAP', 'prompt': "A rusted iron jaw snaps shut with jagged teeth, crushing the victim's limb in its vise-like grip."},
+   { "name": 'CAPTURE_BOLAS', 'prompt': "CAPTURE_BOLAS"},
    { "name": 'CAPTURE_CHAIN', 'prompt': "A shimmering silver bracelet hums with forgotten whispers, its links shifting unnaturally to tighten or loosen on their own."},
    { "name": 'CAPTURE_LASSO', 'prompt': "A coiled rope of shimmering silver hums with latent magic as it drifts lazily in the air, seeking souls."},
    { "name": 'CAPTURE_NET', 'prompt': "A shimmering cloak woven from starlight, shifting colors as the wearer moves, whispering secrets of forgotten realms."},
@@ -108,7 +109,6 @@ ItemsDict = [
    { "name": 'DART_POISON', 'prompt': "A small, intricately carved dart with a needle-like tip dipped in iridescent venom that glows faintly under moonlight."},
    { "name": 'DART_SLEEP', 'prompt': "A slender, feathered shaft hums with an eerie glow, striking targets with a whisper of sleep-inducing magic."},
    { "name": 'EARMUFFS', 'prompt': "A pair of enchanted ear coverings that glow faintly in the dark, muffling not just sound but also whispers of fate."},
-   { "name": 'ELEMENTAL_BOLAS', 'prompt': "A glowing, swirling sphere of crackling energy that hums with ancient whispers and levitates in erratic patterns when thrown."},
    { "name": 'ESCAPE_ROPE', 'prompt': "A glowing, serpentine cord slithers through the air, coiling around obstacles to pull you swiftly to safety in tight spots."},
    { "name": 'EXPLOSIVE_FLASK', 'prompt': "A small glass vial filled with swirling emerald flames, emitting a faint hiss of crackling energy."},
    { "name": 'FLIPPERS', 'prompt': "FLIPPERS"},
@@ -165,16 +165,23 @@ ItemsDict = [
    { "name": 'WISDOM_CROWN', 'prompt': "A circlet of silver and sapphire adorned with ancient runes that whisper forgotten knowledge when worn."},
 ]
 
+# ITEMS_BASE_PROMPT = (
+#     # f"photo-realistic hi fidelity detailed, "
+#     "fantasy item, full body visible, centered composition, isolated creature, "
+#     "single subject, no cropping, highly detailed dark fantasy, sharp focus, "
+# )
+
 ITEMS_BASE_PROMPT = (
-    # f"photo-realistic hi fidelity detailed, "
-    "fantasy item, full body visible, centered composition, isolated creature, "
-    "single subject, no cropping, highly detailed dark fantasy, sharp focus, "
+    f"general details that can be seen from afar, "
+    # "fantasy item, full body visible, centered composition, isolated creature, "
+    # "single subject, no cropping, highly detailed dark fantasy, sharp focus, "
+    "photo-realistic hi fidelity detailed, fantasy item, item fully visible, centered composition, isolated item, single subject, no cropping, highly detailed dark fantasy, sharp focus, "
 )
 
 LIGHTING_STYLES = [
     # "dramatic rim lighting",
     # "moody low-key lighting, subtle fog",
-    "good lighting with high visibilty",
+    "good lighting with high visibility",
     "clear lighting with realistic colours",
     # "ancient parchment illustration style, inked linework",
     # "torchlit dungeon lighting",
@@ -193,9 +200,9 @@ VIEW_ANGLES = [
     # "back view",
     "strict side profile view, 90 degree lateral pose, full side silhouette",
     "three-quarter side view, strong 45 degree angle over-the-shoulder",
-    # "rear three-quarter view, mostly back but slight side visible",
+    "rear three-quarter view, mostly back but slight side visible",
     # "direct rear view, seen from straight behind, full back, over-the-shoulder",
-    "looking back over shoulder, body in profile but head turned",
+    # "looking back over shoulder, body in profile but head turned",
 ]
 
 # Generate all combinations
@@ -204,8 +211,8 @@ VARIANTS = [
     for style in LIGHTING_STYLES
     for angle in VIEW_ANGLES
 ]
-
+              
 NEGATIVE_PROMPT = (
-    "deformed iris, deformed pupils, semi-realistic, cgi, 3d, render, sketch, cartoon, drawing, anime), text, cropped, out of frame, worst quality, low quality, jpeg artifacts, ugly, duplicate, morbid, mutilated, extra fingers, mutated hands, poorly drawn hands, poorly drawn face, mutation, deformed, blurry, dehydrated, bad anatomy, bad proportions, extra limbs, cloned face, disfigured, gross proportions, malformed limbs, missing arms, missing legs, extra arms, extra legs, fused fingers, too many fingers, long neck, brown men, black men, asian men"
+  "deformed iris, deformed pupils, semi-realistic, cgi, 3d, render, sketch, cartoon, drawing, anime), text, cropped, out of frame, worst quality, low quality, jpeg artifacts, ugly, duplicate, morbid, mutilated, extra fingers, mutated hands, poorly drawn hands, poorly drawn face, mutation, deformed, blurry, dehydrated, bad anatomy, bad proportions, extra limbs, cloned face, disfigured, gross proportions, malformed limbs, missing arms, missing legs, extra arms, extra legs, fused fingers, too many fingers, long neck, brown men, black men, asian men"
 )
-        
+      

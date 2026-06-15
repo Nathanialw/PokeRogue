@@ -1,6 +1,9 @@
 add_executable(ImageViewer
         main.cpp
 
+        constants.h
+        globals.cpp
+
         init.cpp
         input.cpp
         rendering.cpp
@@ -11,8 +14,6 @@ add_executable(ImageViewer
         text.cpp
         tile_map_preview.cpp
 
-        globals.cpp
-        constants.h
 )
 
 
@@ -22,7 +23,7 @@ target_include_directories(ImageViewer PRIVATE
 
 
 target_link_libraries(ImageViewer PRIVATE
-        SDL3
+        SDL3::SDL3-static
         SDL3_image
         SDL3_ttf
         stdc++

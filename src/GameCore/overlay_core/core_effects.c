@@ -49,10 +49,11 @@ ActionOutcome RestoreResource(uint_max999* resource, EntityId creature_id, uint8
 SET_MEMORY(".core")
 uint16_t CalcDamage(EntityId creatureID, uint16_t abilityPower)
 {
-    const uint8_t level = g_core.creatures.level[creatureID].value >> 1;
-    const uint16_t base = g_core.creatures.stats[creatureID].attack;
-    const uint16_t skill = abilityPower + g_core.creatures.attributes[creatureID].intelligence;
-    const uint16_t mod = g_core.creatures.attributes[creatureID].strength;
+    const uint8_t level = g_core.creatures.level[creatureID].value;
+    const uint16_t base = g_core.creatures.stats[creatureID].attack >> 2;
+    const uint16_t accuracy = g_core.creatures.stats[creatureID].accuracy >> 2;
+    const uint16_t skill =( abilityPower + g_core.creatures.attributes[creatureID].intelligence) >> 3;
+    const uint16_t mod = g_core.creatures.attributes[creatureID].strength >> 3;
 
     uint16_t damage = level + base + skill + mod;
     DEBUG("CalcDamage %d %d %d %d - total %d", level, base, skill, mod, damage);

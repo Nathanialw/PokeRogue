@@ -106,6 +106,7 @@ bool Reposition(HardwareInterface hardware, EntityId e_id)
 /**********************************************************************************************************************
 *
 **********************************************************************************************************************/
+SET_MEMORY(".map")
 ActionOutcome DamageCreature(CreatureID entity_id, uint8_t damage, ObjectsTypes entity_type)
 {
     if (entity_type == CREATURE)

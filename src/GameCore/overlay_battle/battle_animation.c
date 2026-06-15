@@ -92,7 +92,7 @@ void UpdateResourceBar(GraphicsInterface graphics, HardwareInterface hardware, M
     uint16_t start_x = x + current_bar;
     const uint16_t end_pos = x + (bar_w - change_w);
 
-    const Color color_bg = Flash_GetColor(memory, PAL_OFF_WHITE_GRAY);
+    const Color color_bg = Flash_GetColor(memory, PAL_OFF_WHITE_GRAY_BLUE);
 
     while (true)
     {

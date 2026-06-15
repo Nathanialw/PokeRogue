@@ -2,10 +2,9 @@ import struct
 import os
 from pathlib import Path
 import wave
-from python.config.constants import TYPES_INC_FOLDER
 
-raw_path = '../../../assets_raw/sound/'
-output_path = '../../../bin/'
+from python.data.db_manager import get_entity_sounds, init_database
+from python.config.constants import TYPES_INC_FOLDER
 
 
 def get_wav_spec(filepath):
@@ -17,7 +16,7 @@ def get_wav_spec(filepath):
         return None
 
 
-def pack_files_id(output_path, input_files, audio_type, id_start=0):
+def pack_music_id(output_path, input_files, audio_type, id_start=0):
     for f in input_files:
         if not os.path.isfile(f):
             print(f"Error: '{f}' not found.")
@@ -84,9 +83,8 @@ def pack_files_id(output_path, input_files, audio_type, id_start=0):
         else:
             print(f"  ID {asset_id:3d}: {name:40s}  [non‑WAV]                offset=0x{offset:08X}, size={size}")
 
-    # Write the C header with #define SOUND_...
-
-    header_path = f"../../{TYPES_INC_FOLDER}/data_constants_{audio_type}.inc"
+    root_path = f"../../{TYPES_INC_FOLDER}"
+    header_path = f"{root_path}/data_constants_{audio_type}.inc"
     with open(header_path, 'w') as hdr:
         hdr.write('#pragma once\n\n')
         for asset_id, _, _ in entries:
@@ -103,13 +101,12 @@ def get_files_sorted(directory):
 
 
 if __name__ == '__main__':
+    init_database()
 
-    effects = 'effects'
-    effects_bin = f"{output_path}/{effects}.bin"
-    input_effects = get_files_sorted(f'{raw_path}/{effects}/walking')
-    pack_files_id(effects_bin, input_effects, effects, id_start=0)
+    raw_path = '../../../assets_raw/sound/'
+    output_path = '../../../bin/'
 
     music = 'music'
     music_bin = f"{output_path}/{music}.bin"
     input_music = get_files_sorted(f'{raw_path}/{music}')
-    pack_files_id(music_bin, input_music, music, id_start=0)
+    pack_music_id(music_bin, input_music, music, id_start=0)

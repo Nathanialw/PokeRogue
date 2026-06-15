@@ -50,7 +50,7 @@ CREATURE_VALIDATION = {
     },
 
     "Alfrun": {
-        "required_terms": ["elf", "female", "pretty", "blond hair", "wise", "breasts exposed", "saggy breasts", "perky breasts"],
+        "required_terms": ["elf", "female", "pretty", "blonde hair", "wise", "breasts exposed", "saggy breasts", "perky breasts"],
         "forbidden_terms": ["ugly"],
         "min_matches": MIN_MATCHES
     },

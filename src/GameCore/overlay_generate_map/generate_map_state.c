@@ -48,9 +48,9 @@ void GameRunInit(HardwareInterface hardware, MemoryInterface memory)
 
 
 SET_MEMORY(".map_gen")
-void InitGame(HardwareInterface hardware, MemoryInterface memory)
+void InitGame(HardwareInterface hardware, MemoryInterface memory, AudioInterface audio)
 {
-    InitMap(hardware);
+    InitMap(hardware, audio);
     GenerateLake(hardware, 30, 30, 10, FLUID_WATER);
     SetMapBorder();
 }
@@ -62,7 +62,7 @@ uint8_t OverlayMapGenEntry(GameInterface* spi)
     if (!g_core.initialized) GameRunInit(spi->hardware, spi->memory);
     else ResetEntities(spi->hardware, spi->memory, true);
 
-    InitGame(spi->hardware, spi->memory);
+    InitGame(spi->hardware, spi->memory, spi->audio);
     GenerateEntities(spi);
     SetMapFog(0);
 

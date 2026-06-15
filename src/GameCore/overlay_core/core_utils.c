@@ -60,14 +60,23 @@ void GetAsChars_uint16(uint16_t n, CharStr_uint16* out)
 /** takes a char array and a uint16_t and writes the value og the integer as chars to the array
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-void GetAsChars_Max999(uint16_t n, CharStr_max999* out)
+void GetAsChars_Max999(uint16_t n, CharStr_max999* out, bool prependZeros)
 {
     uint8_t hundreds = (n / 100) % 10;
     uint8_t tens = (n / 10) % 10;
     uint8_t ones = n % 10;
 
-    (*out)[0] = CHAR_OFFSET + hundreds;
-    (*out)[1] = CHAR_OFFSET + tens;
+
+    if (!prependZeros && CHAR_OFFSET + hundreds == '0')
+        (*out)[0] = ' ';
+    else
+        (*out)[0] = CHAR_OFFSET + hundreds;
+
+    if (!prependZeros && CHAR_OFFSET + tens == '0')
+        (*out)[1] = ' ';
+    else
+        (*out)[1] = CHAR_OFFSET + tens;
+
     (*out)[2] = CHAR_OFFSET + ones;
     (*out)[3] = '\0';
 }

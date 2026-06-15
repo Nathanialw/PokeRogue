@@ -523,22 +523,23 @@ const Note songs[TOTAL_MUSIC_NOTES] = {
 SET_MEMORY(".sounds_creatures")
 const Note creatures[CREATURE_COUNT] = {
     //probably not Notes, we will see though
-#include "lib/sounds_creatures.inc"
+//#include "lib/sounds_creatures.inc"
 };
 SET_MEMORY(".sounds_spells")
 const Note spells[SPELL_COUNT] = {
     //probably not Notes, we will see though
-#include "lib/sounds_spells.inc"
+//#include "lib/sounds_spells.inc"
 };
 SET_MEMORY(".sounds_skills")
 const Note attacks[ABILITY_COUNT] = {
     //probably not Notes, we will see though
-#include "lib/sounds_skills.inc"
+//#include "lib/sounds_skills.inc"
 };
 SET_MEMORY(".sounds_menus")
 const Note menus[10] = {
-#include "lib/sounds_menu.inc"
+// #include "lib/sounds_menu.inc"
 };
+
 
 
 /**********************************************************************************************************************/

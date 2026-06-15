@@ -14,7 +14,6 @@ const ObjectEffect objectFunctions[OBJECT_COUNT] = {
 #include "inc/funcs_objects_Interact.inc"
 };
 
-
 SET_MEMORY(".map.rodata")
 const SpellEffectMap spellFunctionsMap[SPELL_COUNT] = {
 #include "inc/funcs_spells_CastMap.inc"
@@ -43,13 +42,11 @@ ActionOutcome CastMapSpell(HardwareInterface hardware, MemoryInterface memory, u
     return spellFunctionsMap[spellType](hardware, memory, caster_id, target_id, spellData);
 }
 
-
 SET_MEMORY(".map")
 ActionOutcome UseMapItem(HardwareInterface hardware, MemoryInterface memory, uint8_t itemType, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
     return itemFunctionsMap[itemType](hardware, memory, item_id, user_id, target_id, itemData, index);
 }
-
 
 SET_MEMORY(".map")
 ActionOutcome UseMapObject(HardwareInterface hardware, MemoryInterface memory, ObjectId object_type_id, EntityId object_id, EntityId target_id, ObjectData objectData, ObjectsTypes entity_type)

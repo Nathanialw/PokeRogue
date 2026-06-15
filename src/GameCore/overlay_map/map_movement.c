@@ -154,7 +154,7 @@ void UpdateObjectCollision(MemoryInterface memory, HardwareInterface hardware)
             if (cp.x == op.x && cp.y == op.y)
             {
                 InteractObjectStepOn(memory, hardware, o_id, e_id, TRAINER);
-                if (e_id == GetPlayerID())
+                if (e_id == GetPlayerID() && GetBit(g_core.objects.interactable, o_id))
                     g_map.objectCollision = g_core.objects.types[o_id];
             }
         }
@@ -192,12 +192,13 @@ void UpdateObjectCollision(MemoryInterface memory, HardwareInterface hardware)
 /**Iterates through all entities sets position to the queued position
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-void SetPositions(HardwareInterface hardware, MemoryInterface memory)
+void SetPositions(HardwareInterface hardware, MemoryInterface memory, AudioInterface audio)
 {
     //  trainer
     uint8_t* onMap = GetEntitiesOnMap(TRAINER); //array is 256 bytes
     Position* position = GetEntityPositions(TRAINER); //array is 512 bytes
     Position* newPosition = GetEntityNewPositions(TRAINER); //array is 512 bytes
+    uint8_t tileID;
 
     for (uint16_t id = 0; id < MAX_ENTITY_TRAINER_COUNT; id++)
     {
@@ -213,12 +214,13 @@ void SetPositions(HardwareInterface hardware, MemoryInterface memory)
         uint8_t ny = nPos.y;
 
         //check current tile
-        uint8_t tileID = GetMapTile(x, y);
-        CheckInteractionStepOff(hardware, memory, tileID, id, TRAINER, x, y);
+        tileID = GetMapTile(x, y);
+        if (!CheckInteractionStepOff(hardware, memory, audio, tileID, id, TRAINER, x, y))
+            continue;
 
         //check next tile
         tileID = GetMapTile(nx, ny);
-        if (CheckInteractionStepOn(hardware, memory, tileID, id, TRAINER, nx, ny))
+        if (CheckInteractionStepOn(hardware, memory, audio, tileID, id, TRAINER, nx, ny))
             SetEntityPosition(TRAINER, id, x, y, nx, ny);
     }
 
@@ -241,16 +243,24 @@ void SetPositions(HardwareInterface hardware, MemoryInterface memory)
         uint8_t ny = nPos.y;
 
         //check current tile
-        uint8_t tileID = GetMapTile(x, y);
-        CheckInteractionStepOff(hardware, memory, tileID, id, CREATURE, x, y);
+        tileID = GetMapTile(x, y);
+        CheckInteractionStepOff(hardware, memory, audio, tileID, id, CREATURE, x, y);
 
         //check next tile
         tileID = GetMapTile(nx, ny);
-        if (CheckInteractionStepOn(hardware, memory, tileID, id, CREATURE, nx, ny))
+        if (CheckInteractionStepOn(hardware, memory, audio, tileID, id, CREATURE, nx, ny))
             SetEntityPosition(CREATURE, id, x, y, nx, ny);
     }
 
     // DEBUG("Updating Object done");
+}
+
+void PlayeMovementSoundEffect(AudioInterface audio)
+{
+    Position p = GetPlayerPosition();
+    uint8_t tileID = GetMapTile(p.x, p.y);
+    uint16_t sound_id = GetTileSoundId(tileID);
+    audio.PlaySoundEffect(sound_id);
 }
 
 
@@ -259,11 +269,12 @@ void SetPositions(HardwareInterface hardware, MemoryInterface memory)
  *  call every frame
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-void UpdateGame(MemoryInterface memory, HardwareInterface hardware)
+void UpdateGame(MemoryInterface memory, HardwareInterface hardware, AudioInterface audio)
 {
     UpdateObjectStatusEffects(hardware);
     UpdatePositions(hardware);
     UpdateObjectCollision(memory, hardware);
-    SetPositions(hardware, memory);
+    SetPositions(hardware, memory, audio);
+    PlayeMovementSoundEffect(audio);
     SetCameraPlayer();
 }

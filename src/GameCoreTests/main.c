@@ -2,17 +2,19 @@
 // Created by nathanial on 2/21/26.
 //
 
-#include "animation_tests.h"
-#include "collision.h"
-#include "combat_tests.h"
-#include "core.h"
-#include "creatures.h"
-#include "effects.h"
 #include "lib_debugging.h"
-#include "memory_ram.h"
-#include "utils_tests.h"
+
+#include <SDL3/SDL.h>
+
 #include <unistd.h>
 #include <stdlib.h>
+#include <string.h>
+
+
+#include "combat_tests.h"
+#include "creatures.h"
+#include "generate_map_state.h"
+#include "SDLGame/ram.h"
 
 
 State HandleInput(State state)
@@ -180,6 +182,64 @@ uint8_t GetRandom_uint8_t(uint8_t min, uint8_t max)
 }
 
 
+void PlayMusic(uint16_t music_id)
+{
+}
+
+
+typedef struct
+{
+    uint8_t* rom_bytes;
+    size_t romSize;
+} TestRamState;
+
+
+TestRamState g_testsRamState;
+
+void GetRom(uint32_t addr, uint8_t* buf, uint32_t size)
+{
+    memcpy(buf, &g_testsRamState.rom_bytes[addr], size);
+}
+
+
+void* LoadBinaryFile(const char* filename, size_t* dataSize)
+{
+    void* data = SDL_LoadFile(filename, dataSize);
+    if (!data)
+    {
+        SDL_Log("Failed to load file %s: %s", filename, SDL_GetError());
+        return NULL;
+    }
+    return data;
+}
+
+
+void LoadGameData(void)
+{
+    void* romData = LoadBinaryFile("bin/cartridge_data.bin", &g_testsRamState.romSize);
+
+    if (romData)
+    {
+        DEBUG("SUCCESS");
+        // romData points to a buffer of exactly romSize bytes.
+        // You can cast it to uint8_t* and treat it as a byte array.
+        g_testsRamState.rom_bytes = (uint8_t*)romData;
+        // ... use the data ...
+
+        // Free it when done
+    }
+    else
+    {
+        DEBUG("FAILED");
+    }
+}
+
+void FreeGameData(void)
+{
+    SDL_free(g_testsRamState.rom_bytes);
+}
+
+
 GameInterface InitAPI()
 {
     GameInterface api;
@@ -196,22 +256,32 @@ GameInterface InitAPI()
         // .StrCpy = strcpy,
         // .StrCat = strcat,
     };
+
+
+    api.memory = (MemoryInterface)
+    {
+        .GetRom = GetRom,
+    };
+
+    api.audio = (AudioInterface)
+    {
+        .PlayMusic = PlayMusic,
+    };
+
     return api;
 }
 
 int main()
 {
+    LoadGameData();
+
     GameInterface api = InitAPI();
+    InitGame(api.hardware, api.memory, api.audio);
 
 
-    InitGame(api.hardware);
-    DEBUG("===");
-    MapDescend(api.hardware, g_core.player.id);
-    DEBUG("---");
-
-    // RunCombatTests();
-    CreatureTests(api.hardware);
-    CheckAnimationImplemented();
+    RunCombatTests(api.hardware, api.memory);
+    // CreatureTests(api.hardware);
+    // CheckAnimationImplemented();
 
 
     return 0;

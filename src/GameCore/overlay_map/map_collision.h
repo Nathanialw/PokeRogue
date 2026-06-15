@@ -6,8 +6,8 @@
 
 
 
-bool CheckInteractionStepOn(HardwareInterface hardware, MemoryInterface memory, uint8_t tile, EntityId id, ObjectsTypes type, uint8_t x, uint8_t y);
-bool CheckInteractionStepOff(HardwareInterface hardware, MemoryInterface memory, uint8_t tile, EntityId id, ObjectsTypes type, uint8_t x, uint8_t y);
+bool CheckInteractionStepOn(HardwareInterface hardware, MemoryInterface memory, AudioInterface audio, uint8_t tile, EntityId id, ObjectsTypes type, uint8_t x, uint8_t y);
+bool CheckInteractionStepOff(HardwareInterface hardware, MemoryInterface memory, AudioInterface audio, uint8_t tile, EntityId id, ObjectsTypes type, uint8_t x, uint8_t y);
 void StartBattleTrainer(EntityId id);
 void StartBattleCreature(EntityId id);
 

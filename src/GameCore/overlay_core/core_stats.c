@@ -108,27 +108,29 @@ void GetStats(HardwareInterface hardware, MemoryInterface memory, Stats* stats, 
 
 /**********************************************************************************************************************/
 /**Returns the current and max hp of a creature by type and level
- *  TODO get the values from the DB values and calc with growth
+ *  TODO add random variance
 **********************************************************************************************************************/
 SET_MEMORY(".core")
 uint_max999 GetHP(Creature type, uint8_t level)
 {
     uint_max999 k = {0};
-    Int999SetCurrent(&k, ((level + 1) * 20));
-    Int999SetMax(&k, ((level + 1) * 20));\
+    uint16_t hp = g_core.statsCache.hp_base + ((level + 1) * g_core.statsCache.hp_growth);
+    Int999SetCurrent(&k, hp);
+    Int999SetMax(&k, hp);
     return k;
 }
 
 /**********************************************************************************************************************/
 /**Returns the current and max mp of a creature by type and level
- *  TODO get the values from the DB values and calc with growth
+ *  TODO add random variance
 **********************************************************************************************************************/
 SET_MEMORY(".core")
 uint_max999 GetMP(Creature type, uint8_t level)
 {
     uint_max999 k = {0};
-    Int999SetCurrent(&k, (level + 1) * 10);
-    Int999SetMax(&k, (level + 1) * 10);
+    uint16_t mp = g_core.statsCache.mp_base + ((level + 1) * g_core.statsCache.mp_growth);
+    Int999SetCurrent(&k, mp);
+    Int999SetMax(&k, mp);
     return k;
 }
 

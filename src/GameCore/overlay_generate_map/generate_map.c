@@ -222,7 +222,7 @@ Position FindRandomHallPosition(HardwareInterface hardware, ObjectsTypes type)
  *  Sets the fog map to defaults
 **********************************************************************************************************************/
 SET_MEMORY(".map_gen")
-void InitMap(HardwareInterface hardware)
+void InitMap(HardwareInterface hardware, AudioInterface audio)
 {
 #if defined(TEST_MAP)
     g_core.turn_count = 0;
@@ -235,6 +235,8 @@ void InitMap(HardwareInterface hardware)
     g_core.turn_final = 300;
     g_core.biome = DESERT;
     g_core.layout_type = hardware.GetRandom_uint8_t(1, TOTAL_DUNGEON_GEN_ALGOS - 1);
+
+    audio.PlayMusic(g_core.biome);
     GenerateDungeon(hardware, g_core.layout_type);
 #endif
 }

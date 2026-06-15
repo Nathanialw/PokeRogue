@@ -283,3 +283,16 @@ extern const ItemEffect itemFunctions[ITEM_COUNT];
 
 
 void GameRun_Reset(void); // call at new game / death
+
+
+
+
+
+uint8_t GetCreatureSoundId(uint8_t creature_id);
+uint8_t GetSpellSoundId(uint8_t spell_id);
+uint8_t GetItemSoundId(uint8_t item_id);
+uint8_t GetTileSoundId(uint8_t tile_id);
+uint8_t GetTrainerSoundId(uint8_t trainer_id);
+uint8_t GetObjectSoundId(uint8_t object_id);
+uint8_t GetSkillSoundId(uint8_t skill_id);
+uint8_t GetMenuSoundId(MenuSounds mune_sound);

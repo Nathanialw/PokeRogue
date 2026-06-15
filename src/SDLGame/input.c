@@ -115,9 +115,6 @@ void HandleInput(void)
             continue;
         }
 
-        RequestSound(0);
-
-
         g_ramState.keys.buttons = key_state.buttons;
         g_ramState.keys.dp = d1;
         break;

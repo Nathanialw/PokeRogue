@@ -6,3 +6,4 @@
 
 
 uint8_t OverlayMapGenEntry(GameInterface* spi);
+void InitGame(HardwareInterface hardware, MemoryInterface memory, AudioInterface audio);

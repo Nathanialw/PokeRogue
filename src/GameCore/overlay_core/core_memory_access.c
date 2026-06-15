@@ -14,6 +14,8 @@
 
 // #define MEMORY_PRINT
 
+
+
 #if defined(MEMORY_PRINT)
 SET_MEMORY(".core.data")
 static const char str_spawn_creature_type[] = "0x%2x,";

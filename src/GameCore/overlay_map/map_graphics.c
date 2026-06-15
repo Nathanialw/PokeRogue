@@ -196,110 +196,142 @@ void DrawPartyCreatureStats(GraphicsInterface graphics, MemoryInterface memory, 
     const uint16_t line_length = SMALL_STRINGS;
     const uint16_t title_length = SMALL_STRINGS;
     const uint16_t section_spacing = SMALL_STRINGS;
-    uint16_t spacing = 0;
-    uint8_t i = 0;
 
-#define SECTION_SPACING (spacing * TEXT_H)
-#define LINE_HEIGHT ((top_margin << 2) + (line_height * i++) + SECTION_SPACING)
-#define LINE_HEIGHT_SAME_LINE (top_margin + line_height * (i - 1))
+    uint16_t left_col_spacing = 0;
+    uint8_t left_col_i = 0;
+#define LEFT_COL_SECTION_SPACING (left_col_spacing * TEXT_H)
+#define LEFT_COL_LINE_HEIGHT ((top_margin << 2) + (line_height * left_col_i++) + LEFT_COL_SECTION_SPACING)
+#define LEFT_COL_LINE_HEIGHT_SAME_LINE (top_margin + line_height * (left_col_i - 1))
+
+
 #define COLUMN_1 ((CharStr_uint8*)(cursor + (title_length - 2)))
 #define COLUMN_2_TITLE (left_margin + ((line_length + 2) * TEXT_W))
 #define COLUMN_2_DATA ((CharStr_uint8*)(cursor + (title_length * 2) + 3))
 
-    graphics.FillRect(0, 0, w, h, Flash_GetColor(memory, PAL_OFF_WHITE_GRAY));
+    graphics.FillRect(0, 0, w, h, Flash_GetColor(memory, PAL_OFF_WHITE_GRAY_BLUE));
     CreatureID type = GetCreatureType(creature_id);
     char line[line_length];
     char* cursor = line;
     Flash_GetCreatureName(memory, cursor, type);
-    PrintLineStr(graphics, memory, TEXT_W, top_margin, g_core.settings.fontSize, SMALL_STRINGS, cursor, 0);
+    PrintLineStr(graphics, memory, TEXT_W, top_margin, g_core.settings.fontSize, SMALL_STRINGS, cursor, 0, PAL_DARK_BLUE_GRAY, PAL_OFF_WHITE_GRAY_BLUE);
 
 
     Stats stats = GetCreatureStats(creature_id);
-    Flash_GetTextByIndex(memory, line, i, line_length);
+    Flash_GetTextByIndex(memory, line, left_col_i, line_length);
     GetAsChars_uint8(stats.attack, COLUMN_1, false);
-    PrintLineStr(graphics, memory, left_margin, LINE_HEIGHT, g_core.settings.fontSize, SMALL_STRINGS, line, 0);
+    PrintLineStr(graphics, memory, left_margin, LEFT_COL_LINE_HEIGHT, g_core.settings.fontSize, SMALL_STRINGS, line, 0, PAL_DARK_BLUE_GRAY, PAL_OFF_WHITE_GRAY_BLUE);
 
-    Flash_GetTextByIndex(memory, line, i, line_length);
+    Flash_GetTextByIndex(memory, line, left_col_i, line_length);
     GetAsChars_uint8(stats.defence, COLUMN_1, false);
-    PrintLineStr(graphics, memory, left_margin, LINE_HEIGHT, g_core.settings.fontSize, SMALL_STRINGS, line, 0);
+    PrintLineStr(graphics, memory, left_margin, LEFT_COL_LINE_HEIGHT, g_core.settings.fontSize, SMALL_STRINGS, line, 0, PAL_DARK_BLUE_GRAY, PAL_OFF_WHITE_GRAY_BLUE);
 
-    Flash_GetTextByIndex(memory, line, i, line_length);
+    Flash_GetTextByIndex(memory, line, left_col_i, line_length);
     GetAsChars_uint8(stats.magic, COLUMN_1, false);
-    PrintLineStr(graphics, memory, left_margin, LINE_HEIGHT, g_core.settings.fontSize, SMALL_STRINGS, line, 0);
+    PrintLineStr(graphics, memory, left_margin, LEFT_COL_LINE_HEIGHT, g_core.settings.fontSize, SMALL_STRINGS, line, 0, PAL_DARK_BLUE_GRAY, PAL_OFF_WHITE_GRAY_BLUE);
 
-    Flash_GetTextByIndex(memory, line, i, line_length);
+    Flash_GetTextByIndex(memory, line, left_col_i, line_length);
     GetAsChars_uint8(stats.speed, COLUMN_1, false);
-    PrintLineStr(graphics, memory, left_margin, LINE_HEIGHT, g_core.settings.fontSize, SMALL_STRINGS, line, 0);
+    PrintLineStr(graphics, memory, left_margin, LEFT_COL_LINE_HEIGHT, g_core.settings.fontSize, SMALL_STRINGS, line, 0, PAL_DARK_BLUE_GRAY, PAL_OFF_WHITE_GRAY_BLUE);
 
-    Flash_GetTextByIndex(memory, line, i, line_length);
+    Flash_GetTextByIndex(memory, line, left_col_i, line_length);
     GetAsChars_uint8(stats.accuracy, COLUMN_1, false);
-    PrintLineStr(graphics, memory, left_margin, LINE_HEIGHT, g_core.settings.fontSize, SMALL_STRINGS, line, 0);
+    PrintLineStr(graphics, memory, left_margin, LEFT_COL_LINE_HEIGHT, g_core.settings.fontSize, SMALL_STRINGS, line, 0, PAL_DARK_BLUE_GRAY, PAL_OFF_WHITE_GRAY_BLUE);
 
-    Flash_GetTextByIndex(memory, line, i, line_length);
+    Flash_GetTextByIndex(memory, line, left_col_i, line_length);
     GetAsChars_uint8(stats.loyalty, COLUMN_1, false);
-    PrintLineStr(graphics, memory, left_margin, LINE_HEIGHT, g_core.settings.fontSize, SMALL_STRINGS, line, 0);
+    PrintLineStr(graphics, memory, left_margin, LEFT_COL_LINE_HEIGHT, g_core.settings.fontSize, SMALL_STRINGS, line, 0, PAL_DARK_BLUE_GRAY, PAL_OFF_WHITE_GRAY_BLUE);
 
-    spacing++;
+    left_col_spacing++;
     Attributes attributes = GetCreatureAttributes(creature_id);
-    Flash_GetTextByIndex(memory, line, i, line_length);
+    Flash_GetTextByIndex(memory, line, left_col_i, line_length);
     GetAsChars_uint8(attributes.strength, COLUMN_1, false);
-    PrintLineStr(graphics, memory, left_margin, LINE_HEIGHT, g_core.settings.fontSize, SMALL_STRINGS, line, 0);
+    PrintLineStr(graphics, memory, left_margin, LEFT_COL_LINE_HEIGHT, g_core.settings.fontSize, SMALL_STRINGS, line, 0, PAL_DARK_BLUE_GRAY, PAL_OFF_WHITE_GRAY_BLUE);
 
-    Flash_GetTextByIndex(memory, line, i, line_length);
+    Flash_GetTextByIndex(memory, line, left_col_i, line_length);
     GetAsChars_uint8(attributes.fortitude, COLUMN_1, false);
-    PrintLineStr(graphics, memory, left_margin, LINE_HEIGHT, g_core.settings.fontSize, SMALL_STRINGS, line, 0);
+    PrintLineStr(graphics, memory, left_margin, LEFT_COL_LINE_HEIGHT, g_core.settings.fontSize, SMALL_STRINGS, line, 0, PAL_DARK_BLUE_GRAY, PAL_OFF_WHITE_GRAY_BLUE);
 
-    Flash_GetTextByIndex(memory, line, i, line_length);
+    Flash_GetTextByIndex(memory, line, left_col_i, line_length);
     GetAsChars_uint8(attributes.intelligence, COLUMN_1, false);
-    PrintLineStr(graphics, memory, left_margin, LINE_HEIGHT, g_core.settings.fontSize, SMALL_STRINGS, line, 0);
+    PrintLineStr(graphics, memory, left_margin, LEFT_COL_LINE_HEIGHT, g_core.settings.fontSize, SMALL_STRINGS, line, 0, PAL_DARK_BLUE_GRAY, PAL_OFF_WHITE_GRAY_BLUE);
 
-    Flash_GetTextByIndex(memory, line, i, line_length);
+    Flash_GetTextByIndex(memory, line, left_col_i, line_length);
     GetAsChars_uint8(attributes.agility, COLUMN_1, false);
-    PrintLineStr(graphics, memory, left_margin, LINE_HEIGHT, g_core.settings.fontSize, SMALL_STRINGS, line, 0);
+    PrintLineStr(graphics, memory, left_margin, LEFT_COL_LINE_HEIGHT, g_core.settings.fontSize, SMALL_STRINGS, line, 0, PAL_DARK_BLUE_GRAY, PAL_OFF_WHITE_GRAY_BLUE);
 
-    Flash_GetTextByIndex(memory, line, i, line_length);
+    Flash_GetTextByIndex(memory, line, left_col_i, line_length);
     GetAsChars_uint8(attributes.dexterity, COLUMN_1, false);
-    PrintLineStr(graphics, memory, left_margin, LINE_HEIGHT, g_core.settings.fontSize, SMALL_STRINGS, line, 0);
+    PrintLineStr(graphics, memory, left_margin, LEFT_COL_LINE_HEIGHT, g_core.settings.fontSize, SMALL_STRINGS, line, 0, PAL_DARK_BLUE_GRAY, PAL_OFF_WHITE_GRAY_BLUE);
 
-    Flash_GetTextByIndex(memory, line, i, line_length);
+    Flash_GetTextByIndex(memory, line, left_col_i, line_length);
     GetAsChars_uint8(attributes.stamina, COLUMN_1, false);
-    PrintLineStr(graphics, memory, left_margin, LINE_HEIGHT, g_core.settings.fontSize, SMALL_STRINGS, line, 0);
+    PrintLineStr(graphics, memory, left_margin, LEFT_COL_LINE_HEIGHT, g_core.settings.fontSize, SMALL_STRINGS, line, 0, PAL_DARK_BLUE_GRAY, PAL_OFF_WHITE_GRAY_BLUE);
 
 
-    spacing++;
+    //TODO add bars that show positive or negative resistances
+    left_col_spacing++;
     const char absorb[] = "absorb";
     Resists resists = GetCreatureResists(creature_id);
     Absorb absorbs = GetCreatureAbsorb(creature_id);
 
-    Flash_GetTextByIndex(memory, line, i, line_length);
+    Flash_GetTextByIndex(memory, line, left_col_i, line_length);
     GetAsChars_uint8(resists.toxic, COLUMN_1, false);
-    PrintLineStr(graphics, memory, left_margin, LINE_HEIGHT, g_core.settings.fontSize, SMALL_STRINGS, line, 0);
-    if (absorbs.toxic) PrintLineStr(graphics, memory, COLUMN_2_TITLE, LINE_HEIGHT_SAME_LINE, g_core.settings.fontSize, SMALL_STRINGS, absorb, 0);
+    PrintLineStr(graphics, memory, left_margin, LEFT_COL_LINE_HEIGHT, g_core.settings.fontSize, SMALL_STRINGS, line, 0, PAL_DARK_BLUE_GRAY, PAL_OFF_WHITE_GRAY_BLUE);
+    if (absorbs.toxic) PrintLineStr(graphics, memory, COLUMN_2_TITLE, LEFT_COL_LINE_HEIGHT_SAME_LINE, g_core.settings.fontSize, SMALL_STRINGS, absorb, 0, PAL_DARK_BLUE_GRAY, PAL_OFF_WHITE_GRAY_BLUE);
 
-    Flash_GetTextByIndex(memory, line, i, line_length);
+    Flash_GetTextByIndex(memory, line, left_col_i, line_length);
     GetAsChars_uint8(resists.fire, COLUMN_1, false);
-    PrintLineStr(graphics, memory, left_margin, LINE_HEIGHT, g_core.settings.fontSize, SMALL_STRINGS, line, 0);
-    if (absorbs.fire) PrintLineStr(graphics, memory, COLUMN_2_TITLE, LINE_HEIGHT_SAME_LINE, g_core.settings.fontSize, SMALL_STRINGS, absorb, 0);
+    PrintLineStr(graphics, memory, left_margin, LEFT_COL_LINE_HEIGHT, g_core.settings.fontSize, SMALL_STRINGS, line, 0, PAL_DARK_BLUE_GRAY, PAL_OFF_WHITE_GRAY_BLUE);
+    if (absorbs.fire) PrintLineStr(graphics, memory, COLUMN_2_TITLE, LEFT_COL_LINE_HEIGHT_SAME_LINE, g_core.settings.fontSize, SMALL_STRINGS, absorb, 0, PAL_DARK_BLUE_GRAY, PAL_OFF_WHITE_GRAY_BLUE);
 
-    Flash_GetTextByIndex(memory, line, i, line_length);
+    Flash_GetTextByIndex(memory, line, left_col_i, line_length);
     GetAsChars_uint8(resists.water, COLUMN_1, false);
-    PrintLineStr(graphics, memory, left_margin, LINE_HEIGHT, g_core.settings.fontSize, SMALL_STRINGS, line, 0);
-    if (absorbs.water) PrintLineStr(graphics, memory, COLUMN_2_TITLE, LINE_HEIGHT_SAME_LINE, g_core.settings.fontSize, SMALL_STRINGS, line, 0);
+    PrintLineStr(graphics, memory, left_margin, LEFT_COL_LINE_HEIGHT, g_core.settings.fontSize, SMALL_STRINGS, line, 0, PAL_DARK_BLUE_GRAY, PAL_OFF_WHITE_GRAY_BLUE);
+    if (absorbs.water) PrintLineStr(graphics, memory, COLUMN_2_TITLE, LEFT_COL_LINE_HEIGHT_SAME_LINE, g_core.settings.fontSize, SMALL_STRINGS, line, 0, PAL_DARK_BLUE_GRAY, PAL_OFF_WHITE_GRAY_BLUE);
 
-    Flash_GetTextByIndex(memory, line, i, line_length);
+    Flash_GetTextByIndex(memory, line, left_col_i, line_length);
     GetAsChars_uint8(resists.ice, COLUMN_1, false);
-    PrintLineStr(graphics, memory, left_margin, LINE_HEIGHT, g_core.settings.fontSize, SMALL_STRINGS, line, 0);
-    if (absorbs.ice) PrintLineStr(graphics, memory, COLUMN_2_TITLE, LINE_HEIGHT_SAME_LINE, g_core.settings.fontSize, SMALL_STRINGS, line, 0);
+    PrintLineStr(graphics, memory, left_margin, LEFT_COL_LINE_HEIGHT, g_core.settings.fontSize, SMALL_STRINGS, line, 0, PAL_DARK_BLUE_GRAY, PAL_OFF_WHITE_GRAY_BLUE);
+    if (absorbs.ice) PrintLineStr(graphics, memory, COLUMN_2_TITLE, LEFT_COL_LINE_HEIGHT_SAME_LINE, g_core.settings.fontSize, SMALL_STRINGS, line, 0, PAL_DARK_BLUE_GRAY, PAL_OFF_WHITE_GRAY_BLUE);
 
-    Flash_GetTextByIndex(memory, line, i, line_length);
+    Flash_GetTextByIndex(memory, line, left_col_i, line_length);
     GetAsChars_uint8(resists.earth, COLUMN_1, false);
-    PrintLineStr(graphics, memory, left_margin, LINE_HEIGHT, g_core.settings.fontSize, SMALL_STRINGS, line, 0);
-    if (absorbs.earth) PrintLineStr(graphics, memory, COLUMN_2_TITLE, LINE_HEIGHT_SAME_LINE, g_core.settings.fontSize, SMALL_STRINGS, line, 0);
+    PrintLineStr(graphics, memory, left_margin, LEFT_COL_LINE_HEIGHT, g_core.settings.fontSize, SMALL_STRINGS, line, 0, PAL_DARK_BLUE_GRAY, PAL_OFF_WHITE_GRAY_BLUE);
+    if (absorbs.earth) PrintLineStr(graphics, memory, COLUMN_2_TITLE, LEFT_COL_LINE_HEIGHT_SAME_LINE, g_core.settings.fontSize, SMALL_STRINGS, line, 0, PAL_DARK_BLUE_GRAY, PAL_OFF_WHITE_GRAY_BLUE);
 
-    Flash_GetTextByIndex(memory, line, i, line_length);
+    Flash_GetTextByIndex(memory, line, left_col_i, line_length);
     GetAsChars_uint8(resists.magic, COLUMN_1, false);
-    PrintLineStr(graphics, memory, left_margin, LINE_HEIGHT, g_core.settings.fontSize, SMALL_STRINGS, line, 0);
-    if (absorbs.magic) PrintLineStr(graphics, memory, COLUMN_2_TITLE, LINE_HEIGHT_SAME_LINE, g_core.settings.fontSize, SMALL_STRINGS, line, 0);
+    PrintLineStr(graphics, memory, left_margin, LEFT_COL_LINE_HEIGHT, g_core.settings.fontSize, SMALL_STRINGS, line, 0, PAL_DARK_BLUE_GRAY, PAL_OFF_WHITE_GRAY_BLUE);
+    if (absorbs.magic) PrintLineStr(graphics, memory, COLUMN_2_TITLE, LEFT_COL_LINE_HEIGHT_SAME_LINE, g_core.settings.fontSize, SMALL_STRINGS, line, 0, PAL_DARK_BLUE_GRAY, PAL_OFF_WHITE_GRAY_BLUE);
+
+
+    uint8_t right_col_i = 0;
+    uint16_t right_col_spacing = 0;
+    uint16_t right_start_x = left_margin + (title_length * 2 * TEXT_W);
+#define RIGHT_COL_SECTION_SPACING (right_col_spacing * TEXT_H)
+#define RIGHT_COL_LINE_HEIGHT ((top_margin << 2) + (line_height * right_col_i++) + RIGHT_COL_SECTION_SPACING)
+#define RIGHT_COL_LINE_HEIGHT_SAME_LINE (top_margin + line_height * (right_col_i - 1))
+#define MANA_COST ((CharStr_uint8*)(cursor))
+#define POWER ((CharStr_uint8*)(cursor + 3))
+#define POWER_SPECIAL ((CharStr_uint8*)(cursor + 6))
+#define TYPE ((CharStr_uint8*)(cursor + 9))
+
+    for (uint8_t i = 0; i < MAX_ABILITIES; i++)
+    {
+        Flash_GetSkillName(memory, line, g_core.creatures.attacks[creature_id][i]);
+        PrintLineStr(graphics, memory, right_start_x, RIGHT_COL_LINE_HEIGHT, g_core.settings.fontSize, SMALL_STRINGS, line, 0, PAL_DARK_BLUE_GRAY, PAL_OFF_WHITE_GRAY_BLUE);
+
+        SkillData skill_data = {0};
+        Flash_GetSkillData(memory, &skill_data, g_core.creatures.attacks[creature_id][i]);
+
+        GetAsChars_uint8(skill_data.manaCost, MANA_COST, false);
+        GetAsChars_uint8(skill_data.power, POWER, false);
+        GetAsChars_uint8(skill_data.power_special, POWER_SPECIAL, false);
+        GetAsChars_uint8(skill_data.type, TYPE, false);
+        PrintLineStr(graphics, memory, right_start_x, RIGHT_COL_LINE_HEIGHT, g_core.settings.fontSize, SMALL_STRINGS, line, 0, PAL_DARK_BLUE_GRAY, PAL_OFF_WHITE_GRAY_BLUE);
+        PrintLineStr(graphics, memory, right_start_x, RIGHT_COL_LINE_HEIGHT, g_core.settings.fontSize, SMALL_STRINGS, line, 0, PAL_DARK_BLUE_GRAY, PAL_OFF_WHITE_GRAY_BLUE);
+        right_col_spacing++;
+    }
 }
 
 /**********************************************************************************************************************/
@@ -313,7 +345,7 @@ void DrawParty(GraphicsInterface graphics, HardwareInterface hardware, MemoryInt
     uint16_t y = MAIN_MENU_Y * TEXT_H;
     const uint16_t w = MAIN_MENU_W * TEXT_W;
     const uint16_t h = MAIN_MENU_H * TEXT_H;
-    Color color_bg = Flash_GetColor(memory, PAL_OFF_WHITE_GRAY);
+    Color color_bg = Flash_GetColor(memory, PAL_OFF_WHITE_GRAY_BLUE);
 
     graphics.FillRect(x, y, w, h, color_bg);
 
@@ -327,7 +359,7 @@ void DrawParty(GraphicsInterface graphics, HardwareInterface hardware, MemoryInt
     for (uint16_t i = 0; i < max_chars; i++) border[i] = '-';
     border[max_chars] = '\0';
 
-    y += PrintLineStr(graphics, memory, x, y, font_size, max_chars, border, false);
+    y += PrintLineStr(graphics, memory, x, y, font_size, max_chars, border, false, PAL_DARK_BLUE_GRAY, PAL_OFF_WHITE_GRAY_BLUE);
     const uint16_t list_y = y;
 
     uint16_t lineHeight = 0;
@@ -339,7 +371,7 @@ void DrawParty(GraphicsInterface graphics, HardwareInterface hardware, MemoryInt
         if (creature_id == NO_ENTITY)
         {
             lineHeight = 0;
-            y += PrintLineStr(graphics, memory, x, y, font_size, 3, "-----\0", indent);
+            y += PrintLineStr(graphics, memory, x, y, font_size, 3, "-----\0", indent, PAL_DARK_BLUE_GRAY, PAL_OFF_WHITE_GRAY_BLUE);
             lineHeight += (size * 3);
             lineHeight += (size >> 1);
             y += lineHeight;
@@ -356,8 +388,8 @@ void DrawParty(GraphicsInterface graphics, HardwareInterface hardware, MemoryInt
         uint99 level = g_core.creatures.level[creature_id];
         CharStr_99 levelStr;
         GetAsChars_99(level, &levelStr, false);
-        PrintLineStr(graphics, memory, x, y, font_size, 3, levelStr, indent);
-        y += PrintLineStr(graphics, memory, x + (3 * size), y + lineHeight, font_size, max_chars, line, indent);
+        PrintLineStr(graphics, memory, x, y, font_size, 3, levelStr, indent, PAL_DARK_BLUE_GRAY, PAL_OFF_WHITE_GRAY_BLUE);
+        y += PrintLineStr(graphics, memory, x + (3 * size), y + lineHeight, font_size, max_chars, line, indent, PAL_DARK_BLUE_GRAY, PAL_OFF_WHITE_GRAY_BLUE);
 
 
         //hunger?
@@ -416,7 +448,7 @@ void DrawParty(GraphicsInterface graphics, HardwareInterface hardware, MemoryInt
     }
 
     g_core.menu.lineHeight = lineHeight;
-    PrintLineStr(graphics, memory, x, (max_lines - 1) * size, font_size, max_chars, border, false);
+    PrintLineStr(graphics, memory, x, (max_lines - 1) * size, font_size, max_chars, border, false, PAL_DARK_BLUE_GRAY, PAL_OFF_WHITE_GRAY_BLUE);
     g_core.menu.colorCache = color_bg;
 }
 
@@ -431,7 +463,7 @@ void DrawList(GraphicsInterface graphics, HardwareInterface hardware, MemoryInte
     uint16_t y = MAIN_MENU_Y * TEXT_H;
     const uint16_t w = MAIN_MENU_W * TEXT_W;
     const uint16_t h = MAIN_MENU_H * TEXT_H;
-    graphics.FillRect(x, y, w, h, Flash_GetColor(memory, PAL_OFF_WHITE_GRAY));
+    graphics.FillRect(x, y, w, h, Flash_GetColor(memory, PAL_OFF_WHITE_GRAY_BLUE));
 
 
     const uint8_t indent = 1;
@@ -444,7 +476,7 @@ void DrawList(GraphicsInterface graphics, HardwareInterface hardware, MemoryInte
     for (uint8_t i = 0; i < max_chars; i++) border[i] = '-';
     border[max_chars] = '\0';
 
-    y += PrintLineStr(graphics, memory, x, y, font_size, max_chars, border, false);
+    y += PrintLineStr(graphics, memory, x, y, font_size, max_chars, border, false, PAL_DARK_BLUE_GRAY, PAL_OFF_WHITE_GRAY_BLUE);
 
     uint8_t i = 0;
     bool empty = false;
@@ -468,14 +500,14 @@ void DrawList(GraphicsInterface graphics, HardwareInterface hardware, MemoryInte
         }
 
 
-        y += PrintLineStr(graphics, memory, x, y, font_size, max_chars, text, indent);
+        y += PrintLineStr(graphics, memory, x, y, font_size, max_chars, text, indent, PAL_DARK_BLUE_GRAY, PAL_OFF_WHITE_GRAY_BLUE);
         i++;
     }
 
     uint16_t numSpaces = (max_lines - i - 2) * size;
-    PrintLineStr(graphics, memory, x, y + numSpaces, font_size, max_chars, border, false);
+    PrintLineStr(graphics, memory, x, y + numSpaces, font_size, max_chars, border, false, PAL_DARK_BLUE_GRAY, PAL_OFF_WHITE_GRAY_BLUE);
 
-    g_core.menu.colorCache = Flash_GetColor(memory, PAL_OFF_WHITE_GRAY);
+    g_core.menu.colorCache = Flash_GetColor(memory, PAL_DARK_BLUE_GRAY);
 }
 
 
@@ -487,7 +519,7 @@ void HandleGameMenuLeftBG(GraphicsInterface graphics, MemoryInterface memory, co
 {
     const uint16_t w = SCREEN_W - MAIN_MENU_W;
     const uint16_t h = SCREEN_H;
-    graphics.FillRect(x, y, w, h, Flash_GetColor(memory, PAL_OFF_WHITE_GRAY));
+    graphics.FillRect(x, y, w, h, Flash_GetColor(memory, PAL_OFF_WHITE_GRAY_BLUE));
 }
 
 /**********************************************************************************************************************/
@@ -497,7 +529,7 @@ SET_MEMORY(".map")
 void HandleGameMenuLeftName(GraphicsInterface graphics, MemoryInterface memory, const uint16_t x, uint16_t y, const char* name)
 {
     const uint8_t indent = 1;
-    PrintLineStr(graphics, memory, x, y, g_core.settings.fontSize, SMALL_STRINGS, name, indent);
+    PrintLineStr(graphics, memory, x, y, g_core.settings.fontSize, SMALL_STRINGS, name, indent, PAL_DARK_BLUE_GRAY, PAL_OFF_WHITE_GRAY_BLUE);
 }
 
 /**********************************************************************************************************************/
@@ -512,12 +544,12 @@ void HandleGameMenuLeftStat(GraphicsInterface graphics, MemoryInterface memory, 
     uint16_t power = 115;
     uint16_t max_power = 255;
     // power
-    PrintLineStr(graphics, memory, x, y, g_core.settings.fontSize, 10, power_str, indent);
+    PrintLineStr(graphics, memory, x, y, g_core.settings.fontSize, 10, power_str, indent, PAL_DARK_BLUE_GRAY, PAL_OFF_WHITE_GRAY_BLUE);
 
     //strength bar
     uint16_t bar_width = ((4 * size) * power) / max_power;
 
-    Color c = Flash_GetColor(memory, PAL_OFF_WHITE_GRAY);
+    Color c = Flash_GetColor(memory, PAL_DARK_BLUE_GRAY);
     Color c1 = Flash_GetColor(memory, PAL_BROWN_GREEN);
     graphics.FillRect(x2, y, (4 * size), size, c);
     graphics.FillRect(x2, y, bar_width, size, c1);
@@ -540,9 +572,9 @@ void HandleGameMenuBorders(GraphicsInterface graphics, HardwareInterface hardwar
     for (uint8_t i = 0; i < max_lines; i++)
         border[i] = '-';
     border[max_chars] = '\0';
-    PrintLineStr(graphics, memory, x, y, font_size, max_chars, border, false);
+    PrintLineStr(graphics, memory, x, y, font_size, max_chars, border, false, PAL_DARK_BLUE_GRAY, PAL_OFF_WHITE_GRAY_BLUE);
     uint16_t numSpaces = (MAIN_MENU_LIST_H + 1) * size;
-    PrintLineStr(graphics, memory, x, y + numSpaces, font_size, max_chars, border, false);
+    PrintLineStr(graphics, memory, x, y + numSpaces, font_size, max_chars, border, false, PAL_DARK_BLUE_GRAY, PAL_OFF_WHITE_GRAY_BLUE);
 }
 
 /**********************************************************************************************************************/
@@ -558,8 +590,8 @@ void HandleGameMenuTypes(GraphicsInterface graphics, MemoryInterface memory, con
     const uint8_t size = TEXT_W;
     const uint8_t indent = 1;
 
-    PrintLineStr(graphics, memory, x + (size * 10), y + (size * 18), font_size, 10, typeA, indent);
-    PrintLineStr(graphics, memory, x + (size * 10), y + (size * 20) - 4, font_size, 10, typeB, indent);
+    PrintLineStr(graphics, memory, x + (size * 10), y + (size * 18), font_size, 10, typeA, indent, PAL_DARK_BLUE_GRAY, PAL_OFF_WHITE_GRAY_BLUE);
+    PrintLineStr(graphics, memory, x + (size * 10), y + (size * 20) - 4, font_size, 10, typeB, indent, PAL_DARK_BLUE_GRAY, PAL_OFF_WHITE_GRAY_BLUE);
 }
 
 /**********************************************************************************************************************/
@@ -686,7 +718,7 @@ void HandleGameMenuDescription(GraphicsInterface graphics, HardwareInterface har
             }
         }
 
-        PrintLineStr(graphics, memory, desc_x, desc_y + (lines_printed * size), font_size, max_chars, line, indent);
+        PrintLineStr(graphics, memory, desc_x, desc_y + (lines_printed * size), font_size, max_chars, line, indent, PAL_DARK_BLUE_GRAY, PAL_OFF_WHITE_GRAY_BLUE);
         lines_printed++;
     }
 }

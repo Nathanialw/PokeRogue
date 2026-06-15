@@ -280,6 +280,29 @@ typedef enum
 _Static_assert(NO_SPELL <= 255, "FINAL INDEX MUST BE LESS THAN OR EQUAL TO 255");
 
 /**********************************************************************************************************************/
+/** list of all spell types in the game
+ *  TODO: fill out list to 255
+**********************************************************************************************************************/
+typedef enum
+{
+    NO_MENU_SOUND = 0,
+    MENU_MINIMAP,
+    MENU_PARTY,
+    MENU_MAIN_OPEN,
+    MENU_SELECT,
+    MENU_CANCEL,
+    MENU_CONFIRM,
+    MENU_BACK,
+    MENU_NEXT,
+    MENU_PREVIOUS,
+    MENU_UP,
+    MENU_DOWN,
+    MENU_LEFT,
+} MenuSounds;
+
+_Static_assert(NO_SPELL <= 255, "FINAL INDEX MUST BE LESS THAN OR EQUAL TO 255");
+
+/**********************************************************************************************************************/
 /** used to return to the list when an item or spell is used
 **********************************************************************************************************************/
 typedef enum

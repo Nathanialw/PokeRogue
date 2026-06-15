@@ -694,12 +694,13 @@ typedef union
             uint8_t magic : 4;
         } growth;
 
+        uint8_t hp_base;
+        uint8_t hp_growth;
+        uint8_t mp_base;
+        uint8_t mp_growth;
+
         uint8_t _pad0;
         uint8_t _pad1;
-        uint8_t _pad3;
-        uint8_t _pad4;
-        uint8_t _pad5;
-        uint8_t _pad6;
     };
 
     uint8_t bytes[24];

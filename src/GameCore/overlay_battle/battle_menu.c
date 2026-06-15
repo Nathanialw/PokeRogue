@@ -20,6 +20,7 @@
 #include "core_ram.h"
 #include "core_state.h"
 #include "lib_debugging.h"
+#include "../../SDLGame/audio.h"
 
 
 /**********************************************************************************************************************/
@@ -412,7 +413,7 @@ void UpdateBattleMenu(InputInterface input, GraphicsInterface graphics, MemoryIn
     const uint16_t x = g_core.menu.x * TEXT_W;
     const uint16_t list_y = g_core.menu.y * TEXT_H;
     const uint16_t erase_x = x + (g_core.menu.eraseSel.x * g_core.menu.x_offset * TEXT_W);
-    Color battler_menu_color = Flash_GetColor(memory, PAL_OFF_WHITE_GRAY);
+    Color battler_menu_color = Flash_GetColor(memory, PAL_OFF_WHITE_GRAY_BLUE);
     graphics.FillRect(erase_x, list_y + (g_core.menu.eraseSel.y * (TEXT_W + g_core.menu.lineHeight)), TEXT_W, TEXT_W, battler_menu_color);
 
     //these 2 values need ot be synced they are need to COL_1/COL 2 is the width, x is the index

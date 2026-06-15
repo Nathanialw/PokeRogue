@@ -48,6 +48,7 @@ def creatures_level_up_skills(entity):
         f.write(f"// Generated {entity} data structs\n")
         f.write(f"// Database contains {len(names)} total used {entity}s\n\n")
 
+        no_ability = "NO_ABILITY"
         # Write individual constants
         f.write(f"// Individual {entity}s data\n")
         # for b in names:
@@ -56,9 +57,9 @@ def creatures_level_up_skills(entity):
             f.write(f"{{ .c = {{ \n")
             for i in range(16):
                 if i < len(b):
-                    f.write(f"  {{ .skillID = {b[i][1]}, .level = {b[i][2]}, }}, \n")
+                    f.write(f"  {{ .skillID = {b[i][1]:16}, .level = {b[i][2]:2}, }}, \n")
                 else:
-                    f.write(f"  {{ .skillID = NO_ABILITY, .level = 0, }}, \n")
+                    f.write(f"  {{ .skillID = {no_ability:16}, .level =  0, }}, \n")
             f.write(f"\n}}}},\n")
 
         f.write("\n")
@@ -162,11 +163,17 @@ def creature(entity):
         # Write individual constants
         f.write(f"// Individual {entity}s data\n\n")
 
-        for i, (name, attack_min, defence_min, magic_min, speed_min, attack_max, defence_max, magic_max, speed_max, attack_growth, defence_growth, magic_growth, speed_growth) in enumerate(trainer_data):
+        for i, (name,
+                attack_min, defence_min, magic_min, speed_min, accuracy_min, loyalty_min,
+                attack_max, defence_max, magic_max, speed_max, accuracy_max, loyalty_max,
+                attack_growth, defence_growth, magic_growth, speed_growth,
+                hp_base, hp_growth, mp_base, mp_growth
+                ) in enumerate(trainer_data):
             f.write(f"{{//  {i} - {name}}}\n")
-            f.write(f"      .min    = {{ .attack = {attack_min:3}, .defence = {defence_min:3}, .magic = {magic_min:3}, .speed= {speed_min:3}, }},\n")
-            f.write(f"      .max    = {{ .attack = {attack_max:3}, .defence = {defence_max:3}, .magic = {magic_max:3}, .speed = {speed_max:3}, }},\n")
+            f.write(f"      .min    = {{ .attack = {attack_min:3}, .defence = {defence_min:3}, .magic = {magic_min:3}, .speed = {speed_min:3}, .accuracy = {accuracy_min:3}, .loyalty = {loyalty_min:3}, }},\n")
+            f.write(f"      .max    = {{ .attack = {attack_max:3}, .defence = {defence_max:3}, .magic = {magic_max:3}, .speed = {speed_max:3}, .accuracy = {accuracy_max:3}, .loyalty = {loyalty_max:3}, }},\n")
             f.write(f"      .growth = {{ .attack = {attack_growth:3}, .defence = {defence_growth:3}, .magic = {magic_growth:3}, .speed = {speed_growth:3}, }},\n")
+            f.write(f"      .hp_base = {hp_base:3}, .hp_growth = {hp_growth:3}, .mp_base = {mp_base:3}, .mp_growth = {mp_growth:3},\n")
             f.write(f"}},\n")
 
         f.write("\n")

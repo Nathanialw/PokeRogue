@@ -784,7 +784,7 @@ bool MenuBack(MemoryInterface memory)
 /**  handles while menu selection to draw
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-void HandleMenu(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory)
+void HandleMenu(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, AudioInterface audio)
 {
     if (g_core.menu.displayedMenu == g_core.menu.selectedMenu && (g_core.menu.menuScrollOffset[g_core.menu.depth].y <= 0 && !g_core.menu.forceRedraw)) return;
     g_core.menu.displayedMenu = g_core.menu.selectedMenu;
@@ -793,15 +793,18 @@ void HandleMenu(GraphicsInterface graphics, HardwareInterface hardware, MemoryIn
     if (g_core.menu.displayedMenu == MINIMAP) // draw minimap
     {
         DrawMiniMap(graphics, hardware, memory);
+        audio.PlaySoundEffect(GetMenuSoundId(MENU_MINIMAP));
         return;
     }
 
     if (g_core.menu.displayedMenu == PARTY || g_core.menu.useOnPartyMember) //draw party
     {
         DrawParty(graphics, hardware, memory);
+        audio.PlaySoundEffect(GetMenuSoundId(MENU_PARTY));
         return;
     }
 
+    audio.PlaySoundEffect(GetMenuSoundId(MENU_NEXT));
     FullRedraw(graphics, hardware, memory);
     DrawList(graphics, hardware, memory);
 }

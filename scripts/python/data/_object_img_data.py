@@ -109,16 +109,23 @@ ObjectsDict = [
    { "name": 'WELL', 'prompt': "The ancient, moss-covered chest hums with forgotten magic, its brass latch glinting under moonlight's spectral glow."},
 ]
 
+# OBJECTS_BASE_PROMPT = (
+#     # f"photo-realistic hi fidelity detailed, "
+#     "fantasy object, full body visible, centered composition, isolated creature, "
+#     "single subject, no cropping, highly detailed dark fantasy, sharp focus, "
+# )
+
 OBJECTS_BASE_PROMPT = (
-    # f"photo-realistic hi fidelity detailed, "
-    "fantasy object, full body visible, centered composition, isolated creature, "
-    "single subject, no cropping, highly detailed dark fantasy, sharp focus, "
+    f"general details that can be seen from afar, "
+    # "fantasy item, full body visible, centered composition, isolated creature, "
+    # "single subject, no cropping, highly detailed dark fantasy, sharp focus, "
+    "photo-realistic hi fidelity detailed, fantasy object, object fully visible, centered composition, isolated subject, single object, no cropping, highly detailed dark fantasy, sharp focus, "
 )
 
 LIGHTING_STYLES = [
     # "dramatic rim lighting",
     # "moody low-key lighting, subtle fog",
-    "good lighting with high visibilty",
+    "good lighting with high visibility",
     "clear lighting with realistic colours",
     # "ancient parchment illustration style, inked linework",
     # "torchlit dungeon lighting",
@@ -137,9 +144,9 @@ VIEW_ANGLES = [
     # "back view",
     "strict side profile view, 90 degree lateral pose, full side silhouette",
     "three-quarter side view, strong 45 degree angle over-the-shoulder",
-    # "rear three-quarter view, mostly back but slight side visible",
+    "rear three-quarter view, mostly back but slight side visible",
     # "direct rear view, seen from straight behind, full back, over-the-shoulder",
-    "looking back over shoulder, body in profile but head turned",
+    # "looking back over shoulder, body in profile but head turned",
 ]
 
 # Generate all combinations
@@ -148,8 +155,8 @@ VARIANTS = [
     for style in LIGHTING_STYLES
     for angle in VIEW_ANGLES
 ]
-
+              
 NEGATIVE_PROMPT = (
-    "deformed iris, deformed pupils, semi-realistic, cgi, 3d, render, sketch, cartoon, drawing, anime), text, cropped, out of frame, worst quality, low quality, jpeg artifacts, ugly, duplicate, morbid, mutilated, extra fingers, mutated hands, poorly drawn hands, poorly drawn face, mutation, deformed, blurry, dehydrated, bad anatomy, bad proportions, extra limbs, cloned face, disfigured, gross proportions, malformed limbs, missing arms, missing legs, extra arms, extra legs, fused fingers, too many fingers, long neck, brown men, black men, asian men"
+  "deformed iris, deformed pupils, semi-realistic, cgi, 3d, render, sketch, cartoon, drawing, anime), text, cropped, out of frame, worst quality, low quality, jpeg artifacts, ugly, duplicate, morbid, mutilated, extra fingers, mutated hands, poorly drawn hands, poorly drawn face, mutation, deformed, blurry, dehydrated, bad anatomy, bad proportions, extra limbs, cloned face, disfigured, gross proportions, malformed limbs, missing arms, missing legs, extra arms, extra legs, fused fingers, too many fingers, long neck, brown men, black men, asian men"
 )
-        
+      

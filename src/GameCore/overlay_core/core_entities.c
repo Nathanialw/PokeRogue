@@ -388,6 +388,7 @@ EntityId SpawnMonster(HardwareInterface hardware, MemoryInterface memory, uint8_
     g_core.creatures.level[id].value = l;
     g_core.creatures.types[id] = type;
 
+
     GetStats(hardware, memory, &g_core.creatures.stats[id], monType, l);
     SetXPToLevel(id, &g_core.creatures.xp[id]);
     g_core.creatures.hp[id] = GetHP(monType, l);

@@ -15,6 +15,8 @@ from . import export_img_prompts
 
 def run():
     init_database()
+
+
     if not os.path.exists(constants.DATA_INC_FOLDER):
         os.mkdir(constants.DATA_INC_FOLDER)
     if not os.path.exists(constants.CODE_INC_FOLDER):
@@ -193,8 +195,8 @@ def run():
     bytes_count_map_sprites.append(export_map_sprites.export_image_data("tile", 32))
     bytes_count_map_sprites.append(export_map_sprites.export_image_data("tile", 64))
 
-    export.func_c_headers("tile", "TIleStepOn", "bool", "HardwareInterface hardware, MemoryInterface memory, EntityId id, ObjectsTypes type, uint8_t x, uint8_t y")
-    export.func_c_headers("tile", "TIleStepOff", "bool", "HardwareInterface hardware, MemoryInterface memory, EntityId id, ObjectsTypes type, uint8_t x, uint8_t y")
+    export.func_c_headers("tile", "TIleStepOn", "bool", "HardwareInterface hardware, MemoryInterface memory, AudioInterface audio, EntityId id, ObjectsTypes type, uint8_t x, uint8_t y")
+    export.func_c_headers("tile", "TIleStepOff", "bool", "HardwareInterface hardware, MemoryInterface memory, AudioInterface audio, EntityId id, ObjectsTypes type, uint8_t x, uint8_t y")
 
     # tile name strings
     # counts.append(export.name_to_c_array("tile"))

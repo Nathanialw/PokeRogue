@@ -74,8 +74,12 @@ typedef struct __attribute__((packed))
 
 typedef struct __attribute__((packed))
 {
+    void (*DecreaseEffectsVolume)(void);
+    void (*IncreaseEffectsVolume)(void);
+    void (*DecreaseMusicVolume)(void);
+    void (*IncreaseMusicVolume)(void);
     void (*PlaySoundEffect)(uint16_t sound_id);
-    void (*PlayMusic)(void);
+    void (*PlayMusic)(uint16_t music_id);
 } AudioInterface;
 
 typedef struct __attribute__((packed))

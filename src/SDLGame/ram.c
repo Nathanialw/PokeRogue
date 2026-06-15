@@ -13,7 +13,11 @@ RamState g_ramState =
 {
     .redraw = false,
     .keys = {0},
-    .running = true
+    .running = true,
+
+
+    .volume_effects = 50,
+    .volume_music = 0,
 };
 
 

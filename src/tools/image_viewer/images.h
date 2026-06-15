@@ -19,11 +19,14 @@ class ImageData
     EntityTypes entity_type;
     uint16_t entity_id;
     uint16_t entity_count;
+    std::string  default_image_path;
 
+    bool CheckForSetImage(std::string folderPath, std::string image_path_used, uint16_t id);
     void ClearEntities();
     void ClearImages();
 public:
     uint16_t image_count;
+    std::string  used_image_path;
     std::vector<std::string> entity_list;
     std::vector<std::string> images;
     std::string GetFolderPath();
@@ -33,6 +36,7 @@ public:
     uint16_t GetEntityCount();
     uint16_t GetImageCount();
     uint16_t GetSelectedEntity(const uint16_t& entity_num);
+    bool RemoveImagePath(uint16_t n);
     void DeleteImage(uint16_t n);
     bool UpdateType(EntityTypes type);
     bool UpdateEntity(uint16_t n);

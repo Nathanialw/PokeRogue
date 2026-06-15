@@ -103,7 +103,8 @@ def build_prompt(object_type, object_name, entity_type, object_data: dict, varia
     if object_type == 'creature':
         terms = creature_descriptors.CREATURE_VALIDATION[object_name]["required_terms"]
     if object_type == 'trainer':
-        terms = trainer_descriptors.CREATURE_VALIDATION[object_name]["required_terms"]
+        formatted_object_name = object_name.capitalize()
+        terms = trainer_descriptors.CREATURE_VALIDATION[formatted_object_name]["required_terms"]
 
     characteristics = " - KEY CHARACTERISTICS ARE: "
     for term in terms:

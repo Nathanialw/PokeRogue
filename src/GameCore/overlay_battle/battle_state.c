@@ -53,7 +53,7 @@ bool CheckBattleState(BattleState state)
 /*  input handling based on game state
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-void UpdateBattleRunningState(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory)
+void UpdateBattleRunningState(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, AudioInterface audio)
 {
     if (g_core.state.inputState == INPUT_BATTLE)
     {
@@ -90,12 +90,14 @@ void UpdateBattleRunningState(GraphicsInterface graphics, HardwareInterface hard
         {
             if (!SetMenuDelta(graphics, hardware, input, memory, input.GetInputKeyState().js))
                 UpdateBattleMenu(input, graphics, memory);
+            audio.PlaySoundEffect(GetMenuSoundId(MENU_PREVIOUS));
         }
 
         if (input.GetDPPressed())
         {
             if (!SetMenuDelta(graphics, hardware, input, memory, input.GetInputKeyState().dp))
                 UpdateBattleMenu(input, graphics, memory);
+            audio.PlaySoundEffect(GetMenuSoundId(MENU_NEXT));
         }
     }
 }
@@ -107,7 +109,7 @@ void UpdateBattleRunningState(GraphicsInterface graphics, HardwareInterface hard
 SET_MEMORY(".battle")
 void HandleBattleStateInit(GameInterface* spi)
 {
-    spi->graphics.FillScreen(Flash_GetColor(spi->memory, PAL_OFF_WHITE_GRAY));
+    spi->graphics.FillScreen(Flash_GetColor(spi->memory, PAL_OFF_WHITE_GRAY_BLUE));
     // AnimationScreenClearRandom(spi->graphics, spi->hardware); //ANIMATION - move both creatures into place
     AnimationBattlerStart(spi->graphics, spi->hardware, spi->memory);
     HandleBattle(spi->graphics, spi->hardware, spi->memory);
@@ -145,6 +147,7 @@ void HandleBattleState(GameInterface* spi)
         CombatLogFullDraw(spi->graphics, spi->memory);
         if (!g_battle.pass_turn)
         {
+            spi->audio.PlaySoundEffect(g_core.battleMode.moveID.AbilityId);
             AnimationUpdateMana(spi->graphics, spi->hardware, spi->memory, false);
             BattlerAnimationAttack(spi->graphics, spi->hardware, spi->memory, true); //attacking animation
             BattlerAnimationStruck(spi->graphics, spi->hardware, spi->memory, false); //hit animation
@@ -169,6 +172,7 @@ void HandleBattleState(GameInterface* spi)
         {
             if (UseSkill(spi->hardware, spi->memory, false))
             {
+                spi->audio.PlaySoundEffect(g_core.battleMode.moveID.AbilityId);
                 CombatLogFullDraw(spi->graphics, spi->memory);
                 AnimationUpdateMana(spi->graphics, spi->hardware, spi->memory, true);
                 BattlerAnimationAttack(spi->graphics, spi->hardware, spi->memory, false); //attacking animation
@@ -264,7 +268,7 @@ uint8_t OverlayBattleEntry(GameInterface* spi)
     while (g_core.state.overlay == OVERLAY_BATTLE)
     {
         spi->input.HandleInput();
-        UpdateBattleRunningState(spi->graphics, spi->hardware, spi->input, spi->memory);;
+        UpdateBattleRunningState(spi->graphics, spi->hardware, spi->input, spi->memory, spi->audio);;
         HandleBattleState(spi);
         MainBattleLoop(spi);;
         spi->graphics.EndFrame();

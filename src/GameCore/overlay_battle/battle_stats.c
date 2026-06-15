@@ -22,10 +22,10 @@ void GetStatLine(HardwareInterface hardware, uint16_t cur, uint16_t max, uint8_t
     }
 
     CharStr_max999 hp_str;
-    GetAsChars_Max999(cur, &hp_str);
+    GetAsChars_Max999(cur, &hp_str, false);
 
     CharStr_max999 max_hp_str;
-    GetAsChars_Max999(max, &max_hp_str);
+    GetAsChars_Max999(max, &max_hp_str, false);
 
     uint8_t i = 0;
     uint8_t j = 3;

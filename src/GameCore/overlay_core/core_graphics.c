@@ -38,7 +38,7 @@
 /**  copies text pixel data of the given char array into the buffer then draws the buffer at the given screen position
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-uint8_t PrintLineStr(GraphicsInterface graphics, MemoryInterface memory, uint16_t x, uint16_t y, FontSize fontSize, uint8_t maxChars, const char* textLine, bool indent)
+uint8_t PrintLineStr(GraphicsInterface graphics, MemoryInterface memory, uint16_t x, uint16_t y, FontSize fontSize, uint8_t maxChars, const char* textLine, bool indent, uint8_t fg, uint8_t bg)
 {
     uint8_t text_size;
     uint8_t char_idx = 0;
@@ -54,7 +54,8 @@ uint8_t PrintLineStr(GraphicsInterface graphics, MemoryInterface memory, uint16_
     maxChars = char_idx;
     char_idx = 0;
 
-    Color color = Flash_GetColor(memory, PAL_OFF_WHITE_GRAY);
+    // Color color = Flash_GetColor(memory, PAL_OFF_WHITE_GRAY);
+    Color color = Flash_GetColor(memory, bg);
     graphics.SetFrameBuffer(color); // gray
     FrameBuffer frameBuffer = {x, y, maxChars * text_size, text_size, color.color};
 
@@ -62,9 +63,9 @@ uint8_t PrintLineStr(GraphicsInterface graphics, MemoryInterface memory, uint16_
     {
         char nc = textLine[char_idx] - FONT_OFFSET;
         if (c != nc)
-        {
+        {//
             c = nc;
-            CharFromGlyph1bpp(memory, g_core.buffer, g_core.tile.pixels, c, fontSize, Flash_GetColor(memory, PAL_DARK_BLUE_GRAY), Flash_GetColor(memory, PAL_OFF_WHITE_GRAY));
+            CharFromGlyph1bpp(memory, g_core.buffer, g_core.tile.pixels, c, fontSize, Flash_GetColor(memory, fg), color);
         }
 
         uint16_t char_pos = (char_idx * text_size);
@@ -102,7 +103,7 @@ void DrawCursor(GraphicsInterface graphics, MemoryInterface memory)
     const uint16_t x = g_core.menu.x * TEXT_W;
     const uint16_t list_y = g_core.menu.y * TEXT_H;
     const uint16_t erase_x = x + (g_core.menu.eraseSel.x * g_core.menu.x_offset * TEXT_W);
-    Color battler_menu_color = Flash_GetColor(memory, PAL_OFF_WHITE_GRAY);
+    Color battler_menu_color = Flash_GetColor(memory, PAL_OFF_WHITE_GRAY_BLUE);
     graphics.FillRect(erase_x, list_y + (g_core.menu.eraseSel.y * (TEXT_W + g_core.menu.lineHeight)), TEXT_W, TEXT_W, battler_menu_color);
 
 
@@ -143,7 +144,7 @@ FrameBuffer DrawBattlerToBuffer(GraphicsInterface graphics, MemoryInterface memo
 
 
     FrameBuffer f = {screen_x, screen_y, pixel_w, pixel_h};
-    graphics.SetFrameBuffer(Flash_GetColor(memory, PAL_OFF_WHITE_GRAY));
+    graphics.SetFrameBuffer(Flash_GetColor(memory, PAL_OFF_WHITE_GRAY_BLUE));
 
     while (tile_counter < BATTLER_TILES_H * BATTLER_TILES_W)
     {

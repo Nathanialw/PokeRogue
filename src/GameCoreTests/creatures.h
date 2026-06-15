@@ -5,4 +5,4 @@
 #pragma once
 #include "lib_decl.h"
 
-void CreatureTests(HardwareInterface hardware);
+void CreatureTests(HardwareInterface hardware, MemoryInterface memory);

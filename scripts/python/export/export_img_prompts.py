@@ -2,7 +2,6 @@
 import sqlite3
 
 from numpy.core.defchararray import capitalize, upper
-from prompt_toolkit.key_binding.bindings.named_commands import capitalize_word
 
 from ..config import constants
 
@@ -10,6 +9,16 @@ DB_FILE = constants.DB_FILE
 
 
 def generate_data_from_db(entity):
+    start_prompt = {
+        'creature': "fantasy creature, tasteful nudity male, nude female or nude trans-woman, creature fully visible, creature composition, isolated subject, single creature, no cropping, highly detailed dark fantasy, sharp focus, ",
+        'environment_object': "photo-realistic hi fidelity detailed, fantasy environment_object, subject fully visible, centered composition, isolated subject, single subject, no cropping, highly detailed dark fantasy, sharp focus, ",
+        'item': "photo-realistic hi fidelity detailed, fantasy item, item fully visible, centered composition, isolated item, single subject, no cropping, highly detailed dark fantasy, sharp focus, ",
+        'object': "photo-realistic hi fidelity detailed, fantasy object, object fully visible, centered composition, isolated subject, single object, no cropping, highly detailed dark fantasy, sharp focus, ",
+        'spell': "photo-realistic hi fidelity detailed, fantasy spell demonstration, subject fully visible, centered composition, isolated subject, single subject, no cropping, highly detailed dark fantasy, sharp focus, ",
+        'skill': "photo-realistic hi fidelity detailed, fantasy skill demonstration, subject fully visible, centered composition, isolated subject, single subject, no cropping, highly detailed dark fantasy, sharp focus, ",
+        'trainer': "fantasy adventurer, tasteful nudity male, nude female or nude trans-woman, subject fully visible, centered composition, isolated subject, single subject, no cropping, highly detailed dark fantasy, sharp focus, ",
+    }
+
     table_in = f"{entity}_descriptions"
     file_out = f"python/data/_{entity}_img_data.py"
 
@@ -64,16 +73,23 @@ def generate_data_from_db(entity):
         f.write("]\n")
 
         f.write(f'''
+# {upper(entity_type)}_BASE_PROMPT = (
+#     # f"photo-realistic hi fidelity detailed, "
+#     "fantasy {entity}, full body visible, centered composition, isolated creature, "
+#     "single subject, no cropping, highly detailed dark fantasy, sharp focus, "
+# )
+
 {upper(entity_type)}_BASE_PROMPT = (
-    # f"photo-realistic hi fidelity detailed, "
-    "fantasy {entity}, full body visible, centered composition, isolated creature, "
-    "single subject, no cropping, highly detailed dark fantasy, sharp focus, "
+    f"general details that can be seen from afar, "
+    # "fantasy item, full body visible, centered composition, isolated creature, "
+    # "single subject, no cropping, highly detailed dark fantasy, sharp focus, "
+    \"{start_prompt[entity]}\"
 )
 
 LIGHTING_STYLES = [
     # "dramatic rim lighting",
     # "moody low-key lighting, subtle fog",
-    "good lighting with high visibilty",
+    "good lighting with high visibility",
     "clear lighting with realistic colours",
     # "ancient parchment illustration style, inked linework",
     # "torchlit dungeon lighting",
@@ -92,9 +108,9 @@ VIEW_ANGLES = [
     # "back view",
     "strict side profile view, 90 degree lateral pose, full side silhouette",
     "three-quarter side view, strong 45 degree angle over-the-shoulder",
-    # "rear three-quarter view, mostly back but slight side visible",
+    "rear three-quarter view, mostly back but slight side visible",
     # "direct rear view, seen from straight behind, full back, over-the-shoulder",
-    "looking back over shoulder, body in profile but head turned",
+    # "looking back over shoulder, body in profile but head turned",
 ]
 
 # Generate all combinations
@@ -105,20 +121,10 @@ VARIANTS = [
     for style in LIGHTING_STYLES
     for angle in VIEW_ANGLES
 ]
-
+              
 NEGATIVE_PROMPT = (
-    "deformed iris, deformed pupils, semi-realistic, cgi, 3d, render, sketch, cartoon, drawing, anime), text, cropped, out of frame, worst quality, low quality, jpeg artifacts, ugly, duplicate, morbid, mutilated, extra fingers, mutated hands, poorly drawn hands, poorly drawn face, mutation, deformed, blurry, dehydrated, bad anatomy, bad proportions, extra limbs, cloned face, disfigured, gross proportions, malformed limbs, missing arms, missing legs, extra arms, extra legs, fused fingers, too many fingers, long neck, brown men, black men, asian men"
+  "deformed iris, deformed pupils, semi-realistic, cgi, 3d, render, sketch, cartoon, drawing, anime), text, cropped, out of frame, worst quality, low quality, jpeg artifacts, ugly, duplicate, morbid, mutilated, extra fingers, mutated hands, poorly drawn hands, poorly drawn face, mutation, deformed, blurry, dehydrated, bad anatomy, bad proportions, extra limbs, cloned face, disfigured, gross proportions, malformed limbs, missing arms, missing legs, extra arms, extra legs, fused fingers, too many fingers, long neck, brown men, black men, asian men"
 )
-        ''')
+      ''')
 
     print(f"✅ Generated {file_out} with {len(entities)} creatures")
-
-
-
-
-
-
-
-
-
-

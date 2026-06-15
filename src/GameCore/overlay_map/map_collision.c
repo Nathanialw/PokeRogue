@@ -9,6 +9,7 @@
 
 #include "core_player.h"
 #include "core_ram.h"
+#include "data_constants_effects.inc"
 #include "decl_tiles_TIleStepOff.inc"
 #include "decl_tiles_TIleStepOn.inc"
 
@@ -20,7 +21,7 @@
  *  This file handles map tile interaction logic
  *
 **********************************************************************************************************************/
-typedef bool (*Interaction)(HardwareInterface hardware, MemoryInterface memory, EntityId id, ObjectsTypes type, uint8_t x, uint8_t y);
+typedef bool (*Interaction)(HardwareInterface hardware, MemoryInterface memory, AudioInterface audio, EntityId id, ObjectsTypes type, uint8_t x, uint8_t y);
 
 
 bool NoInteraction(EntityId id, ObjectsTypes type, uint8_t x, uint8_t y);
@@ -47,9 +48,10 @@ const Interaction TileCollisionStepOff[TILE_COUNT] =
 /** Main tile interaction entry point
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool CheckInteractionStepOn(HardwareInterface hardware, MemoryInterface memory, uint8_t tile, EntityId id, ObjectsTypes type, uint8_t x, uint8_t y)
+bool CheckInteractionStepOn(HardwareInterface hardware, MemoryInterface memory, AudioInterface audio, uint8_t tile, EntityId id, ObjectsTypes type, uint8_t x, uint8_t y)
 {
-    return TileCollisionStepOn[tile](hardware, memory, id, type, x, y);
+    bool outcome = TileCollisionStepOn[tile](hardware, memory, audio, id, type, x, y);
+    return outcome;
 }
 
 
@@ -57,9 +59,11 @@ bool CheckInteractionStepOn(HardwareInterface hardware, MemoryInterface memory, 
 /** Main tile interaction entry point
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool CheckInteractionStepOff(HardwareInterface hardware, MemoryInterface memory, uint8_t tile, EntityId id, ObjectsTypes type, uint8_t x, uint8_t y)
+bool CheckInteractionStepOff(HardwareInterface hardware, MemoryInterface memory, AudioInterface audio, uint8_t tile, EntityId id, ObjectsTypes type, uint8_t x, uint8_t y)
 {
-    return TileCollisionStepOff[tile](hardware, memory, id, type, x, y);
+    bool outcome = TileCollisionStepOff[tile](hardware, memory, audio, id, type, x, y);
+
+    return outcome;
 }
 
 /**********************************************************************************************************************/

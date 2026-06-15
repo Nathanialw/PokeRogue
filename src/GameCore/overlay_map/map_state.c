@@ -54,7 +54,7 @@ void GameLoopRateDelay(HardwareInterface hardware)
 /*  input handling based on game state
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-void UpdateGameRunningState(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory)
+void UpdateGameRunningState(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, AudioInterface audio)
 {
     if (g_core.state.inputState == INPUT_MENU)
     {
@@ -99,6 +99,7 @@ void UpdateGameRunningState(GraphicsInterface graphics, HardwareInterface hardwa
                 graphics.EndFrame();
             }
 
+            audio.PlaySoundEffect(GetMenuSoundId(MENU_MAIN_OPEN));
             return;
         }
 
@@ -118,6 +119,7 @@ void UpdateGameRunningState(GraphicsInterface graphics, HardwareInterface hardwa
         if (input.GetJSPressed())
         {
             SetMenuDelta(graphics, hardware, input, memory, input.GetInputKeyState().js);
+            audio.PlaySoundEffect(GetMenuSoundId(MENU_NEXT));
             return;
         }
 
@@ -125,6 +127,7 @@ void UpdateGameRunningState(GraphicsInterface graphics, HardwareInterface hardwa
         if (input.GetDPPressed())
         {
             SetMenuDelta(graphics, hardware, input, memory, input.GetInputKeyState().dp);
+            audio.PlaySoundEffect(GetMenuSoundId(MENU_NEXT));
             return;
         }
     }
@@ -254,7 +257,7 @@ void HandleGameState(GameInterface* spi)
 {
     if (g_core.state.inputState == INPUT_ACTING)
     {
-        UpdateGame(spi->memory, spi->hardware);
+        UpdateGame(spi->memory, spi->hardware, spi->audio);
         RenderObjects(spi->graphics, spi->hardware, spi->memory);
         UpdateTooltip(spi->graphics, spi->memory);
         g_core.turn_count++;
@@ -263,7 +266,7 @@ void HandleGameState(GameInterface* spi)
 
     if (g_core.state.inputState == INPUT_MENU)
     {
-        HandleMenu(spi->graphics, spi->hardware, spi->memory);
+        HandleMenu(spi->graphics, spi->hardware, spi->memory, spi->audio);
         HandleGameMenu(spi->graphics, spi->hardware, spi->memory);
         DrawCursor(spi->graphics, spi->memory);
         spi->graphics.EndFrame();
@@ -289,7 +292,7 @@ uint8_t OverlayMapEntry(GameInterface* spi)
     while (g_core.state.overlay == OVERLAY_MAP && g_core.state.running)
     {
         spi->input.HandleInput();
-        UpdateGameRunningState(spi->graphics, spi->hardware, spi->input, spi->memory);
+        UpdateGameRunningState(spi->graphics, spi->hardware, spi->input, spi->memory, spi->audio);
         HandleGameState(spi);
     }
 

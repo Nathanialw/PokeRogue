@@ -19,7 +19,7 @@ void UpdateTooltip(GraphicsInterface graphics, MemoryInterface memory)
     if (g_map.objectCollision == NO_OBJECT && g_map.itemCollision == NO_ITEM)
         return;
 
-    graphics.FillRect(0, SCREEN_H - (2 * TEXT_H), SCREEN_W, (2 * TEXT_H), Flash_GetColor(memory, PAL_OFF_WHITE_GRAY));
+    graphics.FillRect(0, SCREEN_H - (2 * TEXT_H), SCREEN_W, (2 * TEXT_H), Flash_GetColor(memory, PAL_DARK_BLUE_GRAY));
     uint16_t x = 0;
     uint16_t y = SCREEN_H - (2 * TEXT_H);
     const uint8_t size = SCREEN_W / TEXT_H;
@@ -28,13 +28,13 @@ void UpdateTooltip(GraphicsInterface graphics, MemoryInterface memory)
     if (g_map.objectCollision != NO_OBJECT)
     {
         Flash_GetObjectName(memory, g_map.text, g_map.objectCollision);
-        PrintLineStr(graphics, memory, x, y, FONT16x16, size, g_map.text, false);
+        PrintLineStr(graphics, memory, x, y, FONT16x16, size, g_map.text, false, PAL_DARK_BLUE_GRAY, PAL_OFF_WHITE_GRAY_BLUE);
     }
 
     if (g_map.itemCollision != NO_ITEM)
     {
         Flash_GetItemName(memory, g_map.text, g_map.itemCollision);
-        PrintLineStr(graphics, memory, x, y, FONT16x16, size, g_map.text, false);
+        PrintLineStr(graphics, memory, x, y, FONT16x16, size, g_map.text, false, PAL_DARK_BLUE_GRAY, PAL_OFF_WHITE_GRAY_BLUE);
     }
 
 }

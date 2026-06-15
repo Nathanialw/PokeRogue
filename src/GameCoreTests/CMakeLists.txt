@@ -9,12 +9,14 @@ add_executable(GameCoreTests
         utils_tests.c
 )
 
-target_compile_definitions(GameCoreTests PRIVATE ENABLE_DEBUG_OUTPUT ENABLE_ASSERTS)
+target_compile_definitions(GameCoreTests PRIVATE ENABLE_DEBUG_OUTPUT ENABLE_ASSERTS SDL)
 target_compile_definitions(GameCore PRIVATE ENABLE_DEBUG_OUTPUT ENABLE_ASSERTS)
 
 target_link_libraries(GameCoreTests
         PicoTypes
         GameCore
+        SDL3::SDL3-static
+        stdc++
 )
 
 target_include_directories(GameCoreTests PUBLIC

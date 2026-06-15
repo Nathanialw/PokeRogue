@@ -14,6 +14,7 @@ bool RevealMap();
 bool Reposition(HardwareInterface hardware, EntityId e_id);
 bool SetTilse(Position position, MapTile type);
 bool SetSurroundingTils(Position position, MapTile type);
+ActionOutcome DamageCreature(CreatureID entity_id, uint8_t damage, ObjectsTypes entity_type);
 
 //tiles
 bool CollisionFluidTile(EntityId id, ObjectsTypes type, uint8_t x, uint8_t y);;

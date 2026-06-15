@@ -827,7 +827,7 @@ def cleanup_descriptions(type, dry_run=True, purge_all=False):
 
 CreatureType = namedtuple('CreatureType', ['formatted', 'type_0', 'type_1'])
 CreatureData = namedtuple('CreatureData', ['type_0', 'type_1'])
-CreatureStats = namedtuple('CreatureData', ['name', 'attack_min', 'defence_min', 'magic_min', 'speed_min', 'attack_max', 'defence_max', 'magic_max', 'speed_max', 'attack_growth', 'defence_growth', 'magic_growth', 'speed_growth'])
+CreatureStats = namedtuple('CreatureData', ['name', 'attack_min', 'defence_min', 'magic_min', 'speed_min', 'accuracy_min', 'loyalty_min', 'attack_max', 'defence_max', 'magic_max', 'speed_max', 'accuracy_max', 'loyalty_max', 'attack_growth', 'defence_growth', 'magic_growth', 'speed_growth', 'hp_base', 'hp_growth', 'mp_base', 'mp_growth'])
 SpellData = namedtuple('SpellData', ['name', 'power', 'level', 'type_0', 'type_enum', 'power_points', 'use_on_party_member', 'use_on_enemy', 'use_on_trainer'])
 SkillData = namedtuple('AbilityData', ['name', 'formatted', 'power', 'power_special', 'mana_cost', 'type_0'])
 ItemData = namedtuple('ItemData', ['name', 'power', 'item_level', 'item_type', 'type_enum', 'consumable', 'consumable_party', 'consumable_spellbook'])
@@ -850,6 +850,17 @@ def get_creature_types():
         CreatureType(formatted, type_to_enum.get(type_0, 0), type_to_enum.get(type_1, 0))
         for formatted, type_0, type_1 in cursor.fetchall()
     ]
+
+    conn.close()
+    return formatted_results
+
+def get_entity_sounds(entity):
+    conn = sqlite3.connect(DB_FILE)
+    cursor = conn.cursor()
+
+    cursor.execute(f"SELECT name, sound FROM {entity}s WHERE used = 1 ORDER BY name ASC")
+
+    formatted_results = cursor.fetchall()
 
     conn.close()
     return formatted_results
@@ -1101,9 +1112,10 @@ def get_creature_stats():
     cursor.execute('''
         SELECT
             cd.name,
-            cd.attack_min, cd.defence_min, cd.magic_min, cd.speed_min,
-            cd.attack_max, cd.defence_max, cd.magic_max, cd.speed_max,
-            cd.attack_growth, cd.defence_growth, cd.magic_growth, cd.speed_growth
+            cd.attack_min, cd.defence_min, cd.magic_min, cd.speed_min, cd.accuracy_min, cd.loyalty_min,
+            cd.attack_max, cd.defence_max, cd.magic_max, cd.speed_max, cd.accuracy_max, cd.loyalty_max,
+            cd.attack_growth, cd.defence_growth, cd.magic_growth, cd.speed_growth,
+            cd.hp_base, cd.hp_growth, cd.mp_base, cd.mp_growth
         FROM creature_data cd
         INNER JOIN creatures c ON cd.name = c.name
         WHERE c.used = 1
@@ -1112,12 +1124,14 @@ def get_creature_stats():
 
     formatted_results = [
         CreatureStats(name,
-                       attack_min, defence_min, magic_min, speed_min,
-                      attack_max, defence_max, magic_max, speed_max,
-                      attack_growth, defence_growth, magic_growth, speed_growth)
-        for name, attack_min, defence_min, magic_min, speed_min,
-            attack_max, defence_max, magic_max, speed_max,
-            attack_growth, defence_growth, magic_growth, speed_growth
+                       attack_min, defence_min, magic_min, speed_min, accuracy_min, loyalty_min,
+                      attack_max, defence_max, magic_max, speed_max, accuracy_max, loyalty_max,
+                      attack_growth, defence_growth, magic_growth, speed_growth,
+                      hp_base, hp_growth, mp_base, mp_growth)
+        for name, attack_min, defence_min, magic_min, speed_min, accuracy_min, loyalty_min,
+            attack_max, defence_max, magic_max, speed_max, accuracy_max, loyalty_max,
+            attack_growth, defence_growth, magic_growth, speed_growth,
+            hp_base, hp_growth, mp_base, mp_growth
         in cursor.fetchall()
     ]
 

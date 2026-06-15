@@ -6,7 +6,7 @@
 #include "types.h"
 
 
-void InitMap(HardwareInterface hardware);
+void InitMap(HardwareInterface hardware, AudioInterface audio);
 void SetMapBorder(void);
 void FindHallDeadEnds();
 void FindHalls();

@@ -282,12 +282,12 @@ ActionOutcome InteractBarredDoor(HardwareInterface hardware, MemoryInterface mem
     if (objectType == CREATURE)
     {
         g_core.creatures.newPosition[e_id] = g_core.creatures.position[e_id];
-        DoDamage(e_id, objectData.power);
+        DamageCreature(e_id, objectData.power, CREATURE);
     }
     else if (objectType == TRAINER)
     {
         g_core.trainers.newPosition[e_id] = g_core.trainers.position[e_id];
-        DoDamage(g_core.trainers.partyID[e_id][0], objectData.power);
+        DamageCreature(g_core.trainers.partyID[e_id][0], objectData.power, TRAINER);
     }
 
     uint8_t chance = hardware.GetRandom_uint8_t(1, 100);
@@ -312,12 +312,12 @@ ActionOutcome InteractIronDoor(HardwareInterface hardware, MemoryInterface memor
     if (objectType == CREATURE)
     {
         g_core.creatures.newPosition[e_id] = g_core.creatures.position[e_id];
-        DoDamage(e_id, objectData.power);
+        DamageCreature(e_id, objectData.power, CREATURE);
     }
     else if (objectType == TRAINER)
     {
         g_core.trainers.newPosition[e_id] = g_core.trainers.position[e_id];
-        DoDamage(g_core.trainers.partyID[e_id][0], objectData.power);
+        DamageCreature(g_core.trainers.partyID[e_id][0], objectData.power, TRAINER);
     }
 
     uint8_t chance = hardware.GetRandom_uint8_t(1, 100);
@@ -342,12 +342,12 @@ ActionOutcome InteractStoneDoor(HardwareInterface hardware, MemoryInterface memo
     if (objectType == CREATURE)
     {
         g_core.creatures.newPosition[e_id] = g_core.creatures.position[e_id];
-        DoDamage(e_id, objectData.power);
+        DamageCreature(e_id, objectData.power, CREATURE);
     }
     else if (objectType == TRAINER)
     {
         g_core.trainers.newPosition[e_id] = g_core.trainers.position[e_id];
-        DoDamage(g_core.trainers.partyID[e_id][0], objectData.power);
+        DamageCreature(g_core.trainers.partyID[e_id][0], objectData.power, TRAINER);
     }
 
     uint8_t chance = hardware.GetRandom_uint8_t(1, 100);
@@ -372,12 +372,12 @@ ActionOutcome InteractWickerDoor(HardwareInterface hardware, MemoryInterface mem
     if (objectType == CREATURE)
     {
         g_core.creatures.newPosition[e_id] = g_core.creatures.position[e_id];
-        DoDamage(e_id, objectData.power);
+        DamageCreature(e_id, objectData.power, CREATURE);
     }
     else if (objectType == TRAINER)
     {
         g_core.trainers.newPosition[e_id] = g_core.trainers.position[e_id];
-        DoDamage(g_core.trainers.partyID[e_id][0], objectData.power);
+        DamageCreature(g_core.trainers.partyID[e_id][0], objectData.power, TRAINER);
     }
 
     uint8_t chance = hardware.GetRandom_uint8_t(1, 100);
@@ -402,12 +402,12 @@ ActionOutcome InteractWoodDoor(HardwareInterface hardware, MemoryInterface memor
     if (objectType == CREATURE)
     {
         g_core.creatures.newPosition[e_id] = g_core.creatures.position[e_id];
-        DoDamage(e_id, objectData.power);
+        DamageCreature(e_id, objectData.power, CREATURE);
     }
     else if (objectType == TRAINER)
     {
         g_core.trainers.newPosition[e_id] = g_core.trainers.position[e_id];
-        DoDamage(g_core.trainers.partyID[e_id][0], objectData.power);
+        DamageCreature(g_core.trainers.partyID[e_id][0], objectData.power, TRAINER);
     }
 
     uint8_t chance = hardware.GetRandom_uint8_t(1, 100);

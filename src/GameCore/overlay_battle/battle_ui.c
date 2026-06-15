@@ -27,7 +27,7 @@ void CombatLogLine(HardwareInterface hardware, char* dest, const char* prefix, c
     }
 
     CharStr_max999 value_str;
-    GetAsChars_Max999(value, &value_str);
+    GetAsChars_Max999(value, &value_str, false);
 
 
     uint8_t j = i;

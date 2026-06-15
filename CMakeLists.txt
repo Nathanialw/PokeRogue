@@ -75,12 +75,9 @@ add_subdirectory(src/PicoTypes)
 add_subdirectory(src/GameCore)
 add_subdirectory(src/GameData)
 add_subdirectory(src/GameTypes)
-add_subdirectory(src/tools/image_viewer)
-add_subdirectory(src/tools/music_editor)
 
-if (BUILD_TESTS)
-    add_subdirectory(src/GameCoreTests)
-elseif (SDL)
+
+if (SDL)
     # ---------- SDL3 (static) ----------
     set(SDL_STATIC ON CACHE BOOL "" FORCE)
     set(SDL_SHARED OFF CACHE BOOL "" FORCE)
@@ -96,7 +93,9 @@ elseif (SDL)
     add_subdirectory(vendor/SDL_mixer)
 
     add_subdirectory(src/SDLGame)
-
+    add_subdirectory(src/GameCoreTests)
+    add_subdirectory(src/tools/image_viewer)
+    add_subdirectory(src/tools/music_editor)
 elseif (PICO)
     add_subdirectory(src/PicoGame)
 elseif (CARTRIDGE_DATA)

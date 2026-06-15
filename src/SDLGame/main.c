@@ -53,15 +53,13 @@ GameInterface api;
 
 int main()
 {
-    LoadSoundEffects();
+    InitAudio();
     InitMusicSystem();
 
     g_ramState.sound_thread = SDL_CreateThread(SoundThreadFunc, "SoundThread", NULL);
     g_ramState.music_thread = SDL_CreateThread(MusicThreadFunc, "MusicThread", NULL);
-    RequestMusic(0);
 
-
-    if (SDL_CreateWindowAndRenderer("window", SCREEN_W, SCREEN_H, SDL_WINDOW_RESIZABLE, &g_ramState.window, &g_ramState.renderer) != 1)
+    if (SDL_CreateWindowAndRenderer("window", 1920, 1920, SDL_WINDOW_RESIZABLE, &g_ramState.window, &g_ramState.renderer) != 1)
     {
         printf("Failed to create window and renderer: %s\n", SDL_GetError());
         return 1;

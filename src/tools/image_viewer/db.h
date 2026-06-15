@@ -15,3 +15,5 @@
  */
 int GetImageFolders(std::vector<std::string>& image_folders, uint16_t& entity_count, const EntityTypes& entity_type);
 int UpdateImagePath(const std::string& image_path, const std::string& entity_name, const EntityTypes& entity_type);
+
+std::string GetImagePath(const std::string& entity_name, const EntityTypes& entity_type);
