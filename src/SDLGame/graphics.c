@@ -317,7 +317,6 @@ void SetFrameBufferColor(Color rgb565)
     SetRectColor(BUFFER_SIZE_2BYTES, g_ramState.framebuffer.frameBuffer, rgb565);
 }
 
-//TODO:
 void FillRect(uint16_t x, uint16_t y, uint16_t w, uint16_t h, Color rgb565)
 {
     if ((w == 0 || h == 0) || (x >= TFT_W || y >= TFT_H))
@@ -327,6 +326,34 @@ void FillRect(uint16_t x, uint16_t y, uint16_t w, uint16_t h, Color rgb565)
     if (y + h > TFT_H) h = TFT_H - y;
 
     DrawRect(x, y, w, h, rgb565);
+}
+
+void DrawRectOutline(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t r, Color rgb565)
+{
+    if ((w == 0 || h == 0) || (x >= TFT_W || y >= TFT_H))
+        return;
+
+    if (x + w > TFT_W) w = TFT_W - x;
+    if (y + h > TFT_H) h = TFT_H - y;
+
+    if ((w * h) < (SCREEN_H * SCREEN_W * 2))
+    {
+        uint16_t c = rgb565.color;
+
+        uint8_t r5 = (c >> 11) & 0x1F;
+        uint8_t g6 = (c >> 5) & 0x3F;
+        uint8_t b5 = c & 0x1F;
+
+        uint8_t red = (r5 << 3) | (r5 >> 2);
+        uint8_t green = (g6 << 2) | (g6 >> 4);
+        uint8_t blue = (b5 << 3) | (b5 >> 2);
+
+        SDL_SetRenderDrawColor(g_ramState.renderer, red, green, blue, 255);
+        SDL_FRect r = {x, y, w, h};
+        SDL_RenderRect(g_ramState.renderer, &r);
+        SDL_FlushRenderer(g_ramState.renderer);
+        SDL_SetRenderDrawColor(g_ramState.renderer, 255, 255, 255, 255);
+    }
 }
 
 //TODO:
@@ -411,6 +438,7 @@ GraphicsInterface GraphicsInterfaceInit()
         .SetFrameBuffer = SetFrameBuffer,
         .SetFrameBufferColor = SetFrameBufferColor,
         .FillRect = FillRect,
+        .DrawRectOutline = DrawRectOutline,
         .FillRectColor = FillRectColor,
         .FillScreen = FillScreen,
         .FillScreenColor = FillScreenColor,

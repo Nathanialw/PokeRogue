@@ -15,7 +15,7 @@
 /** FUNCTIONS
 **********************************************************************************************************************/
 
-void GetAsChars_uint8(uint8_t n, CharStr_uint8* out, bool prependZeros);
+void GetAsChars_uint8(uint8_t n, CharStr_uint8* out, bool prependZeros, bool null_terminated);
 void GetAsChars_uint16(uint16_t n, CharStr_uint16* out);
 void GetAsChars_Max999(uint16_t n, CharStr_max999* out, bool prependZeros);
 

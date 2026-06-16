@@ -31,7 +31,6 @@ add_library(GameCore STATIC
         overlay_map/map_animation.c
         overlay_map/map_state.c
         overlay_map/map_player.c
-        overlay_map/map_stats.c
         overlay_map/map_rendering.c
         overlay_map/map_status_effects.c
         overlay_map/map_effects.c

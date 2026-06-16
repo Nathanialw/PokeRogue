@@ -10,13 +10,13 @@ DB_FILE = constants.DB_FILE
 
 def generate_data_from_db(entity):
     start_prompt = {
-        'creature': "fantasy creature, tasteful nudity male, nude female or nude trans-woman, creature fully visible, creature composition, isolated subject, single creature, no cropping, highly detailed dark fantasy, sharp focus, ",
+        'creature': "fantasy creature, tasteful nudity, nude female or nude trans-woman, creature fully visible, creature composition, isolated subject, single creature, no cropping, highly detailed dark fantasy, sharp focus, ",
         'environment_object': "photo-realistic hi fidelity detailed, fantasy environment_object, subject fully visible, centered composition, isolated subject, single subject, no cropping, highly detailed dark fantasy, sharp focus, ",
         'item': "photo-realistic hi fidelity detailed, fantasy item, item fully visible, centered composition, isolated item, single subject, no cropping, highly detailed dark fantasy, sharp focus, ",
         'object': "photo-realistic hi fidelity detailed, fantasy object, object fully visible, centered composition, isolated subject, single object, no cropping, highly detailed dark fantasy, sharp focus, ",
         'spell': "photo-realistic hi fidelity detailed, fantasy spell demonstration, subject fully visible, centered composition, isolated subject, single subject, no cropping, highly detailed dark fantasy, sharp focus, ",
         'skill': "photo-realistic hi fidelity detailed, fantasy skill demonstration, subject fully visible, centered composition, isolated subject, single subject, no cropping, highly detailed dark fantasy, sharp focus, ",
-        'trainer': "fantasy adventurer, tasteful nudity male, nude female or nude trans-woman, subject fully visible, centered composition, isolated subject, single subject, no cropping, highly detailed dark fantasy, sharp focus, ",
+        'trainer': "fantasy character, tasteful nudity, nude girl or nude trans-woman, body fully visible, centered composition, isolated subject, single subject, no cropping, highly detailed dark fantasy, sharp focus, ",
     }
 
     table_in = f"{entity}_descriptions"
@@ -105,11 +105,9 @@ LIGHTING_STYLES = [
 # View angles - expanded with back-side angles
 VIEW_ANGLES = [
     # "",  # front/full face (implied)
-    # "back view",
     "strict side profile view, 90 degree lateral pose, full side silhouette",
     "three-quarter side view, strong 45 degree angle over-the-shoulder",
-    "rear three-quarter view, mostly back but slight side visible",
-    # "direct rear view, seen from straight behind, full back, over-the-shoulder",
+    "rear three-quarter view, mostly side but slight back visible",
     # "looking back over shoulder, body in profile but head turned",
 ]
 

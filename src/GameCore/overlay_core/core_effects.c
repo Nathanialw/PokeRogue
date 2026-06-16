@@ -28,14 +28,13 @@
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-ActionOutcome RestoreResource(uint_max999* resource, EntityId creature_id, uint8_t value, uint16_t* cache)
+ActionOutcome RestoreResource(uint_max999* resource, EntityId creature_id, uint8_t value)
 {
     if (creature_id == NO_CREATURE) return ACTION_CANNOT;
     uint_max999 res = resource[creature_id];
     uint16_t cur = Int999GetCurrent(&res);
     uint16_t max = Int999GetMax(&res);
     if (cur == max) return ACTION_CANNOT;
-    *cache = cur;
     cur = (cur + value > max) ? max : cur + value;
     Int999SetCurrent(&res, cur);
     resource[creature_id] = res;
@@ -52,7 +51,7 @@ uint16_t CalcDamage(EntityId creatureID, uint16_t abilityPower)
     const uint8_t level = g_core.creatures.level[creatureID].value;
     const uint16_t base = g_core.creatures.stats[creatureID].attack >> 2;
     const uint16_t accuracy = g_core.creatures.stats[creatureID].accuracy >> 2;
-    const uint16_t skill =( abilityPower + g_core.creatures.attributes[creatureID].intelligence) >> 3;
+    const uint16_t skill = (abilityPower + g_core.creatures.attributes[creatureID].intelligence) >> 3;
     const uint16_t mod = g_core.creatures.attributes[creatureID].strength >> 3;
 
     uint16_t damage = level + base + skill + mod;
@@ -81,7 +80,6 @@ SET_MEMORY(".core")
 void DoDamage(EntityId creatureID, uint16_t damage)
 {
     uint16_t hp = Int999GetCurrent(&g_core.creatures.hp[creatureID]);
-    g_core.battleMode.battle_hp_cache = hp;
     hp = (hp > damage) ? hp - damage : 0;
     Int999SetCurrent(&g_core.creatures.hp[creatureID], hp);
 }
@@ -351,7 +349,7 @@ SET_MEMORY(".core")
 ActionOutcome HealTarget(EntityId e_id, uint16_t value)
 {
     uint16_t heal = CalcHeal(e_id, value);
-    return RestoreResource(g_core.creatures.hp, e_id, heal, &g_core.battleMode.battle_hp_cache);
+    return RestoreResource(g_core.creatures.hp, e_id, heal);
 }
 
 /**********************************************************************************************************************
@@ -378,7 +376,7 @@ ActionOutcome MakeInvulnerable(EntityId e_id)
 SET_MEMORY(".core")
 ActionOutcome RestoreMana(EntityId e_id, uint8_t value)
 {
-    return RestoreResource(g_core.creatures.mp, e_id, value, &g_core.battleMode.battle_mp_cache);
+    return RestoreResource(g_core.creatures.mp, e_id, value);
 }
 
 /**********************************************************************************************************************
@@ -1088,6 +1086,7 @@ ActionOutcome AbsorbEarth(EntityId e_id)
     g_core.creatures.absorb[e_id].earth = 1;
     return ACTION_SUCCEEDED;
 }
+
 /**********************************************************************************************************************
 *
 **********************************************************************************************************************/
@@ -1097,6 +1096,7 @@ ActionOutcome AbsorbToxic(EntityId e_id)
     g_core.creatures.absorb[e_id].toxic = 1;
     return ACTION_SUCCEEDED;
 }
+
 /**********************************************************************************************************************
 *
 **********************************************************************************************************************/
@@ -1106,6 +1106,7 @@ ActionOutcome AbsorbWater(EntityId e_id)
     g_core.creatures.absorb[e_id].earth = 1;
     return ACTION_SUCCEEDED;
 }
+
 /**********************************************************************************************************************
 *
 **********************************************************************************************************************/
@@ -1115,6 +1116,7 @@ ActionOutcome AbsorbIce(EntityId e_id)
     g_core.creatures.absorb[e_id].ice = 1;
     return ACTION_SUCCEEDED;
 }
+
 /**********************************************************************************************************************
 *
 **********************************************************************************************************************/
@@ -1124,6 +1126,7 @@ ActionOutcome AbsorbFire(EntityId e_id)
     g_core.creatures.absorb[e_id].fire = 1;
     return ACTION_SUCCEEDED;
 }
+
 /**********************************************************************************************************************
 *
 **********************************************************************************************************************/

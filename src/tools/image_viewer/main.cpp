@@ -38,13 +38,13 @@ int main()
     text.PopulateTextTextures(renderer.GetSDLRenderer(), images.entity_list);
 
     renderer.CreateTextures(images);
-    renderer.Render(ui, text, images.GetEntityCount(), images.GetImageCount());
+    renderer.Render(ui, text, images.GetEntityCount(), images.GetImageCount(), images.used_image_index);
 
     while (g_sdl.Running())
     {
         ProcessInput(renderer, text, images, ui);
         Update(images);
-        renderer.Render(ui, text, images.GetEntityCount(), images.GetImageCount());
+        renderer.Render(ui, text, images.GetEntityCount(), images.GetImageCount(), images.used_image_index);
     }
 
 

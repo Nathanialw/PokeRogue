@@ -43,7 +43,7 @@ void GameRunInit(HardwareInterface hardware, MemoryInterface memory)
     g_core.music.master_volume = 32768;
 
     g_core.initialized = true;
-
+    ResetEntities(hardware, memory, false);
 }
 
 

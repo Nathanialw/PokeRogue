@@ -230,14 +230,23 @@ void ResetEntities(HardwareInterface hardware, MemoryInterface memory, bool copy
 
     for (uint16_t i = creature_start_idx; i < MAX_ENTITY_CREATURE_COUNT; i++)
     {
-        if (!CheckIfInPlayerParty(i))
+        if (copyPlayer)
+        {
+            if (!CheckIfInPlayerParty(i))
+                DestroyCreature(i);
+        }
+        else
             DestroyCreature(i);
     }
 
     for (uint16_t i = item_start_idx; i < MAX_ENTITY_ITEM_COUNT; i++)
     {
-        if (!CheckIfPlayerItem(i))
-            DestroyItem(i);
+        if (copyPlayer)
+        {
+            if (!CheckIfPlayerItem(i))
+                DestroyItem(i);
+        }
+        DestroyItem(i);
     }
 
     for (uint16_t i = 0; i < MAX_ENTITY_OBJECT_COUNT; i++)
@@ -245,7 +254,12 @@ void ResetEntities(HardwareInterface hardware, MemoryInterface memory, bool copy
 
     for (uint16_t i = 0; i < MAX_ENTITY_TRAINER_COUNT; i++)
     {
-        if (i != player_id)
+        if (copyPlayer)
+        {
+            if (i != player_id)
+                DestroyTrainer(i);
+        }
+        else
             DestroyTrainer(i);
     }
 

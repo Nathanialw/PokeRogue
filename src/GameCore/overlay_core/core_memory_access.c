@@ -623,7 +623,7 @@ Creature Flash_GetThemeCreature(MemoryInterface memory, uint8_t theme, Creature 
 
 
 SET_MEMORY(".core.rodata")
-const char text_lines[20][SMALL_STRINGS] = {
+const char text_lines[32][SMALL_STRINGS] = {
     "Attack: ",
     "Defence: ",
     "Magic: ",
@@ -645,6 +645,9 @@ const char text_lines[20][SMALL_STRINGS] = {
     "Earth: ",
     "Magic: ",
 
+    "Mana Cost: ",
+    "Physical ",
+    "Special ",
     "Error: ",
 };
 

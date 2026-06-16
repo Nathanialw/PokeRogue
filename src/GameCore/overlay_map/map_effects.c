@@ -10,6 +10,7 @@
 #include "core_map.h"
 #include "core_player.h"
 #include "core_ram.h"
+#include "core_utils.h"
 
 #include "lib_decl.h"
 #include "lib_memory.h"
@@ -124,6 +125,9 @@ ActionOutcome DamageCreature(CreatureID entity_id, uint8_t damage, ObjectsTypes 
         EntityId creature_id = g_core.trainers.partyID[entity_id][0];
         if (creature_id == NO_CREATURE) return ACTION_FAILED;
         if (damage == 0) return ACTION_FAILED;
+
+
+
 
         DoDamage(creature_id, damage);
         bool dead = CheckCreatureDead(creature_id);

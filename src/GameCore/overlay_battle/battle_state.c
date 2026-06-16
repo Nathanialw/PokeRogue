@@ -50,6 +50,23 @@ bool CheckBattleState(BattleState state)
 
 
 /**********************************************************************************************************************/
+/*
+**********************************************************************************************************************/
+SET_MEMORY(".battle")
+void CacheCreatureState()
+{
+    if (g_core.battleMode.enemyMonsterID != NO_ENTITY)
+    {
+        g_core.battleMode.battle_hp_cache[0] = (int16_t)Int999GetCurrent(&g_core.creatures.hp[g_core.battleMode.playerMonsterID]);
+        g_core.battleMode.battle_hp_cache[1] = (int16_t)Int999GetCurrent(&g_core.creatures.hp[g_core.battleMode.enemyMonsterID]);
+        g_core.battleMode.battle_mp_cache[0] = (int16_t)Int999GetCurrent(&g_core.creatures.mp[g_core.battleMode.playerMonsterID]);
+        g_core.battleMode.battle_mp_cache[1] = (int16_t)Int999GetCurrent(&g_core.creatures.mp[g_core.battleMode.enemyMonsterID]);
+        // g_core.battleMode.battle_xp_cache = (int16_t)Int999GetCurrent(&g_core.creatures.xp[g_core.battleMode.playerMonsterID]);
+    }
+}
+
+
+/**********************************************************************************************************************/
 /*  input handling based on game state
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
@@ -147,17 +164,24 @@ void HandleBattleState(GameInterface* spi)
         CombatLogFullDraw(spi->graphics, spi->memory);
         if (!g_battle.pass_turn)
         {
+            //TODO
+            //animation  calls will eb base on item type used
+            // right now g_battle.pass_turn skips this block for swaps/spells/items
+
             spi->audio.PlaySoundEffect(g_core.battleMode.moveID.AbilityId);
-            AnimationUpdateMana(spi->graphics, spi->hardware, spi->memory, false);
+            AnimationUpdatePlayerMana(spi->graphics, spi->hardware, spi->memory);
             BattlerAnimationAttack(spi->graphics, spi->hardware, spi->memory, true); //attacking animation
             BattlerAnimationStruck(spi->graphics, spi->hardware, spi->memory, false); //hit animation
-            AnimationUpdateHealth(spi->graphics, spi->hardware, spi->memory, true);
         }
         else
         {
             //spells or item used
         }
-        g_battle.pass_turn = false;
+
+        AnimationUpdateEnemyHealth(spi->graphics, spi->hardware, spi->memory);
+        AnimationUpdatePlayerHealth(spi->graphics, spi->hardware, spi->memory);
+        AnimationUpdateEnemyMana(spi->graphics, spi->hardware, spi->memory);
+        // g_battle.pass_turn = false;
 
         if (g_battle.enemy_captured)
         {
@@ -170,14 +194,17 @@ void HandleBattleState(GameInterface* spi)
         }
         else
         {
+            CacheCreatureState();
             if (UseSkill(spi->hardware, spi->memory, false))
             {
                 spi->audio.PlaySoundEffect(g_core.battleMode.moveID.AbilityId);
                 CombatLogFullDraw(spi->graphics, spi->memory);
-                AnimationUpdateMana(spi->graphics, spi->hardware, spi->memory, true);
+                AnimationUpdateEnemyMana(spi->graphics, spi->hardware, spi->memory);
                 BattlerAnimationAttack(spi->graphics, spi->hardware, spi->memory, false); //attacking animation
                 BattlerAnimationStruck(spi->graphics, spi->hardware, spi->memory, true); //hit animation
-                AnimationUpdateHealth(spi->graphics, spi->hardware, spi->memory, false);
+                AnimationUpdateEnemyHealth(spi->graphics, spi->hardware, spi->memory);
+                AnimationUpdatePlayerHealth(spi->graphics, spi->hardware, spi->memory);
+                AnimationUpdatePlayerMana(spi->graphics, spi->hardware, spi->memory);
             }
 
             if (CheckEnemyAttackOutcome())
@@ -196,6 +223,11 @@ void HandleBattleState(GameInterface* spi)
         EffectAnimation(spi->graphics, spi->hardware, spi->memory);
         DrawCursor(spi->graphics, spi->memory);
     }
+
+    g_core.battleMode.battle_hp_cache[0] = -1;
+    g_core.battleMode.battle_hp_cache[1] = -1;
+    g_core.battleMode.battle_mp_cache[0] = -1;
+    g_core.battleMode.battle_mp_cache[1] = -1;
 
     if (CheckBattleState(BATTLE_FLEE))
     {

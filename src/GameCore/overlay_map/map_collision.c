@@ -9,7 +9,6 @@
 
 #include "core_player.h"
 #include "core_ram.h"
-#include "data_constants_effects.inc"
 #include "decl_tiles_TIleStepOff.inc"
 #include "decl_tiles_TIleStepOn.inc"
 

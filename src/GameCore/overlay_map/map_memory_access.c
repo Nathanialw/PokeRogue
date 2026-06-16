@@ -13,8 +13,6 @@
 #include "data_constants_memory.inc"
 
 
-
-
 /**********************************************************************************************************************/
 /**     MAP
 **********************************************************************************************************************/
@@ -245,117 +243,46 @@ void Flash_GetMapSprite(MemoryInterface memory, uint8_t* bytes, SpriteFrames* sp
 SET_MEMORY(".map")
 void Flash_GetOptionText(MemoryInterface memory, uint8_t* textBuffer, uint8_t index)
 {
-#ifdef STANDALONE
-    return g_gameFlash.text.menus.options[index];
-#else
     memory.GetRom(STRINGS_MENU_OPTIONS_POSITION + (SMALL_STRINGS * index), textBuffer, SMALL_STRINGS);
-
-#if defined(MEMORY_PRINT)
-    for (uint8_t i = 0; i < SMALL_STRINGS; i++)
-        memory.Print(str_spawn_creature_type, textBuffer[i]);
-    memory.Print(new_line);
-#endif
-#endif
 }
 
 
 SET_MEMORY(".map")
 void Flash_GetCreatureDescription(MemoryInterface memory, char* text, uint8_t index)
 {
-#ifdef STANDALONE
-    return g_gameFlash.text.descriptions.monsters[index];
-#else
     memory.GetRom(STRINGS_DESCRIPTIONS_CREATURES_POSITION + (LARGE_STRINGS * index), (uint8_t*)text, LARGE_STRINGS);
-
-#if defined(MEMORY_PRINT)
-    for (uint8_t i = 0; i < LARGE_STRINGS; i++)
-        memory.Print(str_spawn_creature_type, text[i]);
-    memory.Print(new_line);
-#endif
-#endif
 }
 
 
 SET_MEMORY(".map")
 void Flash_GetObjectDescription(MemoryInterface memory, char* text, uint8_t index)
 {
-#ifdef STANDALONE
-    return g_gameFlash.text.descriptions.objects[index];
-#else
     memory.GetRom(STRINGS_DESCRIPTIONS_OBJECTS_POSITION + (LARGE_STRINGS * index), (uint8_t*)text, LARGE_STRINGS);
-
-#if defined(MEMORY_PRINT)
-    for (uint8_t i = 0; i < LARGE_STRINGS; i++)
-        memory.Print(str_spawn_creature_type, text[i]);
-    memory.Print(new_line);
-#endif
-#endif
 }
 
 
 SET_MEMORY(".map")
 void Flash_GetItemDescription(MemoryInterface memory, char* text, uint8_t index)
 {
-#ifdef STANDALONE
-    return g_gameFlash.text.descriptions.items[index];
-#else
     memory.GetRom(STRINGS_DESCRIPTIONS_ITEMS_POSITION + (LARGE_STRINGS * index), (uint8_t*)text, LARGE_STRINGS);
-
-#if defined(MEMORY_PRINT)
-    for (uint8_t i = 0; i < LARGE_STRINGS; i++)
-        memory.Print(str_spawn_creature_type, text[i]);
-    memory.Print(new_line);
-#endif
-#endif
 }
 
 
 SET_MEMORY(".map")
 void Flash_GetSpellDescription(MemoryInterface memory, char* text, uint8_t index)
 {
-#ifdef STANDALONE
-    return g_gameFlash.text.descriptions.spells[index];
-#else
     memory.GetRom(STRINGS_DESCRIPTIONS_SPELLS_POSITION + (LARGE_STRINGS * index), (uint8_t*)text, LARGE_STRINGS);
-
-#if defined(MEMORY_PRINT)
-    for (uint8_t i = 0; i < LARGE_STRINGS; i++)
-        memory.Print(str_spawn_creature_type, text[i]);
-    memory.Print(new_line);
-#endif
-#endif
 }
 
 
 SET_MEMORY(".map")
 void Flash_GetSkillDescription(MemoryInterface memory, char* text, uint8_t index)
 {
-#ifdef STANDALONE
-    return g_gameFlash.text.descriptions.attacks[index];
-#else
     memory.GetRom(STRINGS_DESCRIPTIONS_SKILLS_POSITION + (LARGE_STRINGS * index), (uint8_t*)text, LARGE_STRINGS);
-
-#if defined(MEMORY_PRINT)
-    for (uint8_t i = 0; i < LARGE_STRINGS; i++)
-        memory.Print(str_spawn_creature_type, text[i]);
-    memory.Print(new_line);
-#endif
-#endif
 }
 
 SET_MEMORY(".map")
 void Flash_GetTypeName(MemoryInterface memory, char* text, uint8_t typeIndex)
 {
-#ifdef STANDALONE
-    return g_gameFlash.text.types[typeIndex];
-#else
     memory.GetRom(STRINGS_TYPES_POSITION + (SMALL_STRINGS * typeIndex), (uint8_t*)text, SMALL_STRINGS);
-
-#if defined(MEMORY_PRINT)
-    for (uint8_t i = 0; i < SMALL_STRINGS; i++)
-        memory.Print(str_spawn_creature_type, text[i]);
-    memory.Print(new_line);
-#endif
-#endif
 }
-

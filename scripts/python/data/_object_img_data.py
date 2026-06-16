@@ -141,11 +141,9 @@ LIGHTING_STYLES = [
 # View angles - expanded with back-side angles
 VIEW_ANGLES = [
     # "",  # front/full face (implied)
-    # "back view",
     "strict side profile view, 90 degree lateral pose, full side silhouette",
     "three-quarter side view, strong 45 degree angle over-the-shoulder",
-    "rear three-quarter view, mostly back but slight side visible",
-    # "direct rear view, seen from straight behind, full back, over-the-shoulder",
+    "rear three-quarter view, mostly side but slight back visible",
     # "looking back over shoulder, body in profile but head turned",
 ]
 

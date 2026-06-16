@@ -106,6 +106,7 @@ void ProcessInput(Renderer& renderer, Text& text, ImageData& images, UI& ui)
                             images.UpdateType(entity_type.value());
                             text.PopulateTextTextures(renderer.GetSDLRenderer(), images.entity_list);
                             renderer.CreateTextures(images);
+                            images.UpdateSetImageEntity();
                             return;
                         }
                     }
@@ -117,6 +118,7 @@ void ProcessInput(Renderer& renderer, Text& text, ImageData& images, UI& ui)
                             images.UpdateEntity(entity_id);
                             text.PopulateTextTextures(renderer.GetSDLRenderer(), images.entity_list);
                             renderer.CreateTextures(images);
+                            images.UpdateSetImageEntity();
                             return;
                         }
                     }
@@ -135,6 +137,7 @@ void ProcessInput(Renderer& renderer, Text& text, ImageData& images, UI& ui)
                         auto d = ui.DeleteImage(mouse);
                         if (d.has_value())
                         {
+                            images.DeleteImage(d.value());
                             renderer.DeleteTexture(images, d.value());
                             return;
                         }

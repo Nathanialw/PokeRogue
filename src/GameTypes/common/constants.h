@@ -241,7 +241,7 @@ _Static_assert(DIALOGUE_H + RESOURCE_FRAME_H + BATTLER_AREA_H <= TFT_H, "cannot 
 #define GLYPH_ROWS_8x8   8
 #define MAX_MENU_SIZE (MAIN_MENU_H * 2)
 #define MAX_MENU_DEPTH 3
-#define BATTLE_MENU_SIZE 5
+#define BATTLE_MENU_SIZE 6
 
 #define COMBAT_LOG_SIZE 255
 #define COMBAT_LOG_LINES 8

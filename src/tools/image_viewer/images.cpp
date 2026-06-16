@@ -19,6 +19,7 @@ ImageData::ImageData()
     entity_count = 0;
     image_count = 0;
     used_image_path = "";
+    used_image_index = -1;
     default_image_path = "assets_raw/sprites/default/default.jpg";
 }
 
@@ -53,6 +54,14 @@ uint16_t ImageData::GetSelectedEntity(const uint16_t& entity_num)
 void ImageData::DeleteImage(uint16_t n)
 {
     // image_names.erase(image_names.begin() + n);}
+    if (n < used_image_index)
+    {
+        used_image_index--;
+    }
+    else if (n == used_image_index)
+    {
+        used_image_index = -1;
+    }
 }
 
 void ImageData::ClearEntities()
@@ -65,9 +74,10 @@ void ImageData::ClearImages()
     images.clear();
 }
 
-bool ImageData::CheckForSetImage(std::string folderPath, std::string image_path_used, uint16_t id)
+int16_t ImageData::CheckForSetImage(std::string folderPath, std::string image_path_used, uint16_t id)
 {
-    bool exists = false;
+    int16_t exists = -1;
+    int16_t i = 0;
 
     try
     {
@@ -81,7 +91,7 @@ bool ImageData::CheckForSetImage(std::string folderPath, std::string image_path_
             {
                 if (image_path_used == filename)
                 {
-                    exists = true;
+                    exists = i;
                     break;
                 }
             }
@@ -90,6 +100,7 @@ bool ImageData::CheckForSetImage(std::string folderPath, std::string image_path_
                 std::cout << " DIR: " << filename << '\n';
                 std::cout << " DIR: " << filename << '\n';
             }
+            i++;
         }
     }
     catch (const fs::filesystem_error& e)
@@ -97,7 +108,7 @@ bool ImageData::CheckForSetImage(std::string folderPath, std::string image_path_
         std::cerr << "Filesystem error: " << e.what() << '\n';
     }
 
-    if (!exists)
+    if (exists == -1)
     {
         std::cout << " NO IMAGE SET for " << entity_list[id] << '\n';
     }
@@ -108,8 +119,10 @@ bool ImageData::CheckForSetImage(std::string folderPath, std::string image_path_
 std::string ImageData::GetFolderPath()
 {
     used_image_path = GetImagePath(entity_list[entity_id], entity_type);
+    used_image_index = (int16_t)entity_id;
+
     std::string folderPath = entity_images_path[entity_type] + entity_list[entity_id];
-    bool exists = false;
+    int16_t exists = false;
 
     if (used_image_path != default_image_path)
     {
@@ -118,9 +131,10 @@ std::string ImageData::GetFolderPath()
             exists = CheckForSetImage(folderPath, used_image_path, entity_id);
         }
 
-        if (used_image_path.empty() || !exists)
+        if (used_image_path.empty() || exists == -1)
         {
             used_image_path = default_image_path;
+            used_image_index = -1;
             UpdateImagePath(used_image_path, entity_list[entity_id], entity_type);
         }
     }
@@ -133,6 +147,18 @@ std::string ImageData::GetFolderPath()
     return folderPath;
 }
 
+int16_t ImageData::GetImageIndex()
+{
+    for (uint16_t i = 0; i < entity_count; i++)
+    {
+        if (images[i] == used_image_path)
+        {
+            return i;
+        }
+    }
+    return -1;
+}
+
 bool ImageData::UpdateType(EntityTypes type)
 {
     entity_id = 0;
@@ -141,24 +167,37 @@ bool ImageData::UpdateType(EntityTypes type)
     ClearEntities();
     ClearImages();
 
+    std::string folderPath;
+    std::string image_path_used;
+
 
     if (GetImageFolders(entity_list, entity_count, entity_type) != 0)
         return false;
 
     for (uint16_t i = 0; i < entity_count; i++)
     {
-        std::string folderPath = entity_images_path[entity_type] + entity_list[i];
-        std::string image_path_used = GetImagePath(entity_list[i], entity_type);
+        folderPath = entity_images_path[entity_type] + entity_list[i];
+        image_path_used = GetImagePath(entity_list[i], entity_type);
 
-        if (!CheckForSetImage(folderPath, image_path_used, i))
+        if (CheckForSetImage(folderPath, image_path_used, i) == -1)
         {
             UpdateImagePath(default_image_path, entity_list[i], entity_type);
         }
     }
 
 
+
     return true;
 }
+
+
+bool ImageData::UpdateSetImageEntity()
+{
+    used_image_path = GetImagePath(entity_list[entity_id], entity_type);
+    used_image_index = GetImageIndex();
+    return true;
+}
+
 
 bool ImageData::UpdateEntity(uint16_t n)
 {
@@ -171,6 +210,7 @@ bool ImageData::UpdateImage(uint16_t n)
     auto& image_path = images[n];
     UpdateImagePath(image_path, entity_list[entity_id], entity_type);
     used_image_path = image_path;
+    used_image_index = (int16_t)n;
     printf("Updated image path: %s\n", image_path.c_str());
     return true;
 }
@@ -182,6 +222,7 @@ bool ImageData::RemoveImagePath(uint16_t n)
     {
         UpdateImagePath(default_image_path, entity_list[entity_id], entity_type);
         used_image_path = default_image_path;
+        used_image_index = -1;
     }
     return true;
 }

@@ -16,7 +16,7 @@
 /** takes a char array and a uin8_t and writes the value og the integer as chars to the array
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-void GetAsChars_uint8(uint8_t n, CharStr_uint8* out, bool prependZeros)
+void GetAsChars_uint8(uint8_t n, CharStr_uint8* out, bool prependZeros, bool null_terminated)
 {
     uint8_t hundreds = ((n / 100) % 10);
     uint8_t tens = ((n / 10) % 10);
@@ -33,7 +33,10 @@ void GetAsChars_uint8(uint8_t n, CharStr_uint8* out, bool prependZeros)
         (*out)[1] = CHAR_OFFSET + tens;
 
     (*out)[2] = CHAR_OFFSET + ones;
-    (*out)[3] = '\0';
+    if (null_terminated)
+        (*out)[3] = '\0';
+    else
+        (*out)[3] = ' ';
 }
 
 /**********************************************************************************************************************/

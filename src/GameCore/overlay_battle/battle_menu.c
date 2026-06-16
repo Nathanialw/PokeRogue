@@ -20,6 +20,7 @@
 #include "core_ram.h"
 #include "core_state.h"
 #include "lib_debugging.h"
+#include "map_effects.h"
 #include "../../SDLGame/audio.h"
 
 
@@ -180,7 +181,7 @@ bool BattleSwap(GraphicsInterface graphics, HardwareInterface hardware, InputInt
         if (g_core.trainers.partyID[player_id][sel] == NO_ENTITY || g_core.trainers.partyID[player_id][sel] == g_core.battleMode.playerMonsterID)
         {
             DEBUG("cannot swap to this creature");
-            return true;
+            return false;
         }
 
         g_core.battleMode.playerMonsterID = g_core.trainers.partyID[player_id][sel];
@@ -192,7 +193,7 @@ bool BattleSwap(GraphicsInterface graphics, HardwareInterface hardware, InputInt
 
     g_battle.show_party = true;
     FillListByEntityID(memory, g_core.player.currentPartySize, CREATURE, GetPlayerMonsterIDs());
-    return true;
+    return false;
 }
 
 /**********************************************************************************************************************/
@@ -220,7 +221,7 @@ bool BattleSpell(GraphicsInterface graphics, HardwareInterface hardware, InputIn
             if (spell_data.use_on_party_member)
             {
                 OpenUseOnPartyBattle(hardware, memory, BACK_SPELL);
-                return true;
+                return false;
             }
         }
         else
@@ -235,14 +236,17 @@ bool BattleSpell(GraphicsInterface graphics, HardwareInterface hardware, InputIn
         ActionOutcome action_outcome = CastSpellBattle(hardware, memory, spell_id, spellbook_idx, friendly_target_id, g_core.battleMode.enemyMonsterID);
 
         if (action_outcome == ACTION_SUCCEEDED || action_outcome == ACTION_FAILED)
+        {
             CloseMenu(graphics, hardware, memory);
+            return true;
+        }
 
-        return true;
+        return false;
     }
 
 
     FillListByTypeID(memory, GetPlayerSpellbook()->occupied_pages, GetPlayerSpellbook()->spell_id);
-    return true;
+    return false;
 }
 
 
@@ -273,7 +277,7 @@ bool BattleItems(GraphicsInterface graphics, HardwareInterface hardware, InputIn
             if (itemData.consumable_party)
             {
                 OpenUseOnPartyBattle(hardware, memory, BACK_ITEM);
-                return true;
+                return false;
             }
 
             target_id = g_core.battleMode.enemyMonsterID;
@@ -316,17 +320,21 @@ bool BattleItems(GraphicsInterface graphics, HardwareInterface hardware, InputIn
     }
 
     FillListByEntityID(memory, GetPlayerBagData().occupied_slots, ITEM, g_core.trainers.itemID[player_id]);
-    return true;
+    return false;
 }
 
 /**********************************************************************************************************************/
-/** attempts the end the battle and queue a move to an empty adjacent map cell
+/** damgees enemy as the cost of health
  *  TODO: NOT YET IMPLEMENTED
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-bool BattleFlee(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update)
+bool BattleStruggle(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update)
 {
-    Flee();
+    DEBUG("Usign Struggle");
+    DamageCreature(g_core.battleMode.enemyMonsterID, 8, CREATURE);
+    DamageCreature(g_core.battleMode.playerMonsterID, 3, CREATURE);
+
+
     return true;
 }
 
@@ -340,10 +348,21 @@ bool BattleCombatLog(GraphicsInterface graphics, HardwareInterface hardware, Inp
     // fire on initial entry
     if (EnterMenu(4, 1))
     {
-        return true;
+        return false;
     }
 
-    return true;
+    return false;
+}
+
+/**********************************************************************************************************************/
+/** attempts the end the battle and queue a move to an empty adjacent map cell
+ *  TODO: NOT YET IMPLEMENTED
+**********************************************************************************************************************/
+SET_MEMORY(".battle")
+bool BattleFlee(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update)
+{
+    Flee();
+    return false;
 }
 
 /**********************************************************************************************************************/
@@ -355,6 +374,7 @@ SubMenu battleSubmenus[BATTLE_MENU_SIZE] =
     BattleSwap,
     BattleSpell,
     BattleItems,
+    BattleStruggle,
     BattleCombatLog,
     BattleFlee,
 };
@@ -385,7 +405,6 @@ void InitBattleMenu(void)
 {
     SetInputState(INPUT_BATTLE);
     g_core.menu.x = BATTLE_MENU_X;
-    g_core.menu.x_offset = BATTLE_MENU_COL_1;
     g_core.menu.y = BATTLE_MENU_Y;
     g_core.menu.h = BATTLE_MENU_H;
 
@@ -397,6 +416,7 @@ void InitBattleMenu(void)
     g_core.menu.sel[g_core.menu.depth].x = 0;
     g_core.menu.sel[g_core.menu.depth].y = 0;
     g_core.menu.selectedMenu = BATTLE_MENU;
+    battleMenu = ABILITY_MENU;
     g_core.menu.x_offset = 0;
 }
 
@@ -417,21 +437,27 @@ void UpdateBattleMenu(InputInterface input, GraphicsInterface graphics, MemoryIn
     graphics.FillRect(erase_x, list_y + (g_core.menu.eraseSel.y * (TEXT_W + g_core.menu.lineHeight)), TEXT_W, TEXT_W, battler_menu_color);
 
     //these 2 values need ot be synced they are need to COL_1/COL 2 is the width, x is the index
-    if (g_core.menu.x_offset == BATTLE_MENU_COL_1 && g_core.menu.sel[g_core.menu.depth].x == 1)
+    if (g_core.menu.sel[g_core.menu.depth].x == 1)
     {
         battleMenu = BATTLE_MENU;
         g_core.menu.x_offset = BATTLE_MENU_COL_2;
-        g_core.menu.sel[g_core.menu.depth].y = 0;
         g_core.menu.max_visible_menu_options = BATTLE_MENU_SIZE;
         g_core.menu.occupied_visible_menu_options = BATTLE_MENU_SIZE;
+        if (g_core.menu.sel[g_core.menu.depth].y > g_core.menu.max_visible_menu_options)
+            g_core.menu.occupied_visible_menu_options = g_core.menu.max_visible_menu_options;
     }
-    else
+    else if (g_core.menu.sel[g_core.menu.depth].x == 0)
     {
         battleMenu = ABILITY_MENU;
         g_core.menu.x_offset = BATTLE_MENU_COL_1;
-        g_core.menu.sel[g_core.menu.depth].y = 0;
         g_core.menu.max_visible_menu_options = MAX_ABILITIES;
         g_core.menu.occupied_visible_menu_options = AbilityCount();
+        if (g_core.menu.sel[g_core.menu.depth].y > g_core.menu.max_visible_menu_options)
+            g_core.menu.occupied_visible_menu_options = g_core.menu.max_visible_menu_options;
+    }
+    else
+    {
+        DEBUG("ERROR");
     }
 }
 
@@ -447,10 +473,11 @@ bool BattleMenuCommand(GraphicsInterface graphics, HardwareInterface hardware, I
 {
     bool use_skill_success = false;
 
+    CacheCreatureState();
     if (battleMenu == ABILITY_MENU)
         use_skill_success = UseSkill(hardware, memory, true);
     if (battleMenu == BATTLE_MENU)
-        battleSubmenus[g_core.menu.sel[0].y](graphics, hardware, input, memory, true); //0 to enter the menu base entry point
+        use_skill_success = battleSubmenus[g_core.menu.sel[0].y](graphics, hardware, input, memory, true); //0 to enter the menu base entry point
 
     CombatLogFullDraw(graphics, memory);
     return use_skill_success;

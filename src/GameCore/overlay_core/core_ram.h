@@ -63,10 +63,10 @@ typedef struct
         uint8_t current_line;
         char combatLog[COMBAT_LOG_SIZE][40]; // TODO: expand o <= 30 lines for a full screen combat log, dont bother with scrolling, use a wraparound ptr
         char hpStr[10];
-        uint16_t battle_hp_cache;
-        uint16_t battle_mp_cache;
-        uint16_t battle_xp_cache;
-        uint16_t battle_xp_max_cache;
+        int16_t battle_hp_cache[2];
+        int16_t battle_mp_cache[2];
+        int16_t battle_xp_cache;
+        int16_t battle_xp_max_cache;
     } battleMode;
 
 

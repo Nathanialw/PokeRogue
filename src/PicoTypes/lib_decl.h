@@ -63,6 +63,7 @@ typedef struct __attribute__((packed))
     void (*SetFrameBuffer)(Color rgb565);
     void (*SetFrameBufferColor)(Color rgb565);
 
+    void (*DrawRectOutline)(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t r, Color rgb565);
     void (*FillRect)(uint16_t x, uint16_t y, uint16_t w, uint16_t h, Color rgb565);
     void (*FillRectColor)(uint16_t x, uint16_t y, uint16_t w, uint16_t h, Color rgb565);
     void (*FillScreen)(Color rgb565);

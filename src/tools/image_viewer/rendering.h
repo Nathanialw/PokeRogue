@@ -24,7 +24,7 @@ public:
     void Shutdown();
     void CreateTextures(ImageData& images);
     void DeleteTexture(ImageData& images, const uint16_t& n);
-    void Render(UI& ui, Text& text, const uint16_t& entity_count, const uint16_t& image_count);
+    void Render(UI& ui, Text& text, const uint16_t& entity_count, const uint16_t& image_count, const int16_t& used_image);
 
     SDL_Renderer* GetSDLRenderer() const { return m_renderer; }
 

@@ -669,7 +669,7 @@ bool Options(GraphicsInterface graphics, HardwareInterface hardware, InputInterf
                  * update game speed value
                  ******************************************/
                 CharStr_uint8 gameSpeedStr;
-                GetAsChars_uint8(g_core.btns.gameSpeed, &gameSpeedStr, false);
+                GetAsChars_uint8(g_core.btns.gameSpeed, &gameSpeedStr, false, true);
                 uint8_t i = 0;
                 Flash_GetOptionText(memory, (uint8_t*)g_core.btns.gameSpeedStr, 2);
                 i = 4;
@@ -700,7 +700,7 @@ bool Options(GraphicsInterface graphics, HardwareInterface hardware, InputInterf
 
 
     CharStr_uint8 gameSpeedStr;
-    GetAsChars_uint8(g_core.btns.gameSpeed, &gameSpeedStr, false);
+    GetAsChars_uint8(g_core.btns.gameSpeed, &gameSpeedStr, false, true);
     uint8_t i = 0;
 
     Flash_GetOptionText(memory, (uint8_t*)g_core.btns.gameSpeedStr, 2);

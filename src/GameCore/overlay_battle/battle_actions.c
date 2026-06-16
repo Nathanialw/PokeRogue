@@ -21,7 +21,6 @@ bool AdjustMana(EntityId creature_id, int16_t mana)
 {
     uint_max999 mp = g_core.creatures.mp[creature_id];
     uint16_t current_mana = Int999GetCurrent(&mp);
-    g_core.battleMode.battle_mp_cache = current_mana;
 
     if (mana < 0)
     {

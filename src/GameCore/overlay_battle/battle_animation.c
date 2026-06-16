@@ -13,6 +13,7 @@
 #include "battle_memory_access.h"
 #include "battle_ram.h"
 #include "core_memory_access.h"
+#include "lib_debugging.h"
 
 /************************************************************************************************************
  *
@@ -54,7 +55,7 @@
  *  HEALTH - RISE TODO: NOT IMPLEMENTED YET
  ************************************************************************************************************/
 SET_MEMORY(".battle")
-void UpdateResourceBar(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, uint16_t offset_h, uint16_t cache_value, uint_max999* stat, bool attackersTurn)
+void UpdateResourceBar(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, uint16_t offset_h, uint16_t cache_value, uint_max999* stat, bool attackersTurn, uint8_t fill_color)
 {
     Rect_16 r = {0};
     uint16_t cur_mp = 0;
@@ -94,36 +95,71 @@ void UpdateResourceBar(GraphicsInterface graphics, HardwareInterface hardware, M
 
     const Color color_bg = Flash_GetColor(memory, PAL_OFF_WHITE_GRAY_BLUE);
 
-    while (true)
+    if (cur_mp < cache_value)
     {
-        if (start_x < end_pos || start_x <= x)
-            break;
-        start_x -= 1;
+        while (true)
+        {
+            if (start_x < end_pos || start_x <= x)
+                break;
+            start_x -= 1;
 
-        graphics.FillRect(start_x, y, w, h, color_bg);
-        graphics.EndFrame();
-        hardware.SleepMS(6);
+            graphics.FillRect(start_x, y, w, h, color_bg);
+            graphics.EndFrame();
+            hardware.SleepMS(5);
+        }
+    }
+    if (cache_value < cur_mp)
+    {
+        const Color color_fill = Flash_GetColor(memory, fill_color);
+
+        while (true)
+        {
+            // if (start_x >= end_pos - 1)
+            if (start_x >= end_pos)
+                break;
+
+            graphics.FillRect(start_x, y, w, h, color_fill);
+            graphics.EndFrame();
+            hardware.SleepMS(5);
+            start_x += 1;
+        }
+
+        DEBUG("TODO Resource rising %d to %d", cur_mp, cache_value);
     }
 
-    hardware.SleepMS(1000);
+    hardware.SleepMS(250);
 }
 
 SET_MEMORY(".battle")
-void AnimationUpdateHealth(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool attackersTurn)
+void AnimationUpdatePlayerHealth(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory)
 {
-    UpdateResourceBar(graphics, hardware, memory, (TEXT_H * 2), g_core.battleMode.battle_hp_cache, g_core.creatures.hp, attackersTurn);
-    g_core.battleMode.battle_hp_cache = 0;
+    if (g_core.battleMode.battle_hp_cache[0] == -1) return;
+    UpdateResourceBar(graphics, hardware, memory, (TEXT_H * 2), g_core.battleMode.battle_hp_cache[0], g_core.creatures.hp, false, PAL_BRIGHT_LIGHT_GRN);
+    g_core.battleMode.battle_hp_cache[0] = -1;
 }
 
-/************************************************************************************************************
- *  TODO: NOT IMPLEMENTED YET
- *  MANA - RISE AND FALL
- ************************************************************************************************************/
 SET_MEMORY(".battle")
-void AnimationUpdateMana(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool attackersTurn)
+void AnimationUpdateEnemyHealth(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory)
 {
-    UpdateResourceBar(graphics, hardware, memory, (TEXT_H * 3), g_core.battleMode.battle_mp_cache, g_core.creatures.mp, attackersTurn);
-    g_core.battleMode.battle_mp_cache = 0;
+    if (g_core.battleMode.battle_hp_cache[1] == -1) return;
+    UpdateResourceBar(graphics, hardware, memory, (TEXT_H * 2), g_core.battleMode.battle_hp_cache[1], g_core.creatures.hp, true, PAL_BRIGHT_LIGHT_GRN);
+    g_core.battleMode.battle_hp_cache[1] = -1;
+}
+
+SET_MEMORY(".battle")
+void AnimationUpdatePlayerMana(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory)
+{
+    if (g_core.battleMode.battle_mp_cache[0] == -1) return;
+    UpdateResourceBar(graphics, hardware, memory, (TEXT_H * 3), g_core.battleMode.battle_mp_cache[0], g_core.creatures.mp, false, PAL_ICE_BLUE);
+    g_core.battleMode.battle_mp_cache[0] = -1;
+}
+
+SET_MEMORY(".battle")
+void AnimationUpdateEnemyMana(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory)
+{
+    if (g_core.battleMode.battle_mp_cache[1] == -1) return;
+    UpdateResourceBar(graphics, hardware, memory, (TEXT_H * 3), g_core.battleMode.battle_mp_cache[1], g_core.creatures.mp, true, PAL_ICE_BLUE);
+    g_core.battleMode.battle_mp_cache[1] = -1;
 }
 
 

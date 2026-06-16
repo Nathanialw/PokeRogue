@@ -7,3 +7,4 @@
 
 State SetBattleState(BattleState state);
 uint8_t OverlayBattleEntry(GameInterface* spi);
+void CacheCreatureState();

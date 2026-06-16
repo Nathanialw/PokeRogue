@@ -114,7 +114,7 @@ void Renderer::DeleteTexture(ImageData& images, const uint16_t& n)
 }
 
 
-void Renderer::Render(UI& ui, Text& text, const uint16_t& entity_count, const uint16_t& image_count)
+void Renderer::Render(UI& ui, Text& text, const uint16_t& entity_count, const uint16_t& image_count, const int16_t& used_image)
 {
     SDL_RenderClear(m_renderer);
     SDL_SetRenderDrawColor(m_renderer, 0, 0, 0, 255);
@@ -132,6 +132,13 @@ void Renderer::Render(UI& ui, Text& text, const uint16_t& entity_count, const ui
         }
         SDL_RenderTexture(m_renderer, accept_texture, NULL, &ui.accept_rects[j - ui.offset_image]);
         SDL_RenderTexture(m_renderer, delete_texture, NULL, &ui.delete_rects[j - ui.offset_image]);
+
+        if (j == used_image)
+        {
+            SDL_FRect border = {BTN_W, rects[0].y, rects[0].h, rects[0].h};
+            SDL_SetRenderDrawColor(m_renderer, 20, 255, 20, 255);
+            SDL_RenderRect(m_renderer, &border);
+        }
 
         for (auto& rect : rects)
         {

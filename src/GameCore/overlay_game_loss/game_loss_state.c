@@ -76,5 +76,6 @@ uint8_t OverlayGameLossEntry(GameInterface* spi)
         spi->graphics.EndFrame();
     }
 
+    g_core.initialized = false;
     return g_core.state.overlay;
 }
