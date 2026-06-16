@@ -911,3 +911,634 @@ ActionOutcome InteractWard(HardwareInterface hardware, MemoryInterface memory, E
 
     return ACTION_FAILED;
 }
+
+
+/**********************************************************************************************************************
+*  TODO
+**********************************************************************************************************************/
+SET_MEMORY(".map")
+ActionOutcome InteractAnvil(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData, ObjectsTypes objectType)
+{
+    return ACTION_FAILED;
+}
+
+/**********************************************************************************************************************
+*  TODO
+**********************************************************************************************************************/
+SET_MEMORY(".map")
+ActionOutcome InteractBannerElf(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData, ObjectsTypes objectType)
+{
+    return ACTION_FAILED;
+}
+
+/**********************************************************************************************************************
+*  TODO
+**********************************************************************************************************************/
+SET_MEMORY(".map")
+ActionOutcome InteractBannerGoblin(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData, ObjectsTypes objectType)
+{
+    return ACTION_FAILED;
+}
+
+/**********************************************************************************************************************
+*  TODO
+**********************************************************************************************************************/
+SET_MEMORY(".map")
+ActionOutcome InteractBannerOrc(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData, ObjectsTypes objectType)
+{
+    return ACTION_FAILED;
+}
+
+/**********************************************************************************************************************
+*  TODO
+**********************************************************************************************************************/
+SET_MEMORY(".map")
+ActionOutcome InteractBaptismalFont(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData, ObjectsTypes objectType)
+{
+    return ACTION_FAILED;
+}
+
+/**********************************************************************************************************************
+*  TODO
+**********************************************************************************************************************/
+SET_MEMORY(".map")
+ActionOutcome InteractBedCot(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData, ObjectsTypes objectType)
+{
+    return ACTION_FAILED;
+}
+
+/**********************************************************************************************************************
+*  TODO
+**********************************************************************************************************************/
+SET_MEMORY(".map")
+ActionOutcome InteractBedSingle(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData, ObjectsTypes objectType)
+{
+    return ACTION_FAILED;
+}
+
+/**********************************************************************************************************************
+*  TODO
+**********************************************************************************************************************/
+SET_MEMORY(".map")
+ActionOutcome InteractBedTent(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData, ObjectsTypes objectType)
+{
+    return ACTION_FAILED;
+}
+
+/**********************************************************************************************************************
+*  TODO
+**********************************************************************************************************************/
+SET_MEMORY(".map")
+ActionOutcome InteractBell(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData, ObjectsTypes objectType)
+{
+    return ACTION_FAILED;
+}
+
+/**********************************************************************************************************************
+*  TODO
+**********************************************************************************************************************/
+SET_MEMORY(".map")
+ActionOutcome InteractBombTNT(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData, ObjectsTypes objectType)
+{
+    return ACTION_FAILED;
+}
+
+/**********************************************************************************************************************
+*  TODO
+**********************************************************************************************************************/
+SET_MEMORY(".map")
+ActionOutcome InteractConfessionalTree(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData, ObjectsTypes objectType)
+{
+    return ACTION_FAILED;
+}
+
+/**********************************************************************************************************************
+*  TODO
+**********************************************************************************************************************/
+SET_MEMORY(".map")
+ActionOutcome InteractCorpseCrucified(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData, ObjectsTypes objectType)
+{
+    return ACTION_FAILED;
+}
+
+/**********************************************************************************************************************
+*  TODO
+**********************************************************************************************************************/
+SET_MEMORY(".map")
+ActionOutcome InteractCorpseImpaled(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData, ObjectsTypes objectType)
+{
+    return ACTION_FAILED;
+}
+
+/**********************************************************************************************************************
+*  TODO
+**********************************************************************************************************************/
+SET_MEMORY(".map")
+ActionOutcome InteractDoorJailbar(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData, ObjectsTypes objectType)
+{
+    return ACTION_FAILED;
+}
+
+/**********************************************************************************************************************
+*  TODO
+**********************************************************************************************************************/
+SET_MEMORY(".map")
+ActionOutcome InteractRope(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData, ObjectsTypes objectType)
+{
+    return ACTION_FAILED;
+}
+
+/**********************************************************************************************************************
+*  TODO
+**********************************************************************************************************************/
+SET_MEMORY(".map")
+ActionOutcome InteractPyre(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData, ObjectsTypes objectType)
+{
+    return ACTION_FAILED;
+}
+
+/**********************************************************************************************************************
+*  TODO
+**********************************************************************************************************************/
+SET_MEMORY(".map")
+ActionOutcome InteractForge(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData, ObjectsTypes objectType)
+{
+    return ACTION_FAILED;
+}
+
+/**********************************************************************************************************************
+*  TODO
+**********************************************************************************************************************/
+SET_MEMORY(".map")
+ActionOutcome InteractOozeFountain(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData, ObjectsTypes objectType)
+{
+    return ACTION_FAILED;
+}
+
+/**********************************************************************************************************************
+*  TODO
+**********************************************************************************************************************/
+SET_MEMORY(".map")
+ActionOutcome InteractCrystalGeode(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData, ObjectsTypes objectType)
+{
+    return ACTION_FAILED;
+}
+
+/**********************************************************************************************************************
+*  TODO
+**********************************************************************************************************************/
+SET_MEMORY(".map")
+ActionOutcome InteractHeadingBlock(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData, ObjectsTypes objectType)
+{
+    return ACTION_FAILED;
+}
+
+/**********************************************************************************************************************
+*  TODO
+**********************************************************************************************************************/
+SET_MEMORY(".map")
+ActionOutcome InteractHighCross(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData, ObjectsTypes objectType)
+{
+    return ACTION_FAILED;
+}
+
+/**********************************************************************************************************************
+*  TODO
+**********************************************************************************************************************/
+SET_MEMORY(".map")
+ActionOutcome InteractIceBox(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData, ObjectsTypes objectType)
+{
+    return ACTION_FAILED;
+}
+
+/**********************************************************************************************************************
+*  TODO
+**********************************************************************************************************************/
+SET_MEMORY(".map")
+ActionOutcome InteractIdolOfHerne(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData, ObjectsTypes objectType)
+{
+    return ACTION_FAILED;
+}
+
+/**********************************************************************************************************************
+*  TODO
+**********************************************************************************************************************/
+SET_MEMORY(".map")
+ActionOutcome InteractInscription(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData, ObjectsTypes objectType)
+{
+    return ACTION_FAILED;
+}
+
+/**********************************************************************************************************************
+*  TODO
+**********************************************************************************************************************/
+SET_MEMORY(".map")
+ActionOutcome InteractLoom(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData, ObjectsTypes objectType)
+{
+    return ACTION_FAILED;
+}
+
+/**********************************************************************************************************************
+*  TODO
+**********************************************************************************************************************/
+SET_MEMORY(".map")
+ActionOutcome InteractMeteorite(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData, ObjectsTypes objectType)
+{
+    return ACTION_FAILED;
+}
+
+/**********************************************************************************************************************
+*  TODO
+**********************************************************************************************************************/
+SET_MEMORY(".map")
+ActionOutcome InteractReversalMirror(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData, ObjectsTypes objectType)
+{
+    return ACTION_FAILED;
+}
+
+/**********************************************************************************************************************
+*  TODO
+**********************************************************************************************************************/
+SET_MEMORY(".map")
+ActionOutcome InteractStandingMirror(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData, ObjectsTypes objectType)
+{
+    return ACTION_FAILED;
+}
+
+/**********************************************************************************************************************
+*  TODO
+**********************************************************************************************************************/
+SET_MEMORY(".map")
+ActionOutcome InteractObelisk(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData, ObjectsTypes objectType)
+{
+    return ACTION_FAILED;
+}
+
+/**********************************************************************************************************************
+*  TODO
+**********************************************************************************************************************/
+SET_MEMORY(".map")
+ActionOutcome InteractPadDisplacement(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData, ObjectsTypes objectType)
+{
+    return ACTION_FAILED;
+}
+
+/**********************************************************************************************************************
+*  TODO
+**********************************************************************************************************************/
+SET_MEMORY(".map")
+ActionOutcome InteractPadTeleport(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData, ObjectsTypes objectType)
+{
+    return ACTION_FAILED;
+}
+
+/**********************************************************************************************************************
+*  TODO
+**********************************************************************************************************************/
+SET_MEMORY(".map")
+ActionOutcome InteractPalantir(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData, ObjectsTypes objectType)
+{
+    return ACTION_FAILED;
+}
+
+/**********************************************************************************************************************
+*  TODO
+**********************************************************************************************************************/
+SET_MEMORY(".map")
+ActionOutcome InteractReflectionPool(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData, ObjectsTypes objectType)
+{
+    return ACTION_FAILED;
+}
+
+/**********************************************************************************************************************
+*  TODO
+**********************************************************************************************************************/
+SET_MEMORY(".map")
+ActionOutcome InteractPortalAlfheim(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData, ObjectsTypes objectType)
+{
+    return ACTION_FAILED;
+}
+
+/**********************************************************************************************************************
+*  TODO
+**********************************************************************************************************************/
+SET_MEMORY(".map")
+ActionOutcome InteractPortalAtlantis(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData, ObjectsTypes objectType)
+{
+    return ACTION_FAILED;
+}
+
+/**********************************************************************************************************************
+*  TODO
+**********************************************************************************************************************/
+SET_MEMORY(".map")
+ActionOutcome InteractPortalElysium(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData, ObjectsTypes objectType)
+{
+    return ACTION_FAILED;
+}
+
+/**********************************************************************************************************************
+*  TODO
+**********************************************************************************************************************/
+SET_MEMORY(".map")
+ActionOutcome InteractPortalHel(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData, ObjectsTypes objectType)
+{
+    return ACTION_FAILED;
+}
+
+/**********************************************************************************************************************
+*  TODO
+**********************************************************************************************************************/
+SET_MEMORY(".map")
+ActionOutcome InteractPortalJotunheim(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData, ObjectsTypes objectType)
+{
+    return ACTION_FAILED;
+}
+
+/**********************************************************************************************************************
+*  TODO
+**********************************************************************************************************************/
+SET_MEMORY(".map")
+ActionOutcome InteractPortalMage(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData, ObjectsTypes objectType)
+{
+    return ACTION_FAILED;
+}
+
+/**********************************************************************************************************************
+*  TODO
+**********************************************************************************************************************/
+SET_MEMORY(".map")
+ActionOutcome InteractPortalOlympus(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData, ObjectsTypes objectType)
+{
+    return ACTION_FAILED;
+}
+
+/**********************************************************************************************************************
+*  TODO
+**********************************************************************************************************************/
+SET_MEMORY(".map")
+ActionOutcome InteractPortalTakama(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData, ObjectsTypes objectType)
+{
+    return ACTION_FAILED;
+}
+
+/**********************************************************************************************************************
+*  TODO
+**********************************************************************************************************************/
+SET_MEMORY(".map")
+ActionOutcome InteractPortalTartarus(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData, ObjectsTypes objectType)
+{
+    return ACTION_FAILED;
+}
+
+/**********************************************************************************************************************
+*  TODO
+**********************************************************************************************************************/
+SET_MEMORY(".map")
+ActionOutcome InteractPortalValhalla(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData, ObjectsTypes objectType)
+{
+    return ACTION_FAILED;
+}
+
+/**********************************************************************************************************************
+*  TODO
+**********************************************************************************************************************/
+SET_MEMORY(".map")
+ActionOutcome InteractPotOfGold(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData, ObjectsTypes objectType)
+{
+    return ACTION_FAILED;
+}
+
+/**********************************************************************************************************************
+*  TODO
+**********************************************************************************************************************/
+SET_MEMORY(".map")
+ActionOutcome InteractShipwrek(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData, ObjectsTypes objectType)
+{
+    return ACTION_FAILED;
+}
+
+/**********************************************************************************************************************
+*  TODO
+**********************************************************************************************************************/
+SET_MEMORY(".map")
+ActionOutcome InteractShrineMinerva(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData, ObjectsTypes objectType)
+{
+    return ACTION_FAILED;
+}
+
+/**********************************************************************************************************************
+*  TODO
+**********************************************************************************************************************/
+SET_MEMORY(".map")
+ActionOutcome InteractShrinePoseidon(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData, ObjectsTypes objectType)
+{
+    return ACTION_FAILED;
+}
+
+/**********************************************************************************************************************
+*  TODO
+**********************************************************************************************************************/
+SET_MEMORY(".map")
+ActionOutcome InteractShrineSaintMary(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData, ObjectsTypes objectType)
+{
+    return ACTION_FAILED;
+}
+
+/**********************************************************************************************************************
+*  TODO
+**********************************************************************************************************************/
+SET_MEMORY(".map")
+ActionOutcome InteractSigilPentagram(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData, ObjectsTypes objectType)
+{
+    return ACTION_FAILED;
+}
+
+/**********************************************************************************************************************
+*  TODO
+**********************************************************************************************************************/
+SET_MEMORY(".map")
+ActionOutcome InteractStatueExplorer(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData, ObjectsTypes objectType)
+{
+    return ACTION_FAILED;
+}
+
+/**********************************************************************************************************************
+*  TODO
+**********************************************************************************************************************/
+SET_MEMORY(".map")
+ActionOutcome InteractStatueHero(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData, ObjectsTypes objectType)
+{
+    return ACTION_FAILED;
+}
+
+/**********************************************************************************************************************
+*  TODO
+**********************************************************************************************************************/
+SET_MEMORY(".map")
+ActionOutcome InteractStatueKing(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData, ObjectsTypes objectType)
+{
+    return ACTION_FAILED;
+}
+
+/**********************************************************************************************************************
+*  TODO
+**********************************************************************************************************************/
+SET_MEMORY(".map")
+ActionOutcome InteractStatueWeeping(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData, ObjectsTypes objectType)
+{
+    return ACTION_FAILED;
+}
+
+/**********************************************************************************************************************
+*  TODO
+**********************************************************************************************************************/
+SET_MEMORY(".map")
+ActionOutcome InteractStill(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData, ObjectsTypes objectType)
+{
+    return ACTION_FAILED;
+}
+
+/**********************************************************************************************************************
+*  TODO
+**********************************************************************************************************************/
+SET_MEMORY(".map")
+ActionOutcome InteractSundial(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData, ObjectsTypes objectType)
+{
+    return ACTION_FAILED;
+}
+
+/**********************************************************************************************************************
+*  TODO
+**********************************************************************************************************************/
+SET_MEMORY(".map")
+ActionOutcome InteractTortureCuckingStool(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData, ObjectsTypes objectType)
+{
+    return ACTION_FAILED;
+}
+
+/**********************************************************************************************************************
+*  TODO
+**********************************************************************************************************************/
+SET_MEMORY(".map")
+ActionOutcome InteractTortureRack(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData, ObjectsTypes objectType)
+{
+    return ACTION_FAILED;
+}
+
+/**********************************************************************************************************************
+*  TODO
+**********************************************************************************************************************/
+SET_MEMORY(".map")
+ActionOutcome InteractScoldsBridle(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData, ObjectsTypes objectType)
+{
+    return ACTION_FAILED;
+}
+
+/**********************************************************************************************************************
+*  TODO
+**********************************************************************************************************************/
+SET_MEMORY(".map")
+ActionOutcome InteractTortureStocks(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData, ObjectsTypes objectType)
+{
+    return ACTION_FAILED;
+}
+
+/**********************************************************************************************************************
+*  TODO
+**********************************************************************************************************************/
+SET_MEMORY(".map")
+ActionOutcome InteractTortureStrappado(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData, ObjectsTypes objectType)
+{
+    return ACTION_FAILED;
+}
+
+/**********************************************************************************************************************
+*  TODO
+**********************************************************************************************************************/
+SET_MEMORY(".map")
+ActionOutcome InteractTortureWhippingPost(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData, ObjectsTypes objectType)
+{
+    return ACTION_FAILED;
+}
+
+/**********************************************************************************************************************
+*  TODO
+**********************************************************************************************************************/
+SET_MEMORY(".map")
+ActionOutcome InteractCopperVein(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData, ObjectsTypes objectType)
+{
+    return ACTION_FAILED;
+}
+
+/**********************************************************************************************************************
+*  TODO
+**********************************************************************************************************************/
+SET_MEMORY(".map")
+ActionOutcome InteractVeinGold(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData, ObjectsTypes objectType)
+{
+    return ACTION_FAILED;
+}
+
+/**********************************************************************************************************************
+*  TODO
+**********************************************************************************************************************/
+SET_MEMORY(".map")
+ActionOutcome InteractVeinIron(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData, ObjectsTypes objectType)
+{
+    return ACTION_FAILED;
+}
+
+/**********************************************************************************************************************
+*  TODO
+**********************************************************************************************************************/
+SET_MEMORY(".map")
+ActionOutcome InteractVeinSilver(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData, ObjectsTypes objectType)
+{
+    return ACTION_FAILED;
+}
+
+/**********************************************************************************************************************
+*  TODO
+**********************************************************************************************************************/
+SET_MEMORY(".map")
+ActionOutcome InteractVeinTin(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData, ObjectsTypes objectType)
+{
+    return ACTION_FAILED;
+}
+
+/**********************************************************************************************************************
+*  TODO
+**********************************************************************************************************************/
+SET_MEMORY(".map")
+ActionOutcome InteractWagonBroken(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData, ObjectsTypes objectType)
+{
+    return ACTION_FAILED;
+}
+
+/**********************************************************************************************************************
+*  TODO
+**********************************************************************************************************************/
+SET_MEMORY(".map")
+ActionOutcome InteractWaystone(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData, ObjectsTypes objectType)
+{
+    return ACTION_FAILED;
+}
+
+/**********************************************************************************************************************
+*  TODO
+**********************************************************************************************************************/
+SET_MEMORY(".map")
+ActionOutcome InteractWellAncient(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData, ObjectsTypes objectType)
+{
+    return ACTION_FAILED;
+}
+
+/**********************************************************************************************************************
+*  TODO
+**********************************************************************************************************************/
+SET_MEMORY(".map")
+ActionOutcome InteractWickerMan(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData, ObjectsTypes objectType)
+{
+    return ACTION_FAILED;
+}

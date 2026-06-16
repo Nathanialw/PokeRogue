@@ -718,3 +718,12 @@ ActionOutcome UseMapSpellbookPage(HardwareInterface hardware, MemoryInterface me
 {
     return GainSpellbookPages(user_id, itemData.value);
 }
+
+/**********************************************************************************************************************/
+/* TODO
+**********************************************************************************************************************/
+SET_MEMORY(".core")
+ActionOutcome UseMapRosarie(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
+{
+    return ACTION_FAILED;
+}

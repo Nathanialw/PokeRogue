@@ -1,5 +1,5 @@
 // Generated item data structs
-// Database contains 64 total used items
+// Database contains 65 total used items
 
 // Individual items data
 ABILITY_BOOK, //0 
@@ -56,15 +56,16 @@ POTION_TELEPORT, //50
 POTION_VISION, //51 
 POTION_XP, //52 
 RARE_CANDY, //53 
-SCROLL, //54 
-SHOVEL, //55 
-SMOKE_BALL, //56 
-SPELL_BOOK, //57 
-SPELL_BOOK_PAGE, //58 
-SWIFTNESS_SERUM, //59 
-TORCH, //60 
-WATER_RESISTANCE, //61 
-WHIP, //62 
-WISDOM_CROWN, //63 
+ROSARIE, //54 
+SCROLL, //55 
+SHOVEL, //56 
+SMOKE_BALL, //57 
+SPELL_BOOK, //58 
+SPELL_BOOK_PAGE, //59 
+SWIFTNESS_SERUM, //60 
+TORCH, //61 
+WATER_RESISTANCE, //62 
+WHIP, //63 
+WISDOM_CROWN, //64 
 
-//ALL_NAMES_COUNT = 64;
+//ALL_NAMES_COUNT = 65;

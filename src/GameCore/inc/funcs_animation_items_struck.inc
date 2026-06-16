@@ -1,5 +1,5 @@
 // Generated item name strings
-// Database contains 64 total entries
+// Database contains 65 total entries
 
 // Individual items strings
 ItemStruckAbilityBook,
@@ -56,6 +56,7 @@ ItemStruckTeleportPotion,
 ItemStruckVisionPotion,
 ItemStruckXPPotion,
 ItemStruckRareCandy,
+ItemStruckRosarie,
 ItemStruckScroll,
 ItemStruckShovel,
 ItemStruckSmokeBall,
@@ -67,4 +68,4 @@ ItemStruckWaterResistance,
 ItemStruckWhip,
 ItemStruckWisdomCrown,
 
-//ALL_NAMES_COUNT = 64;
+//ALL_NAMES_COUNT = 65;

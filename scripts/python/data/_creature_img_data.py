@@ -175,6 +175,7 @@ Creatures = [
     "HAG",
     "HARPY",
     "HELLHOUND",
+    "HERNE",
     "HIPPOGRIFF",
     "HOB",
     "HOBGOBLIN",
@@ -579,6 +580,7 @@ CreaturesDict = [
    { "name": 'HAG', 'prompt': "A bitter old crone with gnarled fingers, wild hair, and a hunched back, wielding twisted magic through rituals and curses."},
    { "name": 'HARPY', 'prompt': "A winged woman with piercing golden eyes, her feathers ruffled by the wind, descends with razor-sharp talons extended."},
    { "name": 'HELLHOUND', 'prompt': "A towering, infernal dog with smoldering eyes and charred fur guards the gates of hell, exhaling flames with each breath."},
+   { "name": 'HERNE', 'prompt': "HERNE"},
    { "name": 'HIPPOGRIFF', 'prompt': "A majestic hybrid of eagle and horse, its piercing golden eyes gleam with fierce intelligence beneath a regal, feathered head."},
    { "name": 'HOB', 'prompt': "A tiny, invisible being that departs when offended, often performing chores and leaving small gifts in return for kindness."},
    { "name": 'HOBGOBLIN', 'prompt': "A rare, friendly goblin with a perpetual smile, offering gifts of golden trinkets and joyful laughter to those who help it."},
@@ -809,16 +811,8 @@ CreaturesDict = [
    { "name": 'ZOMBIE_PLAGUE', 'prompt': "A rotting figure lurches forward, its hollow eyes glowing with sickly green light, spreading decay and death in its wake."},
 ]
 
-# CREATURES_BASE_PROMPT = (
-#     # f"photo-realistic hi fidelity detailed, "
-#     "fantasy creature, full body visible, centered composition, isolated creature, "
-#     "single subject, no cropping, highly detailed dark fantasy, sharp focus, "
-# )
-
 CREATURES_BASE_PROMPT = (
-    f"general details that can be seen from afar, "
-    # "fantasy item, full body visible, centered composition, isolated creature, "
-    # "single subject, no cropping, highly detailed dark fantasy, sharp focus, "
+    f"bold details, with divers colour palette, white background, "
     "fantasy creature, tasteful nudity, nude female or nude trans-woman, creature fully visible, creature composition, isolated subject, single creature, no cropping, highly detailed dark fantasy, sharp focus, "
 )
 
@@ -840,11 +834,9 @@ LIGHTING_STYLES = [
 
 # View angles - expanded with back-side angles
 VIEW_ANGLES = [
-    # "",  # front/full face (implied)
-    "strict side profile view, 90 degree lateral pose, full side silhouette",
-    "three-quarter side view, strong 45 degree angle over-the-shoulder",
-    "rear three-quarter view, mostly side but slight back visible",
-    # "looking back over shoulder, body in profile but head turned",
+    "strict angled front view, 45 degree lateral pose, full body in frame",
+    "strict subject turned slightly askew, front view, 45 degree lateral pose, full body in frame",
+    "front  three-quarter view, mostly front but slight side visible",
 ]
 
 # Generate all combinations

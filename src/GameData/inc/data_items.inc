@@ -1,5 +1,5 @@
 // Generated item data structs
-// Database contains 64 total items
+// Database contains 65 total items
 
 // power      8 bitsr
 // item_level 4 bits
@@ -119,25 +119,27 @@
 { .power = 100, .data = 0x41, .flags = 0b00000011 },
 // 53 - name - .power = 100, .item_level = 1, .item_type = MAGICAL,  flags = { .consumable = 1, .consumable_party = 1, .consumable_spellbook = 0 } 
 { .power = 100, .data = 0x41, .flags = 0b00000011 },
-// 54 - name - .power = SPELL_COUNT, .item_level = 1, .item_type = MAGICAL,  flags = { .consumable = 1, .consumable_party = 0, .consumable_spellbook = 0 } 
-{ .power = SPELL_COUNT, .data = 0x41, .flags = 0b00000001 },
-// 55 - name - .power = 100, .item_level = 1, .item_type = MAGICAL,  flags = { .consumable = 0, .consumable_party = 0, .consumable_spellbook = 0 } 
-{ .power = 100, .data = 0x41, .flags = 0b00000000 },
-// 56 - name - .power = 100, .item_level = 1, .item_type = COMMON,  flags = { .consumable = 1, .consumable_party = 0, .consumable_spellbook = 0 } 
-{ .power = 100, .data = 0x31, .flags = 0b00000001 },
-// 57 - name - .power = SPELL_COUNT, .item_level = 1, .item_type = MAGICAL,  flags = { .consumable = 1, .consumable_party = 0, .consumable_spellbook = 0 } 
-{ .power = SPELL_COUNT, .data = 0x41, .flags = 0b00000001 },
-// 58 - name - .power = 1, .item_level = 1, .item_type = MAGICAL,  flags = { .consumable = 1, .consumable_party = 0, .consumable_spellbook = 0 } 
+// 54 - name - .power = 1, .item_level = 1, .item_type = MAGICAL,  flags = { .consumable = 1, .consumable_party = 0, .consumable_spellbook = 0 } 
 { .power = 1, .data = 0x41, .flags = 0b00000001 },
-// 59 - name - .power = 100, .item_level = 1, .item_type = POTION,  flags = { .consumable = 1, .consumable_party = 0, .consumable_spellbook = 0 } 
+// 55 - name - .power = SPELL_COUNT, .item_level = 1, .item_type = MAGICAL,  flags = { .consumable = 1, .consumable_party = 0, .consumable_spellbook = 0 } 
+{ .power = SPELL_COUNT, .data = 0x41, .flags = 0b00000001 },
+// 56 - name - .power = 100, .item_level = 1, .item_type = MAGICAL,  flags = { .consumable = 0, .consumable_party = 0, .consumable_spellbook = 0 } 
+{ .power = 100, .data = 0x41, .flags = 0b00000000 },
+// 57 - name - .power = 100, .item_level = 1, .item_type = COMMON,  flags = { .consumable = 1, .consumable_party = 0, .consumable_spellbook = 0 } 
+{ .power = 100, .data = 0x31, .flags = 0b00000001 },
+// 58 - name - .power = SPELL_COUNT, .item_level = 1, .item_type = MAGICAL,  flags = { .consumable = 1, .consumable_party = 0, .consumable_spellbook = 0 } 
+{ .power = SPELL_COUNT, .data = 0x41, .flags = 0b00000001 },
+// 59 - name - .power = 1, .item_level = 1, .item_type = MAGICAL,  flags = { .consumable = 1, .consumable_party = 0, .consumable_spellbook = 0 } 
+{ .power = 1, .data = 0x41, .flags = 0b00000001 },
+// 60 - name - .power = 100, .item_level = 1, .item_type = POTION,  flags = { .consumable = 1, .consumable_party = 0, .consumable_spellbook = 0 } 
 { .power = 100, .data = 0x01, .flags = 0b00000001 },
-// 60 - name - .power = 100, .item_level = 1, .item_type = COMMON,  flags = { .consumable = 0, .consumable_party = 0, .consumable_spellbook = 0 } 
-{ .power = 100, .data = 0x31, .flags = 0b00000000 },
 // 61 - name - .power = 100, .item_level = 1, .item_type = COMMON,  flags = { .consumable = 0, .consumable_party = 0, .consumable_spellbook = 0 } 
 { .power = 100, .data = 0x31, .flags = 0b00000000 },
 // 62 - name - .power = 100, .item_level = 1, .item_type = COMMON,  flags = { .consumable = 0, .consumable_party = 0, .consumable_spellbook = 0 } 
 { .power = 100, .data = 0x31, .flags = 0b00000000 },
-// 63 - name - .power = 100, .item_level = 1, .item_type = MAGICAL,  flags = { .consumable = 0, .consumable_party = 0, .consumable_spellbook = 0 } 
+// 63 - name - .power = 100, .item_level = 1, .item_type = COMMON,  flags = { .consumable = 0, .consumable_party = 0, .consumable_spellbook = 0 } 
+{ .power = 100, .data = 0x31, .flags = 0b00000000 },
+// 64 - name - .power = 100, .item_level = 1, .item_type = MAGICAL,  flags = { .consumable = 0, .consumable_party = 0, .consumable_spellbook = 0 } 
 { .power = 100, .data = 0x41, .flags = 0b00000000 },
 
-//COUNT = 64;
+//COUNT = 65;

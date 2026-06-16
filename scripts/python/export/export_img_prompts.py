@@ -16,7 +16,7 @@ def generate_data_from_db(entity):
         'object': "photo-realistic hi fidelity detailed, fantasy object, object fully visible, centered composition, isolated subject, single object, no cropping, highly detailed dark fantasy, sharp focus, ",
         'spell': "photo-realistic hi fidelity detailed, fantasy spell demonstration, subject fully visible, centered composition, isolated subject, single subject, no cropping, highly detailed dark fantasy, sharp focus, ",
         'skill': "photo-realistic hi fidelity detailed, fantasy skill demonstration, subject fully visible, centered composition, isolated subject, single subject, no cropping, highly detailed dark fantasy, sharp focus, ",
-        'trainer': "fantasy character, tasteful nudity, nude girl or nude trans-woman, body fully visible, centered composition, isolated subject, single subject, no cropping, highly detailed dark fantasy, sharp focus, ",
+        'trainer': "photo-realistic hi fantasy character, wearing nice clothes, tasteful nudity, nude girl or nude trans-woman, body fully visible, centered composition, isolated subject, single subject, no cropping, highly detailed fantasy, sharp focus, ",
     }
 
     table_in = f"{entity}_descriptions"
@@ -73,16 +73,8 @@ def generate_data_from_db(entity):
         f.write("]\n")
 
         f.write(f'''
-# {upper(entity_type)}_BASE_PROMPT = (
-#     # f"photo-realistic hi fidelity detailed, "
-#     "fantasy {entity}, full body visible, centered composition, isolated creature, "
-#     "single subject, no cropping, highly detailed dark fantasy, sharp focus, "
-# )
-
 {upper(entity_type)}_BASE_PROMPT = (
-    f"general details that can be seen from afar, "
-    # "fantasy item, full body visible, centered composition, isolated creature, "
-    # "single subject, no cropping, highly detailed dark fantasy, sharp focus, "
+    f"bold details, with divers colour palette, white background, "
     \"{start_prompt[entity]}\"
 )
 
@@ -104,11 +96,9 @@ LIGHTING_STYLES = [
 
 # View angles - expanded with back-side angles
 VIEW_ANGLES = [
-    # "",  # front/full face (implied)
-    "strict side profile view, 90 degree lateral pose, full side silhouette",
-    "three-quarter side view, strong 45 degree angle over-the-shoulder",
-    "rear three-quarter view, mostly side but slight back visible",
-    # "looking back over shoulder, body in profile but head turned",
+    "strict angled front view, 45 degree lateral pose, full body in frame",
+    "strict subject turned slightly askew, front view, 45 degree lateral pose, full body in frame",
+    "front  three-quarter view, mostly front but slight side visible",
 ]
 
 # Generate all combinations

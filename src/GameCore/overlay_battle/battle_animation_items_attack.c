@@ -368,3 +368,9 @@ bool ItemAttackSpellbookPage(bool onAttacker)
     return false;
 }
 
+
+bool ItemAttackRosarie(bool onAttacker)
+{
+    return false;
+}
+

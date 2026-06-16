@@ -91,6 +91,31 @@ bool SetSurroundingTils(Position position, MapTile type)
     return true;
 }
 
+/**********************************************************************************************************************/
+/*
+**********************************************************************************************************************/
+SET_MEMORY(".map")
+bool ConvertSurroundingTiles(Position position, MapTile cur_type, MapTile new_type)
+{
+    uint8_t start_x = position.x - 1;
+    uint8_t start_y = position.y - 1;
+
+    for (uint8_t y = start_y; y < start_y + 3; y++)
+    {
+        if (y < 1 || y > MAP_W - 1) continue;
+        for (uint8_t x = start_x; x < start_x + 3; x++)
+        {
+            if (x < 1 || x > MAP_H - 1) continue;
+            MapTile tile = GetMapTile(x, y);
+            if (tile == cur_type)
+                SetMapTile(x, y, new_type);
+        }
+    }
+
+    return true;
+}
+
+
 /**********************************************************************************************************************
 *
 **********************************************************************************************************************/
@@ -189,11 +214,11 @@ bool Pit(EntityId id, ObjectsTypes type, uint8_t x, uint8_t y)
         if (g_core.creatures.status.waterWalk[id])
             return true;
 
-        DamageCreature(id, 3, type);
+        DamageCreature(id, g_core.floor, type);
     }
     if (type == CREATURE)
     {
-        DamageCreature(id, 3, type);
+        DamageCreature(id, g_core.floor, type);
     }
 
     return true;
@@ -213,14 +238,11 @@ bool CollisionFluidTile(EntityId id, ObjectsTypes type, uint8_t x, uint8_t y)
         if (g_core.creatures.status.waterWalk[id])
             return true;
 
-
-        EntityId creature_id = g_core.trainers.partyID[id][0];
-        DamageCreature(id, 3, type);
-
+        DamageCreature(id, g_core.floor, type);
     }
     if (type == CREATURE)
     {
-        DamageCreature(id, 3, type);
+        DamageCreature(id, g_core.floor, type);
     }
 
     // check for damage and position drift

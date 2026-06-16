@@ -1,5 +1,5 @@
 // Generated item name strings
-// Database contains 64 total entries
+// Database contains 65 total entries
 
 // Individual items strings
 UseMapAbilityBook,
@@ -56,6 +56,7 @@ UseMapTeleportPotion,
 UseMapVisionPotion,
 UseMapXPPotion,
 UseMapRareCandy,
+UseMapRosarie,
 UseMapScroll,
 UseMapShovel,
 UseMapSmokeBall,
@@ -67,4 +68,4 @@ UseMapWaterResistance,
 UseMapWhip,
 UseMapWisdomCrown,
 
-//ALL_NAMES_COUNT = 64;
+//ALL_NAMES_COUNT = 65;

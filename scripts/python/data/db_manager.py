@@ -431,6 +431,8 @@ def init_database():
         FROM creatures c, skills s;
     ''')
 
+
+
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS creature_level_up_skills (
             creature_name TEXT,
@@ -854,6 +856,7 @@ def get_creature_types():
     conn.close()
     return formatted_results
 
+
 def get_entity_sounds(entity):
     conn = sqlite3.connect(DB_FILE)
     cursor = conn.cursor()
@@ -1098,12 +1101,13 @@ def get_trainers_data():
     cursor.execute('SELECT trainer, party_0, party_1, party_2, party_3, party_4, party_5, spell_0, spell_1, spell_2, spell_3, spell_4, spell_5, item_0, item_1, item_2, item_3, item_4, item_5 FROM trainer_data ORDER BY trainer ASC')
 
     formatted_results = [
-        TrainerData(trainer_name, party_0, party_1, party_2, party_3, party_4, party_5, spell_0, spell_1, spell_2, spell_3, spell_4, spell_5, item_0, item_1, item_2, item_3, item_4, item_5 )
+        TrainerData(trainer_name, party_0, party_1, party_2, party_3, party_4, party_5, spell_0, spell_1, spell_2, spell_3, spell_4, spell_5, item_0, item_1, item_2, item_3, item_4, item_5)
         for trainer_name, party_0, party_1, party_2, party_3, party_4, party_5, spell_0, spell_1, spell_2, spell_3, spell_4, spell_5, item_0, item_1, item_2, item_3, item_4, item_5 in cursor.fetchall()
     ]
 
     conn.close()
     return formatted_results
+
 
 def get_creature_stats():
     conn = sqlite3.connect(DB_FILE)
@@ -1124,19 +1128,36 @@ def get_creature_stats():
 
     formatted_results = [
         CreatureStats(name,
-                       attack_min, defence_min, magic_min, speed_min, accuracy_min, loyalty_min,
+                      attack_min, defence_min, magic_min, speed_min, accuracy_min, loyalty_min,
                       attack_max, defence_max, magic_max, speed_max, accuracy_max, loyalty_max,
                       attack_growth, defence_growth, magic_growth, speed_growth,
                       hp_base, hp_growth, mp_base, mp_growth)
         for name, attack_min, defence_min, magic_min, speed_min, accuracy_min, loyalty_min,
-            attack_max, defence_max, magic_max, speed_max, accuracy_max, loyalty_max,
-            attack_growth, defence_growth, magic_growth, speed_growth,
-            hp_base, hp_growth, mp_base, mp_growth
+        attack_max, defence_max, magic_max, speed_max, accuracy_max, loyalty_max,
+        attack_growth, defence_growth, magic_growth, speed_growth,
+        hp_base, hp_growth, mp_base, mp_growth
         in cursor.fetchall()
     ]
 
     conn.close()
     return formatted_results
+
+def populate_descriptions(entity):
+    conn = sqlite3.connect(DB_FILE)
+    cursor = conn.cursor()
+
+    query = f"""
+        INSERT OR IGNORE INTO {entity}_descriptions (name)
+        SELECT o.name 
+        FROM {entity}s o
+        WHERE NOT EXISTS (
+            SELECT 1 FROM {entity}_descriptions d WHERE d.name = o.name
+        )
+    """
+
+    cursor.execute(query)
+    conn.commit()
+    conn.close()
 
 
 def get_items_data():

@@ -3,8 +3,8 @@
 // Format: { { .idx = byte_offset, .size = size, .palette = {...}, .emptyIndexes = {...} },
 // Files are processed in alphabetical order by full path
 
-// ABOLETH / Aboleth Auraflow V0.3 000 S2311607607 Th0.100 20 [Folder: ABOLETH] (sprite index: 0, byte offset: 0, size: 219)
-{  .index = 0, .size = 219, .palette = { 0xf81f, 0x0041, 0x0861, 0x31a4, 0x1903, 0xcef9, 0x9d11, 0x18c2, 0x10a2, 0x4ac9, 0x08a2, 0x08a2, 0x7b8b, 0x1964, 0x49c5, 0x0000 }, },
+// ABOLETH / Aboleth Auraflow V0.3 007 S2312077971 Th0.100 20 [Folder: ABOLETH] (sprite index: 0, byte offset: 0, size: 219)
+{  .index = 0, .size = 219, .palette = { 0xf81f, 0x1061, 0x6aa7, 0x1081, 0xeef8, 0xa40c, 0x2102, 0x41e5, 0x3164, 0x18e2, 0x6205, 0x10c2, 0xc551, 0x3902, 0x7b6b, 0x1800 }, },
 // ADZE / Adze Auraflow V0.3 002 S73179199 Th0.100 20 [Folder: ADZE] (sprite index: 1, byte offset: 219, size: 156)
 {  .index = 219, .size = 156, .palette = { 0xf81f, 0x3083, 0x5209, 0x20c4, 0xcd54, 0x4146, 0x1063, 0x0821, 0x2926, 0x1001, 0x9b6e, 0x6882, 0xa249, 0x8924, 0x1863, 0x0842 }, },
 // AEON / Aeon Auraflow V0.3 006 S3285429188 Th0.100 20 [Folder: AEON] (sprite index: 2, byte offset: 375, size: 126)

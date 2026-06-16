@@ -1,5 +1,5 @@
 // Generated item function headers
-// Database contains 64 total items
+// Database contains 65 total items
 
 // Individual items strings
 ActionOutcome UseBattleAbilityBook(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index);
@@ -56,6 +56,7 @@ ActionOutcome UseBattleTeleportPotion(HardwareInterface hardware, MemoryInterfac
 ActionOutcome UseBattleVisionPotion(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index);
 ActionOutcome UseBattleXPPotion(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index);
 ActionOutcome UseBattleRareCandy(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index);
+ActionOutcome UseBattleRosarie(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index);
 ActionOutcome UseBattleScroll(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index);
 ActionOutcome UseBattleShovel(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index);
 ActionOutcome UseBattleSmokeBall(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index);
@@ -67,4 +68,4 @@ ActionOutcome UseBattleWaterResistance(HardwareInterface hardware, MemoryInterfa
 ActionOutcome UseBattleWhip(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index);
 ActionOutcome UseBattleWisdomCrown(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index);
 
-//ALL_NAMES_COUNT = 64;
+//ALL_NAMES_COUNT = 65;

@@ -75,6 +75,7 @@ void UpdateResourceBar(GraphicsInterface graphics, HardwareInterface hardware, M
         cur_mp = Int999GetCurrent(&stat[p_id]);
         max_mp = Int999GetMax(&stat[p_id]);
     }
+    ASSERT(max_mp > 0, "UpdateResourceBar() max value must be greater than zero");
 
     const uint8_t pad = 1;
     const uint8_t pad2 = pad << 1;

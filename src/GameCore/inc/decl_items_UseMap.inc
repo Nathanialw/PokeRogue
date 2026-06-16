@@ -1,5 +1,5 @@
 // Generated item function headers
-// Database contains 64 total items
+// Database contains 65 total items
 
 // Individual items strings
 ActionOutcome UseMapAbilityBook(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index);
@@ -56,6 +56,7 @@ ActionOutcome UseMapTeleportPotion(HardwareInterface hardware, MemoryInterface m
 ActionOutcome UseMapVisionPotion(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index);
 ActionOutcome UseMapXPPotion(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index);
 ActionOutcome UseMapRareCandy(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index);
+ActionOutcome UseMapRosarie(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index);
 ActionOutcome UseMapScroll(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index);
 ActionOutcome UseMapShovel(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index);
 ActionOutcome UseMapSmokeBall(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index);
@@ -67,4 +68,4 @@ ActionOutcome UseMapWaterResistance(HardwareInterface hardware, MemoryInterface 
 ActionOutcome UseMapWhip(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index);
 ActionOutcome UseMapWisdomCrown(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index);
 
-//ALL_NAMES_COUNT = 64;
+//ALL_NAMES_COUNT = 65;

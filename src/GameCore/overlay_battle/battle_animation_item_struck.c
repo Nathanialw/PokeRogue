@@ -435,3 +435,9 @@ bool ItemStruckSpellbookPage(GraphicsInterface graphics, HardwareInterface hardw
 {
     return false;
 }
+
+SET_MEMORY(".battle")
+bool ItemStruckRosarie(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool onAttacker)
+{
+    return false;
+}

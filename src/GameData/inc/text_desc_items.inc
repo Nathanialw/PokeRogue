@@ -1,5 +1,5 @@
 // Generated creature descriptions
-// Database contains 64 total descriptions
+// Database contains 65 total descriptions
 
 // Individual description strings
 "A dusty tome crackles with arcane energy, its leather cover etched in glowing runes, pages whispering forgotten secrets.\0",
@@ -56,6 +56,7 @@
 "POTION_VISION -- PLACEHOLDER TEXT - A mysterious item awaiting discovery.\0",
 "A shimmering vial of liquid glows with an eerie blue light, swirling with faint, dancing spirits.\0",
 "RARE_CANDY -- PLACEHOLDER TEXT - A mysterious item awaiting discovery.\0",
+"ROSARIE -- PLACEHOLDER TEXT - A mysterious item awaiting discovery.\0",
 "SCROLL -- PLACEHOLDER TEXT - A mysterious item awaiting discovery.\0",
 "SHOVEL -- PLACEHOLDER TEXT - A mysterious item awaiting discovery.\0",
 "SMOKE_BALL -- PLACEHOLDER TEXT - A mysterious item awaiting discovery.\0",
@@ -68,4 +69,4 @@
 "A circlet of silver and sapphire adorned with ancient runes that whisper forgotten knowledge when worn.\0",
 " ------ \0",
 
-//ALL_DESCRIPTIONS_COUNT = 64;
+//ALL_DESCRIPTIONS_COUNT = 65;

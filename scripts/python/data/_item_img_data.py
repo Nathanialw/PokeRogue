@@ -14,6 +14,8 @@ Items = [
     "BOOTS_ACID_WALKING",
     "BOOTS_LAVA_WALKING",
     "BOOTS_WATER_WALKING",
+    "BRANDING_IRON",
+    "BROOCH",
     "CAPTURE_BEAR_TRAP",
     "CAPTURE_BOLAS",
     "CAPTURE_CHAIN",
@@ -29,6 +31,7 @@ Items = [
     "EARMUFFS",
     "ESCAPE_ROPE",
     "EXPLOSIVE_FLASK",
+    "FLEAM",
     "FLIPPERS",
     "FOOD_BERRIES",
     "FOOD_CAKE",
@@ -69,6 +72,7 @@ Items = [
     "POTION_VISION",
     "POTION_XP",
     "RARE_CANDY",
+    "ROSARIE",
     "SCROLL",
     "SHIELD",
     "SHOVEL",
@@ -96,6 +100,8 @@ ItemsDict = [
    { "name": 'BOOTS_ACID_WALKING', 'prompt': "Glowing with vibrant emerald hues, they dissolve into mist upon contact with acid, leaving no trace behind."},
    { "name": 'BOOTS_LAVA_WALKING', 'prompt': "A pair of boots crafted from obsidian and enchanted ember, allowing the wearer to stride across molten rock unharmed."},
    { "name": 'BOOTS_WATER_WALKING', 'prompt': "Boots that allow the wearer to stride effortlessly across rivers, lakes, and seas, leaving barely a ripple in their wake."},
+   { "name": 'BRANDING_IRON', 'prompt': "BRANDING_IRON"},
+   { "name": 'BROOCH', 'prompt': "BROOCH"},
    { "name": 'CAPTURE_BEAR_TRAP', 'prompt': "A rusted iron jaw snaps shut with jagged teeth, crushing the victim's limb in its vise-like grip."},
    { "name": 'CAPTURE_BOLAS', 'prompt': "CAPTURE_BOLAS"},
    { "name": 'CAPTURE_CHAIN', 'prompt': "A shimmering silver bracelet hums with forgotten whispers, its links shifting unnaturally to tighten or loosen on their own."},
@@ -111,6 +117,7 @@ ItemsDict = [
    { "name": 'EARMUFFS', 'prompt': "A pair of enchanted ear coverings that glow faintly in the dark, muffling not just sound but also whispers of fate."},
    { "name": 'ESCAPE_ROPE', 'prompt': "A glowing, serpentine cord slithers through the air, coiling around obstacles to pull you swiftly to safety in tight spots."},
    { "name": 'EXPLOSIVE_FLASK', 'prompt': "A small glass vial filled with swirling emerald flames, emitting a faint hiss of crackling energy."},
+   { "name": 'FLEAM', 'prompt': "FLEAM"},
    { "name": 'FLIPPERS', 'prompt': "FLIPPERS"},
    { "name": 'FOOD_BERRIES', 'prompt': "In the heart of the enchanted forest, they glow with an eerie light, pulsing like tiny hearts."},
    { "name": 'FOOD_CAKE', 'prompt': "A towering, frosting-covered cake floats above the table, its layers shimmering with enchanted colors and glowing with runes."},
@@ -151,6 +158,7 @@ ItemsDict = [
    { "name": 'POTION_VISION', 'prompt': "A swirling emerald liquid in a crystal vial that reveals hidden secrets in the reflections of its luminous tendrils."},
    { "name": 'POTION_XP', 'prompt': "A shimmering vial of liquid glows with an eerie blue light, swirling with faint, dancing spirits."},
    { "name": 'RARE_CANDY', 'prompt': "A shimmering, translucent orb that bursts with golden light when opened, revealing an entire world inside."},
+   { "name": 'ROSARIE', 'prompt': "ROSARIE"},
    { "name": 'SCROLL', 'prompt': "A parchment glows with ancient runes, its edges shimmering like silver thread, whispering forgotten secrets in the moonlight."},
    { "name": 'SHIELD', 'prompt': "SHIELD"},
    { "name": 'SHOVEL', 'prompt': "A shovel forged from starlight, its blade etched with runes, shatters stone with a single swing."},
@@ -165,16 +173,8 @@ ItemsDict = [
    { "name": 'WISDOM_CROWN', 'prompt': "A circlet of silver and sapphire adorned with ancient runes that whisper forgotten knowledge when worn."},
 ]
 
-# ITEMS_BASE_PROMPT = (
-#     # f"photo-realistic hi fidelity detailed, "
-#     "fantasy item, full body visible, centered composition, isolated creature, "
-#     "single subject, no cropping, highly detailed dark fantasy, sharp focus, "
-# )
-
 ITEMS_BASE_PROMPT = (
-    f"general details that can be seen from afar, "
-    # "fantasy item, full body visible, centered composition, isolated creature, "
-    # "single subject, no cropping, highly detailed dark fantasy, sharp focus, "
+    f"bold details, with divers colour palette, white background, "
     "photo-realistic hi fidelity detailed, fantasy item, item fully visible, centered composition, isolated item, single subject, no cropping, highly detailed dark fantasy, sharp focus, "
 )
 
@@ -196,11 +196,9 @@ LIGHTING_STYLES = [
 
 # View angles - expanded with back-side angles
 VIEW_ANGLES = [
-    # "",  # front/full face (implied)
-    "strict side profile view, 90 degree lateral pose, full side silhouette",
-    "three-quarter side view, strong 45 degree angle over-the-shoulder",
-    "rear three-quarter view, mostly side but slight back visible",
-    # "looking back over shoulder, body in profile but head turned",
+    "strict angled front view, 45 degree lateral pose, full body in frame",
+    "strict subject turned slightly askew, front view, 45 degree lateral pose, full body in frame",
+    "front  three-quarter view, mostly front but slight side visible",
 ]
 
 # Generate all combinations

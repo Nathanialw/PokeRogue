@@ -739,3 +739,12 @@ ActionOutcome UseBattleSpellbookPage(HardwareInterface hardware, MemoryInterface
 {
     return ACTION_FAILED;
 }
+
+/**********************************************************************************************************************/
+/*
+**********************************************************************************************************************/
+SET_MEMORY(".battle")
+ActionOutcome UseBattleRosarie(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
+{
+    return ACTION_FAILED;
+}
