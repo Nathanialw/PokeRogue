@@ -18,6 +18,7 @@
 
 #include "map_memory_access.h"
 #include "map_ram.h"
+#include "map_status_effects.h"
 #include "map_utils.h"
 
 
@@ -231,8 +232,55 @@ void DrawSpriteCached(GraphicsInterface graphics, MemoryInterface memory, uint8_
         CharFromGlyph1bpp(memory, g_map.tileCache.spriteCache, g_map.tileCache.spritePixels.pixels, g_map.tileCache.entityCache.glyph_index, FONT16x16, Flash_GetColor(memory, g_map.tileCache.entityCache.fg), Flash_GetColor(memory, PAL_KEY));
     }
 #endif
-
     graphics.DrawTileKeyed(px, py, MAP_TILE_W, MAP_TILE_H, g_map.tileCache.spritePixels.pixels);
+}
+
+/**********************************************************************************************************************/
+/**  Checks cache
+ *  Updates cache
+ *  Blit the given creature id to the given screen coords
+**********************************************************************************************************************/
+SET_MEMORY(".map")
+void DrawIconCached(GraphicsInterface graphics, MemoryInterface memory, uint16_t screen_tx, uint16_t screen_ty, uint8_t sprite_id, IconType type)
+{
+    SpriteFrames layout = {0};
+    Flash_GetIconMetadata(memory, &layout, type, sprite_id);
+    Flash_GetIconSprite(memory, g_map.tileCache.spriteCache.bytes, &layout, type);
+    Expand4bppPackedToByte(memory, g_map.tileCache.spriteCache.bytes, layout.palette, g_map.tileCache.spritePixels.pixels, ICON_W);
+    Rect_16 rect = {screen_tx, screen_ty, ICON_W, ICON_H};
+    graphics.Draw16(NULL, &rect, g_map.tileCache.spritePixels.pixels);
+}
+
+/**********************************************************************************************************************/
+/**  Checks cache
+ *  Updates cache
+ *  Blit the given creature id to the given screen coords
+**********************************************************************************************************************/
+SET_MEMORY(".map")
+void DrawBuffs(GraphicsInterface graphics, MemoryInterface memory, uint16_t screen_x, uint16_t screen_y, const uint8_t* buff_values)
+{
+    const uint8_t spacing = 5;
+    uint8_t index = 0;
+    uint8_t buff_index = 0;
+
+    for (uint8_t i = 0; i < MAX_MAX_STATUS_EFFECTS; i++)
+    {
+        if (buff_values[i] > 0)
+        {
+            if (buff_index % 4 == 0)
+            {
+                if (buff_index != 0)
+                    screen_y += (ICON_H + spacing);
+                DrawIconCached(graphics, memory, screen_x, screen_y, 0, ICON_SKILL);
+                index = 0;
+            }
+            else
+            {
+                index++;
+                DrawIconCached(graphics, memory, screen_x + (index * (ICON_W + 8)), screen_y, 0, ICON_SKILL);
+            }
+        }
+    }
 }
 
 /**********************************************************************************************************************/
@@ -250,7 +298,7 @@ void DrawPartyCreatureStats(GraphicsInterface graphics, MemoryInterface memory, 
     const uint16_t line_height = TEXT_H + 4;
     const uint16_t line_length = MEDIUM_STRINGS;
     const uint16_t title_length = SMALL_STRINGS;
-    const uint16_t section_spacing = SMALL_STRINGS;
+    const uint16_t section_spacing = SMALL_STRINGS + 3;
 
     uint16_t left_col_spacing = 0;
     uint8_t left_col_i = 0;
@@ -263,6 +311,9 @@ void DrawPartyCreatureStats(GraphicsInterface graphics, MemoryInterface memory, 
 #define COLUMN_2_TITLE (left_margin + ((line_length + 2) * TEXT_W))
 #define COLUMN_2_DATA ((CharStr_uint8*)(cursor + (title_length << 1) + 3))
 
+    /***************************************************************************************************************************************************************/
+    //
+    /***************************************************************************************************************************************************************/
     graphics.FillRect(0, 0, w, h, Flash_GetColor(memory, PAL_OFF_WHITE_GRAY_BLUE));
     // graphics.FillRect(0, 0, w, h, Flash_GetColor(memory, PAL_LIGHT_TAN));
     CreatureID type = GetCreatureType(creature_id);
@@ -273,53 +324,53 @@ void DrawPartyCreatureStats(GraphicsInterface graphics, MemoryInterface memory, 
 
 
     Stats stats = GetCreatureStats(creature_id);
-    Flash_GetTextByIndex(memory, line, left_col_i, line_length);
+    Flash_GetTextByIndex(memory, line, left_col_i, line_length, 0);
     GetAsChars_uint8(stats.attack, COLUMN_1, false, true);
     PrintLineStr(graphics, memory, left_margin, LEFT_COL_LINE_HEIGHT, g_core.settings.fontSize, SMALL_STRINGS, line, 0, PAL_DARK_BLUE_GRAY, PAL_OFF_WHITE_GRAY_BLUE);
 
-    Flash_GetTextByIndex(memory, line, left_col_i, line_length);
+    Flash_GetTextByIndex(memory, line, left_col_i, line_length, 0);
     GetAsChars_uint8(stats.defence, COLUMN_1, false, true);
     PrintLineStr(graphics, memory, left_margin, LEFT_COL_LINE_HEIGHT, g_core.settings.fontSize, SMALL_STRINGS, line, 0, PAL_DARK_BLUE_GRAY, PAL_OFF_WHITE_GRAY_BLUE);
 
-    Flash_GetTextByIndex(memory, line, left_col_i, line_length);
+    Flash_GetTextByIndex(memory, line, left_col_i, line_length, 0);
     GetAsChars_uint8(stats.magic, COLUMN_1, false, true);
     PrintLineStr(graphics, memory, left_margin, LEFT_COL_LINE_HEIGHT, g_core.settings.fontSize, SMALL_STRINGS, line, 0, PAL_DARK_BLUE_GRAY, PAL_OFF_WHITE_GRAY_BLUE);
 
-    Flash_GetTextByIndex(memory, line, left_col_i, line_length);
+    Flash_GetTextByIndex(memory, line, left_col_i, line_length, 0);
     GetAsChars_uint8(stats.speed, COLUMN_1, false, true);
     PrintLineStr(graphics, memory, left_margin, LEFT_COL_LINE_HEIGHT, g_core.settings.fontSize, SMALL_STRINGS, line, 0, PAL_DARK_BLUE_GRAY, PAL_OFF_WHITE_GRAY_BLUE);
 
-    Flash_GetTextByIndex(memory, line, left_col_i, line_length);
+    Flash_GetTextByIndex(memory, line, left_col_i, line_length, 0);
     GetAsChars_uint8(stats.accuracy, COLUMN_1, false, true);
     PrintLineStr(graphics, memory, left_margin, LEFT_COL_LINE_HEIGHT, g_core.settings.fontSize, SMALL_STRINGS, line, 0, PAL_DARK_BLUE_GRAY, PAL_OFF_WHITE_GRAY_BLUE);
 
-    Flash_GetTextByIndex(memory, line, left_col_i, line_length);
+    Flash_GetTextByIndex(memory, line, left_col_i, line_length, 0);
     GetAsChars_uint8(stats.loyalty, COLUMN_1, false, true);
     PrintLineStr(graphics, memory, left_margin, LEFT_COL_LINE_HEIGHT, g_core.settings.fontSize, SMALL_STRINGS, line, 0, PAL_DARK_BLUE_GRAY, PAL_OFF_WHITE_GRAY_BLUE);
 
     left_col_spacing++;
     Attributes attributes = GetCreatureAttributes(creature_id);
-    Flash_GetTextByIndex(memory, line, left_col_i, line_length);
+    Flash_GetTextByIndex(memory, line, left_col_i, line_length, 0);
     GetAsChars_uint8(attributes.strength, COLUMN_1, false, true);
     PrintLineStr(graphics, memory, left_margin, LEFT_COL_LINE_HEIGHT, g_core.settings.fontSize, SMALL_STRINGS, line, 0, PAL_DARK_BLUE_GRAY, PAL_OFF_WHITE_GRAY_BLUE);
 
-    Flash_GetTextByIndex(memory, line, left_col_i, line_length);
+    Flash_GetTextByIndex(memory, line, left_col_i, line_length, 0);
     GetAsChars_uint8(attributes.fortitude, COLUMN_1, false, true);
     PrintLineStr(graphics, memory, left_margin, LEFT_COL_LINE_HEIGHT, g_core.settings.fontSize, SMALL_STRINGS, line, 0, PAL_DARK_BLUE_GRAY, PAL_OFF_WHITE_GRAY_BLUE);
 
-    Flash_GetTextByIndex(memory, line, left_col_i, line_length);
+    Flash_GetTextByIndex(memory, line, left_col_i, line_length, 0);
     GetAsChars_uint8(attributes.intelligence, COLUMN_1, false, true);
     PrintLineStr(graphics, memory, left_margin, LEFT_COL_LINE_HEIGHT, g_core.settings.fontSize, SMALL_STRINGS, line, 0, PAL_DARK_BLUE_GRAY, PAL_OFF_WHITE_GRAY_BLUE);
 
-    Flash_GetTextByIndex(memory, line, left_col_i, line_length);
+    Flash_GetTextByIndex(memory, line, left_col_i, line_length, 0);
     GetAsChars_uint8(attributes.agility, COLUMN_1, false, true);
     PrintLineStr(graphics, memory, left_margin, LEFT_COL_LINE_HEIGHT, g_core.settings.fontSize, SMALL_STRINGS, line, 0, PAL_DARK_BLUE_GRAY, PAL_OFF_WHITE_GRAY_BLUE);
 
-    Flash_GetTextByIndex(memory, line, left_col_i, line_length);
+    Flash_GetTextByIndex(memory, line, left_col_i, line_length, 0);
     GetAsChars_uint8(attributes.dexterity, COLUMN_1, false, true);
     PrintLineStr(graphics, memory, left_margin, LEFT_COL_LINE_HEIGHT, g_core.settings.fontSize, SMALL_STRINGS, line, 0, PAL_DARK_BLUE_GRAY, PAL_OFF_WHITE_GRAY_BLUE);
 
-    Flash_GetTextByIndex(memory, line, left_col_i, line_length);
+    Flash_GetTextByIndex(memory, line, left_col_i, line_length, 0);
     GetAsChars_uint8(attributes.stamina, COLUMN_1, false, true);
     PrintLineStr(graphics, memory, left_margin, LEFT_COL_LINE_HEIGHT, g_core.settings.fontSize, SMALL_STRINGS, line, 0, PAL_DARK_BLUE_GRAY, PAL_OFF_WHITE_GRAY_BLUE);
 
@@ -330,50 +381,73 @@ void DrawPartyCreatureStats(GraphicsInterface graphics, MemoryInterface memory, 
     Resists resists = GetCreatureResists(creature_id);
     Absorb absorbs = GetCreatureAbsorb(creature_id);
 
-    Flash_GetTextByIndex(memory, line, left_col_i, line_length);
+    Flash_GetTextByIndex(memory, line, left_col_i, line_length, 0);
     GetAsChars_uint8(resists.toxic, COLUMN_1, false, true);
     PrintLineStr(graphics, memory, left_margin, LEFT_COL_LINE_HEIGHT, g_core.settings.fontSize, SMALL_STRINGS, line, 0, PAL_DARK_BLUE_GRAY, PAL_OFF_WHITE_GRAY_BLUE);
     if (absorbs.toxic) PrintLineStr(graphics, memory, COLUMN_2_TITLE, LEFT_COL_LINE_HEIGHT_SAME_LINE, g_core.settings.fontSize, SMALL_STRINGS, absorb, 0, PAL_DARK_BLUE_GRAY, PAL_OFF_WHITE_GRAY_BLUE);
 
-    Flash_GetTextByIndex(memory, line, left_col_i, line_length);
+    Flash_GetTextByIndex(memory, line, left_col_i, line_length, 0);
     GetAsChars_uint8(resists.fire, COLUMN_1, false, true);
     PrintLineStr(graphics, memory, left_margin, LEFT_COL_LINE_HEIGHT, g_core.settings.fontSize, SMALL_STRINGS, line, 0, PAL_DARK_BLUE_GRAY, PAL_OFF_WHITE_GRAY_BLUE);
     if (absorbs.fire) PrintLineStr(graphics, memory, COLUMN_2_TITLE, LEFT_COL_LINE_HEIGHT_SAME_LINE, g_core.settings.fontSize, SMALL_STRINGS, absorb, 0, PAL_DARK_BLUE_GRAY, PAL_OFF_WHITE_GRAY_BLUE);
 
-    Flash_GetTextByIndex(memory, line, left_col_i, line_length);
+    Flash_GetTextByIndex(memory, line, left_col_i, line_length, 0);
     GetAsChars_uint8(resists.water, COLUMN_1, false, true);
     PrintLineStr(graphics, memory, left_margin, LEFT_COL_LINE_HEIGHT, g_core.settings.fontSize, SMALL_STRINGS, line, 0, PAL_DARK_BLUE_GRAY, PAL_OFF_WHITE_GRAY_BLUE);
     if (absorbs.water) PrintLineStr(graphics, memory, COLUMN_2_TITLE, LEFT_COL_LINE_HEIGHT_SAME_LINE, g_core.settings.fontSize, SMALL_STRINGS, line, 0, PAL_DARK_BLUE_GRAY, PAL_OFF_WHITE_GRAY_BLUE);
 
-    Flash_GetTextByIndex(memory, line, left_col_i, line_length);
+    Flash_GetTextByIndex(memory, line, left_col_i, line_length, 0);
     GetAsChars_uint8(resists.ice, COLUMN_1, false, true);
     PrintLineStr(graphics, memory, left_margin, LEFT_COL_LINE_HEIGHT, g_core.settings.fontSize, SMALL_STRINGS, line, 0, PAL_DARK_BLUE_GRAY, PAL_OFF_WHITE_GRAY_BLUE);
     if (absorbs.ice) PrintLineStr(graphics, memory, COLUMN_2_TITLE, LEFT_COL_LINE_HEIGHT_SAME_LINE, g_core.settings.fontSize, SMALL_STRINGS, line, 0, PAL_DARK_BLUE_GRAY, PAL_OFF_WHITE_GRAY_BLUE);
 
-    Flash_GetTextByIndex(memory, line, left_col_i, line_length);
+    Flash_GetTextByIndex(memory, line, left_col_i, line_length, 0);
     GetAsChars_uint8(resists.earth, COLUMN_1, false, true);
     PrintLineStr(graphics, memory, left_margin, LEFT_COL_LINE_HEIGHT, g_core.settings.fontSize, SMALL_STRINGS, line, 0, PAL_DARK_BLUE_GRAY, PAL_OFF_WHITE_GRAY_BLUE);
     if (absorbs.earth) PrintLineStr(graphics, memory, COLUMN_2_TITLE, LEFT_COL_LINE_HEIGHT_SAME_LINE, g_core.settings.fontSize, SMALL_STRINGS, line, 0, PAL_DARK_BLUE_GRAY, PAL_OFF_WHITE_GRAY_BLUE);
 
-    Flash_GetTextByIndex(memory, line, left_col_i, line_length);
+    Flash_GetTextByIndex(memory, line, left_col_i, line_length, 0);
     GetAsChars_uint8(resists.magic, COLUMN_1, false, true);
     PrintLineStr(graphics, memory, left_margin, LEFT_COL_LINE_HEIGHT, g_core.settings.fontSize, SMALL_STRINGS, line, 0, PAL_DARK_BLUE_GRAY, PAL_OFF_WHITE_GRAY_BLUE);
     if (absorbs.magic) PrintLineStr(graphics, memory, COLUMN_2_TITLE, LEFT_COL_LINE_HEIGHT_SAME_LINE, g_core.settings.fontSize, SMALL_STRINGS, line, 0, PAL_DARK_BLUE_GRAY, PAL_OFF_WHITE_GRAY_BLUE);
 
 
+    /***************************************************************************************************************************************************************/
+    //
+    /***************************************************************************************************************************************************************/
 
     //buffs
     //debuff
-    const uint16_t status_start_x = left_margin + (title_length * 2 * TEXT_W);
-    const uint16_t status_start_y = 0;
-    const uint16_t status_icon_size = line_height << 2;
+    const uint16_t status_start_x_col1 = section_spacing * TEXT_W;
+    const uint16_t status_start_x_col2 = (section_spacing * TEXT_W) + (((section_spacing + 3) * TEXT_W));
+    const uint16_t status_start_y = TEXT_H << 4;
+    uint16_t status_col_spacing = 0;
+    uint8_t status_col_i = 0;
+    uint8_t buff_values[16] = {0};
+#define RIGHT_COL_SECTION_SPACING (status_col_spacing * TEXT_H)
+#define RIGHT_COL_LINE_HEIGHT ((status_start_y) + (line_height * status_col_i++) + RIGHT_COL_SECTION_SPACING)
+#define RIGHT_COL_LINE_HEIGHT_SAME_LINE (status_start_y + line_height * (status_col_i - 1) + RIGHT_COL_SECTION_SPACING)
 
-    
+
+    Flash_GetTextByIndex(memory, line, status_col_i, SMALL_STRINGS, 1);
+    PrintLineStr(graphics, memory, status_start_x_col1, RIGHT_COL_LINE_HEIGHT, g_core.settings.fontSize, SMALL_STRINGS, line, 0, PAL_DARK_BLUE_GRAY, PAL_OFF_WHITE_GRAY_BLUE);
+    GetCreatureStatusEffectStateBuffs(buff_values, creature_id);
+    DrawBuffs(graphics, memory, status_start_x_col1, RIGHT_COL_LINE_HEIGHT, buff_values);
+
+    status_col_i = 0;
+    status_col_spacing = 0;
+    Flash_GetTextByIndex(memory, line, status_col_i + 1, SMALL_STRINGS, 1);
+    PrintLineStr(graphics, memory, status_start_x_col2, RIGHT_COL_LINE_HEIGHT, g_core.settings.fontSize, SMALL_STRINGS, line, 0, PAL_DARK_BLUE_GRAY, PAL_OFF_WHITE_GRAY_BLUE);
+    GetCreatureStatusEffectStateDebuffs(buff_values, creature_id);
+    DrawBuffs(graphics, memory, status_start_x_col2, RIGHT_COL_LINE_HEIGHT, buff_values);
 
 
+    /***************************************************************************************************************************************************************/
+    //
+    /***************************************************************************************************************************************************************/
 
-    const uint16_t skills_icon_size = line_height << 2;
-    const uint16_t skills_start_x = left_margin + skills_icon_size + TEXT_W;
+
+    const uint16_t skills_start_x = left_margin + ICON_W + TEXT_W;
     const uint16_t skills_start_y = SCREEN_H >> 1;
     const uint8_t text_length = 9;
     uint16_t skills_col_spacing = 0;
@@ -388,8 +462,8 @@ void DrawPartyCreatureStats(GraphicsInterface graphics, MemoryInterface memory, 
 
     const uint16_t border_margin = 2;
     const uint16_t border_x = left_margin - border_margin;
-    const uint16_t border_w = skills_icon_size + (MEDIUM_STRINGS * TEXT_W) + (border_margin << 1);
-    const uint16_t border_h = skills_icon_size + (border_margin << 1);
+    const uint16_t border_w = ICON_W + (MEDIUM_STRINGS * TEXT_W) + (border_margin << 1);
+    const uint16_t border_h = ICON_W + (border_margin << 1);
     Color color = Flash_GetColor(memory, PAL_MUTED_GREEN);
     Color color1 = Flash_GetColor(memory, PAL_DEEP_BLUE);
 
@@ -414,22 +488,21 @@ void DrawPartyCreatureStats(GraphicsInterface graphics, MemoryInterface memory, 
             RightAlign(line, -1, SMALL_STRINGS);
             PrintLineStr(graphics, memory, skills_start_x + ((SMALL_STRINGS) * TEXT_W), SKILLS_LINE_HEIGHT_SAME_LINE, g_core.settings.fontSize, SMALL_STRINGS, line, 0, PAL_DARK_BLUE_GRAY, PAL_OFF_WHITE_GRAY_BLUE);
 
-            graphics.FillRect(left_margin, SKILLS_LINE_HEIGHT_SAME_LINE, skills_icon_size, skills_icon_size, color);
+            DrawIconCached(graphics, memory, left_margin, SKILLS_LINE_HEIGHT_SAME_LINE, skill_id, ICON_SKILL);
 
-
-            Flash_GetTextByIndex(memory, line, left_col_i, SMALL_STRINGS);
+            Flash_GetTextByIndex(memory, line, left_col_i, SMALL_STRINGS, 0);
             GetAsChars_uint8(skill_data.manaCost, MANA_COST, false, true);
             PrintLineStr(graphics, memory, skills_start_x, SKILLS_LINE_HEIGHT, g_core.settings.fontSize, MEDIUM_STRINGS, line, 0, PAL_DARK_BLUE_GRAY, PAL_OFF_WHITE_GRAY_BLUE);
 
             float filled;
 
-            Flash_GetTextByIndex(memory, line, left_col_i + 1, SMALL_STRINGS);
+            Flash_GetTextByIndex(memory, line, left_col_i + 1, SMALL_STRINGS, 0);
             // GetAsChars_uint8(skill_data.power, POWER, false, true);
             filled = ((float)skill_data.power / 255.0f) * (MEDIUM_STRINGS * TEXT_W);
             PrintLineStr(graphics, memory, skills_start_x, SKILLS_LINE_HEIGHT, g_core.settings.fontSize, SMALL_STRINGS, line, 0, PAL_DARK_BLUE_GRAY, PAL_OFF_WHITE_GRAY_BLUE);
             DrawStatusBar(graphics, memory, skills_start_x + ((text_length + 1) * TEXT_W), SKILLS_LINE_HEIGHT_SAME_LINE, MEDIUM_STRINGS - text_length, TEXT_H, filled, color);
 
-            Flash_GetTextByIndex(memory, line, left_col_i + 2, SMALL_STRINGS);
+            Flash_GetTextByIndex(memory, line, left_col_i + 2, SMALL_STRINGS, 0);
             // GetAsChars_uint8(skill_data.power_special, POWER_SPECIAL, false, true);
             filled = ((float)skill_data.power_special / 255.0f) * (MEDIUM_STRINGS * TEXT_W);
             PrintLineStr(graphics, memory, skills_start_x, SKILLS_LINE_HEIGHT, g_core.settings.fontSize, SMALL_STRINGS, line, 0, PAL_DARK_BLUE_GRAY, PAL_OFF_WHITE_GRAY_BLUE);
@@ -441,10 +514,6 @@ void DrawPartyCreatureStats(GraphicsInterface graphics, MemoryInterface memory, 
 
         skills_col_spacing++;
     }
-
-
-
-
 }
 
 /**********************************************************************************************************************/
@@ -549,6 +618,91 @@ void DrawParty(GraphicsInterface graphics, HardwareInterface hardware, MemoryInt
             lineHeight += (size >> 1);
         }
 
+        y += lineHeight;
+        i++;
+    }
+
+    g_core.menu.lineHeight = lineHeight;
+    PrintLineStr(graphics, memory, x, (max_lines - 1) * size, font_size, max_chars, border, false, PAL_DARK_BLUE_GRAY, PAL_OFF_WHITE_GRAY_BLUE);
+    g_core.menu.colorCache = color_bg;
+}
+
+
+/**********************************************************************************************************************/
+/**
+**********************************************************************************************************************/
+SET_MEMORY(".map")
+void DrawSpellbook(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory)
+{
+    const uint16_t x = MAIN_MENU_X * TEXT_W;
+    uint16_t y = MAIN_MENU_Y * TEXT_H;
+    const uint16_t w = MAIN_MENU_W * TEXT_W;
+    const uint16_t h = MAIN_MENU_H * TEXT_H;
+    Color color_bg = Flash_GetColor(memory, PAL_OFF_WHITE_GRAY_BLUE);
+
+    graphics.FillRect(x, y, w, h, color_bg);
+
+    const uint16_t indent = 1;
+    const FontSize font_size = g_core.settings.fontSize;
+    const uint16_t size = TEXT_W;
+    const uint8_t max_lines = (MAIN_MENU_H * font_size);
+    const uint8_t max_chars = (((MAIN_MENU_W) / TEXT_W) - indent) + 1;
+
+    char border[max_chars + 1];
+    for (uint16_t i = 0; i < max_chars; i++) border[i] = '-';
+    border[max_chars] = '\0';
+
+    y += PrintLineStr(graphics, memory, x, y, font_size, max_chars, border, false, PAL_DARK_BLUE_GRAY, PAL_OFF_WHITE_GRAY_BLUE);
+    const uint16_t list_y = y;
+
+    uint16_t lineHeight = 0;
+    uint16_t i = 0;
+    SpellBook* spellbook = GetPlayerSpellbook();
+
+    Color color_hp = Flash_GetColor(memory, PAL_DEEP_BLUE);
+    Color color_mp = Flash_GetColor(memory, PAL_ICE_BLUE);
+    Color color_xp = Flash_GetColor(memory, PAL_PALE_BLU_PURP);
+
+    while (i < spellbook->current_max_pages)
+    {
+        EntityId playe = GetPlayerID();
+        EntityId spell_id = spellbook->spell_id[i];
+        if (spell_id == NO_SPELL)
+        {
+            lineHeight = 0;
+            y += PrintLineStr(graphics, memory, x, y, font_size, 3, "-----\0", indent, PAL_DARK_BLUE_GRAY, PAL_OFF_WHITE_GRAY_BLUE);
+            lineHeight += (size * 1);
+            lineHeight += (size >> 1);
+            y += lineHeight;
+            i++;
+            continue;
+        }
+
+        lineHeight = 0;
+        char line[SMALL_STRINGS];
+        GetMenuLine(memory, line, i);
+        if (i > (max_lines)) break;
+
+        // name
+        y += PrintLineStr(graphics, memory, x, y + lineHeight, font_size, max_chars, line, indent, PAL_DARK_BLUE_GRAY, PAL_OFF_WHITE_GRAY_BLUE);
+
+        uint16_t cur = 0;
+        uint16_t max = 0;
+        float line_w;
+
+        // PP
+        cur = spellbook->page[i].pp;
+        max = spellbook->page[i].spellData.pp;
+        if (max > 0)
+        {
+            line_w = (((float)cur / (float)max) * ((float)(max_chars - 2) * (float)size));
+            if (line_w > 2) line_w -= 2;
+            DrawStatusBar(graphics, memory, x + size, y + lineHeight, max_chars, size, line_w, color_hp);
+        }
+        lineHeight += size;
+
+
+        lineHeight += (size >> 1);
         y += lineHeight;
         i++;
     }
@@ -836,9 +990,9 @@ void HandleGameMenuDescription(GraphicsInterface graphics, HardwareInterface har
 SET_MEMORY(".map")
 void FillObjectData(MemoryInterface memory, EntityData* entityData)
 {
-    uint8_t menu_idx = g_core.menu.sel[0].y;
+    uint8_t menu_idx = g_core.menu.entity_list_type;
 
-    if (menu_idx == 1) // creature
+    if (menu_idx == CREATURE) // creature
     {
         Flash_GetCreatureName(memory, entityData->name, g_core.menu.gameMenu.displayId);
         Flash_GetCreatureDescription(memory, entityData->desc, g_core.menu.gameMenu.displayId);
@@ -848,7 +1002,7 @@ void FillObjectData(MemoryInterface memory, EntityData* entityData)
         Flash_GetTypeName(memory, entityData->typeA, m_type.typeA);
         Flash_GetTypeName(memory, entityData->typeB, m_type.typeB);
     }
-    else if (menu_idx == 2) // objects
+    else if (menu_idx == OBJECT) // objects
     {
         Flash_GetObjectName(memory, entityData->name, g_core.menu.gameMenu.displayId);
         Flash_GetObjectDescription(memory, entityData->desc, g_core.menu.gameMenu.displayId);
@@ -856,7 +1010,7 @@ void FillObjectData(MemoryInterface memory, EntityData* entityData)
         entityData->typeA[0] = '\0';
         entityData->typeB[0] = '\0';
     }
-    else if (menu_idx == 3) // item
+    else if (menu_idx == ITEM) // item
     {
         Flash_GetItemName(memory, entityData->name, g_core.menu.gameMenu.displayId);
         Flash_GetItemDescription(memory, entityData->desc, g_core.menu.gameMenu.displayId);
@@ -864,7 +1018,7 @@ void FillObjectData(MemoryInterface memory, EntityData* entityData)
         entityData->typeA[0] = '\0';
         entityData->typeB[0] = '\0';
     }
-    else if (menu_idx == 4) //spell
+    else if (menu_idx == SPELL) //spell
     {
         Flash_GetSpellName(memory, entityData->name, g_core.menu.gameMenu.displayId);
         Flash_GetSpellDescription(memory, entityData->desc, g_core.menu.gameMenu.displayId);
@@ -872,11 +1026,19 @@ void FillObjectData(MemoryInterface memory, EntityData* entityData)
         entityData->typeA[0] = '\0';
         entityData->typeB[0] = '\0';
     }
-    else if (menu_idx == 5) // skill
+    else if (menu_idx == SKILL) // skill
     {
         Flash_GetSkillName(memory, entityData->name, g_core.menu.gameMenu.displayId);
         Flash_GetSkillDescription(memory, entityData->desc, g_core.menu.gameMenu.displayId);
         Flash_GetSpriteLayout_64(memory, &entityData->layout, g_core.menu.gameMenu.displayId, SKILL, true);
+        entityData->typeA[0] = '\0';
+        entityData->typeB[0] = '\0';
+    }
+    else if (menu_idx == TRAINER) // trainer
+    {
+        Flash_GetTrainerName(memory, entityData->name, g_core.menu.gameMenu.displayId);
+        Flash_GetTrainerDescription(memory, entityData->desc, g_core.menu.gameMenu.displayId);
+        Flash_GetSpriteLayout_64(memory, &entityData->layout, g_core.menu.gameMenu.displayId, TRAINER, true);
         entityData->typeA[0] = '\0';
         entityData->typeB[0] = '\0';
     }

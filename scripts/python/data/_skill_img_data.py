@@ -522,8 +522,8 @@ SkillsDict = [
 ]
 
 SKILLS_BASE_PROMPT = (
-    f"bold details, with divers colour palette, white background, "
-    "photo-realistic hi fidelity detailed, fantasy skill demonstration, subject fully visible, centered composition, isolated subject, single subject, no cropping, highly detailed dark fantasy, sharp focus, "
+    f"bold details, with a diverse colour palette, black background, "
+    "photo-realistic hi fidelity detailed, fantasy skill demonstration for a skill icon, subject clearly visible, centered composition, no cropping, highly detailed dark fantasy, sharp focus, "
 )
 
 LIGHTING_STYLES = [

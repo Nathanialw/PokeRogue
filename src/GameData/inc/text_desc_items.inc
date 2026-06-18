@@ -66,7 +66,7 @@
 "TORCH -- PLACEHOLDER TEXT - A mysterious item awaiting discovery.\0",
 "WATER_RESISTANCE -- PLACEHOLDER TEXT - A mysterious item awaiting discovery.\0",
 "WHIP -- PLACEHOLDER TEXT - A mysterious item awaiting discovery.\0",
-"A circlet of silver and sapphire adorned with ancient runes that whisper forgotten knowledge when worn.\0",
+"a tasteful gem aborned crown\0",
 " ------ \0",
 
 //ALL_DESCRIPTIONS_COUNT = 65;

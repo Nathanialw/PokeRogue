@@ -29,6 +29,7 @@ def run():
     # CORE DATA
     bytes_count = []
     bytes_count_map_sprites = []
+    bytes_count_icons = []
     counts = []
 
     # update enums
@@ -61,18 +62,12 @@ def run():
     export.desc_to_c_array("creature")
     # creature map sprites
     export.export_map_sprites_char("creature")
-    bytes_count_map_sprites.append(export_map_sprites.export_image_data("creature", 16))
-    bytes_count_map_sprites.append(export_map_sprites.export_image_data("creature", 20))
-    bytes_count_map_sprites.append(export_map_sprites.export_image_data("creature", 24))
-    bytes_count_map_sprites.append(export_map_sprites.export_image_data("creature", 32))
     bytes_count_map_sprites.append(export_map_sprites.export_image_data("creature", 64))
 
     # creature type data
     export_creatures.export_types_to_c_array()
-    # creature battlers front
-    bytes_count.append(export_battlers.export_image_data("creature", 16, 16, "front"))
-    bytes_count.append(export_battlers.export_image_data("creature", 16, 16, "back"))
 
+    # creature battlers front
     bytes_count.append(export_battlers.export_image_data("creature", 64, 64, "front"))
     bytes_count.append(export_battlers.export_image_data("creature", 64, 64, "back"))
 
@@ -92,8 +87,8 @@ def run():
     counts.append(export.name_to_c_array("skill"))
     # ability description strings
     export.desc_to_c_array("skill")
+    bytes_count_icons.append(export_map_sprites.export_image_data("skill", 80))
     # ability icons
-    bytes_count.append(export_battlers.export_image_data("skill", 16, 16))
     bytes_count.append(export_battlers.export_image_data("skill", 64, 64))
 
     ################################################################################################################################################
@@ -114,7 +109,7 @@ def run():
     # spell description strings
     export.desc_to_c_array("spell")
     # spell icons
-    bytes_count.append(export_battlers.export_image_data("spell", 16, 16))
+    bytes_count_icons.append(export_map_sprites.export_image_data("spell", 80))
     bytes_count.append(export_battlers.export_image_data("spell", 64, 64))
 
     ################################################################################################################################################
@@ -123,10 +118,6 @@ def run():
     export_structs.items("item")
     # item map sprites header
     export.export_map_sprites_char("item")
-    bytes_count_map_sprites.append(export_map_sprites.export_image_data("item", 16))
-    bytes_count_map_sprites.append(export_map_sprites.export_image_data("item", 20))
-    bytes_count_map_sprites.append(export_map_sprites.export_image_data("item", 24))
-    bytes_count_map_sprites.append(export_map_sprites.export_image_data("item", 32))
     bytes_count_map_sprites.append(export_map_sprites.export_image_data("item", 64))
 
     # item functions header
@@ -143,7 +134,6 @@ def run():
     # item description strings
     export.desc_to_c_array("item")
     # item icons
-    bytes_count.append(export_battlers.export_image_data("item", 16, 16))
     bytes_count.append(export_battlers.export_image_data("item", 64, 64))
 
     ################################################################################################################################################
@@ -151,29 +141,20 @@ def run():
     export_structs.objects("object")
     # object map sprites header
     export.export_map_sprites_char("object")
-    bytes_count_map_sprites.append(export_map_sprites.export_image_data("object", 16))
-    bytes_count_map_sprites.append(export_map_sprites.export_image_data("object", 20))
-    bytes_count_map_sprites.append(export_map_sprites.export_image_data("object", 24))
-    bytes_count_map_sprites.append(export_map_sprites.export_image_data("object", 32))
     bytes_count_map_sprites.append(export_map_sprites.export_image_data("object", 64))
 
     # object functions header
-    export.func_c_headers("object", "Interact", "ActionOutcome", "HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData, ObjectsTypes objectType")
+    export.func_c_headers("object", "Interact", "ActionOutcome", "HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData, ObjectsTypes objectType, uint8_t index")
     # object name strings
     counts.append(export.name_to_c_array("object"))
     # object description strings
     export.desc_to_c_array("object")
     # object icons
-    bytes_count.append(export_battlers.export_image_data("object", 16, 16))
     bytes_count.append(export_battlers.export_image_data("object", 64, 64))
 
     ################################################################################################################################################
     # TRAINERS
     export.export_map_sprites_char("trainer")
-    bytes_count_map_sprites.append(export_map_sprites.export_image_data("trainer", 16))
-    bytes_count_map_sprites.append(export_map_sprites.export_image_data("trainer", 20))
-    bytes_count_map_sprites.append(export_map_sprites.export_image_data("trainer", 24))
-    bytes_count_map_sprites.append(export_map_sprites.export_image_data("trainer", 32))
     bytes_count_map_sprites.append(export_map_sprites.export_image_data("trainer", 64))
 
     export_structs.trainers("trainer")
@@ -184,15 +165,10 @@ def run():
     # trainer description strings
     export.desc_to_c_array("trainer")
     # trainer map sprites
-    bytes_count.append(export_battlers.export_image_data("trainer", 16, 16))
     bytes_count.append(export_battlers.export_image_data("trainer", 64, 64))
 
     ################################################################################################################################################
     # TILES
-    bytes_count_map_sprites.append(export_map_sprites.export_image_data("tile", 16))
-    bytes_count_map_sprites.append(export_map_sprites.export_image_data("tile", 20))
-    bytes_count_map_sprites.append(export_map_sprites.export_image_data("tile", 24))
-    bytes_count_map_sprites.append(export_map_sprites.export_image_data("tile", 32))
     bytes_count_map_sprites.append(export_map_sprites.export_image_data("tile", 64))
 
     export.func_c_headers("tile", "TIleStepOn", "bool", "HardwareInterface hardware, MemoryInterface memory, AudioInterface audio, EntityId id, ObjectsTypes type, uint8_t x, uint8_t y")
@@ -206,6 +182,17 @@ def run():
     # bytes_count.append(export_battlers.export_image_data("tile"))
     counts.append(export_enums.get_entity_enums("tile"))
 
+    ################################################################################################################################################
+    # TILES
+    bytes_count.append(export_battlers.export_image_data("environment_object", 64, 64))
+
+    bytes_count_map_sprites.append(export_map_sprites.export_image_data("environment_object", 64))
+
+    counts.append(export_enums.get_entity_enums("environment_object"))
+    #TODO
+    # headers
+    # functions
+    # enum
 
     # enums
     export_enums.get_data_enums("item_types")
@@ -217,7 +204,7 @@ def run():
     export_enums.get_data_enums("tile_types")
 
 
-    export.export_constants(bytes_count, counts, bytes_count_map_sprites)
+    export.export_constants(bytes_count, counts, bytes_count_map_sprites, bytes_count_icons)
 
 
 run()

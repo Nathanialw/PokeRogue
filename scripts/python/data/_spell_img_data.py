@@ -65,12 +65,12 @@ Spells = [
     "RAISE_STRENGTH",
     "RAISE_TOXIC_RESIST",
     "RAISE_WATER_RESIST",
+    "RAISE_XP",
     "RAZOR_GRASS",
     "REFLECT",
     "REPEL",
     "RESTORE_MANA",
     "RESURRECT",
-    "RaiseXP",
     "SHADOWS",
     "SILENCE",
     "SLOW",
@@ -157,12 +157,12 @@ SpellsDict = [
    { "name": 'RAISE_STRENGTH', 'prompt': "RAISE_STRENGTH"},
    { "name": 'RAISE_TOXIC_RESIST', 'prompt': "RAISE_TOXIC_RESIST"},
    { "name": 'RAISE_WATER_RESIST', 'prompt': "RAISE_WATER_RESIST"},
+   { "name": 'RAISE_XP', 'prompt': "RAISE_XP"},
    { "name": 'RAZOR_GRASS', 'prompt': "A jagged swath of razor-sharp blades erupts from the ground, slicing through anything in their path."},
    { "name": 'REFLECT', 'prompt': "The silver mirror's surface ripples like water, capturing and reversing any hostile spell or projectile that strikes it."},
    { "name": 'REPEL', 'prompt': "A shimmering barrier of force erupts, pushing back all creatures and objects with a thunderous, invisible wave."},
    { "name": 'RESTORE_MANA', 'prompt': "RESTORE_MANA"},
    { "name": 'RESURRECT', 'prompt': "A radiant glow envelops the fallen warrior, their chest rising as life’s essence flows back into their motionless body."},
-   { "name": 'RaiseXP', 'prompt': "RaiseXP"},
    { "name": 'SHADOWS', 'prompt': "The shadows writhe into a living entity, forming spectral tendrils that lash out to ensnare foes in darkness."},
    { "name": 'SILENCE', 'prompt': "Whispers curl into the void as hands press against invisible lips, muffling all sound within the target's vicinity."},
    { "name": 'SLOW', 'prompt': "A creeping mist swallows the battlefield, freezing foes in place as time itself slows to a crawl."},
@@ -186,8 +186,8 @@ SpellsDict = [
 ]
 
 SPELLS_BASE_PROMPT = (
-    f"bold details, with divers colour palette, white background, "
-    "photo-realistic hi fidelity detailed, fantasy spell demonstration, subject fully visible, centered composition, isolated subject, single subject, no cropping, highly detailed dark fantasy, sharp focus, "
+    f"bold details, with a diverse colour palette, black background, "
+    "photo-realistic hi fidelity detailed, fantasy spell demonstration for a spell icon, subject clearly visible, centered composition, no cropping, highly detailed dark fantasy, sharp focus, "
 )
 
 LIGHTING_STYLES = [

@@ -7,3 +7,4 @@
 #include "lib_types.h"
 
 State SetInputState(InputState state);
+InputState GetInputState();

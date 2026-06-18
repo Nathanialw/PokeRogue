@@ -403,6 +403,9 @@ bool GenerateAndPlaceObject(HardwareInterface hardware, MemoryInterface memory, 
     ObjectData object_data = {0};
     Flash_GetObjectData(memory, &object_data, object_type);
 
+    if (!object_data.map_generatable)
+        return false;
+
     Position pos = {0};
     if (object_data.nook)
     {
@@ -412,10 +415,31 @@ bool GenerateAndPlaceObject(HardwareInterface hardware, MemoryInterface memory, 
     {
         pos = FindRandomHallPosition(hardware, OBJECT);
     }
-    else if (object_data.water)
+    else if (object_data.corner)
+    {
+        pos = FindRandomCornerPosition(hardware, OBJECT);
+    }
+    else if (object_data.against_wall)
     {
         // TODO handle water objects
         return false;
+    }
+    else if (object_data.room_center)
+    {
+        // TODO handle room center
+        return false;
+    }
+    else if (object_data.water)
+    {
+        pos = FindRandomWaterPosition(hardware, OBJECT);
+    }
+    else if (object_data.water_adjacent)
+    {
+        pos = FindRandomWaterAdjacentPosition(hardware, OBJECT);
+    }
+    else if (object_data.on_wall)
+    {
+        pos = FindRandomWallPosition(hardware, OBJECT);
     }
     else
     {
@@ -449,9 +473,10 @@ void PopulateLevelObjects(HardwareInterface hardware, MemoryInterface memory)
     GenerateAndPlaceObject(hardware, memory, EGRESS_STAIRS);
     GenerateAndPlaceObject(hardware, memory, ALTAR);
 
+
     //EGRESS_STAIRS and ALTAR are mandatory
     //loop starts at 2 after they are generated
-    for (uint8_t i = 2; i < MAX_ENTITY_OBJECT_COUNT; i++)
+    for (uint8_t i = 2; i < BASE_ENTITY_OBJECT_COUNT; i++)
     {
         Object object_type;
         while (1)
@@ -459,15 +484,16 @@ void PopulateLevelObjects(HardwareInterface hardware, MemoryInterface memory)
             object_type = hardware.GetRandom_uint8_t(0, OBJECT_COUNT - 1);
             if (object_type == EGRESS_STAIRS || object_type == ALTAR)
                 continue;
-            if ((object_type == EGRESS_LADDER && g_core.floor == 1))
+            if (((object_type == EGRESS_LADDER || object_type == EGRESS_ROPE) && g_core.floor == 1))
                 continue;
             break;
         }
 
         if (!GenerateAndPlaceObject(hardware, memory, object_type))
-            continue;
+            i--;
 
     }
+
 
 #endif
 
@@ -494,6 +520,10 @@ void GenerateEntities(GameInterface* spi)
         InitPlayer(spi->hardware, spi->memory);
         FindHallDeadEnds();
         FindHalls();
+        FindWalls();
+        FindCorners();
+        FindWater();
+        FindWaterAdjacent();
         PopulateLevelTrainers(spi->hardware, spi->memory);
         PopulateLevelCreatures(spi->hardware, spi->memory);
         PopulateLevelObjects(spi->hardware, spi->memory);

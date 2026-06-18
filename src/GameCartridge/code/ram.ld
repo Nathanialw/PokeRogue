@@ -76,7 +76,7 @@ SECTIONS
         . = ALIGN(4);
     }
 
-    .battle 0x20010000 : AT(0x100000)
+    .game_loss 0x20010000 : AT(0x100000)
     {
         KEEP(*(.game_loss_entry))
         KEEP(*(.game_loss.text))    /* code */

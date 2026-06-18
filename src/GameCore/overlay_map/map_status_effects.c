@@ -8,6 +8,7 @@
 #include "lib_memory.h"
 
 #include "core_ram.h"
+#include "core_stats.h"
 #include "core_utils.h"
 
 
@@ -103,11 +104,11 @@ uint8_t LineOfSightEffect(HardwareInterface hardware, uint8_t power, EntityId id
 SET_MEMORY(".map")
 uint8_t ParalyzedEffect(HardwareInterface hardware, uint8_t power, EntityId id)
 {
-    g_core.creatures.speed[id].negativeEffect = false;
+    if (power == 0) return 0;
     uint8_t chance = hardware.GetRandom_uint8_t(10, 100);
-    if (chance <= 10)
-        g_core.creatures.speed[id].negativeEffect = true;
-    return 0;
+    if (chance <= 25)
+        g_core.creatures.debuffs[id].paralyzed = DecrementStatusEffect(g_core.creatures.debuffs[id].paralyzed, id);
+    return g_core.creatures.debuffs[id].paralyzed;
 }
 
 /**********************************************************************************************************************
@@ -116,11 +117,11 @@ uint8_t ParalyzedEffect(HardwareInterface hardware, uint8_t power, EntityId id)
 SET_MEMORY(".map")
 uint8_t SleepEffect(HardwareInterface hardware, uint8_t power, EntityId id)
 {
-    g_core.creatures.speed[id].negativeEffect = false;
+    if (power == 0) return 0;
     uint8_t chance = hardware.GetRandom_uint8_t(10, 100);
-    if (chance <= 10)
-        g_core.creatures.speed[id].negativeEffect = true;
-    return 0;
+    if (chance <= 25)
+        g_core.creatures.debuffs[id].sleep = DecrementStatusEffect(g_core.creatures.debuffs[id].sleep, id);
+    return g_core.creatures.debuffs[id].sleep;
 }
 
 /**********************************************************************************************************************
@@ -129,8 +130,14 @@ uint8_t SleepEffect(HardwareInterface hardware, uint8_t power, EntityId id)
 SET_MEMORY(".map")
 uint8_t PoisonEffect(HardwareInterface hardware, uint8_t power, EntityId id)
 {
-    Int999ApplyValue(hardware, &g_core.creatures.hp[id], -power);
-    return 0;
+    if (power == 0) return 0;
+    uint8_t chance = hardware.GetRandom_uint8_t(10, 100);
+    if (chance <= 25)
+    {
+        Int999ApplyValue(hardware, &g_core.creatures.hp[id], -power);
+        g_core.creatures.debuffs[id].poison = DecrementStatusEffect(g_core.creatures.debuffs[id].poison, id);
+    }
+    return g_core.creatures.debuffs[id].poison;
 }
 
 /**********************************************************************************************************************
@@ -139,11 +146,13 @@ uint8_t PoisonEffect(HardwareInterface hardware, uint8_t power, EntityId id)
 SET_MEMORY(".map")
 uint8_t FrozenEffect(HardwareInterface hardware, uint8_t power, EntityId id)
 {
-    g_core.creatures.speed[id].negativeEffect = false;
+    if (power == 0) return 0;
     uint8_t chance = hardware.GetRandom_uint8_t(10, 100);
-    if (chance <= 10)
-        g_core.creatures.speed[id].negativeEffect = true;
-    return 0;
+    if (chance <= 25)
+    {
+        g_core.creatures.debuffs[id].frozen = DecrementStatusEffect(g_core.creatures.debuffs[id].frozen, id);
+    }
+    return g_core.creatures.debuffs[id].frozen;
 }
 
 /**********************************************************************************************************************
@@ -152,7 +161,14 @@ uint8_t FrozenEffect(HardwareInterface hardware, uint8_t power, EntityId id)
 SET_MEMORY(".map")
 uint8_t DiseaseEffect(HardwareInterface hardware, uint8_t power, EntityId id)
 {
-    return 0;
+    if (power == 0) return 0;
+    uint8_t chance = hardware.GetRandom_uint8_t(10, 100);
+    if (chance <= 25)
+    {
+        Int999ApplyValue(hardware, &g_core.creatures.hp[id], -power);
+        g_core.creatures.debuffs[id].disease = DecrementStatusEffect(g_core.creatures.debuffs[id].disease, id);
+    }
+    return g_core.creatures.debuffs[id].disease;
 }
 
 /**********************************************************************************************************************
@@ -161,8 +177,14 @@ uint8_t DiseaseEffect(HardwareInterface hardware, uint8_t power, EntityId id)
 SET_MEMORY(".map")
 uint8_t CurseEffect(HardwareInterface hardware, uint8_t power, EntityId id)
 {
-    Int999ApplyValue(hardware, &g_core.creatures.hp[id], -power);
-    return 0;
+    if (power == 0) return 0;
+    uint8_t chance = hardware.GetRandom_uint8_t(10, 100);
+    if (chance <= 25)
+    {
+        Int999ApplyValue(hardware, &g_core.creatures.hp[id], -power);
+        g_core.creatures.debuffs[id].curse = DecrementStatusEffect(g_core.creatures.debuffs[id].curse, id);
+    }
+    return g_core.creatures.debuffs[id].curse;
 }
 
 /**********************************************************************************************************************
@@ -171,7 +193,14 @@ uint8_t CurseEffect(HardwareInterface hardware, uint8_t power, EntityId id)
 SET_MEMORY(".map")
 uint8_t HastedEffect(HardwareInterface hardware, uint8_t power, EntityId id)
 {
-    return 0;
+    if (power == 0) return 0;
+    uint8_t chance = hardware.GetRandom_uint8_t(10, 100);
+    if (chance <= 25)
+    {
+        Int999ApplyValue(hardware, &g_core.creatures.hp[id], -power);
+        g_core.creatures.buffs[id].hasted = DecrementStatusEffect(g_core.creatures.buffs[id].hasted, id);
+    }
+    return g_core.creatures.buffs[id].hasted;
 }
 
 /**********************************************************************************************************************
@@ -180,11 +209,11 @@ uint8_t HastedEffect(HardwareInterface hardware, uint8_t power, EntityId id)
 SET_MEMORY(".map")
 uint8_t FearEffect(HardwareInterface hardware, uint8_t power, EntityId id)
 {
-    g_core.creatures.speed[id].negativeEffect = false;
+    if (power == 0) return 0;
     uint8_t chance = hardware.GetRandom_uint8_t(10, 100);
-    if (chance <= 10)
-        g_core.creatures.speed[id].negativeEffect = true;
-    return 0;
+    if (chance <= 25)
+        g_core.creatures.debuffs[id].fear = DecrementStatusEffect(g_core.creatures.debuffs[id].fear, id);
+    return g_core.creatures.debuffs[id].fear;
 }
 
 /**********************************************************************************************************************
@@ -193,8 +222,14 @@ uint8_t FearEffect(HardwareInterface hardware, uint8_t power, EntityId id)
 SET_MEMORY(".map")
 uint8_t BurnedEffect(HardwareInterface hardware, uint8_t power, EntityId id)
 {
-    Int999ApplyValue(hardware, &g_core.creatures.hp[id], -power);
-    return 0;
+    if (power == 0) return 0;
+    uint8_t chance = hardware.GetRandom_uint8_t(10, 100);
+    if (chance <= 25)
+    {
+        Int999ApplyValue(hardware, &g_core.creatures.hp[id], -power);
+        g_core.creatures.debuffs[id].burned = DecrementStatusEffect(g_core.creatures.debuffs[id].burned, id);
+    }
+    return g_core.creatures.debuffs[id].burned;
 }
 
 /**********************************************************************************************************************
@@ -212,35 +247,90 @@ uint8_t LightEffect(HardwareInterface hardware, uint8_t power, EntityId id)
 SET_MEMORY(".map")
 uint8_t SlowedEffect(HardwareInterface hardware, uint8_t power, EntityId id)
 {
-    g_core.creatures.speed[id].negativeEffect = false;
+    if (power == 0) return 0;
     uint8_t chance = hardware.GetRandom_uint8_t(10, 100);
-    if (chance <= 10)
-        g_core.creatures.speed[id].negativeEffect = true;
-    return 0;
+    if (chance <= 25)
+        g_core.creatures.debuffs[id].slowed = DecrementStatusEffect(g_core.creatures.debuffs[id].slowed, id);
+    return g_core.creatures.debuffs[id].slowed;
 }
 
+//
+// /**********************************************************************************************************************
+// *
+// **********************************************************************************************************************/
+SET_MEMORY(".map")
+void GetCreatureStatusEffectStateBuffs(uint8_t* buff_values, EntityId creature_id)
+{
+    for (uint8_t i = 0; i < MAX_MAX_STATUS_EFFECTS; i++)
+        buff_values[i] = 0;
+
+    buff_values[0] = g_core.creatures.buffs[creature_id].hasted;
+    buff_values[1] = g_core.creatures.buffs[creature_id].fire_eating;
+}
+
+//
+// /**********************************************************************************************************************
+// *
+// **********************************************************************************************************************/
+SET_MEMORY(".map")
+void GetCreatureStatusEffectStateDebuffs(uint8_t* buff_values, EntityId creature_id)
+{
+    for (uint8_t i = 0; i < MAX_MAX_STATUS_EFFECTS; i++)
+        buff_values[i] = 0;
+
+    buff_values[0] = g_core.creatures.debuffs[creature_id].paralyzed;
+    buff_values[1] = g_core.creatures.debuffs[creature_id].sleep;
+    buff_values[2] = g_core.creatures.debuffs[creature_id].poison;
+    buff_values[3] = g_core.creatures.debuffs[creature_id].frozen;
+    buff_values[4] = g_core.creatures.debuffs[creature_id].disease;
+    buff_values[5] = g_core.creatures.debuffs[creature_id].curse;
+    buff_values[6] = g_core.creatures.debuffs[creature_id].fear;
+    buff_values[8] = g_core.creatures.debuffs[creature_id].burned;
+    buff_values[9] = g_core.creatures.debuffs[creature_id].slowed;
+}
 
 /**********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-void UpdateStatusEffect(HardwareInterface hardware, uint8_t* status_effect, TurnEffect turnEffect)
+void UpdateStatusEffectCreatures(HardwareInterface hardware)
 {
-    for (uint8_t i = 0; i < MAX_ENTITY_CREATURE_COUNT >> 1; i++)
+    for (uint8_t i = 0; i < MAX_ENTITY_TRAINER_COUNT; i++)
     {
-        if (status_effect[i] == 0) continue;
-        uint8_t lower_unit = GetBottomByte(status_effect[i]);
-        if (lower_unit > 0)
-            turnEffect(hardware, lower_unit, i * 2);
-        lower_unit = UpdateStatus(hardware, lower_unit);
+        g_core.creatures.debuffs[i].paralyzed = ParalyzedEffect(hardware, g_core.creatures.debuffs[i].paralyzed, i);
+        g_core.creatures.debuffs[i].sleep = SleepEffect(hardware, g_core.creatures.debuffs[i].sleep, i);
+        g_core.creatures.debuffs[i].poison = PoisonEffect(hardware, g_core.creatures.debuffs[i].poison, i);
+        g_core.creatures.debuffs[i].frozen = FrozenEffect(hardware, g_core.creatures.debuffs[i].frozen, i);
+        g_core.creatures.debuffs[i].disease = DiseaseEffect(hardware, g_core.creatures.debuffs[i].disease, i);
+        g_core.creatures.debuffs[i].curse = CurseEffect(hardware, g_core.creatures.debuffs[i].curse, i);
+        g_core.creatures.debuffs[i].fear = FearEffect(hardware, g_core.creatures.debuffs[i].fear, i);
+        g_core.creatures.debuffs[i].burned = BurnedEffect(hardware, g_core.creatures.debuffs[i].burned, i);
+        g_core.creatures.debuffs[i].slowed = SlowedEffect(hardware, g_core.creatures.debuffs[i].slowed, i);
+    }
 
-        uint8_t upper_unit = GetTopByte(status_effect[i]);
-        if (upper_unit > 0)
-            turnEffect(hardware, upper_unit, (i * 2) + 1);
-        upper_unit = UpdateStatus(hardware, upper_unit);
+    for (uint8_t i = 0; i < MAX_ENTITY_TRAINER_COUNT; i++)
+    {
+        g_core.creatures.buffs[i].fire_eating = FireEatingEffect(hardware, g_core.creatures.buffs[i].fire_eating, i);
+        g_core.creatures.buffs[i].hasted = HastedEffect(hardware, g_core.creatures.buffs[i].hasted, i);
+    }
+}
 
-        //save updated effect
-        status_effect[i] = lower_unit | (upper_unit << 8);
+/**********************************************************************************************************************
+*
+**********************************************************************************************************************/
+SET_MEMORY(".map")
+void UpdateStatusEffectTrainers(HardwareInterface hardware)
+{
+    for (uint8_t i = 0; i < MAX_ENTITY_TRAINER_COUNT; i++)
+    {
+        g_core.trainers.buffs[i].hovering = HoveringEffect(hardware, g_core.trainers.buffs[i].hovering, i);
+        g_core.trainers.buffs[i].water_walk = WaterWalkEffect(hardware, g_core.trainers.buffs[i].water_walk, i);
+        g_core.trainers.buffs[i].water_breathing = WaterBreathingEffect(hardware, g_core.trainers.buffs[i].water_breathing, i);
+        g_core.trainers.buffs[i].repel = RepelEffect(hardware, g_core.trainers.buffs[i].repel, i);
+        g_core.trainers.buffs[i].invisibility = InvisibilityEffect(hardware, g_core.trainers.buffs[i].invisibility, i);
+        g_core.trainers.buffs[i].wall_walking = WallWalkingEffect(hardware, g_core.trainers.buffs[i].wall_walking, i);
+        g_core.trainers.buffs[i].line_of_sight = LineOfSightEffect(hardware, g_core.trainers.buffs[i].line_of_sight, i);
+        g_core.trainers.buffs[i].light = LightEffect(hardware, g_core.trainers.buffs[i].light, i);
     }
 }
 
@@ -248,23 +338,6 @@ void UpdateStatusEffect(HardwareInterface hardware, uint8_t* status_effect, Turn
 SET_MEMORY(".map")
 void UpdateObjectStatusEffects(HardwareInterface hardware)
 {
-    UpdateStatusEffect(hardware, g_core.creatures.status.hovering, HoveringEffect);
-    UpdateStatusEffect(hardware, g_core.creatures.status.waterWalk, WaterWalkEffect);
-    UpdateStatusEffect(hardware, g_core.creatures.status.waterBreathing, WaterBreathingEffect);
-    UpdateStatusEffect(hardware, g_core.creatures.status.repel, RepelEffect);
-    UpdateStatusEffect(hardware, g_core.creatures.status.invisibility, InvisibilityEffect);
-    UpdateStatusEffect(hardware, g_core.creatures.status.wallWalking, WallWalkingEffect);
-    UpdateStatusEffect(hardware, g_core.creatures.status.fireEating, FireEatingEffect);
-    UpdateStatusEffect(hardware, g_core.creatures.status.lineOfSight, LineOfSightEffect);
-    UpdateStatusEffect(hardware, g_core.creatures.status.paralyzed, ParalyzedEffect);
-    UpdateStatusEffect(hardware, g_core.creatures.status.sleep, SleepEffect);
-    UpdateStatusEffect(hardware, g_core.creatures.status.poison, PoisonEffect);
-    UpdateStatusEffect(hardware, g_core.creatures.status.frozen, FrozenEffect);
-    UpdateStatusEffect(hardware, g_core.creatures.status.disease, DiseaseEffect);
-    UpdateStatusEffect(hardware, g_core.creatures.status.curse, CurseEffect);
-    UpdateStatusEffect(hardware, g_core.creatures.status.hasted, HastedEffect);
-    UpdateStatusEffect(hardware, g_core.creatures.status.fear, FearEffect);
-    UpdateStatusEffect(hardware, g_core.creatures.status.burned, BurnedEffect);
-    UpdateStatusEffect(hardware, g_core.creatures.status.light, LightEffect);
-    UpdateStatusEffect(hardware, g_core.creatures.status.slowed, SlowedEffect);
+    UpdateStatusEffectCreatures(hardware);
+    UpdateStatusEffectTrainers(hardware);
 }

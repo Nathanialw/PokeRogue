@@ -159,3 +159,53 @@ void SetDefaultSkills(MemoryInterface memory, EntityId id, Type type)
         }
     }
 }
+
+
+/**********************************************************************************************************************
+*
+**********************************************************************************************************************/
+SET_MEMORY(".core")
+uint8_t GetStatusEffect(uint8_t* status_effect, EntityId creature_id)
+{
+    uint8_t index = creature_id % 2;
+    index += creature_id / 2;
+    uint8_t value = status_effect[index];
+    return value;
+}
+
+/**********************************************************************************************************************
+*
+**********************************************************************************************************************/
+SET_MEMORY(".core")
+uint8_t SetStatusEffect(uint8_t* status_effect, EntityId creature_id, uint8_t value)
+{
+    if (value > MAX_STATUS_VALUE) value = MAX_STATUS_VALUE;
+    uint8_t index = creature_id % 2;
+    index += creature_id / 2;
+    status_effect[index] = value;
+    return value;
+}
+
+/**********************************************************************************************************************
+*
+**********************************************************************************************************************/
+SET_MEMORY(".core")
+uint8_t IncrementStatusEffect(uint8_t status_value, EntityId creature_id)
+{
+    if (status_value < (MAX_STATUS_VALUE - 1))
+        status_value++;
+
+    return status_value;
+}
+
+/**********************************************************************************************************************
+*
+**********************************************************************************************************************/
+SET_MEMORY(".core")
+uint8_t DecrementStatusEffect(uint8_t status_value, EntityId creature_id)
+{
+    if (status_value > 0)
+        status_value--;
+
+    return status_value;
+}

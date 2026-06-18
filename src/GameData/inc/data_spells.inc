@@ -139,18 +139,18 @@
 { .power = 0x0a, .level = 0x01, .data = 0xc5, .flags = 0b00000000  },
 // 60 - RAISE_WATER_RESIST -> .power = 10 .level = 1 .type = PLANT .pp = 5 .flags = { . use_on_party_member = 0 }
 { .power = 0x0a, .level = 0x01, .data = 0x05, .flags = 0b00000000  },
-// 61 - RAZOR_GRASS -> .power = 10 .level = 1 .type = PLANT .pp = 5 .flags = { . use_on_party_member = 0 }
-{ .power = 0x0a, .level = 0x01, .data = 0x05, .flags = 0b00000100  },
-// 62 - REFLECT -> .power = 1 .level = 1 .type = AQUATIC .pp = 5 .flags = { . use_on_party_member = 1 }
-{ .power = 0x01, .level = 0x01, .data = 0x35, .flags = 0b00000001  },
-// 63 - REPEL -> .power = 10 .level = 1 .type = DEMIGOD .pp = 5 .flags = { . use_on_party_member = 0 }
-{ .power = 0x0a, .level = 0x01, .data = 0x95, .flags = 0b00000000  },
-// 64 - RESTORE_MANA -> .power = 20 .level = 1 .type = FEY .pp = 5 .flags = { . use_on_party_member = 1 }
-{ .power = 0x14, .level = 0x01, .data = 0x85, .flags = 0b00000001  },
-// 65 - RESURRECT -> .power = 10 .level = 1 .type = DEMIGOD .pp = 5 .flags = { . use_on_party_member = 0 }
-{ .power = 0x0a, .level = 0x01, .data = 0x95, .flags = 0b00000000  },
-// 66 - RaiseXP -> .power = 100 .level = 1 .type = ANCIENT .pp = 5 .flags = { . use_on_party_member = 1 }
+// 61 - RAISE_XP -> .power = 100 .level = 1 .type = ANCIENT .pp = 5 .flags = { . use_on_party_member = 1 }
 { .power = 0x64, .level = 0x01, .data = 0xb5, .flags = 0b00000001  },
+// 62 - RAZOR_GRASS -> .power = 10 .level = 1 .type = PLANT .pp = 5 .flags = { . use_on_party_member = 0 }
+{ .power = 0x0a, .level = 0x01, .data = 0x05, .flags = 0b00000100  },
+// 63 - REFLECT -> .power = 1 .level = 1 .type = AQUATIC .pp = 5 .flags = { . use_on_party_member = 1 }
+{ .power = 0x01, .level = 0x01, .data = 0x35, .flags = 0b00000001  },
+// 64 - REPEL -> .power = 10 .level = 1 .type = DEMIGOD .pp = 5 .flags = { . use_on_party_member = 0 }
+{ .power = 0x0a, .level = 0x01, .data = 0x95, .flags = 0b00000000  },
+// 65 - RESTORE_MANA -> .power = 20 .level = 1 .type = FEY .pp = 5 .flags = { . use_on_party_member = 1 }
+{ .power = 0x14, .level = 0x01, .data = 0x85, .flags = 0b00000001  },
+// 66 - RESURRECT -> .power = 10 .level = 1 .type = DEMIGOD .pp = 5 .flags = { . use_on_party_member = 0 }
+{ .power = 0x0a, .level = 0x01, .data = 0x95, .flags = 0b00000000  },
 // 67 - SHADOWS -> .power = 1 .level = 1 .type = DEMONIC .pp = 5 .flags = { . use_on_party_member = 1 }
 { .power = 0x01, .level = 0x01, .data = 0xd5, .flags = 0b00000001  },
 // 68 - SILENCE -> .power = 1 .level = 1 .type = AQUATIC .pp = 5 .flags = { . use_on_party_member = 1 }

@@ -98,6 +98,7 @@ _Static_assert(OBJECT_COUNT <= 256, "max must be 256 - one byte");
 #else
 #define MAX_ENTITY_ITEM_COUNT 254
 #define MAX_ENTITY_OBJECT_COUNT 254
+#define BASE_ENTITY_OBJECT_COUNT MAP_H //object count scales with map size
 #define MAX_ENTITY_CREATURE_COUNT 32
 #define MAX_ENTITY_TRAINER_COUNT 4
 #endif
@@ -114,6 +115,9 @@ _Static_assert(OBJECT_COUNT <= 256, "max must be 256 - one byte");
 
 #define MAX_CREATURE_LEVEL 99
 
+#define MAX_PP 16
+#define MAX_STATUS_VALUE 16
+#define MAX_MAX_STATUS_EFFECTS 16
 
 /**********************************************************************************************************************/
 /** Player Defaults
@@ -246,6 +250,9 @@ _Static_assert(DIALOGUE_H + RESOURCE_FRAME_H + BATTLER_AREA_H <= TFT_H, "cannot 
 #define COMBAT_LOG_SIZE 255
 #define COMBAT_LOG_LINES 8
 
+#define ICON_W 80
+#define ICON_H 80
+#define ICON_PIXELS (ICON_W * ICON_H)
 /**********************************************************************************************************************/
 /**STAT MODIFIERS cosntants
 **********************************************************************************************************************/

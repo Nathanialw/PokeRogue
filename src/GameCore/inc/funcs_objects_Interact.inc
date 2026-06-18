@@ -1,5 +1,5 @@
 // Generated object name strings
-// Database contains 107 total entries
+// Database contains 106 total entries
 
 // Individual items strings
 InteractAltar,
@@ -86,7 +86,6 @@ InteractStill,
 InteractSundial,
 InteractTortureCuckingStool,
 InteractTortureRack,
-InteractScoldsBridle,
 InteractTortureStocks,
 InteractTortureStrappado,
 InteractTortureWhippingPost,
@@ -110,4 +109,4 @@ InteractWell,
 InteractWellAncient,
 InteractWickerMan,
 
-//ALL_NAMES_COUNT = 107;
+//ALL_NAMES_COUNT = 106;

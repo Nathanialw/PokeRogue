@@ -451,7 +451,8 @@ SET_MEMORY(".core")
 ActionOutcome UseMapWhip(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
     if (user_id == NO_ENTITY) return ACTION_CANNOT;
-    return RaiseStrength(target_id, (int16_t)itemData.power);
+    RaiseLoyalty(target_id, itemData.power);
+    return RaiseSpeed(target_id, (int16_t)itemData.power);
 }
 
 /**********************************************************************************************************************/
@@ -726,4 +727,24 @@ SET_MEMORY(".core")
 ActionOutcome UseMapRosarie(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
     return ACTION_FAILED;
+}
+
+
+/**********************************************************************************************************************
+*  TODO
+**********************************************************************************************************************/
+SET_MEMORY(".map")
+ActionOutcome UseScoldsBridle(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
+{
+    RaiseLoyalty(target_id, itemData.power);
+    return ACTION_SUCCEEDED;
+}
+/**********************************************************************************************************************
+*  TODO
+**********************************************************************************************************************/
+SET_MEMORY(".map")
+ActionOutcome UseBrandingIron(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
+{
+    RaiseLoyalty(target_id, itemData.power);
+    return ACTION_SUCCEEDED;
 }

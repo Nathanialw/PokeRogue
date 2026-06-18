@@ -140,29 +140,8 @@ typedef struct
         BitFieldUint8 onMap;
         BitFieldUint8 active;
 
-        struct
-        {
-            uint8_t hovering[MAX_ENTITY_CREATURE_COUNT / 2];
-            uint8_t waterWalk[MAX_ENTITY_CREATURE_COUNT / 2];
-            uint8_t waterBreathing[MAX_ENTITY_CREATURE_COUNT / 2];
-            uint8_t repel[MAX_ENTITY_CREATURE_COUNT / 2];
-            uint8_t invisibility[MAX_ENTITY_CREATURE_COUNT / 2];
-            uint8_t wallWalking[MAX_ENTITY_CREATURE_COUNT / 2];
-            uint8_t fireEating[MAX_ENTITY_CREATURE_COUNT / 2];
-            uint8_t lineOfSight[MAX_ENTITY_CREATURE_COUNT]; // controls whether terrain blocks L/2oS
-            uint8_t paralyzed[MAX_ENTITY_CREATURE_COUNT / 2];
-            uint8_t sleep[MAX_ENTITY_CREATURE_COUNT / 2];
-            uint8_t poison[MAX_ENTITY_CREATURE_COUNT / 2];
-            uint8_t frozen[MAX_ENTITY_CREATURE_COUNT / 2];
-            uint8_t disease[MAX_ENTITY_CREATURE_COUNT / 2];
-            uint8_t curse[MAX_ENTITY_CREATURE_COUNT / 2];
-            uint8_t hasted[MAX_ENTITY_CREATURE_COUNT / 2];
-            uint8_t fear[MAX_ENTITY_CREATURE_COUNT / 2];
-            uint8_t burned[MAX_ENTITY_CREATURE_COUNT / 2];
-            uint8_t light[MAX_ENTITY_CREATURE_COUNT / 2];
-            uint8_t slowed[MAX_ENTITY_CREATURE_COUNT / 2];
-        } status;
-
+        CreatureBuffs buffs[MAX_ENTITY_CREATURE_COUNT];
+        CreatureDebuffs debuffs[MAX_ENTITY_CREATURE_COUNT];
         BitFieldUint8 alive;
 
         Absorb absorb[MAX_ENTITY_CREATURE_COUNT];
@@ -181,13 +160,13 @@ typedef struct
 
     struct
     {
+        TrainerBuffs buffs[MAX_ENTITY_TRAINER_COUNT];
+
         uint16_t total;
         EntityId partyID[MAX_ENTITY_TRAINER_COUNT][MAX_PARTY_SIZE];
         EntityId itemID[MAX_ENTITY_TRAINER_COUNT][MAX_BAG_SIZE];
         BagData bag[MAX_ENTITY_TRAINER_COUNT];
-        // uint8_t spellID[MAX_ENTITY_TRAINER_COUNT][MAX_SPELLBOOK_SIZE];
         SpellBook spellbook[MAX_ENTITY_TRAINER_COUNT];
-        // SpellPage spellPage[MAX_ENTITY_TRAINER_COUNT][MAX_SPELLBOOK_SIZE];
 
         Position position[MAX_ENTITY_TRAINER_COUNT];
         Position newPosition[MAX_ENTITY_TRAINER_COUNT]; // can be changed to hold delta, a uint8_t can hold up to 2
@@ -252,6 +231,7 @@ typedef struct
         uint16_t x_offset;
         SubMenu* subMenus;
         uint16_t menuSleepTime;
+        ObjectsTypes entity_list_type;
 
         struct
         {
@@ -283,9 +263,6 @@ extern const ItemEffect itemFunctions[ITEM_COUNT];
 
 
 void GameRun_Reset(void); // call at new game / death
-
-
-
 
 
 uint8_t GetCreatureSoundId(uint8_t creature_id);

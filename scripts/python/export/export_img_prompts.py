@@ -14,8 +14,8 @@ def generate_data_from_db(entity):
         'environment_object': "photo-realistic hi fidelity detailed, fantasy environment_object, subject fully visible, centered composition, isolated subject, single subject, no cropping, highly detailed dark fantasy, sharp focus, ",
         'item': "photo-realistic hi fidelity detailed, fantasy item, item fully visible, centered composition, isolated item, single subject, no cropping, highly detailed dark fantasy, sharp focus, ",
         'object': "photo-realistic hi fidelity detailed, fantasy object, object fully visible, centered composition, isolated subject, single object, no cropping, highly detailed dark fantasy, sharp focus, ",
-        'spell': "photo-realistic hi fidelity detailed, fantasy spell demonstration, subject fully visible, centered composition, isolated subject, single subject, no cropping, highly detailed dark fantasy, sharp focus, ",
-        'skill': "photo-realistic hi fidelity detailed, fantasy skill demonstration, subject fully visible, centered composition, isolated subject, single subject, no cropping, highly detailed dark fantasy, sharp focus, ",
+        'spell': "photo-realistic hi fidelity detailed, fantasy spell demonstration for a spell icon, subject clearly visible, centered composition, no cropping, highly detailed dark fantasy, sharp focus, ",
+        'skill': "photo-realistic hi fidelity detailed, fantasy skill demonstration for a skill icon, subject clearly visible, centered composition, no cropping, highly detailed dark fantasy, sharp focus, ",
         'trainer': "photo-realistic hi fantasy character, wearing nice clothes, tasteful nudity, nude girl or nude trans-woman, body fully visible, centered composition, isolated subject, single subject, no cropping, highly detailed fantasy, sharp focus, ",
     }
 
@@ -74,7 +74,7 @@ def generate_data_from_db(entity):
 
         f.write(f'''
 {upper(entity_type)}_BASE_PROMPT = (
-    f"bold details, with divers colour palette, white background, "
+    f"bold details, with a diverse colour palette, black background, "
     \"{start_prompt[entity]}\"
 )
 

@@ -16,8 +16,8 @@ RamState g_ramState =
     .running = true,
 
 
-    .volume_effects = 25,
-    .volume_music = 10,
+    .volume_effects = 5,
+    .volume_music = 1,
 };
 
 

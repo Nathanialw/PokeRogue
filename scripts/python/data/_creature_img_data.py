@@ -812,7 +812,7 @@ CreaturesDict = [
 ]
 
 CREATURES_BASE_PROMPT = (
-    f"bold details, with divers colour palette, white background, "
+    f"bold details, with a diverse colour palette, black background, "
     "fantasy creature, tasteful nudity, nude female or nude trans-woman, creature fully visible, creature composition, isolated subject, single creature, no cropping, highly detailed dark fantasy, sharp focus, "
 )
 

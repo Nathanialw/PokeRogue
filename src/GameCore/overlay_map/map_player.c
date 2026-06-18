@@ -63,20 +63,20 @@ Delta SetPlayerDelta(Delta newDelta)
 *  interact with object in player's cell
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-void PlayerInteractItemInCell()
+bool PlayerInteractItemInCell()
 {
     Position pos = GetPlayerPosition();
     EntityId item_id = CheckTileForEntity(ITEM, g_core.player.id, pos);
-    PickItem(GetPlayerID(), item_id);
+    return PickItem(GetPlayerID(), item_id);
 }
 
 SET_MEMORY(".map")
-void PlayerInteractObjectInCell(MemoryInterface memory, HardwareInterface hardware)
+ActionOutcome PlayerInteractObjectInCell(MemoryInterface memory, HardwareInterface hardware)
 {
     Position pos = GetPlayerPosition();
     EntityId object_id = CheckTileForEntity(OBJECT, g_core.player.id, pos);
     EntityId player_id = GetPlayerID();
-    InteractObject(memory, hardware, object_id, player_id, TRAINER);
+    return InteractObject(memory, hardware, object_id, player_id, TRAINER);
 }
 
 

@@ -19,8 +19,6 @@ void Flash_GetObjectData(MemoryInterface memory, ObjectData* object_data, uint8_
 
 
 //GRAPHICS
-void Flash_GetSpriteLayout(MemoryInterface memory, SpriteLayout* spriteLayout, uint8_t index, ObjectsTypes type, bool front);
-void Flash_GetSprite(MemoryInterface memory, uint8_t* sprite, uint32_t index, uint16_t length, ObjectsTypes type, bool front);
 void Flash_GetSpriteLayout_64(MemoryInterface memory, SpriteLayout* spriteLayout, uint8_t index, ObjectsTypes type, bool front);
 void Flash_GetSprite_64(MemoryInterface memory, uint8_t* sprite, uint32_t index, uint16_t length, ObjectsTypes type, bool front);
 
@@ -51,4 +49,4 @@ Creature Flash_GetBiomeCreature(MemoryInterface memory, uint8_t biome, Creature 
 Creature Flash_GetThemeCreature(MemoryInterface memory, uint8_t theme, Creature index);
 
 
-void Flash_GetTextByIndex(MemoryInterface memory, char* text, uint8_t index, uint8_t null_position);
+void Flash_GetTextByIndex(MemoryInterface memory, char* text, uint8_t index, uint8_t null_position, uint8_t col);

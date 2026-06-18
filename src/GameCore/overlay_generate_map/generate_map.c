@@ -10,6 +10,7 @@
 
 #include "core_map.h"
 #include "core_ram.h"
+#include "lib_debugging.h"
 
 /**********************************************************************************************************************/
 /** Runs All game init functions in order
@@ -96,6 +97,10 @@ Position FindOpenRoomLocation(HardwareInterface hardware, ObjectsTypes type, uin
 
 #define MAX_HALLS 1000
 #define MAX_NOOKS 100
+#define MAX_WALLS 2000
+#define MAX_CORNERS 3000
+#define MAX_WATER 1000
+#define MAX_WATER_ADJACENT 1000
 
 SET_MEMORY(".map_gen.data")
 Position hallPositions[MAX_HALLS];\
@@ -106,6 +111,26 @@ SET_MEMORY(".map_gen.data")
 Position nookPositions[MAX_NOOKS];\
 SET_MEMORY(".map_gen.data")
 uint16_t nookCount = 0;
+
+SET_MEMORY(".map_gen.data")
+Position wallPositions[MAX_WALLS];\
+SET_MEMORY(".map_gen.data")
+uint16_t wallCount = 0;
+
+SET_MEMORY(".map_gen.data")
+Position cornerPositions[MAX_CORNERS];
+SET_MEMORY(".map_gen.data")
+uint16_t cornerCount = 0;
+
+SET_MEMORY(".map_gen.data")
+Position waterPositions[MAX_WATER];
+SET_MEMORY(".map_gen.data")
+uint16_t waterCount = 0;
+
+SET_MEMORY(".map_gen.data")
+Position waterAdjacentPositions[MAX_WATER_ADJACENT];
+SET_MEMORY(".map_gen.data")
+uint16_t waterAdjacentCount = 0;
 
 SET_MEMORY(".map_gen")
 void FindHallDeadEnds()
@@ -128,33 +153,18 @@ void FindHallDeadEnds()
                 if (adj_count == 3)
                 {
                     hallPositions[hallCount++] = (Position){x, y};
-                    if (hallCount == MAX_HALLS) return;
+                    if (hallCount == MAX_NOOKS) return;
                 }
             }
         }
     }
+    DEBUG("%d nook tiles found", nookCount);
 }
 
-SET_MEMORY(".map_gen")
-Position FindRandomNookPosition(HardwareInterface hardware, ObjectsTypes type)
-{
-    uint8_t attempts = 100;
-    while (attempts--)
-    {
-        uint16_t index = hardware.GetRandom_uint8_t(0, MAX_NOOKS);
-        Position position = nookPositions[index];
-
-        if (CheckTileForEntity(type, NO_ENTITY, position) == NO_ENTITY)
-            return position;
-    }
-    return (Position){0, 0};
-}
 
 SET_MEMORY(".map_gen")
 void FindHalls()
 {
-    hallCount = 0;
-
     for (uint16_t y = 0; y < MAP_H; y++)
     {
         for (uint16_t x = 0; x < MAP_W; x++)
@@ -189,23 +199,207 @@ void FindHalls()
             }
         }
     }
+    DEBUG("%d hall tiles found", hallCount);
 }
 
 
 SET_MEMORY(".map_gen")
-Position FindRandomHallPosition(HardwareInterface hardware, ObjectsTypes type)
+void FindWalls()
+{
+    for (uint16_t y = 0; y < MAP_H; y++)
+    {
+        for (uint16_t x = 0; x < MAP_W; x++)
+        {
+            uint8_t tile = GetMapTile(x, y);
+            if (tile == WALL_STONE)
+            {
+                //check horizontal
+                uint8_t adj_count = 0;
+                if (x > 0 && GetMapTile(x - 1, y) == FLOOR_DIRT) adj_count++;
+                if (x < MAP_W - 1 && GetMapTile(x + 1, y) == FLOOR_DIRT) adj_count++;
+                if (y > 0 && GetMapTile(x, y - 1) == FLOOR_DIRT) adj_count++;
+                if (y < MAP_H - 1 && GetMapTile(x, y + 1) == FLOOR_DIRT) adj_count++;
+                if (adj_count == 1)
+                {
+                    wallPositions[wallCount++] = (Position){x, y};
+                    if (wallCount == MAX_WALLS) return;
+                }
+            }
+        }
+    }
+    DEBUG("%d wall tiles found", wallCount);
+}
+
+
+SET_MEMORY(".map_gen")
+void FindCorners()
+{
+    for (uint16_t y = 0; y < MAP_H; y++)
+    {
+        for (uint16_t x = 0; x < MAP_W; x++)
+        {
+            uint8_t tile = GetMapTile(x, y);
+            if (tile == FLOOR_DIRT)
+            {
+                //right and top
+                uint8_t adj_count = 0;
+                if (x > 0 && GetMapTile(x - 1, y) == WALL_STONE) adj_count++;
+                if (x < MAP_W - 1 && GetMapTile(x + 1, y) == FLOOR_DIRT) adj_count++;
+                if (y > 0 && GetMapTile(x, y - 1) == FLOOR_DIRT) adj_count++;
+                if (y < MAP_H - 1 && GetMapTile(x, y + 1) == WALL_STONE) adj_count++;
+                if (adj_count == 2)
+                {
+                    cornerPositions[cornerCount++] = (Position){x, y};
+                    if (cornerCount == MAX_CORNERS) return;
+                    continue;
+                }
+
+                //top and left
+                adj_count = 0;
+                if (x > 0 && GetMapTile(x - 1, y) == FLOOR_DIRT) adj_count++;
+                if (x < MAP_W - 1 && GetMapTile(x + 1, y) == WALL_STONE) adj_count++;
+                if (y > 0 && GetMapTile(x, y - 1) == FLOOR_DIRT) adj_count++;
+                if (y < MAP_H - 1 && GetMapTile(x, y + 1) == WALL_STONE) adj_count++;
+                if (adj_count == 2)
+                {
+                    cornerPositions[cornerCount++] = (Position){x, y};
+                    if (cornerCount == MAX_CORNERS) return;
+                    continue;
+                }
+
+                //left and bottom
+                adj_count = 0;
+                if (x > 0 && GetMapTile(x - 1, y) == FLOOR_DIRT) adj_count++;
+                if (x < MAP_W - 1 && GetMapTile(x + 1, y) == WALL_STONE) adj_count++;
+                if (y > 0 && GetMapTile(x, y - 1) == WALL_STONE) adj_count++;
+                if (y < MAP_H - 1 && GetMapTile(x, y + 1) == FLOOR_DIRT) adj_count++;
+                if (adj_count == 2)
+                {
+                    cornerPositions[cornerCount++] = (Position){x, y};
+                    if (cornerCount == MAX_CORNERS) return;
+                    continue;
+                }
+
+                //bottom and right
+                adj_count = 0;
+                if (x > 0 && GetMapTile(x - 1, y) == WALL_STONE) adj_count++;
+                if (x < MAP_W - 1 && GetMapTile(x + 1, y) == FLOOR_DIRT) adj_count++;
+                if (y > 0 && GetMapTile(x, y - 1) == WALL_STONE) adj_count++;
+                if (y < MAP_H - 1 && GetMapTile(x, y + 1) == FLOOR_DIRT) adj_count++;
+                if (adj_count == 2)
+                {
+                    cornerPositions[cornerCount++] = (Position){x, y};
+                    if (cornerCount == MAX_CORNERS) return;
+                }
+            }
+        }
+    }
+    DEBUG("%d corner tiles found", cornerCount);
+}
+
+SET_MEMORY(".map_gen")
+void FindWater()
+{
+    for (uint16_t y = 0; y < MAP_H; y++)
+    {
+        for (uint16_t x = 0; x < MAP_W; x++)
+        {
+            uint8_t tile = GetMapTile(x, y);
+            if (tile == WATER)
+            {
+                //check horizontal
+                waterPositions[waterCount++] = (Position){x, y};
+                if (waterCount == MAX_WATER) return;
+            }
+        }
+    }
+    DEBUG("%d water tiles found", waterCount);
+}
+
+
+SET_MEMORY(".map_gen")
+void FindWaterAdjacent()
+{
+    for (uint16_t y = 0; y < MAP_H; y++)
+    {
+        for (uint16_t x = 0; x < MAP_W; x++)
+        {
+            uint8_t tile = GetMapTile(x, y);
+            if (tile == FLOOR_DIRT)
+            {
+                //check horizontal
+                uint8_t adj_count = 0;
+                if (x > 0 && GetMapTile(x - 1, y) == FLUID_WATER) adj_count++;
+                if (x < MAP_W - 1 && GetMapTile(x + 1, y) == FLUID_WATER) adj_count++;
+                if (y > 0 && GetMapTile(x, y - 1) == FLUID_WATER) adj_count++;
+                if (y < MAP_H - 1 && GetMapTile(x, y + 1) == FLUID_WATER) adj_count++;
+                if (adj_count >= 1)
+                {
+                    waterAdjacentPositions[waterAdjacentCount++] = (Position){x, y};
+                    if (waterAdjacentCount == MAX_WATER_ADJACENT) return;
+                }
+            }
+        }
+    }
+    DEBUG("%d water adjacent tiles found", waterAdjacentCount);
+}
+
+/**********************************************************************************************************************/
+/*
+ *
+**********************************************************************************************************************/
+
+SET_MEMORY(".map_gen")
+Position FindRandomType(HardwareInterface hardware, ObjectsTypes type, Position* positions, uint16_t size)
 {
     uint8_t attempts = 100;
     while (attempts--)
     {
-        uint16_t index = hardware.GetRandom_uint16_t(0, MAX_HALLS);
-        Position position = hallPositions[index];
+        uint16_t index = hardware.GetRandom_uint16_t(0, size);
+        Position position = positions[index];
 
         if (CheckTileForEntity(type, NO_ENTITY, position) == NO_ENTITY)
             return position;
     }
     return (Position){0, 0};
 }
+
+SET_MEMORY(".map_gen")
+Position FindRandomHallPosition(HardwareInterface hardware, ObjectsTypes type)
+{
+    return FindRandomType(hardware, type, hallPositions, hallCount);
+}
+
+SET_MEMORY(".map_gen")
+Position FindRandomNookPosition(HardwareInterface hardware, ObjectsTypes type)
+{
+    return FindRandomType(hardware, type, nookPositions, nookCount);
+}
+
+SET_MEMORY(".map_gen")
+Position FindRandomWallPosition(HardwareInterface hardware, ObjectsTypes type)
+{
+    return FindRandomType(hardware, type, wallPositions, wallCount);
+}
+
+SET_MEMORY(".map_gen")
+Position FindRandomCornerPosition(HardwareInterface hardware, ObjectsTypes type)
+{
+    return FindRandomType(hardware, type, cornerPositions, cornerCount);
+}
+
+SET_MEMORY(".map_gen")
+Position FindRandomWaterPosition(HardwareInterface hardware, ObjectsTypes type)
+{
+    return FindRandomType(hardware, type, waterPositions, waterCount);
+}
+
+SET_MEMORY(".map_gen")
+Position FindRandomWaterAdjacentPosition(HardwareInterface hardware, ObjectsTypes type)
+{
+    return FindRandomType(hardware, type, waterAdjacentPositions, waterAdjacentCount);
+}
+
 
 
 /**********************************************************************************************************************/

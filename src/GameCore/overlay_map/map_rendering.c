@@ -136,7 +136,7 @@ void MarkVisibilityRay(uint8_t x0, uint8_t y0, uint8_t x1, uint8_t y1, Camera c)
                 g_map.view.vision[sy_screen][sx_screen] = 1;
             }
             g_core.fog[cy][cx] = 1;
-            if (!g_core.creatures.status.lineOfSight[GetPlayerID()])
+            if (!g_core.trainers.buffs[GetPlayerID()].line_of_sight)
                 break; // vision ends here
         }
     }

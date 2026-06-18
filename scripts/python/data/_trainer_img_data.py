@@ -210,7 +210,7 @@ TrainersDict = [
 ]
 
 TRAINERS_BASE_PROMPT = (
-    f"bold details, with divers colour palette, white background, "
+    f"bold details, with a diverse colour palette, black background, "
     "photo-realistic hi fantasy character, wearing nice clothes, tasteful nudity, nude girl or nude trans-woman, body fully visible, centered composition, isolated subject, single subject, no cropping, highly detailed fantasy, sharp focus, "
 )
 

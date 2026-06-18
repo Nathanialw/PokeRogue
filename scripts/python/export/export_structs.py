@@ -2,7 +2,7 @@ from python.data import db_manager
 from python.config import constants
 
 
-def make_flags(flag0=0, flag1=0, flag2=0, flag3=0, flag4=0, flag5=0, flag6=0, flag7=0, ):
+def make_flags8(flag0=0, flag1=0, flag2=0, flag3=0, flag4=0, flag5=0, flag6=0, flag7=0, ):
     """Pack up to 8 boolean flags into a single integer bitmask."""
 
     def bit(value, shift):
@@ -10,6 +10,22 @@ def make_flags(flag0=0, flag1=0, flag2=0, flag3=0, flag4=0, flag5=0, flag6=0, fl
         return (1 if value else 0) << shift
 
     return bit(flag0, 0) | bit(flag1, 1) | bit(flag2, 2) | bit(flag3, 3) | bit(flag4, 4) | bit(flag5, 5) | bit(flag6, 6) | bit(flag7, 7)
+
+
+def make_flags16(flag0=0, flag1=0, flag2=0, flag3=0,
+                 flag4=0, flag5=0, flag6=0, flag7=0,
+                 flag8=0, flag9=0, flag10=0, flag11=0,
+                 flag12=0, flag13=0, flag14=0, flag15=0):
+    """Pack up to 16 boolean flags into a single 16-bit integer bitmask."""
+
+    def bit(value, shift):
+        # Truthy → 1, Falsy (including None) → 0
+        return (1 if value else 0) << shift
+
+    return (bit(flag0, 0) | bit(flag1, 1) | bit(flag2, 2) | bit(flag3, 3) |
+            bit(flag4, 4) | bit(flag5, 5) | bit(flag6, 6) | bit(flag7, 7) |
+            bit(flag8, 8) | bit(flag9, 9) | bit(flag10, 10) | bit(flag11, 11) |
+            bit(flag12, 12) | bit(flag13, 13) | bit(flag14, 14) | bit(flag15, 15))
 
 
 def creatures_skills(entity):
@@ -99,7 +115,7 @@ def spells(entity):
             data_value = (int(type_enum) << 4) | int(pp)
             data_str = f"0x{data_value:02x}"
 
-            flags = make_flags(use_on_party_member, use_on_enemy, use_on_trainer)
+            flags = make_flags8(use_on_party_member, use_on_enemy, use_on_trainer)
             flags_str = f"0b{flags:08b}"
 
             f.write(f"// {i} - {name} -> .power = {power} .level = {level} .type = {type_0} .pp = {pp} .flags = {{ . use_on_party_member = {use_on_party_member} }}\n")
@@ -204,7 +220,7 @@ def items(entity):
             data_value = (int(type_enum) << 4) | int(item_level)
             data_str = f"0x{data_value:02x}"
 
-            flags = make_flags(consumable, consumable_party, consumable_spellbook)
+            flags = make_flags8(consumable, consumable_party, consumable_spellbook)
             flags_str = f"0b{flags:08b}"
 
             f.write(f"// {i} - name - .power = {power}, .item_level = {item_level}, .item_type = {item_type},  flags = {{ .consumable = {consumable}, .consumable_party = {consumable_party}, .consumable_spellbook = {consumable_spellbook} }} \n")
@@ -246,14 +262,14 @@ def objects(entity):
         f.write(f"// Database contains {len(object_data)} total {entity}s\n\n")
 
         # Write individual constants
-        f.write(f"//       8 bits - .power = {{ 8 bits }} \n")
-        f.write(f"//    2x 4 bits - .data  = {{ .object_type = {{ 4 bits }}, .level = {{ 4 bits }} }}\n")
-        f.write(f"//       8 bits - .flags = {{ pad1, pad0, .water, .nook,  .hallway, .on_step, .interactable, .consumable  }}\n\n")
-        f.write(f"// total 3 bytes\n")
+        f.write(f"//       8  bits - .power = {{ 8 bits }} \n")
+        f.write(f"//    2x 4  bits - .data  = {{ .object_type = {{ 4 bits }}, .level = {{ 4 bits }} }}\n")
+        f.write(f"//       16 bits - .flags = {{ _pad0, _pad1, consumable_spellbook, consumable_party, room_center, against_wall, on_wall, corner, water_adjacent, map_generatable, .water, .nook,  .hallway, .on_step, .interactable, .consumable, consumable_party, consumable_spellbook  }}\n\n")
+        f.write(f"// total 4 bytes\n")
 
         f.write(f"// Individual {entity}s data - count = {len(object_data)}\n")
 
-        for i, (name, power, object_type, level, consumable, interactable, on_step, hallway, nook, water) in enumerate(object_data):
+        for i, (name, power, object_type, level, consumable, interactable, on_step, hallway, nook, water, map_generatable, water_adjacent, corner, on_wall, against_wall, room_center, consumable_party, consumable_spellbook) in enumerate(object_data):
             # Clean the types for C string
             f.write(f"//    {i} - {name}\n")
 
@@ -264,8 +280,8 @@ def objects(entity):
             data_str = f"0x{data_value:02x}"
 
             # flags: build from LSB → MSB
-            flags = make_flags(consumable, interactable, on_step, hallway, nook, water)
-            flags_str = f"0b{flags:08b}"
+            flags = make_flags16(consumable, interactable, on_step, hallway, nook, water, map_generatable, water_adjacent, corner, on_wall, against_wall, room_center, consumable_party, consumable_spellbook)
+            flags_str = f"0b{flags:016b}"
 
             f.write(f"{{ .power = {power_str}, .data = {data_str}, .flags = {flags_str} }},\n")
 

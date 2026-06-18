@@ -13,12 +13,18 @@
 #include "core_memory_access.h"
 #include "core_entities.h"
 #include "core_player.h"
+#include "core_ram.h"
+#include "core_state.h"
+#include "core_utils.h"
+#include "lib_enums.h"
+#include "map_menu.h"
 
 #include "map_ram.h"
 
 
 /**********************************************************************************************************************/
-/*
+/* check it it is usable on party, open party framw
+ *
 **********************************************************************************************************************/
 SET_MEMORY(".map")
 ActionOutcome InteractObject(MemoryInterface memory, HardwareInterface hardware, EntityId object_e_id, EntityId e_id, ObjectsTypes entity_type)
@@ -27,7 +33,65 @@ ActionOutcome InteractObject(MemoryInterface memory, HardwareInterface hardware,
     Object object_type_id = GetObjectType(object_e_id);
     ObjectData object_data;
     Flash_GetObjectData(memory, &object_data, object_type_id);
-    return UseMapObject(hardware, memory, object_type_id, object_e_id, e_id, object_data, entity_type);
+
+    if (GetBit(g_core.objects.interactable, object_e_id))
+    {
+        if (object_data.consumable_party)
+        {
+            if (GetInputState() == INPUT_USE)
+            {
+                uint8_t selection = g_core.menu.sel[0].y;
+                EntityId creature_id = GetPlayerMonsterIDs()[selection];
+                ActionOutcome action_outcome = UseMapObject(hardware, memory, object_type_id, object_e_id, creature_id, object_data, entity_type, 0);
+                if (action_outcome == ACTION_SUCCEEDED)
+                {
+                    BackUseOnParty(memory);
+                    if (object_data.consumable)
+                        SetBit(g_core.objects.interactable, object_e_id, false);
+                    SetInputState(INPUT_ACTING);
+                    return ACTION_SUCCEEDED;
+                }
+                return ACTION_CANNOT;
+            }
+
+            SetInputState(INPUT_USE);
+            OpenUseOnParty(hardware, memory, BACK_USE_OBJECT_PARTY);
+        }
+        else if (object_data.consumable_spellbook)
+        {
+            if (GetInputState() == INPUT_USE)
+            {
+                uint8_t selection = 0;
+                EntityId creature_id = GetPlayerMonsterIDs()[selection];
+                ActionOutcome action_outcome = UseMapObject(hardware, memory, object_type_id, object_e_id, creature_id, object_data, entity_type, 0);
+                if (action_outcome == ACTION_SUCCEEDED)
+                {
+                    BackUseOnParty(memory);
+                    if (object_data.consumable)
+                        SetBit(g_core.objects.interactable, object_e_id, false);
+                    SetInputState(INPUT_ACTING);
+                    return ACTION_SUCCEEDED;
+                }
+                return ACTION_CANNOT;
+            }
+
+            SetInputState(INPUT_USE);
+            OpenUseOnSpellPage(hardware, memory, BACK_USE_OBJECT_SPELL);
+        }
+        else
+        {
+            ActionOutcome action_outcome = UseMapObject(hardware, memory, object_type_id, object_e_id, e_id, object_data, entity_type, 0);
+            if (action_outcome == ACTION_SUCCEEDED)
+            {
+                if (object_data.consumable)
+                    SetBit(g_core.objects.interactable, object_e_id, false);
+                return ACTION_SUCCEEDED;
+            }
+        }
+    }
+
+
+    return ACTION_CANNOT;
 }
 
 /**********************************************************************************************************************/
@@ -43,7 +107,7 @@ ActionOutcome InteractObjectStepOn(MemoryInterface memory, HardwareInterface har
 
     if (object_data.on_step)
     {
-        return UseMapObject(hardware, memory, object_type_id, object_e_id, e_id, object_data, entity_type);
+        return UseMapObject(hardware, memory, object_type_id, object_e_id, e_id, object_data, entity_type, 0);
     }
     return ACTION_FAILED;
 }

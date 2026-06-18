@@ -77,4 +77,4 @@ extern const ObjectEffect objectFunctions[OBJECT_COUNT];
 
 ActionOutcome UseMapItem(HardwareInterface hardware, MemoryInterface memory, uint8_t itemType, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index);
 ActionOutcome CastMapSpell(HardwareInterface hardware, MemoryInterface memory, uint8_t spellType, EntityId caster_id, EntityId target_id, SpellData spellData);
-ActionOutcome UseMapObject(HardwareInterface hardware, MemoryInterface memory, ObjectId object_type_id, EntityId object_id, EntityId target_id, ObjectData objectData, ObjectsTypes entity_type);
+ActionOutcome UseMapObject(HardwareInterface hardware, MemoryInterface memory, ObjectId object_type_id, EntityId object_id, EntityId target_id, ObjectData objectData, ObjectsTypes entity_type, uint8_t index);

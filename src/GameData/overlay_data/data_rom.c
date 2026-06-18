@@ -125,6 +125,7 @@ const char Text_types[TYPE_COUNT][SMALL_STRINGS] = {
 /**********************************************************************************************************************/
 /*  BATTLERS
 **********************************************************************************************************************/
+#if defined(BATTLERS_16)
 SET_MEMORY(".sprite_battler_layout_back_16")
 const SpriteLayout battler_back_layout[CREATURE_COUNT] = {
 #include "inc/sprite_creature_back_layout_16x16.inc"
@@ -184,6 +185,7 @@ SET_MEMORY(".sprite_trainers_16")
 const uint8_t sprites_trainers[SPRITE_TRAINER_BYTES_16] = {
 #include "inc/sprite_trainer_16x16.inc"
 };
+#endif
 
 
 // 64x64 7x7 battlers
@@ -222,9 +224,13 @@ SET_MEMORY(".sprite_objects_layout_64")
 const SpriteLayout objectLayout_64[OBJECT_COUNT] = {
 #include "inc/sprite_object_layout_64x64.inc"
 };
-SET_MEMORY(".sprite_trainer_layout_64")
+SET_MEMORY(".sprite_trainers_layout_64")
 const SpriteLayout trainerLayout_64[TRAINER_COUNT] = {
 #include "inc/sprite_trainer_layout_64x64.inc"
+};
+SET_MEMORY(".sprite_environment_objects_layout_64")
+const SpriteLayout environmentObjectLayout_64[SPRITE_ENVIRONMENT_OBJECT_BYTES_64] = {
+#include "inc/sprite_environment_object_layout_64x64.inc"
 };
 
 
@@ -248,6 +254,35 @@ SET_MEMORY(".sprite_trainers_64")
 const uint8_t sprites_trainers_64[SPRITE_TRAINER_BYTES_64] = {
 #include "inc/sprite_trainer_64x64.inc"
 };
+SET_MEMORY(".sprite_environment_objects_64")
+const uint8_t sprites_environmentObjects_64[SPRITE_ENVIRONMENT_OBJECT_BYTES_64] = {
+#include "inc/sprite_environment_object_64x64.inc"
+};
+
+/**********************************************************************************************************************/
+/*
+ *      ICONS
+ *
+**********************************************************************************************************************/
+/**********************************************************************************************************************/
+/*  80x80 icon sprite tiles
+**********************************************************************************************************************/
+SET_MEMORY(".sprite_80x80_skill")
+const uint8_t sprite_80x80_skill[SPRITE_80x80_SKILL_BYTES] = {
+#include "inc/sprite_80x80_skill.inc"
+};
+SET_MEMORY(".sprite_80x80_spell")
+const uint8_t sprite_80x80_spell[SPRITE_80x80_SPELL_BYTES] = {
+#include "inc/sprite_80x80_spell.inc"
+};
+SET_MEMORY(".sprite_80x80_spell_metaData")
+const SpriteFrames spellSpritesMetaData80x80[SPELL_COUNT] = {
+#include "inc/sprite_80x80_spell_metaData.inc"
+};
+SET_MEMORY(".sprite_80x80_skill_metaData")
+const SpriteFrames skillSpritesMetaData80x80[ABILITY_COUNT] = {
+#include "inc/sprite_80x80_skill_metaData.inc"
+};
 
 
 /**********************************************************************************************************************/
@@ -258,6 +293,7 @@ const uint8_t sprites_trainers_64[SPRITE_TRAINER_BYTES_64] = {
 /**********************************************************************************************************************/
 /*  16x16 map sprite tiles, may have multiple tiles for idle animations
 **********************************************************************************************************************/
+#if defined(TILES_16)
 SET_MEMORY(".sprite_16x16_creature")
 const uint8_t creatureSprites16x16[SPRITE_16x16_CREATURE_BYTES] = {
 #include "inc/sprite_16x16_creature.inc"
@@ -299,10 +335,12 @@ SET_MEMORY(".sprite_16x16_tile_metaData")
 const SpriteFrames tileSpritesMetaData16x16[TILE_COUNT] = {
 #include "inc/sprite_16x16_tile_metaData.inc"
 };
+#endif
 
 /**********************************************************************************************************************/
 /*  20x20 map sprite tiles, may have multiple tiles for idle animations
 **********************************************************************************************************************/
+#if defined(TILES_20)
 SET_MEMORY(".sprite_20x20_creature")
 const uint8_t creatureSprites20x20[SPRITE_20x20_CREATURE_BYTES] = {
 #include "inc/sprite_20x20_creature.inc"
@@ -344,11 +382,13 @@ SET_MEMORY(".sprite_20x20_tile_metaData")
 const SpriteFrames tileSpritesMetaData20x20[TILE_COUNT] = {
 #include "inc/sprite_20x20_tile_metaData.inc"
 };
+#endif
 
 
 /**********************************************************************************************************************/
 /*  24x24 map sprite tiles, may have multiple tiles for idle animations
 **********************************************************************************************************************/
+#if defined(TILES_24)
 SET_MEMORY(".sprite_24x24_creature")
 const uint8_t creatureSprites24x24[SPRITE_24x24_CREATURE_BYTES] = {
 #include "inc/sprite_24x24_creature.inc"
@@ -390,11 +430,13 @@ SET_MEMORY(".sprite_24x24_tile_metaData")
 const SpriteFrames tileSpritesMetaData24x24[TILE_COUNT] = {
 #include "inc/sprite_24x24_tile_metaData.inc"
 };
+#endif
 
 
 /**********************************************************************************************************************/
 /*  32x32 map sprite tiles, may have multiple tiles for idle animations
 **********************************************************************************************************************/
+#if defined(TILES_32)
 SET_MEMORY(".sprite_32x32_creature")
 const uint8_t creatureSprites32x32[SPRITE_32x32_CREATURE_BYTES] = {
 #include "inc/sprite_32x32_creature.inc"
@@ -436,6 +478,7 @@ SET_MEMORY(".sprite_32x32_tile_metaData")
 const SpriteFrames tileSpritesMetaData32x32[TILE_COUNT] = {
 #include "inc/sprite_32x32_tile_metaData.inc"
 };
+#endif
 
 /**********************************************************************************************************************/
 /*  64x64 map sprite tiles, may have multiple tiles for idle animations
@@ -460,6 +503,10 @@ SET_MEMORY(".sprite_64x64_tile")
 const uint8_t tileSprites64x64[SPRITE_64x64_TILE_BYTES] = {
 #include "inc/sprite_64x64_tile.inc"
 };
+SET_MEMORY(".sprite_64x64_environment_object")
+const uint8_t environment_objectSprites64x64[SPRITE_64x64_ENVIRONMENT_OBJECT_BYTES] = {
+#include "inc/sprite_64x64_environment_object.inc"
+};
 
 SET_MEMORY(".sprite_64x64_creature_metaData")
 const SpriteFrames creatureSpritesMetaData64x64[CREATURE_COUNT] = {
@@ -480,6 +527,10 @@ const SpriteFrames trainerSpritesMetaData64x64[TRAINER_COUNT] = {
 SET_MEMORY(".sprite_64x64_tile_metaData")
 const SpriteFrames tileSpritesMetaData64x64[TILE_COUNT] = {
 #include "inc/sprite_64x64_tile_metaData.inc"
+};
+SET_MEMORY(".sprite_64x64_environment_object_metaData")
+const SpriteFrames environment_objectSpritesMetaData64x64[ENVIRONMENT_OBJECT_COUNT] = {
+#include "inc/sprite_64x64_environment_object_metaData.inc"
 };
 
 

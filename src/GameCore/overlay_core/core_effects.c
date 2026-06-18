@@ -137,6 +137,36 @@ uint16_t CalcModifier(MemoryInterface memory, EntityId attackerID, EntityId defe
  *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
+bool IncreaseValue(uint16_t* n, uint16_t value, uint16_t max)
+{
+    if (*n == max) return false;
+    if (value == 0) return false;
+
+    const uint16_t temp = *n + value;
+    if (temp < max)
+        *n += value;
+    else
+        *n = max;
+
+    return true;
+}
+
+// SET_MEMORY(".core")
+// bool DecreaseValue(uint16_t *n, uint16_t value)
+// {
+//     if (*n == 0) return false;
+//     if (value == 0) return false;
+//
+//     if (*n > value)
+//         *n -= value;
+//     else
+//         *n = 0;
+//
+//     return true;
+// }
+
+
+SET_MEMORY(".core")
 uint16_t IncreaseValue_999(uint16_t n, uint16_t value)
 {
     if (n == 999) return n;
@@ -403,17 +433,31 @@ ActionOutcome RestorePP(EntityId trainer_id, uint8_t spell_index, uint8_t value)
     return ACTION_CANNOT;
 }
 
+
+/**********************************************************************************************************************
+*
+**********************************************************************************************************************/
+SET_MEMORY(".core")
+ActionOutcome RaiseMaxPP(EntityId trainer_id, uint8_t spell_index, uint8_t value)
+{
+    if (g_core.trainers.spellbook[trainer_id].page[spell_index].spellData.pp < MAX_PP)
+    {
+        g_core.trainers.spellbook[trainer_id].page[spell_index].spellData.pp += value;
+        return ACTION_SUCCEEDED;
+    }
+    return ACTION_CANNOT;
+}
+
 /**********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
 ActionOutcome Repel(EntityId e_id, uint8_t duration)
 {
-    if (g_core.creatures.status.repel[e_id] < 8)
-    {
-        g_core.creatures.status.repel[e_id]++;
+    uint8_t cur = g_core.trainers.buffs[e_id].repel;
+    g_core.trainers.buffs[e_id].repel = DecrementStatusEffect(g_core.trainers.buffs[e_id].repel, e_id);
+    if (cur != g_core.trainers.buffs[e_id].repel)
         return ACTION_SUCCEEDED;
-    }
     return ACTION_CANNOT;
 }
 
@@ -423,11 +467,10 @@ ActionOutcome Repel(EntityId e_id, uint8_t duration)
 SET_MEMORY(".core")
 ActionOutcome Hover(EntityId e_id, uint8_t duration)
 {
-    if (g_core.creatures.status.hovering[e_id] < 8)
-    {
-        g_core.creatures.status.hovering[e_id]++;
+    uint8_t cur = g_core.trainers.buffs[e_id].hovering;
+    g_core.trainers.buffs[e_id].hovering = DecrementStatusEffect(g_core.trainers.buffs[e_id].hovering, e_id);
+    if (cur != g_core.trainers.buffs[e_id].hovering)
         return ACTION_SUCCEEDED;
-    }
     return ACTION_CANNOT;
 }
 
@@ -437,11 +480,10 @@ ActionOutcome Hover(EntityId e_id, uint8_t duration)
 SET_MEMORY(".core")
 ActionOutcome WaterBreathing(EntityId e_id, uint8_t duration)
 {
-    if (g_core.creatures.status.waterBreathing[e_id] < 8)
-    {
-        g_core.creatures.status.waterBreathing[e_id] = duration;
+    uint8_t cur = g_core.trainers.buffs[e_id].water_breathing;
+    g_core.trainers.buffs[e_id].water_breathing = DecrementStatusEffect(g_core.trainers.buffs[e_id].water_breathing, e_id);
+    if (cur != g_core.trainers.buffs[e_id].water_breathing)
         return ACTION_SUCCEEDED;
-    }
     return ACTION_CANNOT;
 }
 
@@ -451,11 +493,10 @@ ActionOutcome WaterBreathing(EntityId e_id, uint8_t duration)
 SET_MEMORY(".core")
 ActionOutcome XRayVision(EntityId e_id, uint8_t duration)
 {
-    if (g_core.creatures.status.lineOfSight[e_id] < 8)
-    {
-        g_core.creatures.status.lineOfSight[e_id]++;
+    uint8_t cur = g_core.trainers.buffs[e_id].line_of_sight;
+    g_core.trainers.buffs[e_id].line_of_sight = DecrementStatusEffect(g_core.trainers.buffs[e_id].line_of_sight, e_id);
+    if (cur != g_core.trainers.buffs[e_id].line_of_sight)
         return ACTION_SUCCEEDED;
-    }
     return ACTION_CANNOT;
 }
 
@@ -465,11 +506,10 @@ ActionOutcome XRayVision(EntityId e_id, uint8_t duration)
 SET_MEMORY(".core")
 ActionOutcome WaterWalking(EntityId e_id, uint8_t duration)
 {
-    if (g_core.creatures.status.waterWalk[e_id] < 8)
-    {
-        g_core.creatures.status.waterWalk[e_id]++;
+    uint8_t cur = g_core.trainers.buffs[e_id].water_walk;
+    g_core.trainers.buffs[e_id].water_walk = DecrementStatusEffect(g_core.trainers.buffs[e_id].water_walk, e_id);
+    if (cur != g_core.trainers.buffs[e_id].water_walk)
         return ACTION_SUCCEEDED;
-    }
     return ACTION_CANNOT;
 }
 
@@ -479,11 +519,10 @@ ActionOutcome WaterWalking(EntityId e_id, uint8_t duration)
 SET_MEMORY(".core")
 ActionOutcome WallWalking(EntityId e_id, uint8_t duration)
 {
-    if (g_core.creatures.status.wallWalking[e_id] < 8)
-    {
-        g_core.creatures.status.wallWalking[e_id]++;
+    uint8_t cur = g_core.trainers.buffs[e_id].wall_walking;
+    g_core.trainers.buffs[e_id].wall_walking = DecrementStatusEffect(g_core.trainers.buffs[e_id].wall_walking, e_id);
+    if (cur != g_core.trainers.buffs[e_id].wall_walking)
         return ACTION_SUCCEEDED;
-    }
     return ACTION_CANNOT;
 }
 
@@ -493,11 +532,10 @@ ActionOutcome WallWalking(EntityId e_id, uint8_t duration)
 SET_MEMORY(".core")
 ActionOutcome Invisibility(EntityId e_id, uint8_t duration)
 {
-    if (g_core.creatures.status.invisibility[e_id] < 8)
-    {
-        g_core.creatures.status.invisibility[e_id]++;
+    uint8_t cur = g_core.trainers.buffs[e_id].invisibility;
+    g_core.trainers.buffs[e_id].invisibility = DecrementStatusEffect(g_core.trainers.buffs[e_id].invisibility, e_id);
+    if (cur != g_core.trainers.buffs[e_id].invisibility)
         return ACTION_SUCCEEDED;
-    }
     return ACTION_CANNOT;
 }
 
@@ -722,11 +760,10 @@ ActionOutcome AbandonTeam(EntityId e_id)
 SET_MEMORY(".core")
 ActionOutcome ApplyPoison(EntityId e_id, uint8_t duration)
 {
-    if (g_core.creatures.status.poison[e_id] < 8)
-    {
-        g_core.creatures.status.poison[e_id]++;
+    uint8_t cur = g_core.creatures.debuffs[e_id].poison;
+    g_core.creatures.debuffs[e_id].poison = IncrementStatusEffect(g_core.creatures.debuffs[e_id].poison, e_id);
+    if (cur != g_core.creatures.debuffs[e_id].poison)
         return ACTION_SUCCEEDED;
-    }
     return ACTION_CANNOT;
 }
 
@@ -736,11 +773,10 @@ ActionOutcome ApplyPoison(EntityId e_id, uint8_t duration)
 SET_MEMORY(".core")
 ActionOutcome ApplyCurse(EntityId e_id, uint8_t duration)
 {
-    if (g_core.creatures.status.curse[e_id] < 8)
-    {
-        g_core.creatures.status.curse[e_id]++;
+    uint8_t cur = g_core.creatures.debuffs[e_id].curse;
+    g_core.creatures.debuffs[e_id].curse = IncrementStatusEffect(g_core.creatures.debuffs[e_id].curse, e_id);
+    if (cur != g_core.creatures.debuffs[e_id].curse)
         return ACTION_SUCCEEDED;
-    }
     return ACTION_CANNOT;
 }
 
@@ -750,11 +786,10 @@ ActionOutcome ApplyCurse(EntityId e_id, uint8_t duration)
 SET_MEMORY(".core")
 ActionOutcome ApplyParalyze(EntityId e_id, uint8_t duration)
 {
-    if (g_core.creatures.status.paralyzed[e_id] < 8)
-    {
-        g_core.creatures.status.paralyzed[e_id]++;
+    uint8_t cur = g_core.creatures.debuffs[e_id].paralyzed;
+    g_core.creatures.debuffs[e_id].paralyzed = IncrementStatusEffect(g_core.creatures.debuffs[e_id].paralyzed, e_id);
+    if (cur != g_core.creatures.debuffs[e_id].paralyzed)
         return ACTION_SUCCEEDED;
-    }
     return ACTION_CANNOT;
 }
 
@@ -764,11 +799,10 @@ ActionOutcome ApplyParalyze(EntityId e_id, uint8_t duration)
 SET_MEMORY(".core")
 ActionOutcome ApplyDisease(EntityId e_id, uint8_t duration)
 {
-    if (g_core.creatures.status.disease[e_id] < 8)
-    {
-        g_core.creatures.status.disease[e_id]++;
+    uint8_t cur = g_core.creatures.debuffs[e_id].disease;
+    g_core.creatures.debuffs[e_id].disease = IncrementStatusEffect(g_core.creatures.debuffs[e_id].disease, e_id);
+    if (cur != g_core.creatures.debuffs[e_id].disease)
         return ACTION_SUCCEEDED;
-    }
     return ACTION_CANNOT;
 }
 
@@ -778,11 +812,10 @@ ActionOutcome ApplyDisease(EntityId e_id, uint8_t duration)
 SET_MEMORY(".core")
 ActionOutcome ApplySleep(EntityId e_id, uint8_t duration)
 {
-    if (g_core.creatures.status.sleep[e_id] < 8)
-    {
-        g_core.creatures.status.sleep[e_id]++;
+    uint8_t cur = g_core.creatures.debuffs[e_id].sleep;
+    g_core.creatures.debuffs[e_id].sleep = IncrementStatusEffect(g_core.creatures.debuffs[e_id].sleep, e_id);
+    if (cur != g_core.creatures.debuffs[e_id].sleep)
         return ACTION_SUCCEEDED;
-    }
     return ACTION_CANNOT;
 }
 
@@ -792,11 +825,10 @@ ActionOutcome ApplySleep(EntityId e_id, uint8_t duration)
 SET_MEMORY(".core")
 ActionOutcome ApplyFear(EntityId e_id, uint8_t duration)
 {
-    if (g_core.creatures.status.fear[e_id] < 8)
-    {
-        g_core.creatures.status.fear[e_id]++;
+    uint8_t cur = g_core.creatures.debuffs[e_id].fear;
+    g_core.creatures.debuffs[e_id].fear = IncrementStatusEffect(g_core.creatures.debuffs[e_id].fear, e_id);
+    if (cur != g_core.creatures.debuffs[e_id].fear)
         return ACTION_SUCCEEDED;
-    }
     return ACTION_CANNOT;
 }
 
@@ -806,11 +838,10 @@ ActionOutcome ApplyFear(EntityId e_id, uint8_t duration)
 SET_MEMORY(".core")
 ActionOutcome ApplyFrozen(EntityId e_id, uint8_t duration)
 {
-    if (g_core.creatures.status.frozen[e_id] < 8)
-    {
-        g_core.creatures.status.frozen[e_id]++;
+    uint8_t cur = g_core.creatures.debuffs[e_id].frozen;
+    g_core.creatures.debuffs[e_id].frozen = IncrementStatusEffect(g_core.creatures.debuffs[e_id].frozen, e_id);
+    if (cur != g_core.creatures.debuffs[e_id].frozen)
         return ACTION_SUCCEEDED;
-    }
     return ACTION_CANNOT;
 }
 
@@ -820,11 +851,10 @@ ActionOutcome ApplyFrozen(EntityId e_id, uint8_t duration)
 SET_MEMORY(".core")
 ActionOutcome ApplyBurn(EntityId e_id, uint8_t duration)
 {
-    if (g_core.creatures.status.burned[e_id] < 8)
-    {
-        g_core.creatures.status.burned[e_id]++;
+    uint8_t cur = g_core.creatures.debuffs[e_id].burned;
+    g_core.creatures.debuffs[e_id].burned = IncrementStatusEffect(g_core.creatures.debuffs[e_id].burned, e_id);
+    if (cur != g_core.creatures.debuffs[e_id].burned)
         return ACTION_SUCCEEDED;
-    }
     return ACTION_CANNOT;
 }
 
@@ -834,11 +864,10 @@ ActionOutcome ApplyBurn(EntityId e_id, uint8_t duration)
 SET_MEMORY(".core")
 ActionOutcome ApplyHaste(EntityId e_id, uint8_t duration)
 {
-    if (g_core.creatures.status.hasted[e_id] < 8)
-    {
-        g_core.creatures.status.hasted[e_id]++;
+    uint8_t cur = g_core.creatures.buffs[e_id].hasted;
+    g_core.creatures.buffs[e_id].hasted = IncrementStatusEffect(g_core.creatures.buffs[e_id].hasted, e_id);
+    if (cur != g_core.creatures.buffs[e_id].hasted)
         return ACTION_SUCCEEDED;
-    }
     return ACTION_CANNOT;
 }
 
@@ -848,11 +877,10 @@ ActionOutcome ApplyHaste(EntityId e_id, uint8_t duration)
 SET_MEMORY(".core")
 ActionOutcome ApplySlow(EntityId e_id, uint8_t duration)
 {
-    if (g_core.creatures.status.slowed[e_id] < 8)
-    {
-        g_core.creatures.status.slowed[e_id]++;
+    uint8_t cur = g_core.creatures.debuffs[e_id].slowed;
+    g_core.creatures.debuffs[e_id].slowed = IncrementStatusEffect(g_core.creatures.debuffs[e_id].slowed, e_id);
+    if (cur != g_core.creatures.debuffs[e_id].slowed)
         return ACTION_SUCCEEDED;
-    }
     return ACTION_CANNOT;
 }
 
@@ -860,18 +888,26 @@ ActionOutcome ApplySlow(EntityId e_id, uint8_t duration)
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-ActionOutcome StatusLesserBlind(EntityId e_id, uint8_t duration)
+ActionOutcome debuffsLesserBlind(EntityId e_id, uint8_t duration)
 {
-    return ACTION_FAILED;
+    uint8_t cur = g_core.creatures.debuffs[e_id].blind;
+    g_core.creatures.debuffs[e_id].blind = DecrementStatusEffect(g_core.creatures.debuffs[e_id].blind, e_id);
+    if (cur != g_core.creatures.debuffs[e_id].blind)
+        return ACTION_SUCCEEDED;
+    return ACTION_CANNOT;
 }
 
 /**********************************************************************************************************************
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-ActionOutcome StatusGreaterBlind(EntityId e_id, uint8_t duration)
+ActionOutcome debuffsGreaterBlind(EntityId e_id, uint8_t duration)
 {
-    return ACTION_FAILED;
+    uint8_t cur = g_core.creatures.debuffs[e_id].blind;
+    g_core.creatures.debuffs[e_id].blind = DecrementStatusEffect(g_core.creatures.debuffs[e_id].blind, e_id);
+    if (cur != g_core.creatures.debuffs[e_id].blind)
+        return ACTION_SUCCEEDED;
+    return ACTION_CANNOT;
 }
 
 /**********************************************************************************************************************
@@ -880,11 +916,10 @@ ActionOutcome StatusGreaterBlind(EntityId e_id, uint8_t duration)
 SET_MEMORY(".core")
 ActionOutcome RemovePoison(EntityId e_id)
 {
-    if (g_core.creatures.status.poison[e_id] > 0)
-    {
-        g_core.creatures.status.poison[e_id]--;
+    uint8_t cur = g_core.creatures.debuffs[e_id].poison;
+    g_core.creatures.debuffs[e_id].poison = DecrementStatusEffect(g_core.creatures.debuffs[e_id].poison, e_id);
+    if (cur != g_core.creatures.debuffs[e_id].poison)
         return ACTION_SUCCEEDED;
-    }
     return ACTION_CANNOT;
 }
 
@@ -894,11 +929,10 @@ ActionOutcome RemovePoison(EntityId e_id)
 SET_MEMORY(".core")
 ActionOutcome RemoveCurse(EntityId e_id)
 {
-    if (g_core.creatures.status.curse[e_id] > 0)
-    {
-        g_core.creatures.status.curse[e_id]--;
+    uint8_t cur = g_core.creatures.debuffs[e_id].curse;
+    g_core.creatures.debuffs[e_id].curse = DecrementStatusEffect(g_core.creatures.debuffs[e_id].curse, e_id);
+    if (cur != g_core.creatures.debuffs[e_id].curse)
         return ACTION_SUCCEEDED;
-    }
     return ACTION_CANNOT;
 }
 
@@ -908,11 +942,10 @@ ActionOutcome RemoveCurse(EntityId e_id)
 SET_MEMORY(".core")
 ActionOutcome RemoveParalyze(EntityId e_id)
 {
-    if (g_core.creatures.status.paralyzed[e_id] > 0)
-    {
-        g_core.creatures.status.paralyzed[e_id]--;
+    uint8_t cur = g_core.creatures.debuffs[e_id].paralyzed;
+    g_core.creatures.debuffs[e_id].paralyzed = DecrementStatusEffect(g_core.creatures.debuffs[e_id].paralyzed, e_id);
+    if (cur != g_core.creatures.debuffs[e_id].paralyzed)
         return ACTION_SUCCEEDED;
-    }
     return ACTION_CANNOT;
 }
 
@@ -922,11 +955,10 @@ ActionOutcome RemoveParalyze(EntityId e_id)
 SET_MEMORY(".core")
 ActionOutcome RemoveDisease(EntityId e_id)
 {
-    if (g_core.creatures.status.disease[e_id] > 0)
-    {
-        g_core.creatures.status.disease[e_id]--;
+    uint8_t cur = g_core.creatures.debuffs[e_id].disease;
+    g_core.creatures.debuffs[e_id].disease = DecrementStatusEffect(g_core.creatures.debuffs[e_id].disease, e_id);
+    if (cur != g_core.creatures.debuffs[e_id].disease)
         return ACTION_SUCCEEDED;
-    }
     return ACTION_CANNOT;
 }
 
@@ -936,11 +968,10 @@ ActionOutcome RemoveDisease(EntityId e_id)
 SET_MEMORY(".core")
 ActionOutcome RemoveSleep(EntityId e_id)
 {
-    if (g_core.creatures.status.sleep[e_id] > 0)
-    {
-        g_core.creatures.status.sleep[e_id]--;
+    uint8_t cur = g_core.creatures.debuffs[e_id].sleep;
+    g_core.creatures.debuffs[e_id].sleep = DecrementStatusEffect(g_core.creatures.debuffs[e_id].sleep, e_id);
+    if (cur != g_core.creatures.debuffs[e_id].sleep)
         return ACTION_SUCCEEDED;
-    }
     return ACTION_CANNOT;
 }
 
@@ -950,11 +981,10 @@ ActionOutcome RemoveSleep(EntityId e_id)
 SET_MEMORY(".core")
 ActionOutcome RemoveFear(EntityId e_id)
 {
-    if (g_core.creatures.status.fear[e_id] > 0)
-    {
-        g_core.creatures.status.fear[e_id]--;
+    uint8_t cur = g_core.creatures.debuffs[e_id].fear;
+    g_core.creatures.debuffs[e_id].fear = DecrementStatusEffect(g_core.creatures.debuffs[e_id].fear, e_id);
+    if (cur != g_core.creatures.debuffs[e_id].fear)
         return ACTION_SUCCEEDED;
-    }
     return ACTION_CANNOT;
 }
 
@@ -964,11 +994,10 @@ ActionOutcome RemoveFear(EntityId e_id)
 SET_MEMORY(".core")
 ActionOutcome RemoveFrozen(EntityId e_id)
 {
-    if (g_core.creatures.status.frozen[e_id] > 0)
-    {
-        g_core.creatures.status.frozen[e_id]--;
+    uint8_t cur = g_core.creatures.debuffs[e_id].frozen;
+    g_core.creatures.debuffs[e_id].frozen = DecrementStatusEffect(g_core.creatures.debuffs[e_id].frozen, e_id);
+    if (cur != g_core.creatures.debuffs[e_id].frozen)
         return ACTION_SUCCEEDED;
-    }
     return ACTION_CANNOT;
 }
 
@@ -978,11 +1007,10 @@ ActionOutcome RemoveFrozen(EntityId e_id)
 SET_MEMORY(".core")
 ActionOutcome RemoveBurn(EntityId e_id)
 {
-    if (g_core.creatures.status.burned[e_id] > 0)
-    {
-        g_core.creatures.status.burned[e_id]--;
+    uint8_t cur = g_core.creatures.debuffs[e_id].burned;
+    g_core.creatures.debuffs[e_id].burned = DecrementStatusEffect(g_core.creatures.debuffs[e_id].burned, e_id);
+    if (cur != g_core.creatures.debuffs[e_id].burned)
         return ACTION_SUCCEEDED;
-    }
     return ACTION_CANNOT;
 }
 
@@ -992,11 +1020,10 @@ ActionOutcome RemoveBurn(EntityId e_id)
 SET_MEMORY(".core")
 ActionOutcome RemoveHaste(EntityId e_id)
 {
-    if (g_core.creatures.status.hasted[e_id] > 0)
-    {
-        g_core.creatures.status.hasted[e_id]--;
+    uint8_t cur = g_core.creatures.buffs[e_id].hasted;
+    g_core.creatures.buffs[e_id].hasted = DecrementStatusEffect(g_core.creatures.buffs[e_id].hasted, e_id);
+    if (cur != g_core.creatures.buffs[e_id].hasted)
         return ACTION_SUCCEEDED;
-    }
     return ACTION_CANNOT;
 }
 
@@ -1006,11 +1033,10 @@ ActionOutcome RemoveHaste(EntityId e_id)
 SET_MEMORY(".core")
 ActionOutcome RemoveSlow(EntityId e_id)
 {
-    if (g_core.creatures.status.slowed[e_id] > 0)
-    {
-        g_core.creatures.status.slowed[e_id]--;
+    uint8_t cur = g_core.creatures.debuffs[e_id].slowed;
+    g_core.creatures.debuffs[e_id].slowed = DecrementStatusEffect(g_core.creatures.debuffs[e_id].slowed, e_id);
+    if (cur != g_core.creatures.debuffs[e_id].slowed)
         return ACTION_SUCCEEDED;
-    }
     return ACTION_CANNOT;
 }
 
@@ -1020,11 +1046,10 @@ ActionOutcome RemoveSlow(EntityId e_id)
 SET_MEMORY(".core")
 ActionOutcome StatusLesserLight(EntityId e_id, uint8_t duration)
 {
-    if (g_core.creatures.status.light[e_id] < 8)
-    {
-        g_core.creatures.status.light[e_id]++;
+    uint8_t cur = g_core.trainers.buffs[e_id].light;
+    g_core.trainers.buffs[e_id].light = DecrementStatusEffect(g_core.trainers.buffs[e_id].light, e_id);
+    if (cur != g_core.trainers.buffs[e_id].light)
         return ACTION_SUCCEEDED;
-    }
     return ACTION_CANNOT;
 }
 
@@ -1034,11 +1059,10 @@ ActionOutcome StatusLesserLight(EntityId e_id, uint8_t duration)
 SET_MEMORY(".core")
 ActionOutcome StatusGreaterLight(EntityId e_id, uint8_t duration)
 {
-    if (g_core.creatures.status.light[e_id] < 8)
-    {
-        g_core.creatures.status.light[e_id]++;
+    uint8_t cur = g_core.trainers.buffs[e_id].light;
+    g_core.trainers.buffs[e_id].light = DecrementStatusEffect(g_core.trainers.buffs[e_id].light, e_id);
+    if (cur != g_core.trainers.buffs[e_id].light)
         return ACTION_SUCCEEDED;
-    }
     return ACTION_CANNOT;
 }
 
@@ -1057,11 +1081,6 @@ ActionOutcome NextAttackFreezes()
 SET_MEMORY(".core")
 ActionOutcome FreezeAttackers(EntityId e_id, uint8_t duration)
 {
-    if (g_core.creatures.status.light[e_id] < 8)
-    {
-        g_core.creatures.status.light[e_id]++;
-        return ACTION_SUCCEEDED;
-    }
     return ACTION_CANNOT;
 }
 
@@ -1071,7 +1090,7 @@ ActionOutcome FreezeAttackers(EntityId e_id, uint8_t duration)
 SET_MEMORY(".core")
 ActionOutcome PersistentPoisonCloud(uint8_t duration)
 {
-    return true;
+    return ACTION_CANNOT;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////

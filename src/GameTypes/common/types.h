@@ -109,9 +109,9 @@ typedef union
 **********************************************************************************************************************/
 typedef union
 {
-    uint16_t pixels[TILE_PIXELS];
-    uint16_t pixels_2d[TILE_W][TILE_H];
-    uint8_t bytes[TILE_PIXELS * 2];
+    uint16_t pixels[ICON_PIXELS];
+    uint16_t pixels_2d[ICON_W][ICON_H];
+    uint8_t bytes[ICON_PIXELS * 2];
 
 
     // uint16_t glyph[16];
@@ -253,25 +253,34 @@ typedef union
         {
             struct
             {
+                //object properties
                 uint8_t consumable : 1;
                 uint8_t interactable : 1;
                 uint8_t on_step : 1;
-                uint8_t hallway : 1;
-                uint8_t nook : 1;
-                uint8_t water : 1;
+                uint8_t hallway : 1; //spawn property
+                uint8_t nook : 1; //spawn property
+                uint8_t water : 1; //spawn property
+                uint8_t map_generatable : 1; //spawn property
+                uint8_t water_adjacent : 1; //spawn property
 
-                uint8_t _pad0 : 1;
+                uint8_t corner : 1; //spawn property
+                uint8_t on_wall : 1; //spawn property
+                uint8_t against_wall : 1; //spawn property
+                uint8_t room_center : 1; //spawn property
+                uint8_t consumable_party : 1;
+                uint8_t consumable_spellbook : 1;
                 uint8_t _pad1 : 1;
+                uint8_t _pad0 : 1;
             };
 
-            uint8_t flags : 8;
+            uint16_t flags : 16;
         };
     };
 
-    uint8_t bytes[3];
+    uint8_t bytes[4];
 } ObjectData;
 
-_Static_assert(sizeof(ObjectData) == 3, "ObjectData must be 3 bytes");
+_Static_assert(sizeof(ObjectData) == 4, "ObjectData must be 3 bytes");
 
 
 typedef struct
@@ -300,7 +309,7 @@ typedef ActionOutcome (*SkillEffect)(HardwareInterface hardware, MemoryInterface
 typedef ActionOutcome (*ItemEffect)(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index);
 typedef ActionOutcome (*SpellEffect)(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData);
 typedef ActionOutcome (*SpellEffectMap)(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId enemy_id, SpellData spellData);
-typedef ActionOutcome (*ObjectEffect)(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData, ObjectsTypes objectType);
+typedef ActionOutcome (*ObjectEffect)(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData, ObjectsTypes objectType, uint8_t index);
 
 
 /**********************************************************************************************************************/
@@ -807,3 +816,99 @@ typedef union
 
     uint8_t bytes[MAX_DEFAULT_TRAINER_SPELLS + MAX_PARTY_SIZE + MAX_DEFAULT_TRAINER_ITEMS];
 } TrainerData;
+
+
+/**********************************************************************************************************************/
+/*
+**********************************************************************************************************************/
+typedef union
+{
+    struct
+    {
+        uint32_t paralyzed : 4;
+        uint32_t sleep : 4;
+        uint32_t poison : 4;
+        uint32_t frozen : 4;
+        uint32_t disease : 4;
+        uint32_t curse : 4;
+        uint32_t fear : 4;
+        uint32_t burned : 4;
+
+        uint32_t blind : 4;
+        uint32_t slowed : 4;
+
+        uint32_t _pad5 : 4;
+        uint32_t _pad4 : 4;
+        uint32_t _pad3 : 4;
+        uint32_t _pad2 : 4;
+        uint32_t _pad1 : 4;
+        uint32_t _pad0 : 4;
+    };
+
+    uint8_t bytes[8];
+
+} CreatureDebuffs;
+
+_Static_assert(sizeof(CreatureDebuffs) == 8, "Sprite must be 8 bytes");
+/**********************************************************************************************************************/
+/*
+**********************************************************************************************************************/
+typedef union
+{
+    struct
+    {
+        uint32_t hasted : 4;
+        uint32_t fire_eating : 4;
+
+        uint32_t _pad13 : 4;
+        uint32_t _pad12 : 4;
+        uint32_t _pad11 : 4;
+        uint32_t _pad10 : 4;
+        uint32_t _pad9 : 4;
+        uint32_t _pad8 : 4;
+
+        uint32_t _pad7 : 4;
+        uint32_t _pad6 : 4;
+        uint32_t _pad5 : 4;
+        uint32_t _pad4 : 4;
+        uint32_t _pad3 : 4;
+        uint32_t _pad2 : 4;
+        uint32_t _pad1 : 4;
+        uint32_t _pad0 : 4;
+    };
+
+    uint8_t bytes[8];
+
+} CreatureBuffs;
+
+
+_Static_assert(sizeof(CreatureBuffs) == 8, "Sprite must be 8 bytes");
+
+typedef union
+{
+    struct
+    {
+        uint32_t line_of_sight : 4;
+        uint32_t light : 4;
+        uint32_t hovering : 4;
+        uint32_t water_walk : 4;
+        uint32_t water_breathing : 4;
+        uint32_t repel : 4;
+        uint32_t invisibility : 4;
+        uint32_t wall_walking : 4;
+
+        uint32_t _pad7 : 4;
+        uint32_t _pad6 : 4;
+        uint32_t _pad5 : 4;
+        uint32_t _pad4 : 4;
+        uint32_t _pad3 : 4;
+        uint32_t _pad2 : 4;
+        uint32_t _pad1 : 4;
+        uint32_t _pad0 : 4;
+    };
+
+    uint8_t bytes[8];
+} TrainerBuffs;
+
+
+_Static_assert(sizeof(TrainerBuffs) == 8, "Sprite must be 8 bytes");

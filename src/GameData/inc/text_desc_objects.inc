@@ -1,5 +1,5 @@
 // Generated creature descriptions
-// Database contains 107 total descriptions
+// Database contains 106 total descriptions
 
 // Individual description strings
 "A long stone altar hums with ancient runes, its surface slick with the remnants of forgotten sacrifices.\0",
@@ -8,7 +8,7 @@
 "A banner on a wooden pole, of a goblin raider blowing in the wind\0",
 "A banner on a wooden pole, of an orc warchief blowing in the wind\0",
 "A baptismal font\0",
-"a simple cot with white sheets\0",
+"a metal simple cot with white padding and sheets\0",
 "a simple single person bed with sheets\0",
 "a simple canvas tent\0",
 "a bell hanging from a basic wooden structure\0",
@@ -56,7 +56,7 @@
 "a standing mirror, rectangular with a blue edge and base\0",
 "a standing mirror, rectangular with a silver edge and base\0",
 "a tall stone obelisk\0",
-"a magical white sigil on the floor\0",
+"a magical white sigil on a black background \0",
 "a magical cyan sigil on the floor\0",
 "a crystal orb\0",
 "a roughly circular pool of blue water\0",
@@ -86,7 +86,6 @@
 "a roman sundial\0",
 "a torture device, a cucking stool, unoccupied\0",
 "a torture device, a rack, unoccupied\0",
-"a torture device, a scold's bridle laying on the ground\0",
 "a torture device, The Stocks sitting empty\0",
 "a torture device, a strappado, unoccupied\0",
 "a torture device, a whipping post, unoccupied\0",
@@ -111,4 +110,4 @@
 "WICKER_MAN\0",
 " ------ \0",
 
-//ALL_DESCRIPTIONS_COUNT = 107;
+//ALL_DESCRIPTIONS_COUNT = 106;

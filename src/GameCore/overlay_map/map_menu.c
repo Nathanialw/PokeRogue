@@ -51,11 +51,11 @@ SET_MEMORY(".map.rodata")
 SubMenu submenus[MAIN_MENUS_SIZE] = {
     MiniMap,
     MonsterData,
+    Trainerpedia,
     Objectpedia,
     Itempedia,
     Spellpedia,
     Abilitypedia,
-    Trainerpedia,
     Party,
     Bag,
     Spells,
@@ -179,6 +179,8 @@ bool MonsterData(GraphicsInterface graphics, HardwareInterface hardware, InputIn
         return true;
     }
 
+    g_core.menu.entity_list_type = CREATURE;
+
     uint8_t i = 0;
     uint8_t min_s = g_core.menu.menuScrollOffset[g_core.menu.depth].y;
     uint8_t max_s = min_s + g_core.menu.max_visible_menu_options;
@@ -212,6 +214,8 @@ bool Objectpedia(GraphicsInterface graphics, HardwareInterface hardware, InputIn
         return true;
     }
 
+    g_core.menu.entity_list_type = OBJECT;
+
     uint8_t i = 0;
     uint8_t min_s = g_core.menu.menuScrollOffset[g_core.menu.depth].y;
     uint8_t max_s = min_s + g_core.menu.max_visible_menu_options;
@@ -243,6 +247,8 @@ bool Itempedia(GraphicsInterface graphics, HardwareInterface hardware, InputInte
         return true;
     }
 
+    g_core.menu.entity_list_type = ITEM;
+
     uint8_t i = 0;
     uint8_t min_s = g_core.menu.menuScrollOffset[g_core.menu.depth].y;
     uint8_t max_s = min_s + g_core.menu.max_visible_menu_options;
@@ -272,6 +278,8 @@ bool Spellpedia(GraphicsInterface graphics, HardwareInterface hardware, InputInt
         g_core.menu.gameMenu.id = spell_id;
         return true;
     }
+
+    g_core.menu.entity_list_type = SPELL;
 
     uint8_t i = 0;
     uint8_t min_s = g_core.menu.menuScrollOffset[g_core.menu.depth].y;
@@ -303,6 +311,8 @@ bool Abilitypedia(GraphicsInterface graphics, HardwareInterface hardware, InputI
         return true;
     }
 
+    g_core.menu.entity_list_type = SKILL;
+
     uint8_t i = 0;
     uint8_t min_s = g_core.menu.menuScrollOffset[g_core.menu.depth].y;
     uint8_t max_s = min_s + g_core.menu.max_visible_menu_options;
@@ -327,10 +337,12 @@ bool Trainerpedia(GraphicsInterface graphics, HardwareInterface hardware, InputI
     if (ToggleMenu(TRAINER_DATA_LIST_SUBMENU, ABILITY_COUNT, ABILITY_COUNT) && input.GetInputKeyState().dp.y == 0)
     {
         if (ListJump(graphics, hardware, input, memory)) return true;
-        EntityId ability_id = g_core.menu.sel[g_core.menu.depth].y + g_core.menu.menuScrollOffset[g_core.menu.depth].y;
-        g_core.menu.gameMenu.id = ability_id;
+        EntityId trainer_id = g_core.menu.sel[g_core.menu.depth].y + g_core.menu.menuScrollOffset[g_core.menu.depth].y;
+        g_core.menu.gameMenu.id = trainer_id;
         return true;
     }
+
+    g_core.menu.entity_list_type = TRAINER;
 
     uint8_t i = 0;
     uint8_t min_s = g_core.menu.menuScrollOffset[g_core.menu.depth].y;
@@ -353,17 +365,22 @@ bool Trainerpedia(GraphicsInterface graphics, HardwareInterface hardware, InputI
 SET_MEMORY(".map")
 void OpenUseOnSpellPage(HardwareInterface hardware, MemoryInterface memory, UseFrameBack f)
 {
-    EntityId player_id = GetPlayerID();
+    uint8_t depth = 1;
+    if (f == BACK_USE_OBJECT_SPELL) depth = 0;
+
     SpellBook* spellbook = GetPlayerSpellbook();
     FillListByTypeID(memory, spellbook->occupied_pages, spellbook->spell_id);
 
     g_core.menu.forceRedraw = true;
-    g_core.menu.depth++;
-    g_core.menu.sel[g_core.menu.depth].x = 0;
-    g_core.menu.sel[g_core.menu.depth].y = 0;
+    g_core.menu.depth += depth;
+
+    g_core.menu.useOnPartyMember = f;
     g_core.menu.max_visible_menu_options = ListSize(spellbook->current_max_pages);
     g_core.menu.occupied_visible_menu_options = spellbook->occupied_pages;
     g_core.menu.totalMenuOptions = spellbook->occupied_pages;
+
+    g_core.menu.sel[g_core.menu.depth].x = 0;
+    g_core.menu.sel[g_core.menu.depth].y = 0;
 }
 
 
@@ -373,20 +390,23 @@ void OpenUseOnSpellPage(HardwareInterface hardware, MemoryInterface memory, UseF
 SET_MEMORY(".map")
 void OpenUseOnParty(HardwareInterface hardware, MemoryInterface memory, UseFrameBack f)
 {
+    uint8_t depth = 1;
+    if (f == BACK_USE_OBJECT_PARTY) depth = 0;
+
     FillListByEntityID(memory, MAX_PARTY_SIZE, CREATURE, GetPlayerMonsterIDs());
 
     g_core.menu.forceRedraw = true;
+    g_core.menu.depth += depth;
+
     g_core.menu.useOnPartyMember = f;
-
-
     g_core.menu.max_visible_menu_options = ListSize(MAX_PARTY_SIZE);
     g_core.menu.occupied_visible_menu_options = g_core.player.currentPartySize;
     g_core.menu.totalMenuOptions = MAX_PARTY_SIZE;
 
-    g_core.menu.depth++;
     g_core.menu.sel[g_core.menu.depth].x = 0;
     g_core.menu.sel[g_core.menu.depth].y = 0;
 }
+
 
 /**********************************************************************************************************************
 **
@@ -394,6 +414,8 @@ void OpenUseOnParty(HardwareInterface hardware, MemoryInterface memory, UseFrame
 SET_MEMORY(".map")
 void BackUseOnParty(MemoryInterface memory)
 {
+    uint8_t depth = 1;
+
     EntityId player_id = GetPlayerID();
     if (g_core.menu.useOnPartyMember == BACK_ITEM)
     {
@@ -411,10 +433,14 @@ void BackUseOnParty(MemoryInterface memory)
         g_core.menu.occupied_visible_menu_options = ListSize(spellbook->occupied_pages);
         g_core.menu.totalMenuOptions = spellbook->occupied_pages;
     }
+    if (g_core.menu.useOnPartyMember == BACK_USE_OBJECT_SPELL || g_core.menu.useOnPartyMember == BACK_USE_OBJECT_PARTY)
+    {
+        depth = 0;
+    }
 
     g_core.menu.sel[g_core.menu.depth].x = 0;
     g_core.menu.sel[g_core.menu.depth].y = 0;
-    g_core.menu.depth--;
+    g_core.menu.depth -= depth;
     g_core.menu.forceRedraw = true;
     g_core.menu.lineHeight = 0;
     g_core.menu.useOnPartyMember = BACK_NONE;
@@ -797,12 +823,26 @@ void HandleMenu(GraphicsInterface graphics, HardwareInterface hardware, MemoryIn
         return;
     }
 
-    if (g_core.menu.displayedMenu == PARTY || g_core.menu.useOnPartyMember) //draw party
+    if (g_core.menu.displayedMenu == PARTY || g_core.menu.useOnPartyMember == BACK_USE_OBJECT_PARTY) //draw party
     {
         DrawParty(graphics, hardware, memory);
         audio.PlaySoundEffect(GetMenuSoundId(MENU_PARTY));
         return;
     }
+
+    if (g_core.menu.displayedMenu == SPELLS || g_core.menu.useOnPartyMember == BACK_USE_OBJECT_SPELL) //draw spellbook
+    {
+        DrawSpellbook(graphics, hardware, memory);
+        audio.PlaySoundEffect(GetMenuSoundId(MENU_PARTY));
+        return;
+    }
+
+    // if (g_core.menu.displayedMenu == INVENTORY || g_core.menu.useOnPartyMember == BACK_USE_OBJECT_INVENTORY) //draw spellbook
+    // {
+    //     // DrawSpellbook(graphics, hardware, memory);
+    //     audio.PlaySoundEffect(GetMenuSoundId(MENU_PARTY));
+    //     return;
+    // }
 
     audio.PlaySoundEffect(GetMenuSoundId(MENU_NEXT));
     FullRedraw(graphics, hardware, memory);

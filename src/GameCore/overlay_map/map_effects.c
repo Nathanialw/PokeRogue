@@ -211,7 +211,7 @@ bool Pit(EntityId id, ObjectsTypes type, uint8_t x, uint8_t y)
     // check current tile, cancel movement
     if (type == TRAINER)
     {
-        if (g_core.creatures.status.waterWalk[id])
+        if (g_core.trainers.buffs[id].water_walk)
             return true;
 
         DamageCreature(id, g_core.floor, type);
@@ -235,7 +235,7 @@ bool CollisionFluidTile(EntityId id, ObjectsTypes type, uint8_t x, uint8_t y)
 {
     if (type == TRAINER)
     {
-        if (g_core.creatures.status.waterWalk[id])
+        if (g_core.trainers.buffs[id].water_walk)
             return true;
 
         DamageCreature(id, g_core.floor, type);

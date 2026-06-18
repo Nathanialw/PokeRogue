@@ -43,6 +43,7 @@ ActionOutcome HealTarget(EntityId e_id, uint16_t value);
 ActionOutcome RestoreMana(EntityId e_id, uint8_t value);
 ActionOutcome DrainMana(EntityId e_id, uint8_t value);
 ActionOutcome RestorePP(EntityId trainer_id, uint8_t spell_index, uint8_t value);
+ActionOutcome RaiseMaxPP(EntityId trainer_id, uint8_t spell_index, uint8_t value);
 
 /**********************************************************************************************************************/
 /** STATUS EFFECTS

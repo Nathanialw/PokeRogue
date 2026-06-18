@@ -14,6 +14,7 @@ typedef enum
     INPUT_ACTING, //any action that increments a turn
     INPUT_IDLE,
     INPUT_MENU,
+    INPUT_USE,
     INPUT_ENTER_BATTLE,
     INPUT_BATTLE,
     INPUT_INPUT_STATE_SIZE,

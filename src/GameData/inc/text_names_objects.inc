@@ -1,5 +1,5 @@
 // Generated object name strings
-// Database contains 107 total object
+// Database contains 106 total object
 
 // Individual object strings
 "Altar\0",
@@ -86,7 +86,6 @@
 "Sundial\0",
 "Cucking Stool\0",
 "Rack\0",
-"Scold's Bridle\0",
 "Stocks\0",
 "Strappado\0",
 "Whipping Post\0",

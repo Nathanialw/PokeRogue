@@ -93,7 +93,6 @@ Objects = [
     "SUNDIAL",
     "TORTURE_CUCKING_STOOL",
     "TORTURE_RACK",
-    "TORTURE_SCOLDS_BRIDLE",
     "TORTURE_STOCKS",
     "TORTURE_STRAPPADO",
     "TORTURE_WHIPPING_POST",
@@ -125,7 +124,7 @@ ObjectsDict = [
    { "name": 'BANNER_GOBLIN', 'prompt': "A banner on a wooden pole, of a goblin raider blowing in the wind"},
    { "name": 'BANNER_ORC', 'prompt': "A banner on a wooden pole, of an orc warchief blowing in the wind"},
    { "name": 'BAPTISMAL_FONT', 'prompt': "A baptismal font"},
-   { "name": 'BED_COT', 'prompt': "a simple cot with white sheets"},
+   { "name": 'BED_COT', 'prompt': "a metal simple cot with white padding and sheets"},
    { "name": 'BED_SINGLE', 'prompt': "a simple single person bed with sheets"},
    { "name": 'BED_TENT', 'prompt': "a simple canvas tent"},
    { "name": 'BELL', 'prompt': "a bell hanging from a basic wooden structure"},
@@ -179,7 +178,7 @@ ObjectsDict = [
    { "name": 'MIRROR_REVERSAL', 'prompt': "a standing mirror, rectangular with a blue edge and base"},
    { "name": 'MIRROR_STANDING', 'prompt': "a standing mirror, rectangular with a silver edge and base"},
    { "name": 'OBELISK', 'prompt': "a tall stone obelisk"},
-   { "name": 'PAD_DISPLACEMENT', 'prompt': "a magical white sigil on the floor"},
+   { "name": 'PAD_DISPLACEMENT', 'prompt': "a magical white sigil on a black background "},
    { "name": 'PAD_TELEPORT', 'prompt': "a magical cyan sigil on the floor"},
    { "name": 'PALANTIR', 'prompt': "a crystal orb"},
    { "name": 'POOL_REFLECTION', 'prompt': "a roughly circular pool of blue water"},
@@ -210,7 +209,6 @@ ObjectsDict = [
    { "name": 'SUNDIAL', 'prompt': "a roman sundial"},
    { "name": 'TORTURE_CUCKING_STOOL', 'prompt': "a torture device, a cucking stool, unoccupied"},
    { "name": 'TORTURE_RACK', 'prompt': "a torture device, a rack, unoccupied"},
-   { "name": 'TORTURE_SCOLDS_BRIDLE', 'prompt': "a torture device, a scold's bridle laying on the ground"},
    { "name": 'TORTURE_STOCKS', 'prompt': "a torture device, The Stocks sitting empty"},
    { "name": 'TORTURE_STRAPPADO', 'prompt': "a torture device, a strappado, unoccupied"},
    { "name": 'TORTURE_WHIPPING_POST', 'prompt': "a torture device, a whipping post, unoccupied"},
@@ -236,7 +234,7 @@ ObjectsDict = [
 ]
 
 OBJECTS_BASE_PROMPT = (
-    f"bold details, with divers colour palette, white background, "
+    f"bold details, with a diverse colour palette, black background, "
     "photo-realistic hi fidelity detailed, fantasy object, object fully visible, centered composition, isolated subject, single object, no cropping, highly detailed dark fantasy, sharp focus, "
 )
 

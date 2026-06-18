@@ -29,7 +29,7 @@ def copy_first_images(entity_type):
 
     for image_path, name in images:
         if not image_path:
-            image_path = "assets_raw/sprites/default/default.jpg"
+            image_path = "assets_raw/sprites/default/default.png"
 
         src_file = image_path
         if src_file and src_file.find('/') > 0:
@@ -57,8 +57,6 @@ def copy_first_images(entity_type):
 
 
 def main():
-
-
     for entity_type in IMAGE_TYPES:
         copy_first_images(entity_type)
 

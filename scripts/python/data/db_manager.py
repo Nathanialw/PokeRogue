@@ -833,7 +833,7 @@ CreatureStats = namedtuple('CreatureData', ['name', 'attack_min', 'defence_min',
 SpellData = namedtuple('SpellData', ['name', 'power', 'level', 'type_0', 'type_enum', 'power_points', 'use_on_party_member', 'use_on_enemy', 'use_on_trainer'])
 SkillData = namedtuple('AbilityData', ['name', 'formatted', 'power', 'power_special', 'mana_cost', 'type_0'])
 ItemData = namedtuple('ItemData', ['name', 'power', 'item_level', 'item_type', 'type_enum', 'consumable', 'consumable_party', 'consumable_spellbook'])
-ObjectData = namedtuple('ObjectData', ['name', 'power', 'object_type', 'level', 'consumable', 'interactable', 'on_step', 'hallway', 'nook', 'water'])
+ObjectData = namedtuple('ObjectData', ['name', 'power', 'object_type', 'level', 'consumable', 'interactable', 'on_step', 'hallway', 'nook', 'water', 'map_generatable', 'water_adjacent', 'corner', 'on_wall', 'against_wall', 'room_center', 'consumable_party', 'consumable_spellbook'])
 TrainerData = namedtuple('TrainerData', ['trainer_name', 'party_0', 'party_1', 'party_2', 'party_3', 'party_4', 'party_5', 'spell_0', 'spell_1', 'spell_2', 'spell_3', 'spell_4', 'spell_5', 'item_0', 'item_1', 'item_2', 'item_3', 'item_4', 'item_5'])
 MapSpriteData = namedtuple('MapSpriteData', ['sprite_idx', 'sprite_color_idx'])
 
@@ -1206,11 +1206,11 @@ def get_objects_data():
     # Swap: make type_string the key, enum the value
     type_to_enum = {type_str: enum for enum, type_str in cursor.fetchall()}
 
-    cursor.execute('SELECT name,  power, object_type, level, consumable, interactable, interact_on_step, hallway, nook, water FROM objects WHERE used = 1 ORDER BY name ASC')
+    cursor.execute('SELECT name,  power, object_type, level, consumable, interactable, interact_on_step, hallway, nook, water, map_generatable, water_adjacent, corner, on_wall, against_wall, room_center, consumable_party, consumable_spellbook FROM objects WHERE used = 1 ORDER BY name ASC')
 
     formatted_results = [
-        ObjectData(name, power, object_type, level, consumable, interactable, on_step, hallway, nook, water)
-        for name, power, object_type, level, consumable, interactable, on_step, hallway, nook, water in cursor.fetchall()
+        ObjectData(name, power, object_type, level, consumable, interactable, on_step, hallway, nook, water, map_generatable, water_adjacent, corner, on_wall, against_wall, room_center, consumable_party, consumable_spellbook)
+        for name, power, object_type, level, consumable, interactable, on_step, hallway, nook, water, map_generatable, water_adjacent, corner, on_wall, against_wall, room_center, consumable_party, consumable_spellbook in cursor.fetchall()
     ]
 
     conn.close()

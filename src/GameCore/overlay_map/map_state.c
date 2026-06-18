@@ -132,19 +132,83 @@ void UpdateGameRunningState(GraphicsInterface graphics, HardwareInterface hardwa
         }
     }
 
+    if (g_core.state.inputState == INPUT_USE)
+    {
+        if (input.GetButtonA())
+        {
+            ActionOutcome action_outcome = PlayerInteractObjectInCell(memory, hardware);
+            if (action_outcome == ACTION_SUCCEEDED)
+                FullRedraw(graphics, hardware, memory);
+            return;
+        }
+
+        if (input.GetButtonB())
+        {
+            BackUseOnParty(memory);
+            SetInputState(INPUT_ACTING);
+            FullRedraw(graphics, hardware, memory);
+            audio.PlaySoundEffect(GetMenuSoundId(MENU_BACK));
+            return;
+        }
+
+        if (input.GetButtonX())
+        {
+        }
+
+        if (input.GetButtonY())
+        {
+        }
+
+
+        if (input.GetButtonStart())
+        {
+        }
+
+
+        if (input.GetButtonSelect())
+        {
+        }
+
+        if (input.GetButtonJSClick())
+        {
+        }
+
+        if (input.GetButtonDPClick())
+        {
+        }
+
+        if (input.GetJSPressed())
+        {
+            SetMenuDelta(graphics, hardware, input, memory, input.GetInputKeyState().js);
+            audio.PlaySoundEffect(GetMenuSoundId(MENU_NEXT));
+            return;
+        }
+
+
+        if (input.GetDPPressed())
+        {
+            SetMenuDelta(graphics, hardware, input, memory, input.GetInputKeyState().dp);
+            audio.PlaySoundEffect(GetMenuSoundId(MENU_NEXT));
+            return;
+        }
+    }
+
 
     if (g_core.state.inputState == INPUT_IDLE)
     {
         if (input.GetButtonA())
         {
-            PlayerInteractItemInCell();
+            bool action_outcome = PlayerInteractItemInCell();
+
+            if (!action_outcome)
+                PlayerInteractObjectInCell(memory, hardware);
+
             FullRedraw(graphics, hardware, memory);
+            return;
         }
 
         if (input.GetButtonB())
         {
-            PlayerInteractObjectInCell(memory, hardware);
-            FullRedraw(graphics, hardware, memory);
         }
 
         if (input.GetButtonX())
@@ -193,14 +257,17 @@ void UpdateGameRunningState(GraphicsInterface graphics, HardwareInterface hardwa
 
         if (input.GetButtonA())
         {
-            PlayerInteractItemInCell();
+            bool action_outcome = PlayerInteractItemInCell();
+
+            if (!action_outcome)
+                PlayerInteractObjectInCell(memory, hardware);
+
             FullRedraw(graphics, hardware, memory);
+            return;
         }
 
         if (input.GetButtonB())
         {
-            PlayerInteractObjectInCell(memory, hardware);
-            FullRedraw(graphics, hardware, memory);
         }
 
         if (input.GetButtonX())
@@ -264,7 +331,7 @@ void HandleGameState(GameInterface* spi)
         spi->graphics.EndFrame();
     }
 
-    if (g_core.state.inputState == INPUT_MENU)
+    if (g_core.state.inputState == INPUT_MENU || g_core.state.inputState == INPUT_USE)
     {
         HandleMenu(spi->graphics, spi->hardware, spi->memory, spi->audio);
         HandleGameMenu(spi->graphics, spi->hardware, spi->memory);
@@ -288,6 +355,7 @@ uint8_t OverlayMapEntry(GameInterface* spi)
 
     FullRedraw(spi->graphics, spi->hardware, spi->memory);
     spi->graphics.EndFrame();
+    InitMainMenu();
 
     while (g_core.state.overlay == OVERLAY_MAP && g_core.state.running)
     {

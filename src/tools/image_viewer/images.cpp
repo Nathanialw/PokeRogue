@@ -20,7 +20,7 @@ ImageData::ImageData()
     image_count = 0;
     used_image_path = "";
     used_image_index = -1;
-    default_image_path = "assets_raw/sprites/default/default.jpg";
+    default_image_path = "assets_raw/sprites/default/default.png";
 }
 
 bool ImageData::Init()

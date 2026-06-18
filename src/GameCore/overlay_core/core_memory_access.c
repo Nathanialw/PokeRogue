@@ -9,11 +9,11 @@
 
 #include "data_constants_memory.inc"
 #include "enums.h"
+#include "lib_debugging.h"
 #include "types.h"
 
 
 // #define MEMORY_PRINT
-
 
 
 #if defined(MEMORY_PRINT)
@@ -168,106 +168,10 @@ void Flash_GetObjectData(MemoryInterface memory, ObjectData* object_data, uint8_
 }
 
 
-/**********************************************************************************************************************/
-/*      SPRITES
-**********************************************************************************************************************/
-SET_MEMORY(".core")
-void Flash_GetSpriteLayout(MemoryInterface memory, SpriteLayout* spriteLayout, uint8_t index, ObjectsTypes type, bool front)
-{
-#ifdef STANDALONE
-    if (type == ITEM)
-        return &g_gameFlash.spriteData.itemLayout[index];
-    else if (type == OBJECT)
-        return &g_gameFlash.spriteData.objectLayout[index];
-    else if (type == SPELL)
-        return &g_gameFlash.spriteData.spellLayout[index];
-    else if (type == SKILL)
-        return &g_gameFlash.spriteData.skillLayout[index];
-#else
-    const uint32_t position = index * sizeof(SpriteLayout);
-
-    if (type == ITEM)
-        memory.GetRom(SPRITE_ITEMS_LAYOUT_16_POSITION + position, spriteLayout->bytes, sizeof(SpriteLayout));
-    else if (type == OBJECT)
-        memory.GetRom(SPRITE_OBJECTS_LAYOUT_16_POSITION + position, spriteLayout->bytes, sizeof(SpriteLayout));
-    else if (type == SPELL)
-        memory.GetRom(SPRITE_SPELLS_LAYOUT_16_POSITION + position, spriteLayout->bytes, sizeof(SpriteLayout));
-    else if (type == SKILL)
-        memory.GetRom(SPRITE_SKILLS_LAYOUT_16_POSITION + position, spriteLayout->bytes, sizeof(SpriteLayout));
-    else if (type == CREATURE)
-    {
-        if (front)
-            memory.GetRom(SPRITE_BATTLER_LAYOUT_FRONT_16_POSITION + position, spriteLayout->bytes, sizeof(SpriteLayout));
-        else
-            memory.GetRom(SPRITE_BATTLER_LAYOUT_BACK_16_POSITION + position, spriteLayout->bytes, sizeof(SpriteLayout));
-    }
-
-#if defined(MEMORY_PRINT)
-    for (uint8_t i = 0; i < sizeof(SpriteLayout); i++)
-        memory.Print(str_spawn_creature_type, spriteLayout->bytes[i]);
-    memory.Print(new_line);
-#endif
-#endif
-}
-
-#if defined(MEMORY_PRINT)
-SET_MEMORY(".core.data")
-static const char aascyyy[] = "Flash_GetSprite INVALID type! index: %d\n";
-#endif
-
-
-SET_MEMORY(".core")
-void Flash_GetSprite(MemoryInterface memory, uint8_t* sprite, uint32_t index, uint16_t length, ObjectsTypes type, bool front)
-{
-#ifdef STANDALONE
-    if (type == ITEM)
-        return g_gameFlash.spriteData.itemSprites;
-    else if (type == OBJECT)
-        return g_gameFlash.spriteData.objectSprites;
-    else if (type == SPELL)
-        return g_gameFlash.spriteData.spells;
-    else if (type == SKILL)
-        return g_gameFlash.spriteData.skills;
-#else
-    if (type == ITEM)
-        memory.GetRom(SPRITE_ITEMS_16_POSITION + index, sprite, length);
-    else if (type == OBJECT)
-        memory.GetRom(SPRITE_OBJECTS_16_POSITION + index, sprite, length);
-    else if (type == SPELL)
-        memory.GetRom(SPRITE_SPELLS_16_POSITION + index, sprite, length);
-    else if (type == SKILL)
-        memory.GetRom(SPRITE_SKILLS_16_POSITION + index, sprite, length);
-    else if (type == CREATURE)
-    {
-        if (front)
-            memory.GetRom(SPRITE_BATTLER_FRONT_16_POSITION + index, sprite, length);
-        else
-            memory.GetRom(SPRITE_BATTLER_BACK_16_POSITION + index, sprite, length);
-    }
-#if defined(MEMORY_PRINT)
-    else
-    memory.Print(aascyyy, type);
-
-    for (uint8_t i = 0; i < length; i++)
-        memory.Print(str_spawn_creature_type, sprite[i]);
-    memory.Print(new_line);
-#endif
-#endif
-}
 
 SET_MEMORY(".core")
 void Flash_GetSpriteLayout_64(MemoryInterface memory, SpriteLayout* spriteLayout, uint8_t index, ObjectsTypes type, bool front)
 {
-#ifdef STANDALONE
-    if (type == ITEM)
-        return &g_gameFlash.spriteData.itemLayout[index];
-    else if (type == OBJECT)
-        return &g_gameFlash.spriteData.objectLayout[index];
-    else if (type == SPELL)
-        return &g_gameFlash.spriteData.spellLayout[index];
-    else if (type == SKILL)
-        return &g_gameFlash.spriteData.skillLayout[index];
-#else
     const uint32_t position = index * sizeof(SpriteLayout);
 
     if (type == ITEM)
@@ -278,6 +182,8 @@ void Flash_GetSpriteLayout_64(MemoryInterface memory, SpriteLayout* spriteLayout
         memory.GetRom(SPRITE_SPELLS_LAYOUT_64_POSITION + position, spriteLayout->bytes, sizeof(SpriteLayout));
     else if (type == SKILL)
         memory.GetRom(SPRITE_SKILLS_LAYOUT_64_POSITION + position, spriteLayout->bytes, sizeof(SpriteLayout));
+    else if (type == TRAINER)
+        memory.GetRom(SPRITE_TRAINERS_LAYOUT_64_POSITION + position, spriteLayout->bytes, sizeof(SpriteLayout));
     else if (type == CREATURE)
     {
         if (front)
@@ -285,19 +191,11 @@ void Flash_GetSpriteLayout_64(MemoryInterface memory, SpriteLayout* spriteLayout
         else
             memory.GetRom(SPRITE_BATTLER_LAYOUT_BACK_64_POSITION + position, spriteLayout->bytes, sizeof(SpriteLayout));
     }
-
-#if defined(MEMORY_PRINT)
-    for (uint8_t i = 0; i < sizeof(SpriteLayout); i++)
-        memory.Print(str_spawn_creature_type, spriteLayout->bytes[i]);
-    memory.Print(new_line);
-#endif
-#endif
+    else
+    {
+        DEBUG("ENTITY NOT FOUND");
+    }
 }
-
-#if defined(MEMORY_PRINT)
-SET_MEMORY(".core.data")
-static const char aascyyy[] = "Flash_GetSprite INVALID type! index: %d\n";
-#endif
 
 
 SET_MEMORY(".core")
@@ -321,12 +219,18 @@ void Flash_GetSprite_64(MemoryInterface memory, uint8_t* sprite, uint32_t index,
         memory.GetRom(SPRITE_SPELLS_64_POSITION + index, sprite, length);
     else if (type == SKILL)
         memory.GetRom(SPRITE_SKILLS_64_POSITION + index, sprite, length);
+    else if (type == TRAINER)
+        memory.GetRom(SPRITE_TRAINERS_64_POSITION + index, sprite, length);
     else if (type == CREATURE)
     {
         if (front)
             memory.GetRom(SPRITE_BATTLER_FRONT_64_POSITION + index, sprite, length);
         else
             memory.GetRom(SPRITE_BATTLER_BACK_64_POSITION + index, sprite, length);
+    }
+    else
+    {
+        DEBUG("ENTITY NOT FOUND");
     }
 #if defined(MEMORY_PRINT)
     else
@@ -343,21 +247,8 @@ void Flash_GetSprite_64(MemoryInterface memory, uint8_t* sprite, uint32_t index,
 SET_MEMORY(".core")
 void Flash_GetSpriteCreature16x16(MemoryInterface memory, uint8_t* glyph, uint8_t index)
 {
-#ifdef STANDALONE
-    for (uint16_t i = 0; i < 16; i++)
-    {
-        glyph[i] = g_gameFlash.spriteData.font16x16[(index * 16) + i];
-    }
-#else
-    const uint16_t length = 1;
-    memory.GetRom(SPRITE_16X16_CREATURE_POSITION + (length * index), glyph, length);
-
-#if defined(MEMORY_PRINT)
-    for (uint8_t i = 0; i < length; i++)
-        memory.Print(str_spawn_creature_type, glyph[i]);
-    memory.Print(new_line);
-#endif
-#endif
+    // const uint16_t length = 1;
+    // memory.GetRom(SPRITE_16X16_CREATURE_POSITION + (length * index), glyph, length);
 }
 
 
@@ -623,7 +514,7 @@ Creature Flash_GetThemeCreature(MemoryInterface memory, uint8_t theme, Creature 
 
 
 SET_MEMORY(".core.rodata")
-const char text_lines[32][SMALL_STRINGS] = {
+const char left_col[32][SMALL_STRINGS] = {
     "Attack: ",
     "Defence: ",
     "Magic: ",
@@ -648,6 +539,16 @@ const char text_lines[32][SMALL_STRINGS] = {
     "Mana Cost: ",
     "Physical ",
     "Special ",
+
+    "Error: ",
+};
+
+
+SET_MEMORY(".core.rodata")
+const char right_col[32][SMALL_STRINGS] = {
+    "Buffs",
+    "Debuffs",
+
     "Error: ",
 };
 
@@ -655,9 +556,13 @@ const char text_lines[32][SMALL_STRINGS] = {
 /*      a length of 0 means place null at the end of the text
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-void Flash_GetTextByIndex(MemoryInterface memory, char* text, uint8_t index, uint8_t null_position)
+void Flash_GetTextByIndex(MemoryInterface memory, char* text, uint8_t index, uint8_t null_position, uint8_t col)
 {
-    const char* cursor = text_lines[index];
+    const char* cursor = NULL;
+    if (col == 0)
+        cursor = left_col[index];
+    else if (col == 1)
+        cursor = right_col[index];
 
     bool copying = true;
     for (uint8_t i = 0; i < null_position; i++)

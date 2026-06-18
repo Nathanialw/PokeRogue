@@ -18,3 +18,12 @@ State SetInputState(InputState state)
     g_core.state.inputState = state;
     return g_core.state;
 }
+
+/**********************************************************************************************************************/
+/*
+**********************************************************************************************************************/
+SET_MEMORY(".core")
+InputState GetInputState()
+{
+    return g_core.state.inputState;
+}

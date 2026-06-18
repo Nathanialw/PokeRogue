@@ -1,5 +1,5 @@
 // Generated object sprites and color indexes
-// Database contains 107 total object sprites
+// Database contains 106 total object sprites
 
 // Individual sprites
 { .glyph_index = CH_o, .fg = PAL_PURPLE_BLUE },
@@ -108,6 +108,5 @@
 { .glyph_index = CH_o, .fg = PAL_PURPLE_BLUE },
 { .glyph_index = CH_o, .fg = PAL_PURPLE_BLUE },
 { .glyph_index = CH_o, .fg = PAL_PURPLE_BLUE },
-{ .glyph_index = CH_o, .fg = PAL_PURPLE_BLUE },
 
-//Sprites count = 107;
+//Sprites count = 106;

@@ -2197,7 +2197,7 @@
       NO_CREATURE,
   },
  .spells = {
-      RaiseXP,
+      RAISE_XP,
       NO_SPELL,
       NO_SPELL,
       NO_SPELL,

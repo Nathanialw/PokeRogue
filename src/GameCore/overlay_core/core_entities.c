@@ -577,11 +577,8 @@ EntityId SpawnTrainer(HardwareInterface hardware, MemoryInterface memory, uint8_
     for (uint8_t i = 0; i < MAX_BAG_SIZE; i++)
         g_core.trainers.itemID[id][i] = NO_ENTITY;
 
-    for (uint8_t i = 0; i < MAX_DEFAULT_TRAINER_ITEMS; i++)
-    {
-        EntityId item_id = SpawnEntity(hardware, memory, ITEM, trainer_data.items[i], x, y, 0);
-        PickItem(id, item_id);
-    }
+    EntityId item_id = SpawnEntity(hardware, memory, ITEM, POTION_HEALTH, x, y, 1);
+    PickItem(id, item_id);
 
 
     g_core.trainers.position[id] = pos;
