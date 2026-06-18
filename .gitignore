@@ -19,6 +19,7 @@ TODO.txt
 TODO
 libs/
 bin/
+src/GameData
 
 # Pico SDK generated
 *.uf2
