@@ -31,5 +31,3 @@ void Flash_GetSkillDescription(MemoryInterface memory, char* text, uint8_t index
 void Flash_GetTrainerDescription(MemoryInterface memory, char* text, uint8_t index);
 void Flash_GetTypeName(MemoryInterface memory, char* text, uint8_t typeIndex);
 
-void Flash_GetIconMetadata(MemoryInterface memory, SpriteFrames* sprite, IconType type, uint8_t index);
-void Flash_GetIconSprite(MemoryInterface memory, uint8_t* bytes, SpriteFrames* sprite, IconType type);

@@ -81,6 +81,12 @@ typedef struct
     Glyph buffer;
     Glyph spriteCache;
 
+    struct
+    {
+        Glyph spritePixels; // 512 bytes
+        Glyph spriteCache; // 512 bytes
+    } tileCache;
+
     //TODO: make into a union with something else
     Room rooms[MAX_ROOMS];
     uint8_t roomCount;
@@ -113,13 +119,6 @@ typedef struct
 
         uint8_t vision_radius;
         EntityId id;
-
-        // uint8_t currentBagMaxSize;
-        // uint8_t occupiedBagSlots;
-
-        // uint8_t currentSpellbookMaxSize;
-        // uint8_t currentSpellbookSize;
-        uint8_t currentPartySize;
 
         Delta d;
         Delta scroll;
@@ -174,6 +173,7 @@ typedef struct
         ObjectType metaData[MAX_ENTITY_TRAINER_COUNT]; //any 8 bit data, Creature type, Item type, etc
         BitFieldUint8 onMap;
         BitFieldUint8 active;
+        uint8_t currentPartySize[MAX_ENTITY_TRAINER_COUNT];
 
         BitFieldUint8 alive;
         IntMax99 speed[MAX_ENTITY_TRAINER_COUNT];

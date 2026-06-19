@@ -8,7 +8,7 @@ TYPES_INC_FOLDER = "../src/GameTypes/inc"
 OUTPUT_TYPE_STRINGS = f"{DATA_INC_FOLDER}/text_types.inc"
 PROMPT_VERSION = "v1.0"
 
-IMAGE_TYPES = ['item', 'object', 'creature', 'trainer', 'skill', 'spell', 'tile', 'environment_object']
+IMAGE_TYPES = ['item', 'object', 'creature', 'trainer', 'skill', 'spell', 'tile', 'environment_object', "creature_buff", "creature_debuff", "trainer_buff"]
 
 # Server configuration
 DEFAULT_HOST = "127.0.0.1"

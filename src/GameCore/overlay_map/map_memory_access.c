@@ -70,35 +70,6 @@ void Flash_GetMapSprite(MemoryInterface memory, uint8_t* bytes, SpriteFrames* sp
 }
 
 
-SET_MEMORY(".map")
-void Flash_GetIconMetadata(MemoryInterface memory, SpriteFrames* sprite, IconType type, uint8_t index)
-{
-    if (type == ICON_SKILL)
-        memory.GetRom(SPRITE_80X80_SKILL_METADATA_POSITION + (index * sizeof(SpriteFrames)), sprite->bytes, sizeof(SpriteFrames));
-    else if (type == ICON_SPELL)
-        memory.GetRom(SPRITE_80X80_SPELL_METADATA_POSITION + (index * sizeof(SpriteFrames)), sprite->bytes, sizeof(SpriteFrames));
-    if (type == ICON_DEBUFF)
-        memory.GetRom(SPRITE_80X80_SKILL_METADATA_POSITION + (index * sizeof(SpriteFrames)), sprite->bytes, sizeof(SpriteFrames));
-    else if (type == ICON_BUFF)
-        memory.GetRom(SPRITE_80X80_SPELL_METADATA_POSITION + (index * sizeof(SpriteFrames)), sprite->bytes, sizeof(SpriteFrames));
-
-}
-
-
-SET_MEMORY(".map")
-void Flash_GetIconSprite(MemoryInterface memory, uint8_t* bytes, SpriteFrames* sprite, IconType type)
-{
-    if (type == ICON_SKILL)
-        memory.GetRom(SPRITE_80X80_SKILL_POSITION + sprite->index, bytes, sprite->size);
-    else if (type == ICON_SPELL)
-        memory.GetRom(SPRITE_80X80_SPELL_POSITION + sprite->index, bytes, sprite->size);
-    else if (type == ICON_DEBUFF)
-        memory.GetRom(SPRITE_80X80_SPELL_POSITION + sprite->index, bytes, sprite->size);
-    else if (type == ICON_BUFF)
-        memory.GetRom(SPRITE_80X80_SPELL_POSITION + sprite->index, bytes, sprite->size);
-}
-
-
 /**********************************************************************************************************************/
 /*      Text
 **********************************************************************************************************************/

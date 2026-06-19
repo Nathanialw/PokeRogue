@@ -20,3 +20,7 @@ uint8_t GetStatusEffect(uint8_t* status_effect, EntityId creature_id);
 uint8_t SetStatusEffect(uint8_t* status_effect, EntityId creature_id, uint8_t value);
 uint8_t IncrementStatusEffect(uint8_t status_value, EntityId creature_id);
 uint8_t DecrementStatusEffect(uint8_t status_value, EntityId creature_id);
+
+
+void GetCreatureStatusEffectStateBuffs(uint8_t* buff_values, EntityId creature_id);
+void GetCreatureStatusEffectStateDebuffs(uint8_t* buff_values, EntityId creature_id);

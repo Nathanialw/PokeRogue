@@ -23,8 +23,8 @@ MODE = "optimum"      # "custom" or "optimum"
 
 SCALE_ENABLED = True
 
-DEFAULT_TARGET_WIDTH = 448
-DEFAULT_TARGET_HEIGHT = 448
+DEFAULT_TARGET_WIDTH = 224
+DEFAULT_TARGET_HEIGHT = 224
 
 INPUT_IMAGE = "trans_output.png"
 OUTPUT_IMAGE = f"col_indexed_output-{MODE}-{NUM_COLORS}.png"
@@ -39,6 +39,7 @@ INPUT_SIZE_TARGET_MAP = {
     (768, 512): (160, 112),  # If input is 768x512, scale to 160x112
     (1024, 1024): (112, 112),  # If input is 1024x1024, scale down to 112x112
     (1024, 1024): (448, 448),  # If input is 1024x1024, scale down to 112x112
+    (1024, 1024): (224, 224),  # If input is 1024x1024, scale down to 112x112
     # Add more mappings as needed
 }
 

@@ -273,14 +273,15 @@ void HandleBattleState(GameInterface* spi)
 
     if (CheckBattleState(BATTLE_DEAD_FRIEND))
     {
-        g_core.state.overlay = OVERLAY_GAME_LOSS;
+        AnimationBattlerDie(spi->graphics, spi->hardware, spi->memory, true);
+        bool has_next_creature = SendNextPartyCreature();
 
-        //ANIMATION - player's creature drops off screen
-        if (false) // if no more creatures left
-        {
-            g_core.state.overlay = OVERLAY_TITLE_SCREEN;
-            // updateState.inputState = TITLE_SCREEN;
-        }
+        if (!has_next_creature)
+            g_core.state.overlay = OVERLAY_GAME_LOSS;
+        SetBattleState(BATTLE_MENUS);
+
+        HandleBattle(spi->graphics, spi->hardware, spi->memory);
+        spi->graphics.EndFrame();
     }
 }
 

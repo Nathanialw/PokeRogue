@@ -16,7 +16,9 @@
 #include "battle_memory_access.h"
 #include "battle_ram.h"
 #include "core_player.h"
+#include "core_stats.h"
 
+SET_MEMORY(".battle")
 void CreateCreatureName(const char* name, const uint99 level, char* out)
 {
     uint8_t char_index = 0;
@@ -47,6 +49,7 @@ void CreateCreatureName(const char* name, const uint99 level, char* out)
 }
 
 
+SET_MEMORY(".battle")
 void GetStatPrefix(char* out, const char* prefix, uint16_t cur, uint16_t max)
 {
     uint16_t i = 0;
@@ -254,14 +257,13 @@ void HandleBattleMenu(GraphicsInterface graphics, HardwareInterface hardware, Me
 /*  Draws the formatted Creature stats in battle - hp, mama
 **********************************************************************************************************************/
 SET_MEMORY(".battle")
-void CreatureStats(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, EntityId creature_id, Rect_16 rect, Rect_16 text_rect, uint8_t size, FontSize font_size)
+void CreatureStats(GraphicsInterface graphics, MemoryInterface memory, EntityId creature_id, const Rect_16 rect, const Rect_16 text_rect, const Rect_16 buff_rect, const Rect_16 debuff_rect, uint8_t size, FontSize font_size)
 {
     uint8_t max_chars = 12;
 
     graphics.FillRect(rect.x, rect.y, rect.w, rect.h, Flash_GetColor(memory, PAL_OFF_WHITE_GRAY_BLUE));
     graphics.FillRect(text_rect.x, text_rect.y, text_rect.w, text_rect.h, Flash_GetColor(memory, PAL_OFF_WHITE_GRAY_BLUE));
 
-    rect.w -= size << 1;
 
     char text[SMALL_STRINGS];
     Flash_GetCreatureName(memory, text, GetCreatureType(creature_id));
@@ -289,8 +291,6 @@ void CreatureStats(GraphicsInterface graphics, HardwareInterface hardware, Memor
     uint16_t cur_xp = Int999GetCurrent(&xp);
     uint16_t max_xp = Int999GetMax(&xp);
 
-    // GetStatLine(hardware, cur_hp, max_hp, max_chars, status_line, "HP:");
-    // GetStatLine(hardware, cur_mp, max_mp, max_chars, status_line, "MP:");
 
     const uint8_t pad = 1;
     const uint8_t pad2 = pad << 1;
@@ -301,14 +301,14 @@ void CreatureStats(GraphicsInterface graphics, HardwareInterface hardware, Memor
 
 
     float bar_w = ((float)rect.w - (float)pad2) * ((float)cur_hp / (float)max_hp);
-    graphics.FillRect(rect.x + TEXT_W, rect.y + size + TEXT_W, rect.w, size, color_border);
-    graphics.FillRect(rect.x + TEXT_W + pad, rect.y + size + TEXT_W + pad, rect.w - pad2, size - pad2, color_bg);
-    graphics.FillRect(rect.x + TEXT_W + pad, rect.y + size + TEXT_W + pad, (uint16_t)bar_w, size - pad2, color_hp);
+    graphics.FillRect(rect.x, rect.y + size + TEXT_W, rect.w, size, color_border);
+    graphics.FillRect(rect.x + pad, rect.y + size + TEXT_W + pad, rect.w - pad2, size - pad2, color_bg);
+    graphics.FillRect(rect.x + pad, rect.y + size + TEXT_W + pad, (uint16_t)bar_w, size - pad2, color_hp);
 
     bar_w = ((float)rect.w - (float)pad2) * ((float)cur_mp / (float)max_mp);
-    graphics.FillRect(rect.x + TEXT_W, rect.y + (size * 2) + TEXT_W, rect.w, size, color_border);
-    graphics.FillRect(rect.x + TEXT_W + pad, rect.y + (size * 2) + TEXT_W + pad, rect.w - pad2, size - pad2, color_bg);
-    graphics.FillRect(rect.x + TEXT_W + pad, rect.y + (size * 2) + TEXT_W + pad, (uint16_t)bar_w, size - pad2, color_mp);
+    graphics.FillRect(rect.x, rect.y + (size * 2) + TEXT_W, rect.w, size, color_border);
+    graphics.FillRect(rect.x + pad, rect.y + (size * 2) + TEXT_W + pad, rect.w - pad2, size - pad2, color_bg);
+    graphics.FillRect(rect.x + pad, rect.y + (size * 2) + TEXT_W + pad, (uint16_t)bar_w, size - pad2, color_mp);
 
     if (g_core.battleMode.playerMonsterID == creature_id)
     {
@@ -322,21 +322,33 @@ void CreatureStats(GraphicsInterface graphics, HardwareInterface hardware, Memor
         Color color_xp = Flash_GetColor(memory, PAL_PALE_BLU_PURP);
 
         bar_w = ((float)rect.w - (float)pad2) * ((float)cur_xp / (float)max_xp);
-        graphics.FillRect(rect.x + TEXT_W, rect.y + (size * 3) + TEXT_W, rect.w, size >> 1, color_border);
-        graphics.FillRect(rect.x + TEXT_W + pad, rect.y + (size * 3) + TEXT_W + pad, rect.w - pad2, (size >> 1) - pad2, color_bg);
-        graphics.FillRect(rect.x + TEXT_W + pad, rect.y + (size * 3) + TEXT_W + pad, (uint16_t)bar_w, (size >> 1) - pad2, color_xp);
+        graphics.FillRect(rect.x, rect.y + (size * 3) + TEXT_W, rect.w, size >> 1, color_border);
+        graphics.FillRect(rect.x + pad, rect.y + (size * 3) + TEXT_W + pad, rect.w - pad2, (size >> 1) - pad2, color_bg);
+        graphics.FillRect(rect.x + pad, rect.y + (size * 3) + TEXT_W + pad, (uint16_t)bar_w, (size >> 1) - pad2, color_xp);
     }
 
 
+    graphics.DrawRectOutline(rect.x, rect.y, rect.w, rect.h, 1, color_border);
+    graphics.DrawRectOutline(text_rect.x, text_rect.y, text_rect.w, text_rect.h, 1, color_mp);
+    graphics.DrawRectOutline(buff_rect.x, buff_rect.y, buff_rect.w, buff_rect.h, 1, color_hp);
+    graphics.DrawRectOutline(debuff_rect.x, debuff_rect.y, debuff_rect.w, debuff_rect.h, 1, color_mp);
+
+
+    uint8_t buff_values[16] = {0};
     //buff frame
+    GetCreatureStatusEffectStateBuffs(buff_values, creature_id);
+    DrawBuffs(graphics, memory, buff_rect.x, buff_rect.y, buff_values, ICON_CREATURE_DEBUFF, 8);
 
     //debuff frame
+    GetCreatureStatusEffectStateDebuffs(buff_values, creature_id);
+    DrawBuffs(graphics, memory, debuff_rect.x, debuff_rect.y, buff_values, ICON_CREATURE_DEBUFF, 8);
 }
 
 
+SET_MEMORY(".battle")
 void CombatLogFullDraw(GraphicsInterface graphics, MemoryInterface memory)
 {
-    graphics.FillRect(DIALOGUE_BOX_FRAME.x, DIALOGUE_BOX_FRAME.y + (6 * TEXT_H), DIALOGUE_BOX_FRAME.w, DIALOGUE_BOX_FRAME.h, Flash_GetColor(memory, PAL_OFF_WHITE_GRAY_BLUE));
+    graphics.DrawRectOutline(DIALOGUE_BOX_FRAME.x, DIALOGUE_BOX_FRAME.y, DIALOGUE_BOX_FRAME.w, DIALOGUE_BOX_FRAME.h, 1, Flash_GetColor(memory, PAL_DEEP_BLUE));
 
     //clear area
     uint8_t index = 0;
@@ -376,6 +388,7 @@ void HandleBattle(GraphicsInterface graphics, HardwareInterface hardware, Memory
     Rect_16 enemy = ENEMY_BATTLER_FRAME;
     Rect_16 enemyHP = ENEMY_RESOURCE_FRAME;
     Rect_16 dialogue = DIALOGUE_BOX_FRAME;
+    Rect_16 menu = BATTLE_MENU_BOX_FRAME;
 
     graphics.FillRect(enemy.x, enemy.y, enemy.w, enemy.h, Flash_GetColor(memory, PAL_OFF_WHITE_GRAY_BLUE));
     graphics.FillRect(player.x, player.y, player.w, player.h, Flash_GetColor(memory, PAL_OFF_WHITE_GRAY_BLUE));
@@ -385,7 +398,7 @@ void HandleBattle(GraphicsInterface graphics, HardwareInterface hardware, Memory
         SpriteLayout pLayout = {};
         Flash_GetSpriteLayout_64(memory, &pLayout, GetCreatureType(g_core.battleMode.playerMonsterID), CREATURE, false);
         DrawBattler(graphics, memory, player.x + BATTLER_OFFSET, player.y, &pLayout, CREATURE, false);
-        CreatureStats(graphics, hardware, memory, g_core.battleMode.playerMonsterID, playerHP, PLAYER_STAT_TEXT_FRAME, size, font_size);
+        CreatureStats(graphics, memory, g_core.battleMode.playerMonsterID, playerHP, PLAYER_STAT_TEXT_FRAME, PLAYER_BUFF_FRAME, PLAYER_DEBUFF_FRAME, size, font_size);
     }
 
     if (g_core.battleMode.enemyMonsterID != NO_ENTITY)
@@ -393,13 +406,14 @@ void HandleBattle(GraphicsInterface graphics, HardwareInterface hardware, Memory
         SpriteLayout eLayout = {};
         Flash_GetSpriteLayout_64(memory, &eLayout, GetCreatureType(g_core.battleMode.enemyMonsterID), CREATURE, true);
         DrawBattler(graphics, memory, enemy.x + BATTLER_OFFSET, enemy.y, &eLayout, CREATURE, true);
-        CreatureStats(graphics, hardware, memory, g_core.battleMode.enemyMonsterID, enemyHP, ENEMY_STAT_TEXT_FRAME, size, font_size);
+        CreatureStats(graphics, memory, g_core.battleMode.enemyMonsterID, enemyHP, ENEMY_STAT_TEXT_FRAME, ENEMY_BUFF_FRAME, ENEMY_DEBUFF_FRAME, size, font_size);
     }
 
-    uint16_t x = dialogue.x;
-    uint16_t y = dialogue.y;
+    uint16_t x = menu.x;
+    uint16_t y = menu.y;
     uint8_t i = 0;
     char line[SMALL_STRINGS];
+    graphics.DrawRectOutline(menu.x, menu.y, menu.w, menu.h, 1, Flash_GetColor(memory, PAL_RED_ORANGE));
 
     while (i < MAX_ABILITIES)
     {
@@ -409,8 +423,8 @@ void HandleBattle(GraphicsInterface graphics, HardwareInterface hardware, Memory
         i++;
     }
 
-    x = dialogue.x + (BATTLE_MENU_COL_2 * size);
-    y = dialogue.y;
+    x = menu.x + (BATTLE_MENU_COL_2 * size);
+    y = menu.y;
     i = 0;
     while (i < BATTLE_MENU_SIZE)
     {

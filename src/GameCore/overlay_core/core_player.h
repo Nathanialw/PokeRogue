@@ -17,3 +17,5 @@ EntityId GetPlayerID(void);
 BagData GetPlayerBagData(void);
 SpellBook* GetPlayerSpellbook(void);
 EntityId GetPlayerEffects(PlayerEffects playerEffect);
+EntityId* GetPlayerInventory(void);
+uint8_t GetPlayerPartySize(void);

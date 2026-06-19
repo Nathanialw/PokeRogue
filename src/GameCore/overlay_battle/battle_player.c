@@ -23,21 +23,25 @@
 SET_MEMORY(".battle")
 bool PlayerDefeated(void)
 {
-    if (CheckAlive(g_core.battleMode.playerMonsterID))
+    EntityId creature_id = g_core.battleMode.playerMonsterID;
+    uint16_t hp = Int999GetCurrent(&g_core.creatures.hp[creature_id]);
+    if (hp == 0)
+        return true;
+
+    return false;
+}
+
+
+
+
+bool SendNextPartyCreature()
+{
+    EntityId player_id = GetPlayerID();
+    DestroyPartyCreature(player_id, g_core.battleMode.playerMonsterID);
+    g_core.battleMode.playerMonsterID = NO_ENTITY;
+    g_core.battleMode.playerMonsterID = GetPlayerMonsterIDs()[0];
+    if (g_core.battleMode.playerMonsterID == NO_ENTITY)
         return false;
-
-    EntityId p_ID = GetPlayerID();
-
-    for (uint8_t i = 0; i < MAX_PARTY_SIZE; ++i)
-    {
-        uint8_t e_id = g_core.trainers.partyID[p_ID][i];
-        if (GetCreatureType(e_id) != NO_CREATURE && CheckAlive(e_id))
-        {
-            g_core.battleMode.playerMonsterID = e_id;
-            return false;
-        }
-    }
-
     return true;
 }
 
@@ -65,9 +69,11 @@ bool EnemyDefeated()
             return true;
 
     EntityId creature_id = g_core.battleMode.enemyMonsterID;
-    uint8_t hp = Int999GetCurrent(&g_core.creatures.hp[creature_id]);
+    uint16_t hp = Int999GetCurrent(&g_core.creatures.hp[creature_id]);
     if (hp == 0)
+    {
         return true;
+    }
 
     return false;
 }

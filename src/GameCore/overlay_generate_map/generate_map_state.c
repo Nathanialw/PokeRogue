@@ -37,7 +37,6 @@ void GameRunInit(HardwareInterface hardware, MemoryInterface memory)
 
     g_core.menu.gameMenu.id = NO_CREATURE;
     g_core.menu.menuSleepTime = 200; //200
-    g_core.player.currentPartySize = 1; //1
     g_core.battleMode.enemy_trainer_id = NO_ENTITY; //1
 
     g_core.music.master_volume = 32768;

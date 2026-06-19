@@ -192,3 +192,59 @@ void DrawBattler(GraphicsInterface graphics, MemoryInterface memory, uint16_t sc
     FrameBuffer f = DrawBattlerToBuffer(graphics, memory, screen_x, screen_y, layout, type, front);
     graphics.DrawBuffer(f, NULL);
 }
+
+/**********************************************************************************************************************/
+/**  Checks cache
+ *  Updates cache
+ *  Blit the given creature id to the given screen coords
+**********************************************************************************************************************/
+SET_MEMORY(".map")
+void DrawIconCached(GraphicsInterface graphics, MemoryInterface memory, uint16_t screen_tx, uint16_t screen_ty, uint8_t sprite_id, IconType type)
+{
+    SpriteFrames layout = {0};
+    Flash_GetIconMetadata(memory, &layout, type, sprite_id);
+    Flash_GetIconSprite(memory, g_core.tileCache.spriteCache.bytes, &layout, type);
+
+    uint8_t icon_size = ICON_W;
+    if (type == ICON_CREATURE_BUFF || type == ICON_CREATURE_DEBUFF || type == ICON_TRAINER_BUFF)
+        icon_size = BUFF_W;
+
+    Expand4bppPackedToByte(memory, g_core.tileCache.spriteCache.bytes, layout.palette, g_core.tileCache.spritePixels.pixels, icon_size);
+
+    Rect_16 rect = {screen_tx, screen_ty, icon_size, icon_size};
+    graphics.Draw16(NULL, &rect, g_core.tileCache.spritePixels.pixels);
+}
+
+
+
+/**********************************************************************************************************************/
+/**  Checks cache
+ *  Updates cache
+ *  Blit the given creature id to the given screen coords
+**********************************************************************************************************************/
+SET_MEMORY(".core")
+void DrawBuffs(GraphicsInterface graphics, MemoryInterface memory, uint16_t screen_x, uint16_t screen_y, const uint8_t* buff_values, IconType icon_type, uint8_t num_per_row)
+{
+    const uint8_t spacing = 5;
+    uint8_t index = 0;
+    uint8_t buff_index = 0;
+
+    for (uint8_t i = 0; i < MAX_MAX_STATUS_EFFECTS; i++)
+    {
+        if (buff_values[i] > 0)
+        {
+            if (buff_index % num_per_row == 0)
+            {
+                if (buff_index != 0)
+                    screen_y += (BUFF_H + spacing);
+                DrawIconCached(graphics, memory, screen_x, screen_y, 0, icon_type);
+                index = 0;
+            }
+            else
+            {
+                index++;
+                DrawIconCached(graphics, memory, screen_x + (index * (BUFF_W + 8)), screen_y, 0, icon_type);
+            }
+        }
+    }
+}

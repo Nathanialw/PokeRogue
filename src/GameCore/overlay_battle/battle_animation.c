@@ -80,8 +80,8 @@ void UpdateResourceBar(GraphicsInterface graphics, HardwareInterface hardware, M
     const uint8_t pad = 1;
     const uint8_t pad2 = pad << 1;
 
-    const uint16_t x = ((r.x + TEXT_W) + pad);
-    const uint16_t bar_w = (r.w - (TEXT_W * 2)) - pad2;
+    const uint16_t x = ((r.x) + pad);
+    const uint16_t bar_w = (r.w) - pad2;
 
     const uint16_t current_bar = (uint16_t)(((uint32_t)cache_value * bar_w) / max_mp);
     const uint16_t change_w = (uint16_t)(((uint32_t)(max_mp - cur_mp) * bar_w) / max_mp);
@@ -188,7 +188,7 @@ void AnimationUpdateXP(GraphicsInterface graphics, HardwareInterface hardware, M
     const uint16_t xp_w = ((float)cur_xp / (float)max_xp) * (float)bar_w;
 
 
-    const uint16_t origin = r.x + TEXT_W;
+    const uint16_t origin = r.x;
     uint16_t x = (origin + (bar_w * current_bar));
     if (x > origin + TEXT_W) x -= TEXT_W;
 

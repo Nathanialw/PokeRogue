@@ -127,10 +127,18 @@ def main():
         ".sprite_64x64_tile_metaData",
         ".sprite_64x64_environment_object_metaData",
 
+        # icons
         ".sprite_80x80_skill",
         ".sprite_80x80_skill_metaData",
         ".sprite_80x80_spell",
         ".sprite_80x80_spell_metaData",
+
+        ".sprite_48x48_creature_buff",
+        ".sprite_48x48_creature_debuff",
+        ".sprite_48x48_trainer_buff",
+        ".sprite_48x48_creature_buff_metaData",
+        ".sprite_48x48_creature_debuff_metaData",
+        ".sprite_48x48_trainer_buff_metaData",
 
         # fonts
         ".font_8x8",
@@ -180,6 +188,7 @@ def main():
         f.write("\n\n\n")
         # f.write(f"///   {len(defines_pos)} entries MAX 255\n")
         f.write("\n")
+
 
 if __name__ == "__main__":
     main()

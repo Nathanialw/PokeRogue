@@ -12,6 +12,7 @@
 #include "battle_ram.h"
 #include "battle_state.h"
 #include "battle_ui.h"
+#include "core_effects.h"
 
 #include "core_entities.h"
 #include "core_memory_access.h"
@@ -67,10 +68,11 @@ bool EnterMenu(const uint8_t listSize, const uint8_t max_list_size)
 SET_MEMORY(".map")
 void OpenUseOnPartyBattle(HardwareInterface hardware, MemoryInterface memory, UseFrameBack f)
 {
-    FillListByEntityID(memory, g_core.player.currentPartySize, CREATURE, GetPlayerMonsterIDs());
+    uint8_t party_size = GetPlayerPartySize();
+    FillListByEntityID(memory, party_size, CREATURE, GetPlayerMonsterIDs());
     g_core.menu.useOnPartyMember = f;
     g_core.menu.max_visible_menu_options = MAX_PARTY_SIZE;
-    g_core.menu.occupied_visible_menu_options = g_core.player.currentPartySize;
+    g_core.menu.occupied_visible_menu_options = party_size;
 
     g_core.menu.depth++;
 
@@ -82,7 +84,7 @@ void OpenUseOnPartyBattle(HardwareInterface hardware, MemoryInterface memory, Us
 
     g_core.menu.sel[g_core.menu.depth].x = 0;
     g_core.menu.sel[g_core.menu.depth].y = 0;
-    g_core.menu.totalMenuOptions = g_core.player.currentPartySize;
+    g_core.menu.totalMenuOptions = party_size;
     g_battle.show_party = true;
 }
 
@@ -174,7 +176,8 @@ void CloseMenu(GraphicsInterface graphics, HardwareInterface hardware, MemoryInt
 SET_MEMORY(".battle")
 bool BattleSwap(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update)
 {
-    if (EnterMenu(g_core.player.currentPartySize, MAX_PARTY_SIZE))
+    uint8_t party_size = GetPlayerPartySize();
+    if (EnterMenu(party_size, MAX_PARTY_SIZE))
     {
         EntityId player_id = GetPlayerID();
         uint8_t sel = g_core.menu.sel[g_core.menu.depth].y;
@@ -192,7 +195,7 @@ bool BattleSwap(GraphicsInterface graphics, HardwareInterface hardware, InputInt
 
 
     g_battle.show_party = true;
-    FillListByEntityID(memory, g_core.player.currentPartySize, CREATURE, GetPlayerMonsterIDs());
+    FillListByEntityID(memory, party_size, CREATURE, GetPlayerMonsterIDs());
     return false;
 }
 
@@ -314,6 +317,7 @@ bool BattleItems(GraphicsInterface graphics, HardwareInterface hardware, InputIn
         else if (action_outcome == ACTION_CANNOT)
         {
             PrintCombatLogText(hardware, memory, "Cannot use item");
+            return false;
         }
 
         return true;
@@ -331,8 +335,8 @@ SET_MEMORY(".battle")
 bool BattleStruggle(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update)
 {
     DEBUG("Usign Struggle");
-    DamageCreature(g_core.battleMode.enemyMonsterID, 8, CREATURE);
-    DamageCreature(g_core.battleMode.playerMonsterID, 3, CREATURE);
+    DoDamage(g_core.battleMode.enemyMonsterID, 8);
+    DoDamage(g_core.battleMode.playerMonsterID, 3);
 
 
     return true;

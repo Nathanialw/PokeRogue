@@ -28,10 +28,10 @@ uint16_t ListSize(uint16_t n)
 SET_MEMORY(".core")
 bool ListJump(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory)
 {
-    if (input.GetInputKeyState().dp.x != 0)
+    if (g_core.menu.sel[g_core.menu.depth].x != 0)
     {
         Delta d = {};
-        d.y = input.GetInputKeyState().dp.x * LIST_JUMP_AMOUNT;
+        d.y = g_core.menu.sel[g_core.menu.depth].x * LIST_JUMP_AMOUNT;
         if (HandleMenuOverflow(graphics, hardware, input, memory, d)) return true;
         SetMenuDelta(graphics, hardware, input, memory, d);
     }
@@ -82,7 +82,7 @@ void FillListByTypeID(MemoryInterface memory, uint8_t n, uint8_t* ids)
 SET_MEMORY(".core")
 bool HandleMenuOverflow(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, Delta delta)
 {
-    bool options_exceed_menu = g_core.menu.h < g_core.menu.max_visible_menu_options;
+    bool options_exceed_menu = g_core.menu.h < g_core.menu.totalMenuOptions;
     uint8_t sel_pos_y = g_core.menu.sel[g_core.menu.depth].y;
     uint8_t sel_off_y = g_core.menu.menuScrollOffset[g_core.menu.depth].y;
 
@@ -156,13 +156,15 @@ bool SetMenuDelta(GraphicsInterface graphics, HardwareInterface hardware, InputI
     g_core.menu.eraseSel.x = g_core.menu.sel[g_core.menu.depth].x;
     g_core.menu.sel[g_core.menu.depth].x += delta.x;
 
+    if (1)
+    {
+        //brute force handle battle menu overflow
+        if (g_core.menu.sel[g_core.menu.depth].x > 1)
+            g_core.menu.sel[g_core.menu.depth].x = 0;
 
-    //brute force handle battle menu overflow
-    if (g_core.menu.sel[g_core.menu.depth].x > 1)
-        g_core.menu.sel[g_core.menu.depth].x = 0;
-
-    if (g_core.menu.sel[g_core.menu.depth].x < 0)
-        g_core.menu.sel[g_core.menu.depth].x = 1;
+        if (g_core.menu.sel[g_core.menu.depth].x < 0)
+            g_core.menu.sel[g_core.menu.depth].x = 1;
+    }
 
     if (delta.x != 0)
         return false;

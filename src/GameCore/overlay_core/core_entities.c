@@ -185,23 +185,48 @@ void DestroyTrainer(EntityId id)
 }
 
 SET_MEMORY(".core")
-void DestroyPartyCreature(EntityId id)
+EntityId DestroyPartyCreature(EntityId trainer_id, EntityId creature_id)
 {
-    DestroyCreature(id);
-
-    //if trainer has no more creatures, destroy the trainer
-    EntityId creature_id = NO_ENTITY;
+    if (creature_id == NO_ENTITY) return creature_id;
+    uint8_t party_index = 0;
+    //remove from party
     for (uint8_t i = 0; i < MAX_PARTY_SIZE; i++)
-        creature_id = g_core.trainers.partyID[id][i];
+    {
+        if (creature_id == g_core.trainers.partyID[trainer_id][i])
+        {
+            party_index = i;
+            g_core.trainers.partyID[trainer_id][i] = NO_ENTITY;
+        }
+    }
+
+    g_core.trainers.currentPartySize[trainer_id]--;
+
+    //destroy creature
+    DestroyCreature(creature_id);
+
+    //check if trainer has no more creatures
+    creature_id = NO_ENTITY;
+    for (uint8_t i = 0; i < MAX_PARTY_SIZE; i++)
+    {
+        creature_id = g_core.trainers.partyID[trainer_id][i];
+        if (creature_id != NO_ENTITY)
+            break;
+    }
+
+    //if not, destroy the trainer
     if (creature_id == NO_ENTITY)
     {
-        DestroyTrainer(id);
-        return;
+        DestroyTrainer(trainer_id);
+        return NO_ENTITY;
     }
 
     //move all creatures up a party slot
-    for (uint8_t i = 0; i < MAX_PARTY_SIZE - 1; i++)
-        g_core.trainers.partyID[id][i] = g_core.trainers.partyID[id][i + 1];
+    for (uint8_t i = party_index; i < MAX_PARTY_SIZE - 1; i++)
+        g_core.trainers.partyID[trainer_id][i] = g_core.trainers.partyID[trainer_id][i + 1];
+    g_core.trainers.partyID[trainer_id][MAX_PARTY_SIZE - 1] = NO_ENTITY;
+
+    //return the new creature at position 0
+    return g_core.trainers.partyID[trainer_id][0];
 }
 
 
@@ -557,6 +582,7 @@ EntityId SpawnTrainer(HardwareInterface hardware, MemoryInterface memory, uint8_
         {
             EntityId e_id = SpawnEntity(hardware, memory, CREATURE, trainer_data.party[i], x, y, 5);
             g_core.trainers.partyID[id][i] = CaptureMonster(e_id);
+            g_core.trainers.currentPartySize[id]++;
         }
         else
         {

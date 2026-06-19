@@ -21,6 +21,7 @@ void DrawSpriteCached(GraphicsInterface graphics, MemoryInterface memory, uint8_
 void DrawPartyCreatureStats(GraphicsInterface graphics, MemoryInterface memory, EntityId creature_id);
 void DrawParty(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory);
 void DrawSpellbook(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory);
+void DrawInventory(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory);
 void DrawList(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory);
 
 void HandleGameMenu(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory);

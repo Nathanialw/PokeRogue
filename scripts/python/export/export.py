@@ -251,7 +251,7 @@ def func_c_animation_headers(entity, p, return_type, params):
 
 
 
-def export_constants(byte_counts, counts, bytes_count_map_sprites, bytes_count_icons):
+def export_constants(byte_counts, counts, bytes_count_map_sprites, bytes_count_icons, bytes_count_icons_small):
     filename = f"{TYPES_INC_FOLDER}/data_constants.inc"
     """Export the count constants to a C array file"""
     with open(filename, 'w', encoding='utf-8') as f:
@@ -266,6 +266,9 @@ def export_constants(byte_counts, counts, bytes_count_map_sprites, bytes_count_i
         f.write(f"#define SPRITE_OBJECT_BYTES_64 {byte_counts[5]}\n")
         f.write(f"#define SPRITE_TRAINER_BYTES_64 {byte_counts[6]}\n")
         f.write(f"#define SPRITE_ENVIRONMENT_OBJECT_BYTES_64 {byte_counts[7]}\n")
+        f.write(f"#define SPRITE_CREATURE_BUFF_BYTES_64 {byte_counts[8]}\n")
+        f.write(f"#define SPRITE_CREATURE_DEBUFF_BYTES_64 {byte_counts[9]}\n")
+        f.write(f"#define SPRITE_TRAINER_BUFF_BYTES_64 {byte_counts[10]}\n")
         f.write(f"\n")
 
         f.write(f"#define CREATURE_COUNT {counts[0]}\n")
@@ -276,6 +279,9 @@ def export_constants(byte_counts, counts, bytes_count_map_sprites, bytes_count_i
         f.write(f"#define TRAINER_COUNT {counts[5]}\n")
         f.write(f"#define TILE_COUNT {counts[6]}\n")
         f.write(f"#define ENVIRONMENT_OBJECT_COUNT {counts[7]}\n")
+        f.write(f"#define CREATURE_BUFF_COUNT {counts[8]}\n")
+        f.write(f"#define CREATURE_DEBUFF_COUNT {counts[9]}\n")
+        f.write(f"#define TRAINER_BUFF_COUNT {counts[10]}\n")
         f.write(f"\n")
 
         f.write(f"#define CREATURE_TEXT_ARRAY_SIZE {counts[0] + 1}\n")
@@ -286,6 +292,9 @@ def export_constants(byte_counts, counts, bytes_count_map_sprites, bytes_count_i
         f.write(f"#define TRAINER_TEXT_ARRAY_SIZE {counts[5] + 1}\n")
         f.write(f"#define TILE_TEXT_ARRAY_SIZE {counts[6] + 1}\n")
         f.write(f"#define ENVIRONMENT_OBJECT_TEXT_ARRAY_SIZE {counts[7] + 1}\n")
+        f.write(f"#define CREATURE_BUFF_TEXT_ARRAY_SIZE {counts[8] + 1}\n")
+        f.write(f"#define CREATURE_DEBUFF_TEXT_ARRAY_SIZE {counts[9] + 1}\n")
+        f.write(f"#define TRAINER_BUFF_TEXT_ARRAY_SIZE {counts[10] + 1}\n")
         f.write(f"\n")
 
         f.write(f"#define NO_CREATURE {counts[0]}\n")
@@ -296,6 +305,9 @@ def export_constants(byte_counts, counts, bytes_count_map_sprites, bytes_count_i
         f.write(f"#define NO_TRAINER {counts[5]}\n")
         f.write(f"#define NO_TILE {counts[6]}\n")
         f.write(f"#define NO_ENVIRONMENT_OBJECT {counts[7]}\n")
+        f.write(f"#define NO_CREATURE_BUFF {counts[8]}\n")
+        f.write(f"#define NO_CREATURE_DEBUFF {counts[9]}\n")
+        f.write(f"#define NO_TRAINER_BUFF {counts[10]}\n")
 
         f.write(f"\n")
         f.write(f"#define SPRITE_64x64_CREATURE_BYTES {bytes_count_map_sprites[0]}\n")
@@ -308,6 +320,12 @@ def export_constants(byte_counts, counts, bytes_count_map_sprites, bytes_count_i
         f.write(f"\n")
         f.write(f"#define SPRITE_80x80_SKILL_BYTES {bytes_count_icons[0]}\n")
         f.write(f"#define SPRITE_80x80_SPELL_BYTES {bytes_count_icons[1]}\n")
+
+        f.write(f"#define SPRITE_48x48_CREATURE_BUFF_BYTES {bytes_count_icons_small[0]}\n")
+        f.write(f"#define SPRITE_48x48_CREATURE_DEBUFF_BYTES {bytes_count_icons_small[1]}\n")
+        f.write(f"#define SPRITE_48x48_TRAINER_BUFF_BYTES {bytes_count_icons_small[2]}\n")
+
+
         f.write(f"\n// All values aligned to 2 bytes\n")
 
     print(f"📄 Exported to {filename}")

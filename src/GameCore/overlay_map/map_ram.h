@@ -32,6 +32,7 @@ typedef struct
         uint8_t sprite_id; // Which sprite is cached
     } tileCache;
 
+
     /**********************************************************************************************************************
     *   Dirty tile rendering cache arrays
     **********************************************************************************************************************/
@@ -72,7 +73,6 @@ extern MapRunState g_map; // Declaration only
 
 
 extern const ObjectEffect objectFunctions[OBJECT_COUNT];
-
 
 
 ActionOutcome UseMapItem(HardwareInterface hardware, MemoryInterface memory, uint8_t itemType, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index);

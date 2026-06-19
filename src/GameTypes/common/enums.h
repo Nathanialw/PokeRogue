@@ -202,8 +202,9 @@ typedef enum
 {
     ICON_SKILL,
     ICON_SPELL,
-    ICON_DEBUFF,
-    ICON_BUFF,
+    ICON_CREATURE_DEBUFF,
+    ICON_CREATURE_BUFF,
+    ICON_TRAINER_BUFF,
 } IconType;
 
 /**********************************************************************************************************************/

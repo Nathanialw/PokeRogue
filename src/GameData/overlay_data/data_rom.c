@@ -265,6 +265,37 @@ const uint8_t sprites_environmentObjects_64[SPRITE_ENVIRONMENT_OBJECT_BYTES_64] 
  *
 **********************************************************************************************************************/
 /**********************************************************************************************************************/
+/*  48x48 icon sprite tiles
+**********************************************************************************************************************/
+SET_MEMORY(".sprite_48x48_creature_buff")
+const uint8_t sprite_80x80_creature_buff[SPRITE_48x48_CREATURE_BUFF_BYTES] = {
+#include "inc/sprite_48x48_creature_buff.inc"
+};
+SET_MEMORY(".sprite_48x48_creature_debuff")
+const uint8_t sprite_80x80_creature_debuff[SPRITE_48x48_CREATURE_DEBUFF_BYTES] = {
+#include "inc/sprite_48x48_creature_debuff.inc"
+};
+SET_MEMORY(".sprite_48x48_trainer_buff")
+const uint8_t sprite_80x80_trainer_buff[SPRITE_48x48_TRAINER_BUFF_BYTES] = {
+#include "inc/sprite_48x48_trainer_buff.inc"
+};
+
+SET_MEMORY(".sprite_48x48_creature_buff_metaData")
+const SpriteFrames sprite_48x48_creature_buff_metaData[CREATURE_BUFF_COUNT] = {
+#include "inc/sprite_48x48_creature_buff_metaData.inc"
+};
+SET_MEMORY(".sprite_48x48_creature_debuff_metaData")
+const SpriteFrames sprite_48x48_creature_debuff_metaData[CREATURE_DEBUFF_COUNT] = {
+#include "inc/sprite_48x48_creature_debuff_metaData.inc"
+};
+SET_MEMORY(".sprite_48x48_trainer_buff_metaData")
+const SpriteFrames sprite_48x48_trainer_buff_metaData[TRAINER_BUFF_COUNT] = {
+#include "inc/sprite_48x48_trainer_buff_metaData.inc"
+};
+
+
+
+/**********************************************************************************************************************/
 /*  80x80 icon sprite tiles
 **********************************************************************************************************************/
 SET_MEMORY(".sprite_80x80_skill")

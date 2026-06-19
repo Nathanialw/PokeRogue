@@ -30,6 +30,7 @@ def run():
     bytes_count = []
     bytes_count_map_sprites = []
     bytes_count_icons = []
+    bytes_count_icons_small = []
     counts = []
 
     # update enums
@@ -194,6 +195,23 @@ def run():
     # functions
     # enum
 
+
+    # CREATURE BUFFS
+    bytes_count.append(export_battlers.export_image_data("creature_buff", 64, 64))
+    bytes_count_icons_small.append(export_map_sprites.export_image_data("creature_buff", 48))
+    counts.append(export_enums.get_entity_enums("creature_buff"))
+
+    # CREATURE DEBUFFS
+    bytes_count.append(export_battlers.export_image_data("creature_debuff", 64, 64))
+    bytes_count_icons_small.append(export_map_sprites.export_image_data("creature_debuff", 48))
+    counts.append(export_enums.get_entity_enums("creature_debuff"))
+
+    # TRAINER BUFFS
+    bytes_count.append(export_battlers.export_image_data("trainer_buff", 64, 64))
+    bytes_count_icons_small.append(export_map_sprites.export_image_data("trainer_buff", 48))
+    counts.append(export_enums.get_entity_enums("trainer_buff"))
+
+
     # enums
     export_enums.get_data_enums("item_types")
     export_enums.get_data_enums("biomes")
@@ -203,8 +221,7 @@ def run():
     export_enums.get_data_enums("pathing_types")
     export_enums.get_data_enums("tile_types")
 
-
-    export.export_constants(bytes_count, counts, bytes_count_map_sprites, bytes_count_icons)
+    export.export_constants(bytes_count, counts, bytes_count_map_sprites, bytes_count_icons, bytes_count_icons_small)
 
 
 run()

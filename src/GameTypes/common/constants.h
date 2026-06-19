@@ -120,11 +120,19 @@ _Static_assert(OBJECT_COUNT <= 256, "max must be 256 - one byte");
 #define MAX_MAX_STATUS_EFFECTS 16
 
 /**********************************************************************************************************************/
+/** Icon constants
+**********************************************************************************************************************/
+#define ICON_W 80
+#define ICON_H 80
+#define BUFF_W 48
+#define BUFF_H 48
+#define ICON_PIXELS (ICON_W * ICON_H)
+
+/**********************************************************************************************************************/
 /** Player Defaults
 **********************************************************************************************************************/
 #define DEFAULT_LIGHT_RADIUS 7
 #define DEFAULT_BAG_SIZE 10
-
 
 
 /**********************************************************************************************************************/
@@ -137,25 +145,40 @@ _Static_assert(OBJECT_COUNT <= 256, "max must be 256 - one byte");
 #define BATTLER_OFFSET ((BATTLER_AREA_W - BATTLER_AREA_H) / 2)
 
 #define RESOURCE_FRAME_W (TILE_W * 6)
-#define RESOURCE_FRAME_H (TILE_W * 2)
+#define RESOURCE_FRAME_H (TEXT_W * 5)
 #define RESOURCE_WIDTH (RESOURCE_FRAME_W-TILE_W)
 #define RESOURCE_TEXT_FRAME_W (TEXT_W * 10)
 #define RESOURCE_HEIGHT TEXT_W
+#define BUFF_FRAME_H ((BUFF_H * 2) + 6)
 
-#define DIALOGUE_H  (TILE_H * 4)
-_Static_assert(DIALOGUE_H + RESOURCE_FRAME_H + BATTLER_AREA_H <= TFT_H, "cannot exceed screen height of 240");
-
-#define PLAYER_BATTLER_FRAME    ((Rect_16){0, SCREEN_H-BATTLER_AREA_H-DIALOGUE_H, BATTLER_AREA_W, BATTLER_AREA_H})
-#define ENEMY_BATTLER_FRAME     ((Rect_16){SCREEN_W-BATTLER_AREA_W, 0, BATTLER_AREA_W, BATTLER_AREA_H})
-#define ENEMY_RESOURCE_FRAME    ((Rect_16){0, 0, RESOURCE_FRAME_W, RESOURCE_FRAME_H})
-#define PLAYER_RESOURCE_FRAME   ((Rect_16){SCREEN_W-RESOURCE_FRAME_W, SCREEN_H-RESOURCE_FRAME_H-DIALOGUE_H, RESOURCE_FRAME_W, RESOURCE_FRAME_H})
+#define BATTLE_MENU_HEIGHT (TEXT_H * 6)
+#define DIALOGUE_H  (TEXT_H * 8)
 #define DIALOGUE_BOX_FRAME      ((Rect_16){0, SCREEN_H-DIALOGUE_H, SCREEN_W, DIALOGUE_H})
+_Static_assert(DIALOGUE_H + RESOURCE_FRAME_H + BATTLER_AREA_H <= TFT_H, "cannot exceed screen height of screen");
 
-#define PLAYER_STAT_TEXT_FRAME  ((Rect_16){SCREEN_W-RESOURCE_FRAME_W-RESOURCE_TEXT_FRAME_W, SCREEN_H-RESOURCE_FRAME_H-DIALOGUE_H, RESOURCE_TEXT_FRAME_W, RESOURCE_FRAME_H})
-#define ENEMY_STAT_TEXT_FRAME   ((Rect_16){RESOURCE_FRAME_W + 1, 0, RESOURCE_TEXT_FRAME_W, RESOURCE_FRAME_H})
+#define PLAYER_STATUS_FRAME_X (SCREEN_W - (TEXT_W * 36))
+#define PLAYER_STATUS_FRAME_Y (SCREEN_H - RESOURCE_FRAME_H - DIALOGUE_H-(BUFF_FRAME_H*2))
+#define STATUS_FRAME_W (RESOURCE_FRAME_W + (TEXT_W*2) + RESOURCE_TEXT_FRAME_W)
+#define STATUS_FRAME_H (RESOURCE_FRAME_H+RESOURCE_FRAME_H)
 
+
+#define PLAYER_BATTLER_FRAME    ((Rect_16){0, SCREEN_H-BATTLER_AREA_H-DIALOGUE_H-BATTLE_MENU_HEIGHT, BATTLER_AREA_W, BATTLER_AREA_H})
+#define PLAYER_RESOURCE_FRAME   ((Rect_16){SCREEN_W-RESOURCE_FRAME_W-TEXT_W, PLAYER_STATUS_FRAME_Y, RESOURCE_FRAME_W, RESOURCE_FRAME_H})
+#define PLAYER_STAT_TEXT_FRAME  ((Rect_16){PLAYER_STATUS_FRAME_X, PLAYER_STATUS_FRAME_Y, RESOURCE_TEXT_FRAME_W, RESOURCE_FRAME_H})
+#define PLAYER_BUFF_FRAME       ((Rect_16){SCREEN_W-RESOURCE_FRAME_W-RESOURCE_TEXT_FRAME_W - (TEXT_W*2), PLAYER_STATUS_FRAME_Y+RESOURCE_FRAME_H, STATUS_FRAME_W, BUFF_FRAME_H})
+#define PLAYER_DEBUFF_FRAME     ((Rect_16){SCREEN_W-RESOURCE_FRAME_W-RESOURCE_TEXT_FRAME_W - (TEXT_W*2), PLAYER_STATUS_FRAME_Y+RESOURCE_FRAME_H+BUFF_FRAME_H, STATUS_FRAME_W, BUFF_FRAME_H})
+
+
+#define ENEMY_BATTLER_FRAME     ((Rect_16){SCREEN_W-BATTLER_AREA_W, 0, BATTLER_AREA_W, BATTLER_AREA_H})
+#define ENEMY_RESOURCE_FRAME    ((Rect_16){TEXT_W, TEXT_W, RESOURCE_FRAME_W, RESOURCE_FRAME_H})
+#define ENEMY_STAT_TEXT_FRAME   ((Rect_16){RESOURCE_FRAME_W + (TEXT_W*2), TEXT_H, RESOURCE_TEXT_FRAME_W, RESOURCE_FRAME_H})
+#define ENEMY_BUFF_FRAME        ((Rect_16){TEXT_W, TEXT_H + RESOURCE_FRAME_H, STATUS_FRAME_W, BUFF_FRAME_H})
+#define ENEMY_DEBUFF_FRAME      ((Rect_16){TEXT_W, TEXT_H + RESOURCE_FRAME_H+BUFF_FRAME_H, STATUS_FRAME_W, BUFF_FRAME_H})
+
+
+#define BATTLE_MENU_BOX_FRAME   ((Rect_16){0, SCREEN_H-DIALOGUE_H-BATTLE_MENU_HEIGHT, SCREEN_W-STATUS_FRAME_W, BATTLE_MENU_HEIGHT})
 #define BATTLE_MENU_X 0
-#define BATTLE_MENU_Y ((SCREEN_H-DIALOGUE_H) / TEXT_H)
+#define BATTLE_MENU_Y ((SCREEN_H-DIALOGUE_H-BATTLE_MENU_HEIGHT) / TEXT_H)
 #define BATTLE_MENU_W 2
 #define BATTLE_MENU_H 6
 
@@ -250,9 +273,7 @@ _Static_assert(DIALOGUE_H + RESOURCE_FRAME_H + BATTLER_AREA_H <= TFT_H, "cannot 
 #define COMBAT_LOG_SIZE 255
 #define COMBAT_LOG_LINES 8
 
-#define ICON_W 80
-#define ICON_H 80
-#define ICON_PIXELS (ICON_W * ICON_H)
+
 /**********************************************************************************************************************/
 /**STAT MODIFIERS cosntants
 **********************************************************************************************************************/

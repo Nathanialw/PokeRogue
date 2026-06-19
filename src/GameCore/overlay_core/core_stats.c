@@ -209,3 +209,43 @@ uint8_t DecrementStatusEffect(uint8_t status_value, EntityId creature_id)
 
     return status_value;
 }
+
+
+
+//
+// /**********************************************************************************************************************
+// *
+// **********************************************************************************************************************/
+SET_MEMORY(".map")
+void GetCreatureStatusEffectStateBuffs(uint8_t* buff_values, EntityId creature_id)
+{
+    for (uint8_t i = 0; i < MAX_MAX_STATUS_EFFECTS; i++)
+        buff_values[i] = 0;
+
+    buff_values[0] = g_core.creatures.buffs[creature_id].hasted;
+    buff_values[1] = g_core.creatures.buffs[creature_id].fire_eating;
+}
+
+
+
+//
+// /**********************************************************************************************************************
+// *
+// **********************************************************************************************************************/
+SET_MEMORY(".core")
+void GetCreatureStatusEffectStateDebuffs(uint8_t* buff_values, EntityId creature_id)
+{
+    for (uint8_t i = 0; i < MAX_MAX_STATUS_EFFECTS; i++)
+        buff_values[i] = 0;
+
+    buff_values[0] = g_core.creatures.debuffs[creature_id].paralyzed;
+    buff_values[1] = g_core.creatures.debuffs[creature_id].sleep;
+    buff_values[2] = g_core.creatures.debuffs[creature_id].poison;
+    buff_values[3] = g_core.creatures.debuffs[creature_id].frozen;
+    buff_values[4] = g_core.creatures.debuffs[creature_id].disease;
+    buff_values[5] = g_core.creatures.debuffs[creature_id].curse;
+    buff_values[6] = g_core.creatures.debuffs[creature_id].fear;
+    buff_values[8] = g_core.creatures.debuffs[creature_id].burned;
+    buff_values[9] = g_core.creatures.debuffs[creature_id].slowed;
+}
+

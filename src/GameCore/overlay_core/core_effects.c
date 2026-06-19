@@ -596,8 +596,7 @@ ActionOutcome Capture(HardwareInterface hardware, EntityId trainer_id, EntityId 
     {
         if (AddCreatureToParty(trainer_id, target_id))
         {
-            if (trainer_id == GetPlayerID())
-                g_core.player.currentPartySize++;
+            g_core.trainers.currentPartySize[trainer_id]++;
             CaptureMonster(target_id);
             return ACTION_SUCCEEDED;
         }

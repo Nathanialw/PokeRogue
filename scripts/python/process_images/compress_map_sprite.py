@@ -56,13 +56,10 @@ def compress_sprite_single(input_path, size, output_path):
     Compress an image to a square sprite of given size, store as one tile.
     Alpha channel is completely ignored – the image is treated as opaque.
     """
-    if size not in (16, 20, 24, 32, 64, 128, 80):
-        raise ValueError(f"Size must be one of 16,20,24,32,64, 128, 80 (got {size})")
-
     print(f"\nProcessing: {input_path} -> {size}x{size} sprite")
 
     # 1. Load image and resize (alpha discarded)
-    img = Image.open(input_path).convert('RGB')   # no alpha
+    img = Image.open(input_path).convert('RGB')  # no alpha
     if img.size != (size, size):
         print(f"  Resizing from {img.size} to {size}x{size}")
         img = img.resize((size, size), Image.NEAREST)
@@ -201,8 +198,8 @@ def main():
         print(f"Error: size must be an integer (16,20,24,32,64), got '{sys.argv[2]}'")
         sys.exit(1)
 
-    if size not in (16, 20, 24, 32, 64, 128, 80):
-        raise ValueError(f"Size must be one of 16,20,24,32,64, 128, 80 (got {size})")
+    if size not in (16, 20, 24, 32, 48, 64, 80, 128):
+        raise ValueError(f"Size must be one of 16,20,24,32,48,64,80,128 (got {size})")
         sys.exit(1)
 
     process_folder(input_folder, size)

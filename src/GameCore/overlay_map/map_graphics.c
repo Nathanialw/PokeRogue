@@ -14,6 +14,7 @@
 #include "core_menu.h"
 #include "core_player.h"
 #include "core_ram.h"
+#include "core_stats.h"
 #include "core_tiles.h"
 
 #include "map_memory_access.h"
@@ -235,53 +236,6 @@ void DrawSpriteCached(GraphicsInterface graphics, MemoryInterface memory, uint8_
     graphics.DrawTileKeyed(px, py, MAP_TILE_W, MAP_TILE_H, g_map.tileCache.spritePixels.pixels);
 }
 
-/**********************************************************************************************************************/
-/**  Checks cache
- *  Updates cache
- *  Blit the given creature id to the given screen coords
-**********************************************************************************************************************/
-SET_MEMORY(".map")
-void DrawIconCached(GraphicsInterface graphics, MemoryInterface memory, uint16_t screen_tx, uint16_t screen_ty, uint8_t sprite_id, IconType type)
-{
-    SpriteFrames layout = {0};
-    Flash_GetIconMetadata(memory, &layout, type, sprite_id);
-    Flash_GetIconSprite(memory, g_map.tileCache.spriteCache.bytes, &layout, type);
-    Expand4bppPackedToByte(memory, g_map.tileCache.spriteCache.bytes, layout.palette, g_map.tileCache.spritePixels.pixels, ICON_W);
-    Rect_16 rect = {screen_tx, screen_ty, ICON_W, ICON_H};
-    graphics.Draw16(NULL, &rect, g_map.tileCache.spritePixels.pixels);
-}
-
-/**********************************************************************************************************************/
-/**  Checks cache
- *  Updates cache
- *  Blit the given creature id to the given screen coords
-**********************************************************************************************************************/
-SET_MEMORY(".map")
-void DrawBuffs(GraphicsInterface graphics, MemoryInterface memory, uint16_t screen_x, uint16_t screen_y, const uint8_t* buff_values)
-{
-    const uint8_t spacing = 5;
-    uint8_t index = 0;
-    uint8_t buff_index = 0;
-
-    for (uint8_t i = 0; i < MAX_MAX_STATUS_EFFECTS; i++)
-    {
-        if (buff_values[i] > 0)
-        {
-            if (buff_index % 4 == 0)
-            {
-                if (buff_index != 0)
-                    screen_y += (ICON_H + spacing);
-                DrawIconCached(graphics, memory, screen_x, screen_y, 0, ICON_SKILL);
-                index = 0;
-            }
-            else
-            {
-                index++;
-                DrawIconCached(graphics, memory, screen_x + (index * (ICON_W + 8)), screen_y, 0, ICON_SKILL);
-            }
-        }
-    }
-}
 
 /**********************************************************************************************************************/
 /**  Draws the player party frame
@@ -432,14 +386,14 @@ void DrawPartyCreatureStats(GraphicsInterface graphics, MemoryInterface memory, 
     Flash_GetTextByIndex(memory, line, status_col_i, SMALL_STRINGS, 1);
     PrintLineStr(graphics, memory, status_start_x_col1, RIGHT_COL_LINE_HEIGHT, g_core.settings.fontSize, SMALL_STRINGS, line, 0, PAL_DARK_BLUE_GRAY, PAL_OFF_WHITE_GRAY_BLUE);
     GetCreatureStatusEffectStateBuffs(buff_values, creature_id);
-    DrawBuffs(graphics, memory, status_start_x_col1, RIGHT_COL_LINE_HEIGHT, buff_values);
+    DrawBuffs(graphics, memory, status_start_x_col1, RIGHT_COL_LINE_HEIGHT, buff_values, ICON_CREATURE_BUFF, 4);
 
     status_col_i = 0;
     status_col_spacing = 0;
     Flash_GetTextByIndex(memory, line, status_col_i + 1, SMALL_STRINGS, 1);
     PrintLineStr(graphics, memory, status_start_x_col2, RIGHT_COL_LINE_HEIGHT, g_core.settings.fontSize, SMALL_STRINGS, line, 0, PAL_DARK_BLUE_GRAY, PAL_OFF_WHITE_GRAY_BLUE);
     GetCreatureStatusEffectStateDebuffs(buff_values, creature_id);
-    DrawBuffs(graphics, memory, status_start_x_col2, RIGHT_COL_LINE_HEIGHT, buff_values);
+    DrawBuffs(graphics, memory, status_start_x_col2, RIGHT_COL_LINE_HEIGHT, buff_values, ICON_CREATURE_DEBUFF, 4);
 
 
     /***************************************************************************************************************************************************************/
@@ -700,6 +654,92 @@ void DrawSpellbook(GraphicsInterface graphics, HardwareInterface hardware, Memor
             DrawStatusBar(graphics, memory, x + size, y + lineHeight, max_chars, size, line_w, color_hp);
         }
         lineHeight += size;
+
+
+        lineHeight += (size >> 1);
+        y += lineHeight;
+        i++;
+    }
+
+    g_core.menu.lineHeight = lineHeight;
+    PrintLineStr(graphics, memory, x, (max_lines - 1) * size, font_size, max_chars, border, false, PAL_DARK_BLUE_GRAY, PAL_OFF_WHITE_GRAY_BLUE);
+    g_core.menu.colorCache = color_bg;
+}
+
+/**********************************************************************************************************************/
+/**
+**********************************************************************************************************************/
+SET_MEMORY(".map")
+void DrawInventory(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory)
+{
+    const uint16_t x = MAIN_MENU_X * TEXT_W;
+    uint16_t y = MAIN_MENU_Y * TEXT_H;
+    const uint16_t w = MAIN_MENU_W * TEXT_W;
+    const uint16_t h = MAIN_MENU_H * TEXT_H;
+    Color color_bg = Flash_GetColor(memory, PAL_OFF_WHITE_GRAY_BLUE);
+
+    graphics.FillRect(x, y, w, h, color_bg);
+
+    const uint16_t indent = 1;
+    const FontSize font_size = g_core.settings.fontSize;
+    const uint16_t size = TEXT_W;
+    const uint8_t max_lines = (MAIN_MENU_H * font_size);
+    const uint8_t max_chars = (((MAIN_MENU_W) / TEXT_W) - indent) + 1;
+
+    char border[max_chars + 1];
+    for (uint16_t i = 0; i < max_chars; i++) border[i] = '-';
+    border[max_chars] = '\0';
+
+    y += PrintLineStr(graphics, memory, x, y, font_size, max_chars, border, false, PAL_DARK_BLUE_GRAY, PAL_OFF_WHITE_GRAY_BLUE);
+    const uint16_t list_y = y;
+
+    uint16_t lineHeight = 0;
+    uint16_t i = 0;
+    BagData bag_data = GetPlayerBagData();
+    EntityId* inventory = GetPlayerInventory();
+
+    Color color_hp = Flash_GetColor(memory, PAL_DEEP_BLUE);
+    Color color_mp = Flash_GetColor(memory, PAL_ICE_BLUE);
+    Color color_xp = Flash_GetColor(memory, PAL_PALE_BLU_PURP);
+
+    while (i < bag_data.current_max_size)
+    {
+        EntityId playe = GetPlayerID();
+        EntityId item_id = inventory[i];
+        if (item_id == NO_ENTITY)
+        {
+            lineHeight = 0;
+            y += PrintLineStr(graphics, memory, x, y, font_size, 3, "-----\0", indent, PAL_DARK_BLUE_GRAY, PAL_OFF_WHITE_GRAY_BLUE);
+            lineHeight += (size >> 1);
+            y += lineHeight;
+            i++;
+            continue;
+        }
+
+        graphics.DrawRectOutline(x + TEXT_W, y, TEXT_W, TEXT_H, 1, Flash_GetColor(memory, PAL_DARK_BLUE_GRAY));
+
+        lineHeight = 0;
+        char line[SMALL_STRINGS];
+        GetMenuLine(memory, line, i);
+        if (i > (max_lines)) break;
+
+        // name
+        y += PrintLineStr(graphics, memory, x + TEXT_W, y + lineHeight, font_size, max_chars, line, indent, PAL_DARK_BLUE_GRAY, PAL_OFF_WHITE_GRAY_BLUE);
+
+        uint16_t cur = 0;
+        uint16_t max = 0;
+        float line_w;
+
+        // PP
+        // cur = spellbook->page[i].pp;
+        // max = spellbook->page[i].spellData.pp;
+        // if (max > 0)
+        // {
+        //     line_w = (((float)cur / (float)max) * ((float)(max_chars - 2) * (float)size));
+        //     if (line_w > 2) line_w -= 2;
+        //     DrawStatusBar(graphics, memory, x + size, y + lineHeight, max_chars, size, line_w, color_hp);
+        // }
+        // lineHeight += size;
 
 
         lineHeight += (size >> 1);
@@ -1053,6 +1093,7 @@ void HandleGameMenu(GraphicsInterface graphics, HardwareInterface hardware, Memo
 {
     if (!g_core.menu.gameMenu.open && (g_core.menu.gameMenu.displayId == g_core.menu.gameMenu.id)) return;
     g_core.menu.gameMenu.displayId = g_core.menu.gameMenu.id;
+    g_core.menu.gameMenu.open = true;
 
     const uint16_t x = 0;
     const uint8_t size = TEXT_W;

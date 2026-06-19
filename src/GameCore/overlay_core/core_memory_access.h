@@ -22,6 +22,9 @@ void Flash_GetObjectData(MemoryInterface memory, ObjectData* object_data, uint8_
 void Flash_GetSpriteLayout_64(MemoryInterface memory, SpriteLayout* spriteLayout, uint8_t index, ObjectsTypes type, bool front);
 void Flash_GetSprite_64(MemoryInterface memory, uint8_t* sprite, uint32_t index, uint16_t length, ObjectsTypes type, bool front);
 
+// ICONS
+void Flash_GetIconMetadata(MemoryInterface memory, SpriteFrames* sprite, IconType type, uint8_t index);
+void Flash_GetIconSprite(MemoryInterface memory, uint8_t* bytes, SpriteFrames* sprite, IconType type);
 
 ///FONTS
 uint8_t Flash_GetFontChar8x8(MemoryInterface memory, uint8_t* glyph, uint8_t index);
@@ -50,3 +53,4 @@ Creature Flash_GetThemeCreature(MemoryInterface memory, uint8_t theme, Creature 
 
 
 void Flash_GetTextByIndex(MemoryInterface memory, char* text, uint8_t index, uint8_t null_position, uint8_t col);
+

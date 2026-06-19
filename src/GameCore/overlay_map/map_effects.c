@@ -158,7 +158,7 @@ ActionOutcome DamageCreature(CreatureID entity_id, uint8_t damage, ObjectsTypes 
         bool dead = CheckCreatureDead(creature_id);
         if (dead)
         {
-            DestroyPartyCreature(creature_id);
+            DestroyPartyCreature(entity_id, creature_id);
             EntityId new_creature = GetNextPartyCreature(entity_id);
             if (entity_id == GetPlayerID())
             {

@@ -168,6 +168,13 @@ SECTIONS
     .sprite_80x80_spell                        0x140000000 : { KEEP(*(.sprite_80x80_spell))  . = ALIGN(4); }
     .sprite_80x80_spell_metaData               0x150000000 : { KEEP(*(.sprite_80x80_spell_metaData))  . = ALIGN(4); }
 
+    .sprite_48x48_creature_buff                0x160000000 : { KEEP(*(.sprite_48x48_creature_buff))  . = ALIGN(4); }
+    .sprite_48x48_creature_debuff              0x161000000 : { KEEP(*(.sprite_48x48_creature_debuff))  . = ALIGN(4); }
+    .sprite_48x48_trainer_buff                 0x162000000 : { KEEP(*(.sprite_48x48_trainer_buff))  . = ALIGN(4); }
+    .sprite_48x48_creature_buff_metaData       0x163000000 : { KEEP(*(.sprite_48x48_creature_buff_metaData))  . = ALIGN(4); }
+    .sprite_48x48_creature_debuff_metaData     0x164000000 : { KEEP(*(.sprite_48x48_creature_debuff_metaData))  . = ALIGN(4); }
+    .sprite_48x48_trainer_buff_metaData        0x165000000 : { KEEP(*(.sprite_48x48_trainer_buff_metaData))  . = ALIGN(4); }
+
     /* ========================================== */
     /*     FONTS                                  */
     /* ========================================== */

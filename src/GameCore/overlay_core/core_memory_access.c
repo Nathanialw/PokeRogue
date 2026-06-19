@@ -253,6 +253,40 @@ void Flash_GetSpriteCreature16x16(MemoryInterface memory, uint8_t* glyph, uint8_
 
 
 /**********************************************************************************************************************/
+/*      ICONS
+**********************************************************************************************************************/
+SET_MEMORY(".core")
+void Flash_GetIconMetadata(MemoryInterface memory, SpriteFrames* sprite, IconType type, uint8_t index)
+{
+    if (type == ICON_SKILL)
+        memory.GetRom(SPRITE_80X80_SKILL_METADATA_POSITION + (index * sizeof(SpriteFrames)), sprite->bytes, sizeof(SpriteFrames));
+    else if (type == ICON_SPELL)
+        memory.GetRom(SPRITE_80X80_SPELL_METADATA_POSITION + (index * sizeof(SpriteFrames)), sprite->bytes, sizeof(SpriteFrames));
+    if (type == ICON_CREATURE_BUFF)
+        memory.GetRom(SPRITE_48X48_CREATURE_BUFF_METADATA_POSITION + (index * sizeof(SpriteFrames)), sprite->bytes, sizeof(SpriteFrames));
+    else if (type == ICON_CREATURE_DEBUFF)
+        memory.GetRom(SPRITE_48X48_CREATURE_DEBUFF_METADATA_POSITION + (index * sizeof(SpriteFrames)), sprite->bytes, sizeof(SpriteFrames));
+    else if (type == ICON_TRAINER_BUFF)
+        memory.GetRom(SPRITE_48X48_TRAINER_BUFF_METADATA_POSITION + (index * sizeof(SpriteFrames)), sprite->bytes, sizeof(SpriteFrames));
+}
+
+
+SET_MEMORY(".core")
+void Flash_GetIconSprite(MemoryInterface memory, uint8_t* bytes, SpriteFrames* sprite, IconType type)
+{
+    if (type == ICON_SKILL)
+        memory.GetRom(SPRITE_80X80_SKILL_POSITION + sprite->index, bytes, sprite->size);
+    else if (type == ICON_SPELL)
+        memory.GetRom(SPRITE_80X80_SPELL_POSITION + sprite->index, bytes, sprite->size);
+    else if (type == ICON_CREATURE_BUFF)
+        memory.GetRom(SPRITE_48X48_CREATURE_BUFF_POSITION + sprite->index, bytes, sprite->size);
+    else if (type == ICON_CREATURE_DEBUFF)
+        memory.GetRom(SPRITE_48X48_CREATURE_DEBUFF_POSITION + sprite->index, bytes, sprite->size);
+    else if (type == ICON_TRAINER_BUFF)
+        memory.GetRom(SPRITE_48X48_TRAINER_BUFF_POSITION + sprite->index, bytes, sprite->size);
+}
+
+/**********************************************************************************************************************/
 /*      TEXT
 **********************************************************************************************************************/
 SET_MEMORY(".core")
