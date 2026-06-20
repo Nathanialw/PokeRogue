@@ -1,16 +1,22 @@
 // Generated creature_debuff data structs
-// Database contains 10 total used creature_debuffs
+// Database contains 16 total used creature_debuffs
 
 // Individual creature_debuffs data
-blind, //0 
-burned, //1 
-curse, //2 
-disease, //3 
-fear, //4 
-frozen, //5 
-paralyzed, //6 
-poison, //7 
-sleep, //8 
-slowed, //9 
+BLEED, //0 
+BLIND, //1 
+BURNED, //2 
+CURSE, //3 
+DISARM, //4 
+DISEASE, //5 
+ENFEEBLED, //6 
+FEAR, //7 
+FROZEN, //8 
+PARALYZED, //9 
+PETRIFIED, //10 
+POISON, //11 
+ROOT, //12 
+SAPPED, //13 
+SLEEP, //14 
+SLOWED, //15 
 
-//ALL_NAMES_COUNT = 10;
+//ALL_NAMES_COUNT = 16;

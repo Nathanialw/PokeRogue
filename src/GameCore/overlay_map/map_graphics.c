@@ -448,13 +448,19 @@ void DrawPartyCreatureStats(GraphicsInterface graphics, MemoryInterface memory, 
             GetAsChars_uint8(skill_data.manaCost, MANA_COST, false, true);
             PrintLineStr(graphics, memory, skills_start_x, SKILLS_LINE_HEIGHT, g_core.settings.fontSize, MEDIUM_STRINGS, line, 0, PAL_DARK_BLUE_GRAY, PAL_OFF_WHITE_GRAY_BLUE);
 
-            float filled;
 
+            //TODO
+            //skill effects
+            uint8_t n = DrawSkillBuffs(graphics, memory, status_start_x_col2, SKILLS_LINE_HEIGHT_SAME_LINE, skill_data.debuff_flags, ICON_CREATURE_DEBUFF, 4);
+            DrawSkillBuffs(graphics, memory, status_start_x_col2 + (n * (BUFF_W + 8)), SKILLS_LINE_HEIGHT_SAME_LINE, skill_data.buff_flags, ICON_CREATURE_BUFF, 4);
+
+            float filled;
             Flash_GetTextByIndex(memory, line, left_col_i + 1, SMALL_STRINGS, 0);
             // GetAsChars_uint8(skill_data.power, POWER, false, true);
             filled = ((float)skill_data.power / 255.0f) * (MEDIUM_STRINGS * TEXT_W);
             PrintLineStr(graphics, memory, skills_start_x, SKILLS_LINE_HEIGHT, g_core.settings.fontSize, SMALL_STRINGS, line, 0, PAL_DARK_BLUE_GRAY, PAL_OFF_WHITE_GRAY_BLUE);
             DrawStatusBar(graphics, memory, skills_start_x + ((text_length + 1) * TEXT_W), SKILLS_LINE_HEIGHT_SAME_LINE, MEDIUM_STRINGS - text_length, TEXT_H, filled, color);
+
 
             Flash_GetTextByIndex(memory, line, left_col_i + 2, SMALL_STRINGS, 0);
             // GetAsChars_uint8(skill_data.power_special, POWER_SPECIAL, false, true);

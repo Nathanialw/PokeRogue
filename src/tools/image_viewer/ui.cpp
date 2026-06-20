@@ -16,14 +16,9 @@ void UI::Init()
     hover_rects[(uint8_t)UIArea::SCROLL_BAR_MAIN] = {hover_rects[(uint8_t)UIArea::MAIN].x + hover_rects[(uint8_t)UIArea::MAIN].w - SCROLL_BAR_W, hover_rects[(uint8_t)UIArea::MAIN].y, SCROLL_BAR_W, hover_rects[(uint8_t)UIArea::MAIN].h};
     hover_rects[(uint8_t)UIArea::RIGHT] = {BTN_W * 6, BTN_H, MAX_IMAGE_SIZE * DISPLAYED_IMAGE_COUNT, MAX_IMAGE_SIZE * DISPLAYED_IMAGE_COUNT};
 
-    entity_type_select_rects[CREATURE] = {CREATURE * BTN_W, 0.0f, BTN_W, BTN_H};
-    entity_type_select_rects[OBJECT] = {OBJECT * BTN_W, 0.0f, BTN_W, BTN_H};
-    entity_type_select_rects[ITEM] = {ITEM * BTN_W, 0.0f, BTN_W, BTN_H};
-    entity_type_select_rects[TRAINER] = {TRAINER * BTN_W, 0.0f, BTN_W, BTN_H};
-    entity_type_select_rects[SPELL] = {SPELL * BTN_W, 0.0f, BTN_W, BTN_H};
-    entity_type_select_rects[SKILL] = {SKILL * BTN_W, 0.0f, BTN_W, BTN_H};
-    entity_type_select_rects[TILE] = {TILE * BTN_W, 0.0f, BTN_W, BTN_H};
 
+    for (uint8_t i = 0; i < NUM_ENTITY_TYPES; i++)
+        entity_type_select_rects[i] = {(float)i * BTN_W, 0.0f, BTN_W, BTN_H};
 
     entity_rect_base = {0.0f, BTN_H, LIST_ITEM_W, LIST_ITEM_H};
     for (uint8_t i = 0; i < DISPLAYED_IMAGE_COUNT; i++)

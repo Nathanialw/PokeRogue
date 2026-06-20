@@ -20,3 +20,6 @@ void DrawCursor(GraphicsInterface graphics, MemoryInterface memory);
 //Icons
 void DrawIconCached(GraphicsInterface graphics, MemoryInterface memory, uint16_t screen_tx, uint16_t screen_ty, uint8_t sprite_id, IconType type);
 void DrawBuffs(GraphicsInterface graphics, MemoryInterface memory, uint16_t screen_x, uint16_t screen_y, const uint8_t* buff_values, IconType icon_type, uint8_t num_per_row);
+
+
+uint8_t DrawSkillBuffs(GraphicsInterface graphics, MemoryInterface memory, uint16_t screen_x, uint16_t screen_y, uint16_t buff_values, IconType icon_type, uint8_t num_per_row);

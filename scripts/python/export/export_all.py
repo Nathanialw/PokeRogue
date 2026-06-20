@@ -48,6 +48,10 @@ def run():
     export_img_prompts.generate_data_from_db('item')
     export_img_prompts.generate_data_from_db('object')
     export_img_prompts.generate_data_from_db('trainer')
+    export_img_prompts.generate_data_from_db('environment_object')
+    export_img_prompts.generate_data_from_db('creature_buff')
+    export_img_prompts.generate_data_from_db('creature_debuff')
+    export_img_prompts.generate_data_from_db('trainer_buff')
 
     # type strings
     export_core_data.write_types_inc()

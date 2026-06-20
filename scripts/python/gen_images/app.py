@@ -24,6 +24,10 @@ from data._creature_img_data import VARIANTS, CREATURES_BASE_PROMPT, CreaturesDi
 from data._skill_img_data import VARIANTS, SKILLS_BASE_PROMPT, SkillsDict
 from data._object_img_data import VARIANTS, OBJECTS_BASE_PROMPT, ObjectsDict
 from data._trainer_img_data import VARIANTS, TRAINERS_BASE_PROMPT, TrainersDict
+from data._environment_object_img_data import VARIANTS, ENVIRONMENT_OBJECTS_BASE_PROMPT, Environment_objectsDict
+from data._creature_buff_img_data import VARIANTS, CREATURE_BUFFS_BASE_PROMPT, Creature_buffsDict
+from data._creature_debuff_img_data import VARIANTS, CREATURE_DEBUFFS_BASE_PROMPT, Creature_debuffsDict
+from data._trainer_buff_img_data import VARIANTS, TRAINER_BUFFS_BASE_PROMPT, Trainer_buffsDict
 
 from data import creature_descriptors
 from data import trainer_descriptors
@@ -52,7 +56,11 @@ OBJECT_TYPE_DICT = {
     'creature': CreaturesDict,
     'skill': SkillsDict,
     'object': ObjectsDict,
-    'trainer': TrainersDict
+    'trainer': TrainersDict,
+    'environment_object': Environment_objectsDict,
+    'creature_buff': Creature_buffsDict,
+    'creature_debuff': Creature_debuffsDict,
+    'trainer_buff': Trainer_buffsDict,
 }
 
 ENTITY_BASE_PROMPT = {
@@ -61,7 +69,11 @@ ENTITY_BASE_PROMPT = {
     'creature': CREATURES_BASE_PROMPT,
     'skill': SKILLS_BASE_PROMPT,
     'object': OBJECTS_BASE_PROMPT,
-    'trainer': TRAINERS_BASE_PROMPT
+    'trainer': TRAINERS_BASE_PROMPT,
+    'environment_object': ENVIRONMENT_OBJECTS_BASE_PROMPT,
+    'creature_buff': CREATURE_BUFFS_BASE_PROMPT,
+    'creature_debuff': CREATURE_DEBUFFS_BASE_PROMPT,
+    'trainer_buff': TRAINER_BUFFS_BASE_PROMPT,
 }
 
 

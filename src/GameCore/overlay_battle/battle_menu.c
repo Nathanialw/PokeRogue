@@ -51,6 +51,7 @@ bool EnterMenu(const uint8_t listSize, const uint8_t max_list_size)
     g_core.menu.depth++;
     g_core.menu.max_visible_menu_options = max_list_size;
     g_core.menu.occupied_visible_menu_options = listSize;
+    g_core.menu.totalMenuOptions = max_list_size;
 
     g_core.menu.menuScrollOffset[g_core.menu.depth].y = 0;
     g_core.menu.sel[g_core.menu.depth].y = 0;
@@ -415,6 +416,7 @@ void InitBattleMenu(void)
     g_core.menu.subMenus = battleSubmenus;
     g_core.menu.max_visible_menu_options = MAX_ABILITIES;
     g_core.menu.occupied_visible_menu_options = AbilityCount();
+    g_core.menu.totalMenuOptions = MAX_ABILITIES;
 
     g_core.menu.depth = 0;
     g_core.menu.sel[g_core.menu.depth].x = 0;

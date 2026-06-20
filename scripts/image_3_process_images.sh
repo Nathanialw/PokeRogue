@@ -36,7 +36,7 @@ do
   python compress_img.py              ${deployable_file} 64 64
 
   python compress_map_sprite.py ${deployable_file} 80
-#done
+done
 
 image_types=("creature_buff" "creature_debuff" "trainer_buff")
 for type in "${image_types[@]}"

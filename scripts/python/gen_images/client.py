@@ -55,6 +55,22 @@ class AuraFlowClient:
         """List available items"""
         return self.list_entities('trainer')
 
+    def list_environment_objects(self):
+        """List available items"""
+        return self.list_entities('environment_object')
+
+    def list_creature_buffs(self):
+        """List available items"""
+        return self.list_entities('creature_buff')
+
+    def list_creature_debuffs(self):
+        """List available items"""
+        return self.list_entities('creature_debuff')
+
+    def list_trainer_buffs(self):
+        """List available items"""
+        return self.list_entities('trainer_buff')
+
     def list_files(self, path: str = ""):
         """List files in a directory on the server"""
         response = requests.get(f"{self.base_url}/files/{path}" if path else f"{self.base_url}/files")
@@ -306,7 +322,7 @@ def main():
 
     # List objects commands
     objects_parser = subparsers.add_parser('objects', help='List available objects')
-    objects_parser.add_argument('--type', type=str, choices=['creature', 'spell', 'skill', 'item', 'object', 'trainer'],
+    objects_parser.add_argument('--type', type=str, choices=['creature', 'spell', 'skill', 'item', 'object', 'trainer', 'environment_object', "creature_buff", "creature_debuff", "trainer_buff"],
                                 help='Filter by object type')
 
     # Legacy creature command (for backward compatibility)
@@ -317,6 +333,11 @@ def main():
     subparsers.add_parser('skills', help='List available skills')
     subparsers.add_parser('items', help='List available items')
     subparsers.add_parser('trainers', help='List available trainers')
+    subparsers.add_parser('environment_object', help='List available trainers')
+    subparsers.add_parser('creature_buff', help='List available trainers')
+    subparsers.add_parser('creature_debuff', help='List available trainers')
+    subparsers.add_parser('trainer_buff', help='List available trainers')
+
 
     # List jobs command
     subparsers.add_parser('jobs', help='List all jobs')
@@ -328,7 +349,7 @@ def main():
 
     # Generate command
     gen_parser = subparsers.add_parser('generate', help='Generate images')
-    gen_parser.add_argument('object_type', type=str, choices=['creature', 'spell', 'skill', 'item', 'object', 'trainer'],
+    gen_parser.add_argument('object_type', type=str, choices=['creature', 'spell', 'skill', 'item', 'object', 'trainer', 'environment_object', "creature_buff", "creature_debuff", "trainer_buff"],
                             help='Type of object to generate')
     gen_parser.add_argument('object_name', type=str, help='Name of the object')
     gen_parser.add_argument('--variants', type=int, help='Number of variants')
@@ -397,7 +418,6 @@ def main():
         print(json.dumps(result, indent=2))
 
     elif args.command == 'creatures':
-        # Legacy command - maintain compatibility
         result = client.list_creatures()
         print(json.dumps(result, indent=2))
 
@@ -418,7 +438,23 @@ def main():
         print(json.dumps(result, indent=2))
 
     elif args.command == 'trainers':
-        result = client.list_objects()
+        result = client.list_trainers()
+        print(json.dumps(result, indent=2))
+
+    elif args.command == 'environment_object':
+        result = client.list_environment_objects()
+        print(json.dumps(result, indent=2))
+
+    elif args.command == 'creature_buff':
+        result = client.list_creature_buffs()
+        print(json.dumps(result, indent=2))
+
+    elif args.command == 'creature_debuff':
+        result = client.list_creature_debuffs()
+        print(json.dumps(result, indent=2))
+
+    elif args.command == 'trainer_buff':
+        result = client.list_trainer_buffs()
         print(json.dumps(result, indent=2))
 
     elif args.command == 'jobs':

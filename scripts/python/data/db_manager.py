@@ -831,7 +831,7 @@ CreatureType = namedtuple('CreatureType', ['formatted', 'type_0', 'type_1'])
 CreatureData = namedtuple('CreatureData', ['type_0', 'type_1'])
 CreatureStats = namedtuple('CreatureData', ['name', 'attack_min', 'defence_min', 'magic_min', 'speed_min', 'accuracy_min', 'loyalty_min', 'attack_max', 'defence_max', 'magic_max', 'speed_max', 'accuracy_max', 'loyalty_max', 'attack_growth', 'defence_growth', 'magic_growth', 'speed_growth', 'hp_base', 'hp_growth', 'mp_base', 'mp_growth'])
 SpellData = namedtuple('SpellData', ['name', 'power', 'level', 'type_0', 'type_enum', 'power_points', 'use_on_party_member', 'use_on_enemy', 'use_on_trainer'])
-SkillData = namedtuple('AbilityData', ['name', 'formatted', 'power', 'power_special', 'mana_cost', 'type_0'])
+SkillData = namedtuple('AbilityData', ['name', 'formatted', 'power', 'power_special', 'mana_cost', 'type_0', 'bleed', 'blind', 'burn', 'curse', 'disease', 'disarm', 'enfeeble', 'fear', 'freeze', 'paralyze', 'petrify', 'poison', 'root', 'sap', 'sleep', 'slow', 'berserk', 'fire_eating', 'flying', 'haste', 'invigorate', 'invisible', 'lifelink', 'magic_shield', 'reflect', 'regeneration', 'revitalize', 'spell_power', 'stoneskin', 'thorns', 'vampiric_aura', 'warded'])
 ItemData = namedtuple('ItemData', ['name', 'power', 'item_level', 'item_type', 'type_enum', 'consumable', 'consumable_party', 'consumable_spellbook'])
 ObjectData = namedtuple('ObjectData', ['name', 'power', 'object_type', 'level', 'consumable', 'interactable', 'on_step', 'hallway', 'nook', 'water', 'map_generatable', 'water_adjacent', 'corner', 'on_wall', 'against_wall', 'room_center', 'consumable_party', 'consumable_spellbook'])
 TrainerData = namedtuple('TrainerData', ['trainer_name', 'party_0', 'party_1', 'party_2', 'party_3', 'party_4', 'party_5', 'spell_0', 'spell_1', 'spell_2', 'spell_3', 'spell_4', 'spell_5', 'item_0', 'item_1', 'item_2', 'item_3', 'item_4', 'item_5'])
@@ -1142,23 +1142,31 @@ def get_creature_stats():
     conn.close()
     return formatted_results
 
+
 def populate_descriptions(entity):
     conn = sqlite3.connect(DB_FILE)
     cursor = conn.cursor()
 
+    # Safely construct table names (assuming 'entity' is trusted internal input)
+    # If 'entity' comes from user input, basic validation is still recommended.
+    table_descriptions = f"{entity}_descriptions"
+    table_entities = f"{entity}s"
+
     query = f"""
-        INSERT OR IGNORE INTO {entity}_descriptions (name)
-        SELECT o.name 
-        FROM {entity}s o
+        INSERT OR IGNORE INTO {table_descriptions} (name, description)
+        SELECT o.name, o.name
+        FROM {table_entities} o
         WHERE NOT EXISTS (
-            SELECT 1 FROM {entity}_descriptions d WHERE d.name = o.name
+            SELECT 1 
+            FROM {table_descriptions} d 
+            WHERE d.name = o.name 
+              AND (d.description IS NOT NULL AND d.description != '')
         )
     """
 
     cursor.execute(query)
     conn.commit()
     conn.close()
-
 
 def get_items_data():
     conn = sqlite3.connect(DB_FILE)
@@ -1187,11 +1195,13 @@ def get_abilities_data():
     # Swap: make type_string the key, enum the value
     type_to_enum = {type_str: enum for enum, type_str in cursor.fetchall()}
 
-    cursor.execute('SELECT name, formatted, power, power_special, mana_cost, type FROM skills WHERE used = 1 ORDER BY name ASC')
+
+    cursor.execute('SELECT name, formatted, power, power_special, mana_cost, type, bleed, blind, burn, curse, disease, disarm, enfeeble, fear, freeze, paralyze, petrify, poison, root, sap, sleep, slow, berserk, fire_eating, flying, haste, invigorate, invisible, lifelink, magic_shield, reflect, regeneration, revitalize, spell_power, stoneskin, thorns, vampiric_aura, warded FROM skills WHERE used = 1 ORDER BY name ASC')
 
     formatted_results = [
-        SkillData(name, formatted, power, power_special, mana_cost, type_0)
-        for name, formatted, power, power_special, mana_cost, type_0 in cursor.fetchall()
+        SkillData(name, formatted, power, power_special, mana_cost, type_0, bleed, blind, burn, curse, disease, disarm, enfeeble, fear, freeze, paralyze, petrify, poison, root, sap, sleep, slow, berserk, fire_eating, flying, haste, invigorate, invisible, lifelink, magic_shield, reflect, regeneration, revitalize, spell_power, stoneskin, thorns, vampiric_aura, warded)
+
+        for name, formatted, power, power_special, mana_cost, type_0, bleed, blind, burn, curse, disease, disarm, enfeeble, fear, freeze, paralyze, petrify, poison, root, sap, sleep, slow, berserk, fire_eating, flying, haste, invigorate, invisible, lifelink, magic_shield, reflect, regeneration, revitalize, spell_power, stoneskin, thorns, vampiric_aura, warded in cursor.fetchall()
     ]
 
     conn.close()

@@ -17,6 +17,7 @@
 #include "core_memory_access.h"
 #include "core_ram.h"
 #include "core_tiles.h"
+#include "lib_debugging.h"
 
 
 /**********************************************************************************************************************/
@@ -237,14 +238,59 @@ void DrawBuffs(GraphicsInterface graphics, MemoryInterface memory, uint16_t scre
             {
                 if (buff_index != 0)
                     screen_y += (BUFF_H + spacing);
-                DrawIconCached(graphics, memory, screen_x, screen_y, 0, icon_type);
+                DrawIconCached(graphics, memory, screen_x, screen_y, buff_values[i], icon_type);
                 index = 0;
             }
             else
             {
                 index++;
-                DrawIconCached(graphics, memory, screen_x + (index * (BUFF_W + 8)), screen_y, 0, icon_type);
+                DrawIconCached(graphics, memory, screen_x + (index * (BUFF_W + 8)), screen_y, buff_values[i], icon_type);
             }
         }
     }
+}
+
+/**********************************************************************************************************************/
+/**  Checks cache
+ *  Updates cache
+ *  Blit the given creature id to the given screen coords
+**********************************************************************************************************************/
+SET_MEMORY(".core")
+uint8_t DrawSkillBuffs(GraphicsInterface graphics, MemoryInterface memory, uint16_t screen_x, uint16_t screen_y, uint16_t buff_values, IconType icon_type, uint8_t num_per_row)
+{
+    const uint8_t spacing = 5;
+    uint8_t index = 0;
+    uint8_t n = 0;                     // counts total buffs drawn
+    Color color;
+
+    if (icon_type == ICON_CREATURE_BUFF || icon_type == ICON_TRAINER_BUFF)
+        color = Flash_GetColor(memory, PAL_BRIGHT_VINE_GRN);
+    else if (icon_type == ICON_CREATURE_DEBUFF)
+        color = Flash_GetColor(memory, PAL_REDDISH_BROWN);
+
+    for (int8_t i = MAX_MAX_STATUS_EFFECTS-1; i >= 0; i--)
+    {
+        if (((buff_values & 0x8000) >> 15) > 0)
+        {
+            // Start a new row when we've filled the current one
+            if (index % num_per_row == 0)
+            {
+                if (n != 0)                   // <-- FIX: use n instead of buff_index
+                    screen_y += (BUFF_H + spacing);
+                index = 0;
+                DrawIconCached(graphics, memory, screen_x, screen_y, i, icon_type);
+                graphics.DrawRectOutline(screen_x, screen_y, BUFF_W, BUFF_H, 1, color);
+                index++;
+            }
+            else
+            {
+                DrawIconCached(graphics, memory, screen_x + (index * (BUFF_W + 8)), screen_y, i, icon_type);
+                graphics.DrawRectOutline(screen_x + (index * (BUFF_W + 8)), screen_y, BUFF_W, BUFF_H, 1, color);
+                index++;
+            }
+            n++;
+        }
+        buff_values <<= 1;
+    }
+    return n;
 }

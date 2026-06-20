@@ -100,6 +100,7 @@ void Renderer::CreateTextures(ImageData& images)
 
 void Renderer::DeleteTexture(ImageData& images, const uint16_t& n)
 {
+    if (n >= images.image_count) return;
     images.RemoveImagePath(n);
 
     std::string filepath = images.images[n];

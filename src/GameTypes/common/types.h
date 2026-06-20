@@ -180,12 +180,64 @@ typedef union
         uint8_t _pad : 4;
         //hit chance?
         //crit chance?
+
+
+        //effects
+        union
+        {
+            struct
+            {
+                uint16_t bleed : 1;
+                uint16_t blind : 1;
+                uint16_t burn : 1;
+                uint16_t curse : 1;
+                uint16_t disease : 1;
+                uint16_t disarm : 1;
+                uint16_t enfeeble : 1;
+                uint16_t fear : 1;
+                uint16_t freeze : 1;
+                uint16_t paralyze : 1;
+                uint16_t petrify : 1;
+                uint16_t poison : 1;
+                uint16_t root : 1;
+                uint16_t sap : 1;
+                uint16_t sleep : 1;
+                uint16_t slow : 1;
+            } debuff;
+
+            uint16_t debuff_flags;
+        };
+
+
+        union
+        {
+            struct
+            {
+                uint16_t berserk : 1;
+                uint16_t fire_eating : 1;
+                uint16_t flying : 1;
+                uint16_t haste : 1;
+                uint16_t invigorate : 1;
+                uint16_t invisible : 1;
+                uint16_t lifelink : 1;
+                uint16_t magic_shield : 1;
+                uint16_t reflect : 1;
+                uint16_t regeneration : 1;
+                uint16_t revitalize : 1;
+                uint16_t spell_power : 1;
+                uint16_t stoneskin : 1;
+                uint16_t thorns : 1;
+                uint16_t vampiric_aura : 1;
+                uint16_t warded : 1;
+            } buff;
+            uint16_t buff_flags;
+        };
     };
 
-    uint8_t bytes[4];
+    uint8_t bytes[8];
 } SkillData;
 
-_Static_assert(sizeof(SkillData) == 4, "SkillData must be 4 bytes");
+_Static_assert(sizeof(SkillData) == 8, "SkillData must be 8 bytes");
 
 typedef union
 {
@@ -280,7 +332,7 @@ typedef union
     uint8_t bytes[4];
 } ObjectData;
 
-_Static_assert(sizeof(ObjectData) == 4, "ObjectData must be 3 bytes");
+_Static_assert(sizeof(ObjectData) == 4, "ObjectData must be 4 bytes");
 
 
 typedef struct
@@ -497,7 +549,7 @@ typedef union
     uint8_t bytes[44];
 } SpriteLayout;
 
-_Static_assert(sizeof(SpriteLayout) == 44, "SpriteLayout must be 48 bytes");
+_Static_assert(sizeof(SpriteLayout) == 44, "SpriteLayout must be 44 bytes");
 
 /**********************************************************************************************************************/
 /** holds 2 2-byte unsigned integers
@@ -846,7 +898,6 @@ typedef union
     };
 
     uint8_t bytes[8];
-
 } CreatureDebuffs;
 
 _Static_assert(sizeof(CreatureDebuffs) == 8, "Sprite must be 8 bytes");
@@ -878,7 +929,6 @@ typedef union
     };
 
     uint8_t bytes[8];
-
 } CreatureBuffs;
 
 

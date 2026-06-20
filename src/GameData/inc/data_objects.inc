@@ -56,7 +56,7 @@
 //    23 - DOOR_IRON
 { .power = 0x03, .data = 0x01, .flags = 0b0000000001001110 },
 //    24 - DOOR_JAILBAR
-{ .power = 0x05, .data = 0x01, .flags = 0b0000000001001010 },
+{ .power = 0x05, .data = 0x01, .flags = 0b0000000001001110 },
 //    25 - DOOR_STONE
 { .power = 0x05, .data = 0x01, .flags = 0b0000000001001110 },
 //    26 - DOOR_WICKER

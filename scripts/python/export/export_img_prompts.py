@@ -17,6 +17,9 @@ def generate_data_from_db(entity):
         'spell': "photo-realistic hi fidelity detailed, fantasy spell demonstration for a spell icon, subject clearly visible, centered composition, no cropping, highly detailed dark fantasy, sharp focus, ",
         'skill': "photo-realistic hi fidelity detailed, fantasy skill demonstration for a skill icon, subject clearly visible, centered composition, no cropping, highly detailed dark fantasy, sharp focus, ",
         'trainer': "photo-realistic hi fantasy character, wearing nice clothes, tasteful nudity, nude girl or nude trans-woman, body fully visible, centered composition, isolated subject, single subject, no cropping, highly detailed fantasy, sharp focus, ",
+        'creature_buff': "photo-realistic hi fidelity detailed, fantasy buff icon demonstration for a buff icon, subject clearly visible, centered composition, no cropping, highly detailed dark fantasy, sharp focus, ",
+        'creature_debuff': "photo-realistic hi fidelity detailed, fantasy debuff icon demonstration for a debuff icon icon, subject clearly visible, centered composition, no cropping, highly detailed dark fantasy, sharp focus, ",
+        'trainer_buff': "photo-realistic hi fidelity detailed, fantasy buff icon demonstration for a buff icon, subject clearly visible, centered composition, no cropping, highly detailed dark fantasy, sharp focus, ",
     }
 
     table_in = f"{entity}_descriptions"
@@ -67,6 +70,8 @@ def generate_data_from_db(entity):
         # Write CreaturesDict dictionary
         f.write(f"{entity_type}Dict = [\n")
         for e, prompt in prompts.items():
+            if prompt is None:
+                prompt = e
             # Escape the prompt for Python string
             escaped_prompt = prompt.replace('\\', '\\\\').replace('"', '\\"').replace('\n', '\\n')
             f.write('   { ' + f"\"name\": '{e}', 'prompt': \"{escaped_prompt}\"" + "},\n")

@@ -234,20 +234,31 @@ def abilities(entity):
     filename = f"{constants.DATA_INC_FOLDER}/data_{entity}s.inc"
     skill_data = db_manager.get_abilities_data()
 
-    with open(filename, 'w', encoding='utf-8') as f:
+    with (open(filename, 'w', encoding='utf-8') as f):
         f.write(f"// Generated {entity} data structs\n")
         f.write(f"// Database contains {len(skill_data)} total {entity}s\n\n")
 
-        f.write(f"//    .power =           8 bits\n")
-        f.write(f"//    .power_special =   8 bits\n")
-        f.write(f"//    .manaCost =        8 bits\n")
-        f.write(f"//    .type_0 =          4 bits\n\n")
+        f.write(f"//    .power =            8 bits\n")
+        f.write(f"//    .power_special =    8 bits\n")
+        f.write(f"//    .manaCost =         8 bits\n")
+        f.write(f"//    .type_0 =           4 bits\n\n")
+        f.write(f"//    .buff =            16 bits\n\n")
+        f.write(f"//    .debuff =          16 bits\n\n")
 
         f.write(f"// Individual {entity}s data\n")
-        for i, (name, formatted, power, power_special, mana_cost, type_0) in enumerate(skill_data):
+        for i, (name, formatted, power, power_special, mana_cost, type_0,
+                bleed, blind, burn, curse, disease, disarm, enfeeble, fear, freeze, paralyze, petrify, poison, root, sap, sleep, slow,
+                berserk, fire_eating, flying, haste,
+                invigorate, invisible, lifelink, magic_shield,
+                reflect, regeneration, revitalize, spell_power,
+                stoneskin, thorns, vampiric_aura, warded) in enumerate(skill_data):
             # Clean the types for C string
             f.write(f"// {name} - {formatted}, \n")
-            f.write(f"{{ .power = {power:3},  .power_special = {power_special:3}, .manaCost = {mana_cost:3}, .type = {type_0:10} }},\n")
+            debuffs = make_flags16(bleed, blind, burn, curse, disarm, disease, enfeeble, fear, freeze, paralyze, petrify, poison, root, sap, sleep, slow)
+            debuffs_str = f"0b{debuffs:016b}"
+            buffs = make_flags16(berserk, fire_eating, flying, haste, invigorate, invisible, lifelink, magic_shield, reflect, regeneration, revitalize, spell_power, stoneskin, thorns, vampiric_aura, warded)
+            buffs_str = f"0b{buffs:016b}"
+            f.write(f"{{ .power = {power:3},  .power_special = {power_special:3}, .manaCost = {mana_cost:3}, .type = {type_0:10}, .debuff_flags = {debuffs_str}, .buff_flags = {buffs_str} }},\n")
 
         f.write("\n")
         f.write(f"//COUNT = {len(skill_data)};\n")

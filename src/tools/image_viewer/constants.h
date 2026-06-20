@@ -30,6 +30,10 @@ enum EntityTypes
     SPELL,
     SKILL,
     TILE,
+    ENVIRONMENT_OBJECTS,//environment_object
+    CREATURE_BUFFS,//creature_buff
+    CREATURE_DEBUFFS,//creature_debuff
+    TRAINER_BUFFS,//trainer_buff
     NUM_ENTITY_TYPES,
 };
 
@@ -46,6 +50,10 @@ const std::string image_tables[NUM_ENTITY_TYPES] =
     "spells",
     "skills",
     "tiles",
+    "environment_objects",
+    "creature_buffs",
+    "creature_debuffs",
+    "trainer_buffs",
 };
 
 
@@ -59,4 +67,8 @@ const std::string entity_images_path[NUM_ENTITY_TYPES] =
     "assets_raw/sprites/spell/",
     "assets_raw/sprites/skill/",
     "assets_raw/sprites/tile/",
+    "assets_raw/sprites/environment_object/",
+    "assets_raw/sprites/creature_buff/",
+    "assets_raw/sprites/creature_debuff/",
+    "assets_raw/sprites/trainer_buff/",
 };
