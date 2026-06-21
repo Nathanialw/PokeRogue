@@ -49,7 +49,10 @@ ActionOutcome RaiseMaxPP(EntityId trainer_id, uint8_t spell_index, uint8_t value
 /** STATUS EFFECTS
 **********************************************************************************************************************/
 ActionOutcome ApplyPoison(EntityId e_id, uint8_t duration);
+ActionOutcome ApplyBleed(EntityId e_id, uint8_t duration);
 ActionOutcome ApplyCurse(EntityId e_id, uint8_t duration);
+ActionOutcome ApplyEnfeeble(EntityId e_id, uint8_t duration);
+ActionOutcome ApplySap(EntityId e_id, uint8_t duration);
 ActionOutcome ApplyDisease(EntityId e_id, uint8_t duration);
 ActionOutcome ApplyParalyze(EntityId e_id, uint8_t duration);
 ActionOutcome ApplySleep(EntityId e_id, uint8_t duration);
@@ -57,9 +60,11 @@ ActionOutcome ApplyFrozen(EntityId e_id, uint8_t duration);
 ActionOutcome ApplyFear(EntityId e_id, uint8_t duration);
 ActionOutcome ApplyBurn(EntityId e_id, uint8_t duration);
 ActionOutcome ApplySlow(EntityId e_id, uint8_t duration);
-ActionOutcome ApplyHaste(EntityId e_id, uint8_t duration);
+ActionOutcome ApplyRoot(EntityId e_id, uint8_t duration);
 ActionOutcome RemovePoison(EntityId e_id);
 ActionOutcome RemoveCurse(EntityId e_id);
+ActionOutcome RemoveEnfeeble(EntityId e_id);
+ActionOutcome RemoveSap(EntityId e_id);
 ActionOutcome RemoveDisease(EntityId e_id);
 ActionOutcome RemoveParalyze(EntityId e_id);
 ActionOutcome RemoveSleep(EntityId e_id);
@@ -68,9 +73,15 @@ ActionOutcome RemoveFear(EntityId e_id);
 ActionOutcome RemoveBurn(EntityId e_id);
 ActionOutcome RemoveSlow(EntityId e_id);
 ActionOutcome RemoveHaste(EntityId e_id);
+
 ActionOutcome NextAttackFreezes();
 ActionOutcome FreezeAttackers(EntityId e_id, uint8_t duration);
 ActionOutcome PersistentPoisonCloud(uint8_t duration);
+
+ActionOutcome ApplyHaste(EntityId e_id, uint8_t duration);
+ActionOutcome ApplyMagicShield(EntityId e_id, uint8_t duration);
+ActionOutcome ApplyBerserk(EntityId e_id, uint8_t duration);
+ActionOutcome ApplyReflect(EntityId e_id, uint8_t duration);
 
 /**********************************************************************************************************************/
 /** RESISTANCES

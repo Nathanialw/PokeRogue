@@ -73,7 +73,7 @@ ActionOutcome InteractPortalValhalla(HardwareInterface hardware, MemoryInterface
 ActionOutcome InteractPotOfGold(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData, ObjectsTypes objectType, uint8_t index);
 ActionOutcome InteractArmorRack(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData, ObjectsTypes objectType, uint8_t index);
 ActionOutcome InteractWeaponRack(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData, ObjectsTypes objectType, uint8_t index);
-ActionOutcome InteractShipwrek(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData, ObjectsTypes objectType, uint8_t index);
+ActionOutcome InteractShipwreck(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData, ObjectsTypes objectType, uint8_t index);
 ActionOutcome InteractShrineMinerva(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData, ObjectsTypes objectType, uint8_t index);
 ActionOutcome InteractShrinePoseidon(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData, ObjectsTypes objectType, uint8_t index);
 ActionOutcome InteractShrineSaintMary(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData, ObjectsTypes objectType, uint8_t index);

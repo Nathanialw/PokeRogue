@@ -165,6 +165,8 @@ void FindHallDeadEnds()
 SET_MEMORY(".map_gen")
 void FindHalls()
 {
+    hallCount = 0;
+
     for (uint16_t y = 0; y < MAP_H; y++)
     {
         for (uint16_t x = 0; x < MAP_W; x++)
@@ -206,6 +208,8 @@ void FindHalls()
 SET_MEMORY(".map_gen")
 void FindWalls()
 {
+    wallCount = 0;
+
     for (uint16_t y = 0; y < MAP_H; y++)
     {
         for (uint16_t x = 0; x < MAP_W; x++)
@@ -234,6 +238,8 @@ void FindWalls()
 SET_MEMORY(".map_gen")
 void FindCorners()
 {
+    cornerCount = 0;
+
     for (uint16_t y = 0; y < MAP_H; y++)
     {
         for (uint16_t x = 0; x < MAP_W; x++)
@@ -300,6 +306,8 @@ void FindCorners()
 SET_MEMORY(".map_gen")
 void FindWater()
 {
+    waterCount = 0;
+
     for (uint16_t y = 0; y < MAP_H; y++)
     {
         for (uint16_t x = 0; x < MAP_W; x++)
@@ -320,6 +328,8 @@ void FindWater()
 SET_MEMORY(".map_gen")
 void FindWaterAdjacent()
 {
+    waterAdjacentCount = 0;
+
     for (uint16_t y = 0; y < MAP_H; y++)
     {
         for (uint16_t x = 0; x < MAP_W; x++)

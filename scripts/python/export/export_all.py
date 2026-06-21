@@ -60,7 +60,10 @@ def run():
     # CREATURES
     export_structs.creatures_skills("creature")
     export_structs.creatures_level_up_skills("creature")
-    export_structs.creature("creature")
+    export_structs.creature_stats("creature")
+    export_structs.creature_attributes("creature")
+    export_structs.creature_resistances("creature")
+
     # creature name strings
     counts.append(export.name_to_c_array("creature"))
     # creature description strings

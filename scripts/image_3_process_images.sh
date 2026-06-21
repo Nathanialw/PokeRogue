@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # copy all images to staging folder
-rm -r ../assets_processed
+
 python -m python.export.populate_db_images
 
 
@@ -11,6 +11,7 @@ cd process_images
 image_types=("creature" "item" "object" "trainer" "environment_object")
 for type in "${image_types[@]}"
 do
+  rm -r ../assets_processed/{type}s
   echo ${type}
   staged_file="../../../assets_processed/${type}s/staged"
   with_transparency_file="../../../assets_processed/${type}s/with_transparency"
@@ -26,6 +27,7 @@ done
 image_types=("spell" "skill")
 for type in "${image_types[@]}"
 do
+  rm -r ../assets_processed/{type}s
   echo ${type}
   staged_file="../../../assets_processed/${type}s/staged"
   with_transparency_file="../../../assets_processed/${type}s/with_transparency"
@@ -41,6 +43,7 @@ done
 image_types=("creature_buff" "creature_debuff" "trainer_buff")
 for type in "${image_types[@]}"
 do
+  rm -r ../assets_processed/{type}s
   echo ${type}
   staged_file="../../../assets_processed/${type}s/staged"
   with_transparency_file="../../../assets_processed/${type}s/with_transparency"
@@ -56,7 +59,7 @@ done
 # Tiles use all of the texture scripts except transparency
 type="tile"
 echo ${type}
-
+rm -r ../assets_processed/{type}s
 raw_source_file="../../../assets_raw/sprites/${type}"
 staged_file="../../../assets_processed/${type}s/staged"
 deployable_file="../../../assets_processed/${type}s/deployable"

@@ -67,8 +67,9 @@ KeyState ProcessInput(void)
                     break;
                 case SDLK_ESCAPE:
                     {
-                        s_currentKeys.select = pressed;
-                        g_core.state.running = 0;
+                        s_currentKeys.start = pressed;
+                        // s_currentKeys.select = pressed;
+                        // g_core.state.running = 0;
                         break;
                     }
 

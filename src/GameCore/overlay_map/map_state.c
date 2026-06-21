@@ -82,6 +82,8 @@ void UpdateGameRunningState(GraphicsInterface graphics, HardwareInterface hardwa
 
         if (input.GetButtonX())
         {
+            MenuActions_R(graphics, hardware, input, memory);
+            audio.PlaySoundEffect(GetMenuSoundId(MENU_BACK));
         }
 
         if (input.GetButtonY())

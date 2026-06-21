@@ -10,6 +10,8 @@
 // ENTITIES
 void Flash_GetSkill(MemoryInterface memory, CreatureSkillLearnLevels* c, Type creatureType, uint8_t index);
 void Flash_GetCreatureStatsRange(MemoryInterface memory, StatsRange* stats, Creature creature_type);
+void Flash_GetCreatureAttributes(MemoryInterface memory, Attributes* stats, Creature creature_type);
+void Flash_GetCreatureResistances(MemoryInterface memory, Resists* stats, Creature creature_type);
 void Flash_GetType(MemoryInterface memory, MonsterType* monsterType, uint8_t index);
 void Flash_GetTypeEffects(MemoryInterface memory, int8_t* modifier, uint8_t index);
 void Flash_GetSkillData(MemoryInterface memory, SkillData* skillData, uint8_t index);

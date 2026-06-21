@@ -770,11 +770,52 @@ ActionOutcome ApplyPoison(EntityId e_id, uint8_t duration)
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
+ActionOutcome ApplyBleed(EntityId e_id, uint8_t duration)
+{
+    uint8_t cur = g_core.creatures.debuffs[e_id].bleed;
+    g_core.creatures.debuffs[e_id].bleed = IncrementStatusEffect(g_core.creatures.debuffs[e_id].bleed, e_id);
+    if (cur != g_core.creatures.debuffs[e_id].bleed)
+        return ACTION_SUCCEEDED;
+    return ACTION_CANNOT;
+}
+
+/**********************************************************************************************************************
+*
+**********************************************************************************************************************/
+SET_MEMORY(".core")
 ActionOutcome ApplyCurse(EntityId e_id, uint8_t duration)
 {
     uint8_t cur = g_core.creatures.debuffs[e_id].curse;
     g_core.creatures.debuffs[e_id].curse = IncrementStatusEffect(g_core.creatures.debuffs[e_id].curse, e_id);
     if (cur != g_core.creatures.debuffs[e_id].curse)
+        return ACTION_SUCCEEDED;
+    return ACTION_CANNOT;
+}
+
+
+
+/**********************************************************************************************************************
+*
+**********************************************************************************************************************/
+SET_MEMORY(".core")
+ActionOutcome ApplyEnfeeble(EntityId e_id, uint8_t duration)
+{
+    uint8_t cur = g_core.creatures.debuffs[e_id].enfeeble;
+    g_core.creatures.debuffs[e_id].enfeeble = IncrementStatusEffect(g_core.creatures.debuffs[e_id].enfeeble, e_id);
+    if (cur != g_core.creatures.debuffs[e_id].enfeeble)
+        return ACTION_SUCCEEDED;
+    return ACTION_CANNOT;
+}
+
+/**********************************************************************************************************************
+*
+**********************************************************************************************************************/
+SET_MEMORY(".core")
+ActionOutcome ApplySap(EntityId e_id, uint8_t duration)
+{
+    uint8_t cur = g_core.creatures.debuffs[e_id].sap;
+    g_core.creatures.debuffs[e_id].sap = IncrementStatusEffect(g_core.creatures.debuffs[e_id].sap, e_id);
+    if (cur != g_core.creatures.debuffs[e_id].sap)
         return ACTION_SUCCEEDED;
     return ACTION_CANNOT;
 }
@@ -785,9 +826,9 @@ ActionOutcome ApplyCurse(EntityId e_id, uint8_t duration)
 SET_MEMORY(".core")
 ActionOutcome ApplyParalyze(EntityId e_id, uint8_t duration)
 {
-    uint8_t cur = g_core.creatures.debuffs[e_id].paralyzed;
-    g_core.creatures.debuffs[e_id].paralyzed = IncrementStatusEffect(g_core.creatures.debuffs[e_id].paralyzed, e_id);
-    if (cur != g_core.creatures.debuffs[e_id].paralyzed)
+    uint8_t cur = g_core.creatures.debuffs[e_id].paralyze;
+    g_core.creatures.debuffs[e_id].paralyze = IncrementStatusEffect(g_core.creatures.debuffs[e_id].paralyze, e_id);
+    if (cur != g_core.creatures.debuffs[e_id].paralyze)
         return ACTION_SUCCEEDED;
     return ACTION_CANNOT;
 }
@@ -835,11 +876,24 @@ ActionOutcome ApplyFear(EntityId e_id, uint8_t duration)
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
+ActionOutcome ApplyBerserk(EntityId e_id, uint8_t duration)
+{
+    uint8_t cur = g_core.creatures.buffs[e_id].berserk;
+    g_core.creatures.buffs[e_id].berserk = IncrementStatusEffect(g_core.creatures.buffs[e_id].berserk, e_id);
+    if (cur != g_core.creatures.buffs[e_id].berserk)
+        return ACTION_SUCCEEDED;
+    return ACTION_CANNOT;
+}
+
+/**********************************************************************************************************************
+*
+**********************************************************************************************************************/
+SET_MEMORY(".core")
 ActionOutcome ApplyFrozen(EntityId e_id, uint8_t duration)
 {
-    uint8_t cur = g_core.creatures.debuffs[e_id].frozen;
-    g_core.creatures.debuffs[e_id].frozen = IncrementStatusEffect(g_core.creatures.debuffs[e_id].frozen, e_id);
-    if (cur != g_core.creatures.debuffs[e_id].frozen)
+    uint8_t cur = g_core.creatures.debuffs[e_id].freeze;
+    g_core.creatures.debuffs[e_id].freeze = IncrementStatusEffect(g_core.creatures.debuffs[e_id].freeze, e_id);
+    if (cur != g_core.creatures.debuffs[e_id].freeze)
         return ACTION_SUCCEEDED;
     return ACTION_CANNOT;
 }
@@ -850,9 +904,9 @@ ActionOutcome ApplyFrozen(EntityId e_id, uint8_t duration)
 SET_MEMORY(".core")
 ActionOutcome ApplyBurn(EntityId e_id, uint8_t duration)
 {
-    uint8_t cur = g_core.creatures.debuffs[e_id].burned;
-    g_core.creatures.debuffs[e_id].burned = IncrementStatusEffect(g_core.creatures.debuffs[e_id].burned, e_id);
-    if (cur != g_core.creatures.debuffs[e_id].burned)
+    uint8_t cur = g_core.creatures.debuffs[e_id].burn;
+    g_core.creatures.debuffs[e_id].burn = IncrementStatusEffect(g_core.creatures.debuffs[e_id].burn, e_id);
+    if (cur != g_core.creatures.debuffs[e_id].burn)
         return ACTION_SUCCEEDED;
     return ACTION_CANNOT;
 }
@@ -863,9 +917,34 @@ ActionOutcome ApplyBurn(EntityId e_id, uint8_t duration)
 SET_MEMORY(".core")
 ActionOutcome ApplyHaste(EntityId e_id, uint8_t duration)
 {
-    uint8_t cur = g_core.creatures.buffs[e_id].hasted;
-    g_core.creatures.buffs[e_id].hasted = IncrementStatusEffect(g_core.creatures.buffs[e_id].hasted, e_id);
-    if (cur != g_core.creatures.buffs[e_id].hasted)
+    uint8_t cur = g_core.creatures.buffs[e_id].haste;
+    g_core.creatures.buffs[e_id].haste = IncrementStatusEffect(g_core.creatures.buffs[e_id].haste, e_id);
+    if (cur != g_core.creatures.buffs[e_id].haste)
+        return ACTION_SUCCEEDED;
+    return ACTION_CANNOT;
+}
+
+/**********************************************************************************************************************
+*
+**********************************************************************************************************************/
+SET_MEMORY(".core")
+ActionOutcome ApplyMagicShield(EntityId e_id, uint8_t duration)
+{
+    uint8_t cur = g_core.creatures.buffs[e_id].magic_shield;
+    g_core.creatures.buffs[e_id].magic_shield = IncrementStatusEffect(g_core.creatures.buffs[e_id].magic_shield, e_id);
+    if (cur != g_core.creatures.buffs[e_id].magic_shield)
+        return ACTION_SUCCEEDED;
+    return ACTION_CANNOT;
+}
+/**********************************************************************************************************************
+*
+**********************************************************************************************************************/
+SET_MEMORY(".core")
+ActionOutcome ApplyReflect(EntityId e_id, uint8_t duration)
+{
+    uint8_t cur = g_core.creatures.buffs[e_id].reflect;
+    g_core.creatures.buffs[e_id].reflect = IncrementStatusEffect(g_core.creatures.buffs[e_id].reflect, e_id);
+    if (cur != g_core.creatures.buffs[e_id].reflect)
         return ACTION_SUCCEEDED;
     return ACTION_CANNOT;
 }
@@ -876,9 +955,22 @@ ActionOutcome ApplyHaste(EntityId e_id, uint8_t duration)
 SET_MEMORY(".core")
 ActionOutcome ApplySlow(EntityId e_id, uint8_t duration)
 {
-    uint8_t cur = g_core.creatures.debuffs[e_id].slowed;
-    g_core.creatures.debuffs[e_id].slowed = IncrementStatusEffect(g_core.creatures.debuffs[e_id].slowed, e_id);
-    if (cur != g_core.creatures.debuffs[e_id].slowed)
+    uint8_t cur = g_core.creatures.debuffs[e_id].slow;
+    g_core.creatures.debuffs[e_id].slow = IncrementStatusEffect(g_core.creatures.debuffs[e_id].slow, e_id);
+    if (cur != g_core.creatures.debuffs[e_id].slow)
+        return ACTION_SUCCEEDED;
+    return ACTION_CANNOT;
+}
+
+/**********************************************************************************************************************
+*
+**********************************************************************************************************************/
+SET_MEMORY(".core")
+ActionOutcome ApplyRoot(EntityId e_id, uint8_t duration)
+{
+    uint8_t cur = g_core.creatures.debuffs[e_id].root;
+    g_core.creatures.debuffs[e_id].root = IncrementStatusEffect(g_core.creatures.debuffs[e_id].root, e_id);
+    if (cur != g_core.creatures.debuffs[e_id].root)
         return ACTION_SUCCEEDED;
     return ACTION_CANNOT;
 }
@@ -939,11 +1031,38 @@ ActionOutcome RemoveCurse(EntityId e_id)
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
+ActionOutcome RemoveEnfeeble(EntityId e_id)
+{
+    uint8_t cur = g_core.creatures.debuffs[e_id].enfeeble;
+    g_core.creatures.debuffs[e_id].enfeeble = DecrementStatusEffect(g_core.creatures.debuffs[e_id].enfeeble, e_id);
+    if (cur != g_core.creatures.debuffs[e_id].enfeeble)
+        return ACTION_SUCCEEDED;
+    return ACTION_CANNOT;
+}
+
+
+/**********************************************************************************************************************
+*
+**********************************************************************************************************************/
+SET_MEMORY(".core")
+ActionOutcome RemoveSap(EntityId e_id)
+{
+    uint8_t cur = g_core.creatures.debuffs[e_id].sap;
+    g_core.creatures.debuffs[e_id].sap = DecrementStatusEffect(g_core.creatures.debuffs[e_id].sap, e_id);
+    if (cur != g_core.creatures.debuffs[e_id].sap)
+        return ACTION_SUCCEEDED;
+    return ACTION_CANNOT;
+}
+
+/**********************************************************************************************************************
+*
+**********************************************************************************************************************/
+SET_MEMORY(".core")
 ActionOutcome RemoveParalyze(EntityId e_id)
 {
-    uint8_t cur = g_core.creatures.debuffs[e_id].paralyzed;
-    g_core.creatures.debuffs[e_id].paralyzed = DecrementStatusEffect(g_core.creatures.debuffs[e_id].paralyzed, e_id);
-    if (cur != g_core.creatures.debuffs[e_id].paralyzed)
+    uint8_t cur = g_core.creatures.debuffs[e_id].paralyze;
+    g_core.creatures.debuffs[e_id].paralyze = DecrementStatusEffect(g_core.creatures.debuffs[e_id].paralyze, e_id);
+    if (cur != g_core.creatures.debuffs[e_id].paralyze)
         return ACTION_SUCCEEDED;
     return ACTION_CANNOT;
 }
@@ -993,9 +1112,9 @@ ActionOutcome RemoveFear(EntityId e_id)
 SET_MEMORY(".core")
 ActionOutcome RemoveFrozen(EntityId e_id)
 {
-    uint8_t cur = g_core.creatures.debuffs[e_id].frozen;
-    g_core.creatures.debuffs[e_id].frozen = DecrementStatusEffect(g_core.creatures.debuffs[e_id].frozen, e_id);
-    if (cur != g_core.creatures.debuffs[e_id].frozen)
+    uint8_t cur = g_core.creatures.debuffs[e_id].freeze;
+    g_core.creatures.debuffs[e_id].freeze = DecrementStatusEffect(g_core.creatures.debuffs[e_id].freeze, e_id);
+    if (cur != g_core.creatures.debuffs[e_id].freeze)
         return ACTION_SUCCEEDED;
     return ACTION_CANNOT;
 }
@@ -1006,9 +1125,9 @@ ActionOutcome RemoveFrozen(EntityId e_id)
 SET_MEMORY(".core")
 ActionOutcome RemoveBurn(EntityId e_id)
 {
-    uint8_t cur = g_core.creatures.debuffs[e_id].burned;
-    g_core.creatures.debuffs[e_id].burned = DecrementStatusEffect(g_core.creatures.debuffs[e_id].burned, e_id);
-    if (cur != g_core.creatures.debuffs[e_id].burned)
+    uint8_t cur = g_core.creatures.debuffs[e_id].burn;
+    g_core.creatures.debuffs[e_id].burn = DecrementStatusEffect(g_core.creatures.debuffs[e_id].burn, e_id);
+    if (cur != g_core.creatures.debuffs[e_id].burn)
         return ACTION_SUCCEEDED;
     return ACTION_CANNOT;
 }
@@ -1019,9 +1138,9 @@ ActionOutcome RemoveBurn(EntityId e_id)
 SET_MEMORY(".core")
 ActionOutcome RemoveHaste(EntityId e_id)
 {
-    uint8_t cur = g_core.creatures.buffs[e_id].hasted;
-    g_core.creatures.buffs[e_id].hasted = DecrementStatusEffect(g_core.creatures.buffs[e_id].hasted, e_id);
-    if (cur != g_core.creatures.buffs[e_id].hasted)
+    uint8_t cur = g_core.creatures.buffs[e_id].haste;
+    g_core.creatures.buffs[e_id].haste = DecrementStatusEffect(g_core.creatures.buffs[e_id].haste, e_id);
+    if (cur != g_core.creatures.buffs[e_id].haste)
         return ACTION_SUCCEEDED;
     return ACTION_CANNOT;
 }
@@ -1032,9 +1151,9 @@ ActionOutcome RemoveHaste(EntityId e_id)
 SET_MEMORY(".core")
 ActionOutcome RemoveSlow(EntityId e_id)
 {
-    uint8_t cur = g_core.creatures.debuffs[e_id].slowed;
-    g_core.creatures.debuffs[e_id].slowed = DecrementStatusEffect(g_core.creatures.debuffs[e_id].slowed, e_id);
-    if (cur != g_core.creatures.debuffs[e_id].slowed)
+    uint8_t cur = g_core.creatures.debuffs[e_id].slow;
+    g_core.creatures.debuffs[e_id].slow = DecrementStatusEffect(g_core.creatures.debuffs[e_id].slow, e_id);
+    if (cur != g_core.creatures.debuffs[e_id].slow)
         return ACTION_SUCCEEDED;
     return ACTION_CANNOT;
 }

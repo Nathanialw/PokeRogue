@@ -637,7 +637,15 @@ const MonsterType creatureTypes[CREATURE_COUNT] = {
 };
 SET_MEMORY(".game_data_creature_stats")
 const StatsRange creatureStats[CREATURE_COUNT] = {
-#include "inc/data_creatures.inc"
+#include "inc/data_creature_stats.inc"
+};
+SET_MEMORY(".game_data_creature_attributes")
+const Attributes creature_attributes[CREATURE_COUNT] = {
+#include "inc/data_creature_attributes.inc"
+};
+SET_MEMORY(".game_data_creature_resists")
+const Resists creature_resists[CREATURE_COUNT] = {
+#include "inc/data_creature_resistances.inc"
 };
 SET_MEMORY(".game_data_learnable_skills")
 const BitFieldUint8 learnableSkills[CREATURE_COUNT] = {

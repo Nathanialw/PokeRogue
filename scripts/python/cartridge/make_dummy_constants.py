@@ -151,6 +151,8 @@ def main():
         ".game_data_type_effects",
         ".game_data_creature_types",
         ".game_data_creature_stats",
+        ".game_data_creature_attributes",
+        ".game_data_creature_resists",
         ".game_data_learnable_skills",
         ".game_data_level_up_skills",
         ".game_data_ability",

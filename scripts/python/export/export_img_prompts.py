@@ -22,6 +22,19 @@ def generate_data_from_db(entity):
         'trainer_buff': "photo-realistic hi fidelity detailed, fantasy buff icon demonstration for a buff icon, subject clearly visible, centered composition, no cropping, highly detailed dark fantasy, sharp focus, ",
     }
 
+    viewing_angles = {
+        'creature': f"[ \"strict angled front view, 45 degree lateral pose, full body in frame\", \"strict subject turned slightly askew, front view, 45 degree lateral pose, full body in frame\", \"front  three-quarter view, mostly front but slight side visible\", ]",
+        'environment_object': f"[ \"strict angled front view, 45 degree lateral pose, full body in frame\", \"strict subject turned slightly askew, front view, 45 degree lateral pose, full body in frame\", \"front  three-quarter view, mostly front but slight side visible\", ]",
+        'item': f"[ \"strict angled front view, 45 degree lateral pose, full item in frame\", \"strict subject turned slightly askew, front view, 45 degree lateral view, full item body in frame\", \"front  three-quarter view, mostly front but slight side visible\", ]",
+        'object': f"[ \"strict angled front view, 45 degree lateral pose, full object in frame\", \"strict subject turned slightly askew, front view, 45 degree lateral view, full body in frame\", \"front  three-quarter view, mostly front but slight side visible\", ]",
+        'spell': f"[ \"strict angled front view, 45 degree lateral pose, full spell in frame\", \"strict subject turned slightly askew, front view, 45 degree lateral pose, full spell in frame\", \"front  three-quarter view, mostly front but slight side visible\", ]",
+        'skill': f"[ \"strict angled front view, 45 degree lateral pose, full skill in frame\", \"strict subject turned slightly askew, front view, 45 degree lateral pose, full skill in frame\", \"front  three-quarter view, mostly front but slight side visible\", ]",
+        'trainer': f"[ \"strict angled front view, 45 degree lateral pose, full body of person in frame\", \"strict subject turned slightly askew, front view, 45 degree lateral pose, full body of person in frame\", \"front  three-quarter view, mostly front but slight side visible\", ]",
+        'creature_buff': f"[ \"strict angled front view, 45 degree lateral pose, full buff in frame\", \"strict subject turned slightly askew, front view, 45 degree lateral pose, full buff in frame\", \"front  three-quarter view, mostly front but slight side visible\", ]",
+        'creature_debuff': f"[ \"strict angled front view, 45 degree lateral pose, full debuff in frame\", \"strict subject turned slightly askew, front view, 45 degree lateral pose, full debuff in frame\", \"front  three-quarter view, mostly front but slight side visible\", ]",
+        'trainer_buff': f"[ \"strict angled front view, 45 degree lateral pose, full buff in frame\", \"strict subject turned slightly askew, front view, 45 degree lateral pose, full buff in frame\", \"front  three-quarter view, mostly front but slight side visible\", ]",
+    }
+
     table_in = f"{entity}_descriptions"
     file_out = f"python/data/_{entity}_img_data.py"
 
@@ -100,24 +113,25 @@ LIGHTING_STYLES = [
 ]
 
 # View angles - expanded with back-side angles
-VIEW_ANGLES = [
-    "strict angled front view, 45 degree lateral pose, full body in frame",
-    "strict subject turned slightly askew, front view, 45 degree lateral pose, full body in frame",
-    "front  three-quarter view, mostly front but slight side visible",
-]
+VIEW_ANGLES = {viewing_angles[entity]}
+
+# 
+# VIEW_ANGLES = [
+#     "strict angled front view, 45 degree lateral pose, full body in frame",
+#     "strict subject turned slightly askew, front view, 45 degree lateral pose, full body in frame",
+#     "front  three-quarter view, mostly front but slight side visible",
+# ]
 
 # Generate all combinations
 VARIANTS = [
-'''+
-'    f'+"\"{angle + ', ' if angle else ''}{style}, neutral background\""
-'''
+    f\"{{angle + ', ' if angle else ''}}{{style}}, neutral background\"
     for style in LIGHTING_STYLES
     for angle in VIEW_ANGLES
 ]
               
 NEGATIVE_PROMPT = (
-  "deformed iris, deformed pupils, semi-realistic, cgi, 3d, render, sketch, cartoon, drawing, anime), text, cropped, out of frame, worst quality, low quality, jpeg artifacts, ugly, duplicate, morbid, mutilated, extra fingers, mutated hands, poorly drawn hands, poorly drawn face, mutation, deformed, blurry, dehydrated, bad anatomy, bad proportions, extra limbs, cloned face, disfigured, gross proportions, malformed limbs, missing arms, missing legs, extra arms, extra legs, fused fingers, too many fingers, long neck, brown men, black men, asian men"
+    "deformed iris, deformed pupils, semi-realistic, cgi, 3d, render, sketch, cartoon, drawing), text, cropped, out of frame, worst quality, low quality, jpeg artifacts, ugly, duplicate, morbid, mutilated, extra fingers, mutated hands, poorly drawn hands, poorly drawn face, mutation, deformed, blurry, dehydrated, bad anatomy, bad proportions, extra limbs, cloned face, disfigured, gross proportions, malformed limbs, missing arms, missing legs, extra arms, extra legs, fused fingers, too many fingers, long neck, brown men, black men, asian men"
 )
-      ''')
+                ''')
 
     print(f"✅ Generated {file_out} with {len(entities)} creatures")

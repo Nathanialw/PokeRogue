@@ -10,6 +10,8 @@ void GainXPFromKill(EntityId id, EntityId dead_id);
 void GainXP(EntityId creature_id, uint16_t xp_value);
 
 void GetStats(HardwareInterface hardware, MemoryInterface memory, Stats *stats, Creature type, uint8_t level);
+void GetAttributes(HardwareInterface hardware, MemoryInterface memory, Attributes *attributes, Creature type, uint8_t level);
+void GetResistances(HardwareInterface hardware, MemoryInterface memory, Resists *resists, Creature type, uint8_t level);
 
 uint_max999 GetHP(Creature type, uint8_t level);
 uint_max999 GetMP(Creature type, uint8_t level);

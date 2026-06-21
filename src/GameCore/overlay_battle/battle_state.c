@@ -143,17 +143,21 @@ void HandleBattleStateInit(GameInterface* spi)
 
 void CleanUpBattleState(GameInterface* spi)
 {
-    if (g_core.battleMode.enemy_trainer_id != NO_ENTITY)
+    if (!CheckBattleState(BATTLE_FLEE))
     {
-        SetBit(g_core.player.defeated_trainers, g_core.battleMode.enemy_trainer_id, true);
-        DestroyTrainer(g_core.battleMode.enemy_trainer_id);
-        g_core.battleMode.enemy_trainer_id = NO_ENTITY;
+        if (g_core.battleMode.enemy_trainer_id != NO_ENTITY)
+        {
+            SetBit(g_core.player.defeated_trainers, g_core.battleMode.enemy_trainer_id, true);
+            DestroyTrainer(g_core.battleMode.enemy_trainer_id);
+        }
+
+        for (uint8_t i = 0; i < MAX_DEAD_CREATURES_CACHED; i++)
+            DestroyCreature(g_battle.dead_creatures[i]);
     }
 
-    for (uint8_t i = 0; i < MAX_DEAD_CREATURES_CACHED; i++)
-        DestroyCreature(g_battle.dead_creatures[i]);
-
     g_core.battleMode.enemyMonsterID = NO_ENTITY;
+    g_core.battleMode.enemy_trainer_id = NO_ENTITY;
+
 }
 
 SET_MEMORY(".battle")
@@ -181,6 +185,7 @@ void HandleBattleState(GameInterface* spi)
         AnimationUpdateEnemyHealth(spi->graphics, spi->hardware, spi->memory);
         AnimationUpdatePlayerHealth(spi->graphics, spi->hardware, spi->memory);
         AnimationUpdateEnemyMana(spi->graphics, spi->hardware, spi->memory);
+        HandleBattle(spi->graphics, spi->hardware, spi->memory);
         // g_battle.pass_turn = false;
 
         if (g_battle.enemy_captured)
@@ -205,6 +210,7 @@ void HandleBattleState(GameInterface* spi)
                 AnimationUpdateEnemyHealth(spi->graphics, spi->hardware, spi->memory);
                 AnimationUpdatePlayerHealth(spi->graphics, spi->hardware, spi->memory);
                 AnimationUpdatePlayerMana(spi->graphics, spi->hardware, spi->memory);
+                HandleBattle(spi->graphics, spi->hardware, spi->memory);
             }
 
             if (CheckEnemyAttackOutcome())

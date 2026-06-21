@@ -110,6 +110,7 @@ typedef struct __attribute__((packed))
 
     void (*Print)(const char* fmt, ...);
     void (*PrintVar)(uint32_t d);
+    void (*Shutdown)();
 } MemoryInterface;
 
 

@@ -84,7 +84,7 @@ void Renderer::CreateTextures(ImageData& images)
                 SDL_Texture* texture = IMG_LoadTexture(m_renderer, filename.c_str());
                 m_textures.push_back(texture);
                 images.image_count++;
-                images.images.push_back(filename.c_str());
+                images.images.emplace_back(filename.c_str());
             }
             else if (entry.is_directory())
             {

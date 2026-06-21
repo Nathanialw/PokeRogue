@@ -5,6 +5,7 @@
 
 #include "lib_memory.h"
 #include "lib_decl.h"
+#include "lib_debugging.h"
 
 #include "battle_actions.h"
 #include "battle_effects.h"
@@ -12,17 +13,14 @@
 #include "battle_ram.h"
 #include "battle_state.h"
 #include "battle_ui.h"
-#include "core_effects.h"
 
 #include "core_entities.h"
+#include "core_graphics.h"
 #include "core_memory_access.h"
 #include "core_menu.h"
 #include "core_player.h"
 #include "core_ram.h"
 #include "core_state.h"
-#include "lib_debugging.h"
-#include "map_effects.h"
-#include "../../SDLGame/audio.h"
 
 
 /**********************************************************************************************************************/
@@ -144,6 +142,7 @@ void ExitMenu(MemoryInterface memory)
         g_core.menu.menuScrollOffset[g_core.menu.depth].y = 0;
         g_core.menu.max_visible_menu_options = BATTLE_MENU_SIZE;
         g_core.menu.occupied_visible_menu_options = BATTLE_MENU_SIZE;
+        g_core.menu.totalMenuOptions = BATTLE_MENU_SIZE;
         g_core.menu.x = BATTLE_MENU_X;
         g_core.menu.y = BATTLE_MENU_Y;
         g_core.menu.h = BATTLE_MENU_H;
@@ -165,6 +164,7 @@ void CloseMenu(GraphicsInterface graphics, HardwareInterface hardware, MemoryInt
     g_battle.pass_turn = true;
     ExitMenu(memory);
     HandleBattle(graphics, hardware, memory);
+    DrawCursor(graphics, memory);
     graphics.EndFrame();
     SetBattleState(BATTLE_ATTACK);
 }
@@ -335,11 +335,7 @@ bool BattleItems(GraphicsInterface graphics, HardwareInterface hardware, InputIn
 SET_MEMORY(".battle")
 bool BattleStruggle(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update)
 {
-    DEBUG("Usign Struggle");
-    DoDamage(g_core.battleMode.enemyMonsterID, 8);
-    DoDamage(g_core.battleMode.playerMonsterID, 3);
-
-
+    Struggle(g_core.battleMode.playerMonsterID, g_core.battleMode.enemyMonsterID);
     return true;
 }
 

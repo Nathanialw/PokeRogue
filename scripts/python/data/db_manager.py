@@ -830,6 +830,8 @@ def cleanup_descriptions(type, dry_run=True, purge_all=False):
 CreatureType = namedtuple('CreatureType', ['formatted', 'type_0', 'type_1'])
 CreatureData = namedtuple('CreatureData', ['type_0', 'type_1'])
 CreatureStats = namedtuple('CreatureData', ['name', 'attack_min', 'defence_min', 'magic_min', 'speed_min', 'accuracy_min', 'loyalty_min', 'attack_max', 'defence_max', 'magic_max', 'speed_max', 'accuracy_max', 'loyalty_max', 'attack_growth', 'defence_growth', 'magic_growth', 'speed_growth', 'hp_base', 'hp_growth', 'mp_base', 'mp_growth'])
+CreatureAttributes = namedtuple('CreatureAttributes', ['name', 'strength', 'fortitude', 'intelligence', 'agility', 'dexterity', 'stamina'])
+CreatureResistances = namedtuple('CreatureResistances', ['name', 'toxic', 'fire', 'water', 'ice', 'earth', 'magic' ])
 SpellData = namedtuple('SpellData', ['name', 'power', 'level', 'type_0', 'type_enum', 'power_points', 'use_on_party_member', 'use_on_enemy', 'use_on_trainer'])
 SkillData = namedtuple('AbilityData', ['name', 'formatted', 'power', 'power_special', 'mana_cost', 'type_0', 'bleed', 'blind', 'burn', 'curse', 'disease', 'disarm', 'enfeeble', 'fear', 'freeze', 'paralyze', 'petrify', 'poison', 'root', 'sap', 'sleep', 'slow', 'berserk', 'fire_eating', 'flying', 'haste', 'invigorate', 'invisible', 'lifelink', 'magic_shield', 'reflect', 'regeneration', 'revitalize', 'spell_power', 'stoneskin', 'thorns', 'vampiric_aura', 'warded'])
 ItemData = namedtuple('ItemData', ['name', 'power', 'item_level', 'item_type', 'type_enum', 'consumable', 'consumable_party', 'consumable_spellbook'])
@@ -1137,6 +1139,53 @@ def get_creature_stats():
         attack_growth, defence_growth, magic_growth, speed_growth,
         hp_base, hp_growth, mp_base, mp_growth
         in cursor.fetchall()
+    ]
+
+    conn.close()
+    return formatted_results
+
+
+def get_creature_resistances():
+    conn = sqlite3.connect(DB_FILE)
+    cursor = conn.cursor()
+
+    cursor.execute('''
+        SELECT
+            cd.name,
+            cd.resist_toxic, cd.resist_fire, cd.resist_water, cd.resist_ice, cd.resist_earth, cd.resist_magic
+        FROM creature_data cd
+        INNER JOIN creatures c ON cd.name = c.name
+        WHERE c.used = 1
+        ORDER BY cd.name ASC
+    ''')
+
+    formatted_results = [
+        CreatureResistances(name, toxic, fire, water, ice, earth, magic)
+        for name, toxic, fire, water, ice, earth, magic in cursor.fetchall()
+    ]
+
+    conn.close()
+    return formatted_results
+
+
+
+def get_creature_attributes():
+    conn = sqlite3.connect(DB_FILE)
+    cursor = conn.cursor()
+
+    cursor.execute('''
+        SELECT
+            cd.name,
+            cd.strength, cd.fortitude, cd.intelligence, cd.agility, cd.dexterity, cd.stamina
+        FROM creature_data cd
+        INNER JOIN creatures c ON cd.name = c.name
+        WHERE c.used = 1
+        ORDER BY cd.name ASC
+    ''')
+
+    formatted_results = [
+        CreatureAttributes(name, strength, fortitude, intelligence, agility, dexterity, stamina)
+        for name, strength, fortitude, intelligence, agility, dexterity, stamina in cursor.fetchall()
     ]
 
     conn.close()

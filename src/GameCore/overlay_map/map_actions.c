@@ -42,7 +42,7 @@ ActionOutcome InteractObject(MemoryInterface memory, HardwareInterface hardware,
             {
                 uint8_t selection = g_core.menu.sel[0].y;
                 EntityId creature_id = GetPlayerMonsterIDs()[selection];
-                ActionOutcome action_outcome = UseMapObject(hardware, memory, object_type_id, object_e_id, creature_id, object_data, entity_type, 0);
+                ActionOutcome action_outcome = UseMapObject(hardware, memory, object_type_id, object_e_id, creature_id, object_data, entity_type, selection);
                 if (action_outcome == ACTION_SUCCEEDED)
                 {
                     BackUseOnParty(memory);
@@ -61,9 +61,9 @@ ActionOutcome InteractObject(MemoryInterface memory, HardwareInterface hardware,
         {
             if (GetInputState() == INPUT_USE)
             {
-                uint8_t selection = 0;
+                uint8_t selection = g_core.menu.sel[0].y;
                 EntityId creature_id = GetPlayerMonsterIDs()[selection];
-                ActionOutcome action_outcome = UseMapObject(hardware, memory, object_type_id, object_e_id, creature_id, object_data, entity_type, 0);
+                ActionOutcome action_outcome = UseMapObject(hardware, memory, object_type_id, object_e_id, creature_id, object_data, entity_type, selection);
                 if (action_outcome == ACTION_SUCCEEDED)
                 {
                     BackUseOnParty(memory);
@@ -105,7 +105,8 @@ ActionOutcome InteractObjectStepOn(MemoryInterface memory, HardwareInterface har
     ObjectData object_data;
     Flash_GetObjectData(memory, &object_data, object_type_id);
 
-    if (object_data.on_step)
+
+    if (object_data.on_step && GetBit(g_core.objects.interactable, object_e_id))
     {
         return UseMapObject(hardware, memory, object_type_id, object_e_id, e_id, object_data, entity_type, 0);
     }

@@ -19,6 +19,7 @@ ImageData::ImageData()
     entity_count = 0;
     image_count = 0;
     used_image_path = "";
+    icons = true;
     used_image_index = -1;
     default_image_path = "assets_raw/sprites/default/default.png";
 }
@@ -138,6 +139,13 @@ std::string ImageData::GetFolderPath()
             UpdateImagePath(used_image_path, entity_list[entity_id], entity_type);
         }
     }
+
+
+
+    // if (icons)
+    // {
+        // folderPath = "assets_raw/icons";
+    // }
 
 
     if (used_image_path == default_image_path)

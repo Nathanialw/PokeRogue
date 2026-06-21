@@ -64,7 +64,8 @@ uint8_t PrintLineStr(GraphicsInterface graphics, MemoryInterface memory, uint16_
     {
         char nc = textLine[char_idx] - FONT_OFFSET;
         if (c != nc)
-        {//
+        {
+            //
             c = nc;
             CharFromGlyph1bpp(memory, g_core.buffer, g_core.tile.pixels, c, fontSize, Flash_GetColor(memory, fg), color);
         }
@@ -131,7 +132,7 @@ void DrawCursor(GraphicsInterface graphics, MemoryInterface memory)
 
 /**********************************************************************************************************************/
 /**     Clears the Buffer to gray
- *      Draws a multitile sprite to a buffer one TILE_W x TILE_H tile at a tile
+ *      Draws a multi-tile sprite to a buffer one TILE_W x TILE_H tile at a tile
  *      Draws the buffer to the screen
 **********************************************************************************************************************/
 SET_MEMORY(".core")
@@ -217,7 +218,6 @@ void DrawIconCached(GraphicsInterface graphics, MemoryInterface memory, uint16_t
 }
 
 
-
 /**********************************************************************************************************************/
 /**  Checks cache
  *  Updates cache
@@ -228,23 +228,32 @@ void DrawBuffs(GraphicsInterface graphics, MemoryInterface memory, uint16_t scre
 {
     const uint8_t spacing = 5;
     uint8_t index = 0;
-    uint8_t buff_index = 0;
+
+    Color color;
+
+    if (icon_type == ICON_CREATURE_BUFF || icon_type == ICON_TRAINER_BUFF)
+        color = Flash_GetColor(memory, PAL_BRIGHT_VINE_GRN);
+    else if (icon_type == ICON_CREATURE_DEBUFF)
+        color = Flash_GetColor(memory, PAL_REDDISH_BROWN);
 
     for (uint8_t i = 0; i < MAX_MAX_STATUS_EFFECTS; i++)
     {
         if (buff_values[i] > 0)
         {
-            if (buff_index % num_per_row == 0)
+            if (index % num_per_row == 0)
             {
-                if (buff_index != 0)
+                if (index != 0)
                     screen_y += (BUFF_H + spacing);
-                DrawIconCached(graphics, memory, screen_x, screen_y, buff_values[i], icon_type);
                 index = 0;
+                DrawIconCached(graphics, memory, screen_x, screen_y, i, icon_type);
+                graphics.DrawRectOutline(screen_x, screen_y, BUFF_W, BUFF_H, 1, color);
+                index++;
             }
             else
             {
+                DrawIconCached(graphics, memory, screen_x + (index * (BUFF_W + 8)), screen_y, i, icon_type);
+                graphics.DrawRectOutline(screen_x + (index * (BUFF_W + 8)), screen_y, BUFF_W, BUFF_H, 1, color);
                 index++;
-                DrawIconCached(graphics, memory, screen_x + (index * (BUFF_W + 8)), screen_y, buff_values[i], icon_type);
             }
         }
     }
@@ -260,7 +269,7 @@ uint8_t DrawSkillBuffs(GraphicsInterface graphics, MemoryInterface memory, uint1
 {
     const uint8_t spacing = 5;
     uint8_t index = 0;
-    uint8_t n = 0;                     // counts total buffs drawn
+    uint8_t n = 0; // counts total buffs drawn
     Color color;
 
     if (icon_type == ICON_CREATURE_BUFF || icon_type == ICON_TRAINER_BUFF)
@@ -268,14 +277,14 @@ uint8_t DrawSkillBuffs(GraphicsInterface graphics, MemoryInterface memory, uint1
     else if (icon_type == ICON_CREATURE_DEBUFF)
         color = Flash_GetColor(memory, PAL_REDDISH_BROWN);
 
-    for (int8_t i = MAX_MAX_STATUS_EFFECTS-1; i >= 0; i--)
+    for (int8_t i = 0; i < MAX_MAX_STATUS_EFFECTS; i++)
     {
         if (((buff_values & 0x8000) >> 15) > 0)
         {
             // Start a new row when we've filled the current one
             if (index % num_per_row == 0)
             {
-                if (n != 0)                   // <-- FIX: use n instead of buff_index
+                if (n != 0) // <-- FIX: use n instead of buff_index
                     screen_y += (BUFF_H + spacing);
                 index = 0;
                 DrawIconCached(graphics, memory, screen_x, screen_y, i, icon_type);

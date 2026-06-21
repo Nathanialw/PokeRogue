@@ -20,7 +20,7 @@ class ImageData
     uint16_t entity_id;
     uint16_t entity_count;
     std::string  default_image_path;
-
+    bool icons;
 
     int16_t GetImageIndex();
     int16_t CheckForSetImage(std::string folderPath, std::string image_path_used, uint16_t id);

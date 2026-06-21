@@ -848,6 +848,10 @@ ActionOutcome SkillDissonance(HardwareInterface hardware, MemoryInterface memory
 SET_MEMORY(".battle")
 ActionOutcome SkillCorrupt(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
+    ApplyCurse(defenderID, abilityData.power);
+    ApplyEnfeeble(defenderID, abilityData.power);
+    ApplySap(defenderID, abilityData.power);
+
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return ACTION_SUCCEEDED;
 }
@@ -1344,6 +1348,7 @@ ActionOutcome SkillTerrifyingRoar(HardwareInterface hardware, MemoryInterface me
 SET_MEMORY(".battle")
 ActionOutcome SkillBloodScent(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
+    ApplyBerserk(attackerID, abilityData.power);
     RaiseStrength(attackerID, abilityData.power);
     return ACTION_SUCCEEDED;
 }
@@ -2606,6 +2611,8 @@ SET_MEMORY(".battle")
 ActionOutcome SkillNerveStrike(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
     ApplyParalyze(defenderID, abilityData.power);
+    ApplyEnfeeble(defenderID, abilityData.power);
+    ApplySap(defenderID, abilityData.power);
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return ACTION_SUCCEEDED;
 }
@@ -2761,6 +2768,8 @@ ActionOutcome SkillEarthquakeStomp(HardwareInterface hardware, MemoryInterface m
 SET_MEMORY(".battle")
 ActionOutcome SkillTremorWave(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
+    ApplySap(defenderID, abilityData.power_special);
+    ApplySlow(defenderID, abilityData.power_special);
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return ACTION_SUCCEEDED;
 }
@@ -2771,6 +2780,7 @@ ActionOutcome SkillTremorWave(HardwareInterface hardware, MemoryInterface memory
 SET_MEMORY(".battle")
 ActionOutcome SkillStoneSpike(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
+    ApplyBleed(defenderID, abilityData.power_special);
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return ACTION_SUCCEEDED;
 }
@@ -2781,7 +2791,7 @@ ActionOutcome SkillStoneSpike(HardwareInterface hardware, MemoryInterface memory
 SET_MEMORY(".battle")
 ActionOutcome SkillMudClaw(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    ApplySlow(defenderID, abilityData.power);
+    ApplyRoot(defenderID, abilityData.power_special);
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return ACTION_SUCCEEDED;
 }
@@ -2792,7 +2802,19 @@ ActionOutcome SkillMudClaw(HardwareInterface hardware, MemoryInterface memory, E
 SET_MEMORY(".battle")
 ActionOutcome SkillGeoBarrier(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
-    RaiseDefence(defenderID, abilityData.power);
+    ApplyMagicShield(attackerID, abilityData.power_special);
+    RaiseDefence(attackerID, abilityData.power_special);
+    return ACTION_SUCCEEDED;
+}
+
+/*********************************************************************************************************************
+*
+**********************************************************************************************************************/
+SET_MEMORY(".battle")
+ActionOutcome SkillReflect(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
+{
+    ApplyReflect(attackerID, abilityData.power_special);
+    RaiseDefence(attackerID, abilityData.power_special);
     return ACTION_SUCCEEDED;
 }
 
@@ -2802,6 +2824,7 @@ ActionOutcome SkillGeoBarrier(HardwareInterface hardware, MemoryInterface memory
 SET_MEMORY(".battle")
 ActionOutcome SkillMagmaFlow(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
+    ApplyBurn(defenderID, abilityData.power_special);
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return ACTION_SUCCEEDED;
 }
@@ -2812,6 +2835,8 @@ ActionOutcome SkillMagmaFlow(HardwareInterface hardware, MemoryInterface memory,
 SET_MEMORY(".battle")
 ActionOutcome SkillLandShift(HardwareInterface hardware, MemoryInterface memory, EntityId trainer_id, EntityId attackerID, EntityId defenderID, SkillData abilityData)
 {
+    ApplyRoot(defenderID, abilityData.power_special);
+    ApplySlow(defenderID, abilityData.power_special);
     Attack(hardware, memory, attackerID, defenderID, abilityData);
     return ACTION_SUCCEEDED;
 }

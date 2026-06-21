@@ -294,7 +294,7 @@
 // NECROTIC_BURST - Necrotic Burst, 
 { .power =  35,  .power_special =   1, .manaCost =   5, .type = UNDEAD    , .debuff_flags = 0b0000000000100000, .buff_flags = 0b0000000000000000 },
 // NERVE_STRIKE - Nerve Strike, 
-{ .power =  70,  .power_special =   1, .manaCost =   5, .type = TOXIC     , .debuff_flags = 0b0010000001000000, .buff_flags = 0b0000000000000000 },
+{ .power =  70,  .power_special =   1, .manaCost =   5, .type = TOXIC     , .debuff_flags = 0b0010001001000000, .buff_flags = 0b0000000000000000 },
 // NEUROTOXIN - Neurotoxin, 
 { .power =  40,  .power_special =   1, .manaCost =   5, .type = TOXIC     , .debuff_flags = 0b0000001001000000, .buff_flags = 0b0000000000000000 },
 // OVERGROWTH - Overgrowth, 

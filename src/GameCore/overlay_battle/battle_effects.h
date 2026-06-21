@@ -4,5 +4,7 @@
 
 #pragma once
 #include "enums.h"
+#include "types.h"
 
 ActionOutcome Flee();
+ActionOutcome Struggle(EntityId player_id, EntityId enemy_id);

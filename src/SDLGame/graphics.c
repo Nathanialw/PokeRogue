@@ -405,11 +405,24 @@ void TestAnimation(FrameBuffer* f, Rect_16* r, Color* color1)
 
 void EndFrame(void)
 {
-    SDL_SetRenderTarget(g_ramState.renderer, NULL); // reset to defaul
+    int w, h;
+    SDL_GetWindowSize(g_ramState.window, &w, &h);
+    h -= ((float)h * 0.2f); //0.2f is the text area for description, set as a const when it is fleshed out
+
+    SDL_FRect rect;
+    if (w > h)
+        rect = (SDL_FRect){(w - h) >> 1, 0, h, h};
+    else
+        rect = (SDL_FRect){0, 0, w, w};
+
+    SDL_FRect rect2 = {0, 0, 1920, 1920};
+
+    DEBUG("endframe %d %d", w, h);
+    SDL_SetRenderTarget(g_ramState.renderer, NULL); // set to window
     SDL_RenderClear(g_ramState.renderer);
-    SDL_RenderTexture(g_ramState.renderer, g_ramState.screen, NULL, NULL);
+    SDL_RenderTexture(g_ramState.renderer, g_ramState.screen, NULL, &rect);
     SDL_RenderPresent(g_ramState.renderer);
-    SDL_SetRenderTarget(g_ramState.renderer, g_ramState.screen);
+    SDL_SetRenderTarget(g_ramState.renderer, g_ramState.screen); // set to buffer
     SDL_PumpEvents();
     SDL_FlushEvents(SDL_EVENT_FIRST, SDL_EVENT_LAST);
 }

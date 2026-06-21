@@ -73,7 +73,7 @@
 "Pot of Gold\0",
 "Armor Rack\0",
 "Weapon Rack\0",
-"Shipwrek\0",
+"Shipwreck\0",
 "Minerva Shrine\0",
 "Poseidon Shrine\0",
 "Saint Mary Shri\0",

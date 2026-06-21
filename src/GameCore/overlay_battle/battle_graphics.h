@@ -9,3 +9,4 @@
 **********************************************************************************************************************/
 void HandleBattle(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory);
 void HandleBattleMenu(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory);
+void HandleBattleLists(GraphicsInterface graphics, MemoryInterface memory);

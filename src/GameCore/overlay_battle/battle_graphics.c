@@ -95,6 +95,7 @@ void HandleBattleLists(GraphicsInterface graphics, MemoryInterface memory)
     const uint16_t x = PLAYER_BATTLER_FRAME.x;
     const uint16_t y = PLAYER_BATTLER_FRAME.y;
     const uint16_t w = PLAYER_BATTLER_FRAME.w;
+    const uint16_t h = PLAYER_BATTLER_FRAME.h;
 
     const uint8_t indent = 1;
     const FontSize font_size = g_core.settings.fontSize;
@@ -106,7 +107,10 @@ void HandleBattleLists(GraphicsInterface graphics, MemoryInterface memory)
     const Color color_bg = Flash_GetColor(memory, PAL_OFF_WHITE_GRAY_BLUE);
     const Color color_hp = Flash_GetColor(memory, PAL_BRIGHT_LIGHT_GRN);
     const Color color_mp = Flash_GetColor(memory, PAL_ICE_BLUE);
-    const Color color_xp = Flash_GetColor(memory, PAL_PALE_BLU_PURP); 
+    const Color color_xp = Flash_GetColor(memory, PAL_PALE_BLU_PURP);
+
+    //clear
+    graphics.FillRect(x, y, w, h, color_bg);
 
     //display menu text
     uint16_t list_y = y + size;
@@ -225,29 +229,10 @@ void HandleBattleMenu(GraphicsInterface graphics, HardwareInterface hardware, Me
 {
     if (g_core.menu.depth == 0) return;
 
-    // use screen area of player battler and down to the bottom of the skill list
-    const uint16_t x = PLAYER_BATTLER_FRAME.x;
-    const uint16_t y = PLAYER_BATTLER_FRAME.y;
-    const uint16_t w = PLAYER_BATTLER_FRAME.w;
-    const uint16_t h = PLAYER_BATTLER_FRAME.h;
-    Color color_bg = Flash_GetColor(memory, PAL_OFF_WHITE_GRAY_BLUE);
-    graphics.FillRect(x, y, w, h, color_bg);
 
-    const uint8_t indent = 1;
-    const FontSize font_size = g_core.settings.fontSize;
-    const uint8_t size = TEXT_W;
-    const uint8_t max_chars = w / TEXT_W;
-    const uint8_t max_lines = (MAIN_MENU_H * font_size);
 
-    char border[max_chars + 1];
-    memset(border, '-', max_chars);
-    border[max_chars] = '\0';
 
     HandleBattleLists(graphics, memory);
-
-    //borders
-    PrintLineStr(graphics, memory, x, y, font_size, max_chars, border, false, PAL_DARK_BLUE_GRAY, PAL_OFF_WHITE_GRAY_BLUE);
-    PrintLineStr(graphics, memory, x, y + (h - size), font_size, max_chars, border, false, PAL_DARK_BLUE_GRAY, PAL_OFF_WHITE_GRAY_BLUE);
 
     g_core.menu.colorCache = Flash_GetColor(memory, PAL_OFF_WHITE_GRAY_BLUE);
 }
@@ -328,16 +313,16 @@ void CreatureStats(GraphicsInterface graphics, MemoryInterface memory, EntityId 
     }
 
 
-    graphics.DrawRectOutline(rect.x, rect.y, rect.w, rect.h, 1, color_border);
-    graphics.DrawRectOutline(text_rect.x, text_rect.y, text_rect.w, text_rect.h, 1, color_mp);
-    graphics.DrawRectOutline(buff_rect.x, buff_rect.y, buff_rect.w, buff_rect.h, 1, color_hp);
-    graphics.DrawRectOutline(debuff_rect.x, debuff_rect.y, debuff_rect.w, debuff_rect.h, 1, color_mp);
+    // graphics.DrawRectOutline(rect.x, rect.y, rect.w, rect.h, 1, color_border);
+    // graphics.DrawRectOutline(text_rect.x, text_rect.y, text_rect.w, text_rect.h, 1, color_mp);
+    // graphics.DrawRectOutline(buff_rect.x, buff_rect.y, buff_rect.w, buff_rect.h, 1, color_hp);
+    // graphics.DrawRectOutline(debuff_rect.x, debuff_rect.y, debuff_rect.w, debuff_rect.h, 1, color_mp);
 
 
     uint8_t buff_values[16] = {0};
     //buff frame
     GetCreatureStatusEffectStateBuffs(buff_values, creature_id);
-    DrawBuffs(graphics, memory, buff_rect.x, buff_rect.y, buff_values, ICON_CREATURE_DEBUFF, 8);
+    DrawBuffs(graphics, memory, buff_rect.x, buff_rect.y, buff_values, ICON_CREATURE_BUFF, 8);
 
     //debuff frame
     GetCreatureStatusEffectStateDebuffs(buff_values, creature_id);
@@ -413,7 +398,15 @@ void HandleBattle(GraphicsInterface graphics, HardwareInterface hardware, Memory
     uint16_t y = menu.y;
     uint8_t i = 0;
     char line[SMALL_STRINGS];
-    graphics.DrawRectOutline(menu.x, menu.y, menu.w, menu.h, 1, Flash_GetColor(memory, PAL_RED_ORANGE));
+    // use screen area of player battler and down to the bottom of the skill list
+    const uint16_t menu_x = BATTLE_MENU_BOX_FRAME.x;
+    const uint16_t menu_y = BATTLE_MENU_BOX_FRAME.y;
+    const uint16_t menu_w = BATTLE_MENU_BOX_FRAME.w;
+    const uint16_t menu_h = BATTLE_MENU_BOX_FRAME.h;
+    Color color_bg = Flash_GetColor(memory, PAL_OFF_WHITE_GRAY_BLUE);
+    graphics.FillRect(menu_x, menu_y, menu_w, menu_h, color_bg);
+
+    // graphics.DrawRectOutline(menu.x, menu.y, menu.w, menu.h, 1, Flash_GetColor(memory, PAL_RED_ORANGE));
 
     while (i < MAX_ABILITIES)
     {

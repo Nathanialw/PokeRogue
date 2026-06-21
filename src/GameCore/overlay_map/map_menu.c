@@ -42,7 +42,6 @@ bool Religion(GraphicsInterface graphics, HardwareInterface hardware, InputInter
 bool Options(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update);
 bool Exit(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update);
 
-
 /**********************************************************************************************************************
 ** Function pointers to control which submenu to display
  *  Use the menu cursor position y to index into this array
@@ -63,6 +62,7 @@ SubMenu submenus[MAIN_MENUS_SIZE] = {
     Options,
     Exit,
 };
+
 
 /**********************************************************************************************************************
 **
@@ -462,8 +462,9 @@ bool Party(GraphicsInterface graphics, HardwareInterface hardware, InputInterfac
     if (ToggleMenu(MONSTERS_SUBMENU, party_size, MAX_PARTY_SIZE))
     {
         uint8_t target_index = g_core.menu.sel[g_core.menu.depth].y + g_core.menu.menuScrollOffset[g_core.menu.depth].y;
-        // EntityId party_id1 = g_core.trainers.partyID[GetPlayerID()][0];
         EntityId party_id2 = g_core.trainers.partyID[GetPlayerID()][target_index];
+        //
+        // EntityId party_id1 = g_core.trainers.partyID[GetPlayerID()][0];
         // g_core.trainers.partyID[GetPlayerID()][0] = party_id2;
         // g_core.trainers.partyID[GetPlayerID()][target_index] = party_id1;
         // FillListByEntityID(memory, g_core.player.currentPartySize, CREATURE, GetPlayerMonsterIDs());
@@ -782,6 +783,7 @@ bool Exit(GraphicsInterface graphics, HardwareInterface hardware, InputInterface
 {
     g_core.menu.displayedMenu = MENU_NONE;
     Back(MAIN_MENU);
+    g_core.state.running = 0;
     return false;
 };
 
@@ -868,4 +870,147 @@ void HandleMenu(GraphicsInterface graphics, HardwareInterface hardware, MemoryIn
     audio.PlaySoundEffect(GetMenuSoundId(MENU_NEXT));
     FullRedraw(graphics, hardware, memory);
     DrawList(graphics, hardware, memory);
+}
+
+
+/**********************************************************************************************************************
+** Forward declared functions for the main menu
+**********************************************************************************************************************/
+
+bool MiniMap_r(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update);
+bool MonsterData_r(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update);
+bool Objectpedia_r(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update);
+bool Itempedia_r(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update);
+bool Spellpedia_r(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update);
+bool Abilitypedia_r(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update);
+bool Trainerpedia_r(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update);
+bool Party_r(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update);
+bool Bag_r(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update);
+bool Spells_r(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update);
+bool Religion_r(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update);
+bool Options_r(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update);
+bool Exit_r(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update);
+
+
+/**********************************************************************************************************************
+** Function pointers to control which submenu to display
+ *  Use the menu cursor position y to index into this array
+**********************************************************************************************************************/
+SET_MEMORY(".map.rodata")
+SubMenu menu_actions_r[MAIN_MENUS_SIZE] = {
+    MiniMap_r,
+    MonsterData_r,
+    Trainerpedia_r,
+    Objectpedia_r,
+    Itempedia_r,
+    Spellpedia_r,
+    Abilitypedia_r,
+    Party_r,
+    Bag_r,
+    Spells_r,
+    Religion_r,
+    Options_r,
+    Exit_r,
+};
+
+
+/**********************************************************************************************************************
+** Opens the submenu at the index of the cursor y position
+**********************************************************************************************************************/
+SET_MEMORY(".map")
+bool MenuActions_R(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory)
+{
+    bool r = menu_actions_r[g_core.menu.sel[0].y](graphics, hardware, input, memory, true); //always use the base index of zero to access the the menu branch
+    return r;
+}
+
+
+SET_MEMORY(".map")
+bool MiniMap_r(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update)
+{
+    return false;
+}
+
+SET_MEMORY(".map")
+bool MonsterData_r(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update)
+{
+    return false;
+}
+
+SET_MEMORY(".map")
+bool Objectpedia_r(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update)
+{
+    return false;
+}
+
+SET_MEMORY(".map")
+bool Itempedia_r(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update)
+{
+    return false;
+}
+
+SET_MEMORY(".map")
+bool Spellpedia_r(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update)
+{
+    return false;
+}
+
+SET_MEMORY(".map")
+bool Abilitypedia_r(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update)
+{
+    return false;
+}
+
+SET_MEMORY(".map")
+bool Trainerpedia_r(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update)
+{
+    return false;
+}
+
+SET_MEMORY(".map")
+bool Party_r(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update)
+{
+    uint8_t party_size = GetPlayerPartySize();
+    EntityId player_id = GetPlayerID();
+
+
+    uint8_t target_index = g_core.menu.sel[g_core.menu.depth].y + g_core.menu.menuScrollOffset[g_core.menu.depth].y;
+
+    EntityId party_id1 = g_core.trainers.partyID[player_id][0];
+    EntityId party_id2 = g_core.trainers.partyID[player_id][target_index];
+    g_core.trainers.partyID[player_id][0] = party_id2;
+    g_core.trainers.partyID[player_id][target_index] = party_id1;
+    FillListByEntityID(memory, party_size, CREATURE, GetPlayerMonsterIDs());
+    DrawParty(graphics, hardware, memory);
+    return false;
+}
+
+SET_MEMORY(".map")
+bool Bag_r(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update)
+{
+    return false;
+}
+
+SET_MEMORY(".map")
+bool Spells_r(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update)
+{
+    return false;
+}
+
+SET_MEMORY(".map")
+bool Religion_r(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update)
+{
+    return false;
+}
+
+SET_MEMORY(".map")
+bool Options_r(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update)
+{
+    return false;
+}
+
+SET_MEMORY(".map")
+bool Exit_r(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update)
+{
+    return false;
 }

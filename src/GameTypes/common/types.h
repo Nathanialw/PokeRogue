@@ -664,6 +664,7 @@ typedef union
         uint64_t _pad2 : 4;
     };
 
+    uint64_t raw;
     uint8_t bytes[8];
 } Stats;
 
@@ -687,6 +688,7 @@ typedef union
         uint64_t _pad1 : 4;
     };
 
+    uint64_t raw;
     uint8_t bytes[8];
 } Attributes;
 
@@ -877,26 +879,25 @@ typedef union
 {
     struct
     {
-        uint32_t paralyzed : 4;
-        uint32_t sleep : 4;
-        uint32_t poison : 4;
-        uint32_t frozen : 4;
-        uint32_t disease : 4;
-        uint32_t curse : 4;
-        uint32_t fear : 4;
-        uint32_t burned : 4;
-
+        uint32_t bleed : 4;
         uint32_t blind : 4;
-        uint32_t slowed : 4;
-
-        uint32_t _pad5 : 4;
-        uint32_t _pad4 : 4;
-        uint32_t _pad3 : 4;
-        uint32_t _pad2 : 4;
-        uint32_t _pad1 : 4;
-        uint32_t _pad0 : 4;
+        uint32_t burn : 4;
+        uint32_t curse : 4;
+        uint32_t disease : 4;
+        uint32_t disarm : 4;
+        uint32_t enfeeble : 4;
+        uint32_t fear : 4;
+        uint32_t freeze : 4;
+        uint32_t paralyze : 4;
+        uint32_t petrify : 4;
+        uint32_t poison : 4;
+        uint32_t root : 4;
+        uint32_t sap : 4;
+        uint32_t sleep : 4;
+        uint32_t slow : 4;
     };
 
+    uint32_t raw;
     uint8_t bytes[8];
 } CreatureDebuffs;
 
@@ -908,26 +909,25 @@ typedef union
 {
     struct
     {
-        uint32_t hasted : 4;
+        uint32_t berserk : 4;
         uint32_t fire_eating : 4;
-
-        uint32_t _pad13 : 4;
-        uint32_t _pad12 : 4;
-        uint32_t _pad11 : 4;
-        uint32_t _pad10 : 4;
-        uint32_t _pad9 : 4;
-        uint32_t _pad8 : 4;
-
-        uint32_t _pad7 : 4;
-        uint32_t _pad6 : 4;
-        uint32_t _pad5 : 4;
-        uint32_t _pad4 : 4;
-        uint32_t _pad3 : 4;
-        uint32_t _pad2 : 4;
-        uint32_t _pad1 : 4;
-        uint32_t _pad0 : 4;
+        uint32_t flying : 4;
+        uint32_t haste : 4;
+        uint32_t invigorate : 4;
+        uint32_t invisible : 4;
+        uint32_t lifelink : 4;
+        uint32_t magic_shield : 4;
+        uint32_t reflect : 4;
+        uint32_t regeneration : 4;
+        uint32_t revitalize : 4;
+        uint32_t spell_power : 4;
+        uint32_t stoneskin : 4;
+        uint32_t thorns : 4;
+        uint32_t vampiric_aura : 4;
+        uint32_t warded : 4;
     };
 
+    uint32_t raw;
     uint8_t bytes[8];
 } CreatureBuffs;
 
@@ -946,7 +946,6 @@ typedef union
         uint32_t repel : 4;
         uint32_t invisibility : 4;
         uint32_t wall_walking : 4;
-
         uint32_t _pad7 : 4;
         uint32_t _pad6 : 4;
         uint32_t _pad5 : 4;
@@ -957,6 +956,7 @@ typedef union
         uint32_t _pad0 : 4;
     };
 
+    uint32_t raw;
     uint8_t bytes[8];
 } TrainerBuffs;
 

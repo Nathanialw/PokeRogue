@@ -34,18 +34,24 @@ static const char new_line[] = "\n";
 SET_MEMORY(".core")
 void Flash_GetSkill(MemoryInterface memory, CreatureSkillLearnLevels* c, Type creatureType, uint8_t index)
 {
-#ifdef STANDALONE
-    return g_gameFlash.gameData.levelUpSkills[creatureType][index];
-#else
     const uint8_t length = sizeof(CreatureSkillLearnLevels);
     memory.GetRom(GAME_DATA_LEVEL_UP_SKILLS_POSITION + (length * creatureType), c->bytes, length);
+}
 
-#if defined(MEMORY_PRINT)
-    for (uint8_t i = 0; i < length; i++)
-        memory.Print(str_spawn_creature_type, c.bytes[i]);
-    memory.Print(new_line);
-#endif
-#endif
+
+SET_MEMORY(".core")
+void Flash_GetCreatureAttributes(MemoryInterface memory, Attributes* stats, Creature creature_type)
+{
+    const uint8_t length = sizeof(Attributes);
+    memory.GetRom(GAME_DATA_CREATURE_ATTRIBUTES_POSITION + (creature_type * length), stats->bytes, length);
+}
+
+
+SET_MEMORY(".core")
+void Flash_GetCreatureResistances(MemoryInterface memory, Resists* stats, Creature creature_type)
+{
+    const uint8_t length = sizeof(Resists);
+    memory.GetRom(GAME_DATA_CREATURE_RESISTS_POSITION + (creature_type * length), stats->bytes, length);
 }
 
 
@@ -166,7 +172,6 @@ void Flash_GetObjectData(MemoryInterface memory, ObjectData* object_data, uint8_
 #endif
 #endif
 }
-
 
 
 SET_MEMORY(".core")

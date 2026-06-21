@@ -168,8 +168,8 @@ def trainers(entity):
         f.write(f"//COUNT = {len(trainer_data)};\n")
 
 
-def creature(entity):
-    filename = f"{constants.DATA_INC_FOLDER}/data_{entity}s.inc"
+def creature_stats(entity):
+    filename = f"{constants.DATA_INC_FOLDER}/data_{entity}_stats.inc"
     trainer_data = db_manager.get_creature_stats()
 
     with open(filename, 'w', encoding='utf-8') as f:
@@ -185,7 +185,7 @@ def creature(entity):
                 attack_growth, defence_growth, magic_growth, speed_growth,
                 hp_base, hp_growth, mp_base, mp_growth
                 ) in enumerate(trainer_data):
-            f.write(f"{{//  {i} - {name}}}\n")
+            f.write(f"{{//  {i} - {name}\n")
             f.write(f"      .min    = {{ .attack = {attack_min:3}, .defence = {defence_min:3}, .magic = {magic_min:3}, .speed = {speed_min:3}, .accuracy = {accuracy_min:3}, .loyalty = {loyalty_min:3}, }},\n")
             f.write(f"      .max    = {{ .attack = {attack_max:3}, .defence = {defence_max:3}, .magic = {magic_max:3}, .speed = {speed_max:3}, .accuracy = {accuracy_max:3}, .loyalty = {loyalty_max:3}, }},\n")
             f.write(f"      .growth = {{ .attack = {attack_growth:3}, .defence = {defence_growth:3}, .magic = {magic_growth:3}, .speed = {speed_growth:3}, }},\n")
@@ -194,6 +194,44 @@ def creature(entity):
 
         f.write("\n")
         f.write(f"//COUNT = {len(trainer_data)};\n")
+
+
+def creature_attributes(entity):
+    filename = f"{constants.DATA_INC_FOLDER}/data_{entity}_attributes.inc"
+    creature_attribute_data = db_manager.get_creature_attributes()
+
+    with open(filename, 'w', encoding='utf-8') as f:
+        f.write(f"// Generated {entity} data structs\n")
+        f.write(f"// Database contains {len(creature_attribute_data)} total {entity}s\n\n")
+
+        # Write individual constants
+        f.write(f"// Individual {entity}s data\n\n")
+
+        for i, (name, strength, fortitude, intelligence, agility, dexterity, stamina) in enumerate(creature_attribute_data):
+            f.write(f"//  {i} - {name}\n")
+            f.write(f"{{ .strength = {strength:3}, .fortitude = {fortitude:3}, .intelligence = {intelligence:3}, .agility = {agility:3}, .dexterity = {dexterity:3}, .stamina = {stamina:3} }},\n")
+
+        f.write("\n")
+        f.write(f"//COUNT = {len(creature_attribute_data)};\n")
+
+
+def creature_resistances(entity):
+    filename = f"{constants.DATA_INC_FOLDER}/data_{entity}_resistances.inc"
+    creature_resist_data = db_manager.get_creature_resistances()
+
+    with open(filename, 'w', encoding='utf-8') as f:
+        f.write(f"// Generated {entity} data structs\n")
+        f.write(f"// Database contains {len(creature_resist_data)} total {entity}s\n\n")
+
+        # Write individual constants
+        f.write(f"// Individual {entity}s data\n\n")
+
+        for i, (name, toxic, fire, water, ice, earth, magic) in enumerate(creature_resist_data):
+            f.write(f"//  {i} - {name} \n")
+            f.write(f"{{  .toxic = {toxic:3}, .fire = {fire:3}, .water = {water:3}, .ice = {ice:3}, .earth = {earth:3}, .magic = {magic:3} }}, \n")
+
+        f.write("\n")
+        f.write(f"//COUNT = {len(creature_resist_data)};\n")
 
 
 def items(entity):

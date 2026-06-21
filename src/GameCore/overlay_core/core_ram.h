@@ -90,7 +90,13 @@ typedef struct
     //TODO: make into a union with something else
     Room rooms[MAX_ROOMS];
     uint8_t roomCount;
-    StatsRange statsCache;
+
+    union
+    {
+        StatsRange statsCache;
+        Attributes attributesCache;
+        Resists resistsCache;
+    };
 
 
     /**********************************************************************************************************************
@@ -179,6 +185,10 @@ typedef struct
         IntMax99 speed[MAX_ENTITY_TRAINER_COUNT];
         Senses senses[MAX_ENTITY_TRAINER_COUNT];
         Senses stealth[MAX_ENTITY_TRAINER_COUNT];
+
+        //gain xp via sacrifices
+        uint_max999 xp[MAX_ENTITY_TRAINER_COUNT];
+        //skills
     } trainers;
 
     struct

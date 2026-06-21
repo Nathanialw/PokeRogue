@@ -123,6 +123,8 @@ void DestroyCreature(EntityId id)
     g_core.creatures.stats[id].defence = 0;
     g_core.creatures.stats[id].magic = 0;
     g_core.creatures.stats[id].speed = 0;
+    g_core.creatures.buffs[id].raw = 0;
+    g_core.creatures.debuffs[id].raw = 0;
     for (uint8_t i = 0; i < 8; ++i)
         g_core.creatures.attacks[id][i] = NO_ABILITY;
     Int999SetCurrent(&g_core.creatures.hp[id], 0);
@@ -176,7 +178,7 @@ void DestroyTrainer(EntityId id)
         g_core.trainers.partyID[creature_id][i] = NO_ENTITY;
     }
 
-
+    g_core.creatures.buffs[id].raw = 0;
     Position empty_pos = {.x = 0, .y = 0};
     g_core.objects.position[id] = empty_pos;
     SetBit(g_core.trainers.onMap, id, false);
@@ -415,6 +417,9 @@ EntityId SpawnMonster(HardwareInterface hardware, MemoryInterface memory, uint8_
 
 
     GetStats(hardware, memory, &g_core.creatures.stats[id], monType, l);
+    GetAttributes(hardware, memory, &g_core.creatures.attributes[id], monType, l);
+    GetResistances(hardware, memory, &g_core.creatures.resists[id], monType, l);
+
     SetXPToLevel(id, &g_core.creatures.xp[id]);
     g_core.creatures.hp[id] = GetHP(monType, l);
     g_core.creatures.mp[id] = GetMP(monType, l);

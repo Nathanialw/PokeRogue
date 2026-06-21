@@ -98,11 +98,33 @@ void GetStats(HardwareInterface hardware, MemoryInterface memory, Stats* stats, 
     stats->defence = hardware.GetRandom_uint8_t(minStats.defence, maxStats.defence);
     stats->magic = hardware.GetRandom_uint8_t(minStats.magic, maxStats.magic);
     stats->speed = hardware.GetRandom_uint8_t(minStats.speed, maxStats.speed);
+    stats->accuracy = hardware.GetRandom_uint8_t(minStats.accuracy, maxStats.accuracy);
+    stats->loyalty = hardware.GetRandom_uint8_t(minStats.loyalty, maxStats.loyalty);
 
     stats->attack += a * (level / 4);
     stats->defence += d * (level / 4);
     stats->magic += m * (level / 4);
     stats->speed += s * (level / 4);
+}
+
+
+/**********************************************************************************************************************/
+/** Returns the stats of a given creature type and level
+**********************************************************************************************************************/
+SET_MEMORY(".core")
+void GetAttributes(HardwareInterface hardware, MemoryInterface memory, Attributes *attributes, Creature type, uint8_t level)
+{
+    Flash_GetCreatureAttributes(memory, attributes, type);
+}
+
+
+/**********************************************************************************************************************/
+/** Returns the stats of a given creature type and level
+**********************************************************************************************************************/
+SET_MEMORY(".core")
+void GetResistances(HardwareInterface hardware, MemoryInterface memory, Resists* resists, Creature type, uint8_t level)
+{
+    Flash_GetCreatureResistances(memory, resists, type);
 }
 
 
@@ -222,8 +244,22 @@ void GetCreatureStatusEffectStateBuffs(uint8_t* buff_values, EntityId creature_i
     for (uint8_t i = 0; i < MAX_MAX_STATUS_EFFECTS; i++)
         buff_values[i] = 0;
 
-    buff_values[0] = g_core.creatures.buffs[creature_id].hasted;
+    buff_values[0] = g_core.creatures.buffs[creature_id].berserk;
     buff_values[1] = g_core.creatures.buffs[creature_id].fire_eating;
+    buff_values[2] = g_core.creatures.buffs[creature_id].flying;
+    buff_values[3] = g_core.creatures.buffs[creature_id].haste;
+    buff_values[4] = g_core.creatures.buffs[creature_id].invigorate;
+    buff_values[5] = g_core.creatures.buffs[creature_id].invisible;
+    buff_values[6] = g_core.creatures.buffs[creature_id].lifelink;
+    buff_values[7] = g_core.creatures.buffs[creature_id].magic_shield;
+    buff_values[8] = g_core.creatures.buffs[creature_id].reflect;
+    buff_values[9] = g_core.creatures.buffs[creature_id].regeneration;
+    buff_values[10] = g_core.creatures.buffs[creature_id].revitalize;
+    buff_values[11] = g_core.creatures.buffs[creature_id].spell_power;
+    buff_values[12] = g_core.creatures.buffs[creature_id].stoneskin;
+    buff_values[13] = g_core.creatures.buffs[creature_id].thorns;
+    buff_values[14] = g_core.creatures.buffs[creature_id].vampiric_aura;
+    buff_values[15] = g_core.creatures.buffs[creature_id].warded;
 }
 
 
@@ -238,14 +274,21 @@ void GetCreatureStatusEffectStateDebuffs(uint8_t* buff_values, EntityId creature
     for (uint8_t i = 0; i < MAX_MAX_STATUS_EFFECTS; i++)
         buff_values[i] = 0;
 
-    buff_values[0] = g_core.creatures.debuffs[creature_id].paralyzed;
-    buff_values[1] = g_core.creatures.debuffs[creature_id].sleep;
-    buff_values[2] = g_core.creatures.debuffs[creature_id].poison;
-    buff_values[3] = g_core.creatures.debuffs[creature_id].frozen;
+    buff_values[0] = g_core.creatures.debuffs[creature_id].bleed;
+    buff_values[1] = g_core.creatures.debuffs[creature_id].blind;
+    buff_values[2] = g_core.creatures.debuffs[creature_id].burn;
+    buff_values[3] = g_core.creatures.debuffs[creature_id].curse;
     buff_values[4] = g_core.creatures.debuffs[creature_id].disease;
-    buff_values[5] = g_core.creatures.debuffs[creature_id].curse;
-    buff_values[6] = g_core.creatures.debuffs[creature_id].fear;
-    buff_values[8] = g_core.creatures.debuffs[creature_id].burned;
-    buff_values[9] = g_core.creatures.debuffs[creature_id].slowed;
+    buff_values[5] = g_core.creatures.debuffs[creature_id].disarm;
+    buff_values[6] = g_core.creatures.debuffs[creature_id].enfeeble;
+    buff_values[7] = g_core.creatures.debuffs[creature_id].fear;
+    buff_values[8] = g_core.creatures.debuffs[creature_id].freeze;
+    buff_values[9] = g_core.creatures.debuffs[creature_id].paralyze;
+    buff_values[10] = g_core.creatures.debuffs[creature_id].petrify;
+    buff_values[11] = g_core.creatures.debuffs[creature_id].poison;
+    buff_values[12] = g_core.creatures.debuffs[creature_id].root;
+    buff_values[13] = g_core.creatures.debuffs[creature_id].sap;
+    buff_values[14] = g_core.creatures.debuffs[creature_id].sleep;
+    buff_values[15] = g_core.creatures.debuffs[creature_id].slow;
 }
 

@@ -102,13 +102,13 @@ uint8_t LineOfSightEffect(HardwareInterface hardware, uint8_t power, EntityId id
 *
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-uint8_t ParalyzedEffect(HardwareInterface hardware, uint8_t power, EntityId id)
+uint8_t paralyzeEffect(HardwareInterface hardware, uint8_t power, EntityId id)
 {
     if (power == 0) return 0;
     uint8_t chance = hardware.GetRandom_uint8_t(10, 100);
     if (chance <= 25)
-        g_core.creatures.debuffs[id].paralyzed = DecrementStatusEffect(g_core.creatures.debuffs[id].paralyzed, id);
-    return g_core.creatures.debuffs[id].paralyzed;
+        g_core.creatures.debuffs[id].paralyze = DecrementStatusEffect(g_core.creatures.debuffs[id].paralyze, id);
+    return g_core.creatures.debuffs[id].paralyze;
 }
 
 /**********************************************************************************************************************
@@ -144,15 +144,15 @@ uint8_t PoisonEffect(HardwareInterface hardware, uint8_t power, EntityId id)
 *
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-uint8_t FrozenEffect(HardwareInterface hardware, uint8_t power, EntityId id)
+uint8_t freezeEffect(HardwareInterface hardware, uint8_t power, EntityId id)
 {
     if (power == 0) return 0;
     uint8_t chance = hardware.GetRandom_uint8_t(10, 100);
     if (chance <= 25)
     {
-        g_core.creatures.debuffs[id].frozen = DecrementStatusEffect(g_core.creatures.debuffs[id].frozen, id);
+        g_core.creatures.debuffs[id].freeze = DecrementStatusEffect(g_core.creatures.debuffs[id].freeze, id);
     }
-    return g_core.creatures.debuffs[id].frozen;
+    return g_core.creatures.debuffs[id].freeze;
 }
 
 /**********************************************************************************************************************
@@ -191,16 +191,16 @@ uint8_t CurseEffect(HardwareInterface hardware, uint8_t power, EntityId id)
 *
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-uint8_t HastedEffect(HardwareInterface hardware, uint8_t power, EntityId id)
+uint8_t hasteEffect(HardwareInterface hardware, uint8_t power, EntityId id)
 {
     if (power == 0) return 0;
     uint8_t chance = hardware.GetRandom_uint8_t(10, 100);
     if (chance <= 25)
     {
         Int999ApplyValue(hardware, &g_core.creatures.hp[id], -power);
-        g_core.creatures.buffs[id].hasted = DecrementStatusEffect(g_core.creatures.buffs[id].hasted, id);
+        g_core.creatures.buffs[id].haste = DecrementStatusEffect(g_core.creatures.buffs[id].haste, id);
     }
-    return g_core.creatures.buffs[id].hasted;
+    return g_core.creatures.buffs[id].haste;
 }
 
 /**********************************************************************************************************************
@@ -220,16 +220,16 @@ uint8_t FearEffect(HardwareInterface hardware, uint8_t power, EntityId id)
 *
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-uint8_t BurnedEffect(HardwareInterface hardware, uint8_t power, EntityId id)
+uint8_t burnEffect(HardwareInterface hardware, uint8_t power, EntityId id)
 {
     if (power == 0) return 0;
     uint8_t chance = hardware.GetRandom_uint8_t(10, 100);
     if (chance <= 25)
     {
         Int999ApplyValue(hardware, &g_core.creatures.hp[id], -power);
-        g_core.creatures.debuffs[id].burned = DecrementStatusEffect(g_core.creatures.debuffs[id].burned, id);
+        g_core.creatures.debuffs[id].burn = DecrementStatusEffect(g_core.creatures.debuffs[id].burn, id);
     }
-    return g_core.creatures.debuffs[id].burned;
+    return g_core.creatures.debuffs[id].burn;
 }
 
 /**********************************************************************************************************************
@@ -245,13 +245,13 @@ uint8_t LightEffect(HardwareInterface hardware, uint8_t power, EntityId id)
 *
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-uint8_t SlowedEffect(HardwareInterface hardware, uint8_t power, EntityId id)
+uint8_t slowEffect(HardwareInterface hardware, uint8_t power, EntityId id)
 {
     if (power == 0) return 0;
     uint8_t chance = hardware.GetRandom_uint8_t(10, 100);
     if (chance <= 25)
-        g_core.creatures.debuffs[id].slowed = DecrementStatusEffect(g_core.creatures.debuffs[id].slowed, id);
-    return g_core.creatures.debuffs[id].slowed;
+        g_core.creatures.debuffs[id].slow = DecrementStatusEffect(g_core.creatures.debuffs[id].slow, id);
+    return g_core.creatures.debuffs[id].slow;
 }
 
 
@@ -263,21 +263,21 @@ void UpdateStatusEffectCreatures(HardwareInterface hardware)
 {
     for (uint8_t i = 0; i < MAX_ENTITY_TRAINER_COUNT; i++)
     {
-        g_core.creatures.debuffs[i].paralyzed = ParalyzedEffect(hardware, g_core.creatures.debuffs[i].paralyzed, i);
+        g_core.creatures.debuffs[i].paralyze = paralyzeEffect(hardware, g_core.creatures.debuffs[i].paralyze, i);
         g_core.creatures.debuffs[i].sleep = SleepEffect(hardware, g_core.creatures.debuffs[i].sleep, i);
         g_core.creatures.debuffs[i].poison = PoisonEffect(hardware, g_core.creatures.debuffs[i].poison, i);
-        g_core.creatures.debuffs[i].frozen = FrozenEffect(hardware, g_core.creatures.debuffs[i].frozen, i);
+        g_core.creatures.debuffs[i].freeze = freezeEffect(hardware, g_core.creatures.debuffs[i].freeze, i);
         g_core.creatures.debuffs[i].disease = DiseaseEffect(hardware, g_core.creatures.debuffs[i].disease, i);
         g_core.creatures.debuffs[i].curse = CurseEffect(hardware, g_core.creatures.debuffs[i].curse, i);
         g_core.creatures.debuffs[i].fear = FearEffect(hardware, g_core.creatures.debuffs[i].fear, i);
-        g_core.creatures.debuffs[i].burned = BurnedEffect(hardware, g_core.creatures.debuffs[i].burned, i);
-        g_core.creatures.debuffs[i].slowed = SlowedEffect(hardware, g_core.creatures.debuffs[i].slowed, i);
+        g_core.creatures.debuffs[i].burn = burnEffect(hardware, g_core.creatures.debuffs[i].burn, i);
+        g_core.creatures.debuffs[i].slow = slowEffect(hardware, g_core.creatures.debuffs[i].slow, i);
     }
 
     for (uint8_t i = 0; i < MAX_ENTITY_TRAINER_COUNT; i++)
     {
         g_core.creatures.buffs[i].fire_eating = FireEatingEffect(hardware, g_core.creatures.buffs[i].fire_eating, i);
-        g_core.creatures.buffs[i].hasted = HastedEffect(hardware, g_core.creatures.buffs[i].hasted, i);
+        g_core.creatures.buffs[i].haste = hasteEffect(hardware, g_core.creatures.buffs[i].haste, i);
     }
 }
 

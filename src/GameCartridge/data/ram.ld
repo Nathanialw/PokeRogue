@@ -190,13 +190,15 @@ SECTIONS
     .game_data_type_effects          0x185000000 : { KEEP(*(.game_data_type_effects))  . = ALIGN(4); }
     .game_data_creature_types        0x186000000 : { KEEP(*(.game_data_creature_types))  . = ALIGN(4); }
     .game_data_creature_stats        0x187000000 : { KEEP(*(.game_data_creature_stats))  . = ALIGN(4); }
-    .game_data_learnable_skills      0x188000000 : { KEEP(*(.game_data_learnable_skills))  . = ALIGN(4); }
-    .game_data_level_up_skills       0x189000000 : { KEEP(*(.game_data_level_up_skills))  . = ALIGN(4); }
-    .game_data_ability               0x190000000 : { KEEP(*(.game_data_ability))  . = ALIGN(4); }
-    .game_data_spell                 0x191000000 : { KEEP(*(.game_data_spell))  . = ALIGN(4); }
-    .game_data_item                  0x192000000 : { KEEP(*(.game_data_item))  . = ALIGN(4); }
-    .game_data_object                0x193000000 : { KEEP(*(.game_data_object))  . = ALIGN(4); }
-    .game_data_trainer               0x194000000 : { KEEP(*(.game_data_trainer))  . = ALIGN(4); }
+    .game_data_creature_attributes   0x188000000 : { KEEP(*(.game_data_creature_attributes))  . = ALIGN(4); }
+    .game_data_creature_resists      0x189000000 : { KEEP(*(.game_data_creature_resists))  . = ALIGN(4); }
+    .game_data_learnable_skills      0x190000000 : { KEEP(*(.game_data_learnable_skills))  . = ALIGN(4); }
+    .game_data_level_up_skills       0x191000000 : { KEEP(*(.game_data_level_up_skills))  . = ALIGN(4); }
+    .game_data_ability               0x192000000 : { KEEP(*(.game_data_ability))  . = ALIGN(4); }
+    .game_data_spell                 0x193000000 : { KEEP(*(.game_data_spell))  . = ALIGN(4); }
+    .game_data_item                  0x194000000 : { KEEP(*(.game_data_item))  . = ALIGN(4); }
+    .game_data_object                0x195000000 : { KEEP(*(.game_data_object))  . = ALIGN(4); }
+    .game_data_trainer               0x196000000 : { KEEP(*(.game_data_trainer))  . = ALIGN(4); }
 
     /* ========================================== */
     /*      COLORS                                */

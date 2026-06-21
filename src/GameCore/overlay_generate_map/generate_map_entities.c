@@ -491,7 +491,6 @@ void PopulateLevelObjects(HardwareInterface hardware, MemoryInterface memory)
 
         if (!GenerateAndPlaceObject(hardware, memory, object_type))
             i--;
-
     }
 
 

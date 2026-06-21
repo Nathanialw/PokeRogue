@@ -20,11 +20,11 @@
 //    5 - BAPTISMAL_FONT
 { .power = 0x05, .data = 0x01, .flags = 0b0000000001000011 },
 //    6 - BED_COT
-{ .power = 0x05, .data = 0x01, .flags = 0b0000010001000001 },
+{ .power = 0x05, .data = 0x01, .flags = 0b0000010001000011 },
 //    7 - BED_SINGLE
-{ .power = 0x05, .data = 0x01, .flags = 0b0000010001000001 },
+{ .power = 0x05, .data = 0x01, .flags = 0b0000010001000011 },
 //    8 - BED_TENT
-{ .power = 0x05, .data = 0x01, .flags = 0b0000000011000001 },
+{ .power = 0x05, .data = 0x01, .flags = 0b0000000011000011 },
 //    9 - BELL
 { .power = 0x05, .data = 0x01, .flags = 0b0000000001000011 },
 //    10 - BOMB_TNT
@@ -44,11 +44,11 @@
 //    17 - CONFESSIONAL_TREE
 { .power = 0x05, .data = 0x01, .flags = 0b0000000001000011 },
 //    18 - CORPSE_CRUCIFIED
-{ .power = 0x05, .data = 0x01, .flags = 0b0000000001000001 },
+{ .power = 0x05, .data = 0x01, .flags = 0b0000000001000011 },
 //    19 - CORPSE_HANGING
 { .power = 0x05, .data = 0x01, .flags = 0b0000000001000011 },
 //    20 - CORPSE_IMPALED
-{ .power = 0x05, .data = 0x01, .flags = 0b0000000001000001 },
+{ .power = 0x05, .data = 0x01, .flags = 0b0000000001000011 },
 //    21 - CORPSE_LAID
 { .power = 0x05, .data = 0x01, .flags = 0b0000000001000011 },
 //    22 - DOOR_BARRED
@@ -96,15 +96,15 @@
 //    43 - GEODE_CRYSTAL
 { .power = 0x05, .data = 0x01, .flags = 0b0000010001000011 },
 //    44 - HEADING_BLOCK
-{ .power = 0x05, .data = 0x01, .flags = 0b0000000001000011 },
+{ .power = 0x05, .data = 0x01, .flags = 0b0001000001000011 },
 //    45 - HIGH_CROSS
 { .power = 0x05, .data = 0x01, .flags = 0b0000100001000011 },
 //    46 - ICE_BOX
-{ .power = 0x05, .data = 0x01, .flags = 0b0000010001000001 },
+{ .power = 0x05, .data = 0x01, .flags = 0b0000010001000011 },
 //    47 - IDOL_OF_HERNE
 { .power = 0x05, .data = 0x01, .flags = 0b0000000001000011 },
 //    48 - INSCRIPTION
-{ .power = 0x05, .data = 0x01, .flags = 0b0000000001000001 },
+{ .power = 0x05, .data = 0x01, .flags = 0b0000000001000011 },
 //    49 - LOOM
 { .power = 0x05, .data = 0x01, .flags = 0b0000000001000011 },
 //    50 - METEORITE
@@ -134,7 +134,7 @@
 //    62 - PORTAL_JOTUNHEIM
 { .power = 0x05, .data = 0x01, .flags = 0b0000000000000010 },
 //    63 - PORTAL_MAGE
-{ .power = 0x05, .data = 0x01, .flags = 0b0000000000000000 },
+{ .power = 0x05, .data = 0x01, .flags = 0b0000000000000010 },
 //    64 - PORTAL_OLYMPUS
 { .power = 0x05, .data = 0x01, .flags = 0b0000000000000010 },
 //    65 - PORTAL_TAKAMA
@@ -144,7 +144,7 @@
 //    67 - PORTAL_VALHALLA
 { .power = 0x05, .data = 0x01, .flags = 0b0000000000000010 },
 //    68 - POT_OF_GOLD
-{ .power = 0x05, .data = 0x01, .flags = 0b0000000001000001 },
+{ .power = 0x05, .data = 0x01, .flags = 0b0000000001000011 },
 //    69 - RACK_ARMOR
 { .power = 0x05, .data = 0x01, .flags = 0b0000000001000011 },
 //    70 - RACK_WEAPON
@@ -152,11 +152,11 @@
 //    71 - SHIPWRECK
 { .power = 0x05, .data = 0x01, .flags = 0b0000000011000011 },
 //    72 - SHRINE_MINERVA
-{ .power = 0x05, .data = 0x01, .flags = 0b0000100001000001 },
+{ .power = 0x05, .data = 0x01, .flags = 0b0000100001000011 },
 //    73 - SHRINE_POSEIDON
-{ .power = 0x05, .data = 0x01, .flags = 0b0000100001000001 },
+{ .power = 0x05, .data = 0x01, .flags = 0b0000100001000011 },
 //    74 - SHRINE_SAINT_MARY
-{ .power = 0x05, .data = 0x01, .flags = 0b0000100001000001 },
+{ .power = 0x05, .data = 0x01, .flags = 0b0000100001000011 },
 //    75 - SIGIL_PENTAGRAM
 { .power = 0x05, .data = 0x01, .flags = 0b0000000001000011 },
 //    76 - STATUE_EXPLORER
@@ -166,7 +166,7 @@
 //    78 - STATUE_KING
 { .power = 0x05, .data = 0x01, .flags = 0b0000100001000010 },
 //    79 - STATUE_WEEPING
-{ .power = 0x05, .data = 0x01, .flags = 0b0000000001000001 },
+{ .power = 0x05, .data = 0x01, .flags = 0b0000000001000011 },
 //    80 - STILL
 { .power = 0x05, .data = 0x01, .flags = 0b0001000001000011 },
 //    81 - SUNDIAL
@@ -208,7 +208,7 @@
 //    99 - VEIN_TIN
 { .power = 0x05, .data = 0x01, .flags = 0b0000100001000011 },
 //    100 - WAGON_BROKEN
-{ .power = 0x05, .data = 0x01, .flags = 0b0000000001000001 },
+{ .power = 0x05, .data = 0x01, .flags = 0b0000000001000011 },
 //    101 - WARD
 { .power = 0x05, .data = 0x01, .flags = 0b0000000001001100 },
 //    102 - WAYSTONE

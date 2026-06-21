@@ -14,3 +14,5 @@ void OpenUseOnSpellPage(HardwareInterface hardware, MemoryInterface memory, UseF
 
 void OpenUseOnParty(HardwareInterface hardware, MemoryInterface memory, UseFrameBack f);
 void BackUseOnParty(MemoryInterface memory);
+
+bool MenuActions_R(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory);
