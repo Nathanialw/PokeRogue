@@ -15,8 +15,10 @@
 
 #include "core_menu.h"
 #include "core_memory_access.h"
+#include "core_player.h"
 #include "core_ram.h"
 #include "core_tiles.h"
+#include "core_utils.h"
 #include "lib_debugging.h"
 
 
@@ -302,4 +304,140 @@ uint8_t DrawSkillBuffs(GraphicsInterface graphics, MemoryInterface memory, uint1
         buff_values <<= 1;
     }
     return n;
+}
+
+
+void DrawRightWing(GraphicsInterface graphics, MemoryInterface memory)
+{
+    if (!g_core.update_right_wing) return;
+    g_core.update_right_wing = false;
+
+    graphics.DrawToRight();
+    Rect_16 rect = graphics.GetRightRect();
+    Color color_bg = Flash_GetColor(memory, PAL_OFF_WHITE_GRAY_BLUE);
+    graphics.FillRect(rect.x, rect.y, rect.w, rect.h, color_bg);
+
+    Color border = Flash_GetColor(memory, PAL_DARK_BLUE_GRAY);
+    Color hp = Flash_GetColor(memory, PAL_BRIGHT_LIGHT_GRN);
+    Color mp = Flash_GetColor(memory, PAL_ICE_BLUE);
+    Color xp = Flash_GetColor(memory, PAL_PALE_BLU_PURP);
+    Color portrait = Flash_GetColor(memory, PAL_TAN_RED);
+
+    Color colors[3] = {hp, mp, xp};
+
+    uint16_t party_x = TEXT_W;
+    uint16_t party_h = TEXT_H * 3;
+    uint16_t party_w = (rect.w - (2 * TEXT_W)) > SMALL_STRINGS * TEXT_W ? SMALL_STRINGS * TEXT_W : (rect.w - (2 * TEXT_W));
+    uint16_t status_x = TEXT_W + party_h;
+    uint16_t y = TEXT_H;
+    uint16_t w = (party_w - party_h > SMALL_STRINGS * TEXT_W) ? SMALL_STRINGS * TEXT_W : (party_w - party_h);
+    uint16_t line_h = TEXT_H;
+
+    uint16_t area_down_y = 416;
+
+    EntityId player_id = GetPlayerID();
+    EntityId* party = GetPlayerParty();
+
+    for (int i = 0; i < MAX_PARTY_SIZE; ++i)
+    {
+        EntityId creature_id = party[i];
+        graphics.DrawRectOutline(party_x, y, party_w, party_h, 1, border);
+        if (creature_id == NO_ENTITY)
+        {
+            y += party_h;
+        }
+        else
+        {
+            graphics.FillRect(party_x, y, party_h, party_h, portrait);
+            graphics.DrawRectOutline(party_x, y, party_h, party_h, 1, border);
+
+            uint_max999 vals[3] = {g_core.creatures.hp[creature_id], g_core.creatures.mp[creature_id], g_core.creatures.xp[creature_id]};
+            for (int j = 0; j < 3; ++j)
+            {
+                uint16_t cur = Int999GetCurrent(&vals[j]);
+                uint16_t max = Int999GetMax(&vals[j]);
+                uint16_t percent = (cur * 100) / max;
+                uint16_t percent_w = (percent * w) / 100;
+                graphics.FillRect(status_x, y, w, line_h, color_bg);
+                graphics.FillRect(status_x, y, percent_w, line_h, colors[j]);
+                graphics.DrawRectOutline(status_x, y, w, line_h, 1, border);
+                y += line_h;
+            }
+        }
+        y += line_h;
+    }
+    y = area_down_y;
+
+    for (int i = 0; i < MAX_BAG_SIZE; ++i)
+    {
+        graphics.FillRect(party_x, y, party_w, line_h, hp);
+        graphics.DrawRectOutline(party_x, y, party_w, line_h, 1, border);
+        y += line_h;
+    }
+    y += line_h;
+}
+
+void DrawLeftWing(GraphicsInterface graphics, MemoryInterface memory)
+{
+    if (!g_core.update_left_wing) return;
+    g_core.update_left_wing = false;
+
+    graphics.DrawToLeft();
+    Rect_16 rect = graphics.GetLeftRect();
+    Color color_bg = Flash_GetColor(memory, PAL_OFF_WHITE_GRAY_BLUE);
+    graphics.FillRect(rect.x, rect.y, rect.w, rect.h, color_bg);
+
+    Color border = Flash_GetColor(memory, PAL_DARK_BLUE_GRAY);
+    Color hp = Flash_GetColor(memory, PAL_BRIGHT_LIGHT_GRN);
+    Color mp = Flash_GetColor(memory, PAL_ICE_BLUE);
+    Color xp = Flash_GetColor(memory, PAL_PALE_BLU_PURP);
+
+    Color colors[3] = {hp, mp, xp};
+
+    uint16_t x = TEXT_W;
+    uint16_t y = TEXT_H;
+    uint16_t w = (rect.w - (2 * TEXT_W) > SMALL_STRINGS * TEXT_W) ? SMALL_STRINGS * TEXT_W : (rect.w - (2 * TEXT_W));
+    uint16_t h = TEXT_H;
+    uint16_t area_down_y = 416;
+
+    PrintLineStr(graphics, memory, x, y, g_core.settings.fontSize, SMALL_STRINGS, "Game Data", 0, PAL_DARK_BLUE_GRAY, PAL_OFF_WHITE_GRAY_BLUE);
+    PrintLineStr(graphics, memory, x, y += TEXT_H, g_core.settings.fontSize, SMALL_STRINGS, "Turns", 0, PAL_DARK_BLUE_GRAY, PAL_OFF_WHITE_GRAY_BLUE);
+    PrintLineStr(graphics, memory, x, y += TEXT_H, g_core.settings.fontSize, SMALL_STRINGS, "map type", 0, PAL_DARK_BLUE_GRAY, PAL_OFF_WHITE_GRAY_BLUE);
+    PrintLineStr(graphics, memory, x, y += TEXT_H, g_core.settings.fontSize, SMALL_STRINGS, "trainer name", 0, PAL_DARK_BLUE_GRAY, PAL_OFF_WHITE_GRAY_BLUE);
+
+
+    y = area_down_y;
+
+    for (int i = 0; i < MAX_SPELLBOOK_SIZE; ++i)
+    {
+        graphics.FillRect(x, y, w, h, mp);
+        graphics.DrawRectOutline(x, y, w, h, 1, border);
+        y += TEXT_H;
+    }
+}
+
+void DrawText(GraphicsInterface graphics, MemoryInterface memory)
+{
+    if (!g_core.update_text) return;
+    g_core.update_text = false;
+
+    graphics.DrawToText();
+    Rect_16 rect = graphics.GetTextRect();
+    Color color_bg = Flash_GetColor(memory, PAL_OFF_WHITE_GRAY_BLUE);
+    graphics.FillRect(rect.x, rect.y, rect.w, rect.h, color_bg);
+
+    for (int i = 0; i < MAX_SPELLBOOK_SIZE; ++i)
+    {
+    }
+}
+
+
+void DrawScreen(GraphicsInterface graphics, MemoryInterface memory)
+{
+    graphics.UpdateDrawAreas();
+    DrawRightWing(graphics, memory);
+    DrawLeftWing(graphics, memory);
+    DrawText(graphics, memory);
+    graphics.DrawToMain();
+    graphics.EndFrame();
 }

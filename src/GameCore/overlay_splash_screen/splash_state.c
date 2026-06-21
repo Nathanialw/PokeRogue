@@ -3,6 +3,8 @@
 //
 
 #include "splash_state.h"
+
+#include "core_graphics.h"
 #include "lib_memory.h"
 #include "lib_decl.h"
 #include "lib_enums.h"
@@ -97,14 +99,16 @@ uint8_t OverlaySplashEntry(GameInterface* spi)
 {
     g_core.state.overlay = OVERLAY_TITLE_SCREEN;
     spi->graphics.FillScreen((Color){.color = 0x546a});
+    spi->graphics.UpdateDrawAreas();
     spi->graphics.EndFrame();
 
 
     while (g_core.state.overlay == OVERLAY_TITLE_SCREEN)
     {
-        spi->input.HandleInput();
+        bool redraw_window = spi->input.HandleInput();
         UpdateGameTitleState(spi->input);
         TitleRateDelay(spi->hardware);
+        spi->graphics.UpdateDrawAreas();
         spi->graphics.EndFrame();
     }
     g_core.state.inputState = INPUT_IDLE;

@@ -19,7 +19,6 @@
 
 #include "map_memory_access.h"
 #include "map_ram.h"
-#include "map_status_effects.h"
 #include "map_utils.h"
 
 

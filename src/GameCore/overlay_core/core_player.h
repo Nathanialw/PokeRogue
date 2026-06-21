@@ -19,3 +19,4 @@ SpellBook* GetPlayerSpellbook(void);
 EntityId GetPlayerEffects(PlayerEffects playerEffect);
 EntityId* GetPlayerInventory(void);
 uint8_t GetPlayerPartySize(void);
+EntityId* GetPlayerParty(void);

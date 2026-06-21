@@ -12,6 +12,7 @@
 #include "battle_animation_effects.h"
 #include "battle_memory_access.h"
 #include "battle_ram.h"
+#include "core_graphics.h"
 #include "core_memory_access.h"
 #include "lib_debugging.h"
 
@@ -105,7 +106,8 @@ void UpdateResourceBar(GraphicsInterface graphics, HardwareInterface hardware, M
             start_x -= 1;
 
             graphics.FillRect(start_x, y, w, h, color_bg);
-            graphics.EndFrame();
+            g_core.update_right_wing = true;
+            DrawScreen(graphics, memory);
             hardware.SleepMS(5);
         }
     }
@@ -120,7 +122,8 @@ void UpdateResourceBar(GraphicsInterface graphics, HardwareInterface hardware, M
                 break;
 
             graphics.FillRect(start_x, y, w, h, color_fill);
-            graphics.EndFrame();
+            g_core.update_right_wing = true;
+            DrawScreen(graphics, memory);
             hardware.SleepMS(5);
             start_x += 1;
         }
@@ -207,7 +210,9 @@ void AnimationUpdateXP(GraphicsInterface graphics, HardwareInterface hardware, M
         x += 1;
 
         graphics.FillRect(x, y, w, h, color_xp);
-        graphics.EndFrame();
+
+        g_core.update_right_wing = true;
+        DrawScreen(graphics, memory);
         hardware.SleepMS(15);
     }
 
@@ -221,7 +226,7 @@ void AnimationUpdateXP(GraphicsInterface graphics, HardwareInterface hardware, M
  *  CLEAR SCREEN WITH A RANDOM ANIMATION
  ************************************************************************************************************/
 SET_MEMORY(".battle")
-void AnimationScreenClearRandom(GraphicsInterface graphics, HardwareInterface hardware)
+void AnimationScreenClearRandom(GraphicsInterface graphics, MemoryInterface memory, HardwareInterface hardware)
 {
     FrameBuffer f = {50, 100, 64, 80, 0xd6fa};
     Rect_16 r = {5, 20, 10, 10};
@@ -232,7 +237,7 @@ void AnimationScreenClearRandom(GraphicsInterface graphics, HardwareInterface ha
     {
         graphics.TestAnimation(&f, &r, &c);
         hardware.SleepMS(16);
-        graphics.EndFrame();
+        DrawScreen(graphics, memory);
 
 
         r.h += 1;
@@ -271,7 +276,7 @@ void AnimationBattlerDie(GraphicsInterface graphics, HardwareInterface hardware,
 
     Rect_16 r = GetBattlerRect(onAttacker);
     RefreshBattler(graphics, memory, onAttacker, r);
-    MoveCenterToDown(graphics, hardware, r, r.h, 1);
+    MoveCenterToDown(graphics, memory, hardware, r, r.h, 1);
 }
 
 

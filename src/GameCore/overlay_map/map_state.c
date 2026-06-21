@@ -74,7 +74,7 @@ void UpdateGameRunningState(GraphicsInterface graphics, HardwareInterface hardwa
                 SetInputState(INPUT_IDLE);
                 SetGameLoopRateDefault();
                 FullRedraw(graphics, hardware, memory);
-                graphics.EndFrame();
+                DrawScreen(graphics, memory);
             }
 
             return;
@@ -98,7 +98,7 @@ void UpdateGameRunningState(GraphicsInterface graphics, HardwareInterface hardwa
                 SetInputState(INPUT_IDLE);
                 SetGameLoopRateDefault();
                 FullRedraw(graphics, hardware, memory);
-                graphics.EndFrame();
+                DrawScreen(graphics, memory);
             }
 
             audio.PlaySoundEffect(GetMenuSoundId(MENU_MAIN_OPEN));
@@ -330,7 +330,7 @@ void HandleGameState(GameInterface* spi)
         RenderObjects(spi->graphics, spi->hardware, spi->memory);
         UpdateTooltip(spi->graphics, spi->memory);
         g_core.turn_count++;
-        spi->graphics.EndFrame();
+        DrawScreen(spi->graphics, spi->memory);
     }
 
     if (g_core.state.inputState == INPUT_MENU || g_core.state.inputState == INPUT_USE)
@@ -338,13 +338,14 @@ void HandleGameState(GameInterface* spi)
         HandleMenu(spi->graphics, spi->hardware, spi->memory, spi->audio);
         HandleGameMenu(spi->graphics, spi->hardware, spi->memory);
         DrawCursor(spi->graphics, spi->memory);
-        spi->graphics.EndFrame();
+        DrawScreen(spi->graphics, spi->memory);
     }
 
     if (g_core.state.inputState == INPUT_IDLE)
     {
-        spi->graphics.EndFrame();
+        DrawScreen(spi->graphics, spi->memory);
     }
+
 
     // spi.audio.PlaySoundEffect();
 }
@@ -354,16 +355,25 @@ SET_MEMORY(".map_entry")
 uint8_t OverlayMapEntry(GameInterface* spi)
 {
     SetCameraPlayer();
-
     FullRedraw(spi->graphics, spi->hardware, spi->memory);
-    spi->graphics.EndFrame();
+    DrawScreen(spi->graphics, spi->memory);
     InitMainMenu();
 
     while (g_core.state.overlay == OVERLAY_MAP && g_core.state.running)
     {
-        spi->input.HandleInput();
-        UpdateGameRunningState(spi->graphics, spi->hardware, spi->input, spi->memory, spi->audio);
-        HandleGameState(spi);
+        bool redraw_window = spi->input.HandleInput();
+        if (redraw_window)
+        {
+            g_core.update_text = true;
+            g_core.update_left_wing = true;
+            g_core.update_right_wing = true;
+            DrawScreen(spi->graphics, spi->memory);
+        }
+        else
+        {
+            UpdateGameRunningState(spi->graphics, spi->hardware, spi->input, spi->memory, spi->audio);
+            HandleGameState(spi);
+        }
     }
 
     return g_core.state.overlay;

@@ -43,7 +43,9 @@ CoreRunState g_core = {
     .floor = 1,
     .initialized = false,
     .btns.defaultGameLoopRate = 10,
-    .btns.gameLoopRate = 10,
+    .update_text = true,
+    .update_left_wing = true,
+    .update_right_wing = true,
 
     // .player.currentSpellbookSize = 0,
     // .player.currentSpellbookMaxSize = DEFAULT_SPELLBOOK_SIZE,

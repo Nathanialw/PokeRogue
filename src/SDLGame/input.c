@@ -8,8 +8,6 @@
 #include <SDL3/SDL_init.h>
 #include <SDL3/SDL_timer.h>
 
-#include "audio.h"
-#include "core_ram.h"
 #include "graphics.h"
 #include "lib_debugging.h"
 #include "lib_decl.h"
@@ -63,7 +61,7 @@ KeyState ProcessInput(void)
                 case SDLK_F: s_currentKeys.y = pressed;
                     break;
 
-                case SDLK_RETURN: s_currentKeys.start = pressed;
+                case SDLK_RETURN: s_currentKeys.a = pressed;
                     break;
                 case SDLK_ESCAPE:
                     {
@@ -93,7 +91,7 @@ KeyState ProcessInput(void)
 
 
 // TODO:
-void HandleInput(void)
+bool HandleInput(void)
 {
     while (1)
     {
@@ -108,8 +106,8 @@ void HandleInput(void)
         {
             if (g_ramState.redraw)
             {
-                EndFrame();
                 g_ramState.redraw = false;
+                return true;
             }
 
             SDL_Delay(20);
@@ -120,6 +118,7 @@ void HandleInput(void)
         g_ramState.keys.dp = d1;
         break;
     }
+    return false;
 }
 
 //TODO

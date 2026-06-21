@@ -171,6 +171,15 @@ uint8_t GetPlayerPartySize(void)
     return g_core.trainers.currentPartySize[GetPlayerID()];
 
 }
+/**********************************************************************************************************************/
+/**Returns the player ID
+**********************************************************************************************************************/
+SET_MEMORY(".core")
+EntityId* GetPlayerParty(void)
+{
+    return g_core.trainers.partyID[GetPlayerID()];
+
+}
 
 /**********************************************************************************************************************/
 /**Returns the player ID

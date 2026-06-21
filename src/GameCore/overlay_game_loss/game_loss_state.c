@@ -3,6 +3,8 @@
 //
 
 #include "game_loss_state.h"
+
+#include "core_graphics.h"
 #include "lib_decl.h"
 #include "lib_memory.h"
 
@@ -66,14 +68,14 @@ SET_MEMORY(".game_loss_entry")
 uint8_t OverlayGameLossEntry(GameInterface* spi)
 {
     spi->graphics.FillScreen((Color){.color = 0x54ff});
-    spi->graphics.EndFrame();
+    DrawScreen(spi->graphics, spi->memory);
     g_core.player.id = NO_ENTITY;
 
     while (g_core.state.overlay == OVERLAY_GAME_LOSS)
     {
         spi->input.HandleInput();
         UpdateGameLossState(spi->input);
-        spi->graphics.EndFrame();
+        DrawScreen(spi->graphics, spi->memory);
     }
 
     g_core.initialized = false;

@@ -13,6 +13,6 @@ void BattlerAnimationAttack(GraphicsInterface graphics, HardwareInterface hardwa
 void BattlerAnimationStruck(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory, bool player);
 void AnimationBattlerStart(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface);
 void AnimationBattlerDie(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface, bool onAttacker);
-void AnimationScreenClearRandom(GraphicsInterface graphics, HardwareInterface hardware);
+void AnimationScreenClearRandom(GraphicsInterface graphics, MemoryInterface memory, HardwareInterface hardware);
 void AnimationUpdateXP(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory);
 void EffectAnimation(GraphicsInterface graphics, HardwareInterface hardware, MemoryInterface memory);

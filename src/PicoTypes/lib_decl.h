@@ -8,7 +8,7 @@
 
 typedef struct __attribute__((packed))
 {
-    void (*HandleInput)();
+    bool (*HandleInput)();
     void (*SetInputPollingRate)(uint16_t time);
     void (*SetInputPollingDefault)();
 
@@ -44,6 +44,16 @@ typedef struct __attribute__((packed))
     uint16_t* (*GetFrameBufferBack)(void);
     uint8_t* (*GetFrameBuffer1byte)(void);
     uint16_t* (*GetFrameBuffer2bytes)(void);
+
+    void (*UpdateDrawAreas)(void);
+    void (*DrawToMain)(void);
+    void (*DrawToLeft)(void);
+    void (*DrawToRight)(void);
+    void (*DrawToText)(void);
+    Rect_16 (*GetMainRect)(void);
+    Rect_16 (*GetLeftRect)(void);
+    Rect_16 (*GetRightRect)(void);
+    Rect_16 (*GetTextRect)(void);
 
     uint16_t (*GetBufferWidth)(void);
     uint16_t (*GetBufferHeight)(void);

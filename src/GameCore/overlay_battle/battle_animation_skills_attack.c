@@ -31,7 +31,7 @@ bool Pico_AnimationBattlerFly(GraphicsInterface graphics, HardwareInterface hard
     Rect_16 r = GetBattlerRect(onAttacker);
     RefreshBattler(graphics, memory, onAttacker, r);
 
-    MoveCenterToTop(graphics, hardware, r, r.h, 3);
+    MoveCenterToTop(graphics, memory, hardware, r, r.h, 3);
     return false;
 }
 
@@ -1063,13 +1063,13 @@ bool SkillAttackPounce(GraphicsInterface graphics, HardwareInterface hardware, M
 
     if (onAttacker)
     {
-        MoveCenterToLeft(graphics, hardware, r, BATTLER_OFFSET, 32);
-        MoveLeftToCenter(graphics, hardware, r, BATTLER_OFFSET, 16);
+        MoveCenterToLeft(graphics, memory, hardware, r, BATTLER_OFFSET, 32);
+        MoveLeftToCenter(graphics, memory, hardware, r, BATTLER_OFFSET, 16);
     }
     else
     {
-        MoveCenterToRight(graphics, hardware, r, BATTLER_OFFSET, 32);
-        MoveRightToCenter(graphics, hardware, r, BATTLER_OFFSET, 16);
+        MoveCenterToRight(graphics, memory, hardware, r, BATTLER_OFFSET, 32);
+        MoveRightToCenter(graphics, memory, hardware, r, BATTLER_OFFSET, 16);
     }
     return true;
 }
@@ -1387,13 +1387,13 @@ bool SkillAttackTackle(GraphicsInterface graphics, HardwareInterface hardware, M
 
     if (onAttacker)
     {
-        MoveCenterToLeft(graphics, hardware, r, BATTLER_OFFSET, 8);
-        MoveLeftToCenter(graphics, hardware, r, BATTLER_OFFSET, 8);
+        MoveCenterToLeft(graphics, memory, hardware, r, BATTLER_OFFSET, 8);
+        MoveLeftToCenter(graphics, memory, hardware, r, BATTLER_OFFSET, 8);
     }
     else
     {
-        MoveCenterToRight(graphics, hardware, r, BATTLER_OFFSET, 8);
-        MoveRightToCenter(graphics, hardware, r, BATTLER_OFFSET, 8);
+        MoveCenterToRight(graphics, memory, hardware, r, BATTLER_OFFSET, 8);
+        MoveRightToCenter(graphics, memory, hardware, r, BATTLER_OFFSET, 8);
     }
 
     ReDrawBattler(graphics, memory, onAttacker, r);

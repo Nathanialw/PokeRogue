@@ -133,7 +133,7 @@ void HandleBattleStateInit(GameInterface* spi)
     HandleBattleMenu(spi->graphics, spi->hardware, spi->memory);
     SetBattleState(BATTLE_MENUS);
     DrawCursor(spi->graphics, spi->memory);
-    spi->graphics.EndFrame();
+    DrawScreen(spi->graphics, spi->memory);
 
     g_battle.enemy_captured = false;
     g_battle.pass_turn = false;
@@ -157,7 +157,6 @@ void CleanUpBattleState(GameInterface* spi)
 
     g_core.battleMode.enemyMonsterID = NO_ENTITY;
     g_core.battleMode.enemy_trainer_id = NO_ENTITY;
-
 }
 
 SET_MEMORY(".battle")
@@ -287,7 +286,7 @@ void HandleBattleState(GameInterface* spi)
         SetBattleState(BATTLE_MENUS);
 
         HandleBattle(spi->graphics, spi->hardware, spi->memory);
-        spi->graphics.EndFrame();
+        DrawScreen(spi->graphics, spi->memory);
     }
 }
 
@@ -306,11 +305,21 @@ uint8_t OverlayBattleEntry(GameInterface* spi)
 
     while (g_core.state.overlay == OVERLAY_BATTLE)
     {
-        spi->input.HandleInput();
-        UpdateBattleRunningState(spi->graphics, spi->hardware, spi->input, spi->memory, spi->audio);;
-        HandleBattleState(spi);
-        MainBattleLoop(spi);;
-        spi->graphics.EndFrame();
+        bool redraw_window = spi->input.HandleInput();
+        if (redraw_window)
+        {
+            g_core.update_text = true;
+            g_core.update_left_wing = true;
+            g_core.update_right_wing = true;
+            DrawScreen(spi->graphics, spi->memory);
+        }
+        else
+        {
+            UpdateBattleRunningState(spi->graphics, spi->hardware, spi->input, spi->memory, spi->audio);;
+            HandleBattleState(spi);
+            MainBattleLoop(spi);
+            DrawScreen(spi->graphics, spi->memory);
+        }
     }
 
     CleanUpBattleState(spi);

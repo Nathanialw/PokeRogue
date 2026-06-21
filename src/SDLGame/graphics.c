@@ -179,12 +179,12 @@ void Draw16(Rect_16* clip_rect, Rect_16* render_rect, const uint16_t* data)
         int pitch = render_rect->w * sizeof(SDL_Color);
 
         DEBUG("pixel_count %d", pixel_count);
-        if (!SDL_UpdateTexture(g_ramState.screen, &rect, g_ramState.pixels2.array, pitch))
+        if (!SDL_UpdateTexture(g_ramState.current_target, &rect, g_ramState.pixels2.array, pitch))
             SDL_Log("Failed to update texture: %s", SDL_GetError());
     }
     else
     {
-        if (!SDL_UpdateTexture(g_ramState.screen, &rect, g_ramState.pixels.array, render_rect->w * sizeof(SDL_Color)))
+        if (!SDL_UpdateTexture(g_ramState.current_target, &rect, g_ramState.pixels.array, render_rect->w * sizeof(SDL_Color)))
             SDL_Log("Failed to update texture: %s", SDL_GetError());
     }
 }
@@ -223,6 +223,7 @@ void DrawToBufferImage(const FrameBuffer* frameBuffer, const uint16_t* pixels, c
         SDL_Log("Failed to update texture: %s", SDL_GetError());
 
     SDL_SetRenderTarget(g_ramState.renderer, g_ramState.screen);
+    g_ramState.current_target = g_ramState.screen;
 }
 
 void DrawSpriteTile(const FrameBuffer f, const uint8_t* sprite)
@@ -330,6 +331,7 @@ void FillRect(uint16_t x, uint16_t y, uint16_t w, uint16_t h, Color rgb565)
 
 void DrawRectOutline(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t r, Color rgb565)
 {
+    if (r == 0) return;
     if ((w == 0 || h == 0) || (x >= TFT_W || y >= TFT_H))
         return;
 
@@ -348,11 +350,16 @@ void DrawRectOutline(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t r,
         uint8_t green = (g6 << 2) | (g6 >> 4);
         uint8_t blue = (b5 << 3) | (b5 >> 2);
 
-        SDL_SetRenderDrawColor(g_ramState.renderer, red, green, blue, 255);
-        SDL_FRect r = {x, y, w, h};
-        SDL_RenderRect(g_ramState.renderer, &r);
-        SDL_FlushRenderer(g_ramState.renderer);
-        SDL_SetRenderDrawColor(g_ramState.renderer, 255, 255, 255, 255);
+        while (1)
+        {
+            r--;
+            SDL_SetRenderDrawColor(g_ramState.renderer, red, green, blue, 255);
+            SDL_FRect rect = {x + r, y + r, w - (r * 2), h - (r * 2)};
+            SDL_RenderRect(g_ramState.renderer, &rect);
+            SDL_FlushRenderer(g_ramState.renderer);
+            SDL_SetRenderDrawColor(g_ramState.renderer, 255, 255, 255, 255);
+            if (r == 0) break;
+        }
     }
 }
 
@@ -403,30 +410,124 @@ void TestAnimation(FrameBuffer* f, Rect_16* r, Color* color1)
 }
 
 
-void EndFrame(void)
+void UpdateDrawAreas(void)
 {
     int w, h;
     SDL_GetWindowSize(g_ramState.window, &w, &h);
-    h -= ((float)h * 0.2f); //0.2f is the text area for description, set as a const when it is fleshed out
+    float main_h = (float)h - ((float)h * 0.1f); //0.2f is the text area for description, set as a const when it is fleshed out
 
-    SDL_FRect rect;
     if (w > h)
-        rect = (SDL_FRect){(w - h) >> 1, 0, h, h};
+    {
+        float main_x = (w - main_h) / 2.0f;
+        float wing_w = (w - main_h) / 2.0f;
+        float left_x = 0.0f;
+        float right_x = main_x + main_h;
+
+
+        g_ramState.display_rect_main = (SDL_FRect){main_x, 0.0f, main_h, main_h};
+        g_ramState.display_rect_left = (SDL_FRect){left_x, 0.0f, wing_w, h};
+        g_ramState.display_rect_right = (SDL_FRect){right_x, 0.0f, wing_w, h};
+        g_ramState.display_rect_text = (SDL_FRect){main_x, main_h, main_h, h - main_h};
+
+        //scale clip h when it exceeds the texture h
+        if (h > SCREEN_H)
+            wing_w *= (float)SCREEN_H / (float)h;
+
+        g_ramState.clip_rect_main = (SDL_FRect){0.0f, 0.0f, main_h, main_h};
+        g_ramState.clip_rect_left = (SDL_FRect){0.0f, 0.0f, wing_w, h};
+        g_ramState.clip_rect_right = (SDL_FRect){0.0f, 0.0f, wing_w, h};
+        g_ramState.clip_rect_text = (SDL_FRect){0.0f, 0.0f, main_h, h - main_h};
+    }
     else
-        rect = (SDL_FRect){0, 0, w, w};
+    {
+        g_ramState.display_rect_main = (SDL_FRect){0, 0, w, w};
+        g_ramState.clip_rect_main = (SDL_FRect){0, 0, w, w};
+        g_ramState.display_rect_text = (SDL_FRect){0, w, w, h - w};
+        g_ramState.clip_rect_text = (SDL_FRect){0, 0, w, h - w};
+        g_ramState.display_rect_left.w = 0.0f;
+        g_ramState.display_rect_left.h = 0.0f;
+        g_ramState.display_rect_right.w = 0.0f;
+        g_ramState.display_rect_right.h = 0.0f;
 
-    SDL_FRect rect2 = {0, 0, 1920, 1920};
+        g_ramState.clip_rect_left = (SDL_FRect){0.0f, 0.0f, g_ramState.clip_rect_left.w, g_ramState.clip_rect_left.h};
+        g_ramState.clip_rect_right = (SDL_FRect){0.0f, 0.0f, g_ramState.clip_rect_right.w, g_ramState.clip_rect_right.h};
+    }
+}
 
-    DEBUG("endframe %d %d", w, h);
+void EndFrame(void)
+{
     SDL_SetRenderTarget(g_ramState.renderer, NULL); // set to window
     SDL_RenderClear(g_ramState.renderer);
-    SDL_RenderTexture(g_ramState.renderer, g_ramState.screen, NULL, &rect);
+    SDL_RenderTexture(g_ramState.renderer, g_ramState.screen, NULL, &g_ramState.display_rect_main);
+    SDL_RenderTexture(g_ramState.renderer, g_ramState.right_wing, &g_ramState.clip_rect_right, &g_ramState.display_rect_right);
+    SDL_RenderTexture(g_ramState.renderer, g_ramState.left_wing, &g_ramState.clip_rect_left, &g_ramState.display_rect_left);
+    SDL_RenderTexture(g_ramState.renderer, g_ramState.text, &g_ramState.clip_rect_text, &g_ramState.display_rect_text);
     SDL_RenderPresent(g_ramState.renderer);
     SDL_SetRenderTarget(g_ramState.renderer, g_ramState.screen); // set to buffer
+    g_ramState.current_target = g_ramState.screen;
     SDL_PumpEvents();
     SDL_FlushEvents(SDL_EVENT_FIRST, SDL_EVENT_LAST);
 }
 
+void RenderMain(void)
+{
+    SDL_SetRenderTarget(g_ramState.renderer, NULL); // set to window
+    SDL_RenderClear(g_ramState.renderer);
+    SDL_RenderTexture(g_ramState.renderer, g_ramState.screen, NULL, NULL);
+    SDL_RenderPresent(g_ramState.renderer);
+    SDL_SetRenderTarget(g_ramState.renderer, g_ramState.screen); // set to buffer
+    g_ramState.current_target = g_ramState.screen;
+    SDL_PumpEvents();
+    SDL_FlushEvents(SDL_EVENT_FIRST, SDL_EVENT_LAST);
+}
+
+void (DrawToMain)(void)
+{
+    SDL_SetRenderTarget(g_ramState.renderer, g_ramState.screen);
+    g_ramState.current_target = g_ramState.screen;
+}
+
+void (DrawToLeft)(void)
+{
+    SDL_SetRenderTarget(g_ramState.renderer, g_ramState.left_wing);
+    g_ramState.current_target = g_ramState.left_wing;
+}
+
+void (DrawToRight)(void)
+{
+    SDL_SetRenderTarget(g_ramState.renderer, g_ramState.right_wing);
+    g_ramState.current_target = g_ramState.right_wing;
+}
+
+void (DrawToText)(void)
+{
+    SDL_SetRenderTarget(g_ramState.renderer, g_ramState.text);
+    g_ramState.current_target = g_ramState.text;
+}
+
+Rect_16 (GetMainRect)(void)
+{
+    Rect_16 rect = {g_ramState.clip_rect_main.x, g_ramState.clip_rect_main.y, g_ramState.clip_rect_main.w, g_ramState.clip_rect_main.h};
+    return rect;
+}
+
+Rect_16 (GetLeftRect)(void)
+{
+    Rect_16 rect = {g_ramState.clip_rect_left.x, g_ramState.clip_rect_left.y, g_ramState.clip_rect_left.w, g_ramState.clip_rect_left.h};
+    return rect;
+}
+
+Rect_16 (GetRightRect)(void)
+{
+    Rect_16 rect = {g_ramState.clip_rect_right.x, g_ramState.clip_rect_right.y, g_ramState.clip_rect_right.w, g_ramState.clip_rect_right.h};
+    return rect;
+}
+
+Rect_16 (GetTextRect)(void)
+{
+    Rect_16 rect = {g_ramState.clip_rect_text.x, g_ramState.clip_rect_text.y, g_ramState.clip_rect_text.w, g_ramState.clip_rect_text.h};
+    return rect;
+}
 
 GraphicsInterface GraphicsInterfaceInit()
 {
@@ -457,6 +558,15 @@ GraphicsInterface GraphicsInterfaceInit()
         .FillScreenColor = FillScreenColor,
         .EndFrame = EndFrame,
         .TestAnimation = TestAnimation,
+        .DrawToMain = DrawToMain,
+        .DrawToLeft = DrawToLeft,
+        .DrawToRight = DrawToRight,
+        .DrawToText = DrawToText,
+        .GetMainRect = GetMainRect,
+        .GetLeftRect = GetLeftRect,
+        .GetRightRect = GetRightRect,
+        .GetTextRect = GetTextRect,
+        .UpdateDrawAreas = UpdateDrawAreas,
     };
 
     return graphicsInterface;

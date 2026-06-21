@@ -30,14 +30,14 @@ void CommonStruckAnimation(GraphicsInterface graphics, HardwareInterface hardwar
 
     uint8_t l = BATTLER_OFFSET / 2;
 
-    MoveCenterToRight(graphics, hardware, r, l, 2);
-    MoveRightToCenter(graphics, hardware, r, l, 2);
-    MoveCenterToLeft(graphics, hardware, r, l, 2);
-    MoveLeftToCenter(graphics, hardware, r, l, 2);
-    MoveCenterToRight(graphics, hardware, r, l, 4);
-    MoveRightToCenter(graphics, hardware, r, l, 4);
-    MoveCenterToLeft(graphics, hardware, r, l, 4);
-    MoveLeftToCenter(graphics, hardware, r, l, 4);
+    MoveCenterToRight(graphics, memory, hardware, r, l, 2);
+    MoveRightToCenter(graphics, memory, hardware, r, l, 2);
+    MoveCenterToLeft(graphics, memory, hardware, r, l, 2);
+    MoveLeftToCenter(graphics, memory, hardware, r, l, 2);
+    MoveCenterToRight(graphics, memory, hardware, r, l, 4);
+    MoveRightToCenter(graphics, memory, hardware, r, l, 4);
+    MoveCenterToLeft(graphics, memory, hardware, r, l, 4);
+    MoveLeftToCenter(graphics, memory, hardware, r, l, 4);
 }
 
 /************************************************************************************************************

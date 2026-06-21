@@ -81,7 +81,7 @@ void ReDrawBattler(GraphicsInterface graphics, MemoryInterface memory, bool onAt
  *  Updates every frameLength ms
  ************************************************************************************************************/
 SET_MEMORY(".battle")
-void MoveCenterToLeft(GraphicsInterface graphics, HardwareInterface hardware, Rect_16 r, uint16_t d, uint8_t frameLength)
+void MoveCenterToLeft(GraphicsInterface graphics, MemoryInterface memory, HardwareInterface hardware, Rect_16 r, uint16_t d, uint8_t frameLength)
 {
     FrameBuffer f = {r.x, r.y, r.w, r.h};
     uint16_t end_pos = f.x - d;
@@ -91,7 +91,7 @@ void MoveCenterToLeft(GraphicsInterface graphics, HardwareInterface hardware, Re
         f.x -= 1;
 
         graphics.DrawBuffer(f, NULL);
-        graphics.EndFrame();
+        DrawScreen(graphics, memory);
         hardware.SleepMS(frameLength);
     }
 }
@@ -164,7 +164,7 @@ void BattleStart(GraphicsInterface graphics, MemoryInterface memory, HardwareInt
             done2 = true;
         }
 
-        graphics.EndFrame();
+        DrawScreen(graphics, memory);
         hardware.SleepMS(frameLength);
     }
 }
@@ -174,7 +174,7 @@ void BattleStart(GraphicsInterface graphics, MemoryInterface memory, HardwareInt
  *  Updates every frameLength ms
  ************************************************************************************************************/
 SET_MEMORY(".battle")
-void MoveCenterToRight(GraphicsInterface graphics, HardwareInterface hardware, Rect_16 r, uint16_t d, uint8_t frameLength)
+void MoveCenterToRight(GraphicsInterface graphics, MemoryInterface memory, HardwareInterface hardware, Rect_16 r, uint16_t d, uint8_t frameLength)
 {
     FrameBuffer f = {r.x, r.y, r.w, r.h};
     uint16_t end_pos = f.x + d;
@@ -183,7 +183,7 @@ void MoveCenterToRight(GraphicsInterface graphics, HardwareInterface hardware, R
     {
         f.x += 1;
         graphics.DrawBuffer(f, NULL);
-        graphics.EndFrame();
+        DrawScreen(graphics, memory);
         hardware.SleepMS(frameLength);
     }
 }
@@ -194,7 +194,7 @@ void MoveCenterToRight(GraphicsInterface graphics, HardwareInterface hardware, R
  *  Updates every frameLength ms
  ************************************************************************************************************/
 SET_MEMORY(".battle")
-void MoveLeftToCenter(GraphicsInterface graphics, HardwareInterface hardware, Rect_16 r, uint16_t d, uint8_t frameLength)
+void MoveLeftToCenter(GraphicsInterface graphics, MemoryInterface memory, HardwareInterface hardware, Rect_16 r, uint16_t d, uint8_t frameLength)
 {
     FrameBuffer f = {r.x, r.y, r.w, r.h};
     Rect_16 clip_rect = {0, 0, r.w, r.h};
@@ -214,7 +214,7 @@ void MoveLeftToCenter(GraphicsInterface graphics, HardwareInterface hardware, Re
         else
             f.x++;
         graphics.DrawBufferImage(f, &clip_rect);
-        graphics.EndFrame();
+        DrawScreen(graphics, memory);
         hardware.SleepMS(frameLength);
     }
 }
@@ -224,7 +224,7 @@ void MoveLeftToCenter(GraphicsInterface graphics, HardwareInterface hardware, Re
  *  Updates every frameLength ms
  ************************************************************************************************************/
 SET_MEMORY(".battle")
-void MoveRightToCenter(GraphicsInterface graphics, HardwareInterface hardware, Rect_16 r, uint16_t d, uint8_t frameLength)
+void MoveRightToCenter(GraphicsInterface graphics, MemoryInterface memory, HardwareInterface hardware, Rect_16 r, uint16_t d, uint8_t frameLength)
 {
     FrameBuffer f = {r.x + d, r.y, r.w, r.h};
     Rect_16 clip_rect = {0, 0, r.w, r.h};
@@ -234,7 +234,7 @@ void MoveRightToCenter(GraphicsInterface graphics, HardwareInterface hardware, R
     while (f.x > end_pos)
     {
         graphics.DrawBufferImage(f, &clip_rect);
-        graphics.EndFrame();
+        DrawScreen(graphics, memory);
         hardware.SleepMS(frameLength);
         f.x--;
     }
@@ -245,7 +245,7 @@ void MoveRightToCenter(GraphicsInterface graphics, HardwareInterface hardware, R
  *  Updates every frameLength ms
  ************************************************************************************************************/
 SET_MEMORY(".battle")
-void MoveCenterToDown(GraphicsInterface graphics, HardwareInterface hardware, Rect_16 r, uint16_t d, uint8_t frameLength)
+void MoveCenterToDown(GraphicsInterface graphics, MemoryInterface memory, HardwareInterface hardware, Rect_16 r, uint16_t d, uint8_t frameLength)
 {
     FrameBuffer f = {r.x, r.y, r.w, r.h};
     uint16_t end_pos = r.y + d;
@@ -255,7 +255,7 @@ void MoveCenterToDown(GraphicsInterface graphics, HardwareInterface hardware, Re
         f.y += 1;
         f.h -= 1; // ensures the sprite does not draw beyond the bounds of the battler area
         graphics.DrawBuffer(f, NULL);
-        graphics.EndFrame();
+        DrawScreen(graphics, memory);
         hardware.SleepMS(frameLength);
     }
 }
@@ -265,7 +265,7 @@ void MoveCenterToDown(GraphicsInterface graphics, HardwareInterface hardware, Re
  *  Updates every frameLength ms
  ************************************************************************************************************/
 SET_MEMORY(".battle")
-void MoveCenterToTop(GraphicsInterface graphics, HardwareInterface hardware, Rect_16 r, uint16_t d, uint8_t frameLength)
+void MoveCenterToTop(GraphicsInterface graphics, MemoryInterface memory, HardwareInterface hardware, Rect_16 r, uint16_t d, uint8_t frameLength)
 {
     const uint8_t* sprite = graphics.GetFrameBuffer1byte();
 
@@ -277,7 +277,7 @@ void MoveCenterToTop(GraphicsInterface graphics, HardwareInterface hardware, Rec
         sprite += (f.w * sizeof(Pixel)); // increments the pixel array by 1 row of pixels
         f.h -= 1; // shrinks the height draw frame by 1 row
         graphics.DrawSprite(f, sprite);
-        graphics.EndFrame();
+        DrawScreen(graphics, memory);
         hardware.SleepMS(frameLength);
     }
 }
@@ -294,7 +294,7 @@ void MoveCenterToTop(GraphicsInterface graphics, HardwareInterface hardware, Rec
  *  Advances source by partial row for distortion
  ************************************************************************************************************/
 SET_MEMORY(".battle")
-void AnimationMirrorImageFloatingUp(GraphicsInterface graphics, HardwareInterface hardware, Rect_16 r, uint16_t d, uint8_t frameLength)
+void AnimationMirrorImageFloatingUp(GraphicsInterface graphics, MemoryInterface memory, HardwareInterface hardware, Rect_16 r, uint16_t d, uint8_t frameLength)
 {
     const uint8_t* sprite = graphics.GetFrameBuffer1byte();
 
@@ -306,7 +306,7 @@ void AnimationMirrorImageFloatingUp(GraphicsInterface graphics, HardwareInterfac
         sprite += f.w;
         f.h -= 1;
         graphics.DrawSprite(f, sprite);
-        graphics.EndFrame();
+        DrawScreen(graphics, memory);
         hardware.SleepMS(frameLength);
     }
 }
@@ -316,7 +316,7 @@ void AnimationMirrorImageFloatingUp(GraphicsInterface graphics, HardwareInterfac
  *
  ************************************************************************************************************/
 SET_MEMORY(".battle")
-void AnimationSpooky(GraphicsInterface graphics, HardwareInterface hardware, Rect_16 r, uint16_t d, uint8_t frameLength)
+void AnimationSpooky(GraphicsInterface graphics, MemoryInterface memory, HardwareInterface hardware, Rect_16 r, uint16_t d, uint8_t frameLength)
 {
     const uint8_t* sprite = graphics.GetFrameBuffer1byte();
 
@@ -329,7 +329,7 @@ void AnimationSpooky(GraphicsInterface graphics, HardwareInterface hardware, Rec
         sprite++;
         j++;
         graphics.DrawSprite(f, sprite);
-        graphics.EndFrame();
+        DrawScreen(graphics, memory);
         hardware.SleepMS(frameLength);
     }
 }
@@ -338,7 +338,7 @@ void AnimationSpooky(GraphicsInterface graphics, HardwareInterface hardware, Rec
  *
  ************************************************************************************************************/
 SET_MEMORY(".battle")
-void AnimationSpookyMoveCenterToLeft(GraphicsInterface graphics, HardwareInterface hardware, Rect_16 r, uint16_t d, uint8_t frameLength)
+void AnimationSpookyMoveCenterToLeft(GraphicsInterface graphics, MemoryInterface memory, HardwareInterface hardware, Rect_16 r, uint16_t d, uint8_t frameLength)
 {
     const uint8_t* sprite = graphics.GetFrameBuffer1byte();
 
@@ -351,7 +351,7 @@ void AnimationSpookyMoveCenterToLeft(GraphicsInterface graphics, HardwareInterfa
         sprite++;
         j++;
         graphics.DrawSprite(f, sprite);
-        graphics.EndFrame();
+        DrawScreen(graphics, memory);
         hardware.SleepMS(frameLength);
     }
 }
@@ -361,7 +361,7 @@ void AnimationSpookyMoveCenterToLeft(GraphicsInterface graphics, HardwareInterfa
  *
  ************************************************************************************************************/
 SET_MEMORY(".battle")
-void AnimationSpookyMoveLeftToCenter(GraphicsInterface graphics, HardwareInterface hardware, Rect_16 r, uint16_t d, uint8_t frameLength)
+void AnimationSpookyMoveLeftToCenter(GraphicsInterface graphics, MemoryInterface memory, HardwareInterface hardware, Rect_16 r, uint16_t d, uint8_t frameLength)
 {
     const uint8_t* sprite = graphics.GetFrameBuffer1byte();
 
@@ -375,7 +375,7 @@ void AnimationSpookyMoveLeftToCenter(GraphicsInterface graphics, HardwareInterfa
         sprite--;
         j--;
         graphics.DrawSprite(f, sprite);
-        graphics.EndFrame();
+        DrawScreen(graphics, memory);
         hardware.SleepMS(frameLength);
     }
 }
@@ -385,7 +385,7 @@ void AnimationSpookyMoveLeftToCenter(GraphicsInterface graphics, HardwareInterfa
  *
  ************************************************************************************************************/
 SET_MEMORY(".battle")
-void AnimationMirrorImage2(GraphicsInterface graphics, HardwareInterface hardware, Rect_16 r, uint16_t d, uint8_t frameLength)
+void AnimationMirrorImage2(GraphicsInterface graphics, MemoryInterface memory, HardwareInterface hardware, Rect_16 r, uint16_t d, uint8_t frameLength)
 {
     const uint8_t* sprite = graphics.GetFrameBuffer1byte();
 
@@ -398,7 +398,7 @@ void AnimationMirrorImage2(GraphicsInterface graphics, HardwareInterface hardwar
         sprite += f.w;
         f.h--;
         graphics.DrawSprite(f, sprite);
-        graphics.EndFrame();
+        DrawScreen(graphics, memory);
         hardware.SleepMS(frameLength);
     }
 }
@@ -407,7 +407,7 @@ void AnimationMirrorImage2(GraphicsInterface graphics, HardwareInterface hardwar
  *  draws an ice shard graphic at a random screen position in the battler draw area
  ************************************************************************************************************/
 SET_MEMORY(".battle")
-void AnimationIceShards(GraphicsInterface graphics, HardwareInterface hardware, Rect_16 r, uint16_t d, uint8_t frameLength)
+void AnimationIceShards(GraphicsInterface graphics, MemoryInterface memory, HardwareInterface hardware, Rect_16 r, uint16_t d, uint8_t frameLength)
 {
     const uint8_t* sprite = graphics.GetFrameBuffer1byte();
 
@@ -419,7 +419,7 @@ void AnimationIceShards(GraphicsInterface graphics, HardwareInterface hardware, 
         sprite += f.w;
         f.h--;
         graphics.DrawSprite(f, sprite);
-        graphics.EndFrame();
+        DrawScreen(graphics, memory);
         hardware.SleepMS(frameLength);
     }
 }
@@ -446,7 +446,7 @@ void AnimationBeam(GraphicsInterface graphics, HardwareInterface hardware, Memor
         f.y -= j % 2;
         f.x++;
         graphics.DrawSprite(f, sprite);
-        graphics.EndFrame();
+        DrawScreen(graphics, memory);
         hardware.SleepMS(frameLength);
     }
 }
@@ -472,7 +472,7 @@ void AnimationRandomParticles(GraphicsInterface graphics, HardwareInterface hard
         f.y = r.y + hardware.GetRandom_uint8_t(0, r.h - size);
         f.x = r.x + hardware.GetRandom_uint8_t(0, r.w - size);
         graphics.DrawSprite(f, sprite);
-        graphics.EndFrame();
+        DrawScreen(graphics, memory);
         hardware.SleepMS(frameLength);
     }
 }
@@ -506,7 +506,7 @@ void AnimationLineEffect(GraphicsInterface graphics, HardwareInterface hardware,
         hardware.SleepMS(frameLength);
         const uint16_t* b = sprite + (n * start_pos);
         graphics.DrawSprite(f, (uint8_t*)b);
-        graphics.EndFrame();
+        DrawScreen(graphics, memory);
         start_pos++;
         f.y++;
     }

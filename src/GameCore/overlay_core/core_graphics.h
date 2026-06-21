@@ -23,3 +23,8 @@ void DrawBuffs(GraphicsInterface graphics, MemoryInterface memory, uint16_t scre
 
 
 uint8_t DrawSkillBuffs(GraphicsInterface graphics, MemoryInterface memory, uint16_t screen_x, uint16_t screen_y, uint16_t buff_values, IconType icon_type, uint8_t num_per_row);
+
+void DrawRightWing(GraphicsInterface graphics, MemoryInterface memory);
+void DrawLeftWing(GraphicsInterface graphics, MemoryInterface memory);
+void DrawText(GraphicsInterface graphics, MemoryInterface memory);
+void DrawScreen(GraphicsInterface graphics, MemoryInterface memory);

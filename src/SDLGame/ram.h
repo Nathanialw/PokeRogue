@@ -39,10 +39,25 @@ typedef struct
     OverlayData overlays;
 
 
+
+    SDL_Texture* current_target;
+
     SDL_Surface* surface;
     SDL_Texture* screen;
+    SDL_Texture* text;
+    SDL_Texture* right_wing;
+    SDL_Texture* left_wing;
     SDL_Texture* pixel_buffer;
     SDL_Texture* view;
+
+    SDL_FRect clip_rect_main;
+    SDL_FRect display_rect_main;
+    SDL_FRect clip_rect_left;
+    SDL_FRect display_rect_left;
+    SDL_FRect clip_rect_right;
+    SDL_FRect display_rect_right;
+    SDL_FRect clip_rect_text;
+    SDL_FRect display_rect_text;
 
     SDL_Window* window;
     SDL_Renderer* renderer;

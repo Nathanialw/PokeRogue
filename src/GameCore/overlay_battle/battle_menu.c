@@ -165,7 +165,7 @@ void CloseMenu(GraphicsInterface graphics, HardwareInterface hardware, MemoryInt
     ExitMenu(memory);
     HandleBattle(graphics, hardware, memory);
     DrawCursor(graphics, memory);
-    graphics.EndFrame();
+    DrawScreen(graphics, memory);
     SetBattleState(BATTLE_ATTACK);
 }
 
