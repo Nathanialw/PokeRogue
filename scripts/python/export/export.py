@@ -81,27 +81,24 @@ def name_to_c_array(entity):
     return len(names)
 
 
-#TODO save these into an effects strings array, right no it just gets the count
 def effect_strings(entity):
     """Export the database contents to a C array file"""
-    filename = f"{DATA_INC_FOLDER}/text_names_{entity}s.inc"
+    filename = f"{DATA_INC_FOLDER}/text_{entity}s.inc"
 
     names = db_manager.get_effects_strings(entity)
-    #
-    # with open(filename, 'w', encoding='utf-8') as f:
-    #     f.write(f"// Generated {entity} name strings\n")
-    #     f.write(f"// Database contains {len(names)} total {entity}\n\n")
-    #
-    #     # Write individual constants
-    #     f.write(f"// Individual {entity} strings\n")
-    #     desc_vars = []
-    #     for i, (formatted) in enumerate(names):
-    #         # Clean the types for C string
-    #         f.write(f"\"{formatted:.15}\\0\",\n")
-    #     f.write(f"\" ------ \\0\",\n")
-    #     f.write("\n")
-    #
-    #     f.write(f"//ALL_NAMES_COUNT = {len(desc_vars)};\n")
+
+    with open(filename, 'w', encoding='utf-8') as f:
+        f.write(f"// Generated {entity} name strings\n")
+        f.write(f"// Database contains {len(names)} total {entity}\n\n")
+
+        # Write individual constants
+        f.write(f"// Individual {entity} strings\n")
+        desc_vars = []
+        for i, (text) in enumerate(names):
+            f.write(f"\"{text:.127}\\0\",\n")
+        f.write("\n")
+
+        f.write(f"//ALL_NAMES_COUNT = {len(desc_vars)};\n")
 
     print(f"📄 Exported {len(names)} {entity} names to {filename}")
     return len(names)

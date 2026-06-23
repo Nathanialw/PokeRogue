@@ -956,7 +956,7 @@ def get_effects_strings(table):
     cursor = conn.cursor()
 
     # Use a placeholder for the value; table name must be validated separately
-    cursor.execute(f"SELECT name FROM {table}s WHERE used = ? ORDER BY name ASC", (1,))
+    cursor.execute(f"SELECT text FROM {table}s WHERE used = ? ORDER BY name ASC", (1,))
 
     for row in cursor.fetchall():
         formatted_results.append(row[0])  # Extract the first column from the tuple

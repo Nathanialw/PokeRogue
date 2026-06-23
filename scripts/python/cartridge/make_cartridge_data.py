@@ -56,6 +56,7 @@ def main():
         ".strings_descriptions_objects",
         ".strings_descriptions_trainers",
         ".strings_types",
+        ".strings_entity_effects",
 
         # sprites
         ".sprite_battler_layout_back_64",

@@ -21,6 +21,54 @@
 
 #include "map_ram.h"
 
+typedef struct
+{
+    uint8_t effect_indexes[MAX_OBJECT_EFFECTS];
+    uint8_t weights[MAX_OBJECT_EFFECTS];
+    uint8_t number_of_effects;
+} ObjectEffectsCache;
+
+/**********************************************************************************************************************/
+/*
+**********************************************************************************************************************/
+SET_MEMORY(".map")
+void GetObjectEffects(const ObjectData* object_data, ObjectEffectsCache* cache)
+{
+    //calculate effect chances
+    //select random effect
+
+    //create and set caches to default
+    cache->number_of_effects = 0;
+    for (uint8_t i = 0; i < MAX_OBJECT_EFFECTS; i++) cache->effect_indexes[i] = NO_EFFECT;
+    for (uint8_t i = 0; i < MAX_OBJECT_EFFECTS; i++) cache->weights[i] = 0;
+
+    //iterate object data
+    for (uint8_t i = 0; i < MAX_OBJECT_EFFECTS; i++)
+    {
+        if (object_data->effects.effects[i] == NO_EFFECT) continue;
+        //get the chance of the given effect
+        uint8_t value = (object_data->effects.chance >> (i * 2)) & 0x03;
+
+        //check if it already exists, increment if found
+        bool exists = false;
+        for (uint8_t j = 0; j < MAX_OBJECT_EFFECTS; j++)
+        {
+            if (cache->effect_indexes[j] == object_data->effects.effects[i])
+            {
+                cache->weights[j] += value;
+                exists = true;
+            }
+        }
+
+        //add if it doesn't exist
+        if (!exists)
+        {
+            cache->effect_indexes[cache->number_of_effects] = object_data->effects.effects[i];
+            cache->weights[cache->number_of_effects] += value;
+            cache->number_of_effects++;
+        }
+    }
+}
 
 /**********************************************************************************************************************/
 /* check it it is usable on party, open party framw
@@ -30,52 +78,17 @@ SET_MEMORY(".map")
 ActionOutcome InteractObject(MemoryInterface memory, HardwareInterface hardware, EntityId object_e_id, EntityId e_id, ObjectsTypes entity_type)
 {
     if (object_e_id == NO_ENTITY) return false;
-    Object object_type_id = GetObjectType(object_e_id);
-    ObjectData object_data;
-    Flash_GetObjectData(memory, &object_data, object_type_id);
-
-    //calculate effect chances
-    //select random effect
-    uint8_t number_of_effects = 0;
-
-    //create and set caches to default
-    uint8_t effect_indexes[MAX_OBJECT_EFFECTS];
-    for (uint8_t i = 0; i < MAX_OBJECT_EFFECTS; i++) effect_indexes[i] = NO_EFFECT;
-    uint8_t weights[MAX_OBJECT_EFFECTS];
-    for (uint8_t i = 0; i < MAX_OBJECT_EFFECTS; i++) weights[i] = 0;
-
-    //iterate object data
-    for (uint8_t i = 0; i < MAX_OBJECT_EFFECTS; i++)
-    {
-        if (object_data.effects.effects[i] == NO_EFFECT) continue;
-        //get the chance of the given effect
-
-        // object_data.effects.chance <-- uint16_t
-        uint8_t value = (object_data.effects.chance >> (i * 2)) & 0x03; //this value needs to nbe the 2 bit of object_data.effects.chance offset by i * 2 bits if you see waht I mean
-
-        //check if it already exists, increment if found
-        bool exists = false;
-        for (uint8_t j = 0; j < MAX_OBJECT_EFFECTS; j++)
-        {
-            if (effect_indexes[j] == object_data.effects.effects[i])
-            {
-                weights[j] += value;
-                exists = true;
-            }
-        }
-
-        //add if it doesn't exist
-        if (!exists)
-        {
-            effect_indexes[number_of_effects] = object_data.effects.effects[i];
-            weights[number_of_effects] += value;
-            number_of_effects++;
-        }
-    }
-
-
     if (GetBit(g_core.objects.interactable, object_e_id))
     {
+        Object object_type_id = GetObjectType(object_e_id);
+        ObjectData object_data;
+        Flash_GetObjectData(memory, &object_data, object_type_id);
+
+        ObjectEffectsCache cache;
+        GetObjectEffects(&object_data, &cache);
+        //TODO use cache data to randomly select an object effect
+
+
         if (object_data.consumable_party)
         {
             if (GetInputState() == INPUT_USE)
@@ -144,10 +157,46 @@ SET_MEMORY(".map")
 ActionOutcome InteractObjectStepOn(MemoryInterface memory, HardwareInterface hardware, EntityId object_e_id, EntityId e_id, ObjectsTypes entity_type)
 {
     if (object_e_id == NO_ENTITY) return false;
+
     Object object_type_id = GetObjectType(object_e_id);
     ObjectData object_data;
     Flash_GetObjectData(memory, &object_data, object_type_id);
 
+    ObjectEffectsCache cache;
+    GetObjectEffects(&object_data, &cache);
+
+    //TODO use the cahce data to pupulate the string data for the tooltip
+    if (e_id == GetPlayerID())
+    {
+        DEBUG(" %d %d %d %d %d %d", cache.effect_indexes[0], cache.effect_indexes[1], cache.effect_indexes[2], cache.effect_indexes[3], cache.effect_indexes[4], cache.effect_indexes[5]);
+        Flash_GetObjectName(memory, g_core.tooltip_text[0], object_type_id);
+
+        uint8_t total = 0;
+        for (uint8_t i = 0; i < MAX_OBJECT_EFFECTS; i++)
+        {
+            g_core.tooltip_text[i+1][0] = '\0';
+            total += cache.weights[i];
+        }
+
+        for (uint8_t i = 0; i < MAX_OBJECT_EFFECTS; i++)
+        {
+            if (cache.weights[i] == 0) continue;
+            uint8_t percent = (cache.weights[i] * 100) / total;
+            CharStr_uint8 intstr;
+            GetAsChars_uint8(percent, &intstr, true, false);
+
+            char* cursor = g_core.tooltip_text[i + 1];
+            g_core.tooltip_text[i + 1][0] = (intstr[0] == '0') ? ' ' : intstr[0];
+            g_core.tooltip_text[i + 1][1] = intstr[1];
+            g_core.tooltip_text[i + 1][2] = intstr[2];
+            g_core.tooltip_text[i + 1][3] = '%';
+            g_core.tooltip_text[i + 1][4] = ' ';
+            Flash_GetObjectEffectText(memory, cursor + 5, cache.effect_indexes[i]);
+            DEBUG("%s", g_core.tooltip_text[i+1]);
+        }
+        g_core.update_right_text = true;
+        g_core.update_right_text_clear = true;
+    }
 
     if (object_data.on_step && GetBit(g_core.objects.interactable, object_e_id))
     {

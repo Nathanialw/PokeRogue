@@ -962,3 +962,21 @@ ActionOutcome EffectSummonOoze(HardwareInterface hardware, MemoryInterface memor
 {
     return ACTION_FAILED;
 }
+
+SET_MEMORY(".map")
+ActionOutcome InteractJanusPillar(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData, ObjectsTypes objectType, uint8_t index)
+{
+    return ACTION_FAILED;
+}
+
+SET_MEMORY(".map")
+ActionOutcome InteractKeystoneArchway(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData, ObjectsTypes objectType, uint8_t index)
+{
+    return ACTION_FAILED;
+}
+
+SET_MEMORY(".map")
+ActionOutcome InteractSigilHexagram(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData, ObjectsTypes objectType, uint8_t index)
+{
+    return ACTION_FAILED;
+}

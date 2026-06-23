@@ -143,6 +143,11 @@ void UpdateObjectCollision(MemoryInterface memory, HardwareInterface hardware)
 {
     g_map.objectCollision = NO_OBJECT;
     g_map.itemCollision = NO_ITEM;
+    if (g_core.update_right_text)
+    {
+        g_core.update_right_text = false;
+        g_core.update_right_text_clear = true;
+    }
 
     for (uint16_t e_id = 0; e_id < g_core.trainers.total; e_id++)
     {
@@ -154,8 +159,13 @@ void UpdateObjectCollision(MemoryInterface memory, HardwareInterface hardware)
             if (cp.x == op.x && cp.y == op.y)
             {
                 InteractObjectStepOn(memory, hardware, o_id, e_id, TRAINER);
-                if (e_id == GetPlayerID() && GetBit(g_core.objects.interactable, o_id))
-                    g_map.objectCollision = g_core.objects.types[o_id];
+                if (e_id == GetPlayerID())
+                {
+                    if (GetBit(g_core.objects.interactable, o_id))
+                    {
+                        g_map.objectCollision = g_core.objects.types[o_id];
+                    }
+                }
             }
         }
     }

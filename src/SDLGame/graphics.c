@@ -419,15 +419,19 @@ void UpdateDrawAreas(void)
     if (w > h)
     {
         float main_x = (w - main_h) / 2.0f;
-        float wing_w = (w - main_h) / 2.0f;
+        float wing_w = ((w - main_h) / 2.0f);
         float left_x = 0.0f;
         float right_x = main_x + main_h;
 
+        //TODO enforce a minimum size and maximum size for the text on the wings is always legible
+        float ratio = (float)SCREEN_W / (float)h;
+        float clip_h = (float)h * ratio;
+        float clip_wing_w = wing_w * ratio;
 
         g_ramState.display_rect_main = (SDL_FRect){main_x, 0.0f, main_h, main_h};
         g_ramState.display_rect_left = (SDL_FRect){left_x, 0.0f, wing_w, h};
         g_ramState.display_rect_right = (SDL_FRect){right_x, 0.0f, wing_w, h};
-        g_ramState.display_rect_text = (SDL_FRect){main_x, main_h, main_h, h - main_h};
+        // g_ramState.display_rect_text = (SDL_FRect){main_x, main_h, main_h, h - main_h};
 
         //scale clip h when it exceeds the texture h
         if (h > SCREEN_H)
@@ -438,9 +442,9 @@ void UpdateDrawAreas(void)
         }
 
         g_ramState.clip_rect_main = (SDL_FRect){0.0f, 0.0f, main_h, main_h};
-        g_ramState.clip_rect_left = (SDL_FRect){0.0f, 0.0f, wing_w, h};
-        g_ramState.clip_rect_right = (SDL_FRect){0.0f, 0.0f, wing_w, h};
-        g_ramState.clip_rect_text = (SDL_FRect){0.0f, 0.0f, main_h, h - main_h};
+        g_ramState.clip_rect_left = (SDL_FRect){0.0f, 0.0f, clip_wing_w, clip_h};
+        g_ramState.clip_rect_right = (SDL_FRect){0.0f, 0.0f, clip_wing_w, clip_h};
+        // g_ramState.clip_rect_text = (SDL_FRect){0.0f, 0.0f, main_h, h - main_h};
     }
     else
     {

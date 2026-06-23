@@ -1,5 +1,5 @@
 // Generated object function headers
-// Database contains 108 total objects
+// Database contains 111 total objects
 
 // Individual objects strings
 ActionOutcome InteractAltar(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData, ObjectsTypes objectType, uint8_t index);
@@ -52,6 +52,8 @@ ActionOutcome InteractHighCross(HardwareInterface hardware, MemoryInterface memo
 ActionOutcome InteractIceBox(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData, ObjectsTypes objectType, uint8_t index);
 ActionOutcome InteractIdolOfHerne(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData, ObjectsTypes objectType, uint8_t index);
 ActionOutcome InteractInscription(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData, ObjectsTypes objectType, uint8_t index);
+ActionOutcome InteractJanusPillar(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData, ObjectsTypes objectType, uint8_t index);
+ActionOutcome InteractKeystoneArchway(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData, ObjectsTypes objectType, uint8_t index);
 ActionOutcome InteractLoom(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData, ObjectsTypes objectType, uint8_t index);
 ActionOutcome InteractMeteorite(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData, ObjectsTypes objectType, uint8_t index);
 ActionOutcome InteractReversalMirror(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData, ObjectsTypes objectType, uint8_t index);
@@ -78,6 +80,7 @@ ActionOutcome InteractShipwreck(HardwareInterface hardware, MemoryInterface memo
 ActionOutcome InteractShrineMinerva(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData, ObjectsTypes objectType, uint8_t index);
 ActionOutcome InteractShrinePoseidon(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData, ObjectsTypes objectType, uint8_t index);
 ActionOutcome InteractShrineSaintMary(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData, ObjectsTypes objectType, uint8_t index);
+ActionOutcome InteractSigilHexagram(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData, ObjectsTypes objectType, uint8_t index);
 ActionOutcome InteractSigilPentagram(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData, ObjectsTypes objectType, uint8_t index);
 ActionOutcome InteractStatueExplorer(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData, ObjectsTypes objectType, uint8_t index);
 ActionOutcome InteractStatueHero(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData, ObjectsTypes objectType, uint8_t index);
@@ -111,4 +114,4 @@ ActionOutcome InteractWell(HardwareInterface hardware, MemoryInterface memory, E
 ActionOutcome InteractWellAncient(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData, ObjectsTypes objectType, uint8_t index);
 ActionOutcome InteractWickerMan(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData, ObjectsTypes objectType, uint8_t index);
 
-//ALL_NAMES_COUNT = 108;
+//ALL_NAMES_COUNT = 111;

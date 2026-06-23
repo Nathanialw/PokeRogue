@@ -1,5 +1,5 @@
 // Generated object name strings
-// Database contains 108 total entries
+// Database contains 111 total entries
 
 // Individual items strings
 InteractAltar,
@@ -52,6 +52,8 @@ InteractHighCross,
 InteractIceBox,
 InteractIdolOfHerne,
 InteractInscription,
+InteractJanusPillar,
+InteractKeystoneArchway,
 InteractLoom,
 InteractMeteorite,
 InteractReversalMirror,
@@ -78,6 +80,7 @@ InteractShipwreck,
 InteractShrineMinerva,
 InteractShrinePoseidon,
 InteractShrineSaintMary,
+InteractSigilHexagram,
 InteractSigilPentagram,
 InteractStatueExplorer,
 InteractStatueHero,
@@ -111,4 +114,4 @@ InteractWell,
 InteractWellAncient,
 InteractWickerMan,
 
-//ALL_NAMES_COUNT = 108;
+//ALL_NAMES_COUNT = 111;

@@ -67,11 +67,9 @@ typedef struct
         int16_t battle_mp_cache[2];
         int16_t battle_xp_cache;
         int16_t battle_xp_max_cache;
-
-
     } battleMode;
 
-    char tooltip_text[COMBAT_LOG_LINES][40]; // TODO: expand o <= 30 lines for a full screen combat log, dont bother with scrolling, use a wraparound ptr
+    char tooltip_text[MAX_OBJECT_EFFECTS + 1][LARGE_STRINGS];
     uint8_t tooltip_length;
 
     /**********************************************************************************************************************
@@ -109,6 +107,7 @@ typedef struct
     bool update_left_spellbook;
     bool update_left_player;
     bool update_left_text;
+    bool update_right_text_clear;
     bool update_text;
     /**********************************************************************************************************************
     *   player data

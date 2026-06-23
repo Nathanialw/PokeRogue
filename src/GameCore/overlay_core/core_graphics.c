@@ -411,9 +411,34 @@ void DrawRightWing(GraphicsInterface graphics, MemoryInterface memory)
         }
     }
 
+    if (g_core.update_right_text_clear)
+    {
+        graphics.DrawToRight();
+        Rect_16 rect = graphics.GetRightRect();
+        g_core.update_right_text_clear = false;
+        Color xp = Flash_GetColor(memory, PAL_OFF_WHITE_GRAY_BLUE);
+        uint16_t area_down_y = rect.h - (16 * 7);
+        graphics.FillRect(rect.x, area_down_y, rect.w, 16 * 7, xp);
+    }
+
     if (g_core.update_right_text)
     {
-        
+        if (g_core.tooltip_text[0][0] == '\0') return;
+        graphics.DrawToRight();
+        Rect_16 rect = graphics.GetRightRect();
+        uint16_t text_w = (rect.w) / TEXT_W < LARGE_STRINGS ? (rect.w) / TEXT_W : LARGE_STRINGS;
+
+        rect.y = rect.h - (16 * 7);
+
+        PrintLineStr(graphics, memory, rect.x, rect.y, g_core.settings.fontSize, text_w, g_core.tooltip_text[0], 0, PAL_DARK_BLUE_GRAY, PAL_OFF_WHITE_GRAY_BLUE);
+        rect.y += TEXT_H;
+
+        for (int i = 1; i < MAX_OBJECT_EFFECTS + 1; ++i)
+        {
+            PrintLineStr(graphics, memory, rect.x, rect.y, g_core.settings.fontSize, text_w, g_core.tooltip_text[i], 0, PAL_DARK_BLUE_GRAY, PAL_OFF_WHITE_GRAY_BLUE);
+            g_core.tooltip_text[i][0] = '\0';
+            rect.y += TEXT_H;
+        }
     }
 }
 
@@ -541,7 +566,6 @@ void DrawLeftWing(GraphicsInterface graphics, MemoryInterface memory)
 
     if (g_core.update_left_text)
     {
-
     }
 }
 

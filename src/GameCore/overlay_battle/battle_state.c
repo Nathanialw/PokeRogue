@@ -23,6 +23,7 @@
 #include "battle_ram.h"
 #include "battle_ui.h"
 #include "core_entities.h"
+#include "core_input.h"
 #include "core_memory_access.h"
 #include "core_utils.h"
 
@@ -304,11 +305,18 @@ uint8_t OverlayBattleEntry(GameInterface* spi)
     InitBattleMenu();
     HandleBattleStateInit(spi);
 
+    if (g_core.update_right_text)
+    {
+        g_core.update_right_text = false;
+        g_core.update_right_text_clear = true;
+    }
+
     while (g_core.state.overlay == OVERLAY_BATTLE)
     {
         bool redraw_window = spi->input.HandleInput();
         if (redraw_window)
         {
+            InteractUI(spi->graphics, spi->input);
             g_core.update_text = true;
             g_core.update_right_inventory = true;
             g_core.update_right_party = true;

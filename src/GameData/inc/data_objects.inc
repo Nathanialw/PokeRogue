@@ -1,5 +1,5 @@
 // Generated object data structs
-// Database contains 108 total objects
+// Database contains 111 total objects
 
 //       8  bits - .power = { 8 bits } 
 //    2x 4  bits - .data  = { .object_type = { 4 bits }, .level = { 4 bits } }
@@ -7,7 +7,7 @@
 
 //       64 bits - .effects = { .effects = [ { 8 bits x 6 } ], .chance { 16 bits } } 
 // total 12 bytes
-// Individual objects data - count = 108
+// Individual objects data - count = 111
 
 //    0 - ALTAR
 { .power = 0x64, .data = 0x01, .flags = 0b0001000001000010, .effects = { .effects = { EFFECT_SACRIFICE_CREATURE  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                   }, .chance = EFFECT_CHANCE(1, 0, 0, 0, 0, 0) } },
@@ -34,7 +34,7 @@
 //    11 - BOMB_TNT
 { .power = 0x05, .data = 0x01, .flags = 0b0000000001000011, .effects = { .effects = { NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                   }, .chance = EFFECT_CHANCE(1, 0, 0, 0, 0, 0) } },
 //    12 - CABINET_BOOK
-{ .power = 0x05, .data = 0x01, .flags = 0b0000010001000011, .effects = { .effects = { EFFECT_CREATE_ITEM_BOOK    , EFFECT_CREATE_ITEM_SCROLL  , EFFECT_NO_OBJECT_EFFECT    , EFFECT_NO_OBJECT_EFFECT    , NO_EFFECT                  , NO_EFFECT                   }, .chance = EFFECT_CHANCE(3, 1, 0, 0, 0, 0) } },
+{ .power = 0x05, .data = 0x01, .flags = 0b0000010001000011, .effects = { .effects = { EFFECT_CREATE_ITEM_BOOK    , EFFECT_CREATE_ITEM_SCROLL  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                   }, .chance = EFFECT_CHANCE(3, 1, 0, 0, 0, 0) } },
 //    13 - CABINET_JEWELLERY
 { .power = 0x05, .data = 0x01, .flags = 0b0000010001000011, .effects = { .effects = { EFFECT_CREATE_ITEM_MAGIC   , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                   }, .chance = EFFECT_CHANCE(1, 1, 0, 0, 0, 0) } },
 //    14 - CABINET_SCROLL
@@ -54,7 +54,7 @@
 //    21 - CORPSE_IMPALED
 { .power = 0x05, .data = 0x01, .flags = 0b0000000001000011, .effects = { .effects = { EFFECT_CREATE_ITEM_COMMON  , EFFECT_SUMMON_ZOMBIE       , EFFECT_SUMMON_SKELETON     , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                   }, .chance = EFFECT_CHANCE(1, 1, 1, 0, 0, 0) } },
 //    22 - CORPSE_LAID
-{ .power = 0x05, .data = 0x01, .flags = 0b0000000001000011, .effects = { .effects = { EFFECT_CREATE_ITEM_COMMON  , EFFECT_SUMMON_ZOMBIE       , EFFECT_SUMMON_SKELETON     , EFFECT_SUMMON_SKELETON     , NO_EFFECT                  , NO_EFFECT                   }, .chance = EFFECT_CHANCE(3, 1, 1, 1, 0, 0) } },
+{ .power = 0x05, .data = 0x01, .flags = 0b0000000001000011, .effects = { .effects = { EFFECT_CREATE_ITEM_COMMON  , EFFECT_SUMMON_ZOMBIE       , EFFECT_SUMMON_SKELETON     , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                   }, .chance = EFFECT_CHANCE(3, 1, 1, 1, 1, 1) } },
 //    23 - DOOR_BARRED
 { .power = 0x04, .data = 0x01, .flags = 0b0000000001001110, .effects = { .effects = { NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                   }, .chance = EFFECT_CHANCE(1, 1, 0, 0, 0, 0) } },
 //    24 - DOOR_IRON
@@ -109,121 +109,127 @@
 { .power = 0x05, .data = 0x01, .flags = 0b0000000001000011, .effects = { .effects = { NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                   }, .chance = EFFECT_CHANCE(1, 0, 0, 0, 0, 0) } },
 //    49 - INSCRIPTION
 { .power = 0x05, .data = 0x01, .flags = 0b0000000001000011, .effects = { .effects = { NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                   }, .chance = EFFECT_CHANCE(1, 0, 0, 0, 0, 0) } },
-//    50 - LOOM
+//    50 - JANUS_PILLAR
+{ .power = 0x05, .data = 0x01, .flags = 0b0000000001000011, .effects = { .effects = { NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                   }, .chance = EFFECT_CHANCE(1, 0, 0, 0, 0, 0) } },
+//    51 - KEYSTONE_ARCH
+{ .power = 0x05, .data = 0x01, .flags = 0b0000000001000011, .effects = { .effects = { EFFECT_RAISE_INTELLIGENCE  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                   }, .chance = EFFECT_CHANCE(1, 0, 0, 0, 0, 0) } },
+//    52 - LOOM
 { .power = 0x05, .data = 0x01, .flags = 0b0000000001000011, .effects = { .effects = { EFFECT_CREATE_ITEM_COMMON  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                   }, .chance = EFFECT_CHANCE(1, 0, 0, 0, 0, 0) } },
-//    51 - METEORITE
+//    53 - METEORITE
 { .power = 0x05, .data = 0x01, .flags = 0b0000000001000011, .effects = { .effects = { EFFECT_CREATE_ORE_CRYSTAL  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                   }, .chance = EFFECT_CHANCE(1, 0, 0, 0, 0, 0) } },
-//    52 - MIRROR_REVERSAL
+//    54 - MIRROR_REVERSAL
 { .power = 0x05, .data = 0x01, .flags = 0b0001000001000011, .effects = { .effects = { NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                   }, .chance = EFFECT_CHANCE(1, 0, 0, 0, 0, 0) } },
-//    53 - MIRROR_STANDING
-{ .power = 0x05, .data = 0x01, .flags = 0b0001000001000011, .effects = { .effects = { EFFECT_RAISE_INTELLIGENCE  , EFFECT_LOWER_INTELLIGENCE  , EFFECT_NO_OBJECT_EFFECT    , EFFECT_NO_OBJECT_EFFECT    , NO_EFFECT                  , NO_EFFECT                   }, .chance = EFFECT_CHANCE(1, 1, 0, 0, 0, 0) } },
-//    54 - OBELISK
+//    55 - MIRROR_STANDING
+{ .power = 0x05, .data = 0x01, .flags = 0b0001000001000011, .effects = { .effects = { EFFECT_RAISE_INTELLIGENCE  , EFFECT_LOWER_INTELLIGENCE  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                   }, .chance = EFFECT_CHANCE(1, 1, 0, 0, 0, 0) } },
+//    56 - OBELISK
 { .power = 0x05, .data = 0x01, .flags = 0b0000000001000011, .effects = { .effects = { NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                   }, .chance = EFFECT_CHANCE(1, 0, 0, 0, 0, 0) } },
-//    55 - PAD_DISPLACEMENT
+//    57 - PAD_DISPLACEMENT
 { .power = 0x05, .data = 0x01, .flags = 0b0000000001000010, .effects = { .effects = { NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                   }, .chance = EFFECT_CHANCE(1, 0, 0, 0, 0, 0) } },
-//    56 - PAD_TELEPORT
+//    58 - PAD_TELEPORT
 { .power = 0x05, .data = 0x01, .flags = 0b0000000001000010, .effects = { .effects = { EFFECT_DISPLACEMENT        , EFFECT_DESCEND_ONE_LEVEL   , EFFECT_ASCEND_ONE_LEVEL    , EFFECT_LATERAL_ONE_LEVEL   , NO_EFFECT                  , NO_EFFECT                   }, .chance = EFFECT_CHANCE(1, 1, 1, 1, 0, 0) } },
-//    57 - PALANTIR
+//    59 - PALANTIR
 { .power = 0x05, .data = 0x01, .flags = 0b0000000001000011, .effects = { .effects = { EFFECT_SHOW_MAP            , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                   }, .chance = EFFECT_CHANCE(1, 0, 0, 0, 0, 0) } },
-//    58 - POOL_REFLECTION
+//    60 - POOL_REFLECTION
 { .power = 0x05, .data = 0x01, .flags = 0b0010000001000011, .effects = { .effects = { EFFECT_RAISE_INTELLIGENCE  , EFFECT_MELT_ITEM_RANDOM    , EFFECT_DESCEND_ONE_LEVEL   , EFFECT_RESTORE_MP          , NO_EFFECT                  , NO_EFFECT                   }, .chance = EFFECT_CHANCE(1, 1, 1, 1, 0, 0) } },
-//    59 - PORTAL_ALFHEIM
+//    61 - PORTAL_ALFHEIM
 { .power = 0x05, .data = 0x01, .flags = 0b0000000000000010, .effects = { .effects = { NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                   }, .chance = EFFECT_CHANCE(1, 0, 0, 0, 0, 0) } },
-//    60 - PORTAL_ATLANTIS
+//    62 - PORTAL_ATLANTIS
 { .power = 0x05, .data = 0x01, .flags = 0b0000000000000010, .effects = { .effects = { NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                   }, .chance = EFFECT_CHANCE(1, 0, 0, 0, 0, 0) } },
-//    61 - PORTAL_ELYSIUM
+//    63 - PORTAL_ELYSIUM
 { .power = 0x05, .data = 0x01, .flags = 0b0000000000000010, .effects = { .effects = { NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                   }, .chance = EFFECT_CHANCE(1, 0, 0, 0, 0, 0) } },
-//    62 - PORTAL_HEL
+//    64 - PORTAL_HEL
 { .power = 0x05, .data = 0x01, .flags = 0b0000000000000010, .effects = { .effects = { NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                   }, .chance = EFFECT_CHANCE(1, 0, 0, 0, 0, 0) } },
-//    63 - PORTAL_JOTUNHEIM
+//    65 - PORTAL_JOTUNHEIM
 { .power = 0x05, .data = 0x01, .flags = 0b0000000000000010, .effects = { .effects = { NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                   }, .chance = EFFECT_CHANCE(1, 0, 0, 0, 0, 0) } },
-//    64 - PORTAL_MAGE
+//    66 - PORTAL_MAGE
 { .power = 0x05, .data = 0x01, .flags = 0b0000000000000010, .effects = { .effects = { NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                   }, .chance = EFFECT_CHANCE(1, 0, 0, 0, 0, 0) } },
-//    65 - PORTAL_OLYMPUS
+//    67 - PORTAL_OLYMPUS
 { .power = 0x05, .data = 0x01, .flags = 0b0000000000000010, .effects = { .effects = { NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                   }, .chance = EFFECT_CHANCE(1, 0, 0, 0, 0, 0) } },
-//    66 - PORTAL_TAKAMA
+//    68 - PORTAL_TAKAMA
 { .power = 0x05, .data = 0x01, .flags = 0b0000000000000010, .effects = { .effects = { NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                   }, .chance = EFFECT_CHANCE(1, 0, 0, 0, 0, 0) } },
-//    67 - PORTAL_TARTARUS
+//    69 - PORTAL_TARTARUS
 { .power = 0x05, .data = 0x01, .flags = 0b0000000000000010, .effects = { .effects = { NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                   }, .chance = EFFECT_CHANCE(1, 0, 0, 0, 0, 0) } },
-//    68 - PORTAL_VALHALLA
+//    70 - PORTAL_VALHALLA
 { .power = 0x05, .data = 0x01, .flags = 0b0000000000000010, .effects = { .effects = { NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                   }, .chance = EFFECT_CHANCE(1, 0, 0, 0, 0, 0) } },
-//    69 - POT_OF_GOLD
+//    71 - POT_OF_GOLD
 { .power = 0x05, .data = 0x01, .flags = 0b0000000001000011, .effects = { .effects = { EFFECT_CREATE_ITEM_COMMON  , EFFECT_SUMMON_LEPRECHAUN   , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                   }, .chance = EFFECT_CHANCE(1, 1, 0, 0, 0, 0) } },
-//    70 - RACK_ARMOR
+//    72 - RACK_ARMOR
 { .power = 0x05, .data = 0x01, .flags = 0b0000000001000011, .effects = { .effects = { EFFECT_CREATE_ITEM_COMMON  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                   }, .chance = EFFECT_CHANCE(1, 0, 0, 0, 0, 0) } },
-//    71 - RACK_WEAPON
+//    73 - RACK_WEAPON
 { .power = 0x05, .data = 0x01, .flags = 0b0000000001000011, .effects = { .effects = { EFFECT_CREATE_ITEM_COMMON  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                   }, .chance = EFFECT_CHANCE(1, 0, 0, 0, 0, 0) } },
-//    72 - SHIPWRECK
+//    74 - SHIPWRECK
 { .power = 0x05, .data = 0x01, .flags = 0b0000000011000011, .effects = { .effects = { EFFECT_CREATE_ITEM_COMMON  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                   }, .chance = EFFECT_CHANCE(1, 0, 0, 0, 0, 0) } },
-//    73 - SHRINE_MINERVA
+//    75 - SHRINE_MINERVA
 { .power = 0x05, .data = 0x01, .flags = 0b0000100001000011, .effects = { .effects = { NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                   }, .chance = EFFECT_CHANCE(1, 0, 0, 0, 0, 0) } },
-//    74 - SHRINE_POSEIDON
+//    76 - SHRINE_POSEIDON
 { .power = 0x05, .data = 0x01, .flags = 0b0000100001000011, .effects = { .effects = { NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                   }, .chance = EFFECT_CHANCE(1, 0, 0, 0, 0, 0) } },
-//    75 - SHRINE_SAINT_MARY
+//    77 - SHRINE_SAINT_MARY
 { .power = 0x05, .data = 0x01, .flags = 0b0000100001000011, .effects = { .effects = { NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                   }, .chance = EFFECT_CHANCE(1, 0, 0, 0, 0, 0) } },
-//    76 - SIGIL_PENTAGRAM
+//    78 - SIGIL_HEXAGRAM
+{ .power = 0x05, .data = 0x01, .flags = 0b0010000001000011, .effects = { .effects = { EFFECT_SUMMON_DEMON        , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                   }, .chance = EFFECT_CHANCE(1, 0, 0, 0, 0, 0) } },
+//    79 - SIGIL_PENTAGRAM
 { .power = 0x05, .data = 0x01, .flags = 0b0000000001000011, .effects = { .effects = { EFFECT_SUMMON_DEMON        , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                   }, .chance = EFFECT_CHANCE(1, 0, 0, 0, 0, 0) } },
-//    77 - STATUE_EXPLORER
+//    80 - STATUE_EXPLORER
 { .power = 0x05, .data = 0x01, .flags = 0b0000100001000010, .effects = { .effects = { EFFECT_RAISE_INTELLIGENCE  , EFFECT_RAISE_STAMINA       , EFFECT_GAIN_BAG_SLOT       , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                   }, .chance = EFFECT_CHANCE(1, 1, 1, 0, 0, 0) } },
-//    78 - STATUE_HERO
+//    81 - STATUE_HERO
 { .power = 0x05, .data = 0x01, .flags = 0b0000100001000010, .effects = { .effects = { EFFECT_RAISE_INTELLIGENCE  , EFFECT_RAISE_STRENGTH      , EFFECT_RAISE_FORTITUDE     , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                   }, .chance = EFFECT_CHANCE(1, 1, 1, 0, 0, 0) } },
-//    79 - STATUE_KING
+//    82 - STATUE_KING
 { .power = 0x05, .data = 0x01, .flags = 0b0000100001000010, .effects = { .effects = { EFFECT_RAISE_STRENGTH      , EFFECT_RAISE_FORTITUDE     , EFFECT_RAISE_INTELLIGENCE  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                   }, .chance = EFFECT_CHANCE(1, 1, 1, 0, 0, 0) } },
-//    80 - STATUE_WEEPING
+//    83 - STATUE_WEEPING
 { .power = 0x05, .data = 0x01, .flags = 0b0000000001000011, .effects = { .effects = { NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                   }, .chance = EFFECT_CHANCE(1, 0, 0, 0, 0, 0) } },
-//    81 - STATUE_WIZARD
-{ .power = 0x05, .data = 0x01, .flags = 0b0000000001000011, .effects = { .effects = { EFFECT_RAISE_INTELLIGENCE  , EFFECT_GAIN_SPELL_PAGE     , EFFECT_NO_OBJECT_EFFECT    , EFFECT_NO_OBJECT_EFFECT    , NO_EFFECT                  , NO_EFFECT                   }, .chance = EFFECT_CHANCE(1, 0, 0, 0, 0, 0) } },
-//    82 - STILL
-{ .power = 0x05, .data = 0x01, .flags = 0b0001000001000011, .effects = { .effects = { EFFECT_CREATE_ITEM_POTION  , EFFECT_RAISE_STAMINA       , EFFECT_NO_OBJECT_EFFECT    , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                   }, .chance = EFFECT_CHANCE(1, 1, 0, 0, 0, 0) } },
-//    83 - SUNDIAL
+//    84 - STATUE_WIZARD
+{ .power = 0x05, .data = 0x01, .flags = 0b0000000001000011, .effects = { .effects = { EFFECT_RAISE_INTELLIGENCE  , EFFECT_GAIN_SPELL_PAGE     , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                   }, .chance = EFFECT_CHANCE(1, 1, 0, 0, 0, 0) } },
+//    85 - STILL
+{ .power = 0x05, .data = 0x01, .flags = 0b0001000001000011, .effects = { .effects = { EFFECT_CREATE_ITEM_POTION  , EFFECT_RAISE_STAMINA       , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                   }, .chance = EFFECT_CHANCE(1, 1, 0, 0, 0, 0) } },
+//    86 - SUNDIAL
 { .power = 0x05, .data = 0x01, .flags = 0b0000000001000011, .effects = { .effects = { NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                   }, .chance = EFFECT_CHANCE(1, 0, 0, 0, 0, 0) } },
-//    84 - TORTURE_CUCKING_STOOL
+//    87 - TORTURE_CUCKING_STOOL
 { .power = 0x05, .data = 0x01, .flags = 0b0001000011000011, .effects = { .effects = { EFFECT_RAISE_LOYALTY       , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                   }, .chance = EFFECT_CHANCE(1, 0, 0, 0, 0, 0) } },
-//    85 - TORTURE_RACK
+//    88 - TORTURE_RACK
 { .power = 0x05, .data = 0x01, .flags = 0b0001100001000011, .effects = { .effects = { EFFECT_RAISE_LOYALTY       , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                   }, .chance = EFFECT_CHANCE(1, 0, 0, 0, 0, 0) } },
-//    86 - TORTURE_STOCKS
+//    89 - TORTURE_STOCKS
 { .power = 0x05, .data = 0x01, .flags = 0b0001100001000011, .effects = { .effects = { EFFECT_RAISE_LOYALTY       , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                   }, .chance = EFFECT_CHANCE(1, 0, 0, 0, 0, 0) } },
-//    87 - TORTURE_STRAPPADO
+//    90 - TORTURE_STRAPPADO
 { .power = 0x05, .data = 0x01, .flags = 0b0001100001000011, .effects = { .effects = { EFFECT_RAISE_LOYALTY       , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                   }, .chance = EFFECT_CHANCE(1, 0, 0, 0, 0, 0) } },
-//    88 - TORTURE_WHIPPING_POST
+//    91 - TORTURE_WHIPPING_POST
 { .power = 0x05, .data = 0x01, .flags = 0b0001100001000011, .effects = { .effects = { EFFECT_RAISE_LOYALTY       , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                   }, .chance = EFFECT_CHANCE(1, 0, 0, 0, 0, 0) } },
-//    89 - TREASURE_BARREL
+//    92 - TREASURE_BARREL
 { .power = 0x64, .data = 0x01, .flags = 0b0000000001000011, .effects = { .effects = { EFFECT_CREATE_ITEM_COMMON  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                   }, .chance = EFFECT_CHANCE(1, 0, 0, 0, 0, 0) } },
-//    90 - TREASURE_BASKET
+//    93 - TREASURE_BASKET
 { .power = 0x64, .data = 0x01, .flags = 0b0000000001000011, .effects = { .effects = { EFFECT_CREATE_ITEM_COMMON  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                   }, .chance = EFFECT_CHANCE(1, 0, 0, 0, 0, 0) } },
-//    91 - TREASURE_CHEST
+//    94 - TREASURE_CHEST
 { .power = 0x64, .data = 0x01, .flags = 0b0000000001000011, .effects = { .effects = { EFFECT_CREATE_ITEM_COMMON  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                   }, .chance = EFFECT_CHANCE(1, 0, 0, 0, 0, 0) } },
-//    92 - TREASURE_COFFER
+//    95 - TREASURE_COFFER
 { .power = 0x05, .data = 0x01, .flags = 0b0000000001010011, .effects = { .effects = { EFFECT_CREATE_ITEM_COMMON  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                   }, .chance = EFFECT_CHANCE(1, 0, 0, 0, 0, 0) } },
-//    93 - TREASURE_CRATE
+//    96 - TREASURE_CRATE
 { .power = 0x05, .data = 0x01, .flags = 0b0000000001010011, .effects = { .effects = { EFFECT_CREATE_ITEM_COMMON  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                   }, .chance = EFFECT_CHANCE(1, 0, 0, 0, 0, 0) } },
-//    94 - TREASURE_TRUNK
+//    97 - TREASURE_TRUNK
 { .power = 0x05, .data = 0x01, .flags = 0b0000000001010011, .effects = { .effects = { EFFECT_CREATE_ITEM_COMMON  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                   }, .chance = EFFECT_CHANCE(1, 0, 0, 0, 0, 0) } },
-//    95 - TREASURE_URN
+//    98 - TREASURE_URN
 { .power = 0x64, .data = 0x01, .flags = 0b0000000001000011, .effects = { .effects = { EFFECT_CREATE_ITEM_COMMON  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                   }, .chance = EFFECT_CHANCE(1, 0, 0, 0, 0, 0) } },
-//    96 - TREASURE_VAULT
+//    99 - TREASURE_VAULT
 { .power = 0x05, .data = 0x01, .flags = 0b0000000001010011, .effects = { .effects = { EFFECT_CREATE_ITEM_COMMON  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                   }, .chance = EFFECT_CHANCE(1, 0, 0, 0, 0, 0) } },
-//    97 - VEIN_COPPER
+//    100 - VEIN_COPPER
 { .power = 0x05, .data = 0x01, .flags = 0b0000100001000011, .effects = { .effects = { EFFECT_CREATE_ORE_COPPER   , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                   }, .chance = EFFECT_CHANCE(1, 0, 0, 0, 0, 0) } },
-//    98 - VEIN_GOLD
+//    101 - VEIN_GOLD
 { .power = 0x05, .data = 0x01, .flags = 0b0000100001000011, .effects = { .effects = { EFFECT_CREATE_ORE_GOLD     , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                   }, .chance = EFFECT_CHANCE(1, 0, 0, 0, 0, 0) } },
-//    99 - VEIN_IRON
+//    102 - VEIN_IRON
 { .power = 0x05, .data = 0x01, .flags = 0b0000100001000011, .effects = { .effects = { EFFECT_CREATE_ORE_IRON     , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                   }, .chance = EFFECT_CHANCE(1, 0, 0, 0, 0, 0) } },
-//    100 - VEIN_SILVER
+//    103 - VEIN_SILVER
 { .power = 0x05, .data = 0x01, .flags = 0b0000100001000011, .effects = { .effects = { EFFECT_CREATE_ORE_SILVER   , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                   }, .chance = EFFECT_CHANCE(1, 0, 0, 0, 0, 0) } },
-//    101 - VEIN_TIN
+//    104 - VEIN_TIN
 { .power = 0x05, .data = 0x01, .flags = 0b0000100001000011, .effects = { .effects = { EFFECT_CREATE_ORE_TIN      , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                   }, .chance = EFFECT_CHANCE(1, 0, 0, 0, 0, 0) } },
-//    102 - WAGON_BROKEN
+//    105 - WAGON_BROKEN
 { .power = 0x05, .data = 0x01, .flags = 0b0000000001000011, .effects = { .effects = { EFFECT_CREATE_ITEM_COMMON  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                   }, .chance = EFFECT_CHANCE(1, 0, 0, 0, 0, 0) } },
-//    103 - WARD
+//    106 - WARD
 { .power = 0x05, .data = 0x01, .flags = 0b0000000001001100, .effects = { .effects = { NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                   }, .chance = EFFECT_CHANCE(1, 0, 0, 0, 0, 0) } },
-//    104 - WAYSTONE
+//    107 - WAYSTONE
 { .power = 0x05, .data = 0x01, .flags = 0b0000100001000011, .effects = { .effects = { EFFECT_RAISE_INTELLIGENCE  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                   }, .chance = EFFECT_CHANCE(1, 0, 0, 0, 0, 0) } },
-//    105 - WELL
+//    108 - WELL
 { .power = 0x05, .data = 0x01, .flags = 0b0001100001000011, .effects = { .effects = { EFFECT_RAISE_INTELLIGENCE  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                   }, .chance = EFFECT_CHANCE(1, 0, 0, 0, 0, 0) } },
-//    106 - WELL_ANCIENT
+//    109 - WELL_ANCIENT
 { .power = 0x05, .data = 0x01, .flags = 0b0001100001000011, .effects = { .effects = { EFFECT_RAISE_INTELLIGENCE  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                   }, .chance = EFFECT_CHANCE(1, 0, 0, 0, 0, 0) } },
-//    107 - WICKER_MAN
+//    110 - WICKER_MAN
 { .power = 0x05, .data = 0x01, .flags = 0b0000000001000011, .effects = { .effects = { EFFECT_RAISE_INTELLIGENCE  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                   }, .chance = EFFECT_CHANCE(1, 0, 0, 0, 0, 0) } },
 
-//COUNT = 108;
+//COUNT = 111;

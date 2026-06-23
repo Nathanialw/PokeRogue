@@ -41,6 +41,7 @@ Color Flash_GetColor(MemoryInterface memory, uint8_t color);
 void Flash_GetObjectName(MemoryInterface memory, char* text, uint8_t index);
 //ui
 void Flash_GetMenuText(MemoryInterface memory, uint8_t* textBuffer, uint8_t index);
+void Flash_GetObjectEffectText(MemoryInterface memory, char* textBuffer, uint8_t index);
 
 //entities
 void Flash_GetCreatureName(MemoryInterface memory, char* text, uint8_t index);

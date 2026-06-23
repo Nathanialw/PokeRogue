@@ -1,5 +1,5 @@
 // Generated object name strings
-// Database contains 108 total object
+// Database contains 111 total object
 
 // Individual object strings
 "Altar\0",
@@ -52,6 +52,8 @@
 "Ice Box\0",
 "Idol of Herne\0",
 "Inscription\0",
+"Janus Pillar\0",
+"Keystone Archwa\0",
 "Loom\0",
 "Meteorite\0",
 "Mirror of Rever\0",
@@ -78,6 +80,7 @@
 "Minerva Shrine\0",
 "Poseidon Shrine\0",
 "Saint Mary Shri\0",
+"Hexagram\0",
 "Pentagram\0",
 "Statue of an Ex\0",
 "Statue of a Her\0",

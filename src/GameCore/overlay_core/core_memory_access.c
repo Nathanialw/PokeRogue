@@ -393,119 +393,50 @@ Color Flash_GetColor(MemoryInterface memory, uint8_t color)
 SET_MEMORY(".core")
 void Flash_GetCreatureName(MemoryInterface memory, char* text, uint8_t index)
 {
-#ifdef STANDALONE
-    return g_gameFlash.text.descriptions.monsters[index];
-#else
     memory.GetRom(STRINGS_NAMES_CREATURES_POSITION + (SMALL_STRINGS * index), (uint8_t*)text, SMALL_STRINGS);
-
-#if defined(MEMORY_PRINT)
-    for (uint8_t i = 0; i < SMALL_STRINGS; i++)
-        memory.Print(str_spawn_creature_type, text[i]);
-    memory.Print(new_line);
-#endif
-#endif
 }
 
 
 SET_MEMORY(".core")
 void Flash_GetItemName(MemoryInterface memory, char* text, uint8_t index)
 {
-#ifdef STANDALONE
-    return g_gameFlash.text.descriptions.items[index];
-#else
     memory.GetRom(STRINGS_NAMES_ITEMS_POSITION + (SMALL_STRINGS * index), (uint8_t*)text, SMALL_STRINGS);
-
-#if defined(MEMORY_PRINT)
-    for (uint8_t i = 0; i < SMALL_STRINGS; i++)
-        memory.Print(str_spawn_creature_type, text[i]);
-    memory.Print(new_line);
-#endif
-#endif
 }
 
 SET_MEMORY(".core")
 void Flash_GetSpellName(MemoryInterface memory, char* text, uint8_t index)
 {
-#ifdef STANDALONE
-    return g_gameFlash.text.descriptions.spells[index];
-#else
     memory.GetRom(STRINGS_NAMES_SPELLS_POSITION + (SMALL_STRINGS * index), (uint8_t*)text, SMALL_STRINGS);
-
-#if defined(MEMORY_PRINT)
-    for (uint8_t i = 0; i < SMALL_STRINGS; i++)
-        memory.Print(str_spawn_creature_type, text[i]);
-    memory.Print(new_line);
-#endif
-#endif
 }
 
 SET_MEMORY(".core")
 void Flash_GetSkillName(MemoryInterface memory, char* text, uint8_t index)
 {
-#ifdef STANDALONE
-    return g_gameFlash.text.descriptions.attacks[index];
-#else
     memory.GetRom(STRINGS_NAMES_SKILLS_POSITION + (SMALL_STRINGS * index), (uint8_t*)text, SMALL_STRINGS);
-
-#if defined(MEMORY_PRINT)
-    for (uint8_t i = 0; i < SMALL_STRINGS; i++)
-        memory.Print(str_spawn_creature_type, text[i]);
-    memory.Print(new_line);
-#endif
-#endif
 }
 
 SET_MEMORY(".core")
 void Flash_GetTrainerName(MemoryInterface memory, char* text, uint8_t index)
 {
-#ifdef STANDALONE
-    return g_gameFlash.text.descriptions.attacks[index];
-#else
     memory.GetRom(STRINGS_NAMES_TRAINERS_POSITION + (SMALL_STRINGS * index), (uint8_t*)text, SMALL_STRINGS);
-
-#if defined(MEMORY_PRINT)
-    for (uint8_t i = 0; i < SMALL_STRINGS; i++)
-        memory.Print(str_spawn_creature_type, text[i]);
-    memory.Print(new_line);
-#endif
-#endif
 }
 
 SET_MEMORY(".core")
 void Flash_GetObjectName(MemoryInterface memory, char* text, uint8_t index)
 {
-#ifdef STANDALONE
-    return g_gameFlash.text.descriptions.objects[index];
-#else
     memory.GetRom(STRINGS_NAMES_OBJECTS_POSITION + (SMALL_STRINGS * index), (uint8_t*)text, SMALL_STRINGS);
-
-#if defined(MEMORY_PRINT)
-    for (uint8_t i = 0; i < SMALL_STRINGS; i++)
-        memory.Print(str_spawn_creature_type, text[i]);
-    memory.Print(new_line);
-#endif
-#endif
 }
-
 
 SET_MEMORY(".core")
 void Flash_GetMenuText(MemoryInterface memory, uint8_t* textBuffer, uint8_t index)
 {
-#ifdef STANDALONE
-    for (uint8_t i = 0; i < SMALL_STRINGS; i++)
-    {
-        textBuffer[i] = g_gameFlash.text.menus.main[index][i];
-    }
-#else
     memory.GetRom(STRINGS_MENU_MAIN_POSITION + (SMALL_STRINGS * index), textBuffer, SMALL_STRINGS);
+}
 
-
-#if defined(MEMORY_PRINT)
-    for (uint8_t i = 0; i < SMALL_STRINGS; i++)
-        memory.Print(str_spawn_creature_type, textBuffer[i]);
-    memory.Print(new_line);
-#endif
-#endif
+SET_MEMORY(".core")
+void Flash_GetObjectEffectText(MemoryInterface memory, char* textBuffer, uint8_t index)
+{
+    memory.GetRom(STRINGS_ENTITY_EFFECTS_POSITION + (LARGE_STRINGS * index), (uint8_t*)textBuffer, LARGE_STRINGS);
 }
 
 /**********************************************************************************************************************/

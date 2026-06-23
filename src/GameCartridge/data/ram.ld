@@ -61,6 +61,7 @@ SECTIONS
     .strings_descriptions_objects    0x1830000 : { KEEP(*(.strings_descriptions_objects))   . = ALIGN(4); }
     .strings_descriptions_trainers   0x1840000 : { KEEP(*(.strings_descriptions_trainers))  . = ALIGN(4); }
     .strings_types                   0x1850000 : { KEEP(*(.strings_types))  . = ALIGN(4); }
+    .strings_entity_effects          0x1860000 : { KEEP(*(.strings_entity_effects))  . = ALIGN(4); }
 
     /* ========================================== */
     /*     BATTLER SPRITES                        */

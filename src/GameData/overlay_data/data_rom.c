@@ -122,6 +122,12 @@ const char Text_types[TYPE_COUNT][SMALL_STRINGS] = {
 #include "inc/text_types.inc"
 };
 
+//      effects text
+SET_MEMORY(".strings_entity_effects")
+const char Text_entity_effects[EFFECT_COUNT][LARGE_STRINGS] = {
+#include "inc/text_entity_effects.inc"
+};
+
 /**********************************************************************************************************************/
 /*  BATTLERS
 **********************************************************************************************************************/

@@ -1,5 +1,5 @@
 // Generated creature descriptions
-// Database contains 108 total descriptions
+// Database contains 111 total descriptions
 
 // Individual description strings
 "A long stone altar hums with ancient runes, its surface slick with the remnants of forgotten sacrifices.\0",
@@ -52,6 +52,8 @@
 "an iron bound chest of ice to keep food for long periods of time\0",
 "An idol of Herne\0",
 "an inscription on the stone wall\0",
+"A janus Pillar made of stone with 2 faces on opposite sides\0",
+"a roman stone keystone arch\0",
 "a linen spinner's loom made of wood \0",
 "a meteorite that impacted the earth, leaving it remnants to be found\0",
 "a standing mirror, rectangular with a blue edge and base\0",
@@ -78,6 +80,7 @@
 "a shrine to Minerva with an Etruscan statue\0",
 "A greek shrine to Poseidon\0",
 "A shrine to Saint Mary\0",
+"SIGIL_HEXAGRAM -- PLACEHOLDER TEXT - A mysterious object awaiting discovery.\0",
 "A blood red pentagram on a pure white floor\0",
 "A stone statue of a famous explorer\0",
 "A stone statue of a famous hero with a sword\0",
@@ -112,4 +115,4 @@
 "a straw scarecrow with a hat\0",
 " ------ \0",
 
-//ALL_DESCRIPTIONS_COUNT = 108;
+//ALL_DESCRIPTIONS_COUNT = 111;
