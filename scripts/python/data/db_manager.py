@@ -835,7 +835,7 @@ CreatureResistances = namedtuple('CreatureResistances', ['name', 'toxic', 'fire'
 SpellData = namedtuple('SpellData', ['name', 'power', 'level', 'type_0', 'type_enum', 'power_points', 'use_on_party_member', 'use_on_enemy', 'use_on_trainer'])
 SkillData = namedtuple('AbilityData', ['name', 'formatted', 'power', 'power_special', 'mana_cost', 'type_0', 'bleed', 'blind', 'burn', 'curse', 'disease', 'disarm', 'enfeeble', 'fear', 'freeze', 'paralyze', 'petrify', 'poison', 'root', 'sap', 'sleep', 'slow', 'berserk', 'fire_eating', 'flying', 'haste', 'invigorate', 'invisible', 'lifelink', 'magic_shield', 'reflect', 'regeneration', 'revitalize', 'spell_power', 'stoneskin', 'thorns', 'vampiric_aura', 'warded'])
 ItemData = namedtuple('ItemData', ['name', 'power', 'item_level', 'item_type', 'type_enum', 'consumable', 'consumable_party', 'consumable_spellbook'])
-ObjectData = namedtuple('ObjectData', ['name', 'power', 'object_type', 'level', 'consumable', 'interactable', 'on_step', 'hallway', 'nook', 'water', 'map_generatable', 'water_adjacent', 'corner', 'on_wall', 'against_wall', 'room_center', 'consumable_party', 'consumable_spellbook'])
+ObjectData = namedtuple('ObjectData', ['name', 'power', 'object_type', 'level', 'consumable', 'interactable', 'on_step', 'hallway', 'nook', 'water', 'map_generatable', 'water_adjacent', 'corner', 'on_wall', 'against_wall', 'room_center', 'consumable_party', 'consumable_spellbook', 'effect_0', 'effect_1', 'effect_2', 'effect_3', 'effect_4', 'effect_5', 'effect_0_chance', 'effect_1_chance', 'effect_2_chance', 'effect_3_chance', 'effect_4_chance', 'effect_5_chance'])
 TrainerData = namedtuple('TrainerData', ['trainer_name', 'party_0', 'party_1', 'party_2', 'party_3', 'party_4', 'party_5', 'spell_0', 'spell_1', 'spell_2', 'spell_3', 'spell_4', 'spell_5', 'item_0', 'item_1', 'item_2', 'item_3', 'item_4', 'item_5'])
 MapSpriteData = namedtuple('MapSpriteData', ['sprite_idx', 'sprite_color_idx'])
 
@@ -942,6 +942,21 @@ def get_names(table):
 
     # Use a placeholder for the value; table name must be validated separately
     cursor.execute(f"SELECT formatted FROM {table}s WHERE used = ? ORDER BY name ASC", (1,))
+
+    for row in cursor.fetchall():
+        formatted_results.append(row[0])  # Extract the first column from the tuple
+
+    conn.close()
+    return formatted_results
+
+
+def get_effects_strings(table):
+    formatted_results = []  # Initialize the list
+    conn = sqlite3.connect(DB_FILE)
+    cursor = conn.cursor()
+
+    # Use a placeholder for the value; table name must be validated separately
+    cursor.execute(f"SELECT name FROM {table}s WHERE used = ? ORDER BY name ASC", (1,))
 
     for row in cursor.fetchall():
         formatted_results.append(row[0])  # Extract the first column from the tuple
@@ -1265,11 +1280,11 @@ def get_objects_data():
     # Swap: make type_string the key, enum the value
     type_to_enum = {type_str: enum for enum, type_str in cursor.fetchall()}
 
-    cursor.execute('SELECT name,  power, object_type, level, consumable, interactable, interact_on_step, hallway, nook, water, map_generatable, water_adjacent, corner, on_wall, against_wall, room_center, consumable_party, consumable_spellbook FROM objects WHERE used = 1 ORDER BY name ASC')
+    cursor.execute('SELECT name,  power, object_type, level, consumable, interactable, interact_on_step, hallway, nook, water, map_generatable, water_adjacent, corner, on_wall, against_wall, room_center, consumable_party, consumable_spellbook, effect_0, effect_1, effect_2, effect_3, effect_4, effect_5, effect_0_chance, effect_1_chance, effect_2_chance, effect_3_chance, effect_4_chance, effect_5_chance FROM objects WHERE used = 1 ORDER BY name ASC')
 
     formatted_results = [
-        ObjectData(name, power, object_type, level, consumable, interactable, on_step, hallway, nook, water, map_generatable, water_adjacent, corner, on_wall, against_wall, room_center, consumable_party, consumable_spellbook)
-        for name, power, object_type, level, consumable, interactable, on_step, hallway, nook, water, map_generatable, water_adjacent, corner, on_wall, against_wall, room_center, consumable_party, consumable_spellbook in cursor.fetchall()
+        ObjectData(name, power, object_type, level, consumable, interactable, on_step, hallway, nook, water, map_generatable, water_adjacent, corner, on_wall, against_wall, room_center, consumable_party, consumable_spellbook, effect_0, effect_1, effect_2, effect_3, effect_4, effect_5, effect_0_chance, effect_1_chance, effect_2_chance, effect_3_chance, effect_4_chance, effect_5_chance)
+        for name, power, object_type, level, consumable, interactable, on_step, hallway, nook, water, map_generatable, water_adjacent, corner, on_wall, against_wall, room_center, consumable_party, consumable_spellbook, effect_0, effect_1, effect_2, effect_3, effect_4, effect_5, effect_0_chance, effect_1_chance, effect_2_chance, effect_3_chance, effect_4_chance, effect_5_chance in cursor.fetchall()
     ]
 
     conn.close()

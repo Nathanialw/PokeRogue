@@ -43,22 +43,22 @@ void InitPlayer(HardwareInterface hardware, MemoryInterface memory)
 
 
     //  TODO: load trainer spell data from the database flash
-    AddSpellPage(memory, g_core.player.id, HEAL, GetPlayerSpellbook()->occupied_pages);
-    AddSpellPage(memory, g_core.player.id, DESCEND, GetPlayerSpellbook()->occupied_pages);
-    AddSpellPage(memory, g_core.player.id, CLAIRVOYANCE, GetPlayerSpellbook()->occupied_pages);
-    AddSpellPage(memory, g_core.player.id, DISPLACEMENT, GetPlayerSpellbook()->occupied_pages);
-    AddSpellPage(memory, g_core.player.id, WIZEN, GetPlayerSpellbook()->occupied_pages);
+    // AddSpellPage(memory, g_core.player.id, HEAL, GetPlayerSpellbook()->occupied_pages);
+    // AddSpellPage(memory, g_core.player.id, DESCEND, GetPlayerSpellbook()->occupied_pages);
+    // AddSpellPage(memory, g_core.player.id, CLAIRVOYANCE, GetPlayerSpellbook()->occupied_pages);
+    // AddSpellPage(memory, g_core.player.id, DISPLACEMENT, GetPlayerSpellbook()->occupied_pages);
+    // AddSpellPage(memory, g_core.player.id, WIZEN, GetPlayerSpellbook()->occupied_pages);
 
 
     //  TODO: set from trainer data in the database flash
-    EntityId item_id = SpawnEntity(hardware, memory, ITEM, RARE_CANDY, x, y, 0);
-    PickItem(g_core.player.id, item_id);
-    EntityId item_id2 = SpawnEntity(hardware, memory, ITEM, POTION_XP, x, y, 0);
-    PickItem(g_core.player.id, item_id2);
-    EntityId item_id3 = SpawnEntity(hardware, memory, ITEM, SPELL_BOOK, x, y, 0);
-    PickItem(g_core.player.id, item_id3);
-    EntityId item_id4 = SpawnEntity(hardware, memory, ITEM, CAPTURE_LASSO, x, y, 0);
-    PickItem(g_core.player.id, item_id4);
+    // EntityId item_id = SpawnEntity(hardware, memory, ITEM, RARE_CANDY, x, y, 0);
+    // PickItem(g_core.player.id, item_id);
+    // EntityId item_id2 = SpawnEntity(hardware, memory, ITEM, POTION_XP, x, y, 0);
+    // PickItem(g_core.player.id, item_id2);
+    // EntityId item_id3 = SpawnEntity(hardware, memory, ITEM, SPELL_BOOK, x, y, 0);
+    // PickItem(g_core.player.id, item_id3);
+    // EntityId item_id4 = SpawnEntity(hardware, memory, ITEM, CAPTURE_LASSO, x, y, 0);
+    // PickItem(g_core.player.id, item_id4);
 
     g_core.trainers.speed[g_core.player.id].max = 99;
     g_core.trainers.speed[g_core.player.id].current = 15;

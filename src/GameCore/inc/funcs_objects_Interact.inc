@@ -1,9 +1,8 @@
 // Generated object name strings
-// Database contains 106 total entries
+// Database contains 108 total entries
 
 // Individual items strings
 InteractAltar,
-InteractAnvil,
 InteractBannerElf,
 InteractBannerGoblin,
 InteractBannerOrc,
@@ -12,6 +11,8 @@ InteractBedCot,
 InteractBedSingle,
 InteractBedTent,
 InteractBell,
+InteractRaft,
+InteractRowBoat,
 InteractBombTNT,
 InteractBookCase,
 InteractJewelleryCase,
@@ -82,6 +83,7 @@ InteractStatueExplorer,
 InteractStatueHero,
 InteractStatueKing,
 InteractStatueWeeping,
+InteractStatueWizard,
 InteractStill,
 InteractSundial,
 InteractTortureCuckingStool,
@@ -109,4 +111,4 @@ InteractWell,
 InteractWellAncient,
 InteractWickerMan,
 
-//ALL_NAMES_COUNT = 106;
+//ALL_NAMES_COUNT = 108;

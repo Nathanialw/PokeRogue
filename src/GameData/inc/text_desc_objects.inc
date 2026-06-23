@@ -1,9 +1,8 @@
 // Generated creature descriptions
-// Database contains 106 total descriptions
+// Database contains 108 total descriptions
 
 // Individual description strings
 "A long stone altar hums with ancient runes, its surface slick with the remnants of forgotten sacrifices.\0",
-"a black iron blacksmith's anvil\0",
 "A banner on a wooden pole, of an elf tribe blowing in the wind\0",
 "A banner on a wooden pole, of a goblin raider blowing in the wind\0",
 "A banner on a wooden pole, of an orc warchief blowing in the wind\0",
@@ -12,6 +11,8 @@
 "a simple single person bed with sheets\0",
 "a simple canvas tent\0",
 "a bell hanging from a basic wooden structure\0",
+"a crude square wooden raft\0",
+"The small wooden boat creaks as it glides through misty waters, its oars leaving shimmering trails of starlight behind.\0",
 "a pile of TNT and a plunger in front of it\0",
 "A bookcase packed full of leatherbound books\0",
 "An Oak Cabinet\0",
@@ -82,6 +83,7 @@
 "A stone statue of a famous hero with a sword\0",
 "A stone statue of a legendary king\0",
 "a weeping stone statue of a woman\0",
+"STATUE_WIZARD -- PLACEHOLDER TEXT - A mysterious object awaiting discovery.\0",
 "a metal still for brewing beer\0",
 "a roman sundial made of brown stone \0",
 "a torture device, a cucking stool, unoccupied\0",
@@ -110,4 +112,4 @@
 "a straw scarecrow with a hat\0",
 " ------ \0",
 
-//ALL_DESCRIPTIONS_COUNT = 106;
+//ALL_DESCRIPTIONS_COUNT = 108;

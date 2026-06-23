@@ -27,6 +27,24 @@ def make_flags16(flag0=0, flag1=0, flag2=0, flag3=0,
             bit(flag8, 8) | bit(flag9, 9) | bit(flag10, 10) | bit(flag11, 11) |
             bit(flag12, 12) | bit(flag13, 13) | bit(flag14, 14) | bit(flag15, 15))
 
+def pack_effects(*effects: int) -> int:
+    """
+    Pack up to 8 effect chances (each expected 0–3) into a uint16.
+    Any value >3 is treated as 3; any value <0 is treated as 0.
+    """
+    if len(effects) > 8:
+        raise ValueError("At most 8 effect chances allowed")
+
+    result = 0
+    for i, val in enumerate(effects):
+        # Clamp to 0–3
+        clamped = max(0, min(val, 3))
+        result |= (clamped & 0x3) << (2 * i)
+    return result
+
+def clamp3(val):
+    return max(0, min(val, 3))
+
 
 def creatures_skills(entity):
     filename = f"{constants.DATA_INC_FOLDER}/data_{entity}_skills.inc"
@@ -314,11 +332,14 @@ def objects(entity):
         f.write(f"//       8  bits - .power = {{ 8 bits }} \n")
         f.write(f"//    2x 4  bits - .data  = {{ .object_type = {{ 4 bits }}, .level = {{ 4 bits }} }}\n")
         f.write(f"//       16 bits - .flags = {{ _pad0, _pad1, consumable_spellbook, consumable_party, room_center, against_wall, on_wall, corner, water_adjacent, map_generatable, .water, .nook,  .hallway, .on_step, .interactable, .consumable, consumable_party, consumable_spellbook  }}\n\n")
-        f.write(f"// total 4 bytes\n")
+        f.write(f"//       64 bits - .effects = {{ .effects = [ {{ 8 bits x 6 }} ], .chance {{ 16 bits }} }} \n")
+        f.write(f"// total 12 bytes\n")
 
-        f.write(f"// Individual {entity}s data - count = {len(object_data)}\n")
+        f.write(f"// Individual {entity}s data - count = {len(object_data)}\n\n")
 
-        for i, (name, power, object_type, level, consumable, interactable, on_step, hallway, nook, water, map_generatable, water_adjacent, corner, on_wall, against_wall, room_center, consumable_party, consumable_spellbook) in enumerate(object_data):
+
+
+        for i, (name, power, object_type, level, consumable, interactable, on_step, hallway, nook, water, map_generatable, water_adjacent, corner, on_wall, against_wall, room_center, consumable_party, consumable_spellbook, effect_0, effect_1, effect_2, effect_3, effect_4, effect_5, effect_0_chance, effect_1_chance, effect_2_chance, effect_3_chance, effect_4_chance, effect_5_chance) in enumerate(object_data):
             # Clean the types for C string
             f.write(f"//    {i} - {name}\n")
 
@@ -332,7 +353,7 @@ def objects(entity):
             flags = make_flags16(consumable, interactable, on_step, hallway, nook, water, map_generatable, water_adjacent, corner, on_wall, against_wall, room_center, consumable_party, consumable_spellbook)
             flags_str = f"0b{flags:016b}"
 
-            f.write(f"{{ .power = {power_str}, .data = {data_str}, .flags = {flags_str} }},\n")
+            f.write(f"{{ .power = {power_str}, .data = {data_str}, .flags = {flags_str}, .effects = {{ .effects = {{ {effect_0:27}, {effect_1:27}, {effect_2:27}, {effect_3:27}, {effect_4:27}, {effect_5:27} }}, .chance = EFFECT_CHANCE({clamp3(effect_0_chance)}, {clamp3(effect_1_chance)}, {clamp3(effect_2_chance)}, {clamp3(effect_3_chance)}, {clamp3(effect_4_chance)}, {clamp3(effect_5_chance)}) }} }},\n")
 
         f.write("\n")
         f.write(f"//COUNT = {len(object_data)};\n")

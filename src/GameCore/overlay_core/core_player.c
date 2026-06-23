@@ -166,6 +166,15 @@ EntityId GetPlayerID(void)
 /**Returns the player ID
 **********************************************************************************************************************/
 SET_MEMORY(".core")
+uint99* GetPlayerLevel(void)
+{
+    return &g_core.trainers.level[g_core.player.id];
+}
+
+/**********************************************************************************************************************/
+/**Returns the player ID
+**********************************************************************************************************************/
+SET_MEMORY(".core")
 uint8_t GetPlayerPartySize(void)
 {
     return g_core.trainers.currentPartySize[GetPlayerID()];

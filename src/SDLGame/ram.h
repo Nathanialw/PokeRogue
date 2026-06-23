@@ -58,6 +58,7 @@ typedef struct
     SDL_FRect display_rect_right;
     SDL_FRect clip_rect_text;
     SDL_FRect display_rect_text;
+    float scale;
 
     SDL_Window* window;
     SDL_Renderer* renderer;
@@ -84,6 +85,7 @@ typedef struct
     uint8_t* funcs;
     bool running;
     bool redraw;
+    bool mouse_input;
 
     uint8_t* rom_bytes;
 

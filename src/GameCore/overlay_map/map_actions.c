@@ -34,6 +34,46 @@ ActionOutcome InteractObject(MemoryInterface memory, HardwareInterface hardware,
     ObjectData object_data;
     Flash_GetObjectData(memory, &object_data, object_type_id);
 
+    //calculate effect chances
+    //select random effect
+    uint8_t number_of_effects = 0;
+
+    //create and set caches to default
+    uint8_t effect_indexes[MAX_OBJECT_EFFECTS];
+    for (uint8_t i = 0; i < MAX_OBJECT_EFFECTS; i++) effect_indexes[i] = NO_EFFECT;
+    uint8_t weights[MAX_OBJECT_EFFECTS];
+    for (uint8_t i = 0; i < MAX_OBJECT_EFFECTS; i++) weights[i] = 0;
+
+    //iterate object data
+    for (uint8_t i = 0; i < MAX_OBJECT_EFFECTS; i++)
+    {
+        if (object_data.effects.effects[i] == NO_EFFECT) continue;
+        //get the chance of the given effect
+
+        // object_data.effects.chance <-- uint16_t
+        uint8_t value = (object_data.effects.chance >> (i * 2)) & 0x03; //this value needs to nbe the 2 bit of object_data.effects.chance offset by i * 2 bits if you see waht I mean
+
+        //check if it already exists, increment if found
+        bool exists = false;
+        for (uint8_t j = 0; j < MAX_OBJECT_EFFECTS; j++)
+        {
+            if (effect_indexes[j] == object_data.effects.effects[i])
+            {
+                weights[j] += value;
+                exists = true;
+            }
+        }
+
+        //add if it doesn't exist
+        if (!exists)
+        {
+            effect_indexes[number_of_effects] = object_data.effects.effects[i];
+            weights[number_of_effects] += value;
+            number_of_effects++;
+        }
+    }
+
+
     if (GetBit(g_core.objects.interactable, object_e_id))
     {
         if (object_data.consumable_party)
@@ -49,6 +89,7 @@ ActionOutcome InteractObject(MemoryInterface memory, HardwareInterface hardware,
                     if (object_data.consumable)
                         SetBit(g_core.objects.interactable, object_e_id, false);
                     SetInputState(INPUT_ACTING);
+                    g_core.update_right_party = true;
                     return ACTION_SUCCEEDED;
                 }
                 return ACTION_CANNOT;
@@ -70,6 +111,7 @@ ActionOutcome InteractObject(MemoryInterface memory, HardwareInterface hardware,
                     if (object_data.consumable)
                         SetBit(g_core.objects.interactable, object_e_id, false);
                     SetInputState(INPUT_ACTING);
+                    g_core.update_left_spellbook = true;
                     return ACTION_SUCCEEDED;
                 }
                 return ACTION_CANNOT;
@@ -85,6 +127,7 @@ ActionOutcome InteractObject(MemoryInterface memory, HardwareInterface hardware,
             {
                 if (object_data.consumable)
                     SetBit(g_core.objects.interactable, object_e_id, false);
+                g_core.update_left_player = true;
                 return ACTION_SUCCEEDED;
             }
         }
@@ -155,6 +198,7 @@ ActionOutcome CastSpellMap(HardwareInterface hardware, MemoryInterface memory, S
         {
             DEBUG("Spell success spellID: %d", spellID);
             GetPlayerSpellbook()->page[spellbook_index].pp--;
+            g_core.update_left_spellbook = true;
             return true;
         }
         else if (action_outcome == ACTION_FAILED)

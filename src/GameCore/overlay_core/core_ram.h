@@ -67,8 +67,12 @@ typedef struct
         int16_t battle_mp_cache[2];
         int16_t battle_xp_cache;
         int16_t battle_xp_max_cache;
+
+
     } battleMode;
 
+    char tooltip_text[COMBAT_LOG_LINES][40]; // TODO: expand o <= 30 lines for a full screen combat log, dont bother with scrolling, use a wraparound ptr
+    uint8_t tooltip_length;
 
     /**********************************************************************************************************************
     *   map data
@@ -98,8 +102,13 @@ typedef struct
         Resists resistsCache;
     };
 
-    bool update_right_wing;
-    bool update_left_wing;
+    uint16_t area_down_y;
+    bool update_right_inventory;
+    bool update_right_party;
+    bool update_right_text;
+    bool update_left_spellbook;
+    bool update_left_player;
+    bool update_left_text;
     bool update_text;
     /**********************************************************************************************************************
     *   player data
@@ -190,6 +199,11 @@ typedef struct
 
         //gain xp via sacrifices
         uint_max999 xp[MAX_ENTITY_TRAINER_COUNT];
+        uint99 level[MAX_ENTITY_TRAINER_COUNT];
+        SkillsGeneral skill_general[MAX_ENTITY_TRAINER_COUNT];
+        SkillsMage skill_mage[MAX_ENTITY_TRAINER_COUNT];
+        SkillsWarrior skill_warrior[MAX_ENTITY_TRAINER_COUNT];
+        SkillsRogue skill_rogue[MAX_ENTITY_TRAINER_COUNT];
         //skills
     } trainers;
 
@@ -197,7 +211,6 @@ typedef struct
     {
         uint16_t total;
         Position position[MAX_ENTITY_OBJECT_COUNT];
-        Position newPosition[MAX_ENTITY_OBJECT_COUNT]; // can be changed to hold delta, a uint8_t can hold up to 2
         uint8_t types[MAX_ENTITY_OBJECT_COUNT];
         ObjectType metaData[MAX_ENTITY_OBJECT_COUNT]; //any 8 bit data, Creature type, Item type, etc
         BitFieldUint8 onMap;

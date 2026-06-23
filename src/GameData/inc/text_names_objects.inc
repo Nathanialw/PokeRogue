@@ -1,9 +1,8 @@
 // Generated object name strings
-// Database contains 106 total object
+// Database contains 108 total object
 
 // Individual object strings
 "Altar\0",
-"Anvil\0",
 "Elf Banner\0",
 "Goblin Banner\0",
 "Orc Banner\0",
@@ -12,6 +11,8 @@
 "Single Bed\0",
 "Tent\0",
 "Bell\0",
+"Raft\0",
+"Row Boat\0",
 "TNT\0",
 "Book Case\0",
 "Jewellery Case\0",
@@ -82,6 +83,7 @@
 "Statue of a Her\0",
 "Statue of the K\0",
 "Weeping Statue\0",
+"Statue of a Wiz\0",
 "Still\0",
 "Sundial\0",
 "Cucking Stool\0",

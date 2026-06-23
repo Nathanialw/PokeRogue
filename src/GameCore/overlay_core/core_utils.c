@@ -18,27 +18,48 @@
 SET_MEMORY(".core")
 void GetAsChars_uint8(uint8_t n, CharStr_uint8* out, bool prependZeros, bool null_terminated)
 {
-    uint8_t hundreds = ((n / 100) % 10);
-    uint8_t tens = ((n / 10) % 10);
-    uint8_t ones = (n % 10);
+    uint8_t hundreds = (n / 100) % 10;
+    uint8_t tens     = (n / 10)  % 10;
+    uint8_t ones     = n % 10;
 
-    if (!prependZeros && CHAR_OFFSET + hundreds == '0')
-        (*out)[0] = ' ';
-    else
+    if (prependZeros)
+    {
+        // Fixed-width with leading zeros: "005", "042", "123"
         (*out)[0] = CHAR_OFFSET + hundreds;
-
-    if (!prependZeros && CHAR_OFFSET + tens == '0')
-        (*out)[1] = ' ';
-    else
         (*out)[1] = CHAR_OFFSET + tens;
+        (*out)[2] = CHAR_OFFSET + ones;
+    }
+    else
+    {
+        // Left-justified with spaces on the right
+        if (n >= 100)
+        {
+            // Three digits: "100" .. "255"
+            (*out)[0] = CHAR_OFFSET + hundreds;
+            (*out)[1] = CHAR_OFFSET + tens;
+            (*out)[2] = CHAR_OFFSET + ones;
+        }
+        else if (n >= 10)
+        {
+            // Two digits: "42 "
+            (*out)[0] = CHAR_OFFSET + tens;
+            (*out)[1] = CHAR_OFFSET + ones;
+            (*out)[2] = ' ';
+        }
+        else
+        {
+            // One digit: "5  " (including 0 -> "0  ")
+            (*out)[0] = CHAR_OFFSET + ones;
+            (*out)[1] = ' ';
+            (*out)[2] = ' ';
+        }
+    }
 
-    (*out)[2] = CHAR_OFFSET + ones;
     if (null_terminated)
         (*out)[3] = '\0';
     else
         (*out)[3] = ' ';
 }
-
 /**********************************************************************************************************************/
 /** takes a char array and a uin16_t and writes the value og the integer as chars to the array
 **********************************************************************************************************************/

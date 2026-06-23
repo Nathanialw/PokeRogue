@@ -298,11 +298,11 @@ void CreatureStats(GraphicsInterface graphics, MemoryInterface memory, EntityId 
     if (g_core.battleMode.playerMonsterID == creature_id)
     {
         GetStatPrefix(line, "HP:", cur_hp, max_hp);
-        PrintLineStr(graphics, memory, text_rect.x, STAT_ROW_1, font_size, max_chars, line, false, PAL_DARK_BLUE_GRAY, PAL_OFF_WHITE_GRAY_BLUE);
+        PrintLineStr(graphics, memory, text_rect.x, STAT_ROW_1, font_size, 0, line, false, PAL_DARK_BLUE_GRAY, PAL_OFF_WHITE_GRAY_BLUE);
         GetStatPrefix(line, "MP:", cur_mp, max_mp);
-        PrintLineStr(graphics, memory, text_rect.x, STAT_ROW_2, font_size, max_chars, line, false, PAL_DARK_BLUE_GRAY, PAL_OFF_WHITE_GRAY_BLUE);
+        PrintLineStr(graphics, memory, text_rect.x, STAT_ROW_2, font_size, 0, line, false, PAL_DARK_BLUE_GRAY, PAL_OFF_WHITE_GRAY_BLUE);
         GetStatPrefix(line, "XP:", cur_xp, max_xp);
-        PrintLineStr(graphics, memory, text_rect.x, STAT_ROW_3, font_size, max_chars, line, false, PAL_DARK_BLUE_GRAY, PAL_OFF_WHITE_GRAY_BLUE);
+        PrintLineStr(graphics, memory, text_rect.x, STAT_ROW_3, font_size, 0, line, false, PAL_DARK_BLUE_GRAY, PAL_OFF_WHITE_GRAY_BLUE);
 
         Color color_xp = Flash_GetColor(memory, PAL_PALE_BLU_PURP);
 

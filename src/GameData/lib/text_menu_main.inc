@@ -10,4 +10,7 @@
   "Spellbook\0  ",
   "Religion\0  ",
   "Options\0",
+  "Exit Game\0",
+  "Player\0",
+  "Skills\0",
   "Close\0",

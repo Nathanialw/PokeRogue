@@ -8,7 +8,6 @@
 #include <SDL3/SDL_init.h>
 #include <SDL3/SDL_timer.h>
 
-#include "graphics.h"
 #include "lib_debugging.h"
 #include "lib_decl.h"
 #include "ram.h"
@@ -83,6 +82,34 @@ KeyState ProcessInput(void)
         case SDL_EVENT_WINDOW_RESIZED:
             g_ramState.redraw = true;
             break;
+
+        case SDL_EVENT_MOUSE_BUTTON_DOWN:
+            {
+                float x, y;
+                SDL_GetMouseState(&x, &y);
+                g_ramState.keys.mouse.x = (uint16_t)x;
+                g_ramState.keys.mouse.y = (uint16_t)y;
+                g_ramState.mouse_input = true;
+                break;
+            }
+        case SDL_EVENT_MOUSE_BUTTON_UP:
+            {
+                float x, y;
+                SDL_GetMouseState(&x, &y);
+                g_ramState.keys.mouse.x = (uint16_t)x;
+                g_ramState.keys.mouse.y = (uint16_t)y;
+                g_ramState.mouse_input = true;
+                break;
+            }
+        case SDL_EVENT_MOUSE_WHEEL:
+            {
+                float x, y;
+                SDL_GetMouseState(&x, &y);
+                g_ramState.keys.mouse.x = (uint16_t)x;
+                g_ramState.keys.mouse.y = (uint16_t)y;
+                g_ramState.mouse_input = true;
+                break;
+            }
         }
     }
 
@@ -107,6 +134,12 @@ bool HandleInput(void)
             if (g_ramState.redraw)
             {
                 g_ramState.redraw = false;
+                return true;
+            }
+
+            if (g_ramState.mouse_input)
+            {
+                g_ramState.mouse_input = false;
                 return true;
             }
 

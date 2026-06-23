@@ -69,6 +69,8 @@ _Static_assert(OBJECT_COUNT <= 256, "max must be 256 - one byte");
 /**********************************************************************************************************************/
 /**PLAYER constants
 **********************************************************************************************************************/
+#define EFFECT_CHANCE(e0,e1,e2,e3,e4,e5)((uint16_t)( (e0) | ((e1)<<2) | ((e2)<<4) | ((e3)<<6) | ((e4)<<8) | ((e5)<<10) ))
+#define MAX_OBJECT_EFFECTS 6
 #define MAX_PARTY_SIZE 6
 #define MAX_SPELLBOOK_SIZE 30
 #define SPELL_INDEX_NULL 255

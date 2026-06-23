@@ -106,7 +106,7 @@ void UpdateResourceBar(GraphicsInterface graphics, HardwareInterface hardware, M
             start_x -= 1;
 
             graphics.FillRect(start_x, y, w, h, color_bg);
-            g_core.update_right_wing = true;
+            g_core.update_right_party = true;
             DrawScreen(graphics, memory);
             hardware.SleepMS(5);
         }
@@ -122,7 +122,7 @@ void UpdateResourceBar(GraphicsInterface graphics, HardwareInterface hardware, M
                 break;
 
             graphics.FillRect(start_x, y, w, h, color_fill);
-            g_core.update_right_wing = true;
+            g_core.update_right_party = true;
             DrawScreen(graphics, memory);
             hardware.SleepMS(5);
             start_x += 1;
@@ -211,7 +211,7 @@ void AnimationUpdateXP(GraphicsInterface graphics, HardwareInterface hardware, M
 
         graphics.FillRect(x, y, w, h, color_xp);
 
-        g_core.update_right_wing = true;
+        g_core.update_right_party = true;
         DrawScreen(graphics, memory);
         hardware.SleepMS(15);
     }

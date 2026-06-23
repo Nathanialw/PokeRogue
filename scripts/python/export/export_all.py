@@ -40,6 +40,7 @@ def run():
     export_enums.get_entity_enums("item")
     export_enums.get_entity_enums("object")
     export_enums.get_entity_enums("trainer")
+    export_enums.get_entity_enums("entity_effect")
 
     # image generation strings
     export_img_prompts.generate_data_from_db('creature')
@@ -202,23 +203,32 @@ def run():
     # functions
     # enum
 
-
+    ################################################################################################################################################
     # CREATURE BUFFS
     bytes_count.append(export_battlers.export_image_data("creature_buff", 64, 64))
     bytes_count_icons_small.append(export_map_sprites.export_image_data("creature_buff", 48))
     counts.append(export_enums.get_entity_enums("creature_buff"))
 
+    ################################################################################################################################################
     # CREATURE DEBUFFS
     bytes_count.append(export_battlers.export_image_data("creature_debuff", 64, 64))
     bytes_count_icons_small.append(export_map_sprites.export_image_data("creature_debuff", 48))
     counts.append(export_enums.get_entity_enums("creature_debuff"))
 
+    ################################################################################################################################################
     # TRAINER BUFFS
     bytes_count.append(export_battlers.export_image_data("trainer_buff", 64, 64))
     bytes_count_icons_small.append(export_map_sprites.export_image_data("trainer_buff", 48))
     counts.append(export_enums.get_entity_enums("trainer_buff"))
 
+    ################################################################################################################################################
+    # OBJECT EFFECTS
+    export.func_c_headers("entity_effect", "Effect", "ActionOutcome", "HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData, ObjectsTypes objectType, uint8_t index")
+    counts.append(export.effect_strings("entity_effect"))
 
+
+
+    ################################################################################################################################################
     # enums
     export_enums.get_data_enums("item_types")
     export_enums.get_data_enums("biomes")

@@ -20,3 +20,4 @@ EntityId GetPlayerEffects(PlayerEffects playerEffect);
 EntityId* GetPlayerInventory(void);
 uint8_t GetPlayerPartySize(void);
 EntityId* GetPlayerParty(void);
+uint99* GetPlayerLevel(void);

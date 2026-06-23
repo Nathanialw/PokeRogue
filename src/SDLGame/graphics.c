@@ -414,7 +414,7 @@ void UpdateDrawAreas(void)
 {
     int w, h;
     SDL_GetWindowSize(g_ramState.window, &w, &h);
-    float main_h = (float)h - ((float)h * 0.1f); //0.2f is the text area for description, set as a const when it is fleshed out
+    float main_h = (float)h; // - ((float)h * 0.1f); //0.2f is the text area for description, set as a const when it is fleshed out
 
     if (w > h)
     {
@@ -431,7 +431,11 @@ void UpdateDrawAreas(void)
 
         //scale clip h when it exceeds the texture h
         if (h > SCREEN_H)
-            wing_w *= (float)SCREEN_H / (float)h;
+        {
+            g_ramState.scale = (float)SCREEN_H / (float)h;
+            wing_w *= g_ramState.scale;
+            DEBUG("scale: %f", g_ramState.scale);
+        }
 
         g_ramState.clip_rect_main = (SDL_FRect){0.0f, 0.0f, main_h, main_h};
         g_ramState.clip_rect_left = (SDL_FRect){0.0f, 0.0f, wing_w, h};
@@ -461,7 +465,7 @@ void EndFrame(void)
     SDL_RenderTexture(g_ramState.renderer, g_ramState.screen, NULL, &g_ramState.display_rect_main);
     SDL_RenderTexture(g_ramState.renderer, g_ramState.right_wing, &g_ramState.clip_rect_right, &g_ramState.display_rect_right);
     SDL_RenderTexture(g_ramState.renderer, g_ramState.left_wing, &g_ramState.clip_rect_left, &g_ramState.display_rect_left);
-    SDL_RenderTexture(g_ramState.renderer, g_ramState.text, &g_ramState.clip_rect_text, &g_ramState.display_rect_text);
+    // SDL_RenderTexture(g_ramState.renderer, g_ramState.text, &g_ramState.clip_rect_text, &g_ramState.display_rect_text);
     SDL_RenderPresent(g_ramState.renderer);
     SDL_SetRenderTarget(g_ramState.renderer, g_ramState.screen); // set to buffer
     g_ramState.current_target = g_ramState.screen;
@@ -529,6 +533,35 @@ Rect_16 (GetTextRect)(void)
     return rect;
 }
 
+Rect_16 (GetMainScreenRect)(void)
+{
+    Rect_16 rect = {g_ramState.display_rect_main.x, g_ramState.display_rect_main.y, g_ramState.display_rect_main.w, g_ramState.display_rect_main.h};
+    return rect;
+}
+
+Rect_16 (GetLeftScreenRect)(void)
+{
+    Rect_16 rect = {g_ramState.display_rect_left.x, g_ramState.display_rect_left.y, g_ramState.display_rect_left.w, g_ramState.display_rect_left.h};
+    return rect;
+}
+
+Rect_16 (GetRightScreenRect)(void)
+{
+    Rect_16 rect = {g_ramState.display_rect_right.x, g_ramState.display_rect_right.y, g_ramState.display_rect_right.w, g_ramState.display_rect_right.h};
+    return rect;
+}
+
+Rect_16 (GetTextScreenRect)(void)
+{
+    Rect_16 rect = {g_ramState.display_rect_text.x, g_ramState.display_rect_text.y, g_ramState.display_rect_text.w, g_ramState.display_rect_text.h};
+    return rect;
+}
+
+float (GetScale)(void)
+{
+    return g_ramState.scale;
+}
+
 GraphicsInterface GraphicsInterfaceInit()
 {
     GraphicsInterface graphicsInterface = {
@@ -567,6 +600,11 @@ GraphicsInterface GraphicsInterfaceInit()
         .GetRightRect = GetRightRect,
         .GetTextRect = GetTextRect,
         .UpdateDrawAreas = UpdateDrawAreas,
+        .GetMainScreenRect = GetMainScreenRect,
+        .GetLeftScreenRect = GetLeftScreenRect,
+        .GetRightScreenRect = GetRightScreenRect,
+        .GetTextScreenRect = GetTextScreenRect,
+        .GetScale = GetScale,
     };
 
     return graphicsInterface;

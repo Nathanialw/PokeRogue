@@ -7,6 +7,7 @@
 #include "inc/decl_objects_Interact.inc"
 #include "inc/decl_items_UseMap.inc"
 #include "inc/decl_spells_CastMap.inc"
+#include "inc/decl_entity_effects_Effect.inc"
 
 
 SET_MEMORY(".map.rodata")
@@ -22,6 +23,11 @@ const SpellEffectMap spellFunctionsMap[SPELL_COUNT] = {
 SET_MEMORY(".map.rodata")
 const ItemEffect itemFunctionsMap[ITEM_COUNT] = {
 #include "inc/funcs_items_UseMap.inc"
+};
+
+SET_MEMORY(".map.rodata")
+const EntityEffect effectsFunctionsMap[EFFECT_COUNT] = {
+#include "inc/funcs_entity_effects_Effect.inc"
 };
 
 

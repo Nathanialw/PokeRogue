@@ -52,6 +52,9 @@ ActionOutcome InteractAltar(HardwareInterface hardware, MemoryInterface memory, 
         Creature creature_type = GetCreatureType(e_id);
         SetBit(g_core.player.sacrificedCreatures, creature_type, true);
         DestroyPartyCreature(GetPlayerID(), e_id);
+        GainXP(GetPlayerID(), 120, TRAINER);
+        g_core.update_left_player = true;
+        g_core.update_right_party = true;
         return ACTION_SUCCEEDED;
     }
     return ACTION_FAILED;
@@ -572,7 +575,7 @@ ActionOutcome InteractAcidFountain(HardwareInterface hardware, MemoryInterface m
     }
 
 
-    if (RestoreMana(e_id, 20))
+    if (RestoreMana(e_id, objectData.power))
     {
         SetUsed(object_id);
         DEBUG("Drank from Acid Fountain restoring 20 Mana to party member 0");
@@ -597,7 +600,7 @@ ActionOutcome InteractBloodFountain(HardwareInterface hardware, MemoryInterface 
         return ACTION_CANNOT;
     }
 
-    if (RestoreMana(e_id, 20))
+    if (RestoreMana(e_id, objectData.power))
     {
         SetUsed(object_id);
         DEBUG("Drank from Blood Fountain restoring 20 Mana to party member 0");
@@ -621,7 +624,7 @@ ActionOutcome InteractWaterFountain(HardwareInterface hardware, MemoryInterface 
     }
 
 
-    if (RestoreMana(e_id, 20))
+    if (RestoreMana(e_id, objectData.power))
     {
         SetUsed(object_id);
         DEBUG("Drank from Water Fountain restoring 20 Mana to party member 0");
@@ -646,7 +649,7 @@ ActionOutcome InteractWell(HardwareInterface hardware, MemoryInterface memory, E
     }
 
 
-    GainXP(e_id, objectData.power);
+    GainXP(e_id, objectData.power, CREATURE);
     SetUsed(object_id);
     DEBUG("Drank from Well gaining XP for a party member");
     return ACTION_SUCCEEDED;
@@ -1096,6 +1099,9 @@ ActionOutcome InteractHeadingBlock(HardwareInterface hardware, MemoryInterface m
                 Creature creature_type = GetCreatureType(e_id);
                 SetBit(g_core.player.sacrificedCreatures, creature_type, true);
                 DestroyPartyCreature(GetPlayerID(), e_id);
+                GainXP(GetPlayerID(), 120, TRAINER);
+                g_core.update_left_player = true;
+                g_core.update_right_party = true;
                 return ACTION_SUCCEEDED;
             }
         }

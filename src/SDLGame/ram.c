@@ -15,7 +15,7 @@ RamState g_ramState =
     .redraw = false,
     .keys = {0},
     .running = true,
-
+    .scale = 0.0f,
 
     .volume_effects = 5,
     .volume_music = 1,

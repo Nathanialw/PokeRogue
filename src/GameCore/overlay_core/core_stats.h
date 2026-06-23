@@ -7,7 +7,7 @@
 
 void SetXPToLevel(EntityId id, uint_max999* xp);
 void GainXPFromKill(EntityId id, EntityId dead_id);
-void GainXP(EntityId creature_id, uint16_t xp_value);
+void GainXP(EntityId creature_id, uint16_t xp_value, ObjectsTypes entity_type);
 
 void GetStats(HardwareInterface hardware, MemoryInterface memory, Stats *stats, Creature type, uint8_t level);
 void GetAttributes(HardwareInterface hardware, MemoryInterface memory, Attributes *attributes, Creature type, uint8_t level);

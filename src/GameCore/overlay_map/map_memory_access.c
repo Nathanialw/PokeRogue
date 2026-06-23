@@ -20,7 +20,6 @@ void Flash_GetBiomeTile(MemoryInterface memory, Tile* tile, uint8_t biomeType, u
     memory.GetRom(CHAR_SPRITES_BIOMES_POSITION + (g_core.biome * (NUM_TILES * sizeof(Tile))) + (tile_id * sizeof(Tile)), tile->bytes, sizeof(Tile));
 }
 
-
 /**********************************************************************************************************************/
 /*      SPRITES
 **********************************************************************************************************************/

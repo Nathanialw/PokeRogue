@@ -192,6 +192,18 @@ typedef struct
         uint16_t buttons;
     };
 
+    struct
+    {
+        uint32_t x : 13;    //0-8192
+        uint32_t y : 13;    //0-8192
+        uint32_t right_down : 1;
+        uint32_t right_up : 1;
+        uint32_t left_down : 1;
+        uint32_t left_up : 1;
+
+        uint32_t _pad : 2;
+    } mouse;
+
     // Delta d;
     Delta dp;
     Delta js;
@@ -199,4 +211,4 @@ typedef struct
     // uint8_t _pad;
 } KeyState;
 
-_Static_assert(sizeof(KeyState) == 4, "KeyState must be 4 bytes");
+_Static_assert(sizeof(KeyState) == 12, "KeyState must be 4 bytes");

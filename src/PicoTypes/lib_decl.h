@@ -54,6 +54,11 @@ typedef struct __attribute__((packed))
     Rect_16 (*GetLeftRect)(void);
     Rect_16 (*GetRightRect)(void);
     Rect_16 (*GetTextRect)(void);
+    Rect_16 (*GetMainScreenRect)(void);
+    Rect_16 (*GetLeftScreenRect)(void);
+    Rect_16 (*GetRightScreenRect)(void);
+    Rect_16 (*GetTextScreenRect)(void);
+    float (*GetScale)(void);
 
     uint16_t (*GetBufferWidth)(void);
     uint16_t (*GetBufferHeight)(void);

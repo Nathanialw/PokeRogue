@@ -8,17 +8,16 @@
 #include "lib_decl.h"
 #include "lib_memory.h"
 #include "lib_types.h"
+#include "lib_debugging.h"
 
 #include "core_entities.h"
 #include "core_menu.h"
 #include "core_ram.h"
 #include "core_memory_access.h"
 #include "core_player.h"
-#include "core_state.h"
 #include "core_utils.h"
-#include "lib_debugging.h"
-#include "map_actions.h"
 
+#include "map_actions.h"
 #include "map_graphics.h"
 #include "map_memory_access.h"
 #include "map_rendering.h"
@@ -42,6 +41,10 @@ bool Religion(GraphicsInterface graphics, HardwareInterface hardware, InputInter
 bool Options(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update);
 bool Exit(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update);
 
+bool CloseMainMenu(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update);
+bool Player(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update);
+bool Skills(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update);
+
 /**********************************************************************************************************************
 ** Function pointers to control which submenu to display
  *  Use the menu cursor position y to index into this array
@@ -61,6 +64,9 @@ SubMenu submenus[MAIN_MENUS_SIZE] = {
     Religion,
     Options,
     Exit,
+    Player,
+    Skills,
+    CloseMainMenu,
 };
 
 
@@ -787,6 +793,36 @@ bool Exit(GraphicsInterface graphics, HardwareInterface hardware, InputInterface
     return false;
 };
 
+
+/**********************************************************************************************************************
+** Closes the main menu
+**********************************************************************************************************************/
+SET_MEMORY(".map")
+bool Player(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update)
+{
+    return true;
+};
+
+/**********************************************************************************************************************
+** Closes the main menu
+**********************************************************************************************************************/
+SET_MEMORY(".map")
+bool Skills(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update)
+{
+    return true;
+};
+
+/**********************************************************************************************************************
+** Closes the main menu
+**********************************************************************************************************************/
+SET_MEMORY(".map")
+bool CloseMainMenu(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update)
+{
+    g_core.menu.displayedMenu = MENU_NONE;
+    Back(MAIN_MENU);
+    return false;
+};
+
 /**********************************************************************************************************************
 ** Opens the submenu at the index of the cursor y position
 **********************************************************************************************************************/
@@ -890,6 +926,9 @@ bool Spells_r(GraphicsInterface graphics, HardwareInterface hardware, InputInter
 bool Religion_r(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update);
 bool Options_r(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update);
 bool Exit_r(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update);
+bool CloseMainMenu_r(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update);
+bool Player_r(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update);
+bool Skills_r(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update);
 
 
 /**********************************************************************************************************************
@@ -911,6 +950,9 @@ SubMenu menu_actions_r[MAIN_MENUS_SIZE] = {
     Religion_r,
     Options_r,
     Exit_r,
+    Player_r,
+    Skills_r,
+    CloseMainMenu_r,
 };
 
 
@@ -1011,6 +1053,27 @@ bool Options_r(GraphicsInterface graphics, HardwareInterface hardware, InputInte
 
 SET_MEMORY(".map")
 bool Exit_r(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update)
+{
+    return false;
+}
+
+SET_MEMORY(".map")
+bool Player_r(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update)
+{
+
+
+
+    return false;
+}
+
+SET_MEMORY(".map")
+bool Skills_r(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update)
+{
+    return false;
+}
+
+SET_MEMORY(".map")
+bool CloseMainMenu_r(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update)
 {
     return false;
 }

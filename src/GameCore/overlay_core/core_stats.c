@@ -33,27 +33,42 @@ void SetXPToLevel(EntityId id, uint_max999* xp)
 /** handles xp gain and  level up
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-void GainXP(EntityId creature_id, uint16_t xp_value)
+void GainXP(EntityId creature_id, uint16_t xp_value, ObjectsTypes entity_type)
 {
-    uint_max999 xp = g_core.creatures.xp[creature_id];
-    uint16_t cur = Int999GetCurrent(&xp);
-    g_core.battleMode.battle_xp_cache = cur;
-    uint16_t max = Int999GetMax(&xp);
-    uint16_t new_xp = (cur + xp_value);
-    if (new_xp < max)
+    uint_max999* xp;
+    uint99* level = NULL;
+
+    if (entity_type == CREATURE)
     {
-        Int999SetCurrent(&xp, (cur + xp_value));
+        xp = &g_core.creatures.xp[creature_id];
+        level = &g_core.creatures.level[creature_id];
+    }
+    else if (entity_type == TRAINER)
+    {
+        xp = &g_core.trainers.xp[creature_id];
+        level = &g_core.trainers.level[creature_id];
     }
     else
     {
-        g_core.creatures.level[creature_id].value++;
-        new_xp = new_xp - max;
-        SetXPToLevel(creature_id, &xp);
-        Int999SetCurrent(&xp, new_xp);
-        g_core.battleMode.battle_xp_max_cache = Int999GetMax(&xp);
+        return;
     }
 
-    g_core.creatures.xp[creature_id] = xp;
+    uint16_t cur = Int999GetCurrent(xp);
+    g_core.battleMode.battle_xp_cache = cur;
+    uint16_t max = Int999GetMax(xp);
+    uint16_t new_xp = (cur + xp_value);
+    if (new_xp < max)
+    {
+        Int999SetCurrent(xp, (cur + xp_value));
+    }
+    else
+    {
+        level->value++;
+        new_xp = new_xp - max;
+        SetXPToLevel(creature_id, xp);
+        Int999SetCurrent(xp, new_xp);
+        g_core.battleMode.battle_xp_max_cache = Int999GetMax(xp);
+    }
 }
 
 
@@ -68,7 +83,7 @@ void GainXPFromKill(EntityId id, EntityId dead_id)
     uint16_t total_stats = stats.magic + stats.attack + stats.defence + stats.speed + (20 * level);
     uint16_t xp_value = total_stats / 5;
 
-    GainXP(id, xp_value);
+    GainXP(id, xp_value, CREATURE);
 }
 
 
@@ -112,7 +127,7 @@ void GetStats(HardwareInterface hardware, MemoryInterface memory, Stats* stats, 
 /** Returns the stats of a given creature type and level
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-void GetAttributes(HardwareInterface hardware, MemoryInterface memory, Attributes *attributes, Creature type, uint8_t level)
+void GetAttributes(HardwareInterface hardware, MemoryInterface memory, Attributes* attributes, Creature type, uint8_t level)
 {
     Flash_GetCreatureAttributes(memory, attributes, type);
 }
@@ -233,7 +248,6 @@ uint8_t DecrementStatusEffect(uint8_t status_value, EntityId creature_id)
 }
 
 
-
 //
 // /**********************************************************************************************************************
 // *
@@ -263,7 +277,6 @@ void GetCreatureStatusEffectStateBuffs(uint8_t* buff_values, EntityId creature_i
 }
 
 
-
 //
 // /**********************************************************************************************************************
 // *
@@ -291,4 +304,3 @@ void GetCreatureStatusEffectStateDebuffs(uint8_t* buff_values, EntityId creature
     buff_values[14] = g_core.creatures.debuffs[creature_id].sleep;
     buff_values[15] = g_core.creatures.debuffs[creature_id].slow;
 }
-

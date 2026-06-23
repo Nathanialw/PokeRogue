@@ -7,7 +7,6 @@
 #include "core_ram.h"
 #include "core_stats.h"
 #include "core_utils.h"
-#include "map.h"
 
 #include "map_actions.h"
 #include "map_effects.h"
@@ -707,7 +706,7 @@ SET_MEMORY(".core")
 ActionOutcome UseMapXPPotion(HardwareInterface hardware, MemoryInterface memory, EntityId item_id, EntityId user_id, EntityId target_id, ItemData itemData, uint8_t index)
 {
     if (target_id == NO_ENTITY) return ACTION_CANNOT;
-    GainXP(target_id, itemData.value);
+    GainXP(target_id, itemData.value, CREATURE);
     return ACTION_SUCCEEDED;
 }
 

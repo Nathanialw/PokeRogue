@@ -61,6 +61,10 @@ ActionOutcome ApplyFear(EntityId e_id, uint8_t duration);
 ActionOutcome ApplyBurn(EntityId e_id, uint8_t duration);
 ActionOutcome ApplySlow(EntityId e_id, uint8_t duration);
 ActionOutcome ApplyRoot(EntityId e_id, uint8_t duration);
+ActionOutcome ApplyBlind(EntityId e_id, uint8_t duration);
+ActionOutcome ApplyDisarm(EntityId e_id, uint8_t duration);
+ActionOutcome ApplyPetrify(EntityId e_id, uint8_t duration);
+
 ActionOutcome RemovePoison(EntityId e_id);
 ActionOutcome RemoveCurse(EntityId e_id);
 ActionOutcome RemoveEnfeeble(EntityId e_id);
@@ -73,6 +77,9 @@ ActionOutcome RemoveFear(EntityId e_id);
 ActionOutcome RemoveBurn(EntityId e_id);
 ActionOutcome RemoveSlow(EntityId e_id);
 ActionOutcome RemoveHaste(EntityId e_id);
+ActionOutcome RemoveBlind(EntityId e_id);
+ActionOutcome RemoveDisarm(EntityId e_id);
+ActionOutcome RemovePetrify(EntityId e_id);
 
 ActionOutcome NextAttackFreezes();
 ActionOutcome FreezeAttackers(EntityId e_id, uint8_t duration);
@@ -186,3 +193,47 @@ ActionOutcome CreateItemMagic(HardwareInterface hardware, MemoryInterface memory
 ActionOutcome MapModifyTile(Position, MapTile tileType);
 ActionOutcome RemoveMapFog();
 ActionOutcome GoNextLevel(MapLevelChange dir);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

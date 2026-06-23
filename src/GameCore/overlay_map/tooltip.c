@@ -5,15 +5,21 @@
 #include "tooltip.h"
 
 #include "lib_decl.h"
+#include "lib_memory.h"
 
 #include "core_graphics.h"
 #include "core_memory_access.h"
+#include "core_ram.h"
 
 #include "map_ram.h"
 
+// a
+
 /**********************************************************************************************************************/
-/** Print information about the current cell on th bottom of the screen
+/** calculate the chances for each effect
+ * create the lines and cache them
 **********************************************************************************************************************/
+SET_MEMORY(".map")
 void UpdateTooltip(GraphicsInterface graphics, MemoryInterface memory)
 {
     if (g_map.objectCollision == NO_OBJECT && g_map.itemCollision == NO_ITEM)
@@ -24,6 +30,10 @@ void UpdateTooltip(GraphicsInterface graphics, MemoryInterface memory)
     uint16_t y = SCREEN_H - (2 * TEXT_H);
     const uint8_t size = SCREEN_W / TEXT_H;
     g_map.clearTooltip = true;
+
+    g_core.tooltip_text[0][0] = '0';
+    g_core.tooltip_length = 4;
+
 
     if (g_map.objectCollision != NO_OBJECT)
     {

@@ -15,6 +15,7 @@ add_library(GameCore STATIC
         overlay_core/core_effects.c
         overlay_core/core_save.c
         overlay_core/core_sound.c
+        overlay_core/core_input.c
 
         #   MAP
         overlay_map/map_camera.c
@@ -42,6 +43,7 @@ add_library(GameCore STATIC
         overlay_map/map_effects_items.c
         overlay_map/map_effects_tiles_step_off.c
         overlay_map/map_effects_tiles_step_on.c
+        overlay_map/map_effects_object_effects.c
 
 
         #   BATTLES

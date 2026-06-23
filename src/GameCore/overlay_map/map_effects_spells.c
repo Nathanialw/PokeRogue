@@ -728,7 +728,7 @@ SET_MEMORY(".map")
 ActionOutcome CastMapRaiseXP(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId target_id, SpellData spellData)
 {
     if (target_id == NO_ENTITY) return ACTION_CANNOT;
-    GainXP(target_id, spellData.power);
+    GainXP(target_id, spellData.power, CREATURE);
     return ACTION_SUCCEEDED;
 }
 

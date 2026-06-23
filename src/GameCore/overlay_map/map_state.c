@@ -11,6 +11,7 @@
 
 
 #include "core_graphics.h"
+#include "core_input.h"
 #include "core_menu.h"
 #include "core_ram.h"
 #include "core_state.h"
@@ -63,6 +64,9 @@ void UpdateGameRunningState(GraphicsInterface graphics, HardwareInterface hardwa
             if (!OpenSubMenu(graphics, hardware, input, memory))
             {
                 SetInputState(INPUT_IDLE);
+                SetGameLoopRateDefault();
+                FullRedraw(graphics, hardware, memory);
+                DrawScreen(graphics, memory);
             }
             return;
         }
@@ -204,6 +208,8 @@ void UpdateGameRunningState(GraphicsInterface graphics, HardwareInterface hardwa
 
             if (!action_outcome)
                 PlayerInteractObjectInCell(memory, hardware);
+            else
+                g_core.update_right_inventory = true;
 
             FullRedraw(graphics, hardware, memory);
             return;
@@ -263,6 +269,8 @@ void UpdateGameRunningState(GraphicsInterface graphics, HardwareInterface hardwa
 
             if (!action_outcome)
                 PlayerInteractObjectInCell(memory, hardware);
+            else
+                g_core.update_right_inventory = true;
 
             FullRedraw(graphics, hardware, memory);
             return;
@@ -364,9 +372,12 @@ uint8_t OverlayMapEntry(GameInterface* spi)
         bool redraw_window = spi->input.HandleInput();
         if (redraw_window)
         {
+            InteractUI(spi->graphics, spi->input);
             g_core.update_text = true;
-            g_core.update_left_wing = true;
-            g_core.update_right_wing = true;
+            g_core.update_right_inventory = true;
+            g_core.update_right_party = true;
+            g_core.update_left_spellbook = true;
+            g_core.update_left_player = true;
             DrawScreen(spi->graphics, spi->memory);
         }
         else

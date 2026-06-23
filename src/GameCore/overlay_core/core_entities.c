@@ -178,6 +178,15 @@ void DestroyTrainer(EntityId id)
         g_core.trainers.partyID[creature_id][i] = NO_ENTITY;
     }
 
+    g_core.trainers.skill_general[id].raw = 0;
+    g_core.trainers.skill_mage[id].raw = 0;
+    g_core.trainers.skill_warrior[id].raw = 0;
+    g_core.trainers.skill_rogue[id].raw = 0;
+    g_core.trainers.level[id].byte = 0;
+
+    g_core.trainers.buffs[id].raw = 0;
+    memset(g_core.trainers.xp[id].bytes, 0, sizeof(g_core.trainers.xp[id].bytes));
+
     g_core.creatures.buffs[id].raw = 0;
     Position empty_pos = {.x = 0, .y = 0};
     g_core.objects.position[id] = empty_pos;
@@ -612,6 +621,9 @@ EntityId SpawnTrainer(HardwareInterface hardware, MemoryInterface memory, uint8_
     PickItem(id, item_id);
 
 
+    Int999SetMax(&g_core.trainers.xp[id], 100);
+    Int999SetCurrent(&g_core.trainers.xp[id], 0);
+    g_core.trainers.level[id].value = 1;
     g_core.trainers.position[id] = pos;
     g_core.trainers.types[id] = type;
     g_core.trainers.metaData[id].value = (l + 10) + (l * 5);

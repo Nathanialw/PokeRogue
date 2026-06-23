@@ -257,6 +257,7 @@ void HandleBattleState(GameInterface* spi)
     if (CheckBattleState(BATTLE_CAPTURE_ENEMY))
     {
         AnimationBattlerDie(spi->graphics, spi->hardware, spi->memory, false);
+        g_core.update_right_party = true;
 
         if (g_core.battleMode.enemy_trainer_id == NO_ENTITY)
         {
@@ -309,8 +310,10 @@ uint8_t OverlayBattleEntry(GameInterface* spi)
         if (redraw_window)
         {
             g_core.update_text = true;
-            g_core.update_left_wing = true;
-            g_core.update_right_wing = true;
+            g_core.update_right_inventory = true;
+            g_core.update_right_party = true;
+            g_core.update_left_spellbook = true;
+            g_core.update_left_player = true;
             DrawScreen(spi->graphics, spi->memory);
         }
         else

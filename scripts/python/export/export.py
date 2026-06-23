@@ -81,6 +81,32 @@ def name_to_c_array(entity):
     return len(names)
 
 
+#TODO save these into an effects strings array, right no it just gets the count
+def effect_strings(entity):
+    """Export the database contents to a C array file"""
+    filename = f"{DATA_INC_FOLDER}/text_names_{entity}s.inc"
+
+    names = db_manager.get_effects_strings(entity)
+    #
+    # with open(filename, 'w', encoding='utf-8') as f:
+    #     f.write(f"// Generated {entity} name strings\n")
+    #     f.write(f"// Database contains {len(names)} total {entity}\n\n")
+    #
+    #     # Write individual constants
+    #     f.write(f"// Individual {entity} strings\n")
+    #     desc_vars = []
+    #     for i, (formatted) in enumerate(names):
+    #         # Clean the types for C string
+    #         f.write(f"\"{formatted:.15}\\0\",\n")
+    #     f.write(f"\" ------ \\0\",\n")
+    #     f.write("\n")
+    #
+    #     f.write(f"//ALL_NAMES_COUNT = {len(desc_vars)};\n")
+
+    print(f"📄 Exported {len(names)} {entity} names to {filename}")
+    return len(names)
+
+
 def export_map_sprites_char(entity):
     """Export the database contents to a C array file"""
     filename = f"{DATA_INC_FOLDER}/map_sprites_{entity}s.inc"
@@ -282,6 +308,7 @@ def export_constants(byte_counts, counts, bytes_count_map_sprites, bytes_count_i
         f.write(f"#define CREATURE_BUFF_COUNT {counts[8]}\n")
         f.write(f"#define CREATURE_DEBUFF_COUNT {counts[9]}\n")
         f.write(f"#define TRAINER_BUFF_COUNT {counts[10]}\n")
+        f.write(f"#define EFFECT_COUNT {counts[11]}\n")
         f.write(f"\n")
 
         f.write(f"#define CREATURE_TEXT_ARRAY_SIZE {counts[0] + 1}\n")
@@ -308,6 +335,7 @@ def export_constants(byte_counts, counts, bytes_count_map_sprites, bytes_count_i
         f.write(f"#define NO_CREATURE_BUFF {counts[8]}\n")
         f.write(f"#define NO_CREATURE_DEBUFF {counts[9]}\n")
         f.write(f"#define NO_TRAINER_BUFF {counts[10]}\n")
+        f.write(f"#define NO_EFFECT {counts[11]}\n")
 
         f.write(f"\n")
         f.write(f"#define SPRITE_64x64_CREATURE_BYTES {bytes_count_map_sprites[0]}\n")

@@ -69,11 +69,13 @@ typedef enum
     RELIGION,
     OPTIONS,
     EXIT,
+    CLOSE,
+    PLAYER,
+    SKILLS,
     MAIN_MENUS_SIZE,
 } MainMenu;
 
-_Static_assert((MAIN_MENUS_SIZE == 13), "MainMenu state changed");
-
+_Static_assert((MAIN_MENUS_SIZE == 16), "MainMenu state changed");
 
 /**********************************************************************************************************************/
 /** game Biome list
@@ -206,6 +208,17 @@ typedef enum
     ICON_CREATURE_BUFF,
     ICON_TRAINER_BUFF,
 } IconType;
+
+
+
+/**********************************************************************************************************************/
+/** game Biome list
+**********************************************************************************************************************/
+typedef enum
+{
+#include "../inc/data_enum_entity_effects.inc"
+} ObjectEffects;
+
 
 /**********************************************************************************************************************/
 /** Items types

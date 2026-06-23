@@ -114,6 +114,7 @@ void PrintCombatLog(HardwareInterface hardware, MemoryInterface memory, EntityId
 }
 
 
+SET_MEMORY(".battle")
 void PrintCombatLogText(HardwareInterface hardware, MemoryInterface memory, const char* text)
 {
     uint8_t i = 0;

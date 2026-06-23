@@ -743,7 +743,7 @@ SET_MEMORY(".battle")
 ActionOutcome CastBattleRaiseXP(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData)
 {
     if (friendly_id == NO_ENTITY) return ACTION_CANNOT;
-    GainXP(friendly_id, spellData.power);
+    GainXP(friendly_id, spellData.power, CREATURE);
     return ACTION_SUCCEEDED;
 }
 

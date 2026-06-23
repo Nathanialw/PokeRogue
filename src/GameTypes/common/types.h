@@ -230,6 +230,7 @@ typedef union
                 uint16_t vampiric_aura : 1;
                 uint16_t warded : 1;
             } buff;
+
             uint16_t buff_flags;
         };
     };
@@ -327,13 +328,18 @@ typedef union
 
             uint16_t flags : 16;
         };
+
+        struct
+        {
+            uint8_t effects[MAX_OBJECT_EFFECTS]; //enum indexes used in the effects array
+            uint16_t chance; //2 bits per effect 0-3
+        } effects;
     };
 
-    uint8_t bytes[4];
+    uint8_t bytes[12];
 } ObjectData;
 
-_Static_assert(sizeof(ObjectData) == 4, "ObjectData must be 4 bytes");
-
+_Static_assert(sizeof(ObjectData) == 12, "ObjectData must be 10 bytes");
 
 typedef struct
 {
@@ -362,6 +368,7 @@ typedef ActionOutcome (*ItemEffect)(HardwareInterface hardware, MemoryInterface 
 typedef ActionOutcome (*SpellEffect)(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData);
 typedef ActionOutcome (*SpellEffectMap)(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId enemy_id, SpellData spellData);
 typedef ActionOutcome (*ObjectEffect)(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData, ObjectsTypes objectType, uint8_t index);
+typedef ActionOutcome (*EntityEffect)(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData, ObjectsTypes objectType, uint8_t index);
 
 
 /**********************************************************************************************************************/
@@ -962,3 +969,78 @@ typedef union
 
 
 _Static_assert(sizeof(TrainerBuffs) == 8, "Sprite must be 8 bytes");
+
+/**********************************************************************************************************************
+*   8 skills each, 4 ranks per skill
+**********************************************************************************************************************/
+typedef union
+{
+    struct
+    {
+        uint32_t _pad7 : 4; //bag slots
+        uint32_t _pad6 : 4; //swimming
+        uint32_t _pad5 : 4; //increase religion gains
+        uint32_t _pad4 : 4; //increase creature water resistance
+        uint32_t _pad3 : 4; //increase creature ice resistance
+        uint32_t _pad2 : 4; //
+        uint32_t _pad1 : 4; //
+        uint32_t _pad0 : 4; //
+    };
+
+    uint32_t raw;
+    uint8_t bytes[4];
+} SkillsGeneral;
+
+typedef union
+{
+    struct
+    {
+        uint32_t _pad7 : 4; //spellbook slots
+        uint32_t _pad6 : 4; //discover spell on new level
+        uint32_t _pad5 : 4; //lower mana costs
+        uint32_t _pad4 : 4; //recover pp on new level
+        uint32_t _pad3 : 4; //magic item use
+        uint32_t _pad2 : 4; //increase creature magic resistance
+        uint32_t _pad1 : 4; //increase creature fire resistance
+        uint32_t _pad0 : 4; //
+    };
+
+    uint32_t raw;
+    uint8_t bytes[4];
+} SkillsMage;
+
+typedef union
+{
+    struct
+    {
+        uint32_t _pad7 : 4; //crafting gear
+        uint32_t _pad6 : 4; //increase mining loot
+        uint32_t _pad5 : 4; //increase creature damage
+        uint32_t _pad4 : 4; //increase creature defense
+        uint32_t _pad3 : 4; //increase creature earth resistance
+        uint32_t _pad2 : 4; //increase creature chance to resist debuffs
+        uint32_t _pad1 : 4; //
+        uint32_t _pad0 : 4; //
+    };
+
+    uint32_t raw;
+    uint8_t bytes[4];
+} SkillsWarrior;
+
+typedef union
+{
+    struct
+    {
+        uint32_t _pad7 : 4; //acrobatics, chance ot jump over pits
+        uint32_t _pad6 : 4; //lock picking
+        uint32_t _pad5 : 4; //increase creature accuracy
+        uint32_t _pad4 : 4; //increase creature toxic resistance, acid item loss resistance
+        uint32_t _pad3 : 4; //chance to discover a creature ability book on new level
+        uint32_t _pad2 : 4; //increase capture chance
+        uint32_t _pad1 : 4; //
+        uint32_t _pad0 : 4; //
+    };
+
+    uint32_t raw;
+    uint8_t bytes[4];
+} SkillsRogue;

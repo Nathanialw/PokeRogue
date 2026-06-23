@@ -512,7 +512,7 @@ void DrawParty(GraphicsInterface graphics, HardwareInterface hardware, MemoryInt
         if (creature_id == NO_ENTITY)
         {
             lineHeight = 0;
-            y += PrintLineStr(graphics, memory, x, y, font_size, 3, "-----\0", indent, PAL_DARK_BLUE_GRAY, PAL_OFF_WHITE_GRAY_BLUE);
+            y += PrintLineStr(graphics, memory, x, y, font_size, 0, "-----\0", indent, PAL_DARK_BLUE_GRAY, PAL_OFF_WHITE_GRAY_BLUE);
             lineHeight += (size * 3);
             lineHeight += (size >> 1);
             y += lineHeight;
@@ -529,8 +529,8 @@ void DrawParty(GraphicsInterface graphics, HardwareInterface hardware, MemoryInt
         uint99 level = g_core.creatures.level[creature_id];
         CharStr_99 levelStr;
         GetAsChars_99(level, &levelStr, false);
-        PrintLineStr(graphics, memory, x, y, font_size, 3, levelStr, indent, PAL_DARK_BLUE_GRAY, PAL_OFF_WHITE_GRAY_BLUE);
-        y += PrintLineStr(graphics, memory, x + (3 * size), y + lineHeight, font_size, max_chars, line, indent, PAL_DARK_BLUE_GRAY, PAL_OFF_WHITE_GRAY_BLUE);
+        PrintLineStr(graphics, memory, x, y, font_size, 0, levelStr, indent, PAL_DARK_BLUE_GRAY, PAL_OFF_WHITE_GRAY_BLUE);
+        y += PrintLineStr(graphics, memory, x + (3 * size), y + lineHeight, font_size, 0, line, indent, PAL_DARK_BLUE_GRAY, PAL_OFF_WHITE_GRAY_BLUE);
 
 
         //hunger?
@@ -611,7 +611,7 @@ void DrawSpellbook(GraphicsInterface graphics, HardwareInterface hardware, Memor
     for (uint16_t i = 0; i < max_chars; i++) border[i] = '-';
     border[max_chars] = '\0';
 
-    y += PrintLineStr(graphics, memory, x, y, font_size, max_chars, border, false, PAL_DARK_BLUE_GRAY, PAL_OFF_WHITE_GRAY_BLUE);
+    y += PrintLineStr(graphics, memory, x, y, font_size, 0, border, false, PAL_DARK_BLUE_GRAY, PAL_OFF_WHITE_GRAY_BLUE);
     const uint16_t list_y = y;
 
     uint16_t lineHeight = 0;
@@ -629,7 +629,7 @@ void DrawSpellbook(GraphicsInterface graphics, HardwareInterface hardware, Memor
         if (spell_id == NO_SPELL)
         {
             lineHeight = 0;
-            y += PrintLineStr(graphics, memory, x, y, font_size, 3, "-----\0", indent, PAL_DARK_BLUE_GRAY, PAL_OFF_WHITE_GRAY_BLUE);
+            y += PrintLineStr(graphics, memory, x, y, font_size,03, "-----\0", indent, PAL_DARK_BLUE_GRAY, PAL_OFF_WHITE_GRAY_BLUE);
             lineHeight += (size * 1);
             lineHeight += (size >> 1);
             y += lineHeight;
@@ -643,7 +643,7 @@ void DrawSpellbook(GraphicsInterface graphics, HardwareInterface hardware, Memor
         if (i > (max_lines)) break;
 
         // name
-        y += PrintLineStr(graphics, memory, x, y + lineHeight, font_size, max_chars, line, indent, PAL_DARK_BLUE_GRAY, PAL_OFF_WHITE_GRAY_BLUE);
+        y += PrintLineStr(graphics, memory, x, y + lineHeight, font_size, 0, line, indent, PAL_DARK_BLUE_GRAY, PAL_OFF_WHITE_GRAY_BLUE);
 
         uint16_t cur = 0;
         uint16_t max = 0;
@@ -667,7 +667,7 @@ void DrawSpellbook(GraphicsInterface graphics, HardwareInterface hardware, Memor
     }
 
     g_core.menu.lineHeight = lineHeight;
-    PrintLineStr(graphics, memory, x, (max_lines - 1) * size, font_size, max_chars, border, false, PAL_DARK_BLUE_GRAY, PAL_OFF_WHITE_GRAY_BLUE);
+    PrintLineStr(graphics, memory, x, (max_lines - 1) * size, font_size, 0, border, false, PAL_DARK_BLUE_GRAY, PAL_OFF_WHITE_GRAY_BLUE);
     g_core.menu.colorCache = color_bg;
 }
 
@@ -695,7 +695,7 @@ void DrawInventory(GraphicsInterface graphics, HardwareInterface hardware, Memor
     for (uint16_t i = 0; i < max_chars; i++) border[i] = '-';
     border[max_chars] = '\0';
 
-    y += PrintLineStr(graphics, memory, x, y, font_size, max_chars, border, false, PAL_DARK_BLUE_GRAY, PAL_OFF_WHITE_GRAY_BLUE);
+    y += PrintLineStr(graphics, memory, x, y, font_size, 0, border, false, PAL_DARK_BLUE_GRAY, PAL_OFF_WHITE_GRAY_BLUE);
     const uint16_t list_y = y;
 
     uint16_t lineHeight = 0;
@@ -714,7 +714,7 @@ void DrawInventory(GraphicsInterface graphics, HardwareInterface hardware, Memor
         if (item_id == NO_ENTITY)
         {
             lineHeight = 0;
-            y += PrintLineStr(graphics, memory, x, y, font_size, 3, "-----\0", indent, PAL_DARK_BLUE_GRAY, PAL_OFF_WHITE_GRAY_BLUE);
+            y += PrintLineStr(graphics, memory, x, y, font_size, 0, "-----\0", indent, PAL_DARK_BLUE_GRAY, PAL_OFF_WHITE_GRAY_BLUE);
             lineHeight += (size >> 1);
             y += lineHeight;
             i++;
@@ -729,7 +729,7 @@ void DrawInventory(GraphicsInterface graphics, HardwareInterface hardware, Memor
         if (i > (max_lines)) break;
 
         // name
-        y += PrintLineStr(graphics, memory, x + TEXT_W, y + lineHeight, font_size, max_chars, line, indent, PAL_DARK_BLUE_GRAY, PAL_OFF_WHITE_GRAY_BLUE);
+        y += PrintLineStr(graphics, memory, x + TEXT_W, y + lineHeight, font_size, 0, line, indent, PAL_DARK_BLUE_GRAY, PAL_OFF_WHITE_GRAY_BLUE);
 
         uint16_t cur = 0;
         uint16_t max = 0;
@@ -753,7 +753,7 @@ void DrawInventory(GraphicsInterface graphics, HardwareInterface hardware, Memor
     }
 
     g_core.menu.lineHeight = lineHeight;
-    PrintLineStr(graphics, memory, x, (max_lines - 1) * size, font_size, max_chars, border, false, PAL_DARK_BLUE_GRAY, PAL_OFF_WHITE_GRAY_BLUE);
+    PrintLineStr(graphics, memory, x, (max_lines - 1) * size, font_size, 0, border, false, PAL_DARK_BLUE_GRAY, PAL_OFF_WHITE_GRAY_BLUE);
     g_core.menu.colorCache = color_bg;
 }
 
