@@ -50,7 +50,27 @@ SET_MEMORY(".map_gen")
 void InitGame(HardwareInterface hardware, MemoryInterface memory, AudioInterface audio)
 {
     InitMap(hardware, audio);
+
+
+    // fluid type basd on the map
     GenerateLake(hardware, 30, 30, 10, FLUID_WATER);
+    CreateRiver(hardware, FLUID_WATER);
+
+    // // always add some water maybe
+    // GenerateLake(hardware, 30, 30, 10, FLUID_WATER);
+    // GenerateRiver(hardware, 30, 30, 10, FLUID_WATER);
+
+    // AddTiles(hardware, 30, 30, 10, FLUID_WATER);
+    FindHallDeadEnds();
+    FindHalls();
+    FindWalls();
+    FindCorners();
+    FindWater();
+    FindWaterAdjacent();
+
+
+    AddPits(hardware);
+    AddBridges(hardware);
     SetMapBorder();
 }
 

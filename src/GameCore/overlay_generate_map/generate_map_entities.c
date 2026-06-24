@@ -45,7 +45,7 @@ void InitPlayer(HardwareInterface hardware, MemoryInterface memory)
     //  TODO: load trainer spell data from the database flash
     // AddSpellPage(memory, g_core.player.id, HEAL, GetPlayerSpellbook()->occupied_pages);
     // AddSpellPage(memory, g_core.player.id, DESCEND, GetPlayerSpellbook()->occupied_pages);
-    // AddSpellPage(memory, g_core.player.id, CLAIRVOYANCE, GetPlayerSpellbook()->occupied_pages);
+    AddSpellPage(memory, g_core.player.id, CLAIRVOYANCE, GetPlayerSpellbook()->occupied_pages);
     // AddSpellPage(memory, g_core.player.id, DISPLACEMENT, GetPlayerSpellbook()->occupied_pages);
     // AddSpellPage(memory, g_core.player.id, WIZEN, GetPlayerSpellbook()->occupied_pages);
 
@@ -517,12 +517,6 @@ void GenerateEntities(GameInterface* spi)
     if (g_core.turn_count == 0)
     {
         InitPlayer(spi->hardware, spi->memory);
-        FindHallDeadEnds();
-        FindHalls();
-        FindWalls();
-        FindCorners();
-        FindWater();
-        FindWaterAdjacent();
         PopulateLevelTrainers(spi->hardware, spi->memory);
         PopulateLevelCreatures(spi->hardware, spi->memory);
         PopulateLevelObjects(spi->hardware, spi->memory);
