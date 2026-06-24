@@ -1,5 +1,5 @@
 // Generated entity_effect name strings
-// Database contains 158 total entries
+// Database contains 160 total entries
 
 // Individual items strings
 EffectAbandonTrainer,
@@ -36,6 +36,7 @@ EffectApplyThorns,
 EffectApplyVampiricAura,
 EffectApplyWarded,
 EffectAscendLevel,
+EffectBreak,
 EffectCaptureCreature,
 EffectCreateItemBook,
 EffectCreateItemCommon,
@@ -82,7 +83,7 @@ EffectLowerResistEarth,
 EffectLowerResistFire,
 EffectLowerResistIce,
 EffectLowerResistMagic,
-EffectLowerToxe,
+EffectLowerResistToxic,
 EffectLowerResistWater,
 EffectLowerSpeed,
 EffectLowerStamina,
@@ -106,7 +107,7 @@ EffectRaiseResistEarth,
 EffectRaiseResistFire,
 EffectRaiseResistIce,
 EffectRaiseResistMagic,
-EffectRaiseToxe,
+EffectRaiseResistToxic,
 EffectRaiseResistWater,
 EffectRaiseSpeed,
 EffectRaiseStamina,
@@ -148,7 +149,8 @@ EffectRestoreHP,
 EffectRestoreMP,
 EffectRestorePP,
 EffectRevive,
-EffectSacrificeCreature,
+EffectSacrificeCreatureOnce,
+EffectSacrificeCreatureRepeatable,
 EffectShowMap,
 EffectSmeltOre,
 EffectStartFire,
@@ -161,4 +163,4 @@ EffectSummonSkeleton,
 EffectSummonUndead,
 EffectSummonZombie,
 
-//ALL_NAMES_COUNT = 158;
+//ALL_NAMES_COUNT = 160;

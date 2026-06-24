@@ -34,6 +34,8 @@ bool Itempedia(GraphicsInterface graphics, HardwareInterface hardware, InputInte
 bool Spellpedia(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update);
 bool Abilitypedia(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update);
 bool Trainerpedia(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update);
+bool Player(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update);
+bool Skills(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update);
 bool Party(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update);
 bool Bag(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update);
 bool Spells(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update);
@@ -42,8 +44,6 @@ bool Options(GraphicsInterface graphics, HardwareInterface hardware, InputInterf
 bool Exit(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update);
 
 bool CloseMainMenu(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update);
-bool Player(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update);
-bool Skills(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update);
 
 /**********************************************************************************************************************
 ** Function pointers to control which submenu to display
@@ -58,14 +58,14 @@ SubMenu submenus[MAIN_MENUS_SIZE] = {
     Itempedia,
     Spellpedia,
     Abilitypedia,
+    Player,
+    Skills,
     Party,
     Bag,
     Spells,
     Religion,
     Options,
     Exit,
-    Player,
-    Skills,
     CloseMainMenu,
 };
 
@@ -364,6 +364,31 @@ bool Trainerpedia(GraphicsInterface graphics, HardwareInterface hardware, InputI
     }
     g_core.menu.text[i][0] = '\0';
     OpenEntityInfo();
+
+    return true;
+}
+
+
+/**********************************************************************************************************************
+** Closes the main menu
+**********************************************************************************************************************/
+SET_MEMORY(".map")
+bool Player(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update)
+{
+    return true;
+};
+
+
+/**********************************************************************************************************************
+** LIST /TODO: add the
+**********************************************************************************************************************/
+SET_MEMORY(".map")
+bool Skills(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update)
+{
+    if (ToggleMenu(SKILLS_SUBMENU, 10, 10) && input.GetInputKeyState().dp.y == 0)
+    {
+        return true;
+    }
 
     return true;
 }
@@ -798,24 +823,6 @@ bool Exit(GraphicsInterface graphics, HardwareInterface hardware, InputInterface
 ** Closes the main menu
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-bool Player(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update)
-{
-    return true;
-};
-
-/**********************************************************************************************************************
-** Closes the main menu
-**********************************************************************************************************************/
-SET_MEMORY(".map")
-bool Skills(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update)
-{
-    return true;
-};
-
-/**********************************************************************************************************************
-** Closes the main menu
-**********************************************************************************************************************/
-SET_MEMORY(".map")
 bool CloseMainMenu(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update)
 {
     g_core.menu.displayedMenu = MENU_NONE;
@@ -944,14 +951,14 @@ SubMenu menu_actions_r[MAIN_MENUS_SIZE] = {
     Itempedia_r,
     Spellpedia_r,
     Abilitypedia_r,
+    Player_r,
+    Skills_r,
     Party_r,
     Bag_r,
     Spells_r,
     Religion_r,
     Options_r,
     Exit_r,
-    Player_r,
-    Skills_r,
     CloseMainMenu_r,
 };
 
@@ -1010,6 +1017,18 @@ bool Trainerpedia_r(GraphicsInterface graphics, HardwareInterface hardware, Inpu
 }
 
 SET_MEMORY(".map")
+bool Player_r(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update)
+{
+    return false;
+}
+
+SET_MEMORY(".map")
+bool Skills_r(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update)
+{
+    return false;
+}
+
+SET_MEMORY(".map")
 bool Party_r(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update)
 {
     uint8_t party_size = GetPlayerPartySize();
@@ -1057,20 +1076,6 @@ bool Exit_r(GraphicsInterface graphics, HardwareInterface hardware, InputInterfa
     return false;
 }
 
-SET_MEMORY(".map")
-bool Player_r(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update)
-{
-
-
-
-    return false;
-}
-
-SET_MEMORY(".map")
-bool Skills_r(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update)
-{
-    return false;
-}
 
 SET_MEMORY(".map")
 bool CloseMainMenu_r(GraphicsInterface graphics, HardwareInterface hardware, InputInterface input, MemoryInterface memory, bool update)

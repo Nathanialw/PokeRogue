@@ -188,7 +188,7 @@ void Flash_GetSpriteLayout_64(MemoryInterface memory, SpriteLayout* spriteLayout
     else if (type == SKILL)
         memory.GetRom(SPRITE_SKILLS_LAYOUT_64_POSITION + position, spriteLayout->bytes, sizeof(SpriteLayout));
     else if (type == TRAINER)
-        memory.GetRom(SPRITE_TRAINERS_LAYOUT_64_POSITION + position, spriteLayout->bytes, sizeof(SpriteLayout));
+        memory.GetRom(SPRITE_TRAINERS_LAYOUT_FRONT_64_POSITION + position, spriteLayout->bytes, sizeof(SpriteLayout));
     else if (type == CREATURE)
     {
         if (front)
@@ -225,7 +225,7 @@ void Flash_GetSprite_64(MemoryInterface memory, uint8_t* sprite, uint32_t index,
     else if (type == SKILL)
         memory.GetRom(SPRITE_SKILLS_64_POSITION + index, sprite, length);
     else if (type == TRAINER)
-        memory.GetRom(SPRITE_TRAINERS_64_POSITION + index, sprite, length);
+        memory.GetRom(SPRITE_TRAINERS_FRONT_64_POSITION + index, sprite, length);
     else if (type == CREATURE)
     {
         if (front)

@@ -214,6 +214,28 @@ const uint8_t battler_front_64[SPRITE_CREATURE_FRONT_BYTES_64] = {
 };
 
 
+
+
+SET_MEMORY(".sprite_trainers_layout_front_64")
+const SpriteLayout trainer_front_layout_64[TRAINER_COUNT] = {
+#include "inc/sprite_trainer_front_layout_64x64.inc"
+};
+SET_MEMORY(".sprite_trainers_front_64")
+const uint8_t sprites_front_trainers_64[SPRITE_TRAINER_FRONT_BYTES_64] = {
+#include "inc/sprite_trainer_front_64x64.inc"
+};
+
+
+SET_MEMORY(".sprite_trainers_layout_back_64")
+const SpriteLayout trainer_back_layout_64[TRAINER_COUNT] = {
+#include "inc/sprite_trainer_back_layout_64x64.inc"
+};
+SET_MEMORY(".sprite_trainers_back_64")
+const uint8_t sprites_back_trainers_64[SPRITE_TRAINER_BACK_BYTES_64] = {
+#include "inc/sprite_trainer_back_64x64.inc"
+};
+
+
 SET_MEMORY(".sprite_items_layout_64")
 const SpriteLayout itemLayout_64[ITEM_COUNT] = {
 #include "inc/sprite_item_layout_64x64.inc"
@@ -229,10 +251,6 @@ const SpriteLayout spellLayout_64[SPELL_COUNT] = {
 SET_MEMORY(".sprite_objects_layout_64")
 const SpriteLayout objectLayout_64[OBJECT_COUNT] = {
 #include "inc/sprite_object_layout_64x64.inc"
-};
-SET_MEMORY(".sprite_trainers_layout_64")
-const SpriteLayout trainerLayout_64[TRAINER_COUNT] = {
-#include "inc/sprite_trainer_layout_64x64.inc"
 };
 SET_MEMORY(".sprite_environment_objects_layout_64")
 const SpriteLayout environmentObjectLayout_64[SPRITE_ENVIRONMENT_OBJECT_BYTES_64] = {
@@ -256,10 +274,7 @@ SET_MEMORY(".sprite_objects_64")
 const uint8_t sprites_objects_64[SPRITE_OBJECT_BYTES_64] = {
 #include "inc/sprite_object_64x64.inc"
 };
-SET_MEMORY(".sprite_trainers_64")
-const uint8_t sprites_trainers_64[SPRITE_TRAINER_BYTES_64] = {
-#include "inc/sprite_trainer_64x64.inc"
-};
+
 SET_MEMORY(".sprite_environment_objects_64")
 const uint8_t sprites_environmentObjects_64[SPRITE_ENVIRONMENT_OBJECT_BYTES_64] = {
 #include "inc/sprite_environment_object_64x64.inc"
@@ -327,6 +342,8 @@ const SpriteFrames skillSpritesMetaData80x80[ABILITY_COUNT] = {
  *      MAP SPRITES
  *
 **********************************************************************************************************************/
+
+#if defined(TEXT_SPRITES)
 /**********************************************************************************************************************/
 /*  16x16 map sprite tiles, may have multiple tiles for idle animations
 **********************************************************************************************************************/
@@ -516,6 +533,7 @@ const SpriteFrames tileSpritesMetaData32x32[TILE_COUNT] = {
 #include "inc/sprite_32x32_tile_metaData.inc"
 };
 #endif
+#endif
 
 /**********************************************************************************************************************/
 /*  64x64 map sprite tiles, may have multiple tiles for idle animations
@@ -568,6 +586,31 @@ const SpriteFrames tileSpritesMetaData64x64[TILE_COUNT] = {
 SET_MEMORY(".sprite_64x64_environment_object_metaData")
 const SpriteFrames environment_objectSpritesMetaData64x64[ENVIRONMENT_OBJECT_COUNT] = {
 #include "inc/sprite_64x64_environment_object_metaData.inc"
+};
+
+
+/**********************************************************************************************************************/
+/* Animations
+**********************************************************************************************************************/
+SET_MEMORY(".sprite_64x64_creature_animation_data")
+const AnimationData creatureSprites64x64_animation_data[CREATURE_COUNT] = {
+//#include "inc/sprite_64x64_creature.inc"
+};
+SET_MEMORY(".sprite_64x64_object_animation_data")
+const AnimationData objectSprites64x64_animation_data[OBJECT_COUNT] = {
+//#include "inc/sprite_64x64_object.inc"
+};
+SET_MEMORY(".sprite_64x64_trainer_animation_data")
+const AnimationData trainerSprites64x64_animation_data[TRAINER_COUNT] = {
+//#include "inc/sprite_64x64_trainer.inc"
+};
+SET_MEMORY(".sprite_64x64_tile_animation_data")
+const AnimationData tileSprites64x64_animation_data[TILE_COUNT] = {
+//#include "inc/sprite_64x64_tile.inc"
+};
+SET_MEMORY(".sprite_64x64_environment_object_animation_data")
+const AnimationData environment_objectSprites64x64_animation_data[ENVIRONMENT_OBJECT_COUNT] = {
+//#include "inc/sprite_64x64_environment_object.inc"
 };
 
 

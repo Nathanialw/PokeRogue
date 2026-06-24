@@ -793,7 +793,6 @@ ActionOutcome ApplyCurse(EntityId e_id, uint8_t duration)
 }
 
 
-
 /**********************************************************************************************************************
 *
 **********************************************************************************************************************/
@@ -837,6 +836,46 @@ ActionOutcome ApplyParalyze(EntityId e_id, uint8_t duration)
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
+ActionOutcome ApplyDisarm(EntityId e_id, uint8_t duration)
+{
+    uint8_t cur = g_core.creatures.debuffs[e_id].disarm;
+    g_core.creatures.debuffs[e_id].disarm = IncrementStatusEffect(g_core.creatures.debuffs[e_id].disarm, e_id);
+    if (cur != g_core.creatures.debuffs[e_id].disarm)
+        return ACTION_SUCCEEDED;
+    return ACTION_CANNOT;
+}
+
+/**********************************************************************************************************************
+*
+**********************************************************************************************************************/
+SET_MEMORY(".core")
+ActionOutcome ApplyBlind(EntityId e_id, uint8_t duration)
+{
+    uint8_t cur = g_core.creatures.debuffs[e_id].blind;
+    g_core.creatures.debuffs[e_id].blind = IncrementStatusEffect(g_core.creatures.debuffs[e_id].blind, e_id);
+    if (cur != g_core.creatures.debuffs[e_id].blind)
+        return ACTION_SUCCEEDED;
+    return ACTION_CANNOT;
+}
+
+
+/**********************************************************************************************************************
+*
+**********************************************************************************************************************/
+SET_MEMORY(".core")
+ActionOutcome ApplyPetrify(EntityId e_id, uint8_t duration)
+{
+    uint8_t cur = g_core.creatures.debuffs[e_id].petrify;
+    g_core.creatures.debuffs[e_id].petrify = IncrementStatusEffect(g_core.creatures.debuffs[e_id].petrify, e_id);
+    if (cur != g_core.creatures.debuffs[e_id].petrify)
+        return ACTION_SUCCEEDED;
+    return ACTION_CANNOT;
+}
+
+/**********************************************************************************************************************
+*
+**********************************************************************************************************************/
+SET_MEMORY(".core")
 ActionOutcome ApplyDisease(EntityId e_id, uint8_t duration)
 {
     uint8_t cur = g_core.creatures.debuffs[e_id].disease;
@@ -870,6 +909,29 @@ ActionOutcome ApplyFear(EntityId e_id, uint8_t duration)
     if (cur != g_core.creatures.debuffs[e_id].fear)
         return ACTION_SUCCEEDED;
     return ACTION_CANNOT;
+}
+
+/**********************************************************************************************************************
+*
+**********************************************************************************************************************/
+SET_MEMORY(".core")
+ActionOutcome ApplyFireEating(EntityId e_id, uint8_t duration)
+{
+    uint8_t cur = g_core.creatures.buffs[e_id].fire_eating;
+    g_core.creatures.buffs[e_id].fire_eating = IncrementStatusEffect(g_core.creatures.buffs[e_id].fire_eating, e_id);
+    if (cur != g_core.creatures.buffs[e_id].fire_eating)
+        return ACTION_SUCCEEDED;
+    return ACTION_CANNOT;
+}
+
+/**********************************************************************************************************************
+*
+**********************************************************************************************************************/
+SET_MEMORY(".core")
+ActionOutcome GainBagSlot(EntityId e_id, uint8_t value)
+{
+    g_core.trainers.bag->current_max_size += value;
+    return ACTION_SUCCEEDED;
 }
 
 /**********************************************************************************************************************
@@ -936,6 +998,7 @@ ActionOutcome ApplyMagicShield(EntityId e_id, uint8_t duration)
         return ACTION_SUCCEEDED;
     return ACTION_CANNOT;
 }
+
 /**********************************************************************************************************************
 *
 **********************************************************************************************************************/
@@ -1853,9 +1916,20 @@ ActionOutcome LowerStamina(EntityId e_id, uint8_t value)
 *
 **********************************************************************************************************************/
 SET_MEMORY(".core")
-ActionOutcome LowerCurrentXP(EntityId e_id, uint8_t value)
+ActionOutcome LowerCurrentCreatureXP(EntityId e_id, uint8_t value)
 {
     if (DecreaseValue_IntMax999(&g_core.creatures.xp[e_id], value))
+        return ACTION_SUCCEEDED;
+    return ACTION_CANNOT;
+}
+
+/**********************************************************************************************************************
+*
+**********************************************************************************************************************/
+SET_MEMORY(".core")
+ActionOutcome LowerCurrentTrainerXP(EntityId e_id, uint8_t value)
+{
+    if (DecreaseValue_IntMax999(&g_core.trainers.xp[e_id], value))
         return ACTION_SUCCEEDED;
     return ACTION_CANNOT;
 }
@@ -1903,6 +1977,16 @@ ActionOutcome LowerMaxMP(EntityId e_id, uint8_t value)
     if (DecreaseValue_IntMax999(&g_core.creatures.mp[e_id], value))
         return ACTION_SUCCEEDED;
     return ACTION_CANNOT;
+}
+
+/**********************************************************************************************************************
+*
+**********************************************************************************************************************/
+SET_MEMORY(".core")
+ActionOutcome LowerMaxPP(EntityId e_id, uint8_t value, uint8_t spell_index)
+{
+    g_core.trainers.spellbook[e_id].page[spell_index].spellData.pp -= value;
+    return ACTION_SUCCEEDED;
 }
 
 /********************************************************************************************************************************************************************************************************************************************

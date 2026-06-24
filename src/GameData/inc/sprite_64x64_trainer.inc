@@ -1,4 +1,4 @@
-// RLE data generated from ../assets_processed/trainers/deployable (recursive scan)
+// RLE data generated from ../assets_processed/trainers/deployable/front (recursive scan)
 // Data is concatenated sequentially
 
 // ADALHEID / Adalheid Auraflow V0.3 010 S1070723317 Th0.100 64 [Folder: ADALHEID] - RLE compressed data (offset: 0, size: 1291)

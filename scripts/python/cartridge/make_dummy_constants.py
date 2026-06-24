@@ -42,17 +42,20 @@ def main():
         ".sprite_battler_layout_front_64",
         ".sprite_battler_back_64",
         ".sprite_battler_front_64",
+        ".sprite_trainers_layout_front_64",
+        ".sprite_trainers_layout_back_64",
+        ".sprite_trainers_front_64",
+        ".sprite_trainers_back_64",
+
 
         ".sprite_items_layout_64",
         ".sprite_spells_layout_64",
         ".sprite_skills_layout_64",
         ".sprite_objects_layout_64",
-        ".sprite_trainers_layout_64",
         ".sprite_items_64",
         ".sprite_spells_64",
         ".sprite_skills_64",
         ".sprite_objects_64",
-        ".sprite_trainers_64",
 
         # ".sprite_battler_layout_back_16",
         # ".sprite_battler_layout_front_16",

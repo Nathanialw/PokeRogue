@@ -27,7 +27,9 @@
  *      - init
  *      - function pointer overlay loop
  *
- **************************************************************************************************************************************************/
+
+
+**************************************************************************************************************************************************/
 
 typedef uint8_t (*OverlayEntry)(GameInterface* spi);
 
@@ -48,7 +50,6 @@ OverlayEntry overlays[OVERLAY_GAME_STATE_SIZE] =
     OverlayGameLossEntry,
 };
 
-GameInterface api;
 
 
 int main()
@@ -61,12 +62,15 @@ int main()
 
     if (SDL_CreateWindowAndRenderer("window", 1280, 800, SDL_WINDOW_RESIZABLE, &g_ramState.window, &g_ramState.renderer) != 1)
     {
-        printf("Failed to create window and renderer: %s\n", SDL_GetError());
+        DEBUG("Failed to create window and renderer: %s\n", SDL_GetError());
         return 1;
     }
 
     InitRamSDL();
     LoadGameData();
+    InitInput();
+
+    GameInterface api;
 
     api.memory = MemoryInterfaceInit();
     api.hardware = HardwareInterfaceInit();
@@ -82,7 +86,6 @@ int main()
         g_core.state.overlay = overlays[g_core.state.overlay](&api);;
     }
 
-    DEBUG("game qiuit");
     SDL_Quit();
     return 0;
 }

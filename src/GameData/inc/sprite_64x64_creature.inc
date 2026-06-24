@@ -1,4 +1,4 @@
-// RLE data generated from ../assets_processed/creatures/deployable (recursive scan)
+// RLE data generated from ../assets_processed/creatures/deployable/front (recursive scan)
 // Data is concatenated sequentially
 
 // ABOLETH / Aboleth Auraflow V0.3 007 S2312077971 Th0.100 64 [Folder: ABOLETH] - RLE compressed data (offset: 0, size: 1812)

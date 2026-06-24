@@ -368,7 +368,7 @@ typedef ActionOutcome (*ItemEffect)(HardwareInterface hardware, MemoryInterface 
 typedef ActionOutcome (*SpellEffect)(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId friendly_id, EntityId enemy_id, SpellData spellData);
 typedef ActionOutcome (*SpellEffectMap)(HardwareInterface hardware, MemoryInterface memory, EntityId caster_id, EntityId enemy_id, SpellData spellData);
 typedef ActionOutcome (*ObjectEffect)(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData, ObjectsTypes objectType, uint8_t index);
-typedef ActionOutcome (*EntityEffect)(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData, ObjectsTypes objectType, uint8_t index);
+typedef ActionOutcome (*EntityEffect)(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId trainer_id, EntityId creature_id, ObjectData objectData, ObjectsTypes objectType, uint8_t index);
 
 
 /**********************************************************************************************************************/
@@ -860,6 +860,24 @@ typedef union
 _Static_assert(sizeof(SpriteFrames) == 40, "Sprite must be 40 bytes");
 
 
+/**********************************************************************************************************************/
+/** holds the metadata of each object in the sprite arrays
+**********************************************************************************************************************/
+typedef union
+{
+    struct
+    {
+        uint32_t frame_indexes[MAX_ANIMATION_FRAMES];
+        uint8_t num_frames;
+    };
+
+    uint8_t bytes[16];
+} AnimationData;
+
+_Static_assert(sizeof(AnimationData) == 16, "SpriteLayout must be 44 bytes");
+
+
+
 typedef struct
 {
     uint16_t x, y, w, h;
@@ -1037,7 +1055,7 @@ typedef union
         uint32_t _pad4 : 4; //increase creature toxic resistance, acid item loss resistance
         uint32_t _pad3 : 4; //chance to discover a creature ability book on new level
         uint32_t _pad2 : 4; //increase capture chance
-        uint32_t _pad1 : 4; //
+        uint32_t _pad1 : 4; //increase creature toxic resistance
         uint32_t _pad0 : 4; //
     };
 

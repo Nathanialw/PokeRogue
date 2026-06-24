@@ -3,8 +3,6 @@ add_library(GameTypes STATIC
         common/constants.h
         common/enums.h
         common/types.h
-
-
 )
 
 

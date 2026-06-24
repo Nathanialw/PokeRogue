@@ -112,6 +112,8 @@ def check_used(file_name, creature_names):
 def export_image_data(entity, w, h, image_type=""):
     # Ensure input folder exists
     input_folder = f"../assets_processed/{entity}s/deployable"
+    if image_type:
+        input_folder = f"../assets_processed/{entity}s/deployable/{image_type}"
 
     layout_output = f"sprite_{entity}_layout_{w}x{h}"
     if image_type:
@@ -229,3 +231,5 @@ def export_image_data(entity, w, h, image_type=""):
     print(f"\nNote: The .idx field in each layout now contains the byte offset into the data file")
 
     return byte_offset
+
+

@@ -70,12 +70,42 @@ void GetObjectEffects(const ObjectData* object_data, ObjectEffectsCache* cache)
     }
 }
 
+uint8_t GetEffect(HardwareInterface hardware, const ObjectEffectsCache* cache)
+{
+    uint8_t total = 0;
+    uint8_t acc = 0;
+    uint8_t roll = hardware.GetRandom_uint8_t(1, 100);
+    for (uint8_t i = 0; i < MAX_OBJECT_EFFECTS; i++)
+    {
+        g_core.tooltip_text[i + 1][0] = '\0';
+        total += cache->weights[i];
+    }
+
+    if (total == 0)
+    {
+        DEBUG("GetEffect NO ASSIGNED EFFECT");
+        return NO_EFFECT;
+    }
+
+
+    for (uint8_t i = 0; i < MAX_OBJECT_EFFECTS; i++)
+    {
+        uint8_t percent = (cache->weights[i] * 100) / total;
+        acc += percent;
+        if (roll <= acc)
+            return cache->effect_indexes[i];
+    }
+
+    DEBUG("GetEffect THIS SHOUDL NOT BE REACHABLE");
+    return NO_EFFECT;
+}
+
 /**********************************************************************************************************************/
 /* check it it is usable on party, open party framw
  *
 **********************************************************************************************************************/
 SET_MEMORY(".map")
-ActionOutcome InteractObject(MemoryInterface memory, HardwareInterface hardware, EntityId object_e_id, EntityId e_id, ObjectsTypes entity_type)
+ActionOutcome InteractObject(MemoryInterface memory, HardwareInterface hardware, EntityId object_e_id, EntityId trainer_id, ObjectsTypes entity_type)
 {
     if (object_e_id == NO_ENTITY) return false;
     if (GetBit(g_core.objects.interactable, object_e_id))
@@ -84,18 +114,20 @@ ActionOutcome InteractObject(MemoryInterface memory, HardwareInterface hardware,
         ObjectData object_data;
         Flash_GetObjectData(memory, &object_data, object_type_id);
 
-        ObjectEffectsCache cache;
-        GetObjectEffects(&object_data, &cache);
-        //TODO use cache data to randomly select an object effect
-
-
         if (object_data.consumable_party)
         {
             if (GetInputState() == INPUT_USE)
             {
                 uint8_t selection = g_core.menu.sel[0].y;
                 EntityId creature_id = GetPlayerMonsterIDs()[selection];
-                ActionOutcome action_outcome = UseMapObject(hardware, memory, object_type_id, object_e_id, creature_id, object_data, entity_type, selection);
+
+                ObjectEffectsCache cache;
+                GetObjectEffects(&object_data, &cache);
+                uint8_t effect_index = GetEffect(hardware, &cache);
+
+                //TODO use cache data to randomly select an object effect
+                ActionOutcome action_outcome = UseMapObject(hardware, memory, effect_index, object_e_id, trainer_id, creature_id, object_data, entity_type, selection);
+
                 if (action_outcome == ACTION_SUCCEEDED)
                 {
                     BackUseOnParty(memory);
@@ -117,7 +149,11 @@ ActionOutcome InteractObject(MemoryInterface memory, HardwareInterface hardware,
             {
                 uint8_t selection = g_core.menu.sel[0].y;
                 EntityId creature_id = GetPlayerMonsterIDs()[selection];
-                ActionOutcome action_outcome = UseMapObject(hardware, memory, object_type_id, object_e_id, creature_id, object_data, entity_type, selection);
+                ObjectEffectsCache cache;
+                GetObjectEffects(&object_data, &cache);
+                uint8_t effect_index = GetEffect(hardware, &cache);
+
+                ActionOutcome action_outcome = UseMapObject(hardware, memory, effect_index, object_e_id, trainer_id, creature_id, object_data, entity_type, selection);
                 if (action_outcome == ACTION_SUCCEEDED)
                 {
                     BackUseOnParty(memory);
@@ -135,7 +171,10 @@ ActionOutcome InteractObject(MemoryInterface memory, HardwareInterface hardware,
         }
         else
         {
-            ActionOutcome action_outcome = UseMapObject(hardware, memory, object_type_id, object_e_id, e_id, object_data, entity_type, 0);
+            ObjectEffectsCache cache;
+            GetObjectEffects(&object_data, &cache);
+            uint8_t effect_index = GetEffect(hardware, &cache);
+            ActionOutcome action_outcome = UseMapObject(hardware, memory, effect_index, object_e_id, trainer_id, NO_ENTITY, object_data, entity_type, 0);
             if (action_outcome == ACTION_SUCCEEDED)
             {
                 if (object_data.consumable)
@@ -174,7 +213,7 @@ ActionOutcome InteractObjectStepOn(MemoryInterface memory, HardwareInterface har
         uint8_t total = 0;
         for (uint8_t i = 0; i < MAX_OBJECT_EFFECTS; i++)
         {
-            g_core.tooltip_text[i+1][0] = '\0';
+            g_core.tooltip_text[i + 1][0] = '\0';
             total += cache.weights[i];
         }
 
@@ -200,7 +239,7 @@ ActionOutcome InteractObjectStepOn(MemoryInterface memory, HardwareInterface har
 
     if (object_data.on_step && GetBit(g_core.objects.interactable, object_e_id))
     {
-        return UseMapObject(hardware, memory, object_type_id, object_e_id, e_id, object_data, entity_type, 0);
+        return UseMapObjectStepOn(hardware, memory, object_type_id, object_e_id, e_id, object_data, entity_type, 0);
     }
     return ACTION_FAILED;
 }

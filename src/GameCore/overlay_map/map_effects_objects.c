@@ -46,17 +46,7 @@ SET_MEMORY(".map")
 ActionOutcome InteractAltar(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData, ObjectsTypes objectType, uint8_t index)
 {
     DEBUG("InteractAltar");
-    uint8_t party_size = GetPlayerPartySize();
-    if (party_size > 1)
-    {
-        Creature creature_type = GetCreatureType(e_id);
-        SetBit(g_core.player.sacrificedCreatures, creature_type, true);
-        DestroyPartyCreature(GetPlayerID(), e_id);
-        GainXP(GetPlayerID(), 120, TRAINER);
-        g_core.update_left_player = true;
-        g_core.update_right_party = true;
-        return ACTION_SUCCEEDED;
-    }
+
     return ACTION_FAILED;
 }
 
@@ -1655,6 +1645,31 @@ ActionOutcome InteractWellAncient(HardwareInterface hardware, MemoryInterface me
 **********************************************************************************************************************/
 SET_MEMORY(".map")
 ActionOutcome InteractWickerMan(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData, ObjectsTypes objectType, uint8_t index)
+{
+    return ACTION_FAILED;
+}
+
+
+SET_MEMORY(".map")
+ActionOutcome InteractJanusPillar(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData, ObjectsTypes objectType, uint8_t index)
+{
+    return ACTION_FAILED;
+}
+
+SET_MEMORY(".map")
+ActionOutcome InteractKeystoneArchway(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData, ObjectsTypes objectType, uint8_t index)
+{
+    return ACTION_FAILED;
+}
+
+SET_MEMORY(".map")
+ActionOutcome InteractSigilHexagram(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData, ObjectsTypes objectType, uint8_t index)
+{
+    return ACTION_FAILED;
+}
+
+SET_MEMORY(".map")
+ActionOutcome InteractStatueWizard(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData, ObjectsTypes objectType, uint8_t index)
 {
     return ACTION_FAILED;
 }

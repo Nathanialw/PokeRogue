@@ -10,7 +10,7 @@
 // Individual objects data - count = 111
 
 //    0 - ALTAR
-{ .power = 0x64, .data = 0x01, .flags = 0b0001000001000010, .effects = { .effects = { EFFECT_SACRIFICE_CREATURE  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                   }, .chance = EFFECT_CHANCE(1, 0, 0, 0, 0, 0) } },
+{ .power = 0x64, .data = 0x01, .flags = 0b0001000001000010, .effects = { .effects = { EFFECT_SACRIFICE_CREATURE_REPEATABLE, NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                   }, .chance = EFFECT_CHANCE(1, 0, 0, 0, 0, 0) } },
 //    1 - BANNER_ELF
 { .power = 0x05, .data = 0x01, .flags = 0b0000100001000001, .effects = { .effects = { EFFECT_RAISE_AGILITY       , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                   }, .chance = EFFECT_CHANCE(1, 0, 0, 0, 0, 0) } },
 //    2 - BANNER_GOBLIN
@@ -100,7 +100,7 @@
 //    44 - GEODE_CRYSTAL
 { .power = 0x05, .data = 0x01, .flags = 0b0000010001000011, .effects = { .effects = { EFFECT_CREATE_ORE_CRYSTAL  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                   }, .chance = EFFECT_CHANCE(1, 0, 0, 0, 0, 0) } },
 //    45 - HEADING_BLOCK
-{ .power = 0x05, .data = 0x01, .flags = 0b0001000001000011, .effects = { .effects = { EFFECT_SACRIFICE_CREATURE  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                   }, .chance = EFFECT_CHANCE(1, 0, 0, 0, 0, 0) } },
+{ .power = 0x05, .data = 0x01, .flags = 0b0001000001000011, .effects = { .effects = { EFFECT_SACRIFICE_CREATURE_REPEATABLE, EFFECT_BREAK               , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                   }, .chance = EFFECT_CHANCE(2, 1, 0, 0, 0, 0) } },
 //    46 - HIGH_CROSS
 { .power = 0x05, .data = 0x01, .flags = 0b0000100001000011, .effects = { .effects = { EFFECT_SUMMON_ANGEL        , EFFECT_RAISE_PIETY_CATHOLIC, EFFECT_SUMMON_DEMON        , NO_EFFECT                  , NO_EFFECT                  , NO_EFFECT                   }, .chance = EFFECT_CHANCE(1, 1, 1, 0, 0, 0) } },
 //    47 - ICE_BOX

@@ -1,4 +1,4 @@
-// Layouts generated from ../assets_processed/trainers/deployable (recursive scan)
+// Layouts generated from ../assets_processed/trainers/deployable/front (recursive scan)
 // Starting monster index: 0
 // Format: { { .idx = byte_offset, .size = size, .palette = {...}, .emptyIndexes = {...} },
 // Files are processed in alphabetical order by full path

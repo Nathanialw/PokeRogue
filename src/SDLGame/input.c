@@ -269,7 +269,6 @@ InputInterface InputInterfaceInit()
     return inputInterface;
 }
 
-
 Delta InputDeltaDPad(KeyState s_currentKeys)
 {
     Delta d = {0, 0};
@@ -286,3 +285,12 @@ Delta InputDeltaDPad(KeyState s_currentKeys)
 
     return d;
 }
+
+
+void InitInput(void)
+{
+    SDL_Surface *surface = SDL_LoadSurface("ui/cursor.png");
+    SDL_Cursor *cursor = SDL_CreateColorCursor(surface, 0, 0);
+    SDL_SetCursor(cursor);
+}
+

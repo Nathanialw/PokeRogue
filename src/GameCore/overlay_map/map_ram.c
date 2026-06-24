@@ -55,7 +55,13 @@ ActionOutcome UseMapItem(HardwareInterface hardware, MemoryInterface memory, uin
 }
 
 SET_MEMORY(".map")
-ActionOutcome UseMapObject(HardwareInterface hardware, MemoryInterface memory, ObjectId object_type_id, EntityId object_id, EntityId target_id, ObjectData objectData, ObjectsTypes entity_type, uint8_t index)
+ActionOutcome UseMapObjectStepOn(HardwareInterface hardware, MemoryInterface memory, ObjectId object_type_id, EntityId object_id, EntityId target_id, ObjectData objectData, ObjectsTypes entity_type, uint8_t index)
 {
     return objectFunctions[object_type_id](hardware, memory, object_id, target_id, objectData, entity_type, index);
+}
+
+SET_MEMORY(".map")
+ActionOutcome UseMapObject(HardwareInterface hardware, MemoryInterface memory, ObjectId object_type_id, EntityId object_id, EntityId trainer_id, EntityId creature_id, ObjectData objectData, ObjectsTypes entity_type, uint8_t index)
+{
+    return effectsFunctionsMap[object_type_id](hardware, memory, object_id, trainer_id, creature_id, objectData, entity_type, index);
 }

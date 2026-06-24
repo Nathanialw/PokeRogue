@@ -8,7 +8,37 @@ python -m python.export.populate_db_images
 cd python
 cd process_images
 
-image_types=("creature" "item" "object" "trainer" "environment_object")
+image_types=("creature" "trainer")
+for type in "${image_types[@]}"
+do
+  echo ${type}
+  staged_file="../../../assets_processed/${type}s/staged/front"
+  with_transparency_file="../../../assets_processed/${type}s/with_transparency/front"
+  deployable_file="../../../assets_processed/${type}s/deployable/front"
+
+  python transparent_bulk.py  ${staged_file}             ${with_transparency_file}
+  python rescale_reformat.py  ${with_transparency_file}  ${deployable_file}
+  python compress_img.py      ${deployable_file} 64 64
+
+  python compress_map_sprite.py ${deployable_file} 64
+done
+
+image_types=("creature" "trainer")
+for type in "${image_types[@]}"
+do
+  echo ${type}
+  staged_file="../../../assets_processed/${type}s/staged/back"
+  with_transparency_file="../../../assets_processed/${type}s/with_transparency/back"
+  deployable_file="../../../assets_processed/${type}s/deployable/back"
+
+  python transparent_bulk.py  ${staged_file}             ${with_transparency_file}
+  python rescale_reformat.py  ${with_transparency_file}  ${deployable_file}
+  python compress_img.py      ${deployable_file} 64 64
+
+  python compress_map_sprite.py ${deployable_file} 64
+done
+
+image_types=("item" "object" "environment_object")
 for type in "${image_types[@]}"
 do
   echo ${type}

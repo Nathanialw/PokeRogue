@@ -12,13 +12,21 @@ ActionOutcome MapAscend(HardwareInterface hardware, MemoryInterface memory, Enti
 ActionOutcome MapLateral(HardwareInterface hardware, MemoryInterface memory, EntityId e_id);
 bool RevealMap();
 bool Reposition(HardwareInterface hardware, EntityId e_id);
+bool SacrificeCreature(HardwareInterface hardware, EntityId trainer_id, EntityId creature_id, uint16_t xp);
 bool SetTilse(Position position, MapTile type);
 bool SetSurroundingTils(Position position, MapTile type);
 bool ConvertSurroundingTiles(Position position, MapTile cur_type, MapTile new_type);
 ActionOutcome DamageCreature(CreatureID entity_id, uint8_t damage, ObjectsTypes entity_type);
+bool SummonCreature(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, CreatureID creature_type);
+CreatureID GetRandomUndead(HardwareInterface hardware);
+CreatureID GetRandomHag(HardwareInterface hardware);
+CreatureID GetRandomDemon(HardwareInterface hardware);
+
 
 //tiles
 bool CollisionFluidTile(EntityId id, ObjectsTypes type, uint8_t x, uint8_t y);;
 bool Pit(EntityId id, ObjectsTypes type, uint8_t x, uint8_t y);
 bool Wall(EntityId id, ObjectsTypes type, uint8_t x, uint8_t y);
 bool NoInteraction(EntityId id, ObjectsTypes type, uint8_t x, uint8_t y);
+
+

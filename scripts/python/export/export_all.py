@@ -71,7 +71,7 @@ def run():
     export.desc_to_c_array("creature")
     # creature map sprites
     export.export_map_sprites_char("creature")
-    bytes_count_map_sprites.append(export_map_sprites.export_image_data("creature", 64))
+    bytes_count_map_sprites.append(export_map_sprites.export_image_data("creature", 64, 'front'))
 
     # creature type data
     export_creatures.export_types_to_c_array()
@@ -164,7 +164,7 @@ def run():
     ################################################################################################################################################
     # TRAINERS
     export.export_map_sprites_char("trainer")
-    bytes_count_map_sprites.append(export_map_sprites.export_image_data("trainer", 64))
+    bytes_count_map_sprites.append(export_map_sprites.export_image_data("trainer", 64, 'front'))
 
     export_structs.trainers("trainer")
 
@@ -174,7 +174,8 @@ def run():
     # trainer description strings
     export.desc_to_c_array("trainer")
     # trainer map sprites
-    bytes_count.append(export_battlers.export_image_data("trainer", 64, 64))
+    bytes_count.append(export_battlers.export_image_data("trainer", 64, 64, 'front'))
+    bytes_count.append(export_battlers.export_image_data("trainer", 64, 64, 'back'))
 
     ################################################################################################################################################
     # TILES
@@ -223,7 +224,7 @@ def run():
 
     ################################################################################################################################################
     # OBJECT EFFECTS
-    export.func_c_headers("entity_effect", "Effect", "ActionOutcome", "HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId e_id, ObjectData objectData, ObjectsTypes objectType, uint8_t index")
+    export.func_c_headers("entity_effect", "Effect", "ActionOutcome", "HardwareInterface hardware, MemoryInterface memory, EntityId object_id, EntityId trainer_id, EntityId creature_id, ObjectData objectData, ObjectsTypes objectType, uint8_t index")
     counts.append(export.effect_strings("entity_effect"))
 
 

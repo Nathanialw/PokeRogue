@@ -5,3 +5,4 @@
 #include "lib_decl.h"
 
 InputInterface InputInterfaceInit();
+void InitInput(void);

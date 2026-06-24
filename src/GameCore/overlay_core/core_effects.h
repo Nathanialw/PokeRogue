@@ -144,7 +144,10 @@ ActionOutcome LowerAgility(EntityId e_id, uint8_t value);
 ActionOutcome LowerDexterity(EntityId e_id, uint8_t value);
 ActionOutcome LowerStamina(EntityId e_id, uint8_t value);
 
-ActionOutcome LowerCurrentXP(EntityId e_id, uint8_t value);
+ActionOutcome ApplyFireEating(EntityId e_id, uint8_t duration);
+
+ActionOutcome LowerCurrentCreatureXP(EntityId e_id, uint8_t value);
+ActionOutcome LowerCurrentTrainerXP(EntityId e_id, uint8_t value);
 
 ActionOutcome RaiseMaxMP(EntityId e_id, uint8_t value);
 ActionOutcome RaiseMaxHP(EntityId e_id, uint8_t value);
@@ -172,6 +175,9 @@ ActionOutcome AbandonTeam(EntityId e_id);
 ActionOutcome Flee();
 ActionOutcome DestroyPlayerItem(EntityId item_id);
 ActionOutcome DestroyRandomPlayerItem();
+ActionOutcome GainBagSlot(EntityId e_id, uint8_t value);
+ActionOutcome LowerMaxPP(EntityId e_id, uint8_t value, uint8_t spell_index);
+
 
 /**********************************************************************************************************************/
 /** MAP EFFECTS

@@ -10,6 +10,7 @@
 #include "core_map.h"
 #include "core_player.h"
 #include "core_ram.h"
+#include "core_stats.h"
 #include "core_utils.h"
 
 #include "lib_decl.h"
@@ -128,6 +129,61 @@ bool Reposition(HardwareInterface hardware, EntityId e_id)
     return true;
 }
 
+/**********************************************************************************************************************
+*
+**********************************************************************************************************************/
+SET_MEMORY(".map")
+bool SacrificeCreature(HardwareInterface hardware, EntityId trainer_id, EntityId creature_id, uint16_t xp)
+{
+    uint8_t party_size = GetPlayerPartySize();
+    if (party_size > 1)
+    {
+        Creature creature_type = GetCreatureType(creature_id);
+        SetBit(g_core.player.sacrificedCreatures, creature_type, true);
+        DestroyPartyCreature(trainer_id, creature_id);
+        GainXP(trainer_id, xp, TRAINER);
+        g_core.update_left_player = true;
+        g_core.update_right_party = true;
+        return ACTION_SUCCEEDED;
+    }
+    return true;
+}
+
+
+/**********************************************************************************************************************
+*
+**********************************************************************************************************************/
+SET_MEMORY(".map")
+bool SummonCreature(HardwareInterface hardware, MemoryInterface memory, EntityId object_id, CreatureID creature_type)
+{
+    uint8_t x = g_core.objects.position[object_id].x;
+    uint8_t y = g_core.objects.position[object_id].y;
+    uint8_t l = 1;
+    SpawnEntity(hardware, memory, CREATURE, creature_type, x, y, l);
+    return true;
+}
+
+CreatureID GetRandomUndead(HardwareInterface hardware)
+{
+    CreatureID types[] = {HAG, ZOMBIE};
+    uint8_t random_index = hardware.GetRandom_uint8_t(0, sizeof(types) / sizeof(CreatureID) - 1);
+    return random_index;
+}
+
+CreatureID GetRandomHag(HardwareInterface hardware)
+{
+    CreatureID types[] = {HAG, WITCH};
+    uint8_t random_index = hardware.GetRandom_uint8_t(0, sizeof(types) / sizeof(CreatureID) - 1);
+    return random_index;
+}
+
+CreatureID GetRandomDemon(HardwareInterface hardware)
+{
+    CreatureID types[] = {SUCCUBUS, DEMON};
+    uint8_t random_index = hardware.GetRandom_uint8_t(0, sizeof(types) / sizeof(CreatureID) - 1);
+    return random_index;
+}
+
 
 /**********************************************************************************************************************
 *
@@ -150,8 +206,6 @@ ActionOutcome DamageCreature(CreatureID entity_id, uint8_t damage, ObjectsTypes 
         EntityId creature_id = g_core.trainers.partyID[entity_id][0];
         if (creature_id == NO_CREATURE) return ACTION_FAILED;
         if (damage == 0) return ACTION_FAILED;
-
-
 
 
         DoDamage(creature_id, damage);

@@ -12,9 +12,12 @@ add_executable(SDLRogue
 
 
 
-target_compile_definitions(SDLRogue PRIVATE ENABLE_DEBUG_OUTPUT ENABLE_ASSERTS SDL)
-target_compile_definitions(GameCore PRIVATE ENABLE_DEBUG_OUTPUT ENABLE_ASSERTS SDL) #MEMORY_PRINT TEST_MAP
-target_compile_definitions(PicoTypes PRIVATE ENABLE_DEBUG_OUTPUT ENABLE_ASSERTS SDL)
+#target_compile_definitions(SDLRogue PRIVATE ENABLE_DEBUG_OUTPUT ENABLE_ASSERTS SDL)
+#target_compile_definitions(GameCore PRIVATE ENABLE_DEBUG_OUTPUT ENABLE_ASSERTS SDL) #MEMORY_PRINT TEST_MAP
+#target_compile_definitions(PicoTypes PRIVATE ENABLE_DEBUG_OUTPUT ENABLE_ASSERTS SDL)
+target_compile_definitions(SDLRogue PRIVATE SDL)
+target_compile_definitions(GameCore PRIVATE SDL) #MEMORY_PRINT TEST_MAP
+target_compile_definitions(PicoTypes PRIVATE SDL)
 
 target_link_libraries(SDLRogue PRIVATE
         GameCore

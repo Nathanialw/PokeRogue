@@ -102,9 +102,11 @@ def check_used(file_name, creature_names):
     return False
 
 
-def export_image_data(entity, size):
+def export_image_data(entity, size, image_type = ''):
     # Ensure input folder exists
     input_folder = f"../assets_processed/{entity}s/deployable"
+    if image_type:
+        input_folder = f"../assets_processed/{entity}s/deployable/{image_type}"
 
     creature_names = db_manager.get_folders(entity)
 

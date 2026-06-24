@@ -9,6 +9,8 @@ OUTPUT_TYPE_STRINGS = f"{DATA_INC_FOLDER}/text_types.inc"
 PROMPT_VERSION = "v1.0"
 
 IMAGE_TYPES = ['item', 'object', 'creature', 'trainer', 'skill', 'spell', 'tile', 'environment_object', "creature_buff", "creature_debuff", "trainer_buff"]
+IMAGE_TYPES_0 = ['item', 'object', 'skill', 'spell', 'tile', 'environment_object', "creature_buff", "creature_debuff", "trainer_buff"]
+IMAGE_TYPES_1 = ['creature', 'trainer']
 
 # Server configuration
 DEFAULT_HOST = "127.0.0.1"
