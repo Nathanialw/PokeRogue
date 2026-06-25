@@ -244,6 +244,61 @@ ActionOutcome InteractObjectStepOn(MemoryInterface memory, HardwareInterface har
     return ACTION_FAILED;
 }
 
+/**********************************************************************************************************************/
+/*
+**********************************************************************************************************************/
+SET_MEMORY(".map")
+ActionOutcome InteractEnvinronmentObjectStepOn(MemoryInterface memory, HardwareInterface hardware, EntityId object_e_id, EntityId e_id, ObjectsTypes entity_type)
+{
+    if (object_e_id == NO_ENTITY) return false;
+
+    Object object_type_id = GetObjectType(object_e_id);
+    ObjectData object_data;
+    Flash_GetObjectData(memory, &object_data, object_type_id);
+
+    ObjectEffectsCache cache;
+    GetObjectEffects(&object_data, &cache);
+
+    //TODO use the cahce data to pupulate the string data for the tooltip
+    if (e_id == GetPlayerID())
+    {
+        DEBUG(" %d %d %d %d %d %d", cache.effect_indexes[0], cache.effect_indexes[1], cache.effect_indexes[2], cache.effect_indexes[3], cache.effect_indexes[4], cache.effect_indexes[5]);
+        Flash_GetObjectName(memory, g_core.tooltip_text[0], object_type_id);
+
+        uint8_t total = 0;
+        for (uint8_t i = 0; i < MAX_OBJECT_EFFECTS; i++)
+        {
+            g_core.tooltip_text[i + 1][0] = '\0';
+            total += cache.weights[i];
+        }
+
+        for (uint8_t i = 0; i < MAX_OBJECT_EFFECTS; i++)
+        {
+            if (cache.weights[i] == 0) continue;
+            uint8_t percent = (cache.weights[i] * 100) / total;
+            CharStr_uint8 intstr;
+            GetAsChars_uint8(percent, &intstr, true, false);
+
+            char* cursor = g_core.tooltip_text[i + 1];
+            g_core.tooltip_text[i + 1][0] = (intstr[0] == '0') ? ' ' : intstr[0];
+            g_core.tooltip_text[i + 1][1] = intstr[1];
+            g_core.tooltip_text[i + 1][2] = intstr[2];
+            g_core.tooltip_text[i + 1][3] = '%';
+            g_core.tooltip_text[i + 1][4] = ' ';
+            Flash_GetObjectEffectText(memory, cursor + 5, cache.effect_indexes[i]);
+            DEBUG("%s", g_core.tooltip_text[i+1]);
+        }
+        g_core.update_right_text = true;
+        g_core.update_right_text_clear = true;
+    }
+
+    if (object_data.on_step && GetBit(g_core.objects.interactable, object_e_id))
+    {
+        return UseMapObjectStepOn(hardware, memory, object_type_id, object_e_id, e_id, object_data, entity_type, 0);
+    }
+    return ACTION_FAILED;
+}
+
 
 /**********************************************************************************************************************
 *

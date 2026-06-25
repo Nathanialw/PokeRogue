@@ -17,6 +17,7 @@ void DestroyCreature(EntityId i);
 void DestroyItem(EntityId id);
 void DestroyObject(EntityId id);
 void DestroyTrainer(EntityId id);
+void DestroyEnvironmentObject(EntityId id);
 EntityId DestroyPartyCreature(EntityId trainer_id, EntityId creature_id);
 
 

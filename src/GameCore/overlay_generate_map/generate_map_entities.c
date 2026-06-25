@@ -252,6 +252,9 @@ void ResetEntities(HardwareInterface hardware, MemoryInterface memory, bool copy
     for (uint16_t i = 0; i < MAX_ENTITY_OBJECT_COUNT; i++)
         DestroyObject(i);
 
+    for (uint16_t i = 0; i < MAX_ENTITY_OBJECT_COUNT; i++)
+        DestroyEnvironmentObject(i);
+
     for (uint16_t i = 0; i < MAX_ENTITY_TRAINER_COUNT; i++)
     {
         if (copyPlayer)
@@ -263,10 +266,11 @@ void ResetEntities(HardwareInterface hardware, MemoryInterface memory, bool copy
             DestroyTrainer(i);
     }
 
-    g_core.creatures.total = 0;
-    g_core.items.total = 0;
-    g_core.objects.total = 0;
-    g_core.trainers.total = 1;
+    // g_core.creatures.total = 0;
+    // g_core.items.total = 0;
+    // g_core.objects.total = 0;
+    // g_core.environment_objects.total = 0;
+    // g_core.trainers.total = 1;
 }
 
 
@@ -358,7 +362,7 @@ void PopulateLevelCreatures(HardwareInterface hardware, MemoryInterface memory)
         SpawnEntity(hardware, memory, CREATURE, creature, pos.x, pos.y, creature_level);
     }
 
-    for (uint8_t i = 0; i < g_core.creatures.total; i++)
+    for (uint8_t i = 0; i < MAX_ENTITY_CREATURE_COUNT; i++)
         if (GetBit(g_core.creatures.onMap, i) && GetBit(g_core.creatures.alive, i))
             g_core.creatures.newPosition[i] = g_core.creatures.position[i];
 #endif
@@ -452,6 +456,22 @@ bool GenerateAndPlaceObject(HardwareInterface hardware, MemoryInterface memory, 
     return true;
 }
 
+SET_MEMORY(".map_gen")
+bool GenerateAndPlaceEnvironmentObject(HardwareInterface hardware, MemoryInterface memory, uint8_t object_type)
+{
+    EnvironmentObjectData object_data = {0};
+    Position pos = {0};
+    // Flash_GetObjectData(memory, &object_data, object_type);
+
+    // if (!object_data.map_generatable)
+        // return false;
+
+
+    if (pos.x == 0 && pos.y == 0) return false;
+    SpawnEntity(hardware, memory, OBJECT, object_type, pos.x, pos.y, g_core.floor);
+    return true;
+}
+
 
 SET_MEMORY(".map_gen")
 void PopulateLevelObjects(HardwareInterface hardware, MemoryInterface memory)
@@ -496,7 +516,6 @@ void PopulateLevelObjects(HardwareInterface hardware, MemoryInterface memory)
 
 #endif
 
-    DEBUG("%d objects spawned", g_core.objects.total);
 }
 
 

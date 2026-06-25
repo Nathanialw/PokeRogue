@@ -4,6 +4,7 @@
 
 #include "map_movement.h"
 
+#include "core_entities.h"
 #include "lib_memory.h"
 #include "lib_constants.h"
 
@@ -11,6 +12,7 @@
 #include "core_map.h"
 #include "core_player.h"
 #include "core_ram.h"
+#include "lib_debugging.h"
 #include "map_actions.h"
 
 #include "map_ai.h"
@@ -149,9 +151,9 @@ void UpdateObjectCollision(MemoryInterface memory, HardwareInterface hardware)
         g_core.update_right_text_clear = true;
     }
 
-    for (uint16_t e_id = 0; e_id < g_core.trainers.total; e_id++)
+    for (uint16_t e_id = 0; e_id < MAX_ENTITY_TRAINER_COUNT; e_id++)
     {
-        for (uint16_t o_id = 0; o_id < g_core.objects.total; o_id++)
+        for (uint16_t o_id = 0; o_id < MAX_ENTITY_OBJECT_COUNT; o_id++)
         {
             if (!GetBit(g_core.trainers.onMap, e_id) || !GetBit(g_core.trainers.active, e_id) || !GetBit(g_core.objects.active, o_id)) continue;
             Position cp = g_core.trainers.newPosition[e_id];
@@ -170,9 +172,9 @@ void UpdateObjectCollision(MemoryInterface memory, HardwareInterface hardware)
         }
     }
 
-    for (uint16_t e_id = 0; e_id < g_core.creatures.total; e_id++)
+    for (uint16_t e_id = 0; e_id < MAX_ENTITY_CREATURE_COUNT; e_id++)
     {
-        for (uint16_t o_id = 0; o_id < g_core.objects.total; o_id++)
+        for (uint16_t o_id = 0; o_id < MAX_ENTITY_OBJECT_COUNT; o_id++)
         {
             if (!GetBit(g_core.creatures.onMap, e_id) || !GetBit(g_core.creatures.active, e_id) || !GetBit(g_core.objects.active, o_id)) continue;
             Position cp = g_core.creatures.newPosition[e_id];
@@ -184,8 +186,43 @@ void UpdateObjectCollision(MemoryInterface memory, HardwareInterface hardware)
         }
     }
 
+    for (uint16_t e_id = 0; e_id < MAX_ENTITY_TRAINER_COUNT; e_id++)
+    {
+        for (uint16_t o_id = 0; o_id < MAX_ENTITY_ENVIRONMENT_OBJECT_COUNT; o_id++)
+        {
+            if (!GetBit(g_core.trainers.onMap, e_id) || !GetBit(g_core.trainers.active, e_id) || !GetBit(g_core.environment_objects.active, o_id)) continue;
+            Position cp = g_core.trainers.newPosition[e_id];
+            Position op = g_core.environment_objects.position[o_id];
+            if (cp.x == op.x && cp.y == op.y)
+            {
+                InteractEnvinronmentObjectStepOn(memory, hardware, o_id, e_id, TRAINER);
+                if (e_id == GetPlayerID())
+                {
+                    if (GetBit(g_core.environment_objects.interactable, o_id))
+                    {
+                        g_map.objectCollision = g_core.environment_objects.types[o_id];
+                    }
+                }
+            }
+        }
+    }
+
+    for (uint16_t e_id = 0; e_id < MAX_ENTITY_CREATURE_COUNT; e_id++)
+    {
+        for (uint16_t o_id = 0; o_id < MAX_ENTITY_ENVIRONMENT_OBJECT_COUNT; o_id++)
+        {
+            if (!GetBit(g_core.creatures.onMap, e_id) || !GetBit(g_core.creatures.active, e_id) || !GetBit(g_core.environment_objects.active, o_id)) continue;
+            Position cp = g_core.creatures.newPosition[e_id];
+            Position op = g_core.environment_objects.position[o_id];
+            if (cp.x == op.x && cp.y == op.y)
+            {
+                InteractEnvinronmentObjectStepOn(memory, hardware, o_id, e_id, CREATURE);
+            }
+        }
+    }
+
     Position pos = GetPlayerPosition();
-    for (uint16_t i_id = 0; i_id < g_core.items.total; i_id++)
+    for (uint16_t i_id = 0; i_id < MAX_ENTITY_ITEM_COUNT; i_id++)
     {
         if (!GetBit(g_core.items.onMap, i_id) || !GetBit(g_core.items.active, i_id)) continue;
         Position op = g_core.items.position[i_id];
@@ -265,12 +302,119 @@ void SetPositions(HardwareInterface hardware, MemoryInterface memory, AudioInter
     // DEBUG("Updating Object done");
 }
 
-void PlayeMovementSoundEffect(AudioInterface audio)
+SET_MEMORY(".map")
+void PlayerMovementSoundEffect(AudioInterface audio)
 {
     Position p = GetPlayerPosition();
     uint8_t tileID = GetMapTile(p.x, p.y);
     uint16_t sound_id = GetTileSoundId(tileID);
     audio.PlaySoundEffect(sound_id);
+}
+
+
+SET_MEMORY(".map")
+void UpdateEnvironmentObjects(HardwareInterface hardware)
+{
+    for (uint16_t i = 0; i < MAX_ENTITY_ENVIRONMENT_OBJECT_COUNT; i++)
+    {
+        if (!GetBit(g_core.environment_objects.onMap, i)) continue;
+        if (!GetBit(g_core.environment_objects.active, i)) continue;
+
+        uint8_t random = hardware.GetRandom_uint8_t(1, 100);
+        if (random > 10) continue;
+
+        DestroyEnvironmentObject(i);
+    }
+}
+
+/**********************************************************************************************************************/
+/** //execute passive tile effect
+    //acid clouds from acid tiles and pits
+    //smoke clouds from lava tiles and pits
+    //mist clouds from water
+**********************************************************************************************************************/
+SET_MEMORY(".map")
+void CheckTileForEffect(MemoryInterface memory, HardwareInterface hardware, uint8_t x, uint8_t y, uint8_t environment_object_type)
+{
+    uint8_t n = 0;
+    Position pos[8] = {0};
+
+    MapTile tile_N = GetMapTile(x, y - 1);
+    MapTile tile_S = GetMapTile(x, y + 1);
+    MapTile tile_W = GetMapTile(x - 1, y);
+    MapTile tile_E = GetMapTile(x + 1, y);
+    // MapTile tile_NW = GetMapTile(x - 1, y - 1);
+    // MapTile tile_NE = GetMapTile(x + 1, y - 1);
+    // MapTile tile_SE = GetMapTile(x + 1, y + 1);
+    // MapTile tile_SW = GetMapTile(x - 1, y + 1);
+
+    if (tile_N == FLOOR_DIRT)
+        pos[n++] = (Position){x, y - 1};
+    if (tile_S == FLOOR_DIRT)
+        pos[n++] = (Position){x, y + 1};
+    if (tile_W == FLOOR_DIRT)
+        pos[n++] = (Position){x - 1, y};
+    if (tile_E == FLOOR_DIRT)
+        pos[n++] = (Position){x + 1, y};
+
+    // if (tile_NW == FLOOR_DIRT)
+    //     pos[n++] = (Position){x - 1, y - 1};
+    // if (tile_NE == FLOOR_DIRT)
+    //     pos[n++] = (Position){x + 1, y - 1};
+    // if (tile_SE == FLOOR_DIRT)
+    //     pos[n++] = (Position){x + 1, y + 1};
+    // if (tile_SW == FLOOR_DIRT)
+    //     pos[n++] = (Position){x - 1, y + 1};
+
+
+    if (n > 0)
+    {
+        uint8_t g = (n - 1) + 8;
+        uint8_t random = hardware.GetRandom_uint8_t(0, g);
+        if (random < (n - 1)) return;
+        random = random - 8;
+        Position p = pos[random];
+        if (GetMapTile(pos[random].x, pos[random].y) == FLUID_WATER)
+            DEBUG("water");
+
+        if (CheckTileForEntity(ENVIRONMENT_OBJECT, NO_ENTITY, p))
+            SpawnEntity(hardware, memory, ENVIRONMENT_OBJECT, environment_object_type, p.x, p.y, g_core.floor);
+    }
+}
+
+
+SET_MEMORY(".map")
+void UpdateTileEffects(MemoryInterface memory, HardwareInterface hardware)
+{
+    for (uint16_t y = 0; y < MAP_H; y++)
+    {
+        for (uint16_t x = 0; x < MAP_W; x++)
+        {
+            MapTile tile = GetMapTile(x, y);
+            switch (tile)
+            {
+            case FLUID_LAVA:
+                {
+                    CheckTileForEffect(memory, hardware, x, y, CLOUD_SMOKE);
+                    break;
+                }
+            case FLUID_WATER:
+                {
+                    CheckTileForEffect(memory, hardware, x, y, CLOUD_ACID);
+                    break;
+                }
+            case FLUID_ACID:
+                {
+                    CheckTileForEffect(memory, hardware, x, y, CLOUD_ACID);
+                    break;
+                }
+            default:
+                {
+                    break;
+                }
+            }
+        }
+    }
 }
 
 
@@ -281,10 +425,12 @@ void PlayeMovementSoundEffect(AudioInterface audio)
 SET_MEMORY(".map")
 void UpdateGame(MemoryInterface memory, HardwareInterface hardware, AudioInterface audio)
 {
+    UpdateTileEffects(memory, hardware);
+    UpdateEnvironmentObjects(hardware);
     UpdateObjectStatusEffects(hardware);
     UpdatePositions(hardware);
     UpdateObjectCollision(memory, hardware);
     SetPositions(hardware, memory, audio);
-    PlayeMovementSoundEffect(audio);
+    PlayerMovementSoundEffect(audio);
     SetCameraPlayer();
 }

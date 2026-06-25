@@ -165,6 +165,21 @@ void DestroyObject(EntityId id)
 }
 
 SET_MEMORY(".core")
+void DestroyEnvironmentObject(EntityId id)
+{
+    if (!GetBit(g_core.environment_objects.active, id))
+        return;
+
+    Position empty_pos = {.x = 0, .y = 0};
+    g_core.environment_objects.position[id] = empty_pos;
+    SetBit(g_core.environment_objects.onMap, id, false);
+    g_core.environment_objects.types[id] = NO_ENTITY;
+    g_core.environment_objects.metaData[id].unused = NO_ENTITY;
+    SetBit(g_core.environment_objects.active, id, false);
+
+}
+
+SET_MEMORY(".core")
 void DestroyTrainer(EntityId id)
 {
     if (!GetBit(g_core.trainers.active, id))
@@ -386,6 +401,7 @@ void GetEntityTypes(MemoryInterface memory, uint8_t* typeIDs, const uint8_t* e_i
 EntityId SpawnMonster(HardwareInterface hardware, MemoryInterface memory, uint8_t monType, uint8_t x, uint8_t y, uint8_t l);
 EntityId SpawnItem(HardwareInterface hardware, MemoryInterface memory, uint8_t itmType, uint8_t x, uint8_t y, uint8_t l);
 EntityId SpawnObject(HardwareInterface hardware, MemoryInterface memory, uint8_t shrineType, uint8_t x, uint8_t y, uint8_t l);
+EntityId SpawnEnvironmentObject(HardwareInterface hardware, MemoryInterface memory, uint8_t shrineType, uint8_t x, uint8_t y, uint8_t l);
 EntityId SpawnTrainer(HardwareInterface hardware, MemoryInterface memory, uint8_t type, uint8_t x, uint8_t y, uint8_t l);
 typedef EntityId (*Spawn)(HardwareInterface hardware, MemoryInterface memory, uint8_t, uint8_t, uint8_t, uint8_t);
 
@@ -393,7 +409,7 @@ typedef EntityId (*Spawn)(HardwareInterface hardware, MemoryInterface memory, ui
 /** point array for creating entities
 **********************************************************************************************************************/
 SET_MEMORY(".core.rodata")
-const Spawn spawn[TOTAL_SPAWNABLE_OBJECT_TYPES] = {SpawnMonster, SpawnTrainer, SpawnObject, SpawnItem};
+const Spawn spawn[TOTAL_SPAWNABLE_OBJECT_TYPES] = {SpawnMonster, SpawnTrainer, SpawnObject, SpawnItem, SpawnEnvironmentObject};
 
 /**********************************************************************************************************************/
 /** Sets initial data values of a given entity ID of type creature
@@ -445,7 +461,7 @@ EntityId SpawnMonster(HardwareInterface hardware, MemoryInterface memory, uint8_
     SetBit(g_core.creatures.onMap, id, true);
     g_core.creatures.speed[id].current = 0;
     g_core.creatures.speed[id].max = 40;
-    g_core.creatures.total++;
+    // g_core.creatures.total++;
 
     return id;
 }
@@ -493,7 +509,7 @@ EntityId SpawnItem(HardwareInterface hardware, MemoryInterface memory, uint8_t t
     g_core.items.position[id] = pos;
     g_core.items.types[id] = type;
     SetBit(g_core.items.onMap, id, true);
-    g_core.items.total++;
+    // g_core.items.total++;
     return id;
 }
 
@@ -529,7 +545,43 @@ EntityId SpawnObject(HardwareInterface hardware, MemoryInterface memory, uint8_t
     g_core.objects.position[id] = pos;
     g_core.objects.types[id] = type;
     g_core.objects.metaData[id].value = (l + 10) + (l * 5);
-    g_core.objects.total++;
+    // g_core.objects.total++;
+    return id;
+}
+
+/**********************************************************************************************************************/
+/** Sets initial data values of a given entity ID of type object
+ *  TODO - cahnge to a generic object spawner, we wll have 255 object types, shirne will be one
+**********************************************************************************************************************/
+SET_MEMORY(".core")
+EntityId SpawnEnvironmentObject(HardwareInterface hardware, MemoryInterface memory, uint8_t type, uint8_t x, uint8_t y, uint8_t l)
+{
+    if (type == NO_ENVIRONMENT_OBJECT)
+        return NO_ENTITY;
+
+    EntityId id = NO_ENTITY;
+    for (uint16_t i = 0; i < MAX_ENTITY_ENVIRONMENT_OBJECT_COUNT; i++)
+    {
+        if (!GetBit(g_core.environment_objects.active, i))
+        {
+            id = i;
+            SetBit(g_core.environment_objects.active, id, true);
+            break;
+        }
+        if (i >= MAX_ENTITY_ENVIRONMENT_OBJECT_COUNT - 1)
+            return NO_ENTITY;
+    }
+
+    ObjectData objectData = {0};
+    Flash_GetObjectData(memory, &objectData, type);
+
+    SetBit(g_core.environment_objects.onMap, id, true);
+    SetBit(g_core.environment_objects.interactable, id, objectData.interactable);
+    Position pos = {.x = x, .y = y};
+    g_core.environment_objects.position[id] = pos;
+    g_core.environment_objects.types[id] = type;
+    g_core.environment_objects.metaData[id].value = (l + 10) + (l * 5);
+    // g_core.environment_objects.total++;
     return id;
 }
 
@@ -633,7 +685,7 @@ EntityId SpawnTrainer(HardwareInterface hardware, MemoryInterface memory, uint8_
     g_core.trainers.speed[id].current = 0;
     g_core.trainers.speed[id].max = 40;
 
-    g_core.trainers.total++;
+    // g_core.trainers.total++;
     return id;
 }
 

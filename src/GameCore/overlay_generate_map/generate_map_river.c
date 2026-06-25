@@ -107,7 +107,7 @@ void AddTiles(HardwareInterface hardware, uint8_t x, uint8_t y, const uint8_t si
     find 2 land tiles on the opposite side of fliud
     determine which directtion bridge is
     creat bridge across water
-/*****************************/
+*****************************/
 SET_MEMORY(".map_gen")
 void AddBridges(HardwareInterface hardware)
 {
@@ -115,7 +115,7 @@ void AddBridges(HardwareInterface hardware)
 
 /*****************************
     add pits to corridor tiles
-/*****************************/
+*****************************/
 SET_MEMORY(".map_gen")
 void AddPits(HardwareInterface hardware)
 {

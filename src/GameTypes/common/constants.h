@@ -100,6 +100,7 @@ _Static_assert(OBJECT_COUNT <= 256, "max must be 256 - one byte");
 #else
 #define MAX_ENTITY_ITEM_COUNT 254
 #define MAX_ENTITY_OBJECT_COUNT 254
+#define MAX_ENTITY_ENVIRONMENT_OBJECT_COUNT 254
 #define BASE_ENTITY_OBJECT_COUNT MAP_H //object count scales with map size
 #define MAX_ENTITY_CREATURE_COUNT 32
 #define MAX_ENTITY_TRAINER_COUNT 4
@@ -113,7 +114,7 @@ _Static_assert(OBJECT_COUNT <= 256, "max must be 256 - one byte");
 #define ENTITY_COUNT 100
 #define NO_ENTITY 255
 #define MAX_ABILITIES 6
-#define TOTAL_SPAWNABLE_OBJECT_TYPES 4
+#define TOTAL_SPAWNABLE_OBJECT_TYPES 5
 
 #define MAX_CREATURE_LEVEL 99
 

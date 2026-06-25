@@ -74,6 +74,11 @@ Position SetEntityPosition(ObjectsTypes type, EntityId id, uint8_t x, uint8_t y,
         g_core.trainers.position[id] = pos;
         return g_core.trainers.position[id];
     }
+   if (type == ENVIRONMENT_OBJECT)
+    {
+        g_core.trainers.position[id] = pos;
+        return g_core.environment_objects.position[id];
+    }
 
     return pos;
 }
@@ -92,6 +97,8 @@ Position GetEntityPosition(ObjectsTypes type, EntityId id)
         return g_core.objects.position[id];
     if (type == TRAINER)
         return g_core.trainers.position[id];
+    if (type == ENVIRONMENT_OBJECT)
+        return g_core.environment_objects.position[id];
     Position p = {0};
     return p;
 }
@@ -132,6 +139,8 @@ Position* GetEntityPositions(ObjectsTypes type)
         return g_core.objects.position;
     if (type == TRAINER)
         return g_core.trainers.position;
+    if (type == ENVIRONMENT_OBJECT)
+        return g_core.environment_objects.position;
 
     return NULL;
 }

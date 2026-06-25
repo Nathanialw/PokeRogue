@@ -341,6 +341,25 @@ typedef union
 
 _Static_assert(sizeof(ObjectData) == 12, "ObjectData must be 10 bytes");
 
+
+typedef union
+{
+    struct
+    {
+        union
+        {
+            uint8_t chance;
+            uint8_t power;
+        };
+
+
+    };
+
+    uint8_t bytes[12];
+} EnvironmentObjectData;
+
+_Static_assert(sizeof(EnvironmentObjectData) == 12, "ObjectData must be 10 bytes");
+
 typedef struct
 {
     SpellData spellData;

@@ -60,6 +60,8 @@ uint8_t* GetEntitiesOnMap(ObjectsTypes type)
         return g_core.objects.onMap;
     if (type == TRAINER)
         return g_core.trainers.onMap;
+    if (type == ENVIRONMENT_OBJECT)
+        return g_core.environment_objects.onMap;
     return NULL;
 }
 
@@ -96,22 +98,27 @@ EntityId CheckTileForEntity(ObjectsTypes type, EntityId e_id, Position pos)
 {
     if (type == CREATURE)
     {
-        return CheckTile(type, e_id, pos, g_core.creatures.position, g_core.creatures.total);
+        return CheckTile(type, e_id, pos, g_core.creatures.position, MAX_ENTITY_CREATURE_COUNT);
     }
 
     if (type == ITEM)
     {
-        return CheckTile(type, e_id, pos, g_core.items.position, g_core.items.total);
+        return CheckTile(type, e_id, pos, g_core.items.position, MAX_ENTITY_ITEM_COUNT);
     }
 
     if (type == OBJECT)
     {
-        return CheckTile(type, e_id, pos, g_core.objects.position, g_core.objects.total);
+        return CheckTile(type, e_id, pos, g_core.objects.position, MAX_ENTITY_OBJECT_COUNT);
     }
 
     if (type == TRAINER)
     {
-        return CheckTile(type, e_id, pos, g_core.trainers.position, g_core.trainers.total);
+        return CheckTile(type, e_id, pos, g_core.trainers.position, MAX_ENTITY_TRAINER_COUNT);
+    }
+
+    if (type == ENVIRONMENT_OBJECT)
+    {
+        return CheckTile(type, e_id, pos, g_core.environment_objects.position, MAX_ENTITY_ENVIRONMENT_OBJECT_COUNT);
     }
 
     return NO_ENTITY;

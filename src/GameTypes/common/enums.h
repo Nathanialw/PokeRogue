@@ -192,6 +192,7 @@ typedef enum
     TRAINER,
     OBJECT,
     ITEM,
+    ENVIRONMENT_OBJECT,
     SPELL,
     SKILL,
     NO_OBJECT_TYPE,

@@ -45,6 +45,7 @@ typedef struct
         ViewEntities viewItems;
         ViewEntities viewObjects;
         ViewEntities viewTrainers;
+        ViewEntities viewEnvironment;
     } view;
 
 

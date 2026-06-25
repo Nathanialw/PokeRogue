@@ -147,7 +147,7 @@ typedef struct
     **********************************************************************************************************************/
     struct
     {
-        uint16_t total;
+        // uint16_t total;
         Position position[MAX_ENTITY_CREATURE_COUNT];
         Position newPosition[MAX_ENTITY_CREATURE_COUNT]; // can be changed to hold delta, a uint8_t can hold up to 2
         uint8_t types[MAX_ENTITY_CREATURE_COUNT];
@@ -177,7 +177,7 @@ typedef struct
     {
         TrainerBuffs buffs[MAX_ENTITY_TRAINER_COUNT];
 
-        uint16_t total;
+        // uint16_t total;
         EntityId partyID[MAX_ENTITY_TRAINER_COUNT][MAX_PARTY_SIZE];
         EntityId itemID[MAX_ENTITY_TRAINER_COUNT][MAX_BAG_SIZE];
         BagData bag[MAX_ENTITY_TRAINER_COUNT];
@@ -208,7 +208,7 @@ typedef struct
 
     struct
     {
-        uint16_t total;
+        // uint16_t total;
         Position position[MAX_ENTITY_OBJECT_COUNT];
         uint8_t types[MAX_ENTITY_OBJECT_COUNT];
         ObjectType metaData[MAX_ENTITY_OBJECT_COUNT]; //any 8 bit data, Creature type, Item type, etc
@@ -220,7 +220,19 @@ typedef struct
 
     struct
     {
-        uint16_t total;
+        // uint16_t total;
+        Position position[MAX_ENTITY_OBJECT_COUNT];
+        uint8_t types[MAX_ENTITY_OBJECT_COUNT];
+        ObjectType metaData[MAX_ENTITY_OBJECT_COUNT]; //any 8 bit data, Creature type, Item type, etc
+        BitFieldUint8 onMap;
+        BitFieldUint8 active;
+        BitFieldUint8 toggle;
+        BitFieldUint8 interactable;
+    } environment_objects;
+
+    struct
+    {
+        // uint16_t total;
         Position position[MAX_ENTITY_ITEM_COUNT];
         Position newPosition[MAX_ENTITY_ITEM_COUNT]; // can be changed to hold delta, a uint8_t can hold up to 2
         uint8_t types[MAX_ENTITY_ITEM_COUNT];
